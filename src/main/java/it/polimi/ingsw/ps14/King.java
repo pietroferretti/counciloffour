@@ -6,8 +6,8 @@ public class King extends Balcony {
 
 	private City city;
 	private ArrayList<ColorCouncillor> colors;
-	
-	public King(City city, ArrayList<ColorCouncillor> colors){
+
+	public King(City city, ArrayList<ColorCouncillor> colors) {
 		this.city = city;
 		this.colors = new ArrayList<ColorCouncillor>(colors);
 	}
@@ -16,7 +16,27 @@ public class King extends Balcony {
 		return city;
 	}
 
-	public void move() {
+	public void setCity(City city) {
+		this.city = city;
+	}
+
+	// versione in cui l'utente inserisce tutte le città da attraversare,
+	// forse possiamo fare di meglio :)
+	public boolean checkMove(ArrayList<City> cities) {
+		//
+		// int cost = cities.size();
+		// we should check it before calling this method
+		//
+		City currentCity = city;
+		for (City city : cities) {
+
+			if (currentCity.getNeighbors().contains(city)) {
+				currentCity = city;
+			} else
+				return false;
+
+		}
+		return true;
 	}
 
 }
