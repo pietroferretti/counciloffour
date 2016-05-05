@@ -26,16 +26,30 @@ public class City {
 	public City(ColorCity color, ArrayList<City> neighbours, Region region, Bonus token, String name) {
 	}
 
-	public void getToken() {
+
+
+	public ArrayList<String> getEmporiums() {
+		return emporiums;
 	}
 
-	public void getColor() {
+	public ArrayList<City> getNeighbors() {
+		return neighbors;
 	}
 
-	public void getName() {
+	public ColorCity getColor() {
+		return color;
 	}
 
-	public void getRegion() {
+	public String getName() {
+		return name;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public Bonus getToken() {
+		return token;
 	}
 
 	public void findLinkedEmporium() {
