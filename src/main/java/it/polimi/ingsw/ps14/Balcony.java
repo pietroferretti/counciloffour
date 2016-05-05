@@ -18,4 +18,12 @@ public class Balcony {
   return null;
   }
 
+public ArrayList<ColorCouncillor> getColor() {
+	return color;
+}
+
+public void setColor(ArrayList<ColorCouncillor> color) {
+	this.color = color;
+}
+
 }

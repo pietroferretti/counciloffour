@@ -1,3 +1,5 @@
+package it.polimi.ingsw.ps14;
+
 import java.util.Vector;
 
 public class BusinessPermit extends Card {

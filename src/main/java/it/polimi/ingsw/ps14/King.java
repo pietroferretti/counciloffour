@@ -1,15 +1,22 @@
 package it.polimi.ingsw.ps14;
 
+import java.util.ArrayList;
+
 public class King extends Balcony {
 
-  public City city;
+	private City city;
+	private ArrayList<ColorCouncillor> colors;
+	
+	public King(City city, ArrayList<ColorCouncillor> colors){
+		this.city = city;
+		this.colors = new ArrayList<ColorCouncillor>(colors);
+	}
 
-    public City is in;
+	public City getCity() {
+		return city;
+	}
 
-  public void getCity() {
-  }
-
-  public void move() {
-  }
+	public void move() {
+	}
 
 }

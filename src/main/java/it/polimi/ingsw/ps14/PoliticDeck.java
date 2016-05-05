@@ -1,19 +1,16 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
-public class PoliticDeck extends BusinessDeck implements Deck {
+public class PoliticDeck implements Deck {
 
-  public ArrayList<PoliticCard> deck;
+	public ArrayList<PoliticCard> deck;
+	
+	public void shuffle() {
+	}
 
-    public Player myPlayer;
-    public Vector  myPoliticCard;
-
-  public void shuffle() {
-  }
-
-  public PoliticCard drawCard() {
-  return null;
-  }
+	public PoliticCard drawCard() {
+		return new PoliticCard();
+	}
 
 }

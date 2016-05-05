@@ -1,29 +1,23 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /*
  */
 public class Market {
 
-  private ArrayList<ItemForSale> objectsForSale;
+	private ArrayList<ItemForSale> objectsForSale;
 
-    public Vector  myItemForSale;
-    /**
-   * 
-   * @element-type ItemForSale
-   */
-  public Vector  myItemForSale;
+	public boolean sell(ItemForSale item) {
+		return false;
+	}
 
-  public boolean sell( ItemForSale) {
-  return false;
-  }
+	public void addItem(ItemForSale item) {
+		objectsForSale.add(item);
+	}
 
-  public void addItem( ItemForSale) {
-  }
-
-  public ItemForSale getItem( next) {
-  return null;
-  }
+//	public ItemForSale nextItem() {
+//		return null; 
+//	}
 
 }
