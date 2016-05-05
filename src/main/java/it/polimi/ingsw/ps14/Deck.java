@@ -4,6 +4,8 @@ public interface Deck {
 
 	public Card drawCard();
 
-	public void shuffle();
+	public void shuffleDeck();
+	
+	public void shuffleAll();
 
 }

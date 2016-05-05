@@ -1,21 +1,24 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.ArrayList;
-import java.util.Vector;
+import java.util.PriorityQueue;
 
 public class Balcony {
 
-  private ArrayList<ColorCouncillor> color;
+	public static int availableCouncillors[];	// Should this go in GameBoard??
 
-  private int availableCouncilors[];
-  private Region region;
+	private PriorityQueue<ColorCouncillor> councillors;
 
+	public Balcony() {
+		// TODO: get 4 random colors chosen from ColorCouncillor
+	}
 
-  public void electCouncillor(ColorCouncillor color) {
-  }
+	public void electCouncillor(ColorCouncillor color) {
+		councillors.poll();
+		councillors.add(color);
+	}
 
-  public ArrayList<ColorCouncillor> readBalcony() {
-  return null;
-  }
+	public PriorityQueue<ColorCouncillor> readBalcony() {
+		return councillors;
+	}
 
 }

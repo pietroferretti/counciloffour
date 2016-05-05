@@ -1,45 +1,50 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.Vector;
-
 public class Bonus {
 
-  private int assistants;
+	private final int assistants;
 
-  private int coins;
+	private final int coins;
 
-  private int victoryPoints;
+	private final int victoryPoints;
 
-  private int politicCard;
+	private final int politicCards;
 
-  private int nobilityUpgrade;
+	private final int nobilityUp;
 
-  private boolean mainAction;
+	private final boolean mainAction;
 
-  public void getAssistants() {
-  }
+	public Bonus(int assistants, int coins, int victoryPoints, int politicCards, int nobilityUp, boolean mainAction) {
+		this.assistants = assistants;
+		this.coins = coins;
+		this.victoryPoints = victoryPoints;
+		this.politicCards = politicCards;
+		this.nobilityUp = nobilityUp;
+		this.mainAction = mainAction;
+	}
 
-  public Bonus( int assistants,int   coins, int victoryUpgrade,int  politicCard, int nobilityUpgrade, boolean mainAction) {
-  }
+	public int getAssistants() {
+		return assistants;
+	}
 
-  public int getCoins() {
-	  return coins;
-  }
+	public int getCoins() {
+		return coins;
+	}
 
-  public int getVictoryPoints() {
-	  return victoryPoints;
-  }
+	public int getVictoryPoints() {
+		return victoryPoints;
+	}
 
-  public int getPoliticCard() {
-	  return politicCard;
-  }
+	public int getPoliticCards() {
+		return politicCards;
+	}
 
-  public int getNobilityUpgrade() {
-	  return nobilityUpgrade;
-  }
+	public int getNobilityUp() {
+		return nobilityUp;
+	}
 
-  public boolean getmainAction() {
-	  return mainAction;
-  }
+	public boolean getmainAction() {
+		return mainAction;
+	}
 
 }
