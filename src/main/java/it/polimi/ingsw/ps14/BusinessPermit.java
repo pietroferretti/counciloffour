@@ -4,8 +4,20 @@ import java.util.ArrayList;
 
 public class BusinessPermit extends Card {
 
-  public ArrayList<City> city;
+	private final ArrayList<City> cities;
 
-  public Bonus bonus;
+	private final Bonus bonus;
 
+	public BusinessPermit(ArrayList<City> cities, Bonus bonus) {
+		this.cities = cities;
+		this.bonus = bonus;
+	}
+
+	public ArrayList<City> getCities() {
+		return cities;
+	}
+
+	public Bonus getBonus() {
+		return bonus;
+	}
 }

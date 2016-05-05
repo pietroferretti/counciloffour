@@ -1,34 +1,44 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class City {
 
-	private ArrayList<String> emporiums;
+	private final String name;
+	
+	private final ColorCity color;
 
-	private ArrayList<City> neighbors;
+	private final ArrayList<City> neighbors;
 
-	private ColorCity color;
+	private final Region region;
 
-	private String name;
+	private final Bonus token;
+	
+	private ArrayList<Player> emporiums;
+	
+	public City(String name, ColorCity color, ArrayList<City> neighbors, Region region, Bonus token) {
+		this.name = name;
+		this.color = color;
+		this.neighbors = neighbors;
+		this.region = region;
+		this.token = token;
+		emporiums = new ArrayList<Player>();
+	}
+	
+	
+	// TODO: return number of emporiums not owned by player
+	
+	public boolean isEmporiumBuilt(Player player) {
+		return emporiums.contains(player);
+	}
 
-	private Region region;
-
-	private Bonus token;
-
-	public void checkExsistingEmporium() {
+	public void findLinkedEmporium() {
 	}
 
 	public void buildEmporium() {
 	}
 
-	public City(ColorCity color, ArrayList<City> neighbours, Region region, Bonus token, String name) {
-	}
-
-
-
-	public ArrayList<String> getEmporiums() {
+	public ArrayList<Player> getEmporiums() {
 		return emporiums;
 	}
 
@@ -52,7 +62,5 @@ public class City {
 		return token;
 	}
 
-	public void findLinkedEmporium() {
-	}
 
 }

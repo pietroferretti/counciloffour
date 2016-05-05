@@ -6,7 +6,7 @@ public class PoliticDeck implements Deck {
 
 	public ArrayList<PoliticCard> deck;
 	
-	public void shuffleDeck() {
+	public void shuffle() {
 	
 	}
 
