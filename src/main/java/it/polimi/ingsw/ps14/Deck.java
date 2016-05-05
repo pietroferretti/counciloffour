@@ -6,5 +6,4 @@ public interface Deck {
 
 	public void shuffle();
 	
-
 }

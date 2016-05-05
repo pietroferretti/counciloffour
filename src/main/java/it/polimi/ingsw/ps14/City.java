@@ -32,10 +32,22 @@ public class City {
 		return emporiums.contains(player);
 	}
 
-	public void findLinkedEmporium() {
+	/*
+	 * Da tenere a mente che il metodo che cerca tutti i bonus tra città vicine
+	 * deve ricordare quali città sono state già controllate
+	 */
+	public ArrayList<City> findLinkedEmporiums(Player player) {
+		ArrayList<City> cities = new ArrayList<City>();
+		for (City neighbor : neighbors) {
+			if (neighbor.isEmporiumBuilt(player)){
+				cities.add(neighbor);
+			}
+		}
+		return cities;
 	}
 
-	public void buildEmporium() {
+	public void buildEmporium(Player player) {
+		emporiums.add(player);
 	}
 
 	public ArrayList<Player> getEmporiums() {
