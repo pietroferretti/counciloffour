@@ -1,17 +1,13 @@
-import java.util.Vector;
+package it.polimi.ingsw.ps14;
+
+import java.net.ServerSocket;
 
 public class Server {
 
-  public Int PORT;
+  private int PORT;
 
   public ServerSocket serverSocket;
 
-    public Vector  myConnection;
-    /**
-   * 
-   * @element-type Connection
-   */
-  public Vector  myConnection;
 
   public void Server() {
   }

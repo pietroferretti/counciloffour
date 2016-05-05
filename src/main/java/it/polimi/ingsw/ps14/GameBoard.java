@@ -1,19 +1,18 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class GameBoard {
 
-  public ArrayList<Region> region;
+  private ArrayList<Region> region;
 
-  public int assistantsAvailable;
+  private int assistantsAvailable;
 
-    public Vector  myRegion;
-
-  public void getAssistantsAvailable() {
+  public int getAssistantsAvailable() {
+	  return 0;
   }
 
-  public void setAssistantsAvailable() {
+  public void setAssistantsAvailable(int AssistantsAvailable) {
   }
 
 }

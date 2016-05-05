@@ -1,20 +1,20 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Region {
 
-  public RegionType type;
+  private RegionType type;
 
-  public ArrayList<City> cities;
+  private ArrayList<City> cities;
 
-  public Balcony balcony;
+  private Balcony balcony;
 
-  public BusinessPermit permitCard;
+  private BusinessPermit permitCard;
 
-  public BusinessDeck permitsDeck;
+  private BusinessDeck permitsDeck;
 
-  public Bonus bonusRegion;
+  private Bonus bonusRegion;
 
 
 
@@ -25,9 +25,6 @@ public class Region {
   }
 
   public void getCities() {
-  }
-
-  public void getBonus() {
   }
 
   public void getBalcony() {

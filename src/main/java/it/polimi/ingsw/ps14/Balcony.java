@@ -8,7 +8,7 @@ public class Balcony {
   private ArrayList<ColorCouncillor> color;
 
   private int availableCouncilors[];
-  public Region region;
+  private Region region;
 
 
   public void electCouncillor(ColorCouncillor color) {

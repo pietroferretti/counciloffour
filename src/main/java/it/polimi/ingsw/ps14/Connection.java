@@ -1,15 +1,13 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.Vector;
+import java.net.Socket;
 
-public class Connection extends , Thread {
+public class Connection extends Thread {
 
-  public Socket socket;
+  private Socket socket;
 
-    public Vector  myServer;
-    public Server myServer;
 
-  public void Connection(socket Socket) {
+  public Connection(Socket socket) {
   }
 
   public void run() {

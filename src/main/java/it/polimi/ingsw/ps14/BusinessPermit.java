@@ -1,24 +1,13 @@
-import java.util.Vector;
+package it.polimi.ingsw.ps14;
+
+import java.util.ArrayList;
 
 public class BusinessPermit extends Card {
 
-  public ArrayList<City> city;
+  private ArrayList<City> city;
+  private Bonus bonus;
 
-  public Bonus bonus;
-
-    /**
-   * 
-   * @element-type Region
-   */
-  public Vector  has;
-    public Vector  myBusinessDeck;
-    public Vector  myCity;
-    public Vector  myBusinessPermit;
-    public Vector  myBusinessPermit;
-    public Vector  myBusinessCard;
-    public Vector  myCity;
-    public Vector  myNobilityTrack;
-    public Vector  myBonus;
-    public Vector  myCity;
-
+  public BusinessPermit(){
+	  
+  }
 }

@@ -12,6 +12,4 @@ enum ColorCity {
 
   BLUE;
 
-    public Vector  myCity;
-
 }

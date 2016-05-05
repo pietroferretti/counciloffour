@@ -1,23 +1,15 @@
 package it.polimi.ingsw.ps14;
 
+import java.util.ArrayList;
+
 public class Setting {
 
-  public City cities;
-
-  public Integer newAttr;
-
-  public Integer newAttr;
+  private ArrayList<City> cities;
 
   public void readSettings() {
   }
 
-  public void Setting() {
-  }
-
-  public void newOperation() {
-  }
-
-  public void newOperation() {
+  public Setting() {
   }
 
 }

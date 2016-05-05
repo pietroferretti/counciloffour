@@ -1,24 +1,17 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.Vector;
-
 enum ColorCouncillor {
 
-  PURPLE,
+	PURPLE,
 
-  PINK,
+	PINK,
 
-  WHITE,
+	WHITE,
 
-  ORANGE,
+	ORANGE,
 
-  BLACK,
+	BLACK,
 
-  BLUE;
-
-    public Vector  myBalcony;
-    public Vector  myBalcony;
-    public Vector  myBalcony;
-    public Vector  myPoliticCard;
+	BLUE;
 
 }
