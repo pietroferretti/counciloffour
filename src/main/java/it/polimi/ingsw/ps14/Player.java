@@ -1,62 +1,50 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.Vector;
-
 public class Player {
 
-  private String color;
+	private String color;
+	private int coins;
+	private PoliticDeck hand;
+	private int level;
+	private int points;
+	private BusinessDeck permitTiles;
+	private PoliticDeck myPoliticDeck;
+	private int assistants;
 
-  private int coins;
+	public void chooseColor() {
+	}
 
-  private java.util.Vector assistants;
+	public void useCoins() {
+	}
 
-  private PoliticDeck hand;
+	public int getCoins() {
+		return 0;
+	}
 
-  private int level;
+	public void useAssistant(int assistantNumber) {
+		// TODO: exception if assistants is too low
+		assistants = assistants - assistantNumber;
+	}
 
-  private int points;
+	public int getAssistant() {
+		return 0;
+	}
 
-  private java.util.Vector permitTIlesUsed;
+	public Player(String color, PoliticDeck hand, int coins, int assistants) {
+	}
 
-  private BusinessDeck permitTIles;
+	public String getColor() {
+		return null;
+	}
 
-    public Vector  my;
-    public Vector  myCard;
-    public PoliticDeck myPoliticDeck;
-    public Vector  myBusinessDeck;
+	public int getLevel() {
+		return 0;
+	}
 
-  public void chooseColor() {
-  }
+	public void upLevel() {
+	}
 
-  public void useCoins() {
-  }
-
-  public int getCoins() {
-  return 0;
-  }
-
-  public void useAssistant(assistantsNumber int) {
-  }
-
-  public int getAssistant() {
-  return 0;
-  }
-
-  public void Player(String color, PoliticDeck hand, int coins, int assistants) {
-  }
-
-  public String getColor() {
-  return null;
-  }
-
-  public int getLevel() {
-  return 0;
-  }
-
-  public void upLevel() {
-  }
-
-  public void acquireBusinessPermit() {
-  }
+	public void acquireBusinessPermit() {
+	}
 
 }

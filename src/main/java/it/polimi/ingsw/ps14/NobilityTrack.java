@@ -1,18 +1,14 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.Vector;
-
+import java.util.ArrayList;
 /*
  */
 public class NobilityTrack {
 
-  public ArrayList<Bonus> bonuses;
+	public ArrayList<Bonus> bonuses;
 
-    public Vector  myCity;
-    public Vector  myBusinessPermit;
-    public Vector  myBonus;
-
-  public void getBonus( level) {
-  }
+	public Bonus getBonus(int level) {
+		return bonuses.get(level);
+	}
 
 }
