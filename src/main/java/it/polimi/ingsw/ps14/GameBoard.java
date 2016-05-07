@@ -5,30 +5,46 @@ import java.util.Random;
 public class GameBoard {
 
 	private Region[] region;
+	
+	private King king;
 
 	private int assistantsAvailable;
+	
+	//table to store how many councillors for that color there are
+	private int[] availableCouncillor = new int[ColorCouncillor.size]; 
+	
+	//start parameters
+	private final int numberRegion=3;
+	private final int councillorsEachBalcony=4;
 
-	private int[] availableCouncillor = new int[ColorCouncillor.size];
+	
+	
 
 	public int getAssistantsAvailable() {
-		return 0;
+		return assistantsAvailable;
 	}
 
-	public GameBoard(int availableCouncillorsEachColor, int councillorsEachBalcony,int assistantAvailable,int numberRegion) {
+	public GameBoard(int availableCouncillorsEachColor,int assistantAvailable,String startCityKing) {
 		// TODO: build game object
 
-		// Example of availableCouncillor
+		// Fill the councillors table
 		for (int i = 0; i < ColorCouncillor.size; i++)
 			availableCouncillor[i] = availableCouncillorsEachColor;
 		
+		//set how many assistants there are
 		this.assistantsAvailable=assistantAvailable;
 
-//		//constructor region and 
-//		region=new Region[numberRegion];
-//		for(int i=0;i<numberRegion;i++){
-//			region[i]=new Region(generateRandomBalcony(councillorsEachBalcony));
-//		}
-//		
+		//Build #numberRegion region and send parameter: RandomBalcony and RegionType
+		//TODO: do it better!
+		region=new Region[numberRegion];
+		for(int i=0;i<numberRegion;i++){
+			region[i]=new Region(generateRandomBalcony(councillorsEachBalcony),RegionType.values()[i]);
+		}
+		
+		king=new King(generateRandomBalcony(councillorsEachBalcony),startCityKing);
+		
+		
+		
 	}
 
 	/*

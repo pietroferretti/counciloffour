@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class King extends Balcony {
 
 	private City city;
-	private ArrayList<ColorCouncillor> colors;
 
-	public King(City city) {
+	public King(ColorCouncillor[] initialCouncillors, String startCityKing) {
+		// TODO Auto-generated constructor stub
+		super(initialCouncillors);
 		this.city = city;
-		
 	}
 
 	public City getCity() {

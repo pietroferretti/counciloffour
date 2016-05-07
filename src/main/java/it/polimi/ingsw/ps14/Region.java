@@ -17,6 +17,12 @@ public class Region {
   private BusinessDeck permitsDeck;
 
   private Bonus bonusRegion;
+  
+  
+public Region(ColorCouncillor[] balcony,RegionType type){
+	this.balcony=new Balcony(balcony);//build a balcony with parameters from gameboard
+	
+}
 
 public Balcony getBalcony() {
 	return balcony;

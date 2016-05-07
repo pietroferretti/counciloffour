@@ -7,9 +7,10 @@ public class Balcony {
 
 	private PriorityQueue<ColorCouncillor> councillors;
 	
-//	public Balcony(Collection<? extends ColorCouncillor> initialCouncillors) {
-//		councillors.addAll(initialCouncillors);
-//	}
+	public Balcony(ColorCouncillor[] initialCouncillors) {
+		for(int i=0;i<initialCouncillors.length;i++)
+			councillors.add(initialCouncillors[i]);
+	}
 
 	public void electCouncillor(ColorCouncillor color) {
 		councillors.poll();
