@@ -7,9 +7,9 @@ public class King extends Balcony {
 	private City city;
 	private ArrayList<ColorCouncillor> colors;
 
-	public King(City city, ArrayList<ColorCouncillor> colors) {
+	public King(City city) {
 		this.city = city;
-		this.colors = new ArrayList<ColorCouncillor>(colors);
+		
 	}
 
 	public City getCity() {
