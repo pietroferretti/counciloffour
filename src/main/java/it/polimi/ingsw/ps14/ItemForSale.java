@@ -3,9 +3,9 @@ package it.polimi.ingsw.ps14;
 
 public class ItemForSale {
 
-	public final Object item;
-	public final int price;
-	public final Player owner;
+	private final Object item;
+	private final int price;
+	private final Player owner;
 
 	public ItemForSale(Object item, int price, Player owner) {
 		this.item = item;

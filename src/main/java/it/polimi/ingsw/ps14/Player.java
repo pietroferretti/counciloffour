@@ -120,6 +120,10 @@ public class Player {
 		return hand.size();
 	}
 	
+	public void addPolitic(PoliticCard card) {
+		hand.add(card);
+	}
+
 	public void drawCard(PoliticDeck deck) {
 		hand.add(deck.drawCard());
 		// TODO possibili errori?
