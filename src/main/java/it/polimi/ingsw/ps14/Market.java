@@ -14,18 +14,24 @@ public class Market {
 		 * int index = objectsForSale.indexOf(item); if (index == -1) return
 		 * false;
 		 */
-		//se non funziona con getClass proviamo instance of
+		// se non funziona con getClass proviamo instance of
 		if (!buyer.useCoins(item.getPrice()))
 			return false;
 		if (item.getItem().getClass().equals(BusinessPermit.class)) {
 			earnCoins(item);
 			buyer.acquireBusinessPermit((BusinessPermit) item.getItem());
+			item.getOwner().sellPermits((BusinessPermit) item.getItem());
+
 		} else if (item.getItem().getClass().equals(PoliticCard.class)) {
 			earnCoins(item);
 			buyer.addPolitic((PoliticCard) item.getItem());
+			item.getOwner().useCards((PoliticCard) item.getItem());
+
 		} else {
 			earnCoins(item);
 			buyer.addAssistants(1);
+			if (!item.getOwner().useAssistants(1))
+				return false;
 		}
 		if (objectsForSale.remove(item))
 			return true;
@@ -40,6 +46,5 @@ public class Market {
 	public void addItem(ItemForSale item) {
 		objectsForSale.add(item);
 	}
-
 
 }
