@@ -8,7 +8,7 @@ public class GameBoard {
 	
 	private King king;
 
-	private int assistantsAvailable;
+	private int availableAssistants;
 	
 	//table to store how many councillors for that color there are
 	private int[] availableCouncillor = new int[ColorCouncillor.size]; 
@@ -20,8 +20,8 @@ public class GameBoard {
 	
 	
 
-	public int getAssistantsAvailable() {
-		return assistantsAvailable;
+	public int getAvailableAssistants() {
+		return availableAssistants;
 	}
 
 	public GameBoard(Settings settings) {
@@ -32,7 +32,7 @@ public class GameBoard {
 			availableCouncillor[i] = settings.availableCouncillorsEachColor;
 		
 		//set how many assistants there are
-		this.assistantsAvailable = settings.assistantAvailable;
+		this.availableAssistants = settings.availableAssistants;
 
 		//Build #numberRegion region and send parameter: RandomBalcony and RegionType
 		//TODO: do it better!
