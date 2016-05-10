@@ -1,9 +1,18 @@
 package it.polimi.ingsw.ps14;
 
-public interface Deck {
+import java.util.ArrayList;
+import java.util.Collections;
 
-	public Card drawCard();
+public abstract class Deck {
+	
+	public ArrayList<Card> deck;
+	public ArrayList<Card> drawnCards;
 
-	public void shuffle();
+
+	public abstract Card drawCard();
+
+	public void shuffle(){
+		Collections.shuffle(deck);
+	}
 	
 }

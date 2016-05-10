@@ -28,7 +28,6 @@ public class GameLogic {
 		 * 
 		 * Ricordare: diversi setup a seconda del numero di giocatori
 		 */
-
 		return false;
 	}
 
