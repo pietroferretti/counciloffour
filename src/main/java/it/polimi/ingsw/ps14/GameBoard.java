@@ -24,15 +24,15 @@ public class GameBoard {
 		return assistantsAvailable;
 	}
 
-	public GameBoard(int availableCouncillorsEachColor,int assistantAvailable,String startCityKing) {
+	public GameBoard(Settings settings) {
 		// TODO: build game object
 
 		// Fill the councillors table
 		for (int i = 0; i < ColorCouncillor.size; i++)
-			availableCouncillor[i] = availableCouncillorsEachColor;
+			availableCouncillor[i] = settings.availableCouncillorsEachColor;
 		
 		//set how many assistants there are
-		this.assistantsAvailable=assistantAvailable;
+		this.assistantsAvailable = settings.assistantAvailable;
 
 		//Build #numberRegion region and send parameter: RandomBalcony and RegionType
 		//TODO: do it better!
@@ -41,7 +41,7 @@ public class GameBoard {
 			region[i]=new Region(generateRandomBalcony(councillorsEachBalcony),RegionType.values()[i]);
 		}
 		
-		king=new King(generateRandomBalcony(councillorsEachBalcony),startCityKing);
+		king = new King(generateRandomBalcony(councillorsEachBalcony), settings.startCityKing);
 		
 		
 		

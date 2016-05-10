@@ -7,17 +7,21 @@ public class GameLogic {
 	private GameBoard gameboard;
 
 	private ArrayList<Player> players;
+	
+	private Settings settings;
 
 	/*
 	 * È GameLogic a passare il controllo da giocatore a giocatore? - magari
 	 * passare nomi utenti invece dei Player --> creiamo i player qui
 	 */
-	public GameLogic(ArrayList<Player> players, Setting settings) {
+	public GameLogic(ArrayList<Player> players, Settings settings) {
 		if (players.size() < 2) {
 			throw new IllegalArgumentException("Too few players!");
 		}
 		this.players = players;
-		this.gameboard = new GameBoard(); // Inizializzare la gameboard con i
+		this.settings = settings;
+		
+		this.gameboard = new GameBoard(settings); // Inizializzare la gameboard con i
 											// dati in settings
 	}
 

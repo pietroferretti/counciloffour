@@ -6,7 +6,7 @@ public class King extends Balcony {
 
 	private City city;
 
-	public King(ColorCouncillor[] initialCouncillors, String startCityKing) {
+	public King(ColorCouncillor[] initialCouncillors, City startCityKing) {
 		// TODO Auto-generated constructor stub
 		super(initialCouncillors);
 		this.city = city;
