@@ -1,6 +1,9 @@
 package it.polimi.ingsw.ps14;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
+
+import org.junit.internal.runners.model.EachTestNotifier;
 
 public class Balcony {
 
@@ -20,21 +23,26 @@ public class Balcony {
 		return councillors;
 	}
 
-	// check if Politic Card from player has a matching counsellor
-	public boolean cardsInBalcony(PoliticCard card) {
-		return councillors.contains(ColorCouncillor.valueOf(card.getColor().name()));
+	private ColorCouncillor colorPoliticToCouncillor(PoliticCard card) {
+		return ColorCouncillor.valueOf(card.getColor().name());
 	}
 
-	public boolean cardsInBalcony(PoliticCard card1, PoliticCard card2) {
-		return cardsInBalcony(card1) && cardsInBalcony(card2);
-	}
+	// check if Politic Cards from player have matching counsellors and return
+	// number of bought counsellors
 
-	public boolean cardsInBalcony(PoliticCard card1, PoliticCard card2, PoliticCard card3) {
-		return cardsInBalcony(card1, card2) && cardsInBalcony(card3);
-	}
+	public int cardsInBalcony(ArrayList<PoliticCard> cards) {
+		int boughtCounsellor = 0;
+		PriorityQueue<ColorCouncillor> newCouncillors = councillors;
+		for (PoliticCard card : cards) {
+			if (card.isJolly())
+				boughtCounsellor++;
+			else if (newCouncillors.contains(colorPoliticToCouncillor(card))) {
+				newCouncillors.remove(colorPoliticToCouncillor(card));
+				boughtCounsellor++;
+			} else
+				return -1;
 
-	public boolean cardsInBalcony(PoliticCard card1, PoliticCard card2, PoliticCard card3, PoliticCard card4) {
-		return cardsInBalcony(card1, card2, card3) && cardsInBalcony(card4);
+		}
+		return boughtCounsellor;
 	}
-
 }

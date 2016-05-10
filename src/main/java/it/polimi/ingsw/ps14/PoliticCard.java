@@ -12,8 +12,8 @@ public class PoliticCard implements Card {
 		return color;
 	}
 
-	public boolean isJolly(PoliticCard card) {
-		if (card.color.equals(ColorPolitic.JOLLY))
+	public boolean isJolly() {
+		if (color.equals(ColorPolitic.JOLLY))
 			return true;
 		return false;
 	}
