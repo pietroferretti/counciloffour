@@ -2,34 +2,41 @@ package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
 
-public class PoliticDeck implements Deck {
+public class PoliticDeck extends Deck {
 
-	public ArrayList<PoliticCard> deck;
+	private ArrayList<PoliticCard> deck;
+	private ArrayList<PoliticCard> discardedCards;
 
-	/*
-	 * TODO: riscrivere il costruttore in modo che prenda i parametri salvati su
-	 * file e costruisca carta per carta?
-	 */
-	public PoliticDeck(ArrayList<PoliticCard> deck) {
-		this.deck = deck;
-	}
+	public PoliticDeck(int numColoredCard, int numJolly) {
+		for (int i = 0; i < numColoredCard; i++) {
+			deck.add(new PoliticCard(ColorPolitic.BLACK));
+			deck.add(new PoliticCard(ColorPolitic.BLUE));
+			deck.add(new PoliticCard(ColorPolitic.ORANGE));
+			deck.add(new PoliticCard(ColorPolitic.PINK));
+			deck.add(new PoliticCard(ColorPolitic.PURPLE));
+			deck.add(new PoliticCard(ColorPolitic.WHITE));
+		}
+		for (int i = 0; i < numJolly; i++) {
+			deck.add(new PoliticCard(ColorPolitic.JOLLY));
+		}
+		shuffle();
 
-	public void shuffle() {
-		//TODO
 	}
 
 	public void shuffleAll() {
-		//TODO
+		deck.addAll(discardedCards);
+		discardedCards.clear();
+		shuffle();
 	}
 
 	public PoliticCard drawCard() {
-		return new PoliticCard();
+		return deck.remove(0); // ??
 	}
 
 	public ArrayList<PoliticCard> drawMultipleCards(int number) {
 		ArrayList<PoliticCard> result = new ArrayList<PoliticCard>();
 		for (int i = 0; i < number; i++) {
-		    result.add(drawCard());
+			result.add(drawCard());
 		}
 		return result;
 	}
