@@ -135,8 +135,8 @@ public class Player {
 		hand.addAll(deck.drawMultipleCards(numberOfCards));
 	}
 
-	public void useCards(){
-		//???
+	public void useCards(PoliticCard card){
+		hand.remove(card);
 	}
 	
 	public void acquireBusinessPermit(BusinessPermit permitTile) {
@@ -145,6 +145,11 @@ public class Player {
 	
 	public int getNumberOfPermits() {
 		return permitTiles.size() + usedPermitTiles.size();
+	}
+
+	public void sellPermits(BusinessPermit item) {
+		permitTiles.remove(item);
+		
 	}
 
 }

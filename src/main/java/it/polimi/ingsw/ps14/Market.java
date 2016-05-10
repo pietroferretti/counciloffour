@@ -15,6 +15,7 @@ public class Market {
 		 * false;
 		 */
 		// se non funziona con getClass proviamo instance of
+		
 		if (!buyer.useCoins(item.getPrice()))
 			return false;
 		if (item.getItem().getClass().equals(BusinessPermit.class)) {
