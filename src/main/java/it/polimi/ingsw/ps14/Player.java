@@ -124,11 +124,11 @@ public class Player {
 		hand.add(card);
 	}
 
-	public void drawCard(PoliticDeck deck) {
-		hand.add(deck.drawCard());
-		// TODO possibili errori?
-		// tipo mazzo che finisce ecc li controlliamo prima di invocarlo?
-	}
+//	public void Card(PoliticDeck deck) {
+//		hand.add(deck.drawCard());
+//		// TODO possibili errori?
+//		// tipo mazzo che finisce ecc li controlliamo prima di invocarlo?
+//	}
 	
 	// sì può accorpare all'altro metodo con polimorfismo?
 	public void drawMultipleCards(PoliticDeck deck, int numberOfCards) {
