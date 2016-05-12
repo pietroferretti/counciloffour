@@ -2,13 +2,14 @@ package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
 
-public class King extends Balcony {
+public class King {
 
 	private City city;
+	
+	private Balcony balcony;
 
 	public King(ColorCouncillor[] initialCouncillors, City startCityKing) {
 		// TODO Auto-generated constructor stub
-		super(initialCouncillors);
 		this.city = city;
 	}
 
