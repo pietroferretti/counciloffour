@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class Region {
 
@@ -19,7 +20,7 @@ public class Region {
   private Bonus bonusRegion;
   
   
-public Region(ColorCouncillor[] balcony,RegionType type){
+public Region(PriorityQueue<ColorCouncillor> balcony,RegionType type){
 	this.balcony=new Balcony(balcony);//build a balcony with parameters from gameboard
 	
 }

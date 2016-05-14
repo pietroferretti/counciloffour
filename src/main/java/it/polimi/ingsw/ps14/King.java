@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class King {
 
@@ -8,8 +9,9 @@ public class King {
 	
 	private Balcony balcony;
 
-	public King(ColorCouncillor[] initialCouncillors, City startCityKing) {
+	public King(PriorityQueue<ColorCouncillor> initialCouncillors, City startCityKing) {
 		// TODO Auto-generated constructor stub
+		this.balcony=new Balcony(initialCouncillors);
 		this.city = city;
 	}
 

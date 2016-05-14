@@ -1,20 +1,24 @@
 package it.polimi.ingsw.ps14;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Random;
 
 public class GameBoard {
 
+	Random random = new Random();
+	
 	private Region[] region;
 	
 	private King king;
 
 	private int availableAssistants;
 	
-	//table to store how many councillors for that color there are
-	private int[] availableCouncillor = new int[ColorCouncillor.size]; 
+	//hashmap to store how many councillors for that color there are
+	private Map<ColorCouncillor, Integer> availableCouncillors = new HashMap<>();
 	
 	//start parameters
-	private final int numberRegion=3;
 	private final int councillorsEachBalcony=4;
 
 	
@@ -27,18 +31,18 @@ public class GameBoard {
 	public GameBoard(Settings settings) {
 		// TODO: build game object
 
-		// Fill the councillors table
-		for (int i = 0; i < ColorCouncillor.size; i++)
-			availableCouncillor[i] = settings.availableCouncillorsEachColor;
+		// Fill the councillors hash map
+		for (ColorCouncillor councillor : ColorCouncillor.values())
+			availableCouncillors.put(councillor,settings.availableCouncillorsEachColor);
 		
 		//set how many assistants there are
 		this.availableAssistants = settings.availableAssistants;
 
-		//Build #numberRegion region and send parameter: RandomBalcony and RegionType
-		//TODO: do it better!
-		region=new Region[numberRegion];
-		for(int i=0;i<numberRegion;i++){
-			region[i]=new Region(generateRandomBalcony(councillorsEachBalcony),RegionType.values()[i]);
+		//Build a region for each regionType and send parameter: RandomBalcony and RegionType
+		//TODO: do it better! "region[regT.ordinal()] not so good"
+		region = new Region[RegionType.values().length];
+		for(RegionType regT : RegionType.values()){
+			region[regT.ordinal()]=new Region(generateRandomBalcony(councillorsEachBalcony),regT);
 		}
 		
 		king = new King(generateRandomBalcony(councillorsEachBalcony), settings.startCityKing);
@@ -52,34 +56,38 @@ public class GameBoard {
 	 */
 
 	// check if is the chosen color available
-	public boolean councillorIsAvailable(int pick) {
-		if (availableCouncillor[pick] > 0)
+	public boolean councillorIsAvailable(ColorCouncillor color) {
+		if (availableCouncillors.get(color) > 0)
 			return true;
 		else
 			return false;
 	}
 
-	private ColorCouncillor[] generateRandomBalcony(int councillorsEachBalcony){
-		ColorCouncillor[] tempBalcony= new ColorCouncillor[councillorsEachBalcony];
+	private PriorityQueue<ColorCouncillor> generateRandomBalcony(int councillorsEachBalcony){
+		PriorityQueue<ColorCouncillor> tempBalcony= new PriorityQueue<ColorCouncillor>();
 		for(int j=0;j<councillorsEachBalcony;j++)
-			tempBalcony[j]=getRandomAvailableCouncillor();
+			tempBalcony.add(getRandomAvailableCouncillor());
 		return tempBalcony;
 	
 	}
 
-	public boolean getCouncillor(ColorCouncillor councillor) {
-		if (councillorIsAvailable(councillor.ordinal())) {
-			availableCouncillor[councillor.ordinal()]--;
+	public boolean useCouncillor(ColorCouncillor councillor) {
+		if (councillorIsAvailable(councillor)) {
+			availableCouncillors.put(councillor, availableCouncillors.get(councillor)-1);
 			return true;
 		} else
 			return false;
-
 	}
+		
+	public Integer getCouncillor(ColorCouncillor color){
+		return availableCouncillors.get(color);
+	}
+
 
 	// For first population of balconies
 	public ColorCouncillor getRandomAvailableCouncillor() {
-		int pick = new Random().nextInt(ColorCouncillor.size);
-		while (!getCouncillor(ColorCouncillor.values()[pick]))
+		int pick = new Random().nextInt(ColorCouncillor.values().length);
+		while (councillorIsAvailable(ColorCouncillor.values()[pick]))
 			pick++;
 		return ColorCouncillor.values()[pick];
 	}

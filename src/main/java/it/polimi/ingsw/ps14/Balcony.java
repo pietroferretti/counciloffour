@@ -9,9 +9,8 @@ public class Balcony {
 
 	private PriorityQueue<ColorCouncillor> councillors;
 
-	public Balcony(ColorCouncillor[] initialCouncillors) {
-		for (int i = 0; i < initialCouncillors.length; i++)
-			councillors.add(initialCouncillors[i]);
+	public Balcony(PriorityQueue<ColorCouncillor> initialCouncillors) {
+		councillors=initialCouncillors;
 	}
 
 	public void electCouncillor(ColorCouncillor color) {
