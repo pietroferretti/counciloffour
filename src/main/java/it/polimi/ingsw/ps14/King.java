@@ -12,7 +12,7 @@ public class King {
 	public King(PriorityQueue<ColorCouncillor> initialCouncillors, City startCityKing) {
 		// TODO Auto-generated constructor stub
 		this.balcony=new Balcony(initialCouncillors);
-		this.city = city;
+		this.city = startCityKing;
 	}
 
 	public City getCity() {

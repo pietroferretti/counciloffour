@@ -45,6 +45,7 @@ public class GameBoard {
 			region[regT.ordinal()]=new Region(generateRandomBalcony(councillorsEachBalcony),regT);
 		}
 		
+		//generate king
 		king = new King(generateRandomBalcony(councillorsEachBalcony), settings.startCityKing);
 		
 		
@@ -55,7 +56,7 @@ public class GameBoard {
 	 * ------------------------ COUNCILLOR ------------------------
 	 */
 
-	// check if is the chosen color available
+	// check if the chosen color is available
 	public boolean councillorIsAvailable(ColorCouncillor color) {
 		if (availableCouncillors.get(color) > 0)
 			return true;
@@ -95,7 +96,50 @@ public class GameBoard {
 	 * ----------------------- ASSISTANTS --------------------------
 	 */
 
-	public void setAssistantsAvailable(int AssistantsAvailable) {
+	public void setAssistantsAvailable(int assistantsAvailable) {
+		this.availableAssistants=assistantsAvailable;
+	}
+	
+	public int getAssistantsAvailable(){
+		return availableAssistants;
 	}
 
-}
+	public boolean useAssistants(int quantity){
+		if(availableAssistants>=quantity){
+			availableAssistants=availableAssistants-quantity;
+			return true;
+		}
+		else return false;
+		}
+		
+	public boolean useAssistant(){
+		return useAssistants(1);
+	}
+	
+	/*
+	 * -------------------------- REGION ---------------------------
+	 */
+	
+	public Region getRegion(RegionType type){
+		int i=0;
+		while(region[i].getType()!=type)
+			i++;
+		return region[i];	
+		}
+	
+	public Region[] getRegions(){
+		return region;
+	}
+	/*
+	 * --------------------------- KING -----------------------------
+	 */
+
+	public King getKing() {
+		return king;
+	}
+
+	public void setKing(King king) {
+		this.king = king;
+	}
+	}
+	
