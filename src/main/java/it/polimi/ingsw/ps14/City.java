@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class City {
 
@@ -8,21 +9,30 @@ public class City {
 	
 	private final ColorCity color;
 
-	private final ArrayList<City> neighbors;
-
 	private final Region region;
+	
+	private List<City> neighbors;
 
-	private final Bonus token;
+	private Bonus token;
 	
 	private ArrayList<Player> emporiums;
 	
-	public City(String name, ColorCity color, ArrayList<City> neighbors, Region region, Bonus token) {
+	public City(String name, ColorCity color, Region region) {
+		this.name = name;
+		this.color = color;
+		this.region = region;
+		this.neighbors = null;
+		this.token = null;
+		emporiums = new ArrayList<>();
+	}
+	
+	public City(String name, ColorCity color, Region region, List<City> neighbors, Bonus token) {
 		this.name = name;
 		this.color = color;
 		this.neighbors = neighbors;
 		this.region = region;
 		this.token = token;
-		emporiums = new ArrayList<Player>();
+		emporiums = new ArrayList<>();
 	}
 	
 	
@@ -36,8 +46,8 @@ public class City {
 	 * Da tenere a mente che il metodo che cerca tutti i bonus tra città vicine
 	 * deve ricordare quali città sono state già controllate
 	 */
-	public ArrayList<City> findLinkedEmporiums(Player player) {
-		ArrayList<City> cities = new ArrayList<City>();
+	public List<City> findLinkedEmporiums(Player player) {
+		List<City> cities = new ArrayList<>();
 		for (City neighbor : neighbors) {
 			if (neighbor.isEmporiumBuilt(player)){
 				cities.add(neighbor);
@@ -55,11 +65,19 @@ public class City {
 		}
 	}
 
-	public ArrayList<Player> getEmporiums() {
+	public void setNeighbors(List<City> neighbors) {
+		this.neighbors = neighbors;
+	}
+	
+	public void setToken(Bonus token) {
+		this.token = token;
+	}
+	
+	public List<Player> getEmporiums() {
 		return emporiums;
 	}
 
-	public ArrayList<City> getNeighbors() {
+	public List<City> getNeighbors() {
 		return neighbors;
 	}
 

@@ -37,6 +37,10 @@ public BusinessDeck getPermitsDeck() {
 	return permitsDeck;
 }
 
+public void addCity(City city) {
+	this.cities.add(city);
+}
+
 public void setCities(ArrayList<City> cities) {
 	this.cities = cities;
 }

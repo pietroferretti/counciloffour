@@ -1,4 +1,92 @@
 {
     "assistants" : 20,
-    "councillors" : 6
+    "councillors" : 6,
+    "bonuses" : {
+        "bonusCoast" : 5,
+        "bonusHills" : 5,
+        "bonusMountains" : 5,
+        "bonusKing" : [25, 18, 12, 7, 3],
+        "bonusGold" : 20,
+        "bonusSilver" : 12,
+        "bonusBronze" : 8,
+        "bonusBlue" : 5
+    },
+    "startCityKing" : "Juvelar", 
+    "map" : {
+        "Arkon" : {
+            "region" : "coast",
+            "color" : "blue",
+            "neighbors" : ["Burgen", "Castrum"]
+        },
+        "Burgen" : {
+            "region" : "coast",
+            "color" : "gold",
+            "neighbors" : ["Arkon", "Dorful", "Esti"]
+        },
+        "Castrum" : {
+            "region" : "coast",
+            "color" : "silver",
+            "neighbors" : ["Arkon", "Framek"]
+        },
+        "Dorful" : {
+            "region" : "coast",
+            "color" : "silver",
+            "neighbors" : ["Burgen", "Graden"]
+        },
+        "Esti" : {
+            "region" : "coast",
+            "color" : "bronze",
+            "neighbors" : ["Burgen", "Hellar"]
+        },
+        "Framek" : {
+            "region" : "hills",
+            "color" : "gold",
+            "neighbors" : ["Castrum", "Indur"]
+        },
+        "Graden" : {
+            "region" : "hills",
+            "color" : "silver",
+            "neighbors" : ["Dorful", "Juvelar"]
+        },
+        "Hellar" : {
+            "region" : "hills",
+            "color" : "gold",
+            "neighbors" : ["Esti", "Juvelar", "Merkatim"]
+        },
+        "Indur" : {
+            "region" : "hills",
+            "color" : "bronze",
+            "neighbors" : ["Framek", "Juvelar", "Kultos"]
+        },
+        "Juvelar" : {
+            "region" : "hills",
+            "color" : "purple",
+            "neighbors" : ["Graden", "Hellar", "Indur", "Lyram"]
+        },
+        "Kultos" : {
+            "region" : "mountains",
+            "color" : "gold",
+            "neighbors" : ["Indur", "Naris"]
+        },
+        "Lyram" : {
+            "region" : "mountains",
+            "color" : "silver",
+            "neighbors" : ["Juvelar", "Osium"]
+        },
+        "Merkatim" : {
+            "region" : "mountains",
+            "color" : "blue",
+            "neighbors" : ["Hellar", "Osium"]
+        },
+        "Naris" : {
+            "region" : "mountains",
+            "color" : "bronze",
+            "neighbors" : ["Kultos", "Osium"]
+        },
+        "Osium" : {
+            "region" : "mountains",
+            "color" : "gold",
+            "neighbors" : ["Lyram", "Merkatim", "Naris"]
+        }
+    }
 }
