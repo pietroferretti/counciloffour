@@ -22,7 +22,12 @@ public class GameBoard {
 	// HashMap to store how many councillors there are for each color
 	private Map<ColorCouncillor, Integer> availableCouncillors = new HashMap<>();
 	
-
+	private Integer bonusGold;
+	private Integer bonusSilver;
+	private Integer bonusBronze;
+	private Integer bonusBlue;
+	private List<Integer> bonusesKing;
+	
 	public int getAvailableAssistants() {
 		return availableAssistants;
 	}
@@ -77,6 +82,18 @@ public class GameBoard {
 		// Generate a King object
 		City startCityKing = getCityByName(settings.startCityKing);
 		king = new King(generateRandomBalcony(settings.councillorsEachBalcony), startCityKing);
+		
+		// Get the bonuses from settings
+		bonusGold = settings.bonuses.get("bonusGold");
+		bonusSilver = settings.bonuses.get("bonusSilver");
+		bonusBronze = settings.bonuses.get("bonusBronze");
+		bonusBlue = settings.bonuses.get("bonusBlue");
+		bonusesKing = new ArrayList<>();
+		bonusesKing.add(settings.bonuses.get("bonusKing1"));	// Maybe should refactor as a loop
+		bonusesKing.add(settings.bonuses.get("bonusKing2"));
+		bonusesKing.add(settings.bonuses.get("bonusKing3"));
+		bonusesKing.add(settings.bonuses.get("bonusKing4"));
+		bonusesKing.add(settings.bonuses.get("bonusKing5"));
 		
 	}
 

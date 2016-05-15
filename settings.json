@@ -1,17 +1,21 @@
 {
+    "balconyCouncillors" : 4,
+    "availableCouncillors" : 6,
     "assistants" : 20,
-    "councillors" : 6,
     "bonuses" : {
         "bonusCoast" : 5,
         "bonusHills" : 5,
         "bonusMountains" : 5,
-        "bonusKing" : [25, 18, 12, 7, 3],
+        "bonusKing1" : 25,
+        "bonusKing2" : 18,
+        "bonusKing3" : 12,
+        "bonusKing4" : 7,
+        "bonusKing5" : 3,
         "bonusGold" : 20,
         "bonusSilver" : 12,
         "bonusBronze" : 8,
         "bonusBlue" : 5
     },
-    "startCityKing" : "Juvelar", 
     "map" : {
         "Arkon" : {
             "region" : "coast",
