@@ -3,14 +3,12 @@ package it.polimi.ingsw.ps14;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-import org.junit.internal.runners.model.EachTestNotifier;
-
 public class Balcony {
 
 	private PriorityQueue<ColorCouncillor> councillors;
 
 	public Balcony(PriorityQueue<ColorCouncillor> initialCouncillors) {
-		councillors=initialCouncillors;
+		councillors = initialCouncillors;
 	}
 
 	public void electCouncillor(ColorCouncillor color) {
