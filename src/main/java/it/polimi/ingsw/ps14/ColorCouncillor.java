@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps14;
 
 import java.util.Random;
 
-enum ColorCouncillor {
+public enum ColorCouncillor {
 
 	PURPLE,
 

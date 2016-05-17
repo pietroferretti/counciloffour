@@ -20,13 +20,17 @@ public class Region {
   private Bonus bonusRegion;
   
   
-public Region(PriorityQueue<ColorCouncillor> balcony,RegionType type){
-	this.balcony=new Balcony(balcony);//build a balcony with parameters from gameboard
+public Region(PriorityQueue<ColorCouncillor> initialCouncillors,RegionType type){
+	this.balcony=new Balcony(initialCouncillors);//build a balcony with parameters from gameboard
 	this.type=type;
 }
 
 public RegionType getType() {
 	return type;
+}
+
+public Balcony getBalcony() {
+	return balcony;
 }
 
 public ArrayList<City> getCities() {
