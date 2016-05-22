@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps14;
 
 import java.util.HashMap;
 
-import it.polimi.ingsw.ps14.bonus.Bonus;
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
 
 public class NobilityTrack {
 

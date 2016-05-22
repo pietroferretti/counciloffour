@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.bonus;
+package it.polimi.ingsw.ps14.model.bonus;
 
 import it.polimi.ingsw.ps14.Player;
 import it.polimi.ingsw.ps14.PoliticDeck;

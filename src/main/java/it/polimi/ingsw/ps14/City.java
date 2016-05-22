@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps14;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.ingsw.ps14.bonus.Bonus;
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
 
 public class City {
 
