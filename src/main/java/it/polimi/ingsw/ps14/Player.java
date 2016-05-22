@@ -99,9 +99,17 @@ public class Player {
 		return level;
 	}
 
+//players can upgrade nobility level up to infinity , so you can calculate who is first and assign him final points 
+	
 	public int upLevel() {
 		level++;
-		return level;	// returns the new value of level to check bonuses
+		return level;	//returns the new value of level to check bonuses
+		
+	}
+	
+	//double upgrade of nobility through bonus
+	public void upLevel(int n){
+		level=level+n;
 	}
 	
 	public int getPoints() {
@@ -123,6 +131,7 @@ public class Player {
 	public void addPolitic(PoliticCard card) {
 		hand.add(card);
 	}
+	
 
 //	public void Card(PoliticDeck deck) {
 //		hand.add(deck.drawCard());

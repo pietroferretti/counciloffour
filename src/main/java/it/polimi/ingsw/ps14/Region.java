@@ -3,6 +3,8 @@ package it.polimi.ingsw.ps14;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+import it.polimi.ingsw.ps14.bonus.Bonus;
+
 public class Region {
 
   private final RegionType type;

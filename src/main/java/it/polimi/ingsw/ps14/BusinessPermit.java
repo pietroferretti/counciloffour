@@ -2,6 +2,8 @@ package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
 
+import it.polimi.ingsw.ps14.bonus.Bonus;
+
 public class BusinessPermit implements Card {
 
 	private final ArrayList<City> cities;
