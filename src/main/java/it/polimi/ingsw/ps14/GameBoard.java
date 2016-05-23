@@ -10,26 +10,36 @@ import java.util.Random;
 public class GameBoard {
 
 	Random random = new Random();
-	
+
 	private Region[] region;
-	
+
 	private King king;
-	
+
 	private List<City> cities;
 
 	private int availableAssistants;
-	
+
 	// HashMap to store how many councillors there are for each color
 	private Map<ColorCouncillor, Integer> availableCouncillors = new HashMap<>();
-	
+
 	private Integer bonusGold;
 	private Integer bonusSilver;
 	private Integer bonusBronze;
 	private Integer bonusBlue;
 	private List<Integer> bonusesKing;
-	
+
+	private PoliticDeck politicDeck;
+
 	public int getAvailableAssistants() {
 		return availableAssistants;
+	}
+
+	public PoliticDeck getPoliticDeck() {
+		return politicDeck;
+	}
+
+	public void setPoliticDeck(PoliticDeck politicDeck) {
+		this.politicDeck = politicDeck;
 	}
 
 	public GameBoard(Settings settings) {
@@ -37,64 +47,67 @@ public class GameBoard {
 
 		// Fill the councillors hash map
 		for (ColorCouncillor councillor : ColorCouncillor.values())
-			availableCouncillors.put(councillor,settings.availableCouncillorsEachColor);
-		
+			availableCouncillors.put(councillor, settings.availableCouncillorsEachColor);
+
 		// Set the number of assistants available in the game
 		this.availableAssistants = settings.availableAssistants;
 
-		//Build a region for each regionType and send parameter: RandomBalcony and RegionType
-		//TODO: do it better! "region[regT.ordinal()] not so good"
+		// Build a region for each regionType and send parameter: RandomBalcony
+		// and RegionType
+		// TODO: do it better! "region[regT.ordinal()] not so good"
 		region = new Region[RegionType.values().length];
-		for (RegionType regT : RegionType.values()){
-			region[regT.ordinal()]=new Region(generateRandomBalcony(settings.councillorsEachBalcony),regT);
+		for (RegionType regT : RegionType.values()) {
+			region[regT.ordinal()] = new Region(generateRandomBalcony(settings.councillorsEachBalcony), regT);
 		}
-		
+
 		// Populate the "cities" array and the Regions
 		cities = new ArrayList<>();
-		for (String cityName : settings.map.keySet()) {		
-			
+		for (String cityName : settings.map.keySet()) {
+
 			String colorString = (String) settings.map.get(cityName).get("color");
 			ColorCity cityColor = ColorCity.valueOf(colorString);
-			
-			String regionString = (String) settings.map.get(cityName).get("region");	
+
+			String regionString = (String) settings.map.get(cityName).get("region");
 			Region cityRegion = getRegion(RegionType.valueOf(regionString));
-			
+
 			City newCity = new City(cityName, cityColor, cityRegion);
 			cities.add(newCity);
 			cityRegion.addCity(newCity);
 		}
-		
+
 		// Create connections between cities
-		for (String cityName: settings.map.keySet()) {
-			
+		for (String cityName : settings.map.keySet()) {
+
 			City city = getCityByName(cityName);
 			List<String> neighborsStringList = (ArrayList<String>) settings.map.get(cityName).get("neighbors");
-			
+
 			List<City> neighborsList = new ArrayList<>();
 			for (String neighborName : neighborsStringList) {
 				City tempNeighbor = getCityByName(neighborName);
 				neighborsList.add(tempNeighbor);
 			}
-			
+
 			city.setNeighbors(neighborsList);
 		}
-		
+
 		// Generate a King object
 		City startCityKing = getCityByName(settings.startCityKing);
 		king = new King(generateRandomBalcony(settings.councillorsEachBalcony), startCityKing);
-		
+
 		// Get the bonuses from settings
 		bonusGold = settings.bonuses.get("bonusGold");
 		bonusSilver = settings.bonuses.get("bonusSilver");
 		bonusBronze = settings.bonuses.get("bonusBronze");
 		bonusBlue = settings.bonuses.get("bonusBlue");
 		bonusesKing = new ArrayList<>();
-		bonusesKing.add(settings.bonuses.get("bonusKing1"));	// Maybe should refactor as a loop
+		bonusesKing.add(settings.bonuses.get("bonusKing1")); // Maybe should
+																// refactor as a
+																// loop
 		bonusesKing.add(settings.bonuses.get("bonusKing2"));
 		bonusesKing.add(settings.bonuses.get("bonusKing3"));
 		bonusesKing.add(settings.bonuses.get("bonusKing4"));
 		bonusesKing.add(settings.bonuses.get("bonusKing5"));
-		
+
 	}
 
 	/*
@@ -109,26 +122,25 @@ public class GameBoard {
 			return false;
 	}
 
-	private PriorityQueue<ColorCouncillor> generateRandomBalcony(int councillorsEachBalcony){
-		PriorityQueue<ColorCouncillor> tempBalcony= new PriorityQueue<ColorCouncillor>();
-		for(int j=0;j<councillorsEachBalcony;j++)
+	private PriorityQueue<ColorCouncillor> generateRandomBalcony(int councillorsEachBalcony) {
+		PriorityQueue<ColorCouncillor> tempBalcony = new PriorityQueue<ColorCouncillor>();
+		for (int j = 0; j < councillorsEachBalcony; j++)
 			tempBalcony.add(getRandomAvailableCouncillor());
 		return tempBalcony;
-	
+
 	}
 
 	public boolean useCouncillor(ColorCouncillor councillor) {
 		if (councillorIsAvailable(councillor)) {
-			availableCouncillors.put(councillor, availableCouncillors.get(councillor)-1);
+			availableCouncillors.put(councillor, availableCouncillors.get(councillor) - 1);
 			return true;
 		} else
 			return false;
 	}
-		
-	public Integer getCouncillor(ColorCouncillor color){
+
+	public Integer getCouncillor(ColorCouncillor color) {
 		return availableCouncillors.get(color);
 	}
-
 
 	// For first population of balconies
 	public ColorCouncillor getRandomAvailableCouncillor() {
@@ -142,41 +154,42 @@ public class GameBoard {
 	 */
 
 	public void setAssistantsAvailable(int assistantsAvailable) {
-		this.availableAssistants=assistantsAvailable;
+		this.availableAssistants = assistantsAvailable;
 	}
-	
-	public int getAssistantsAvailable(){
+
+	public int getAssistantsAvailable() {
 		return availableAssistants;
 	}
 
-	public boolean useAssistants(int quantity){ //ma se li considerassimo infiniti??
-		if(availableAssistants>=quantity){
-			availableAssistants=availableAssistants-quantity;
+	public boolean useAssistants(int quantity) { // ma se li considerassimo
+													// infiniti??
+		if (availableAssistants >= quantity) {
+			availableAssistants = availableAssistants - quantity;
 			return true;
-		}
-		else return false;
-		}
-		
-	public boolean useAssistant(){
+		} else
+			return false;
+	}
+
+	public boolean useAssistant() {
 		return useAssistants(1);
 	}
-	
+
 	/*
 	 * -------------------------- REGION ---------------------------
 	 */
-	
-	public Region getRegion(RegionType type){
-		int i=0;
-		while(region[i].getType()!=type)
+
+	public Region getRegion(RegionType type) {
+		int i = 0;
+		while (region[i].getType() != type)
 			i++;
-		if(i != region.length) {
+		if (i != region.length) {
 			return region[i];
 		} else {
 			throw new RuntimeException("Region not found!");
 		}
 	}
-	
-	public Region[] getRegions(){
+
+	public Region[] getRegions() {
 		return region;
 	}
 	/*
@@ -194,10 +207,10 @@ public class GameBoard {
 	/*
 	 * --------------------------- CITIES -----------------------------
 	 */
-		
+
 	private City getCityByName(String cityName) {
-		for(City city : cities) {
-			if(city.getName() == cityName) {
+		for (City city : cities) {
+			if (city.getName() == cityName) {
 				return city;
 			}
 		}
