@@ -1,7 +1,8 @@
-package it.polimi.ingsw.ps14.controller.actions;
+package it.polimi.ingsw.ps14.controller.actions.quickactions;
 
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
+import it.polimi.ingsw.ps14.controller.actions.QuickAction;
 
 public class SendAssistantToElectCouncillorAction extends QuickAction {
 

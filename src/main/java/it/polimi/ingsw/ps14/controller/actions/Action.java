@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps14.controller.actions;
 
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
+import it.polimi.ingsw.ps14.controller.GameState;
 
 public abstract class Action {
 
@@ -15,5 +16,5 @@ public abstract class Action {
 
 	public abstract boolean isValid();
 
-	public abstract Object execute();
+	public abstract GameState execute();
 }
