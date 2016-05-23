@@ -149,7 +149,7 @@ public class GameBoard {
 		return availableAssistants;
 	}
 
-	public boolean useAssistants(int quantity){
+	public boolean useAssistants(int quantity){ //ma se li considerassimo infiniti??
 		if(availableAssistants>=quantity){
 			availableAssistants=availableAssistants-quantity;
 			return true;

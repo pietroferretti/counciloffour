@@ -2,12 +2,14 @@ package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
 
+//PROBABILE CONTROLLER
+
 public class GameLogic {
 
 	private GameBoard gameboard;
 
 	private ArrayList<Player> players;
-	
+
 	private Settings settings;
 
 	/*
@@ -20,9 +22,10 @@ public class GameLogic {
 		}
 		this.players = players;
 		this.settings = settings;
-		
-		this.gameboard = new GameBoard(settings); // Inizializzare la gameboard con i
-											// dati in settings
+
+		this.gameboard = new GameBoard(settings); // Inizializzare la gameboard
+													// con i
+		// dati in settings
 	}
 
 	private boolean setupGame() {
