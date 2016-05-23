@@ -29,6 +29,14 @@ public class PoliticDeck extends Deck {
 		shuffle();
 	}
 
+	public ArrayList<PoliticCard> getDeck() {
+		return deck;
+	}
+
+	public ArrayList<PoliticCard> getDiscardedCards() {
+		return discardedCards;
+	}
+
 	public PoliticCard drawCard() {
 		return deck.remove(0); // ??
 	}
