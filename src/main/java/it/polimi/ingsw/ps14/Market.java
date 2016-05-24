@@ -26,7 +26,7 @@ public class Market {
 		} else if (item.getItem().getClass().equals(PoliticCard.class)) {
 			earnCoins(item);
 			buyer.addPolitic((PoliticCard) item.getItem());
-			item.getOwner().useCards((PoliticCard) item.getItem());
+			item.getOwner().removeCard((PoliticCard) item.getItem());
 
 		} else {
 			earnCoins(item);
