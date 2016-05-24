@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps14.controller.actions;
 
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.controller.MainActionDoneState;
+import it.polimi.ingsw.ps14.controller.turnstates.*;
 
 public class DrawCardAction extends MainAction {
 
@@ -12,16 +12,16 @@ public class DrawCardAction extends MainAction {
 	}
 
 	@Override
-	public boolean isValid() { 
-		//always valid :D
+	public boolean isValid() {
+		// always valid :D
 		return true;
 	}
 
 	@Override
-	public Object execute() {
+	public TurnState execute() {
 		player.addPolitic(gameBoard.getPoliticDeck().drawCard());
-		return new MainActionDoneState();
-		
+		return DrawnCardState.getInstance();
+
 	}
 
 }
