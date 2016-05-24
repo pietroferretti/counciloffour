@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps14.controller.actions;
 
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
+import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public abstract class QuickAction extends Action {
 
@@ -17,7 +18,7 @@ public abstract class QuickAction extends Action {
 	}
 
 	@Override
-	public Object execute() {
+	public TurnState execute() {
 		// TODO Auto-generated method stub
 		return null;
 	}
