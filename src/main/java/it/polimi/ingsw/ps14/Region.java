@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
@@ -9,7 +10,7 @@ public class Region {
 
   private final RegionType type;
 
-  private ArrayList<City> cities;
+  private List<City> cities;
 
   private Balcony balcony;
 
@@ -23,8 +24,9 @@ public class Region {
   
   
 public Region(PriorityQueue<ColorCouncillor> initialCouncillors,RegionType type){
-	this.balcony=new Balcony(initialCouncillors);//build a balcony with parameters from gameboard
-	this.type=type;
+	this.balcony = new Balcony(initialCouncillors);//build a balcony with parameters from gameboard
+	this.type = type;
+	this.cities = new ArrayList<>();
 }
 
 public RegionType getType() {
@@ -35,7 +37,7 @@ public Balcony getBalcony() {
 	return balcony;
 }
 
-public ArrayList<City> getCities() {
+public List<City> getCities() {
 	return cities;
 }
 

@@ -59,17 +59,19 @@ public class GameBoard {
 		for (RegionType regT : RegionType.values()) {
 			regions.add(new Region(generateRandomBalcony(settings.councillorsEachBalcony), regT));
 		}
-
+		
 		// Populate the "cities" array and the Regions
 		cities = new ArrayList<>();
 		for (String cityName : settings.map.keySet()) {
 
 			String colorString = (String) settings.map.get(cityName).get("color");
-			ColorCity cityColor = ColorCity.valueOf(colorString);
+			ColorCity cityColor = ColorCity.valueOf(colorString.toUpperCase());
 
 			String regionString = (String) settings.map.get(cityName).get("region");
-			Region cityRegion = getRegion(RegionType.valueOf(regionString));
-
+			RegionType type = RegionType.valueOf(regionString.toUpperCase());
+			
+			Region cityRegion = getRegion(RegionType.valueOf(regionString.toUpperCase()));
+			
 			City newCity = new City(cityName, cityColor, cityRegion);
 			cities.add(newCity);
 			cityRegion.addCity(newCity);
@@ -77,10 +79,8 @@ public class GameBoard {
 
 		// Create connections between cities
 		for (String cityName : settings.map.keySet()) {
-
 			City city = getCityByName(cityName);
 			List<String> neighborsStringList = (ArrayList<String>) settings.map.get(cityName).get("neighbors");
-
 			List<City> neighborsList = new ArrayList<>();
 			for (String neighborName : neighborsStringList) {
 				City tempNeighbor = getCityByName(neighborName);
@@ -148,8 +148,9 @@ public class GameBoard {
 
 	// For first population of balconies
 	public ColorCouncillor getRandomAvailableCouncillor() {
-		int pick = new Random().nextInt(ColorCouncillor.values().length);
-		while (councillorIsAvailable(ColorCouncillor.values()[pick]))
+		Random generator = new Random();
+		int pick = generator.nextInt(ColorCouncillor.values().length - 1);
+		while (!councillorIsAvailable(ColorCouncillor.values()[pick]))
 			pick++;
 		return ColorCouncillor.values()[pick];
 	}
@@ -185,9 +186,10 @@ public class GameBoard {
 	public Region getRegion(RegionType type) {
 		Region regionFound = null;
 		for(Region regionInList: regions) {
-			if(regionInList.getType() == type)
+			if(regionInList.getType() == type) {
 				regionFound = regionInList;
 				break;
+			}
 		}
 		return regionFound;
 	}
@@ -214,7 +216,7 @@ public class GameBoard {
 
 	private City getCityByName(String cityName) {
 		for (City city : cities) {
-			if (city.getName() == cityName) {
+			if (city.getName().equals(cityName)) {
 				return city;
 			}
 		}
