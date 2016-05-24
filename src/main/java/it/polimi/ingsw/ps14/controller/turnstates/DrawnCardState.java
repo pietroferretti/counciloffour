@@ -16,8 +16,9 @@ public class DrawnCardState extends TurnState {
 
 	@Override
 	public boolean isActionValid(Action action) {
-		// TODO Auto-generated method stub
-		return false;
+
+		// every action is legit after drawing a card
+		return true;
 	}
 
 }
