@@ -6,8 +6,8 @@ import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public abstract class QuickAction extends Action {
 
-	public QuickAction(Player player, GameBoard gameBoard) {
-		super(player, gameBoard);
+	public QuickAction(Player player, GameBoard gameBoard,TurnState previousState) {
+		super(player, gameBoard,previousState);
 		// TODO Auto-generated constructor stub
 	}
 

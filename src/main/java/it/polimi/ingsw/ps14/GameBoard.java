@@ -141,6 +141,10 @@ public class GameBoard {
 	public Integer getCouncillor(ColorCouncillor color) {
 		return availableCouncillors.get(color);
 	}
+	
+	public void addDiscardedCouncillor(ColorCouncillor color){
+		availableCouncillors.put(color, availableCouncillors.get(color)+1);
+	}
 
 	// For first population of balconies
 	public ColorCouncillor getRandomAvailableCouncillor() {

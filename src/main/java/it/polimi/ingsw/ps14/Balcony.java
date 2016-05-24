@@ -11,9 +11,10 @@ public class Balcony {
 		councillors = initialCouncillors;
 	}
 
-	public void electCouncillor(ColorCouncillor color) {
-		councillors.poll();
+	public ColorCouncillor electCouncillor(ColorCouncillor color) {
+		ColorCouncillor discarded=councillors.poll();
 		councillors.add(color);
+		return discarded;
 	}
 
 	public PriorityQueue<ColorCouncillor> readBalcony() {

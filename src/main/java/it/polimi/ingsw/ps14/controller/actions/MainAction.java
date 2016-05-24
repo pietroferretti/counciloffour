@@ -6,8 +6,8 @@ import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public abstract class MainAction extends Action {
 
-	public MainAction(Player player, GameBoard gameBoard) {
-		super(player, gameBoard);
+	public MainAction(Player player, GameBoard gameBoard,TurnState previousState) {
+		super(player, gameBoard,previousState);
 		// TODO Auto-generated constructor stub
 	}
 
