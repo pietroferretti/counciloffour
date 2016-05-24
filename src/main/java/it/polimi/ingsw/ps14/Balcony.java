@@ -12,7 +12,7 @@ public class Balcony {
 	}
 
 	public ColorCouncillor electCouncillor(ColorCouncillor color) {
-		ColorCouncillor discarded=councillors.poll();
+		ColorCouncillor discarded = councillors.poll();
 		councillors.add(color);
 		return discarded;
 	}
@@ -43,4 +43,41 @@ public class Balcony {
 		}
 		return boughtCounsellor;
 	}
+
+	// redone previous method
+	public boolean thereIsColorsInBalcony(ArrayList<PoliticCard> cards) {
+		PriorityQueue<ColorCouncillor> newCouncillors = councillors;
+		for (PoliticCard card : cards) {
+			if (newCouncillors.contains(colorPoliticToCouncillor(card))) {
+				newCouncillors.remove(colorPoliticToCouncillor(card));
+			} else
+				return false;
+		}
+		return true;
+	}
+
+	
+	//TODO: is this the best way?
+	public int councillorCost(ArrayList<PoliticCard> cards) {
+		int cost=0;
+		switch (cardsInBalcony(cards)) {
+		case 1:
+			cost = 10;
+			break;
+		case 2:
+			cost = 7;
+			break;
+		case 3:
+			cost = 4;
+			break;
+		case 4:
+			cost = 0;
+			break;
+		}
+			if (cards.contains(ColorPolitic.JOLLY))
+				cost++;
+			return cost;
+		
+	}
+
 }
