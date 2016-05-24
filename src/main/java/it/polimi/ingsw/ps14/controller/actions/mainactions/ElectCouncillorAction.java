@@ -5,6 +5,12 @@ import it.polimi.ingsw.ps14.ColorCouncillor;
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
 import it.polimi.ingsw.ps14.controller.actions.MainAction;
+import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenAlreadyDoneTurnState;
+import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenNotDoneYetTurnState;
+import it.polimi.ingsw.ps14.controller.turnstates.DrawnCardState;
+import it.polimi.ingsw.ps14.controller.turnstates.MainActionDoneTurnState;
+import it.polimi.ingsw.ps14.controller.turnstates.MainAndQuickActionDoneTurnState;
+import it.polimi.ingsw.ps14.controller.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public class ElectCouncillorAction extends MainAction {
@@ -35,14 +41,22 @@ public class ElectCouncillorAction extends MainAction {
 		// electCouncillor return discarded councillor, discarded councillor is
 		// added to availableCouncillors in gameboard
 		super.getGameBoard().addDiscardedCouncillor(balcony.electCouncillor(councillor));
-		
-		//electCouncillor give 4 coins to player
+
+		// electCouncillor give 4 coins to player
 		super.getPlayer().addCoins(4);
-		
+
 		return nextState(super.getPreviousState());
 	}
 
-	private TurnState nextState(TurnState previousState){
+	private TurnState nextState(TurnState previousState) {
+		if (previousState instanceof DrawnCardState)
+			return MainActionDoneTurnState.getInstance();
+		if (previousState instanceof MainActionDoneTurnState)
+			return ChooseMainWhenAlreadyDoneTurnState.getInstance();
+		if (previousState instanceof QuickActionDoneTurnState)
+			return MainAndQuickActionDoneTurnState.getInstance();
+		if (previousState instanceof ChooseMainWhenNotDoneYetTurnState)
+			return QuickActionDoneTurnState.getInstance();
 		return null;
 	}
 }
