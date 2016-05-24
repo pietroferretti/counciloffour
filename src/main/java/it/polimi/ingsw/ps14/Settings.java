@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class Settings {
 	public final String startCityKing;
 
 	public Settings(String filename) throws IOException {
-		
+		 
 		// Open the settings file
 		BufferedReader settingsFile;
 		try {
@@ -52,35 +53,35 @@ public class Settings {
 		// Load the bonuses
 		bonuses = new HashMap<>();
 		JSONObject jsonBonuses = jsonSettings.getJSONObject("bonuses");
-		while (jsonBonuses.keys().hasNext()) {
-			String bonusName = jsonBonuses.keys().next();
-			
+		Iterator<?> bonusesKeys = jsonBonuses.keys();
+		while (bonusesKeys.hasNext()) {
+			String bonusName = (String) bonusesKeys.next();
 			bonuses.put(bonusName, new Integer(jsonBonuses.getInt(bonusName)));
 		}
 		
 		// Load the game map (cities and roads)
 		map = new HashMap<>();
 		JSONObject jsonMap = jsonSettings.getJSONObject("map");
-		
 		String tempCityKing = null;
-		while (jsonMap.keys().hasNext()) {
-			String cityName = jsonMap.keys().next();
+		Iterator<?> mapKeys = jsonMap.keys();
+		while (mapKeys.hasNext()) {
+			String cityName = (String) mapKeys.next();
+			JSONObject jsonCity = jsonMap.getJSONObject(cityName);
 			
 			Map<String, Object> cityInfo = new HashMap<String, Object>();
 			
-			cityInfo.put("region", jsonMap.getString("region"));	// Get the city's region from the settings file
-			cityInfo.put("color", jsonMap.get("color"));			// Get the city's color from the settings file
-			
-			if (cityInfo.get("color") == "purple") {
+			cityInfo.put("region", jsonCity.getString("region"));	// Get the city's region from the settings file
+			cityInfo.put("color", jsonCity.get("color"));			// Get the city's color from the settings file
+
+			if (cityInfo.get("color").equals("purple")) {
 				if (tempCityKing == null) {
 					tempCityKing = cityName;
 				} else {
 					throw new RuntimeException("More than one purple city in the settings file!");
 				}
 			}
-			
 			List<String> tempNeighbors = new ArrayList<>();
-			JSONArray jsonNeighbors = jsonMap.getJSONArray("neighbors");
+			JSONArray jsonNeighbors = jsonCity.getJSONArray("neighbors");
 			for (int i=0; i<jsonNeighbors.length(); i++) {			// Get the city's neighbors from the settings file
 				tempNeighbors.add(jsonNeighbors.getString(i));		// as a list
 			}
