@@ -12,15 +12,8 @@ public class DrawCardAction extends MainAction {
 	}
 
 	@Override
-	public boolean isValid() { // ci sono altri problemi??
-		// Check if politicDeck is empty
-		if (gameBoard.getPoliticDeck().getDeck().size() == 0)
-
-			// oppure posso risolvere il prolema andando a shuffolare di nuovo
-			// gameBoard.getPoliticDeck().shuffleAll();
-			// return true;
-
-			return false;
+	public boolean isValid() { 
+		//always valid :D
 		return true;
 	}
 
@@ -28,6 +21,7 @@ public class DrawCardAction extends MainAction {
 	public Object execute() {
 		player.addPolitic(gameBoard.getPoliticDeck().drawCard());
 		return new MainActionDoneState();
+		
 	}
 
 }

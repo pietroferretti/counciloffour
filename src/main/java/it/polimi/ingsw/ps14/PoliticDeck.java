@@ -23,7 +23,7 @@ public class PoliticDeck extends Deck {
 
 	}
 
-	public void shuffleAll() {
+	private void shuffleAll() {
 		deck.addAll(discardedCards);
 		discardedCards.clear();
 		shuffle();
@@ -38,7 +38,9 @@ public class PoliticDeck extends Deck {
 	}
 
 	public PoliticCard drawCard() {
-		return deck.remove(0); // ??
+		if (deck.size() == 0)
+			shuffleAll();
+		return deck.remove(0);
 	}
 
 	public ArrayList<PoliticCard> drawMultipleCards(int number) {

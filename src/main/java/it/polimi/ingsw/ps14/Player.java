@@ -58,11 +58,11 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getColor() {
 		return color;
 	}
-	
+
 	public boolean useCoins(int coins) {
 		if (this.coins >= coins) {
 			this.coins = this.coins - coins;
@@ -99,19 +99,20 @@ public class Player {
 		return level;
 	}
 
-//players can upgrade nobility level up to infinity , so you can calculate who is first and assign him final points 
-	
+	// players can upgrade nobility level up to infinity , so you can calculate
+	// who is first and assign him final points
+
 	public int upLevel() {
 		level++;
-		return level;	//returns the new value of level to check bonuses
-		
+		return level; // returns the new value of level to check bonuses
+
 	}
-	
-	//double upgrade of nobility through bonus
-	public void upLevel(int n){
-		level=level+n;
+
+	// double upgrade of nobility through bonus
+	public void upLevel(int n) {
+		level = level + n;
 	}
-	
+
 	public int getPoints() {
 		return points;
 	}
@@ -119,46 +120,46 @@ public class Player {
 	public void addPoints(int points) {
 		this.points = this.points + points;
 	}
-	
+
 	public ArrayList<PoliticCard> getHand() {
 		return hand;
 	}
-	
+
 	public int getNumberOfCards() {
 		return hand.size();
 	}
-	
+
 	public void addPolitic(PoliticCard card) {
 		hand.add(card);
 	}
-	
 
-//	public void Card(PoliticDeck deck) {
-//		hand.add(deck.drawCard());
-//		// TODO possibili errori?
-//		// tipo mazzo che finisce ecc li controlliamo prima di invocarlo?
-//	}
-	
+	// public void Card(PoliticDeck deck) {
+	// hand.add(deck.drawCard());
+	// // TODO possibili errori?
+	// // tipo mazzo che finisce ecc li controlliamo prima di invocarlo?
+	// }
+
 	// sì può accorpare all'altro metodo con polimorfismo?
 	public void drawMultipleCards(PoliticDeck deck, int numberOfCards) {
 		hand.addAll(deck.drawMultipleCards(numberOfCards));
 	}
 
-	public void useCards(PoliticCard card){
+	public void useCards(PoliticCard card) {
 		hand.remove(card);
+		// TODO fare ritornare carta e metterla in discarded
 	}
-	
+
 	public void acquireBusinessPermit(BusinessPermit permitTile) {
 		permitTiles.add(permitTile);
 	}
-	
+
 	public int getNumberOfPermits() {
 		return permitTiles.size() + usedPermitTiles.size();
 	}
 
 	public void sellPermits(BusinessPermit item) {
 		permitTiles.remove(item);
-		
+
 	}
 
 }
