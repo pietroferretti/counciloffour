@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps14;
 
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 
 import org.junit.Test;
@@ -15,8 +13,9 @@ public class SettingsTest {
 			settingsInstance = new Settings("settings.json");
 		} catch (IOException e) {
 			e.printStackTrace();
-			fail("error");
 		}
+		// TODO: sostituisci i println con assert
+		// ad es. controlla se regioni, colori, bonus, sono uguali a quelli del file
 		System.out.println(settingsInstance.startCityKing);
 		System.out.println(settingsInstance.bonuses.toString());
 		System.out.println(settingsInstance.map.toString());

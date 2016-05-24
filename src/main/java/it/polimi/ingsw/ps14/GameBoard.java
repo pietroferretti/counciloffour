@@ -11,7 +11,7 @@ public class GameBoard {
 
 	Random random = new Random();
 
-	private Region[] region;
+	private List<Region> regions;
 
 	private King king;
 
@@ -55,9 +55,9 @@ public class GameBoard {
 		// Build a region for each regionType and send parameter: RandomBalcony
 		// and RegionType
 		// TODO: do it better! "region[regT.ordinal()] not so good"
-		region = new Region[RegionType.values().length];
+		regions = new ArrayList<>();
 		for (RegionType regT : RegionType.values()) {
-			region[regT.ordinal()] = new Region(generateRandomBalcony(settings.councillorsEachBalcony), regT);
+			regions.add(new Region(generateRandomBalcony(settings.councillorsEachBalcony), regT));
 		}
 
 		// Populate the "cities" array and the Regions
@@ -183,19 +183,19 @@ public class GameBoard {
 	 */
 
 	public Region getRegion(RegionType type) {
-		int i = 0;
-		while (region[i].getType() != type)
-			i++;
-		if (i != region.length) {
-			return region[i];
-		} else {
-			throw new RuntimeException("Region not found!");
+		Region regionFound = null;
+		for(Region regionInList: regions) {
+			if(regionInList.getType() == type)
+				regionFound = regionInList;
+				break;
 		}
+		return regionFound;
 	}
 
-	public Region[] getRegions() {
-		return region;
+	public List<Region> getRegions() {
+		return regions;
 	}
+	
 	/*
 	 * --------------------------- KING -----------------------------
 	 */
