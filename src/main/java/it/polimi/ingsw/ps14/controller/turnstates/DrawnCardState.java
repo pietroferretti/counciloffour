@@ -18,7 +18,7 @@ public class DrawnCardState extends TurnState {
 	public boolean isActionValid(Action action) {
 
 		// every action is legit after drawing a card
-		return true;
+		return action.isValid();
 	}
 
 }

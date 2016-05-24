@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Player {
 
@@ -133,22 +132,45 @@ public class Player {
 		hand.add(card);
 	}
 
-	// public void Card(PoliticDeck deck) {
-	// hand.add(deck.drawCard());
-	// // TODO possibili errori?
-	// // tipo mazzo che finisce ecc li controlliamo prima di invocarlo?
-	// }
-
-	// sì può accorpare all'altro metodo con polimorfismo?
-	public void drawMultipleCards(PoliticDeck deck, int numberOfCards) {
-		hand.addAll(deck.drawMultipleCards(numberOfCards));
+	public boolean hasCardInHand(ColorPolitic color) {
+		boolean cardInHand = false;
+		for(PoliticCard card: hand) {
+			if(card.getColor() == color) {
+				cardInHand = true;
+				break;
+			}
+		}
+		return cardInHand;
+	}
+	
+	// Finds a card with a specific color in the hand, returns null if there isn't one
+	// TODO: eccezione se non c'è una carta nella mano?
+	public PoliticCard findCardInHand(ColorPolitic color) {
+		PoliticCard cardFound = null;
+		for(PoliticCard card: hand) {
+			if(card.getColor() == color) {
+				cardFound = card;
+				break;
+			}
+		}
+		return cardFound;
+	}
+	
+	// Removes a card from the hand and returns it
+	public PoliticCard useCard(ColorPolitic color) {
+		PoliticCard card = findCardInHand(color);
+		if (hand.remove(card) == true) {
+			return card;
+		} else {
+			// TODO: eccezione se non trova la carta nella mano
+			return null;
+			}
 	}
 
-	public void useCards(PoliticCard card) {
+	public void removeCard(PoliticCard card) {
 		hand.remove(card);
-		// TODO fare ritornare carta e metterla in discarded
 	}
-
+	
 	public void acquireBusinessPermit(BusinessPermit permitTile) {
 		permitTiles.add(permitTile);
 	}

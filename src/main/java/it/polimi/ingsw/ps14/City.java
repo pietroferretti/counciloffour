@@ -37,17 +37,15 @@ public class City {
 		emporiums = new ArrayList<>();
 	}
 	
-	
-	// TODO: return number of emporiums not owned by player
+	public int numEmporiumsBuilt() {
+		return emporiums.size();
+	}
 	
 	public boolean isEmporiumBuilt(Player player) {
 		return emporiums.contains(player);
 	}
 
-	/*
-	 * Da tenere a mente che il metodo che cerca tutti i bonus tra città vicine
-	 * deve ricordare quali città sono state già controllate
-	 */
+	// Return all the neighboring cities where the player has built an emporium
 	public List<City> findLinkedEmporiums(Player player) {
 		List<City> cities = new ArrayList<>();
 		for (City neighbor : neighbors) {
