@@ -31,6 +31,10 @@ public class Settings {
 	public final String kingStartingCityString;
 	
 	public final List<Map<String, Integer>> tokens;
+	
+	public final List<Map<String, Object>> permitDeckCoast;
+	public final List<Map<String, Object>> permitDeckHills;
+	public final List<Map<String, Object>> permitDeckMountains;
 
 	public Settings(String filename) throws IOException {
 		 
@@ -66,17 +70,28 @@ public class Settings {
 		JSONArray jsonTokens = jsonSettings.getJSONArray("tokens");
 		tokens = loadTokens(jsonTokens);
 		
+		// Load business permits decks
+		JSONArray jsonPermitDeckCoast = jsonSettings.getJSONArray("permitDeckCoast");
+		permitDeckCoast = loadPermitDeck(jsonPermitDeckCoast);
+		
+		JSONArray jsonPermitDeckHills = jsonSettings.getJSONArray("permitDeckHills");
+		permitDeckHills = loadPermitDeck(jsonPermitDeckHills);
+		
+		JSONArray jsonPermitDeckMountains = jsonSettings.getJSONArray("permitDeckMountains");
+		permitDeckMountains = loadPermitDeck(jsonPermitDeckMountains);
+		
 		// Close the settings file
 		try {
 			settingsFile.close();
 		} catch (IOException e) {
-			throw new IOException("Couldn't close settings file");
+			System.out.println("Couldn't close settings file");
+			throw e;
 		}
 	}
 	
 	Map<String, Integer> loadBonuses(JSONObject jsonBonuses){
 		Map <String, Integer> bonuses = new HashMap<>();
-
+		
 		Iterator<?> bonusesKeys = jsonBonuses.keys();
 		while (bonusesKeys.hasNext()) {
 			String bonusName = (String) bonusesKeys.next();
@@ -94,7 +109,7 @@ public class Settings {
 			String cityName = (String) mapKeys.next();
 			JSONObject jsonCity = jsonMap.getJSONObject(cityName);
 			
-			Map<String, Object> cityInfo = new HashMap<String, Object>();
+			Map<String, Object> cityInfo = new HashMap<>();
 			
 			cityInfo.put("region", jsonCity.getString("region"));	// Get the city's region from the settings file
 			cityInfo.put("color", jsonCity.get("color"));			// Get the city's color from the settings file
@@ -134,23 +149,63 @@ public class Settings {
 	
 	List<Map<String, Integer>> loadTokens(JSONArray jsonTokens) {
 		List<Map<String, Integer>> tokens = new ArrayList<>();
-		
-		Map<String, Integer> tmpToken;
-		JSONObject tmpJsonToken;
+		Map<String, Integer> token;
+		JSONObject jsonToken;
 		
 		for (int i=0; i<jsonTokens.length(); i++) {	
-			tmpToken = new HashMap<>();
-			tmpJsonToken = jsonTokens.getJSONObject(i);
+			token = new HashMap<>();
+			jsonToken = jsonTokens.getJSONObject(i);
 			
-			Iterator<?> tokenKeys = tmpJsonToken.keys();
+			Iterator<?> tokenKeys = jsonToken.keys();
 			while (tokenKeys.hasNext()) {
-				String bonusName = (String) tokenKeys.next();
-				tmpToken.put(bonusName, new Integer(tmpJsonToken.getInt(bonusName)));
+				String bonusType = (String) tokenKeys.next();
+				token.put(bonusType, new Integer(jsonToken.getInt(bonusType)));
 			}
 			
-			tokens.add(tmpToken);		
+			tokens.add(token);		
 		}
 		
 		return tokens;
+	}
+	
+	List<Map<String, Object>> loadPermitDeck(JSONArray jsonPermitDeck) {
+		List<Map<String, Object>> permitDeck = new ArrayList<>();
+		Map<String, Object> permitCard;
+		JSONObject jsonPermitCard;
+		
+		for (int i=0; i<jsonPermitDeck.length(); i++) {	
+			permitCard = new HashMap<>();
+			jsonPermitCard = jsonPermitDeck.getJSONObject(i);
+			
+			permitCard.put("cities", loadCitiesFromPermit(jsonPermitCard));
+			permitCard.put("bonus", loadBonusFromPermit(jsonPermitCard));
+			permitDeck.add(permitCard);		
+		}
+		
+		return permitDeck;
+	}
+	
+	List<String> loadCitiesFromPermit(JSONObject jsonPermitCard) {
+		List<String> permitCities = new ArrayList<>();
+		JSONArray jsonPermitCities = jsonPermitCard.getJSONArray("cities");
+		
+		for (int i=0; i<jsonPermitCities.length(); i++) {	
+			permitCities.add(jsonPermitCities.getString(i));
+		}
+		
+		return permitCities;
+	}
+	
+	Map<String, Integer> loadBonusFromPermit(JSONObject jsonPermitCard) {
+		Map<String, Integer> permitBonus = new HashMap<>();
+		JSONObject jsonPermitBonus = jsonPermitCard.getJSONObject("bonus");
+		
+		Iterator<?> bonusKeys = jsonPermitBonus.keys();
+		while (bonusKeys.hasNext()) {
+			String bonusType = (String) bonusKeys.next();
+			permitBonus.put(bonusType, new Integer(jsonPermitBonus.getInt(bonusType)));
+		}
+		
+		return permitBonus;
 	}
 }
