@@ -1,19 +1,19 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import it.polimi.ingsw.ps14.Player;
 import it.polimi.ingsw.ps14.PoliticDeck;
 
 public class BonusList {
 
-	private final ArrayList<Bonus> bonus;
+	private final List<Bonus> bonus;
 	
-	public BonusList(ArrayList<Bonus> bonus){
+	public BonusList(List<Bonus> bonus){
 		this.bonus=bonus;
 	}
 	
-	public ArrayList<Bonus> getBonusCard(){
+	public List<Bonus> getBonusCard(){
 		return bonus;
 	}
 	
@@ -35,7 +35,7 @@ public class BonusList {
 		}
 	}
 
-//	public ArrayList<Bonus> getBonus() {
+//	public List<Bonus> getBonus() {
 //		return bonus;
 	}
 

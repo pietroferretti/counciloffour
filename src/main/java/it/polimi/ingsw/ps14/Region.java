@@ -23,13 +23,13 @@ public class Region {
 	private Bonus bonusRegion;
 
 	public Region(Queue<ColorCouncillor> initialCouncillors, RegionType type) {
-		this.balcony = new Balcony(initialCouncillors);// build a balcony with
-														// parameters from
-														// gameboard
+		this.balcony = new Balcony(initialCouncillors);
 		this.type = type;
 		this.cities = new ArrayList<>();
 	}
 
+	// TODO: mettere in ordine i metodi pls
+	
 	public RegionType getType() {
 		return type;
 	}
@@ -50,7 +50,7 @@ public class Region {
 		this.cities.add(city);
 	}
 
-	public void setCities(ArrayList<City> cities) {
+	public void setCities(List<City> cities) {
 		this.cities = cities;
 	}
 

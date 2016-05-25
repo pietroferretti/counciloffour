@@ -8,6 +8,15 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
 
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
+import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
+import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
+import it.polimi.ingsw.ps14.model.bonus.BonusList;
+import it.polimi.ingsw.ps14.model.bonus.BonusMainAction;
+import it.polimi.ingsw.ps14.model.bonus.BonusNobility;
+import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
+import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
+
 public class GameBoard {
 
 	Random random = new Random();
@@ -41,9 +50,43 @@ public class GameBoard {
 		// Set the number of assistants available in the game
 		this.availableAssistants = settings.availableAssistants;
 
-		// Build a region for each regionType and send parameter: RandomBalcony
-		// and RegionType
-		// TODO: do it better! "region[regT.ordinal()] not so good"
+		// Create Regions and Cities reading from the settings file
+		buildRegionsAndCities(settings);
+		
+		// Generate a King object
+		City kingStartingCity = getCityByName(settings.kingStartingCityString);
+		king = new King(generateRandomBalcony(settings.councillorsEachBalcony), kingStartingCity);
+
+		// Get the victory point bonuses from settings
+		bonusGold = settings.bonuses.get("bonusGold");
+		bonusSilver = settings.bonuses.get("bonusSilver");
+		bonusBronze = settings.bonuses.get("bonusBronze");
+		bonusBlue = settings.bonuses.get("bonusBlue");
+		bonusesKing = new ArrayList<>();
+		bonusesKing.add(settings.bonuses.get("bonusKing1")); 
+		bonusesKing.add(settings.bonuses.get("bonusKing2"));
+		bonusesKing.add(settings.bonuses.get("bonusKing3"));
+		bonusesKing.add(settings.bonuses.get("bonusKing4"));
+		bonusesKing.add(settings.bonuses.get("bonusKing5"));
+		
+		// Get the tokens
+		List<BonusList> tokens;
+		tokens = getTokensFromSettings(settings);
+		int a = 1;
+		System.out.println(a);
+		// Randomly assign a token to each city
+		
+		// Get permit decks
+		
+		// Give permit decks to each region
+	}
+
+	/*
+	 * ------------------------- CONSTRUCTOR METHODS ---------------------------
+	 */
+	
+	void buildRegionsAndCities(Settings settings) {
+		// Build a region for each regionType, with random balconies
 		regions = new ArrayList<>();
 		for (RegionType regT : RegionType.values()) {
 			regions.add(new Region(generateRandomBalcony(settings.councillorsEachBalcony), regT));
@@ -59,7 +102,7 @@ public class GameBoard {
 			String regionString = (String) settings.map.get(cityName).get("region");
 			RegionType type = RegionType.valueOf(regionString.toUpperCase());
 			
-			Region cityRegion = getRegion(RegionType.valueOf(regionString.toUpperCase()));
+			Region cityRegion = getRegion(type);
 			
 			City newCity = new City(cityName, cityColor, cityRegion);
 			cities.add(newCity);
@@ -78,27 +121,58 @@ public class GameBoard {
 
 			city.setNeighbors(neighborsList);
 		}
-
-		// Generate a King object
-		City kingStartingCity = getCityByName(settings.kingStartingCityString);
-		king = new King(generateRandomBalcony(settings.councillorsEachBalcony), kingStartingCity);
-
-		// Get the bonuses from settings
-		bonusGold = settings.bonuses.get("bonusGold");
-		bonusSilver = settings.bonuses.get("bonusSilver");
-		bonusBronze = settings.bonuses.get("bonusBronze");
-		bonusBlue = settings.bonuses.get("bonusBlue");
-		bonusesKing = new ArrayList<>();
-		bonusesKing.add(settings.bonuses.get("bonusKing1")); // Maybe should
-																// refactor as a
-																// loop
-		bonusesKing.add(settings.bonuses.get("bonusKing2"));
-		bonusesKing.add(settings.bonuses.get("bonusKing3"));
-		bonusesKing.add(settings.bonuses.get("bonusKing4"));
-		bonusesKing.add(settings.bonuses.get("bonusKing5"));
-
 	}
-
+	
+	List<BonusList> getTokensFromSettings(Settings settings) {
+		List<BonusList> tokens = new ArrayList<>();
+		List<Map<String, Integer>> settingsTokens = settings.tokens;
+		
+		for (Map<String, Integer> tokenAsMap : settingsTokens) {
+			BonusList token = null;
+			List<Bonus> bonuses = new ArrayList<>();
+			
+			for (Map.Entry<String, Integer> bonusEntry: tokenAsMap.entrySet()) {
+				String bonusType = bonusEntry.getKey();
+				int quantity = bonusEntry.getValue().intValue();
+				Bonus bonus = newBonusFromString(bonusType, quantity);
+				bonuses.add(bonus);
+			}
+			token = new BonusList(bonuses);
+			tokens.add(token);
+		}
+		return tokens;
+	}
+	
+	// TODO: non sono proprio sicuro che sia una best practice, specialmente se aggiungessimo nuovi bonus (ma anche no)
+	Bonus newBonusFromString(String bonusType, int quantity) {
+		Bonus bonus = null;
+		
+		switch(bonusType.toLowerCase()) {
+		case "assistants":
+			bonus = new BonusAssistant(quantity);
+			break;
+		case "coins":
+			bonus = new BonusCoin(quantity);
+			break;
+		case "mainAction":
+			bonus = new BonusMainAction(quantity);
+			break;
+		case "nobility":
+			bonus = new BonusNobility(quantity);
+			break;
+		case "cards":
+			bonus = new BonusPoliticCard(quantity);
+			break;
+		case "points":
+			bonus = new BonusVictoryPoint(quantity);
+			break;
+		default:
+			throw new RuntimeException("Bonus not recognized! Check your settings file.");
+		}
+		
+		return bonus;
+	}
+	
 	/*
 	 * -------------------------- POLITIC CARDS DECK ---------------------------
 	 */
@@ -154,7 +228,7 @@ public class GameBoard {
 	}
 
 	/*
-	 * ----------------------- ASSISTANTS --------------------------
+	 * ----------------------- AVAILABLE ASSISTANTS --------------------------
 	 */
 
 	public void setAvailableAssistants(int availableAssistants) {
