@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //PROBABILE CONTROLLER
 
@@ -9,7 +10,7 @@ public class GameLogic {
 	private GameBoard gameboard;
 
 	private ArrayList<Player> players;
-
+ 
 	private Settings settings;
 
 	/*
@@ -47,39 +48,85 @@ public class GameLogic {
 		// TODO
 	}
 
-	private Player findWinner() {
+	private void distributeEndGamePoints() {
 		/*
-		 * Controlla tutti i giocatori per vedere chi ha vinto -->
+		 * Assegna punti aggiuntivi ai giocatori alla fine del gioco
 		 * NobilityTrack: 5 punti al primo, 2 al secondo - se più giocatori sono
 		 * primi, 5 punti solo a loro - se più giocatori sono secondi, 2 punti
 		 * ciascuno --> BusinessPermits: 3 punti per il giocatore che ne ha
 		 * comprati di più
-		 * 
-		 * Il giocatore con più punti vince.
+		 *
 		 */
-		Player winner;
 
-		// Create arrays to check nobility
-		ArrayList<Player> highestNobility = new ArrayList<Player>();
-		ArrayList<Player> secondHighNobility = new ArrayList<Player>();
+		// Find players with the highest (or second highest) nobility level
+		List<List<Player>> highNobilityLists;
+		List<Player> firstHighNobility;
+		List<Player> secondHighNobility;
+		
+		highNobilityLists = findHighNobles();
+		firstHighNobility = highNobilityLists.get(0);
+		secondHighNobility = highNobilityLists.get(1);
+		
+		// Give points to the players with the highest nobility
+		awardPointsNobility(firstHighNobility, secondHighNobility);
+
+		// Find players with the most permits
+		List<Player> mostPermits = findMostPermits();
+		
+		// Give points to the players with the most permits
+		for (Player permitMaster : mostPermits) {
+			permitMaster.addPoints(3);
+		}
+	}
+
+	public Player playGame() {
+		setupGame();
+
+		boolean endgame = false;
+		while (!endgame) {
+			// TODO: Abbiamo bisogno di un modo per passare il controllo di
+			// giocatore in giocatore...
+			// TODO: cambiare leggermente il codice in modo che quando un
+			// giocatore ha costruito 10 empori
+			// ogni altro giocatore faccia un ulteriore turno di gioco, senza
+			// market
+			for (Player activePlayer : players) {
+				endgame = round(activePlayer);
+			}
+			marketPhase();
+		}
+
+		distributeEndGamePoints();
+		Player winner = findWinner();
+		return winner;
+		// print results somewhere
+	}
+	
+	// I used a list of lists to return two values: 
+	List<List<Player>> findHighNobles() {
+		List<Player> firstHighNobility = new ArrayList<>();
+		List<Player> secondHighNobility = new ArrayList<>();
+		List<List<Player>> result = new ArrayList<>();
+		
+		// Initialize lists by checking the first two players
 		if (players.get(0).getLevel() > players.get(1).getLevel()) {
-			highestNobility.add(players.get(0));
+			firstHighNobility.add(players.get(0));
 			secondHighNobility.add(players.get(1));
 		} else if (players.get(0).getLevel() == players.get(1).getLevel()) {
-			highestNobility.add(players.get(0));
-			highestNobility.add(players.get(1));
+			firstHighNobility.add(players.get(0));
+			firstHighNobility.add(players.get(1));
 		} else {
-			highestNobility.add(players.get(1));
+			firstHighNobility.add(players.get(1));
 			secondHighNobility.add(players.get(0));
 		}
 
 		// Find players with first and second highest nobility
 		for (int i = 2; i < players.size(); i++) {
-			if (players.get(i).getLevel() > highestNobility.get(0).getLevel()) {
-				highestNobility.clear();
-				highestNobility.add(players.get(i));
-			} else if (players.get(i).getLevel() == highestNobility.get(0).getLevel()) {
-				highestNobility.add(players.get(i));
+			if (players.get(i).getLevel() > firstHighNobility.get(0).getLevel()) {
+				firstHighNobility.clear();
+				firstHighNobility.add(players.get(i));
+			} else if (players.get(i).getLevel() == firstHighNobility.get(0).getLevel()) {
+				firstHighNobility.add(players.get(i));
 			} else if (players.get(i).getLevel() > secondHighNobility.get(0).getLevel()) {
 				secondHighNobility.clear();
 				secondHighNobility.add(players.get(i));
@@ -87,21 +134,28 @@ public class GameLogic {
 				secondHighNobility.add(players.get(i));
 			}
 		}
+		
+		result.add(firstHighNobility);
+		result.add(secondHighNobility);
+		return result;
+	}
 
-		// Player with the highest nobility win points
-		if (highestNobility.size() == 1) {
-			highestNobility.get(0).addPoints(5);
-			for (Player minorNoble : secondHighNobility) {
-				minorNoble.addPoints(2);
+	void awardPointsNobility(List<Player> firstHighNobility, List<Player> secondHighNobility) {
+		if (firstHighNobility.size() == 1) {
+			firstHighNobility.get(0).addPoints(5);
+			for (Player secondHighNoble : secondHighNobility) {
+				secondHighNoble.addPoints(2);
 			}
 		} else {
-			for (Player highestNoble : highestNobility) {
-				highestNoble.addPoints(5);
+			for (Player firstHighNoble : firstHighNobility) {
+				firstHighNoble.addPoints(5);
 			}
 		}
-
-		// Find players with the most permits
-		ArrayList<Player> mostPermits = new ArrayList<Player>();
+	}
+	
+	List<Player> findMostPermits() {
+		List<Player> mostPermits = new ArrayList<>();
+		
 		mostPermits.add(players.get(0));
 		for (int i = 1; i < players.size(); i++) {
 			if (players.get(i).getNumberOfPermits() > mostPermits.get(0).getNumberOfPermits()) {
@@ -111,14 +165,21 @@ public class GameLogic {
 				mostPermits.add(players.get(i));
 			}
 		}
-
-		// Give points to the players with the most permits
-		for (Player permitMaster : mostPermits) {
-			permitMaster.addPoints(3);
+		
+		return mostPermits;
+	}
+	
+	void awardPointsPermits(List<Player> mostPermits) {
+		for (Player mostPermitsPlayer : mostPermits) {
+			mostPermitsPlayer.addPoints(3);
 		}
+	}
 
-		// Find the winner by comparing points (and assistants and cards if
-		// there's a draw)
+	// Find the winner by comparing points (and assistants and cards if
+	// there's a draw)
+	Player findWinner() {
+		Player winner;
+		
 		winner = players.get(0);
 		for (int i = 1; i < players.size(); i++) {
 			if (players.get(i).getPoints() > winner.getPoints()) {
@@ -141,27 +202,4 @@ public class GameLogic {
 
 		return winner;
 	}
-
-	public Player playGame() {
-		setupGame();
-
-		boolean endgame = false;
-		while (!endgame) {
-			// TODO: Abbiamo bisogno di un modo per passare il controllo di
-			// giocatore in giocatore...
-			// TODO: cambiare leggermente il codice in modo che quando un
-			// giocatore ha costruito 10 empori
-			// ogni altro giocatore faccia un ulteriore turno di gioco, senza
-			// market
-			for (Player activePlayer : players) {
-				endgame = round(activePlayer);
-			}
-			marketPhase();
-		}
-
-		Player winner = findWinner();
-		return winner;
-		// print results somewhere
-	}
-
 }

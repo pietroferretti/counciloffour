@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class Balcony {
@@ -28,7 +29,7 @@ public class Balcony {
 	// check if Politic Cards from player have matching counsellors and return
 	// number of bought counsellors
 
-	public int cardsInBalcony(ArrayList<PoliticCard> cards) {
+	public int cardsInBalcony(List<PoliticCard> cards) {
 		int boughtCounsellor = 0;
 		PriorityQueue<ColorCouncillor> newCouncillors = councillors;
 		for (PoliticCard card : cards) {
@@ -57,9 +58,12 @@ public class Balcony {
 	}
 
 	
-	//TODO: is this the best way?
+	// TODO: rifarlo senza eccezione? 
+	// questo metodo andrebbe usato solo se almeno una carta matcha, altrimenti ritornare il costo non ha senso
+	// mettiamoci un bel @requires hehe
 	public int councillorCost(ArrayList<PoliticCard> cards) {
-		int cost=0;
+		int cost;
+		
 		switch (cardsInBalcony(cards)) {
 		case 1:
 			cost = 10;
@@ -73,11 +77,16 @@ public class Balcony {
 		case 4:
 			cost = 0;
 			break;
+		default:
+			throw new RuntimeException("No cards matched! -- Controlla le carte prima di usare questo metodo --");
 		}
-			if (cards.contains(ColorPolitic.JOLLY))
-				cost++;
-			return cost;
 		
+		for (PoliticCard card : cards) {
+			if (card.getColor() == ColorPolitic.JOLLY)
+				cost++;
+		}
+		
+		return cost;
 	}
 
 }
