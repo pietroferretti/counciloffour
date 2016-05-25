@@ -16,7 +16,7 @@ public class SettingsTest {
 		}
 		// TODO: sostituisci i println con assert
 		// ad es. controlla se regioni, colori, bonus, sono uguali a quelli del file
-		System.out.println(settingsInstance.startCityKing);
+		System.out.println(settingsInstance.kingStartingCityString);
 		System.out.println(settingsInstance.bonuses.toString());
 		System.out.println(settingsInstance.map.toString());
 	}

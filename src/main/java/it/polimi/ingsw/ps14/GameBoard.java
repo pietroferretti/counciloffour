@@ -91,8 +91,8 @@ public class GameBoard {
 		}
 
 		// Generate a King object
-		City startCityKing = getCityByName(settings.startCityKing);
-		king = new King(generateRandomBalcony(settings.councillorsEachBalcony), startCityKing);
+		City kingStartingCity = getCityByName(settings.kingStartingCityString);
+		king = new King(generateRandomBalcony(settings.councillorsEachBalcony), kingStartingCity);
 
 		// Get the bonuses from settings
 		bonusGold = settings.bonuses.get("bonusGold");

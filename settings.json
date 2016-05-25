@@ -20,7 +20,7 @@
         "Arkon" : {
             "region" : "coast",
             "color" : "blue",
-            "neighbors" : ["Burgen", "Castrum"]
+            "neighbors" : ["Burgen", "Castrum"],
         },
         "Burgen" : {
             "region" : "coast",
@@ -92,5 +92,72 @@
             "color" : "gold",
             "neighbors" : ["Lyram", "Merkatim", "Naris"]
         }
-    }
+    },
+    "tokens" : [
+        {"coins" : 1},
+        {"coins" : 2},
+        {"coins" : 3},
+        {"points" : 1},
+        {"points" : 2},
+        {"points" : 3},
+        {"nobility" : 1},
+        {"nobility" : 1},
+        {"assistants" : 1},
+        {"assistants" : 2},
+        {"assistants" : 1, "coins" : 1},
+        {"assistants" : 1, "cards" : 1},
+        {"cards" : 1},
+        {"cards" : 1, "points" : 1}
+    ],
+    "permitDeckCoast" : [
+        {"cities" : ["Arkon", "Burgen"], "bonus" : {"coins" : 3, "cards" : 1}},
+        {"cities" : ["Dorful", "Esti"], "bonus" : {"points" : 3, "assistants" : 1}},
+        {"cities" : ["Burgen"], "bonus" : {"cards" : 3, "assistants" : 1}},
+        {"cities" : ["Castrum"], "bonus" : {"assistants" : 2, "coins" : 3}},
+        {"cities" : ["Dorful"], "bonus" : {"points" : 7}},
+        {"cities" : ["Esti"], "bonus" : {"mainAction" : 1, "coins" : 2}},
+        {"cities" : ["Burgen", "Castrum", "Dorful"], "bonus" : {"assistants" : 1, "points" : 1}},
+        {"cities" : ["Arkon"], "bonus" : {"points" : 4, "coins" : 3}},
+        {"cities" : ["Arkon", "Burgen", "Castrum"], "bonus" : {"assistants" : 2}},
+        {"cities" : ["Arkon", "Burgen", "Esti"], "bonus" : {"coins" : 3}},
+        {"cities" : ["Burgen", "Castrum"], "bonus" : {"points" : 3, "coins" : 3}},
+        {"cities" : ["Castrum", "Dorful"], "bonus" : {"points" : 3, "assistants" : 1}},
+        {"cities" : ["Arkon", "Dorful", "Esti"], "bonus" : {"coins" : 1, "points" : 2}},
+        {"cities" : ["Castrum", "Dorful", "Esti"], "bonus" : {"cards" : 1, "nobility" : 1}},
+        {"cities" : ["Arkon", "Esti"], "bonus" : {"nobility" : 2}}
+    ],
+    "permitDeckHills" : [
+        {"cities" : ["Indur", "Juvelar"], "bonus" : {"cards" : 2, "nobility" : 1}},
+        {"cities" : ["Framek", "Juvelar"], "bonus" : {"assistants" : 2, "coins" : 1}},
+        {"cities" : ["Juvelar"], "bonus" : {"mainAction" : 1, "points" : 2}},
+        {"cities" : ["Framek"], "bonus" : {"cards" : 2, "coins" : 4}},
+        {"cities" : ["Framek", "Graden", "Juvelar"], "bonus" : {"coins" : 2, "points" : 1}},
+        {"cities" : ["Framek", "Graden", "Hellar"], "bonus" : {"nobility" : 1, "coins" : 1}},
+        {"cities" : ["Graden"], "bonus" : {"assistants" : 2, "points" : 2, "nobility" : 1}},
+        {"cities" : ["Hellar"], "bonus" : {"assistants" : 4}},
+        {"cities" : ["Indur"], "bonus" : {"cards" : 2, "assistants" : 2}},
+        {"cities" : ["Graden", "Hellar", "Indur"], "bonus" : {"cards" : 1, "assistants" : 1}},
+        {"cities" : ["Indur", "Juvelar", "Hellar"], "bonus" : {"cards" : 2}},
+        {"cities" : ["Framek", "Indur", "Juvelar"], "bonus" : {"assistants" : 1, "nobility" : 1}},
+        {"cities" : ["Framek", "Graden"], "bonus" : {"coins" : 5}},
+        {"cities" : ["Hellar", "Indur"], "bonus" : {"points" : 5}},
+        {"cities" : ["Hellar", "Graden"], "bonus" : {"assistants" : 3}}
+    ],
+    "permitDeckMountains" : [
+        {"cities" : ["Kultos", "Lyram"], "bonus" : {"cards" : 1}},
+        {"cities" : ["Naris", "Osium"], "bonus" : {"points" : 2, "cards" : 2}},
+        {"cities" : ["Lyram", "Merkatim", "Naris"], "bonus" : {"points" : 3}},
+        {"cities" : ["Kultos", "Lyram", "Osium"], "bonus" : {"cards" : 1, "coins" : 1}},
+        {"cities" : ["Kultos"], "bonus" : {"cards" : 4}},
+        {"cities" : ["Lyram"], "bonus" : {"coins" : 1, "assistants" : 3}},
+        {"cities" : ["Kultos", "Naris", "Osium"], "bonus" : {"cards" : 1, "points" : 1}},
+        {"cities" : ["Merkatim", "Naris", "Osium"], "bonus" : {"nobility" : 1, "points" : 1}},
+        {"cities" : ["Naris"], "bonus" : {"coins" : 7}},
+        {"cities" : ["Merkatim"], "bonus" : {"points" : 5, "nobility" : 1}},
+        {"cities" : ["Osium"], "bonus" : {"cards" : 3, "nobility" : 1}},
+        {"cities" : ["Osium", "Kultos"], "bonus" : {"cards" : 2, "nobility" : 1}},
+        {"cities" : ["Kultos", "Lyram", "Merkatim"], "bonus" : {"assistants" : 1, "coins" : 1}},
+        {"cities" : ["Merkatim", "Naris"], "bonus" : {"mainAction" : 1}},
+        {"cities" : ["Merkatim", "Lyram"], "bonus" : {"cards" : 3}}
+    ]
 }

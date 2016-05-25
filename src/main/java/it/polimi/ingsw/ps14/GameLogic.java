@@ -129,8 +129,7 @@ public class GameLogic {
 				} else if (players.get(i).getAssistants() == winner.getAssistants()) {
 					if (players.get(0).getNumberOfCards() > winner.getNumberOfCards()) {
 						winner = players.get(i);
-					} else if (players.get(0).getNumberOfCards() > winner.getNumberOfCards()) {
-						winner = null;
+					} else if (players.get(0).getNumberOfCards() == winner.getNumberOfCards()) {
 						// TODO: se proprio c'è parità assoluta bisogna
 						// riscriverlo in modo che ritorni una lista di
 						// vincitori, in alternativa ritorna il primo per
