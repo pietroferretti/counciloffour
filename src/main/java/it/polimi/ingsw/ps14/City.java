@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps14;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.ingsw.ps14.model.bonus.Bonus;
+import it.polimi.ingsw.ps14.model.bonus.BonusList;
 
 public class City {
 
@@ -15,7 +15,7 @@ public class City {
 	
 	private List<City> neighbors;
 
-	private Bonus token;
+	private BonusList token;
 	
 	private ArrayList<Player> emporiums;
 	
@@ -28,7 +28,7 @@ public class City {
 		emporiums = new ArrayList<>();
 	}
 	
-	public City(String name, ColorCity color, Region region, List<City> neighbors, Bonus token) {
+	public City(String name, ColorCity color, Region region, List<City> neighbors, BonusList token) {
 		this.name = name;
 		this.color = color;
 		this.neighbors = neighbors;
@@ -69,7 +69,7 @@ public class City {
 		this.neighbors = neighbors;
 	}
 	
-	public void setToken(Bonus token) {
+	public void setToken(BonusList token) {
 		this.token = token;
 	}
 	
@@ -93,7 +93,7 @@ public class City {
 		return region;
 	}
 
-	public Bonus getToken() {
+	public BonusList getToken() {
 		return token;
 	}
 

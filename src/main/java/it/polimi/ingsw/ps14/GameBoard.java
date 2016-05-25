@@ -72,9 +72,9 @@ public class GameBoard {
 		// Get the tokens
 		List<BonusList> tokens;
 		tokens = getTokensFromSettings(settings);
-		int a = 1;
-		System.out.println(a);
+		
 		// Randomly assign a token to each city
+		distributeTokens(tokens);
 		
 		// Get permit decks
 		
@@ -171,6 +171,22 @@ public class GameBoard {
 		}
 		
 		return bonus;
+	}
+	
+	void distributeTokens(List<BonusList> tokens) {
+		List<BonusList> tokensCopy = new ArrayList<>(tokens);
+		Random generator = new Random();
+		
+		for (City city : cities) {
+			try {
+				BonusList token = tokensCopy.get(generator.nextInt(tokensCopy.size()));
+				city.setToken(token);
+				tokensCopy.remove(token);
+			} catch (IndexOutOfBoundsException  e) {
+				System.out.println("Not enough tokens! Check your settings file.");
+				throw e;
+			}
+		}
 	}
 	
 	/*
