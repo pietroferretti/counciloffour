@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.ArrayList;
-import java.util.PriorityQueue;
+import java.util.List;
+import java.util.Queue;
 
 public class King {
 
@@ -9,7 +9,7 @@ public class King {
 	
 	private Balcony balcony;
 
-	public King(PriorityQueue<ColorCouncillor> initialCouncillors, City startCityKing) {
+	public King(Queue<ColorCouncillor> initialCouncillors, City startCityKing) {
 		// TODO Auto-generated constructor stub
 		this.balcony=new Balcony(initialCouncillors);
 		this.city = startCityKing;
@@ -22,10 +22,14 @@ public class King {
 	public void setCity(City city) {
 		this.city = city;
 	}
+	
+	public Balcony getBalcony() {
+		return balcony;
+	}
 
 	// versione in cui l'utente inserisce tutte le città da attraversare,
 	// forse possiamo fare di meglio :)
-	public boolean checkMove(ArrayList<City> cities) {
+	public boolean checkMove(List<City> cities) {
 		//
 		// int cost = cities.size();
 		// we should check it before calling this method

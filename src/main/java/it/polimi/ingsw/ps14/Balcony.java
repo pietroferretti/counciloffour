@@ -2,13 +2,13 @@ package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Balcony {
 
-	private PriorityQueue<ColorCouncillor> councillors;
+	private Queue<ColorCouncillor> councillors;
 
-	public Balcony(PriorityQueue<ColorCouncillor> initialCouncillors) {
+	public Balcony(Queue<ColorCouncillor> initialCouncillors) {
 		councillors = initialCouncillors;
 	}
 
@@ -18,7 +18,7 @@ public class Balcony {
 		return discarded;
 	}
 
-	public PriorityQueue<ColorCouncillor> readBalcony() {
+	public Queue<ColorCouncillor> readBalcony() {
 		return councillors;
 	}
 
@@ -31,7 +31,7 @@ public class Balcony {
 
 	public int cardsInBalcony(List<PoliticCard> cards) {
 		int boughtCounsellor = 0;
-		PriorityQueue<ColorCouncillor> newCouncillors = councillors;
+		Queue<ColorCouncillor> newCouncillors = councillors;
 		for (PoliticCard card : cards) {
 			if (card.isJolly())
 				boughtCounsellor++;
@@ -47,7 +47,7 @@ public class Balcony {
 
 	// redone previous method
 	public boolean thereIsColorsInBalcony(ArrayList<PoliticCard> cards) {
-		PriorityQueue<ColorCouncillor> newCouncillors = councillors;
+		Queue<ColorCouncillor> newCouncillors = councillors;
 		for (PoliticCard card : cards) {
 			if (newCouncillors.contains(colorPoliticToCouncillor(card))) {
 				newCouncillors.remove(colorPoliticToCouncillor(card));

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Random;
 
 public class GameBoard {
@@ -29,18 +30,6 @@ public class GameBoard {
 	private List<Integer> bonusesKing;
 
 	private PoliticDeck politicDeck;
-
-	public int getAvailableAssistants() {
-		return availableAssistants;
-	}
-
-	public PoliticDeck getPoliticDeck() {
-		return politicDeck;
-	}
-
-	public void setPoliticDeck(PoliticDeck politicDeck) {
-		this.politicDeck = politicDeck;
-	}
 
 	public GameBoard(Settings settings) {
 		// TODO: build game object
@@ -111,23 +100,28 @@ public class GameBoard {
 	}
 
 	/*
-	 * ------------------------ COUNCILLOR ------------------------
+	 * -------------------------- POLITIC CARDS DECK ---------------------------
 	 */
-
-	// check if the chosen color is available
-	public boolean councillorIsAvailable(ColorCouncillor color) {
-		if (availableCouncillors.get(color) > 0)
-			return true;
-		else
-			return false;
+	
+	public PoliticDeck getPoliticDeck() {
+		return politicDeck;
 	}
 
-	private PriorityQueue<ColorCouncillor> generateRandomBalcony(int councillorsEachBalcony) {
-		PriorityQueue<ColorCouncillor> tempBalcony = new PriorityQueue<ColorCouncillor>();
-		for (int j = 0; j < councillorsEachBalcony; j++)
-			tempBalcony.add(getRandomAvailableCouncillor());
-		return tempBalcony;
+	public void setPoliticDeck(PoliticDeck politicDeck) {
+		this.politicDeck = politicDeck;
+	}
 
+	/*
+	 * ------------------------ AVAILABLE COUNCILLORS ------------------------
+	 */
+
+	public Integer getAvailableCouncillors(ColorCouncillor color) {
+		return availableCouncillors.get(color);
+	}
+		
+	// check if the chosen color is available
+	public boolean councillorIsAvailable(ColorCouncillor color) {
+		return getAvailableCouncillors(color) > 0;
 	}
 
 	public boolean useCouncillor(ColorCouncillor councillor) {
@@ -138,15 +132,10 @@ public class GameBoard {
 			return false;
 	}
 
-	public Integer getCouncillor(ColorCouncillor color) {
-		return availableCouncillors.get(color);
-	}
-	
 	public void addDiscardedCouncillor(ColorCouncillor color){
 		availableCouncillors.put(color, availableCouncillors.get(color)+1);
 	}
-
-	// For first population of balconies
+	
 	public ColorCouncillor getRandomAvailableCouncillor() {
 		Random generator = new Random();
 		int pick = generator.nextInt(ColorCouncillor.values().length - 1);
@@ -154,19 +143,29 @@ public class GameBoard {
 			pick++;
 		return ColorCouncillor.values()[pick];
 	}
+	
+	private Queue<ColorCouncillor> generateRandomBalcony(int councillorsEachBalcony) {
+		Queue<ColorCouncillor> tempBalcony = new PriorityQueue<>();
+		
+		for (int j = 0; j < councillorsEachBalcony; j++)
+			tempBalcony.add(getRandomAvailableCouncillor());
+		
+		return tempBalcony;
+	}
+
 	/*
 	 * ----------------------- ASSISTANTS --------------------------
 	 */
 
-	public void setAssistantsAvailable(int assistantsAvailable) {
-		this.availableAssistants = assistantsAvailable;
+	public void setAvailableAssistants(int availableAssistants) {
+		this.availableAssistants = availableAssistants;
 	}
 
-	public int getAssistantsAvailable() {
+	public int getAvailableAssistants() {
 		return availableAssistants;
 	}
 
-	public boolean useAssistants(int quantity) { // ma se li considerassimo
+	public boolean useAssistants(int quantity) { // TODO: ma se li considerassimo
 													// infiniti??
 		if (availableAssistants >= quantity) {
 			availableAssistants = availableAssistants - quantity;
@@ -180,7 +179,7 @@ public class GameBoard {
 	}
 
 	/*
-	 * -------------------------- REGION ---------------------------
+	 * -------------------------- REGIONS ---------------------------
 	 */
 
 	public Region getRegion(RegionType type) {

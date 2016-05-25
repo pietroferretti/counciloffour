@@ -2,88 +2,88 @@ package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
+import java.util.Queue;
 
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 
 public class Region {
 
-  private final RegionType type;
+	private final RegionType type;
 
-  private List<City> cities;
+	private List<City> cities;
 
-  private Balcony balcony;
+	private Balcony balcony;
 
-  private BusinessPermit permitCard1;
-  
-  private BusinessPermit permitCard2;
+	private BusinessPermit permitCard1;
 
-  private BusinessDeck permitsDeck;
+	private BusinessPermit permitCard2;
 
-  private Bonus bonusRegion;
-  
-  
-public Region(PriorityQueue<ColorCouncillor> initialCouncillors,RegionType type){
-	this.balcony = new Balcony(initialCouncillors);//build a balcony with parameters from gameboard
-	this.type = type;
-	this.cities = new ArrayList<>();
-}
+	private BusinessDeck permitsDeck;
 
-public RegionType getType() {
-	return type;
-}
+	private Bonus bonusRegion;
 
-public Balcony getBalcony() {
-	return balcony;
-}
+	public Region(Queue<ColorCouncillor> initialCouncillors, RegionType type) {
+		this.balcony = new Balcony(initialCouncillors);// build a balcony with
+														// parameters from
+														// gameboard
+		this.type = type;
+		this.cities = new ArrayList<>();
+	}
 
-public List<City> getCities() {
-	return cities;
-}
+	public RegionType getType() {
+		return type;
+	}
 
-public BusinessDeck getPermitsDeck() {
-	return permitsDeck;
-}
+	public Balcony getBalcony() {
+		return balcony;
+	}
 
-public void addCity(City city) {
-	this.cities.add(city);
-}
+	public List<City> getCities() {
+		return cities;
+	}
 
-public void setCities(ArrayList<City> cities) {
-	this.cities = cities;
-}
+	public BusinessDeck getPermitsDeck() {
+		return permitsDeck;
+	}
 
-public void setBalcony(Balcony balcony) {
-	this.balcony = balcony;
-}
+	public void addCity(City city) {
+		this.cities.add(city);
+	}
 
-public void setPermitCard1(BusinessPermit permitCard1) {
-	this.permitCard1 = permitCard1;
-}
+	public void setCities(ArrayList<City> cities) {
+		this.cities = cities;
+	}
 
-public void setPermitCard2(BusinessPermit permitCard2) {
-	this.permitCard2 = permitCard2;
-}
+	public void setBalcony(Balcony balcony) {
+		this.balcony = balcony;
+	}
 
-public void setPermitsDeck(BusinessDeck permitsDeck) {
-	this.permitsDeck = permitsDeck;
-}
+	public void setPermitCard1(BusinessPermit permitCard1) {
+		this.permitCard1 = permitCard1;
+	}
 
-public void setBonusRegion(Bonus bonusRegion) {
-	this.bonusRegion = bonusRegion;
-}
+	public void setPermitCard2(BusinessPermit permitCard2) {
+		this.permitCard2 = permitCard2;
+	}
 
-public BusinessPermit getPermitCard1() {
-	return permitCard1;
-}
+	public void setPermitsDeck(BusinessDeck permitsDeck) {
+		this.permitsDeck = permitsDeck;
+	}
 
-public BusinessPermit getPermitCard2() {
-	return permitCard2;
-}
+	public void setBonusRegion(Bonus bonusRegion) {
+		this.bonusRegion = bonusRegion;
+	}
 
-public Bonus getBonusRegion() {
-	return bonusRegion;
-}
+	public BusinessPermit getPermitCard1() {
+		return permitCard1;
+	}
 
+	public BusinessPermit getPermitCard2() {
+		return permitCard2;
+	}
+
+	public Bonus getBonusRegion() {
+		return bonusRegion;
+	}
 
 }

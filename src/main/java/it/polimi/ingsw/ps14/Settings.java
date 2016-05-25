@@ -15,8 +15,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class Settings {
-
-	//TODO: Caricare i mazzi
 	
 	public final int councillorsEachBalcony;
 	
