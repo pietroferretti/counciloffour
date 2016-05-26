@@ -77,8 +77,19 @@ public class GameBoard {
 		distributeTokens(tokens);
 		
 		// Get permit decks
+		BusinessDeck permitDeckCoast = getPermitDeckFromSettings(settings, RegionType.COAST);
+		BusinessDeck permitDeckHills = getPermitDeckFromSettings(settings, RegionType.HILLS);
+		BusinessDeck permitDeckMountains = getPermitDeckFromSettings(settings, RegionType.MOUNTAINS);
 		
 		// Give permit decks to each region
+		getRegion(RegionType.COAST).setPermitsDeck(permitDeckCoast);
+		getRegion(RegionType.HILLS).setPermitsDeck(permitDeckHills);
+		getRegion(RegionType.MOUNTAINS).setPermitsDeck(permitDeckMountains);
+		
+		// Give bonuses to the regions
+		getRegion(RegionType.COAST).setBonusRegion(settings.bonuses.get("bonusCoast"));
+		getRegion(RegionType.HILLS).setBonusRegion(settings.bonuses.get("bonusHills"));
+		getRegion(RegionType.MOUNTAINS).setBonusRegion(settings.bonuses.get("bonusMountains"));
 	}
 
 	/*
@@ -131,6 +142,7 @@ public class GameBoard {
 			BonusList token = null;
 			List<Bonus> bonuses = new ArrayList<>();
 			
+			// TODO: rifare come una funzione estraiBonus(), codice riutilizzato in getPermitDeck
 			for (Map.Entry<String, Integer> bonusEntry: tokenAsMap.entrySet()) {
 				String bonusType = bonusEntry.getKey();
 				int quantity = bonusEntry.getValue().intValue();
@@ -154,7 +166,7 @@ public class GameBoard {
 		case "coins":
 			bonus = new BonusCoin(quantity);
 			break;
-		case "mainAction":
+		case "mainaction":
 			bonus = new BonusMainAction(quantity);
 			break;
 		case "nobility":
@@ -178,15 +190,63 @@ public class GameBoard {
 		Random generator = new Random();
 		
 		for (City city : cities) {
-			try {
-				BonusList token = tokensCopy.get(generator.nextInt(tokensCopy.size()));
-				city.setToken(token);
-				tokensCopy.remove(token);
-			} catch (IndexOutOfBoundsException  e) {
-				System.out.println("Not enough tokens! Check your settings file.");
-				throw e;
+			System.out.println(city.getName() + " : " + city.getColor().toString());
+			if (city.getColor() != ColorCity.PURPLE) {
+				try {
+					BonusList token = tokensCopy.get(generator.nextInt(tokensCopy.size()));
+					city.setToken(token);
+					tokensCopy.remove(token);
+				} catch (IllegalArgumentException  e) {
+					System.out.println("Not enough tokens! Check your settings file.");
+					throw e;
+				}
 			}
 		}
+	}
+	
+	BusinessDeck getPermitDeckFromSettings(Settings settings, RegionType regionType) {
+		BusinessDeck deck;
+		List<Map<String, Object>> settingsDeck;
+		switch(regionType) {
+		case COAST:
+			settingsDeck = settings.permitDeckCoast;
+			break;
+		case HILLS:
+			settingsDeck = settings.permitDeckHills;
+			break;
+		case MOUNTAINS:
+			settingsDeck = settings.permitDeckMountains;
+			break;
+		default:
+			throw new RuntimeException("Region type not recognised while loading permit decks.");
+		}
+		
+		List<BusinessPermit> permitList = new ArrayList<>();
+		for (Map<String, Object> settingsPermit : settingsDeck) {
+			BusinessPermit permit;
+			
+			List<String> settingsCityList = (List<String>) settingsPermit.get("cities");
+			List<City> cityList = new ArrayList<>();
+			for (String cityName : settingsCityList) {
+				cityList.add(getCityByName(cityName));
+			}
+			
+			Map<String, Integer> bonusMap = (Map<String, Integer>) settingsPermit.get("bonus");
+			List<Bonus> bonuses = new ArrayList<>();
+			for (Map.Entry<String, Integer> bonusEntry: bonusMap.entrySet()) {
+				String bonusType = bonusEntry.getKey();
+				int quantity = bonusEntry.getValue().intValue();
+				Bonus bonus = newBonusFromString(bonusType, quantity);
+				bonuses.add(bonus);
+			}
+			BonusList bonusList = new BonusList(bonuses);
+			
+			permit = new BusinessPermit(cityList, bonusList);
+			permitList.add(permit);
+		}
+		
+		deck = new BusinessDeck(permitList);
+		return deck;
 	}
 	
 	/*

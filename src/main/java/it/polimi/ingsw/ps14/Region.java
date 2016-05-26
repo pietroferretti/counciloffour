@@ -20,7 +20,7 @@ public class Region {
 
 	private BusinessDeck permitsDeck;
 
-	private Bonus bonusRegion;
+	private Integer bonusRegion;
 
 	public Region(Queue<ColorCouncillor> initialCouncillors, RegionType type) {
 		this.balcony = new Balcony(initialCouncillors);
@@ -58,19 +58,12 @@ public class Region {
 		this.balcony = balcony;
 	}
 
-	public void setPermitCard1(BusinessPermit permitCard1) {
-		this.permitCard1 = permitCard1;
-	}
-
-	public void setPermitCard2(BusinessPermit permitCard2) {
-		this.permitCard2 = permitCard2;
-	}
 
 	public void setPermitsDeck(BusinessDeck permitsDeck) {
 		this.permitsDeck = permitsDeck;
 	}
 
-	public void setBonusRegion(Bonus bonusRegion) {
+	public void setBonusRegion(Integer bonusRegion) {
 		this.bonusRegion = bonusRegion;
 	}
 
@@ -82,7 +75,7 @@ public class Region {
 		return permitCard2;
 	}
 
-	public Bonus getBonusRegion() {
+	public Integer getBonusRegion() {
 		return bonusRegion;
 	}
 

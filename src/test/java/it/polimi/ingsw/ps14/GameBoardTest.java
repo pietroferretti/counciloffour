@@ -17,6 +17,7 @@ public class GameBoardTest {
 		}
 		
 		GameBoard gameboard = new GameBoard(settingsInstance);
+		System.out.println("Nessun errore!");
 	}
 
 }

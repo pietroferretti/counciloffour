@@ -1,13 +1,12 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public abstract class Deck {
 	
-	public ArrayList<Card> deck;
-	public ArrayList<Card> drawnCards;
-
+	protected List<Card> deck;
+	protected List<Card> drawnCards;
 
 	public abstract Card drawCard();
 
