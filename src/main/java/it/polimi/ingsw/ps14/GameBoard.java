@@ -93,14 +93,17 @@ public class GameBoard {
 	}
 
 	/*
-	 * ------------------------- CONSTRUCTOR METHODS ---------------------------
+	 * ------------------------- CONSTRUCTOR METHOD ---------------------------
+	 */
+	/*
+	 * TODO: TO CORRECT REGION CONSTRUCTOR!!!!!!!!!!!!!!!!!!!
 	 */
 	
 	void buildRegionsAndCities(Settings settings) {
 		// Build a region for each regionType, with random balconies
 		regions = new ArrayList<>();
 		for (RegionType regT : RegionType.values()) {
-			regions.add(new Region(generateRandomBalcony(settings.councillorsEachBalcony), regT));
+			regions.add(new Region(generateRandomBalcony(settings.councillorsEachBalcony), regT,null,null,null));
 		}
 		
 		// Populate the "cities" array and the Regions
