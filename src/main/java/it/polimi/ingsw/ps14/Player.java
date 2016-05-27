@@ -12,8 +12,9 @@ public class Player {
 	private int level; // nobility
 	private int points;
 	private ArrayList<PoliticCard> hand;
-	private ArrayList<BusinessPermit> permitTiles;
-	private ArrayList<BusinessPermit> usedPermitTiles;
+	private BusinessCardsPlayer businessHand;
+//	private ArrayList<BusinessPermit> permitTiles;
+//	private ArrayList<BusinessPermit> usedPermitTiles;
 
 	public Player(String name, String color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
 		this.name = name;
@@ -23,8 +24,9 @@ public class Player {
 		level = 0;
 		points = 0;
 		this.hand = deck.drawMultipleCards(numberOfCards);
-		permitTiles = new ArrayList<BusinessPermit>();
-		usedPermitTiles = new ArrayList<BusinessPermit>();
+		businessHand=new BusinessCardsPlayer();
+//		permitTiles = new ArrayList<BusinessPermit>();
+//		usedPermitTiles = new ArrayList<BusinessPermit>();
 	}
 
 	public Player(String name, String color) {
@@ -35,8 +37,9 @@ public class Player {
 		level = 0;
 		points = 0;
 		hand = new ArrayList<PoliticCard>();
-		permitTiles = new ArrayList<BusinessPermit>();
-		usedPermitTiles = new ArrayList<BusinessPermit>();
+		businessHand=new BusinessCardsPlayer();
+//		permitTiles = new ArrayList<BusinessPermit>();
+//		usedPermitTiles = new ArrayList<BusinessPermit>();
 	}
 
 	public void chooseColor() {
@@ -171,17 +174,20 @@ public class Player {
 		hand.remove(card);
 	}
 	
-	public void acquireBusinessPermit(BusinessPermit permitTile) {
-		permitTiles.add(permitTile);
+	public BusinessCardsPlayer getBusinessHand(){
+		return businessHand;
 	}
-
-	public int getNumberOfPermits() {
-		return permitTiles.size() + usedPermitTiles.size();
-	}
-
-	public void sellPermits(BusinessPermit item) {
-		permitTiles.remove(item);
-
-	}
+//	public void acquireBusinessPermit(BusinessPermit permitTile) {
+//		permitTiles.add(permitTile);
+//	}
+//
+////	public int getNumberOfPermits() {
+////		return permitTiles.size() + usedPermitTiles.size();
+////	}
+////
+////	public void sellPermits(BusinessPermit item) {
+////		permitTiles.remove(item);
+////
+////	}
 
 }

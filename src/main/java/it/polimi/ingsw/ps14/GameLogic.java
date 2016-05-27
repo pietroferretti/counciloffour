@@ -158,7 +158,7 @@ public class GameLogic {
 		
 		mostPermits.add(players.get(0));
 		for (int i = 1; i < players.size(); i++) {
-			if (players.get(i).getNumberOfPermits() > mostPermits.get(0).getNumberOfPermits()) {
+			if (players.get(i).getBusinessHand().getNumberOfPermits() > mostPermits.get(0).getBusinessHand().getNumberOfPermits()) {
 				mostPermits.clear();
 				mostPermits.add(players.get(i));
 			} else if (players.get(i).getLevel() == mostPermits.get(0).getLevel()) {

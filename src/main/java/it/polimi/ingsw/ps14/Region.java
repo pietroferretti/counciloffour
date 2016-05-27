@@ -14,40 +14,24 @@ public class Region {
 
 	private Balcony balcony;
 
-	private BusinessPermit[] availablePermit;
-
-	private BusinessDeck permitsDeck;
+	private BusinessCardsRegion businessPermits; // unused + used
 
 	private Integer bonusRegion;
 
-	public Region(Queue<ColorCouncillor> initialCouncillors, RegionType type,
-			List<City> cities, BusinessDeck permitsDeck, Integer bonusRegion) {
+	public Region(Queue<ColorCouncillor> initialCouncillors, RegionType type) {
 		this.balcony = new Balcony(initialCouncillors);
 		this.type = type;
-		this.cities = cities;
-		availablePermit = new BusinessPermit[2];
-		fillAvailablePermit();
-		this.permitsDeck = permitsDeck;
-		this.bonusRegion=bonusRegion;
+		this.cities = new ArrayList<>();
+		businessPermits = new BusinessCardsRegion();
 	}
 
-	private void fillAvailablePermit() {
-		for (BusinessPermit busPer : availablePermit)
-			busPer = permitsDeck.drawCard();
-	}
-
-	
-	public City findCity(String cityName){
+	public City findCity(String cityName) {
 		for (City city : cities)
-			if (city.getName()==cityName) return city;
+			if (city.getName() == cityName)
+				return city;
 		return null;
 	}
-	
-	public boolean cardIsChoosable(BusinessPermit permitTile){
-		for (BusinessPermit busPer : availablePermit)
-			if(permitTile==busPer) return true;
-		return false;
-	}
+
 	// TODO: mettere in ordine i metodi pls
 
 	public RegionType getType() {
@@ -62,8 +46,12 @@ public class Region {
 		return cities;
 	}
 
-	public BusinessDeck getPermitsDeck() {
-		return permitsDeck;
+	public BusinessCardsRegion getBusinessPermits() {
+		return businessPermits;
+	}
+
+	public void setBusinessPermits(BusinessCardsRegion decks) {
+		businessPermits = decks;
 	}
 
 	public void addCity(City city) {
@@ -76,10 +64,6 @@ public class Region {
 
 	public void setBalcony(Balcony balcony) {
 		this.balcony = balcony;
-	}
-
-	public void setPermitsDeck(BusinessDeck permitsDeck) {
-		this.permitsDeck = permitsDeck;
 	}
 
 	public void setBonusRegion(Integer bonusRegion) {

@@ -20,8 +20,8 @@ public class Market {
 			return false;
 		if (item.getItem().getClass().equals(BusinessPermit.class)) {
 			earnCoins(item);
-			buyer.acquireBusinessPermit((BusinessPermit) item.getItem());
-			item.getOwner().sellPermits((BusinessPermit) item.getItem());
+			buyer.getBusinessHand().acquireBusinessPermit((BusinessPermit) item.getItem());
+			item.getOwner().getBusinessHand().sellPermits((BusinessPermit) item.getItem());
 
 		} else if (item.getItem().getClass().equals(PoliticCard.class)) {
 			earnCoins(item);

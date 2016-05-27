@@ -43,7 +43,7 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		if (super.getPlayer().getCoins() < balcony.councillorCost(hand))
 			return false;
 		//TODO: send ERROR: not enough coins 
-		if (!region.cardIsChoosable(permitTile))
+		if (!region.getBusinessPermits().cardIsChoosable(permitTile))
 			return false;
 		//TODO: send ERROR: permitTile is different from choosable
 		return true;
@@ -52,9 +52,8 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	@Override
 	public TurnState execute() {
 		if(super.getPlayer().useCoins(balcony.councillorCost(hand))){
-			super.getPlayer().acquireBusinessPermit(permitTile);
-			
-			//miss change permitTile in region
+			super.getPlayer().getBusinessHand().acquireBusinessPermit(permitTile);
+			region.getBusinessPermits().substituteCard(permitTile);
 		}
 		return nextState();
 	}
