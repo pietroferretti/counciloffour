@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14;
 
-enum RegionType {
+public enum RegionType {
 
   COAST,
 
