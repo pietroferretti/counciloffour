@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-import it.polimi.ingsw.ps14.model.bonus.Bonus;
-
 public class Region {
 
 	private final RegionType type;
@@ -29,6 +27,8 @@ public class Region {
 	}
 
 	// TODO: mettere in ordine i metodi pls
+	
+	// TODO: pescare i 2 permit a faccia in su
 	
 	public RegionType getType() {
 		return type;

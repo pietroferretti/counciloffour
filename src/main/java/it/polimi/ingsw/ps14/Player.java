@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
@@ -11,9 +12,9 @@ public class Player {
 	private int assistants;
 	private int level; // nobility
 	private int points;
-	private ArrayList<PoliticCard> hand;
-	private ArrayList<BusinessPermit> permitTiles;
-	private ArrayList<BusinessPermit> usedPermitTiles;
+	private List<PoliticCard> hand;
+	private List<BusinessPermit> permitTiles;
+	private List<BusinessPermit> usedPermitTiles;
 
 	public Player(String name, String color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
 		this.name = name;
@@ -23,8 +24,8 @@ public class Player {
 		level = 0;
 		points = 0;
 		this.hand = deck.drawMultipleCards(numberOfCards);
-		permitTiles = new ArrayList<BusinessPermit>();
-		usedPermitTiles = new ArrayList<BusinessPermit>();
+		permitTiles = new ArrayList<>();
+		usedPermitTiles = new ArrayList<>();
 	}
 
 	public Player(String name, String color) {
@@ -34,9 +35,9 @@ public class Player {
 		assistants = 0;
 		level = 0;
 		points = 0;
-		hand = new ArrayList<PoliticCard>();
-		permitTiles = new ArrayList<BusinessPermit>();
-		usedPermitTiles = new ArrayList<BusinessPermit>();
+		hand = new ArrayList<>();
+		permitTiles = new ArrayList<>();
+		usedPermitTiles = new ArrayList<>();
 	}
 
 	public void chooseColor() {
@@ -120,7 +121,7 @@ public class Player {
 		this.points = this.points + points;
 	}
 
-	public ArrayList<PoliticCard> getHand() {
+	public List<PoliticCard> getHand() {
 		return hand;
 	}
 
