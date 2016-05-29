@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.controller.turnstates;
 
 import it.polimi.ingsw.ps14.controller.actions.Action;
+import it.polimi.ingsw.ps14.controller.actions.DrawCardAction;
 
 public class DrawnCardState extends TurnState {
 
@@ -17,8 +18,7 @@ public class DrawnCardState extends TurnState {
 	@Override
 	public boolean isActionValid(Action action) {
 
-		// every action is legit after drawing a card
-		return action.isValid();
+		return !(action instanceof DrawCardAction) && action.isValid();
 	}
 
 }

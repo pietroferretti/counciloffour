@@ -23,11 +23,9 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	private BusinessPermit permitTile;
 	private Balcony balcony;
 	private List<PoliticCard> hand;
-	private TurnState previousState;
 
 	public AcquireBusinessPermiteTileAction(Player player, GameBoard gameBoard, TurnState previousState, Region region,BusinessPermit permitTile) {
 		super(player, gameBoard, previousState);
-		// TODO Auto-generated constructor stub
 		this.region = region;
 		this.balcony=region.getBalcony();
 		this.hand=super.getPlayer().getHand();
@@ -55,21 +53,18 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 			super.getPlayer().getBusinessHand().acquireBusinessPermit(permitTile);
 			region.getBusinessPermits().substituteCard(permitTile);
 		}
-		return nextState();
+		return nextState(super.getPreviousState());
 	}
 	
 	
-	
-
-	private TurnState nextState() {
+	private TurnState nextState(TurnState previousState) {
 		if (previousState instanceof DrawnCardState)
 			return MainActionDoneTurnState.getInstance();
-		if (previousState instanceof MainActionDoneTurnState)
-			return ChooseMainWhenAlreadyDoneTurnState.getInstance();
-		if (previousState instanceof QuickActionDoneTurnState)
-			return MainAndQuickActionDoneTurnState.getInstance();
 		if (previousState instanceof ChooseMainWhenNotDoneYetTurnState)
 			return QuickActionDoneTurnState.getInstance();
+		if ((previousState instanceof QuickActionDoneTurnState)
+			|| (previousState instanceof ChooseMainWhenAlreadyDoneTurnState))
+			return MainAndQuickActionDoneTurnState.getInstance();
 		return null;
 	}
 

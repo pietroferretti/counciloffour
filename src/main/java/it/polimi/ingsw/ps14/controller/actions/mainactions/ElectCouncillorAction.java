@@ -51,12 +51,11 @@ public class ElectCouncillorAction extends MainAction {
 	private TurnState nextState(TurnState previousState) {
 		if (previousState instanceof DrawnCardState)
 			return MainActionDoneTurnState.getInstance();
-		if (previousState instanceof MainActionDoneTurnState)
-			return ChooseMainWhenAlreadyDoneTurnState.getInstance();
-		if (previousState instanceof QuickActionDoneTurnState)
-			return MainAndQuickActionDoneTurnState.getInstance();
 		if (previousState instanceof ChooseMainWhenNotDoneYetTurnState)
 			return QuickActionDoneTurnState.getInstance();
+		if ((previousState instanceof QuickActionDoneTurnState)
+			|| (previousState instanceof ChooseMainWhenAlreadyDoneTurnState))
+			return MainAndQuickActionDoneTurnState.getInstance();
 		return null;
 	}
 }
