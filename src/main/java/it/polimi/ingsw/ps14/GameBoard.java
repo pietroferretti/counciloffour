@@ -1,13 +1,5 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Random;
-
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
 import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
@@ -16,6 +8,14 @@ import it.polimi.ingsw.ps14.model.bonus.BonusMainAction;
 import it.polimi.ingsw.ps14.model.bonus.BonusNobility;
 import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Random;
 
 public class GameBoard {
 
@@ -77,14 +77,14 @@ public class GameBoard {
 		distributeTokens(tokens);
 		
 		// Get permit decks
-		BusinessDeck permitDeckCoast = getPermitDeckFromSettings(settings, RegionType.COAST);
-		BusinessDeck permitDeckHills = getPermitDeckFromSettings(settings, RegionType.HILLS);
-		BusinessDeck permitDeckMountains = getPermitDeckFromSettings(settings, RegionType.MOUNTAINS);
+		BusinessCardsRegion permitDeckCoast = new BusinessCardsRegion(getPermitDeckFromSettings(settings, RegionType.COAST));
+		BusinessCardsRegion permitDeckHills = new BusinessCardsRegion(getPermitDeckFromSettings(settings, RegionType.HILLS));
+		BusinessCardsRegion permitDeckMountains = new BusinessCardsRegion(getPermitDeckFromSettings(settings, RegionType.MOUNTAINS));
 		
 		// Give permit decks to each region
-		getRegion(RegionType.COAST).setPermitsDeck(permitDeckCoast);
-		getRegion(RegionType.HILLS).setPermitsDeck(permitDeckHills);
-		getRegion(RegionType.MOUNTAINS).setPermitsDeck(permitDeckMountains);
+		getRegion(RegionType.COAST).setBusinessPermits(permitDeckCoast);
+		getRegion(RegionType.HILLS).setBusinessPermits(permitDeckHills);
+		getRegion(RegionType.MOUNTAINS).setBusinessPermits(permitDeckMountains);
 		
 		// Give bonuses to the regions
 		getRegion(RegionType.COAST).setBonusRegion(settings.bonuses.get("bonusCoast"));
@@ -93,14 +93,16 @@ public class GameBoard {
 	}
 
 	/*
-	 * ------------------------- CONSTRUCTOR METHODS ---------------------------
+	 * ------------------------- CONSTRUCTOR METHOD ---------------------------
+	 */
+	/*
 	 */
 	
 	void buildRegionsAndCities(Settings settings) {
 		// Build a region for each regionType, with random balconies
 		regions = new ArrayList<>();
 		for (RegionType regT : RegionType.values()) {
-			regions.add(new Region(generateRandomBalcony(settings.councillorsEachBalcony), regT));
+			regions.add(new Region(generateRandomBalcony(settings.councillorsEachBalcony),regT));
 		}
 		
 		// Populate the "cities" array and the Regions
@@ -204,8 +206,7 @@ public class GameBoard {
 		}
 	}
 	
-	BusinessDeck getPermitDeckFromSettings(Settings settings, RegionType regionType) {
-		BusinessDeck deck;
+	ArrayList<BusinessPermit> getPermitDeckFromSettings(Settings settings, RegionType regionType) {
 		List<Map<String, Object>> settingsDeck;
 		switch(regionType) {
 		case COAST:
@@ -245,8 +246,7 @@ public class GameBoard {
 			permitList.add(permit);
 		}
 		
-		deck = new BusinessDeck(permitList);
-		return deck;
+		return (ArrayList)permitList;
 	}
 	
 	/*

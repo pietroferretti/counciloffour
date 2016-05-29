@@ -12,9 +12,10 @@ public class Player {
 	private int assistants;
 	private int level; // nobility
 	private int points;
+//	private List<BusinessPermit> permitTiles;
+//	private List<BusinessPermit> usedPermitTiles;
 	private List<PoliticCard> hand;
-	private List<BusinessPermit> permitTiles;
-	private List<BusinessPermit> usedPermitTiles;
+	private BusinessCardsPlayer businessHand;
 
 	public Player(String name, String color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
 		this.name = name;
@@ -24,8 +25,9 @@ public class Player {
 		level = 0;
 		points = 0;
 		this.hand = deck.drawMultipleCards(numberOfCards);
-		permitTiles = new ArrayList<>();
-		usedPermitTiles = new ArrayList<>();
+		businessHand=new BusinessCardsPlayer();
+//		permitTiles = new ArrayList<>();
+//		usedPermitTiles = new ArrayList<>();
 	}
 
 	public Player(String name, String color) {
@@ -35,9 +37,10 @@ public class Player {
 		assistants = 0;
 		level = 0;
 		points = 0;
+//		permitTiles = new ArrayList<>();
+//		usedPermitTiles = new ArrayList<>();
 		hand = new ArrayList<>();
-		permitTiles = new ArrayList<>();
-		usedPermitTiles = new ArrayList<>();
+		businessHand = new BusinessCardsPlayer();
 	}
 
 	public void chooseColor() {
@@ -172,17 +175,20 @@ public class Player {
 		hand.remove(card);
 	}
 	
-	public void acquireBusinessPermit(BusinessPermit permitTile) {
-		permitTiles.add(permitTile);
+	public BusinessCardsPlayer getBusinessHand(){
+		return businessHand;
 	}
-
-	public int getNumberOfPermits() {
-		return permitTiles.size() + usedPermitTiles.size();
-	}
-
-	public void sellPermits(BusinessPermit item) {
-		permitTiles.remove(item);
-
-	}
+//	public void acquireBusinessPermit(BusinessPermit permitTile) {
+//		permitTiles.add(permitTile);
+//	}
+//
+////	public int getNumberOfPermits() {
+////		return permitTiles.size() + usedPermitTiles.size();
+////	}
+////
+////	public void sellPermits(BusinessPermit item) {
+////		permitTiles.remove(item);
+////
+////	}
 
 }

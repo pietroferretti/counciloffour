@@ -12,11 +12,7 @@ public class Region {
 
 	private Balcony balcony;
 
-	private BusinessPermit permitCard1;
-
-	private BusinessPermit permitCard2;
-
-	private BusinessDeck permitsDeck;
+	private BusinessCardsRegion businessPermits; // unused + used
 
 	private Integer bonusRegion;
 
@@ -24,10 +20,18 @@ public class Region {
 		this.balcony = new Balcony(initialCouncillors);
 		this.type = type;
 		this.cities = new ArrayList<>();
+		businessPermits = new BusinessCardsRegion();
+	}
+
+	public City findCity(String cityName) {
+		for (City city : cities)
+			if (city.getName() == cityName)
+				return city;
+		return null;
 	}
 
 	// TODO: mettere in ordine i metodi pls
-	
+
 	// TODO: pescare i 2 permit a faccia in su
 	
 	public RegionType getType() {
@@ -42,8 +46,12 @@ public class Region {
 		return cities;
 	}
 
-	public BusinessDeck getPermitsDeck() {
-		return permitsDeck;
+	public BusinessCardsRegion getBusinessPermits() {
+		return businessPermits;
+	}
+
+	public void setBusinessPermits(BusinessCardsRegion decks) {
+		businessPermits = decks;
 	}
 
 	public void addCity(City city) {
@@ -58,21 +66,8 @@ public class Region {
 		this.balcony = balcony;
 	}
 
-
-	public void setPermitsDeck(BusinessDeck permitsDeck) {
-		this.permitsDeck = permitsDeck;
-	}
-
 	public void setBonusRegion(Integer bonusRegion) {
 		this.bonusRegion = bonusRegion;
-	}
-
-	public BusinessPermit getPermitCard1() {
-		return permitCard1;
-	}
-
-	public BusinessPermit getPermitCard2() {
-		return permitCard2;
 	}
 
 	public Integer getBonusRegion() {
