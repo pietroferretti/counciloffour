@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Queue;
 
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
+import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
 
 public class Region {
 
@@ -16,7 +17,7 @@ public class Region {
 
 	private BusinessCardsRegion businessPermits; // unused + used
 
-	private Integer bonusRegion;
+	private BonusVictoryPoint bonusRegion;
 
 	public Region(Queue<ColorCouncillor> initialCouncillors, RegionType type) {
 		this.balcony = new Balcony(initialCouncillors);
@@ -66,11 +67,7 @@ public class Region {
 		this.balcony = balcony;
 	}
 
-	public void setBonusRegion(Integer bonusRegion) {
-		this.bonusRegion = bonusRegion;
-	}
-
-	public Integer getBonusRegion() {
+	public BonusVictoryPoint getBonusRegion() {
 		return bonusRegion;
 	}
 
