@@ -46,7 +46,7 @@ public class Balcony {
 	}
 
 	// redone previous method
-	public boolean thereIsColorsInBalcony(ArrayList<PoliticCard> cards) {
+	public boolean thereIsColorsInBalcony(List<PoliticCard> cards) {
 		Queue<ColorCouncillor> newCouncillors = councillors;
 		for (PoliticCard card : cards) {
 			if (newCouncillors.contains(colorPoliticToCouncillor(card))) {
@@ -61,7 +61,7 @@ public class Balcony {
 	// TODO: rifarlo senza eccezione? 
 	// questo metodo andrebbe usato solo se almeno una carta matcha, altrimenti ritornare il costo non ha senso
 	// mettiamoci un bel @requires hehe
-	public int councillorCost(ArrayList<PoliticCard> cards) {
+	public int councillorCost(List<PoliticCard> cards) {
 		int cost;
 		
 		switch (cardsInBalcony(cards)) {

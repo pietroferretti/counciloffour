@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps14.controller.actions.mainactions;
 
+import java.util.List;
+
 import it.polimi.ingsw.ps14.Balcony;
 import it.polimi.ingsw.ps14.BusinessPermit;
 import it.polimi.ingsw.ps14.GameBoard;
@@ -15,14 +17,12 @@ import it.polimi.ingsw.ps14.controller.turnstates.MainAndQuickActionDoneTurnStat
 import it.polimi.ingsw.ps14.controller.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
-import java.util.ArrayList;
-
 public class AcquireBusinessPermiteTileAction extends MainAction {
 
 	private Region region;
 	private BusinessPermit permitTile;
 	private Balcony balcony;
-	private ArrayList<PoliticCard> hand;
+	private List<PoliticCard> hand;
 	private TurnState previousState;
 
 	public AcquireBusinessPermiteTileAction(Player player, GameBoard gameBoard, TurnState previousState, Region region,BusinessPermit permitTile) {

@@ -4,15 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-<<<<<<< HEAD
-import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
 
-=======
-import it.polimi.ingsw.ps14.model.bonus.Bonus;
-import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
-
->>>>>>> branch 'master' of https://pietroferretti@bitbucket.org/jumpingspiders/counciloffour.git
 public class Region {
 
 	private final RegionType type;
@@ -22,6 +15,7 @@ public class Region {
 	private Balcony balcony;
 
 	private BusinessCardsRegion businessPermits; // unused + used
+	// TODO: ma quindi i due permit a faccia in su?
 
 	private BonusVictoryPoint bonusRegion;
 
@@ -30,49 +24,50 @@ public class Region {
 		this.type = type;
 		this.cities = new ArrayList<>();
 		businessPermits = new BusinessCardsRegion();
+		bonusRegion = null;
 	}
 
+	public RegionType getType() {
+		return type;
+	}
+	
+	public void setCities(List<City> cities) {
+		this.cities = cities;
+	}
+	
+	public void addCity(City city) {
+		this.cities.add(city);
+	}
+	
+	public List<City> getCities() {
+		return cities;
+	}
+	
 	public City findCity(String cityName) {
 		for (City city : cities)
-			if (city.getName() == cityName)
+			if (city.getName().equals(cityName))
 				return city;
 		return null;
 	}
 
-	// TODO: mettere in ordine i metodi pls
-
-	// TODO: pescare i 2 permit a faccia in su
-	
-	public RegionType getType() {
-		return type;
+	public void setBalcony(Balcony balcony) {
+		this.balcony = balcony;
 	}
 
 	public Balcony getBalcony() {
 		return balcony;
 	}
 
-	public List<City> getCities() {
-		return cities;
+	public void setBusinessPermits(BusinessCardsRegion decks) {
+		businessPermits = decks;
 	}
 
 	public BusinessCardsRegion getBusinessPermits() {
 		return businessPermits;
 	}
 
-	public void setBusinessPermits(BusinessCardsRegion decks) {
-		businessPermits = decks;
-	}
-
-	public void addCity(City city) {
-		this.cities.add(city);
-	}
-
-	public void setCities(List<City> cities) {
-		this.cities = cities;
-	}
-
-	public void setBalcony(Balcony balcony) {
-		this.balcony = balcony;
+	public void setBonusRegion(BonusVictoryPoint bonusRegion) {
+		this.bonusRegion = bonusRegion;
 	}
 
 	public BonusVictoryPoint getBonusRegion() {

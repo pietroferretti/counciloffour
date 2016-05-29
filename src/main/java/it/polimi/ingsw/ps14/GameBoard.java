@@ -86,10 +86,13 @@ public class GameBoard {
 		getRegion(RegionType.HILLS).setBusinessPermits(permitDeckHills);
 		getRegion(RegionType.MOUNTAINS).setBusinessPermits(permitDeckMountains);
 		
-		// Give bonuses to the regions
-		getRegion(RegionType.COAST).setBonusRegion(settings.bonuses.get("bonusCoast"));
-		getRegion(RegionType.HILLS).setBonusRegion(settings.bonuses.get("bonusHills"));
-		getRegion(RegionType.MOUNTAINS).setBonusRegion(settings.bonuses.get("bonusMountains"));
+		// Get bonuses for each region
+		BonusVictoryPoint bonusCoast = new BonusVictoryPoint(settings.bonuses.get("bonusCoast").intValue());
+		BonusVictoryPoint bonusHills = new BonusVictoryPoint(settings.bonuses.get("bonusHills").intValue());
+		BonusVictoryPoint bonusMountains = new BonusVictoryPoint(settings.bonuses.get("bonusMountains").intValue());
+		getRegion(RegionType.COAST).setBonusRegion(bonusCoast);
+		getRegion(RegionType.HILLS).setBonusRegion(bonusHills);
+		getRegion(RegionType.MOUNTAINS).setBonusRegion(bonusMountains);
 	}
 
 	/*
