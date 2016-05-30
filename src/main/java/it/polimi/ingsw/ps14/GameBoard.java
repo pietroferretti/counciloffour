@@ -209,7 +209,7 @@ public class GameBoard {
 		}
 	}
 	
-	ArrayList<BusinessPermit> getPermitDeckFromSettings(Settings settings, RegionType regionType) {
+	List<BusinessPermit> getPermitDeckFromSettings(Settings settings, RegionType regionType) {
 		List<Map<String, Object>> settingsDeck;
 		switch(regionType) {
 		case COAST:
@@ -249,7 +249,7 @@ public class GameBoard {
 			permitList.add(permit);
 		}
 		
-		return (ArrayList)permitList;
+		return permitList;
 	}
 	
 	/*

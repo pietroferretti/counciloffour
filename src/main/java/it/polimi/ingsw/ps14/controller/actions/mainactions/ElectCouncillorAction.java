@@ -24,16 +24,11 @@ public class ElectCouncillorAction extends MainAction {
 		super(player, gameBoard, previousState);
 		this.councillor = councillor;
 		this.balcony = balcony;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean isValid() {
-		// this action is always valid
-		if (super.getGameBoard().councillorIsAvailable(councillor))
-			return true;
-		else
-			return false;
+		return super.getGameBoard().councillorIsAvailable(councillor);
 	}
 
 	@Override

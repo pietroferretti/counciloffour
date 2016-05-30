@@ -20,36 +20,37 @@ import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 public class AcquireBusinessPermiteTileAction extends MainAction {
 
 	private Region region;
-	private BusinessPermit permitTile;
 	private Balcony balcony;
-	private List<PoliticCard> hand;
+	private BusinessPermit permitTile;
+	private List<PoliticCard> cards;
 
-	public AcquireBusinessPermiteTileAction(Player player, GameBoard gameBoard, TurnState previousState, Region region,BusinessPermit permitTile) {
+	public AcquireBusinessPermiteTileAction(Player player, GameBoard gameBoard, TurnState previousState,
+												Region region, BusinessPermit permitTile, List<PoliticCard> cards) {
 		super(player, gameBoard, previousState);
 		this.region = region;
-		this.balcony=region.getBalcony();
-		this.hand=super.getPlayer().getHand();
-		this.permitTile=permitTile;
+		this.balcony = region.getBalcony();
+		this.permitTile = permitTile;
+		this.cards = cards;
 	}
 
 	@Override
 	public boolean isValid() {
 		
-		if (balcony.cardsInBalcony(hand)==-1)
+		if (balcony.cardsInBalcony(cards)==-1)
 			return false;
 		// TODO: send error: ERROR in color choice
-		if (super.getPlayer().getCoins() < balcony.councillorCost(hand))
+		if (super.getPlayer().getCoins() < balcony.councillorCost(cards))
 			return false;
 		//TODO: send ERROR: not enough coins 
-		if (!region.getBusinessPermits().cardIsChoosable(permitTile))
+		if (!region.getBusinessPermits().cardIsFaceUp(permitTile))
 			return false;
-		//TODO: send ERROR: permitTile is different from choosable
+		//TODO: send ERROR: permitTile is not face up
 		return true;
 	}
 
 	@Override
 	public TurnState execute() {
-		if(super.getPlayer().useCoins(balcony.councillorCost(hand))){
+		if(super.getPlayer().useCoins(balcony.councillorCost(cards))){
 			super.getPlayer().getBusinessHand().acquireBusinessPermit(permitTile);
 			region.getBusinessPermits().substituteCard(permitTile);
 		}
