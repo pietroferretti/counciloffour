@@ -28,6 +28,10 @@ public class PoliticDeck extends Deck {
 		discardedCards.clear();
 		shuffle();
 	}
+	
+	public void addPoliticCard(PoliticCard card){
+		deck.add(card);
+	}
 
 	public ArrayList<PoliticCard> getDeck() {
 		return deck;

@@ -17,8 +17,9 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	private BusinessPermit permitTile;
 	private List<PoliticCard> cards;
 
-	public AcquireBusinessPermiteTileAction(Player player, GameBoard gameBoard, Region region,
-												BusinessPermit permitTile, List<PoliticCard> cards) {
+	public AcquireBusinessPermiteTileAction(Player player, GameBoard gameBoard,
+		 Region region, BusinessPermit permitTile,
+			List<PoliticCard> cards) {
 		super(player, gameBoard);
 		this.region = region;
 		this.balcony = region.getBalcony();

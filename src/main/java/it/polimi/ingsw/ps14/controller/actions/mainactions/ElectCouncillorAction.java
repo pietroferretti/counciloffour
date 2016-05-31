@@ -25,12 +25,13 @@ public class ElectCouncillorAction extends MainAction {
 
 	@Override
 	public TurnState execute(TurnState previousState) {
+		int electCouncillorPrize=4;
 		// electCouncillor return discarded councillor, discarded councillor is
 		// added to availableCouncillors in gameboard
 		super.getGameBoard().addDiscardedCouncillor(balcony.electCouncillor(councillor));
 
 		// electCouncillor give 4 coins to player
-		super.getPlayer().addCoins(4);
+		super.getPlayer().addCoins(electCouncillorPrize);
 
 		return nextState(previousState);
 	}
