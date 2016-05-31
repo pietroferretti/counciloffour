@@ -7,8 +7,8 @@ import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public class EndTurnAction extends Action {
 
-	public EndTurnAction(Player player, GameBoard gameBoard, TurnState previousState) {
-		super(player, gameBoard,previousState);
+	public EndTurnAction(Player player, GameBoard gameBoard) {
+		super(player, gameBoard);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -19,7 +19,7 @@ public class EndTurnAction extends Action {
 	}
 
 	@Override
-	public TurnState execute() {
+	public TurnState execute(TurnState previousState) {
 		return new EndTurnState();
 	}
 

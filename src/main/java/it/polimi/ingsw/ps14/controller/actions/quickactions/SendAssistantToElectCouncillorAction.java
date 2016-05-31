@@ -11,9 +11,9 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 	private final Balcony balcony;
 	private final ColorCouncillor color;
 	
-	public SendAssistantToElectCouncillorAction(Player player, GameBoard gameBoard,TurnState previousState, 
+	public SendAssistantToElectCouncillorAction(Player player, GameBoard gameBoard,
 													Balcony balcony, ColorCouncillor color) {
-		super(player, gameBoard,previousState);
+		super(player, gameBoard);
 		this.balcony = balcony;
 		this.color = color;
 	}
@@ -25,11 +25,11 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 					&& color != null);
 	}
 	
-	public TurnState execute() {
+	public TurnState execute(TurnState previousState) {
 		super.getPlayer().useAssistants(1);
 		super.getGameBoard().addAssistants(1);
 		super.getGameBoard().addDiscardedCouncillor(balcony.electCouncillor(color));
 		
-		return nextState(super.getPreviousState()); 
+		return nextState(previousState); 
 	}
 }

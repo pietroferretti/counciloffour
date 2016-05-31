@@ -16,6 +16,8 @@ public class Player {
 //	private List<BusinessPermit> usedPermitTiles;
 	private List<PoliticCard> hand;
 	private BusinessCardsPlayer businessHand;
+	
+	public int additionalMainsToDo;
 
 	public Player(String name, String color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
 		this.name = name;
@@ -43,21 +45,6 @@ public class Player {
 		businessHand = new BusinessCardsPlayer();
 	}
 
-	public void chooseColor() {
-
-		// se dobbiamo chiederlo al giocatore mi sa che è meglio chiederlo
-		// insieme al nome quando il giocatore si collega
-		// non in questa classe
-
-		// terminale
-		/*
-		 * Scanner input = new Scanner(System.in); System.out.println(
-		 * "Choose your color: "); // dovremmo mettere dei // controlli?? se
-		 * mettiamo // nome invece di colore // viene più facile color =
-		 * input.next(); input.close();
-		 */
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -66,6 +53,10 @@ public class Player {
 		return color;
 	}
 
+	public int getCoins() {
+		return coins;
+	}
+	
 	public boolean useCoins(int coins) {
 		if (this.coins >= coins) {
 			this.coins = this.coins - coins;
@@ -74,24 +65,20 @@ public class Player {
 			return false;
 	}
 
-	public int getCoins() {
-		return coins;
-	}
-
 	public void addCoins(int coins) {
 		this.coins = this.coins + coins;
 	}
 
+	public int getAssistants() {
+		return assistants;
+	}
+	
 	public boolean useAssistants(int assistantNumber) {
 		if (assistants >= assistantNumber) {
 			assistants = assistants - assistantNumber;
 			return true;
 		} else
 			return false;
-	}
-
-	public int getAssistants() {
-		return assistants;
 	}
 
 	public void addAssistants(int assistants) {
@@ -102,9 +89,7 @@ public class Player {
 		return level;
 	}
 
-	// players can upgrade nobility level up to infinity , so you can calculate
-	// who is first and assign him final points
-
+	// players can upgrade the nobility level up to infinity 
 	public int upLevel() {
 		level++;
 		return level; // returns the new value of level to check bonuses
@@ -178,17 +163,17 @@ public class Player {
 	public BusinessCardsPlayer getBusinessHand(){
 		return businessHand;
 	}
-//	public void acquireBusinessPermit(BusinessPermit permitTile) {
-//		permitTiles.add(permitTile);
-//	}
-//
-////	public int getNumberOfPermits() {
-////		return permitTiles.size() + usedPermitTiles.size();
-////	}
-////
-////	public void sellPermits(BusinessPermit item) {
-////		permitTiles.remove(item);
-////
-////	}
+	
+	public void acquireBusinessPermit(BusinessPermit permitTile) {
+		businessHand.acquireBusinessPermit(permitTile);
+	}
+
+	public int getNumberOfPermits() {
+		return businessHand.getNumberOfPermits();
+	}
+
+	public void sellPermits(BusinessPermit item) {
+		businessHand.sellPermits(item);
+	}
 
 }

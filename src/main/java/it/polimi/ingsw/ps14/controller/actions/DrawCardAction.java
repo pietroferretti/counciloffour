@@ -4,10 +4,10 @@ import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
 import it.polimi.ingsw.ps14.controller.turnstates.*;
 
-public class DrawCardAction extends MainAction {
+public class DrawCardAction extends Action {
 
-	public DrawCardAction(Player player, GameBoard gameBoard,TurnState previousState) {
-		super(player, gameBoard,previousState);
+	public DrawCardAction(Player player, GameBoard gameBoard) {
+		super(player, gameBoard);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -18,10 +18,10 @@ public class DrawCardAction extends MainAction {
 	}
 
 	@Override
-	public TurnState execute() {
+	public TurnState execute(TurnState previousState) {
 		super.getPlayer().addPolitic(super.getGameBoard().getPoliticDeck().drawCard());
-		return DrawnCardState.getInstance();
-
+		super.getPlayer().additionalMainsToDo = 0;
+		return new CardDrawnState();
 	}
 
 }

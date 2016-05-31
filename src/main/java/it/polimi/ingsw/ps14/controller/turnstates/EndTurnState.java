@@ -9,7 +9,7 @@ public class EndTurnState extends TurnState {
 	}
 
 	@Override
-	public boolean isActionValid(Action action) {
+	public boolean isActionLegal(Action action) {
 		// No actions allowed
 		return false;
 	}

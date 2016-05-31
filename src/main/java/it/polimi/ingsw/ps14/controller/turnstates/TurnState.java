@@ -11,16 +11,16 @@ public abstract class TurnState {
 	}
 	
 	// check if we can do an action based on the TurnState we are in
-	public abstract boolean isActionValid(Action action);
+	public abstract boolean isActionLegal(Action action);
 
 	public TurnState executeAction(Action action) {
 		// check if the player can do the action based on his "attributes"
-		if (!isActionValid(action)) {
-			// TODO: definire ActionNotValidException
+		if (!isActionLegal(action)) {
+			// TODO: definire ActionNotLegalException
 			throw new RuntimeException("You cannot do this action now!");
 		}
 
-		return action.execute();
+		return action.execute(this);
 
 	}
 }

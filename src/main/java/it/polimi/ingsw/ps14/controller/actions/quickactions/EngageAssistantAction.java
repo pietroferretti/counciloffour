@@ -6,8 +6,8 @@ import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public class EngageAssistantAction extends QuickAction {
 
-	public EngageAssistantAction(Player player, GameBoard gameBoard,TurnState previousState) {
-		super(player, gameBoard,previousState);
+	public EngageAssistantAction(Player player, GameBoard gameBoard) {
+		super(player, gameBoard);
 	}
 
 	public boolean isValid() {
@@ -15,11 +15,11 @@ public class EngageAssistantAction extends QuickAction {
 					&& super.getPlayer().getCoins() >= 3);
 	}
 	
-	public TurnState execute() {
+	public TurnState execute(TurnState previousState) {
 		super.getPlayer().useCoins(3);
 		super.getGameBoard().useAssistants(1);
 		super.getPlayer().addAssistants(1);
 		
-		return nextState(super.getPreviousState()); 
+		return nextState(previousState); 
 	}
 }

@@ -11,18 +11,16 @@ import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public abstract class QuickAction extends Action {
 
-	protected int newAdditionalMains;
-	
-	public QuickAction(Player player, GameBoard gameBoard,TurnState previousState) {
-		super(player, gameBoard,previousState);
-		newAdditionalMains = previousState.additionalMains;
+
+	public QuickAction(Player player, GameBoard gameBoard) {
+		super(player, gameBoard);
 	}
 	
 	protected TurnState nextState(TurnState previousState) {
 		if (previousState instanceof CardDrawnState)
-			return new QuickActionDoneTurnState(newAdditionalMains);
+			return new QuickActionDoneTurnState(super.getPlayer().additionalMainsToDo);
 		if (previousState instanceof MainActionDoneTurnState)
-			return new MainAndQuickActionDoneTurnState(newAdditionalMains);
+			return new MainAndQuickActionDoneTurnState(super.getPlayer().additionalMainsToDo);
 		return null;
 	}
 

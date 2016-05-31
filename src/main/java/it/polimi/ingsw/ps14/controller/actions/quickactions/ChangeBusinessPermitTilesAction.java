@@ -9,8 +9,8 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 
 	private final Region region;
 	
-	public ChangeBusinessPermitTilesAction(Player player, GameBoard gameBoard, TurnState previousState, Region region) {
-		super(player, gameBoard, previousState);
+	public ChangeBusinessPermitTilesAction(Player player, GameBoard gameBoard, Region region) {
+		super(player, gameBoard);
 		this.region = region;
 	}
 
@@ -21,12 +21,12 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 	}
 	
 	@Override
-	public TurnState execute() {
+	public TurnState execute(TurnState previousState) {
 		super.getPlayer().useAssistants(1);
 		super.getGameBoard().addAssistants(1);
 		// TODO aggiungere "metti carte in fondo al mazzo" al deck di business permit in regione
 		
-		return nextState(super.getPreviousState());
+		return nextState(previousState);
 	}
 	
 }

@@ -10,7 +10,7 @@ public class InitialTurnState extends TurnState {
 	}
 	
 	@Override
-	public boolean isActionValid(Action action) {
+	public boolean isActionLegal(Action action) {
 		return action instanceof DrawCardAction && action.isValid();
 	}
 
