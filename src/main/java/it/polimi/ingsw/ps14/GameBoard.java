@@ -331,6 +331,10 @@ public class GameBoard {
 		return useAssistants(1);
 	}
 
+	public void addAssistants(int quantity) {
+		availableAssistants += quantity;
+	}
+	
 	/*
 	 * -------------------------- REGIONS ---------------------------
 	 */
