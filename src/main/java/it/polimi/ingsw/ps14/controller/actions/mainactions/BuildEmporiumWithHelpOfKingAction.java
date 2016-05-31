@@ -1,32 +1,55 @@
 package it.polimi.ingsw.ps14.controller.actions.mainactions;
 
-import it.polimi.ingsw.ps14.BusinessPermit;
+import it.polimi.ingsw.ps14.Balcony;
 import it.polimi.ingsw.ps14.City;
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
+import it.polimi.ingsw.ps14.PoliticCard;
 import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
-import java.awt.Color;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
-	
+
 	private City city;
-	private BusinessPermit businessCard;
+	private List<PoliticCard> cards;
 
 	public BuildEmporiumWithHelpOfKingAction(Player player,
-			GameBoard gameBoard, City city,
-			BusinessPermit businessCard) {
+			GameBoard gameBoard, City city, List<PoliticCard> cards) {
 		super(player, gameBoard);
 		this.city = city;
-		this.businessCard = businessCard;
+		this.cards = cards;
 	}
 
+	public boolean isValid() {
+		Balcony balcony = super.getGameBoard().getKing().getBalcony();
 
+		if (balcony.cardsInBalcony(cards) == -1)
+			return false;
+		// TODO: send error: ERROR in color choice
+		if (super.getPlayer().getCoins() < balcony.councillorCost(cards))
+			return false;
+		// TODO: send ERROR: not enough coins
+
+		// player don't have built in the city yet
+		if (city.isEmporiumBuilt(super.getPlayer()))
+			return false;
+
+		// check if player has money enough to pay players that have built in
+		// the city yet
+		if (super.getPlayer().getAssistants() < city.numEmporiumsBuilt())
+			return false;
+
+		// player has coins enough to move king
+		City cityKing = super.getGameBoard().getKing().getCity();
+		if (super.getPlayer().getCoins() < kingPathCost(cityKing, city))
+			return false;
+
+		return true;
+	}
 
 	/**
 	 * Calcolate minimum path that king has to do
@@ -37,55 +60,75 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 	 *            where king wants to go
 	 * @return coin that player must pay to move the king
 	 */
-//	private int kingPathCost(City start, City stop) {
-//		int cost = 0;
-//		Map<City, Color> visitCity = new HashMap<>();
-//		List<City> neighbors = new ArrayList<>();
-//
-//		for (City city : super.getGameBoard().getCities()) {
-//			if (!visitCity.containsKey(city))
-//				visitCity.put(city, Color.WHITE);
-//		}
-//
-//		for (City cy : start.getNeighbors()) {
-//			visitCity.put(start, Color.GRAY);
-//			neighbors.add(cy);
-//			if (city.equals(stop))
-//				return cost;
-//		}
-//		visitCity.put(start, Color.BLACK);
-//		for (City city : neighbors) {
-//			neighbors.remove(city);
-//
-//		}
-		// ---------------------------------------
+	private Integer kingPathCost(City start, City stop) {
+		Map<String, Integer> cost = new HashMap<>();
+		PriorityQueue<City> queue = new PriorityQueue<>();
+		City u;
+		int costEachCity = 2;
 
-//		neighbors.add(start);
-//		Iterator it=visitCity.entrySet().iterator();
-//		while(it.hasNext() && )
-//
-//			for (City cy : str.getNeighbors()) {
-//				if (!visitCity.containsKey(cy)) {
-//					visitCity.put(cy, Color.GRAY);
-//				}
-//			}
-//			visitCity.put(str, Color.BLACK);
-//			
-//			
-//			for (City c : neighbors)
-//				if (city.equals(stop))
-//					return cost;
-//		}
-//
-//		//
-//		//
-//		//
-//		// for (City city : cy.getNeighbors()) {
-//		// if (city.equals(stop))
-//		// return cost;
-//		// }
-//		// visitCity.put(cy, Color.BLACK);
-//
-//		return 0;
-//	}
+		// controllo se start e stop coincidono
+		if ((start.getName().compareTo(stop.getName())) == 0)
+			return 0;
+		else {
+
+			// rendi tutti i vertici non marcati
+			for (City city : super.getGameBoard().getCities()) {
+				cost.put(city.getName(), null);
+			}
+
+			// marca il vertice s
+			cost.put(start.getName(), 0);
+
+			// enqueue s
+			queue.add(start);
+
+			while (!queue.isEmpty()) {
+				u = queue.poll();
+				for (City city : u.getNeighbors()) {
+					if (cost.get(city.getName()) == null) {
+						queue.add(city);
+						cost.replace(city.getName(), cost.get(u.getName())
+								+ costEachCity);
+					}
+				}
+				if (queue.contains(stop))
+					return cost.get(stop.getName());
+			}
+			return null;
+		}
+	}
+
+	public TurnState execute(TurnState previousState) {
+		Balcony balcony = super.getGameBoard().getKing().getBalcony();
+		City cityKing = super.getGameBoard().getKing().getCity();
+
+		// remove coins to buy concillor
+		super.getPlayer().useCoins(balcony.councillorCost(cards));
+
+		// remove cards politic used
+		super.getPlayer().getHand().removeAll(cards);
+
+		// add politic cards used to gameboard
+		super.getGameBoard().getPoliticDeck().discardCards(cards);
+
+		// one assistant for each emporium that is built
+		super.getPlayer().useAssistants(city.numEmporiumsBuilt());
+
+		// pay to move king
+		super.getPlayer().useCoins(kingPathCost(cityKing, city));
+
+		// move king
+		super.getGameBoard().getKing().setCity(city);
+
+		// build emporium
+		city.buildEmporium(super.getPlayer());
+
+		// apply city token
+		city.getToken().useBonus(super.getPlayer(),
+				super.getGameBoard().getPoliticDeck());
+
+		// TODO: bonus citta adiacenti
+
+		return super.nextState(previousState);
+	}
 }

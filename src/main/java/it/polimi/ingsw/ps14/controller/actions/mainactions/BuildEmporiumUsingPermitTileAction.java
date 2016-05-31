@@ -37,11 +37,18 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 
 	@Override
 	public TurnState execute(TurnState previousState) {
+		
 		//use permit
 		super.getPlayer().getBusinessHand().usePermit(businessCard);
 		
 		//give assistant back to gameboard (according to #Emporium built in this city)
 		super.getPlayer().useAssistants(city.numEmporiumsBuilt());
+		
+		//add them to gameboard
+		super.getGameBoard().addAssistants(city.numEmporiumsBuilt());
+		
+		//build emporium in the city
+		city.buildEmporium(super.getPlayer());
 		
 		//apply city token
 		city.getToken().useBonus(super.getPlayer(), super.getGameBoard().getPoliticDeck());
