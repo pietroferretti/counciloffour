@@ -374,4 +374,13 @@ public class GameBoard {
 		}
 		throw new RuntimeException("City not found! Check your settings file?");
 	}
+	
+
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
+	}
 }

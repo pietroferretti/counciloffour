@@ -1,33 +1,113 @@
 package it.polimi.ingsw.ps14.controller.actions.mainactions;
 
+import it.polimi.ingsw.ps14.BusinessPermit;
+import it.polimi.ingsw.ps14.City;
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.controller.actions.MainAction;
-import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenAlreadyDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenNotDoneYetTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.DrawnCardState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainAndQuickActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
-	public BuildEmporiumWithHelpOfKingAction(Player player, GameBoard gameBoard,TurnState previousState) {
-		super(player, gameBoard,previousState);
-		// TODO Auto-generated constructor stub
-		//TODO check bonus collegati a tutte le città (funzione ricorsiva?)
+	private City city;
+	private BusinessPermit businessCard;
 
+	public BuildEmporiumWithHelpOfKingAction(Player player,
+			GameBoard gameBoard, TurnState previousState, City city,
+			BusinessPermit businessCard) {
+		super(player, gameBoard, previousState);
+		this.city = city;
+		this.businessCard = businessCard;
 	}
 
-	private TurnState nextState(TurnState previousState) {
-		if (previousState instanceof DrawnCardState)
-			return MainActionDoneTurnState.getInstance();
-		if (previousState instanceof ChooseMainWhenNotDoneYetTurnState)
-			return QuickActionDoneTurnState.getInstance();
-		if ((previousState instanceof QuickActionDoneTurnState)
-			|| (previousState instanceof ChooseMainWhenAlreadyDoneTurnState))
-			return MainAndQuickActionDoneTurnState.getInstance();
-		return null;
+	@Override
+	/**
+	 * @return False if action is not valid
+	 */
+	public boolean isValid() {
+		// city is in the list of business permit selected
+		if (!businessCard.contains(city))
+			return false;
+
+		// check if player has built in this city yet
+		if (city.isEmporiumBuilt(super.getPlayer()))
+			return false;
+
+		// check if player has money enough to pay players that have built in
+		// the city yet
+		if (city.numEmporiumsBuilt() > super.getPlayer().getAssistants())
+			return false;
+
+		// find city where player want build emporium and calcolate path
+
+		
+		return true;
 	}
+
+	/**
+	 * Calcolate minimum path that king has to do
+	 * 
+	 * @param start
+	 *            where king is now
+	 * @param stop
+	 *            where king wants to go
+	 * @return coin that player must pay to move the king
+	 */
+//	private int kingPathCost(City start, City stop) {
+//		int cost = 0;
+//		Map<City, Color> visitCity = new HashMap<>();
+//		List<City> neighbors = new ArrayList<>();
+//
+//		for (City city : super.getGameBoard().getCities()) {
+//			if (!visitCity.containsKey(city))
+//				visitCity.put(city, Color.WHITE);
+//		}
+//
+//		for (City cy : start.getNeighbors()) {
+//			visitCity.put(start, Color.GRAY);
+//			neighbors.add(cy);
+//			if (city.equals(stop))
+//				return cost;
+//		}
+//		visitCity.put(start, Color.BLACK);
+//		for (City city : neighbors) {
+//			neighbors.remove(city);
+//
+//		}
+		// ---------------------------------------
+
+//		neighbors.add(start);
+//		Iterator it=visitCity.entrySet().iterator();
+//		while(it.hasNext() && )
+//
+//			for (City cy : str.getNeighbors()) {
+//				if (!visitCity.containsKey(cy)) {
+//					visitCity.put(cy, Color.GRAY);
+//				}
+//			}
+//			visitCity.put(str, Color.BLACK);
+//			
+//			
+//			for (City c : neighbors)
+//				if (city.equals(stop))
+//					return cost;
+//		}
+//
+//		//
+//		//
+//		//
+//		// for (City city : cy.getNeighbors()) {
+//		// if (city.equals(stop))
+//		// return cost;
+//		// }
+//		// visitCity.put(cy, Color.BLACK);
+//
+//		return 0;
+//	}
 }

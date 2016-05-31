@@ -54,5 +54,11 @@ public class BusinessCardsRegion {
 	public BusinessPermit[] getAvailablePermits() {
 		return availablePermits;
 	}
+	
+	public boolean BusinessPermitIsAvailable(BusinessPermit permit){
+		for(BusinessPermit avBP : availablePermits)
+			if(permit.equals(avBP)) return true;
+		return false;
+	}
 
 }
