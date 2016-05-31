@@ -5,15 +5,15 @@ import it.polimi.ingsw.ps14.controller.actions.MainAction;
 
 public class QuickActionDoneTurnState extends TurnState {
 
-	private static final QuickActionDoneTurnState INSTANCE = new QuickActionDoneTurnState();
+	public final int additionalMains;
 
-	public static QuickActionDoneTurnState getInstance() {
-		return INSTANCE;
+	public QuickActionDoneTurnState(int additionalMains) {
+		this.additionalMains = additionalMains;
 	}
 
 	@Override
 	public boolean isActionValid(Action action) {
-		return action.isValid() && action instanceof MainAction;
+		return action instanceof MainAction && action.isValid();
 	}
 
 }

@@ -4,7 +4,7 @@ import it.polimi.ingsw.ps14.controller.actions.Action;
 
 public abstract class TurnState {
 	
-	// check if we can do an actin based on the TurnState we are in
+	// check if we can do an action based on the TurnState we are in
 	public abstract boolean isActionValid(Action action);
 
 	public TurnState executeAction(Action action) {
