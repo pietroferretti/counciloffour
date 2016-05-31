@@ -2,26 +2,23 @@ package it.polimi.ingsw.ps14.controller.actions.quickactions;
 
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.controller.actions.QuickAction;
-import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenAlreadyDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenNotDoneYetTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.DrawnCardState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public class PerformAdditionalMainActionAction extends QuickAction {
 
 	public PerformAdditionalMainActionAction(Player player, GameBoard gameBoard,TurnState previousState) {
 		super(player, gameBoard,previousState);
-		// TODO Auto-generated constructor stub
 	}
 	
-	private TurnState nextState(TurnState previousState) {
-		if (previousState instanceof DrawnCardState)
-			return ChooseMainWhenNotDoneYetTurnState.getInstance();
-		if (previousState instanceof MainActionDoneTurnState)
-			return ChooseMainWhenAlreadyDoneTurnState.getInstance();
-		return null;
+	public boolean isValid() {
+		return super.getPlayer().getAssistants() >= 3;
 	}
-
+	
+	public TurnState execute() {
+		super.getPlayer().useAssistants(3);
+		super.getGameBoard().addAssistants(3);
+		newAdditionalMains++;
+		
+		return nextState(super.getPreviousState()); 
+	}
 }

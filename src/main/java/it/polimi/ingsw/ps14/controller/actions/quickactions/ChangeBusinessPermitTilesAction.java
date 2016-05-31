@@ -2,28 +2,31 @@ package it.polimi.ingsw.ps14.controller.actions.quickactions;
 
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.controller.actions.QuickAction;
-import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenAlreadyDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenNotDoneYetTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.DrawnCardState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainAndQuickActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.QuickActionDoneTurnState;
+import it.polimi.ingsw.ps14.Region;
 import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public class ChangeBusinessPermitTilesAction extends QuickAction {
 
-	public ChangeBusinessPermitTilesAction(Player player, GameBoard gameBoard,TurnState previousState) {
-		super(player, gameBoard,previousState);
-		// TODO Auto-generated constructor stub
+	private final Region region;
+	
+	public ChangeBusinessPermitTilesAction(Player player, GameBoard gameBoard, TurnState previousState, Region region) {
+		super(player, gameBoard, previousState);
+		this.region = region;
 	}
 
-	private TurnState nextState(TurnState previousState) {
-		if (previousState instanceof DrawnCardState)
-			return QuickActionDoneTurnState.getInstance();
-		if (previousState instanceof MainActionDoneTurnState)
-			return MainAndQuickActionDoneTurnState.getInstance();
-		return null;
+	public boolean isValid() {
+		return (region.getBusinessPermits().cardsLeftInDeck() > 0
+					&& super.getPlayer().getAssistants() >= 1
+					&& region != null);
+	}
+	
+	@Override
+	public TurnState execute() {
+		super.getPlayer().useAssistants(1);
+		super.getGameBoard().addAssistants(1);
+		// TODO aggiungere "metti carte in fondo al mazzo" al deck di business permit in regione
+		
+		return nextState(super.getPreviousState());
 	}
 	
 }

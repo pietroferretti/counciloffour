@@ -6,7 +6,7 @@ import it.polimi.ingsw.ps14.controller.actions.DrawCardAction;
 public class InitialTurnState extends TurnState {
 
 	public InitialTurnState() {
-		// Nothing to initialize
+		super(0);	// There can't be any additional main actions at the start of the turn
 	}
 	
 	@Override
