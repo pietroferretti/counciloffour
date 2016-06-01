@@ -55,10 +55,14 @@ public class BusinessCardsRegion {
 		return availablePermits;
 	}
 	
-	public boolean BusinessPermitIsAvailable(BusinessPermit permit){
+	public boolean businessPermitIsAvailable(BusinessPermit permit){
 		for(BusinessPermit avBP : availablePermits)
 			if(permit.equals(avBP)) return true;
 		return false;
+	}
+	
+	public int cardsLeftInDeck() {
+		return deck.size();
 	}
 
 }
