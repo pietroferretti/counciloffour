@@ -65,4 +65,8 @@ public class BusinessCardsRegion {
 		return deck.size();
 	}
 
+	public int cardsLeftInDeck() {
+		return deck.size();
+	}
+
 }

@@ -44,10 +44,24 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 
 	@Override
 	public TurnState execute(TurnState previousState) {
-		if(super.getPlayer().useCoins(balcony.councillorCost(cards))){
-			super.getPlayer().getBusinessHand().acquireBusinessPermit(permitTile);
-			region.getBusinessPermits().substituteCard(permitTile);
-		}
+		
+		//pay councillors
+		super.getPlayer().useCoins(balcony.councillorCost(cards));
+		
+		// remove cards politic used
+		super.getPlayer().getHand().removeAll(cards);
+
+		// add politic cards used to gameboard
+		super.getGameBoard().getPoliticDeck().discardCards(cards);
+		
+		//acquire permit
+		super.getPlayer().getBusinessHand().acquireBusinessPermit(permitTile);
+		
+		//change face up card in region
+		region.getBusinessPermits().substituteCard(permitTile);
+		
+		//TODO: bonus
+		
 		return nextState(previousState);
 	}
 

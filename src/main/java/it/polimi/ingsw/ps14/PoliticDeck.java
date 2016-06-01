@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PoliticDeck extends Deck {
 
@@ -53,6 +54,14 @@ public class PoliticDeck extends Deck {
 			result.add(drawCard());
 		}
 		return result;
+	}
+	
+	public void discardCard(PoliticCard card){
+		discardedCards.add(card);
+	}
+	
+	public void discardCards(List<PoliticCard> cards){
+		discardedCards.addAll(cards);
 	}
 
 }
