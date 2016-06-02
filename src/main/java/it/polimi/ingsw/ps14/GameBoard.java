@@ -22,8 +22,6 @@ public class GameBoard {
 	Random random = new Random();
 
 	private List<Region> regions;
-	
-	private NobilityTrack nobilityTrack;
 
 	private King king;
 
@@ -381,6 +379,7 @@ public class GameBoard {
 		throw new RuntimeException("City not found! Check your settings file?");
 	}
 	
+
 	public List<City> getCities() {
 		return cities;
 	}
@@ -388,10 +387,4 @@ public class GameBoard {
 	public void setCities(List<City> cities) {
 		this.cities = cities;
 	}
-	
-
-public NobilityTrack getNobilityTrack() {
-		return nobilityTrack;
-	}
-
 }

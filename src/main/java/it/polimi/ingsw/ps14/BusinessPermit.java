@@ -30,7 +30,6 @@ public class BusinessPermit implements Card {
 	 * @param  city city to check
 	 * @return      true is it is contained, false if it is NOT contained
 	 */
-	 
 	public boolean contains(City city) {
 		for (City cty : cities)
 			if (cty.equals(city))

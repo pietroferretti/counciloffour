@@ -15,4 +15,5 @@ public class NobilityTrack {
 	public Bonus getBonus(int level) {
 		return bonuses.get(level);
 	}
+
 }

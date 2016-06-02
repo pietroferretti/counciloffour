@@ -3,6 +3,8 @@ package it.polimi.ingsw.ps14.model;
 import java.util.Observable;
 import java.util.Observer;
 
+import it.polimi.ingsw.ps14.GameBoard;
+
 public class ModelView extends Observable implements Observer {
 
 	private Game modelCopy;
@@ -18,9 +20,4 @@ public class ModelView extends Observable implements Observer {
 		notifyObservers();	
 	}
 
-	public Game getModelCopy() {
-		return modelCopy;
-	}
-
-	
 }

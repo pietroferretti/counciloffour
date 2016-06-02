@@ -8,19 +8,6 @@ import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
 import it.polimi.ingsw.ps14.PoliticCard;
 import it.polimi.ingsw.ps14.Region;
-import it.polimi.ingsw.ps14.controller.actions.MainAction;
-import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenAlreadyDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenNotDoneYetTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.DrawnCardState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainAndQuickActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.QuickActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.ChooseMainWhenNotDoneYetTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.DrawnCardState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainAndQuickActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public class AcquireBusinessPermiteTileAction extends MainAction {

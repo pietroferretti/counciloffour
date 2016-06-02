@@ -6,22 +6,12 @@ import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public abstract class Action {
 
-	private Player player;
-	private GameBoard gameBoard;
-	private TurnState previousState;
+	private final Player player;
+	private final GameBoard gameBoard;
 
-	public Action(Player player, GameBoard gameBoard, TurnState previousState) {
+	public Action(Player player, GameBoard gameBoard) {
 		this.player = player;
 		this.gameBoard = gameBoard;
-		this.previousState=previousState;
-	}
-
-	public TurnState getPreviousState() {
-		return previousState;
-	}
-
-	public void setPreviousState(TurnState previousState) {
-		this.previousState = previousState;
 	}
 
 	public Player getPlayer() {
@@ -32,16 +22,8 @@ public abstract class Action {
 		return gameBoard;
 	}
 
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
-	public void setGameBoard(GameBoard gameBoard) {
-		this.gameBoard = gameBoard;
-	}
-
 	// check if the player can do the action based on his "attributes"
 	public abstract boolean isValid();
 
-	public abstract TurnState execute();
+	public abstract TurnState execute(TurnState previousState);
 }

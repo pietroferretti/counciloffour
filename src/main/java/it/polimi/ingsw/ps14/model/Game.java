@@ -12,9 +12,8 @@ public class Game extends Observable implements Cloneable {
 
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
-		return null;
 		// TODO Auto-generated method stub
-		//return super.clone();
+		return super.clone();
 	}
 
 	public GameBoard getGameBoard() {
