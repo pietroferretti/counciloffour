@@ -1,5 +1,13 @@
 package it.polimi.ingsw.ps14;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Random;
+
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
 import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
@@ -8,14 +16,6 @@ import it.polimi.ingsw.ps14.model.bonus.BonusMainAction;
 import it.polimi.ingsw.ps14.model.bonus.BonusNobility;
 import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Random;
 
 public class GameBoard {
 
@@ -28,6 +28,8 @@ public class GameBoard {
 	private List<City> cities;
 
 	private int availableAssistants;
+	
+	private NobilityTrack nobilityTrack;
 
 	// HashMap to store how many councillors there are for each color
 	private Map<ColorCouncillor, Integer> availableCouncillors = new HashMap<>();
@@ -386,5 +388,9 @@ public class GameBoard {
 
 	public void setCities(List<City> cities) {
 		this.cities = cities;
+	}
+
+	public NobilityTrack getNobilityTrack() {
+		return nobilityTrack;
 	}
 }

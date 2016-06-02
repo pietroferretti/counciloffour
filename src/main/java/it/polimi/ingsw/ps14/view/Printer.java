@@ -122,7 +122,7 @@ public class Printer {
 			print("COUNCIL:");
 			printCouncil(region.getBalcony().readBalcony());
 
-			printBusinessPermits(region.getBusinessPermits().getAvailablePermit());
+			printBusinessPermits(region.getBusinessPermits().getAvailablePermits());
 
 			output.format("This region contains %d cities", region.getCities().size());
 			print("");
