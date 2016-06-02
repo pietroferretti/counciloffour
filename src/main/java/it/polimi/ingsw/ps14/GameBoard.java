@@ -211,7 +211,7 @@ public class GameBoard {
 		}
 	}
 	
-	ArrayList<BusinessPermit> getPermitDeckFromSettings(Settings settings, RegionType regionType) {
+	List<BusinessPermit> getPermitDeckFromSettings(Settings settings, RegionType regionType) {
 		List<Map<String, Object>> settingsDeck;
 		switch(regionType) {
 		case COAST:
@@ -251,7 +251,7 @@ public class GameBoard {
 			permitList.add(permit);
 		}
 		
-		return (ArrayList)permitList;
+		return permitList;
 	}
 	
 	/*
@@ -333,6 +333,10 @@ public class GameBoard {
 		return useAssistants(1);
 	}
 
+	public void addAssistants(int quantity) {
+		availableAssistants += quantity;
+	}
+	
 	/*
 	 * -------------------------- REGIONS ---------------------------
 	 */
@@ -377,19 +381,17 @@ public class GameBoard {
 		throw new RuntimeException("City not found! Check your settings file?");
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	public NobilityTrack getNobilityTrack() {
-		return nobilityTrack;
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
 	}
 	
+
+public NobilityTrack getNobilityTrack() {
+		return nobilityTrack;
+	}
+
 }
-
-
-
-

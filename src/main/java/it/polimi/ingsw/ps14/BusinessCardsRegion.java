@@ -7,15 +7,15 @@ import java.util.List;
 public class BusinessCardsRegion {
 
 	private List<BusinessPermit> deck;
-	private BusinessPermit[] availablePermit;
+	private BusinessPermit[] availablePermits;
 
 	public BusinessCardsRegion(ArrayList<BusinessPermit> deck) {
 		this.deck = deck;
-		availablePermit = new BusinessPermit[2];
+		availablePermits = new BusinessPermit[2];
 	}
 
 	public BusinessCardsRegion() {
-		availablePermit = new BusinessPermit[2];
+		availablePermits = new BusinessPermit[2];
 	}
 
 	public void shuffle() {
@@ -28,22 +28,22 @@ public class BusinessCardsRegion {
 	}
 
 	public void substituteCard(BusinessPermit toSubstitute) {
-		for (BusinessPermit busPer : availablePermit)
+		for (BusinessPermit busPer : availablePermits)
 			if (busPer == toSubstitute) {
 				busPer = drawCardFromDeck();
 			}
 	}
 
 	public boolean cardIsChoosable(BusinessPermit card) {
-		for (BusinessPermit busPer : availablePermit)
+		for (BusinessPermit busPer : availablePermits)
 			if (busPer.equals(card)) {
 				return true;
 			}
 		return false;
 	}
 
-	public BusinessPermit[] getAvailablePermit() {
-		return availablePermit;
+	public BusinessPermit[] getAvailablePermits() {
+		return availablePermits;
 	}
 
 }

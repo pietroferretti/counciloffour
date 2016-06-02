@@ -17,7 +17,11 @@ public class BonusList {
 		return bonus;
 	}
 	
-	//TODO: do it better!
+/**
+ * use bonus according bonus type
+ * @param player player who use the bonus
+ * @param deck politicDeck of the player (to add politic cards if they are in the bonus)
+ */
 	public void useBonus(Player player,PoliticDeck deck){
 		for(Bonus bon : bonus){
 			if(bon instanceof BonusAssistant) 

@@ -2,25 +2,24 @@ package it.polimi.ingsw.ps14.controller.actions.quickactions;
 
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.controller.actions.QuickAction;
-import it.polimi.ingsw.ps14.controller.turnstates.DrawnCardState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainAndQuickActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 
 public class EngageAssistantAction extends QuickAction {
 
-	public EngageAssistantAction(Player player, GameBoard gameBoard,TurnState previousState) {
-		super(player, gameBoard,previousState);
-		// TODO Auto-generated constructor stub
+	public EngageAssistantAction(Player player, GameBoard gameBoard) {
+		super(player, gameBoard);
 	}
 
-	private TurnState nextState(TurnState previousState) {
-		if (previousState instanceof DrawnCardState)
-			return QuickActionDoneTurnState.getInstance();
-		if (previousState instanceof MainActionDoneTurnState)
-			return MainAndQuickActionDoneTurnState.getInstance();
-		return null;
+	public boolean isValid() {
+		return (super.getGameBoard().getAvailableAssistants() >= 1 
+					&& super.getPlayer().getCoins() >= 3);
+	}
+	
+	public TurnState execute(TurnState previousState) {
+		super.getPlayer().useCoins(3);
+		super.getGameBoard().useAssistants(1);
+		super.getPlayer().addAssistants(1);
+		
+		return nextState(previousState); 
 	}
 }

@@ -22,4 +22,19 @@ public class BusinessPermit implements Card {
 	public BonusList getBonus() {
 		return bonus;
 	}
+
+	
+	/**
+	 * Check if city parameter is contained in the cities declared in the businessPermit
+	 *
+	 * @param  city city to check
+	 * @return      true is it is contained, false if it is NOT contained
+	 */
+	 
+	public boolean contains(City city) {
+		for (City cty : cities)
+			if (cty.equals(city))
+				return true;
+		return false;
+	}
 }
