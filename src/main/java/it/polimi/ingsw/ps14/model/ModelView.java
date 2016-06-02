@@ -13,7 +13,7 @@ public class ModelView extends Observable implements Observer {
 		if(!(o instanceof Game)){
 			throw new IllegalArgumentException();
 		}
-		modelCopy = (Game) arg.clone();
+//		modelCopy = (Game) arg.clone();
 		setChanged();
 		notifyObservers();	
 	}
