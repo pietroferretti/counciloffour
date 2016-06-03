@@ -21,7 +21,7 @@ public class BusinessCardsRegion {
 		availablePermits = new BusinessPermit[2];
 	}
 
-	public void shuffle() {
+	private void shuffle() {
 		Collections.shuffle(deck);
 	}
 
@@ -63,6 +63,10 @@ public class BusinessCardsRegion {
 	
 	public int cardsLeftInDeck() {
 		return deck.size();
+	}
+	
+	public void putCardInDeckEnd(BusinessPermit card){
+		deck.add(card);
 	}
 
 }

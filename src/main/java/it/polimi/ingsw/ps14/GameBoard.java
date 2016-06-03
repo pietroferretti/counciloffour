@@ -95,6 +95,11 @@ public class GameBoard {
 		getRegion(RegionType.COAST).setBonusRegion(bonusCoast);
 		getRegion(RegionType.HILLS).setBonusRegion(bonusHills);
 		getRegion(RegionType.MOUNTAINS).setBonusRegion(bonusMountains);
+		
+		//Build PoliticDeck for gameboard
+		int numberColoredCard = 13;
+		int numberJollyCard=12;
+		politicDeck = new PoliticDeck(numberColoredCard,numberJollyCard);
 	}
 
 	/*
@@ -372,7 +377,7 @@ public class GameBoard {
 	 * --------------------------- CITIES -----------------------------
 	 */
 
-	private City getCityByName(String cityName) {
+	public City getCityByName(String cityName) {
 		for (City city : cities) {
 			if (city.getName().equals(cityName)) {
 				return city;

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps14;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
@@ -87,6 +86,15 @@ public class Balcony {
 		}
 		
 		return cost;
+	}
+	
+	@Override
+	public String toString(){
+		String data=null;
+		for(ColorCouncillor con: councillors){
+			data=con.name()+", ";
+		}
+		return data;
 	}
 
 }
