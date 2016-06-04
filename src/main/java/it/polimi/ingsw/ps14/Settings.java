@@ -17,19 +17,14 @@ import org.json.JSONTokener;
 public class Settings {
 	
 	public final int councillorsEachBalcony;
-	
 	public final int availableCouncillorsEachColor;
-
 	public final int availableAssistants;
-	
+	public final int numColoredCards;
+	public final int numJollyCards;
 	public final Map<String, Integer> bonuses;
-	
 	public final Map<String, Map<String, Object>> map;
-	
 	public final String kingStartingCityString;
-	
 	public final List<Map<String, Integer>> tokens;
-	
 	public final List<Map<String, Object>> permitDeckCoast;
 	public final List<Map<String, Object>> permitDeckHills;
 	public final List<Map<String, Object>> permitDeckMountains;
@@ -52,6 +47,8 @@ public class Settings {
 		councillorsEachBalcony = jsonSettings.getInt("balconyCouncillors");
 		availableCouncillorsEachColor = jsonSettings.getInt("availableCouncillors");
 		availableAssistants = jsonSettings.getInt("assistants");
+		numColoredCards = jsonSettings.getInt("numColoredCards");
+		numJollyCards = jsonSettings.getInt("numJollyCards");		
 		
 		// Load the bonuses
 		JSONObject jsonBonuses = jsonSettings.getJSONObject("bonuses");

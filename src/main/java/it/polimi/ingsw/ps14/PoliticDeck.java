@@ -4,35 +4,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PoliticDeck extends Deck {
+public class PoliticDeck {
 
 	private List<PoliticCard> deck;
 	private List<PoliticCard> discardedCards;
 
-	public PoliticDeck(int numColoredCard, int numJolly) {
-		deck= new ArrayList<>();
-		discardedCards= new ArrayList<>();
-		for (int i = 0; i < numColoredCard; i++) {
-			deck.add(new PoliticCard(ColorPolitic.BLACK));
-			deck.add(new PoliticCard(ColorPolitic.BLUE));
-			deck.add(new PoliticCard(ColorPolitic.ORANGE));
-			deck.add(new PoliticCard(ColorPolitic.PINK));
-			deck.add(new PoliticCard(ColorPolitic.PURPLE));
-			deck.add(new PoliticCard(ColorPolitic.WHITE));
+	public PoliticDeck(int numColoredCards, int numJolly) {
+		deck = new ArrayList<>();
+		discardedCards = new ArrayList<>();
+		
+		for (int i = 0; i < numColoredCards; i++) {
+			for (ColorPolitic color : ColorPolitic.values()) {
+				if (color != ColorPolitic.JOLLY) {
+					deck.add(new PoliticCard(color));
+				}
+			}
+
 		}
+		
 		for (int i = 0; i < numJolly; i++) {
 			deck.add(new PoliticCard(ColorPolitic.JOLLY));
 		}
+		
 		shuffle();
 
 	}
 
-	private void shuffleAll() {
-		deck.addAll(discardedCards);
-		discardedCards.clear();
-		shuffle();
-	}
-	
 	public void addPoliticCard(PoliticCard card){
 		deck.add(card);
 	}
@@ -46,7 +43,7 @@ public class PoliticDeck extends Deck {
 	}
 
 	public PoliticCard drawCard() {
-		if (deck.size() == 0)
+		if (deck.isEmpty())
 			shuffleAll();
 		return deck.remove(0);
 	}
@@ -67,9 +64,14 @@ public class PoliticDeck extends Deck {
 		discardedCards.addAll(cards);
 	}
 	
-	@Override
 	public void shuffle(){
 		Collections.shuffle(deck);
 	}
-
+	
+	private void shuffleAll() {
+		deck.addAll(discardedCards);
+		discardedCards.clear();
+		shuffle();
+	}
+	
 }

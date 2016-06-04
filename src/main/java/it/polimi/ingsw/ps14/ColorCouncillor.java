@@ -16,12 +16,9 @@ public enum ColorCouncillor {
 
 	BLUE;
 	
-	//not used:
-	public static ColorCouncillor getRandomConcillor(Random random){
-		ColorCouncillor[] values=ColorCouncillor.values();
-		return values[random.nextInt(values.length)];
-	}
+	private static final Random random = new Random();
 	
-	public final static int size=ColorCouncillor.values().length;
-
+	public static ColorCouncillor getRandomCouncillor(){
+		return values()[random.nextInt(values().length)];
+	}
 }

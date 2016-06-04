@@ -2,6 +2,8 @@
     "balconyCouncillors" : 4,
     "availableCouncillors" : 6,
     "assistants" : 20,
+    "numColoredCards" : 13,
+    "numJollyCards" : 12,
     "bonuses" : {
         "bonusCoast" : 5,
         "bonusHills" : 5,
