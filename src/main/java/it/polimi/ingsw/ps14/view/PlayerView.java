@@ -11,19 +11,23 @@ public class PlayerView extends Observable implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+
 		if (!(o instanceof Player)) {
 			throw new IllegalArgumentException();
 		}
 		try {
 			playerCopy = ((Player) arg).clone();
+			setChanged();
+			notifyObservers();
+
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		setChanged();
-		notifyObservers();
 
 	}
 
+	public Player getPlayerCopy() {
+		return playerCopy;
+	}
 }

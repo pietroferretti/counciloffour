@@ -10,12 +10,6 @@ public class Game extends Observable implements Cloneable {
 	private GameBoard gameBoard;
 	private List<Player> players;
 
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
-		return super.clone();
-	}
-
 	public GameBoard getGameBoard() {
 		return gameBoard;
 	}
@@ -23,4 +17,21 @@ public class Game extends Observable implements Cloneable {
 	public List<Player> getPlayers() {
 		return players;
 	}
+
+	/**
+	 * 
+	 * @param color
+	 * @return player with that specific color
+	 */
+	// do per scontato che alla creazione di un giocatore gli venga assegnato un
+	// colore univoco che usiamo come chiave
+	public Player getPlayerByColor(String color) {
+		for (Player player : players) {
+			if (player.getColor().equals(color))
+				return player;
+		}
+		// magari una exception?
+		return null;
+	}
+
 }

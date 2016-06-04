@@ -62,7 +62,7 @@ public class Player extends Observable implements Cloneable {
 		return p;
 	}
 
-	public void copyOf(Player p) {
+	/*public void copyOf(Player p) {
 		// this.name = p.name; sono final!!
 		// this.color = p.color;
 		this.coins = p.coins;
@@ -73,7 +73,7 @@ public class Player extends Observable implements Cloneable {
 		this.businessHand = p.businessHand;
 		// this.permitTiles = p.permitTIles;
 		// this.usedPermitTiles = p.usedPermitTiles;
-	}
+	}*/
 
 	public String getName() {
 		return name;
