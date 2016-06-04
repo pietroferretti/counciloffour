@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps14;
 
+import java.util.Observable;
+
 import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
 import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
@@ -14,7 +16,7 @@ import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
  * TODO Se abbiamo sbatti possiamo fare delle classi per i bonus speciali, poi caricarli in NobilityTrack
  * 		all'inizializzazione del gioco + aggiungere la personalizzazione della nobility track dai settings
  */
-public class NobilityTrack {
+public class NobilityTrack extends Observable implements Cloneable{
 	
 	private final GameBoard gameboard;
 	

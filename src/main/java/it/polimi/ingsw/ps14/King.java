@@ -1,9 +1,10 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.Queue;
 
-public class King {
+public class King extends Observable implements Cloneable{
 
 	private City city;
 	

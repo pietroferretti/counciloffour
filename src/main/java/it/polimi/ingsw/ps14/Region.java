@@ -2,11 +2,12 @@ package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Queue;
 
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
 
-public class Region {
+public class Region extends Observable implements Cloneable {
 
 	private final RegionType type;
 
@@ -30,19 +31,19 @@ public class Region {
 	public RegionType getType() {
 		return type;
 	}
-	
+
 	public void setCities(List<City> cities) {
 		this.cities = cities;
 	}
-	
+
 	public void addCity(City city) {
 		this.cities.add(city);
 	}
-	
+
 	public List<City> getCities() {
 		return cities;
 	}
-	
+
 	public City findCity(String cityName) {
 		for (City city : cities)
 			if (city.getName().equals(cityName))
@@ -74,4 +75,12 @@ public class Region {
 		return bonusRegion;
 	}
 
+	@Override
+	public Region clone() throws CloneNotSupportedException {
+		Region r=new Region(balcony.readBalcony(), type);
+		r.cities = this.cities;
+		r.businessPermits = this.businessPermits;
+		r.bonusRegion = this.bonusRegion;
+		return r;
+	}
 }
