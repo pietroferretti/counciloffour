@@ -1,14 +1,17 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PoliticDeck extends Deck {
 
-	private ArrayList<PoliticCard> deck;
-	private ArrayList<PoliticCard> discardedCards;
+	private List<PoliticCard> deck;
+	private List<PoliticCard> discardedCards;
 
 	public PoliticDeck(int numColoredCard, int numJolly) {
+		deck= new ArrayList<>();
+		discardedCards= new ArrayList<>();
 		for (int i = 0; i < numColoredCard; i++) {
 			deck.add(new PoliticCard(ColorPolitic.BLACK));
 			deck.add(new PoliticCard(ColorPolitic.BLUE));
@@ -34,11 +37,11 @@ public class PoliticDeck extends Deck {
 		deck.add(card);
 	}
 
-	public ArrayList<PoliticCard> getDeck() {
+	public List<PoliticCard> getDeck() {
 		return deck;
 	}
 
-	public ArrayList<PoliticCard> getDiscardedCards() {
+	public List<PoliticCard> getDiscardedCards() {
 		return discardedCards;
 	}
 
@@ -48,8 +51,8 @@ public class PoliticDeck extends Deck {
 		return deck.remove(0);
 	}
 
-	public ArrayList<PoliticCard> drawMultipleCards(int number) {
-		ArrayList<PoliticCard> result = new ArrayList<PoliticCard>();
+	public List<PoliticCard> drawMultipleCards(int number) {
+		List<PoliticCard> result = new ArrayList<>();
 		for (int i = 0; i < number; i++) {
 			result.add(drawCard());
 		}
@@ -62,6 +65,11 @@ public class PoliticDeck extends Deck {
 	
 	public void discardCards(List<PoliticCard> cards){
 		discardedCards.addAll(cards);
+	}
+	
+	@Override
+	public void shuffle(){
+		Collections.shuffle(deck);
 	}
 
 }
