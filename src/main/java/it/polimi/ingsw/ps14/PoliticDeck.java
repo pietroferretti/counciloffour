@@ -19,6 +19,7 @@ public class PoliticDeck {
 					deck.add(new PoliticCard(color));
 				}
 			}
+
 		}
 		
 		for (int i = 0; i < numJolly; i++) {
@@ -26,6 +27,19 @@ public class PoliticDeck {
 		}
 		
 		shuffle();
+
+	}
+
+	public void addPoliticCard(PoliticCard card){
+		deck.add(card);
+	}
+
+	public List<PoliticCard> getDeck() {
+		return deck;
+	}
+
+	public List<PoliticCard> getDiscardedCards() {
+		return discardedCards;
 	}
 
 	public PoliticCard drawCard() {
@@ -60,17 +74,4 @@ public class PoliticDeck {
 		shuffle();
 	}
 	
-	public void addPoliticCard(PoliticCard card){
-		deck.add(card);
-	}
-
-	public List<PoliticCard> getDeck() {
-		return deck;
-	}
-
-	public List<PoliticCard> getDiscardedCards() {
-		return discardedCards;
-	}
-
-
 }

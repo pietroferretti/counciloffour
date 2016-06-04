@@ -93,6 +93,7 @@ public class GameBoard {
 		
 		// Create a NobilityTrack object
 		nobilityTrack = new NobilityTrack(this);
+
 	}
 
 	/*
@@ -144,7 +145,7 @@ public class GameBoard {
 		List<Map<String, Integer>> settingsTokens = settings.tokens;
 		
 		for (Map<String, Integer> tokenAsMap : settingsTokens) {
-			BonusList token = null;
+			BonusList token;
 			List<Bonus> bonuses = new ArrayList<>();
 			
 			// TODO: rifare come una funzione estraiBonus(), codice riutilizzato in getPermitDeck
@@ -162,7 +163,7 @@ public class GameBoard {
 	
 	// TODO: non sono proprio sicuro che sia una best practice, specialmente se aggiungessimo nuovi bonus (ma anche no)
 	Bonus newBonusFromString(String bonusType, int quantity) {
-		Bonus bonus = null;
+		Bonus bonus;
 		
 		switch(bonusType.toLowerCase()) {
 		case "assistants":
@@ -342,14 +343,13 @@ public class GameBoard {
 	 */
 
 	public Region getRegion(RegionType type) {
-		Region regionFound = null;
+
 		for(Region regionInList: regions) {
 			if(regionInList.getType() == type) {
-				regionFound = regionInList;
-				break;
+				return regionInList;
 			}
 		}
-		return regionFound;
+		return null;
 	}
 
 	public List<Region> getRegions() {
@@ -372,7 +372,7 @@ public class GameBoard {
 	 * --------------------------- CITIES -----------------------------
 	 */
 
-	private City getCityByName(String cityName) {
+	public City getCityByName(String cityName) {
 		for (City city : cities) {
 			if (city.getName().equals(cityName)) {
 				return city;

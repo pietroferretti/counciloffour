@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -7,7 +8,7 @@ import java.util.Observable;
 public class Player extends Observable implements Cloneable {
 
 	private final String name;
-	private final String color; // TODO: magari cambiare da stringa a qualche
+	private final Color color; // TODO: magari cambiare da stringa a qualche
 								// tipo come java.awt.Color boh
 	private int coins;
 	private int assistants;
@@ -20,7 +21,24 @@ public class Player extends Observable implements Cloneable {
 
 	public int additionalMainsToDo;
 
-	public Player(String name, String color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
+	/**
+	 * New player
+	 * 
+	 * @param name
+	 *            player name
+	 * @param color
+	 *            player color
+	 * @param coins
+	 *            starting coins
+	 * @param assistants
+	 *            nubmer of assistant
+	 * @param deck
+	 *            politic deck from gameboard to draw politicCards
+	 * @param numberOfCards
+	 *            number of politic cards to drawn
+	 */
+	public Player(String name, Color color, int coins, int assistants,
+			PoliticDeck deck, int numberOfCards) {
 		this.name = name;
 		this.color = color;
 		this.coins = coins;
@@ -33,7 +51,7 @@ public class Player extends Observable implements Cloneable {
 		// usedPermitTiles = new ArrayList<>();
 	}
 
-	public Player(String name, String color) {
+	public Player(String name, Color color) {
 		this.name = name;
 		this.color = color;
 		coins = 0;
@@ -48,9 +66,9 @@ public class Player extends Observable implements Cloneable {
 
 	@Override
 	public Player clone() throws CloneNotSupportedException {
-		Player p = new Player(name,color);
-//		p.name = name;
-//		p.color = color;
+		Player p = new Player(name, color);
+		// p.name = name;
+		// p.color = color;
 		p.coins = coins;
 		p.assistants = assistants;
 		p.level = level;
@@ -62,7 +80,7 @@ public class Player extends Observable implements Cloneable {
 		return p;
 	}
 
-	public void copyOf(Player p) {
+	/*public void copyOf(Player p) {
 		// this.name = p.name; sono final!!
 		// this.color = p.color;
 		this.coins = p.coins;
@@ -73,13 +91,13 @@ public class Player extends Observable implements Cloneable {
 		this.businessHand = p.businessHand;
 		// this.permitTiles = p.permitTIles;
 		// this.usedPermitTiles = p.usedPermitTiles;
-	}
+	}*/
 
 	public String getName() {
 		return name;
 	}
 
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 

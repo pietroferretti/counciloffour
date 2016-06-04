@@ -15,7 +15,7 @@ public class Region {
 	private Balcony balcony;
 
 	private BusinessCardsRegion businessPermits; // unused + used
-	// TODO: ma quindi i due permit a faccia in su?
+	// TODO: ma quindi i due permit a faccia in su? sono in businessCardRegion
 
 	private BonusVictoryPoint bonusRegion;
 

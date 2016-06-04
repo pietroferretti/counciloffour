@@ -37,7 +37,7 @@ public class Printer {
 			else if (bon instanceof BonusCoin)
 				printBonusCoin(bon);
 			else if (bon instanceof BonusMainAction)
-				printBonusMainAction(bon);
+				printBonusMainAction();
 			else if (bon instanceof BonusNobility)
 				printBonusNobility(bon);
 			else if (bon instanceof BonusPoliticCard)
@@ -60,7 +60,7 @@ public class Printer {
 		output.format("+%d nobility points\n", bon.getQuantity());
 	}
 
-	private void printBonusMainAction(Bonus bon) {
+	private void printBonusMainAction() {
 		print("+1 main action");
 	}
 
@@ -85,7 +85,7 @@ public class Printer {
 		print("BUSINESS PERMITS:");
 		print("");
 		for (BusinessPermit businessPermit : businessPermits) {
-			output.format("%d° PERMIT:\n", i);
+			output.format("%d° PERMIT:%n", i);
 			printBusinessPermit(businessPermit);
 		}
 	}
@@ -173,4 +173,23 @@ public class Printer {
 		}
 	}
 
+	/**
+	 * It prints a specific player's politic cards and used business permits
+	 * 
+	 * @param player
+	 */
+	public void printPlayerPrivateDetails(Player player) {
+		//TODO
+	}
+
+	/**
+	 * It prints a specific player's name, color, business permits, assistants
+	 * number, nobility level, victory points
+	 * 
+	 * @param player
+	 */
+	public void printPlayerPublicDetails(Player player) {
+		//TODO
+
+	}
 }

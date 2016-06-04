@@ -62,7 +62,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 	 */
 	private Integer kingPathCost(City start, City stop) {
 		Map<String, Integer> cost = new HashMap<>();
-		PriorityQueue<City> queue = new PriorityQueue<>();
+		PriorityQueue<String> queue = new PriorityQueue<>();
 		City u;
 		int costEachCity = 2;
 
@@ -71,7 +71,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 			return 0;
 		else {
 
-			// rendi tutti i vertici non marcati
+		//	 rendi tutti i vertici non marcati
 			for (City city : super.getGameBoard().getCities()) {
 				cost.put(city.getName(), null);
 			}
@@ -80,19 +80,22 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 			cost.put(start.getName(), 0);
 
 			// enqueue s
-			queue.add(start);
-
+			queue.add(start.getName());
 			while (!queue.isEmpty()) {
-				u = queue.poll();
+				
+				u = super.getGameBoard().getCityByName(queue.poll());
 				for (City city : u.getNeighbors()) {
-					if (cost.get(city.getName()) == null) {
-						queue.add(city);
+
+					if (cost.get((city.getName()))==null) {
+
+						queue.add(city.getName());
 						cost.replace(city.getName(), cost.get(u.getName())
 								+ costEachCity);
 					}
 				}
-				if (queue.contains(stop))
-					return cost.get(stop.getName());
+				if (queue.contains(stop.getName())){
+					//System.out.println(cost.get(stop.getName())); //Per TEST
+					return cost.get(stop.getName());}
 			}
 			return null;
 		}
