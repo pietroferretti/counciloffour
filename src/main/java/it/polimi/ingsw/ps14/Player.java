@@ -7,9 +7,10 @@ import java.util.Observable;
 
 public class Player extends Observable implements Cloneable {
 
-	private final String name;
-	private final Color color; // TODO: magari cambiare da stringa a qualche
-								// tipo come java.awt.Color boh
+	private static int id=0;
+	private String name;
+	private Color color; // TODO: magari cambiare da stringa a qualche
+							// tipo come java.awt.Color boh
 	private int coins;
 	private int assistants;
 	private int level; // nobility
@@ -37,8 +38,8 @@ public class Player extends Observable implements Cloneable {
 	 * @param numberOfCards
 	 *            number of politic cards to drawn
 	 */
-	public Player(String name, Color color, int coins, int assistants,
-			PoliticDeck deck, int numberOfCards) {
+	public Player(String name, Color color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
+		id++;
 		this.name = name;
 		this.color = color;
 		this.coins = coins;
@@ -51,7 +52,21 @@ public class Player extends Observable implements Cloneable {
 		// usedPermitTiles = new ArrayList<>();
 	}
 
+	/**
+	 * non setto nome e colore, tutto il resto a 0
+	 */
+	public Player() {
+		id++;
+		coins = 0;
+		assistants = 0;
+		level = 0;
+		points = 0;
+		hand = new ArrayList<>();
+		businessHand = new BusinessCardsPlayer();
+	}
+
 	public Player(String name, Color color) {
+		id++;
 		this.name = name;
 		this.color = color;
 		coins = 0;
@@ -80,18 +95,13 @@ public class Player extends Observable implements Cloneable {
 		return p;
 	}
 
-	/*public void copyOf(Player p) {
-		// this.name = p.name; sono final!!
-		// this.color = p.color;
-		this.coins = p.coins;
-		this.assistants = p.assistants;
-		this.level = p.level;
-		this.points = p.points;
-		this.hand = p.hand;
-		this.businessHand = p.businessHand;
-		// this.permitTiles = p.permitTIles;
-		// this.usedPermitTiles = p.usedPermitTiles;
-	}*/
+	/*
+	 * public void copyOf(Player p) { // this.name = p.name; sono final!! //
+	 * this.color = p.color; this.coins = p.coins; this.assistants =
+	 * p.assistants; this.level = p.level; this.points = p.points; this.hand =
+	 * p.hand; this.businessHand = p.businessHand; // this.permitTiles =
+	 * p.permitTIles; // this.usedPermitTiles = p.usedPermitTiles; }
+	 */
 
 	public String getName() {
 		return name;
@@ -114,10 +124,14 @@ public class Player extends Observable implements Cloneable {
 	}
 
 	public void addCoins(int coins) {
+
 		this.coins = this.coins + coins;
+		setChanged();
+		notifyObservers();
 	}
 
 	public int getAssistants() {
+
 		return assistants;
 	}
 
@@ -135,6 +149,10 @@ public class Player extends Observable implements Cloneable {
 
 	public int getLevel() {
 		return level;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	// players can upgrade the nobility level up to infinity
