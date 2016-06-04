@@ -1,55 +1,41 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class PoliticDeck extends Deck {
+public class PoliticDeck {
 
-	private ArrayList<PoliticCard> deck;
-	private ArrayList<PoliticCard> discardedCards;
+	private List<PoliticCard> deck;
+	private List<PoliticCard> discardedCards;
 
-	public PoliticDeck(int numColoredCard, int numJolly) {
-		for (int i = 0; i < numColoredCard; i++) {
-			deck.add(new PoliticCard(ColorPolitic.BLACK));
-			deck.add(new PoliticCard(ColorPolitic.BLUE));
-			deck.add(new PoliticCard(ColorPolitic.ORANGE));
-			deck.add(new PoliticCard(ColorPolitic.PINK));
-			deck.add(new PoliticCard(ColorPolitic.PURPLE));
-			deck.add(new PoliticCard(ColorPolitic.WHITE));
+	public PoliticDeck(int numColoredCards, int numJolly) {
+		deck = new ArrayList<>();
+		discardedCards = new ArrayList<>();
+		
+		for (int i = 0; i < numColoredCards; i++) {
+			for (ColorPolitic color : ColorPolitic.values()) {
+				if (color != ColorPolitic.JOLLY) {
+					deck.add(new PoliticCard(color));
+				}
+			}
 		}
+		
 		for (int i = 0; i < numJolly; i++) {
 			deck.add(new PoliticCard(ColorPolitic.JOLLY));
 		}
+		
 		shuffle();
-
-	}
-
-	private void shuffleAll() {
-		deck.addAll(discardedCards);
-		discardedCards.clear();
-		shuffle();
-	}
-	
-	public void addPoliticCard(PoliticCard card){
-		deck.add(card);
-	}
-
-	public ArrayList<PoliticCard> getDeck() {
-		return deck;
-	}
-
-	public ArrayList<PoliticCard> getDiscardedCards() {
-		return discardedCards;
 	}
 
 	public PoliticCard drawCard() {
-		if (deck.size() == 0)
+		if (deck.isEmpty())
 			shuffleAll();
 		return deck.remove(0);
 	}
 
-	public ArrayList<PoliticCard> drawMultipleCards(int number) {
-		ArrayList<PoliticCard> result = new ArrayList<PoliticCard>();
+	public List<PoliticCard> drawMultipleCards(int number) {
+		List<PoliticCard> result = new ArrayList<>();
 		for (int i = 0; i < number; i++) {
 			result.add(drawCard());
 		}
@@ -63,5 +49,28 @@ public class PoliticDeck extends Deck {
 	public void discardCards(List<PoliticCard> cards){
 		discardedCards.addAll(cards);
 	}
+	
+	public void shuffle(){
+		Collections.shuffle(deck);
+	}
+	
+	private void shuffleAll() {
+		deck.addAll(discardedCards);
+		discardedCards.clear();
+		shuffle();
+	}
+	
+	public void addPoliticCard(PoliticCard card){
+		deck.add(card);
+	}
+
+	public List<PoliticCard> getDeck() {
+		return deck;
+	}
+
+	public List<PoliticCard> getDiscardedCards() {
+		return discardedCards;
+	}
+
 
 }

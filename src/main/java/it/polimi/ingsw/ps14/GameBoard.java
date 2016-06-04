@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -22,35 +22,30 @@ public class GameBoard {
 	Random random = new Random();
 
 	private List<Region> regions;
-
 	private King king;
-
 	private List<City> cities;
-
 	private int availableAssistants;
-	
 	private NobilityTrack nobilityTrack;
-
 	// HashMap to store how many councillors there are for each color
-	private Map<ColorCouncillor, Integer> availableCouncillors = new HashMap<>();
-
+	private EnumMap<ColorCouncillor, Integer> availableCouncillors = new EnumMap<>(ColorCouncillor.class);
 	private Integer bonusGold;
 	private Integer bonusSilver;
 	private Integer bonusBronze;
 	private Integer bonusBlue;
 	private List<Integer> bonusesKing;
-
 	private PoliticDeck politicDeck;
 
 	public GameBoard(Settings settings) {
-		// TODO: build game object
-
+		
 		// Fill the councillors hash map
 		for (ColorCouncillor councillor : ColorCouncillor.values())
 			availableCouncillors.put(councillor, settings.availableCouncillorsEachColor);
 
 		// Set the number of assistants available in the game
 		this.availableAssistants = settings.availableAssistants;
+		
+		// Build the politic card deck
+		politicDeck = new PoliticDeck(settings.numColoredCards, settings.numJollyCards);
 
 		// Create Regions and Cities reading from the settings file
 		buildRegionsAndCities(settings);
@@ -95,6 +90,9 @@ public class GameBoard {
 		getRegion(RegionType.COAST).setBonusRegion(bonusCoast);
 		getRegion(RegionType.HILLS).setBonusRegion(bonusHills);
 		getRegion(RegionType.MOUNTAINS).setBonusRegion(bonusMountains);
+		
+		// Create a NobilityTrack object
+		nobilityTrack = new NobilityTrack(this);
 	}
 
 	/*
@@ -292,11 +290,13 @@ public class GameBoard {
 	}
 	
 	public ColorCouncillor getRandomAvailableCouncillor() {
-		Random generator = new Random();
-		int pick = generator.nextInt(ColorCouncillor.values().length - 1);
-		while (!councillorIsAvailable(ColorCouncillor.values()[pick]))
-			pick++;
-		return ColorCouncillor.values()[pick];
+		ColorCouncillor color;
+		
+		do {
+			color = ColorCouncillor.getRandomCouncillor();
+		} while (!councillorIsAvailable(color));
+		
+		return color;
 	}
 	
 	private Queue<ColorCouncillor> generateRandomBalcony(int councillorsEachBalcony) {
