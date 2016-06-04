@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.view;
+package it.polimi.ingsw.ps14.model.modelview;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -9,6 +9,10 @@ public class PlayerView extends Observable implements Observer {
 
 	private Player playerCopy;
 
+	public PlayerView(Player playerCopy) {
+		this.playerCopy = playerCopy;
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 
@@ -16,15 +20,19 @@ public class PlayerView extends Observable implements Observer {
 			throw new IllegalArgumentException();
 		}
 		try {
-			playerCopy = ((Player) arg).clone();
-			setChanged();
-			notifyObservers();
+			setPlayerCopy(((Player) o).clone());
 
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	private void setPlayerCopy(Player playerCopy) {
+		this.playerCopy = playerCopy;
+		setChanged();
+		notifyObservers();
 	}
 
 	public Player getPlayerCopy() {
