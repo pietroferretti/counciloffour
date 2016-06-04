@@ -1,11 +1,9 @@
 package it.polimi.ingsw.ps14.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.Player;
 import it.polimi.ingsw.ps14.view.PlayerView;
 
 /*

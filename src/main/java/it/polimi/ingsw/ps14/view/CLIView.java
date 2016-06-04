@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Scanner;
 
-import it.polimi.ingsw.ps14.GameBoard;
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.model.Message;
 import it.polimi.ingsw.ps14.model.ModelView;
 
 /*
@@ -68,8 +65,8 @@ public class CLIView extends Observable implements View, Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 
-		output.println("Insert your name:");
-		String name = input.nextLine();
+		//output.println("Insert your name:");
+		//String name = input.nextLine();
 
 		// answer = new ModifyPlayerNameMessage(input.nextLine());
 		// answer.setMessage(input.nextLine());
