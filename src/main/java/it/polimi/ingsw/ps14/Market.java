@@ -48,4 +48,9 @@ public class Market {
 		objectsForSale.add(item);
 	}
 
+	@Override
+	public String toString() {
+		return "Market [objectsForSale=" + objectsForSale + "]";
+	}
+
 }

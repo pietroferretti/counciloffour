@@ -40,4 +40,6 @@ public class BusinessPermit implements Card {
 				return true;
 		return false;
 	}
+
+	
 }
