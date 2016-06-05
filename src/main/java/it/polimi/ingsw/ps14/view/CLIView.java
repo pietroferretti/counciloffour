@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Scanner;
 
-import it.polimi.ingsw.ps14.model.ModelView;
+import it.polimi.ingsw.ps14.model.modelview.ModelView;
+import it.polimi.ingsw.ps14.model.modelview.PlayerView;
 
 /*
  * --------------------------Command Line Interface-----------------------

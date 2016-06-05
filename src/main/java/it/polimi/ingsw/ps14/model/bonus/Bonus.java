@@ -4,7 +4,7 @@ package it.polimi.ingsw.ps14.model.bonus;
 
 public abstract class Bonus {
 
-	private final int quantity;
+	private int quantity;
 
 	public Bonus(int quantity) {
 		if (quantity < 1)

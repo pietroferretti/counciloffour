@@ -245,4 +245,11 @@ public class Player extends Observable implements Cloneable {
 		businessHand.sellPermits(item);
 	}
 
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", color=" + color + ", coins=" + coins + ", assistants=" + assistants
+				+ ", level=" + level + ", points=" + points + ", hand=" + hand + ", businessHand=" + businessHand
+				+ ", additionalMainsToDo=" + additionalMainsToDo + "]";
+	}
+
 }
