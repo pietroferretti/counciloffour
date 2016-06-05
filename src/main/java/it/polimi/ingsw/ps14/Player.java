@@ -188,6 +188,26 @@ public class Player extends Observable implements Cloneable {
 	public void addPolitic(PoliticCard card) {
 		hand.add(card);
 	}
+	
+	public int getId() {
+		return id;
+	}
+	@Override
+	public boolean equals(Object o) {
+		// If the object is compared with itself then return true  
+        if (o == this) {
+            return true;
+        }
+ 
+        /* Check if o is an instance of Player or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof Player)) {
+            return false;
+        }
+         
+        Player p = (Player) o;
+		return p.id==this.id;
+	}
 
 	public boolean hasCardInHand(ColorPolitic color) {
 		boolean cardInHand = false;
