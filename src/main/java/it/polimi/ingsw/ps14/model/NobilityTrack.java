@@ -69,7 +69,7 @@ public class NobilityTrack extends Observable implements Cloneable {
 		case 2:
 			// 2 coins, 2 victory points
 			BonusList bonusListLv2 = new BonusList(new BonusCoin(2), new BonusVictoryPoint(2));
-			bonusListLv2.useBonus(player, gameboard.getPoliticDeck());
+			bonusListLv2.useBonus(player, gameboard);
 			break;
 		case 4:
 			// bonus da token città
@@ -78,12 +78,12 @@ public class NobilityTrack extends Observable implements Cloneable {
 		case 6:
 			// 1 Main action
 			BonusMainAction bonusLv6 = new BonusMainAction(1);
-			bonusLv6.useBonus(player);
+			bonusLv6.useBonus(player, gameboard);
 			break;
 		case 8:
 			// 3 victory points, 1 politic card
 			BonusList bonusLv8 = new BonusList(new BonusVictoryPoint(3), new BonusPoliticCard(1));
-			bonusLv8.useBonus(player, gameboard.getPoliticDeck());
+			bonusLv8.useBonus(player, gameboard);
 			break;
 		case 10:
 			// guadagna 1 business permit
@@ -91,7 +91,7 @@ public class NobilityTrack extends Observable implements Cloneable {
 		case 12:
 			// 5 victory points, 1 assistant
 			BonusList bonusLv12 = new BonusList(new BonusVictoryPoint(5), new BonusAssistant(1));
-			bonusLv12.useBonus(player, gameboard.getPoliticDeck());
+			bonusLv12.useBonus(player, gameboard);
 			break;
 		case 14:
 			// bonus da business permit
@@ -102,17 +102,17 @@ public class NobilityTrack extends Observable implements Cloneable {
 		case 18:
 			// 8 victory points
 			BonusVictoryPoint bonusLv18 = new BonusVictoryPoint(8);
-			bonusLv18.useBonus(player);
+			bonusLv18.useBonus(player, gameboard);
 			break;
 		case 19:
 			// 2 victory points
 			BonusVictoryPoint bonusLv19 = new BonusVictoryPoint(2);
-			bonusLv19.useBonus(player);
+			bonusLv19.useBonus(player, gameboard);
 			break;
 		case 20:
 			// 3 victory points
 			BonusVictoryPoint bonusLv20 = new BonusVictoryPoint(3);
-			bonusLv20.useBonus(player);
+			bonusLv20.useBonus(player, gameboard);
 			break;
 		default:
 			break;

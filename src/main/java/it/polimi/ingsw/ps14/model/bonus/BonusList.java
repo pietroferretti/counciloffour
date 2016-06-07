@@ -3,8 +3,8 @@ package it.polimi.ingsw.ps14.model.bonus;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.PoliticDeck;
 
 public class BonusList {
 
@@ -34,20 +34,9 @@ public class BonusList {
  * @param player player who use the bonus
  * @param deck politicDeck of the gameboard
  */
-	public void useBonus(Player player, PoliticDeck deck){
-		for(Bonus bon : bonuses){
-			if(bon instanceof BonusAssistant) 
-				((BonusAssistant)bon).useBonus(player);
-			else if(bon instanceof BonusCoin) 
-				((BonusCoin)bon).useBonus(player);
-			else if(bon instanceof BonusMainAction) 
-				((BonusMainAction)bon).useBonus(player);
-			else if(bon instanceof BonusNobility) 
-				((BonusNobility)bon).useBonus(player);
-			else if(bon instanceof BonusPoliticCard) 
-				((BonusPoliticCard)bon).useBonus(player, deck);
-			else if(bon instanceof BonusVictoryPoint) 
-				((BonusVictoryPoint)bon).useBonus(player);
+	public void useBonus(Player player, GameBoard gameboard){
+		for(Bonus bonus : bonuses){
+			bonus.useBonus(player, gameboard);
 		}
 	}
 

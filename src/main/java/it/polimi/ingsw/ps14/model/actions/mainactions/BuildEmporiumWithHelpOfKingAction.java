@@ -127,8 +127,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		city.buildEmporium(super.getPlayer());
 
 		// apply city token
-		city.getToken().useBonus(super.getPlayer(),
-				super.getGameBoard().getPoliticDeck());
+		city.getToken().useBonus(super.getPlayer(), super.getGameBoard());
 
 		// TODO: bonus citta adiacenti
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
+import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusVictoryPoint extends Bonus {
@@ -8,7 +9,7 @@ public class BonusVictoryPoint extends Bonus {
 		super(quantity);
 	}
 	
-	public void useBonus(Player player) {
+	public void useBonus(Player player, GameBoard gameboard) {
 		player.addPoints(super.getQuantity());
 	}
 

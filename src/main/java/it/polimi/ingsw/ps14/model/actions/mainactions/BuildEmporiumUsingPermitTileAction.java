@@ -55,7 +55,7 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 
 		
 		//apply city token
-		city.getToken().useBonus(super.getPlayer(), super.getGameBoard().getPoliticDeck());
+		city.getToken().useBonus(super.getPlayer(), super.getGameBoard());
 
 		
 		//check city neighbours token

@@ -23,8 +23,8 @@ public class BusinessPermit implements Card {
 		return bonus;
 	}
 	
-	public void useBonuses(Player player, PoliticDeck deck){
-		bonus.useBonus(player, deck);
+	public void useBonuses(Player player, GameBoard gameboard){
+		bonus.useBonus(player, gameboard);
 	}
 
 	
