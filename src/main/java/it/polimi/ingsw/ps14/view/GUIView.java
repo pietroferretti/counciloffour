@@ -12,7 +12,43 @@ public class GUIView extends Observable implements View, Runnable {
 
 	public void run() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void showOtherPlayersDetails() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void showGameboard() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void showThisPlayerDetails() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void show(String string) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void showMainActions() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void showQuickActions() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

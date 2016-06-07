@@ -13,47 +13,65 @@ import it.polimi.ingsw.ps14.Player;
  */
 
 public class ModelView extends Observable implements Observer {
-	
+
 	private List<PlayerView> playersView;
-	
+
 	private List<RegionView> regionsView;
 	private KingView kingView;
 	private NobilityTrackView nobilityTrackView;
 	private VictoryPathView victoryPathView;
-	
-	
-	
-	private String message;
+
+	// private String message;
 
 	public ModelView(List<Player> players) throws CloneNotSupportedException {
 		// TODO Auto-generated constructor stub
+
 		playersView = new ArrayList<>();
+
+		// add a playerView for each player
 		for (Player player : players) {
 			playersView.add(new PlayerView(player.clone()));
 		}
-//		for (PlayerView playerView : playersView) {
-//			playerView.addObserver(this);
-//		}
-		playersView.get(0).addObserver(this);
+
+		// ModelView observes each playerView
+		for (PlayerView playerView : playersView) {
+			playerView.addObserver(this);
+		}
+
+		// ModelView observes each regionView
+		for (RegionView regionView : regionsView) {
+			regionView.addObserver(this);
+		}
+
+		kingView.addObserver(this);
+		nobilityTrackView.addObserver(this);
+		victoryPathView.addObserver(this);
 
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		//TODO add others
+	public void update(Observable o, Object message) {
+		// TODO check
 		if (o instanceof PlayerView) {
 			setChanged();
-			notifyObservers("PLAYERVIEW");
+			notifyObservers(message);
+		} else if (o instanceof RegionView) {
+			setChanged();
+			notifyObservers("REGIONVIEW");
+		} else if (o instanceof KingView) {
+			setChanged();
+			notifyObservers("KINGVIEW");
+		} else if (o instanceof NobilityTrackView) {
+			setChanged();
+			notifyObservers("NOBILITYTRACKVIEW");
+		} else if (o instanceof VictoryPathView) {
+			setChanged();
+			notifyObservers("VICTORYPATHVIEW");
 		} else
 			throw new IllegalArgumentException();
 
 	}
 
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
 	public List<PlayerView> getPlayersView() {
 		return playersView;
 	}
@@ -73,10 +91,5 @@ public class ModelView extends Observable implements Observer {
 	public VictoryPathView getVictoryPathView() {
 		return victoryPathView;
 	}
-
-	public String getMessage() {
-		return message;
-	}
-	
 
 }

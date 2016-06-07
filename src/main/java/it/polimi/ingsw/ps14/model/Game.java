@@ -7,8 +7,17 @@ import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
 
 public class Game extends Observable implements Cloneable {
+	
 	private GameBoard gameBoard;
 	private List<Player> players;
+	
+	public void setGameBoard(GameBoard gameBoard) {
+		this.gameBoard = gameBoard;
+	}
+	
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
 
 	public GameBoard getGameBoard() {
 		return gameBoard;
