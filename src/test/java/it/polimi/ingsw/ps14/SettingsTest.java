@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import it.polimi.ingsw.ps14.model.Settings;
+
 public class SettingsTest {
 
 	@Test

@@ -1,13 +1,13 @@
 package it.polimi.ingsw.ps14.controller.actions.quickactions;
 
-import it.polimi.ingsw.ps14.GameBoard;
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.controller.actions.Action;
-import it.polimi.ingsw.ps14.controller.turnstates.CardDrawnState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.MainAndQuickActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.QuickActionDoneTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.actions.Action;
+import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
+import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public abstract class QuickAction extends Action {
 

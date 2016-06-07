@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.Player;
+import it.polimi.ingsw.ps14.model.Player;
 
 /*
  * Questa classe viene introdotta per disaccoppiare il model dalla view

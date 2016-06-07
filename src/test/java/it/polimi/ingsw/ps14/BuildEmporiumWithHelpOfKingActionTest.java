@@ -3,6 +3,11 @@ package it.polimi.ingsw.ps14;
 import static org.junit.Assert.assertEquals;
 import it.polimi.ingsw.ps14.controller.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
 import it.polimi.ingsw.ps14.controller.actions.mainactions.MainAction;
+import it.polimi.ingsw.ps14.model.ColorPolitic;
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.Settings;
 
 import java.awt.Color;
 import java.io.IOException;

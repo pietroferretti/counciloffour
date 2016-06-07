@@ -1,17 +1,18 @@
 package it.polimi.ingsw.ps14.controller.actions.mainactions;
 
 import static org.junit.Assert.assertEquals;
-import it.polimi.ingsw.ps14.ColorCouncillor;
-import it.polimi.ingsw.ps14.GameBoard;
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.Region;
-import it.polimi.ingsw.ps14.RegionType;
-import it.polimi.ingsw.ps14.Settings;
 
 import java.awt.Color;
 import java.io.IOException;
 
 import org.junit.Test;
+
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.RegionType;
+import it.polimi.ingsw.ps14.model.Settings;
 
 public class ElectCouncillorActionTest {
 

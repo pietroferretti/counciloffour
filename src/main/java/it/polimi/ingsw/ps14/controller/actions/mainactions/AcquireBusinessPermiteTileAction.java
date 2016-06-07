@@ -2,13 +2,13 @@ package it.polimi.ingsw.ps14.controller.actions.mainactions;
 
 import java.util.List;
 
-import it.polimi.ingsw.ps14.Balcony;
-import it.polimi.ingsw.ps14.BusinessPermit;
-import it.polimi.ingsw.ps14.GameBoard;
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.PoliticCard;
-import it.polimi.ingsw.ps14.Region;
-import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
+import it.polimi.ingsw.ps14.model.Balcony;
+import it.polimi.ingsw.ps14.model.BusinessPermit;
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class AcquireBusinessPermiteTileAction extends MainAction {
 

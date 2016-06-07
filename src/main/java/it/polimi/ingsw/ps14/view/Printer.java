@@ -4,14 +4,14 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.Queue;
 
-import it.polimi.ingsw.ps14.BusinessPermit;
-import it.polimi.ingsw.ps14.City;
-import it.polimi.ingsw.ps14.ColorCouncillor;
-import it.polimi.ingsw.ps14.King;
-import it.polimi.ingsw.ps14.NobilityTrack;
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.PoliticCard;
-import it.polimi.ingsw.ps14.Region;
+import it.polimi.ingsw.ps14.model.BusinessPermit;
+import it.polimi.ingsw.ps14.model.City;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.King;
+import it.polimi.ingsw.ps14.model.NobilityTrack;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.bonus.*;
 
 public class Printer {

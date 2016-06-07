@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Scanner;
 
-import it.polimi.ingsw.ps14.Player;
 import it.polimi.ingsw.ps14.controller.Message;
 import it.polimi.ingsw.ps14.controller.NewPlayerMsg;
+import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
 import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPublicMsg;

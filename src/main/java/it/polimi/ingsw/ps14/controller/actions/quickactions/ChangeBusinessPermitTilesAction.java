@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ps14.controller.actions.quickactions;
 
-import it.polimi.ingsw.ps14.BusinessPermit;
-import it.polimi.ingsw.ps14.GameBoard;
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.Region;
-import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
+import it.polimi.ingsw.ps14.model.BusinessPermit;
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class ChangeBusinessPermitTilesAction extends QuickAction {
 

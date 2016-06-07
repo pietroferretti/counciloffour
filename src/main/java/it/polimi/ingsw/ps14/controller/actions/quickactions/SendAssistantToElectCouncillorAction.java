@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ps14.controller.actions.quickactions;
 
-import it.polimi.ingsw.ps14.Balcony;
-import it.polimi.ingsw.ps14.ColorCouncillor;
-import it.polimi.ingsw.ps14.GameBoard;
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
+import it.polimi.ingsw.ps14.model.Balcony;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class SendAssistantToElectCouncillorAction extends QuickAction {
 

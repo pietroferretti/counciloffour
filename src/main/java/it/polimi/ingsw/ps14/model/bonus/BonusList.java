@@ -3,8 +3,8 @@ package it.polimi.ingsw.ps14.model.bonus;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.PoliticDeck;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticDeck;
 
 public class BonusList {
 

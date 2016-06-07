@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.PoliticDeck;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticDeck;
 
 public class BonusPoliticCard extends Bonus {
 		

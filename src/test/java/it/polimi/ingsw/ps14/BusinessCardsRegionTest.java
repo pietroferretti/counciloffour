@@ -4,6 +4,12 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import it.polimi.ingsw.ps14.model.BusinessCardsRegion;
+import it.polimi.ingsw.ps14.model.City;
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.RegionType;
+import it.polimi.ingsw.ps14.model.Settings;
+
 public class BusinessCardsRegionTest {
 
 	@Test

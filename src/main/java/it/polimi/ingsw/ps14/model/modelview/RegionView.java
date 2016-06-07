@@ -5,8 +5,8 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps14.Region;
-import it.polimi.ingsw.ps14.Settings;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.Settings;
 
 public class RegionView extends Observable implements Observer {
 	private static final Logger LOGGER= Logger.getLogger(Settings.class.getName());

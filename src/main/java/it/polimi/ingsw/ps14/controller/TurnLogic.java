@@ -1,9 +1,9 @@
 package it.polimi.ingsw.ps14.controller;
 
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.controller.turnstates.InitialTurnState;
-import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
 import it.polimi.ingsw.ps14.model.Game;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 import it.polimi.ingsw.ps14.view.View;
 
 public class TurnLogic {

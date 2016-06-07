@@ -5,8 +5,8 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps14.King;
-import it.polimi.ingsw.ps14.Settings;
+import it.polimi.ingsw.ps14.model.King;
+import it.polimi.ingsw.ps14.model.Settings;
 
 public class KingView extends Observable implements Observer {
 	private static final Logger LOGGER= Logger.getLogger(Settings.class.getName());

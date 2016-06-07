@@ -1,11 +1,11 @@
 package it.polimi.ingsw.ps14.controller.actions.mainactions;
 
-import it.polimi.ingsw.ps14.Balcony;
-import it.polimi.ingsw.ps14.City;
-import it.polimi.ingsw.ps14.GameBoard;
-import it.polimi.ingsw.ps14.Player;
-import it.polimi.ingsw.ps14.PoliticCard;
-import it.polimi.ingsw.ps14.controller.turnstates.TurnState;
+import it.polimi.ingsw.ps14.model.Balcony;
+import it.polimi.ingsw.ps14.model.City;
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 import java.util.HashMap;
 import java.util.List;

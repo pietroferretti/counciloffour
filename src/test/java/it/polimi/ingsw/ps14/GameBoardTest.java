@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Settings;
+
 public class GameBoardTest {
 
 	@Test

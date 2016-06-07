@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
-import it.polimi.ingsw.ps14.ItemForSale;
+import it.polimi.ingsw.ps14.model.ItemForSale;
 
 public class SoldItemMsg {
 
