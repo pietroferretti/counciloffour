@@ -34,9 +34,9 @@ public class Game extends Observable implements Cloneable {
 	 */
 	// do per scontato che alla creazione di un giocatore gli venga assegnato un
 	// colore univoco che usiamo come chiave
-	public Player getPlayerByColor(String color) {
+	public Player getIDPlayer(int id) {
 		for (Player player : players) {
-			if (player.getColor().equals(color))
+			if (player.getId()==id)
 				return player;
 		}
 		// magari una exception?
