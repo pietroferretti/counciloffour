@@ -12,6 +12,11 @@ public class BusinessCardsPlayer {
 		usedCards = new ArrayList<>();
 	}
 
+	/**
+	 * check if there is caard in unused businessPermitCard 
+	 * @param card card to check
+	 * @return
+	 */
 	public boolean checkBusinessPermit(BusinessPermit card) {
 		if (validCards.contains(card))
 			return true;
@@ -19,6 +24,11 @@ public class BusinessCardsPlayer {
 			return false;
 	}
 
+	
+	/**
+	 * add business permit to valid card
+	 * @param card
+	 */
 	public void acquireBusinessPermit(BusinessPermit card) {
 		validCards.add(card);
 	}
@@ -43,6 +53,10 @@ public class BusinessCardsPlayer {
 		return validCards.size() + usedCards.size();
 	}
 
+	/**
+	 * remove from valid cards player
+	 * @param item
+	 */
 	public void sellPermits(BusinessPermit item) {
 		validCards.remove(item);
 
