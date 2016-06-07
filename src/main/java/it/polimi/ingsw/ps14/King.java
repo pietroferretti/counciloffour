@@ -56,4 +56,9 @@ public class King extends Observable implements Cloneable {
 		return new King(balcony.readBalcony(), city);
 	}
 
+	@Override
+	public String toString() {
+		return "King [city=" + city + ", balcony=" + balcony + "]";
+	}
+
 }

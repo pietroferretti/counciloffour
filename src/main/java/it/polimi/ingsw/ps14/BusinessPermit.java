@@ -22,6 +22,10 @@ public class BusinessPermit implements Card {
 	public BonusList getBonus() {
 		return bonus;
 	}
+	
+	public void useBonuses(Player player, PoliticDeck deck){
+		bonus.useBonus(player, deck);
+	}
 
 	
 	/**
@@ -36,4 +40,6 @@ public class BusinessPermit implements Card {
 				return true;
 		return false;
 	}
+
+	
 }

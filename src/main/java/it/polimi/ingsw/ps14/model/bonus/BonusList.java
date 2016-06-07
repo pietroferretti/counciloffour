@@ -32,7 +32,7 @@ public class BonusList {
 /**
  * use bonus according bonus type
  * @param player player who use the bonus
- * @param deck politicDeck of the player (to add politic cards if they are in the bonus)
+ * @param deck politicDeck of the gameboard
  */
 	public void useBonus(Player player, PoliticDeck deck){
 		for(Bonus bon : bonuses){

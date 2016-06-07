@@ -18,4 +18,9 @@ public class PoliticCard implements Card {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "PoliticCard [color=" + color + "]";
+	}
+
 }

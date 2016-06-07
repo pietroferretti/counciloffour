@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -68,5 +69,7 @@ public class BusinessCardsRegion {
 	public void putCardInDeckEnd(BusinessPermit card){
 		deck.add(card);
 	}
+
+
 
 }

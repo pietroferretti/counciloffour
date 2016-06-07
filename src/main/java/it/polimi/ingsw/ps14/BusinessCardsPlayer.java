@@ -30,10 +30,8 @@ public class BusinessCardsPlayer {
 	 *            card to use
 	 */
 	public void usePermit(BusinessPermit card) {
-		if (validCards.contains(card)) {
 			validCards.remove(card);
 			usedCards.add(card);
-		}
 	}
 
 	public boolean contains(BusinessPermit cardChoice) {
@@ -67,6 +65,11 @@ public class BusinessCardsPlayer {
 
 	public void setUsedCards(List<BusinessPermit> usedCards) {
 		this.usedCards = usedCards;
+	}
+
+	@Override
+	public String toString() {
+		return "BusinessCardsPlayer [validCards=" + validCards + ", usedCards=" + usedCards + "]";
 	}
 
 }
