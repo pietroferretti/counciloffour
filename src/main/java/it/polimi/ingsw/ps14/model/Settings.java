@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONArray;
@@ -25,10 +26,11 @@ public class Settings {
 	public final int availableAssistants;
 	public final int numColoredCards;
 	public final int numJollyCards;
-	public final Map<String, Integer> bonuses;
+	public final Map<String, Integer> buildingBonuses;
 	public final Map<String, Map<String, Object>> map;
 	public final String kingStartingCityString;
 	public final List<Map<String, Integer>> tokens;
+	public final Map<Integer, Map<String, Integer>> nobilityTrack;
 	public final List<Map<String, Object>> permitDeckCoast;
 	public final List<Map<String, Object>> permitDeckHills;
 	public final List<Map<String, Object>> permitDeckMountains;
@@ -57,7 +59,7 @@ public class Settings {
 		
 		// Load the bonuses
 		JSONObject jsonBonuses = jsonSettings.getJSONObject("bonuses");
-		bonuses = loadBonuses(jsonBonuses);
+		buildingBonuses = loadBonuses(jsonBonuses);
 		
 		// Load the game map in a Map
 		JSONObject jsonMap = jsonSettings.getJSONObject("map");
@@ -69,6 +71,10 @@ public class Settings {
 		// Load tokens
 		JSONArray jsonTokens = jsonSettings.getJSONArray("tokens");
 		tokens = loadTokens(jsonTokens);
+		
+		// Load nobility track
+		JSONObject jsonNobilityTrack = jsonSettings.getJSONObject("nobilitytrack");
+		nobilityTrack = loadNobilityTrack(jsonNobilityTrack);
 		
 		// Load business permits decks
 		JSONArray jsonPermitDeckCoast = jsonSettings.getJSONArray("permitDeckCoast");
@@ -166,6 +172,34 @@ public class Settings {
 		}
 		
 		return tokens;
+	}
+	
+	Map<Integer, Map<String, Integer>> loadNobilityTrack(JSONObject jsonNobilityTrack) {
+		Map<Integer, Map<String, Integer>> nobilityTrackMap = new HashMap<>();
+		Map<String, Integer> bonusMap;
+		JSONObject jsonBonus;
+		
+		Iterator<?> jsonNobilityTrackKeys = jsonNobilityTrack.keys();
+		while (jsonNobilityTrackKeys.hasNext()) {
+			bonusMap = new HashMap<>();
+			String levelString = (String) jsonNobilityTrackKeys.next();
+			jsonBonus = jsonNobilityTrack.getJSONObject(levelString);
+			
+			Iterator<?> jsonBonusKeys = jsonBonus.keys();
+			while (jsonBonusKeys.hasNext()) {
+				String bonusType = (String) jsonBonusKeys.next();
+				bonusMap.put(bonusType, new Integer(jsonBonus.getInt(bonusType)));
+			}
+			
+			try {
+				nobilityTrackMap.put(new Integer(Integer.parseInt(levelString)), bonusMap);
+			} catch (NumberFormatException e) {
+				LOGGER.info("Error while parsing the Nobility Track in the settings file: '" + levelString + "' isn't a number.");
+				throw e;
+			}
+		}
+		
+		return nobilityTrackMap;
 	}
 	
 	List<Map<String, Object>> loadPermitDeck(JSONArray jsonPermitDeck) {

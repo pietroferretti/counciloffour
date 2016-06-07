@@ -3,9 +3,9 @@ package it.polimi.ingsw.ps14.model.bonus;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 
-public class BonusFromBusinessPermit extends SpecialNobilityBonus {
+public class BonusFromBusinessPermits extends SpecialNobilityBonus {
 	
-	public BonusFromBusinessPermit(int quantity) {
+	public BonusFromBusinessPermits(int quantity) {
 		super(quantity);
 	}
 	

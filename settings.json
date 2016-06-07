@@ -111,6 +111,19 @@
         {"cards" : 1},
         {"cards" : 1, "points" : 1}
     ],
+    "nobilitytrack" : {
+        "2" : {"points" : 1, "coins" : 2},
+        "4" : {"fromtokens" : 1},
+        "6" : {"mainAction" : 1},
+        "8" : {"points" : 3, "cards" : 1},
+        "10" : {"takepermits" : 1},
+        "12" : {"points" : 5, "assistants" : 1},
+        "14" : {"frompermits" : 1},
+        "16" : {"fromtokens" : 2},
+        "18" : {"points" : 8},
+        "19" : {"points" : 2},
+        "20" : {"points" : 3}
+    },
     "permitDeckCoast" : [
         {"cities" : ["Arkon", "Burgen"], "bonus" : {"coins" : 3, "cards" : 1}},
         {"cities" : ["Dorful", "Esti"], "bonus" : {"points" : 3, "assistants" : 1}},

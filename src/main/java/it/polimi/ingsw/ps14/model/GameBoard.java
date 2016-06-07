@@ -2,23 +2,29 @@ package it.polimi.ingsw.ps14.model;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.exceptions.InvalidSettingsException;
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
 import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
+import it.polimi.ingsw.ps14.model.bonus.BonusFromBusinessPermits;
+import it.polimi.ingsw.ps14.model.bonus.BonusFromTokens;
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
 import it.polimi.ingsw.ps14.model.bonus.BonusMainAction;
 import it.polimi.ingsw.ps14.model.bonus.BonusNobility;
 import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
+import it.polimi.ingsw.ps14.model.bonus.BonusTakeBusinessPermits;
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
 
 public class GameBoard {
+	private static final Logger LOGGER= Logger.getLogger(Settings.class.getName());
 
 	Random random = new Random();
 
@@ -56,16 +62,16 @@ public class GameBoard {
 		king = new King(generateRandomBalcony(settings.councillorsEachBalcony), kingStartingCity);
 
 		// Get the victory point bonuses from settings
-		bonusGold = settings.bonuses.get("bonusGold");
-		bonusSilver = settings.bonuses.get("bonusSilver");
-		bonusBronze = settings.bonuses.get("bonusBronze");
-		bonusBlue = settings.bonuses.get("bonusBlue");
+		bonusGold = settings.buildingBonuses.get("bonusGold");
+		bonusSilver = settings.buildingBonuses.get("bonusSilver");
+		bonusBronze = settings.buildingBonuses.get("bonusBronze");
+		bonusBlue = settings.buildingBonuses.get("bonusBlue");
 		bonusesKing = new ArrayList<>();
-		bonusesKing.add(settings.bonuses.get("bonusKing1")); 
-		bonusesKing.add(settings.bonuses.get("bonusKing2"));
-		bonusesKing.add(settings.bonuses.get("bonusKing3"));
-		bonusesKing.add(settings.bonuses.get("bonusKing4"));
-		bonusesKing.add(settings.bonuses.get("bonusKing5"));
+		bonusesKing.add(settings.buildingBonuses.get("bonusKing1")); 
+		bonusesKing.add(settings.buildingBonuses.get("bonusKing2"));
+		bonusesKing.add(settings.buildingBonuses.get("bonusKing3"));
+		bonusesKing.add(settings.buildingBonuses.get("bonusKing4"));
+		bonusesKing.add(settings.buildingBonuses.get("bonusKing5"));
 		
 		// Get the tokens
 		List<BonusList> tokens;
@@ -85,15 +91,16 @@ public class GameBoard {
 		getRegion(RegionType.MOUNTAINS).setBusinessPermits(permitDeckMountains);
 		
 		// Get bonuses for each region
-		BonusVictoryPoint bonusCoast = new BonusVictoryPoint(settings.bonuses.get("bonusCoast").intValue());
-		BonusVictoryPoint bonusHills = new BonusVictoryPoint(settings.bonuses.get("bonusHills").intValue());
-		BonusVictoryPoint bonusMountains = new BonusVictoryPoint(settings.bonuses.get("bonusMountains").intValue());
+		BonusVictoryPoint bonusCoast = new BonusVictoryPoint(settings.buildingBonuses.get("bonusCoast").intValue());
+		BonusVictoryPoint bonusHills = new BonusVictoryPoint(settings.buildingBonuses.get("bonusHills").intValue());
+		BonusVictoryPoint bonusMountains = new BonusVictoryPoint(settings.buildingBonuses.get("bonusMountains").intValue());
 		getRegion(RegionType.COAST).setBonusRegion(bonusCoast);
 		getRegion(RegionType.HILLS).setBonusRegion(bonusHills);
 		getRegion(RegionType.MOUNTAINS).setBonusRegion(bonusMountains);
 		
 		// Create a NobilityTrack object
-		nobilityTrack = new NobilityTrack(this);
+		Map<Integer, BonusList> nobilityTrackMap = buildNobilityTrack(settings.nobilityTrack);
+		nobilityTrack = new NobilityTrack(nobilityTrackMap);
 
 	}
 
@@ -141,28 +148,19 @@ public class GameBoard {
 		}
 	}
 	
-	List<BonusList> getTokensFromSettings(Settings settings) {
-		List<BonusList> tokens = new ArrayList<>();
-		List<Map<String, Integer>> settingsTokens = settings.tokens;
+	BonusList buildBonusFromMap(Map<String, Integer> bonusAsMap) {
+		List<Bonus> bonuses = new ArrayList<>();
 		
-		for (Map<String, Integer> tokenAsMap : settingsTokens) {
-			BonusList token;
-			List<Bonus> bonuses = new ArrayList<>();
-			
-			// TODO: rifare come una funzione estraiBonus(), codice riutilizzato in getPermitDeck
-			for (Map.Entry<String, Integer> bonusEntry: tokenAsMap.entrySet()) {
-				String bonusType = bonusEntry.getKey();
-				int quantity = bonusEntry.getValue().intValue();
-				Bonus bonus = newBonusFromString(bonusType, quantity);
-				bonuses.add(bonus);
-			}
-			token = new BonusList(bonuses);
-			tokens.add(token);
+		for (Map.Entry<String, Integer> bonusEntry: bonusAsMap.entrySet()) {
+			String bonusType = bonusEntry.getKey();
+			int quantity = bonusEntry.getValue().intValue();
+			Bonus tempBonus = newBonusFromString(bonusType, quantity);
+			bonuses.add(tempBonus);
 		}
-		return tokens;
+		
+		return new BonusList(bonuses);		
 	}
 	
-	// TODO: non sono proprio sicuro che sia una best practice, specialmente se aggiungessimo nuovi bonus (ma anche no)
 	Bonus newBonusFromString(String bonusType, int quantity) {
 		Bonus bonus;
 		
@@ -185,6 +183,15 @@ public class GameBoard {
 		case "points":
 			bonus = new BonusVictoryPoint(quantity);
 			break;
+		case "fromtokens":
+			bonus = new BonusFromTokens(quantity);
+			break;
+		case "frompermits":
+			bonus = new BonusFromBusinessPermits(quantity);
+			break;
+		case "takepermits":
+			bonus = new BonusTakeBusinessPermits(quantity);
+			break;
 		default:
 			throw new InvalidSettingsException("Bonus not recognized! Check your settings file.");
 		}
@@ -192,19 +199,42 @@ public class GameBoard {
 		return bonus;
 	}
 	
+	Map<Integer, BonusList> buildNobilityTrack(Map<Integer, Map<String, Integer>> nobilityTrackSettings) {
+		Map<Integer, BonusList> nobilityTrackMap = new HashMap<>();
+		
+		for (Map.Entry<Integer, Map<String, Integer>> levelEntry: nobilityTrackSettings.entrySet()) {
+			Integer level = levelEntry.getKey();
+			Map<String, Integer> bonusAsMap = levelEntry.getValue();
+			BonusList bonusThisLevel = buildBonusFromMap(bonusAsMap);
+			nobilityTrackMap.put(level, bonusThisLevel);
+		}
+		
+		return nobilityTrackMap;
+	}	
+	
+	List<BonusList> getTokensFromSettings(Settings settings) {
+		List<BonusList> tokens = new ArrayList<>();
+		List<Map<String, Integer>> settingsTokens = settings.tokens;
+		
+		for (Map<String, Integer> tokenAsMap : settingsTokens) {
+			tokens.add(buildBonusFromMap(tokenAsMap));
+		}
+		
+		return tokens;
+	}
+	
 	void distributeTokens(List<BonusList> tokens) {
 		List<BonusList> tokensCopy = new ArrayList<>(tokens);
 		Random generator = new Random();
 		
 		for (City city : cities) {
-			System.out.println(city.getName() + " : " + city.getColor().toString());
 			if (city.getColor() != ColorCity.PURPLE) {
 				try {
 					BonusList token = tokensCopy.get(generator.nextInt(tokensCopy.size()));
 					city.setToken(token);
 					tokensCopy.remove(token);
 				} catch (IllegalArgumentException  e) {
-					System.out.println("Not enough tokens! Check your settings file.");
+					LOGGER.info("Not enough tokens! Check your settings file.");
 					throw e;
 				}
 			}
@@ -230,23 +260,15 @@ public class GameBoard {
 		List<BusinessPermit> permitList = new ArrayList<>();
 		for (Map<String, Object> settingsPermit : settingsDeck) {
 			BusinessPermit permit;
-			
 			List<String> settingsCityList = (List<String>) settingsPermit.get("cities");
 			List<City> cityList = new ArrayList<>();
+			
 			for (String cityName : settingsCityList) {
 				cityList.add(getCityByName(cityName));
 			}
 			
 			Map<String, Integer> bonusMap = (Map<String, Integer>) settingsPermit.get("bonus");
-			List<Bonus> bonuses = new ArrayList<>();
-			for (Map.Entry<String, Integer> bonusEntry: bonusMap.entrySet()) {
-				String bonusType = bonusEntry.getKey();
-				int quantity = bonusEntry.getValue().intValue();
-				Bonus bonus = newBonusFromString(bonusType, quantity);
-				bonuses.add(bonus);
-			}
-			BonusList bonusList = new BonusList(bonuses);
-			
+			BonusList bonusList = buildBonusFromMap(bonusMap);
 			permit = new BusinessPermit(cityList, bonusList);
 			permitList.add(permit);
 		}
