@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14;
 
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Balcony {
@@ -25,61 +26,77 @@ public class Balcony {
 		return ColorCouncillor.valueOf(card.getColor().name());
 	}
 
-	// check if Politic Cards from player have matching counsellors and return
-	// number of bought counsellors
-
-	public int cardsInBalcony(List<PoliticCard> cards) {
-		int boughtCounsellor = 0;
-		Queue<ColorCouncillor> newCouncillors = councillors;
-		for (PoliticCard card : cards) {
-			if (card.isJolly())
-				boughtCounsellor++;
-			else if (newCouncillors.contains(colorPoliticToCouncillor(card))) {
-				newCouncillors.remove(colorPoliticToCouncillor(card));
-				boughtCounsellor++;
-			} else
-				return -1;
-
+	/**
+	 * Returns true if the cards match the councillors in this council.
+	 * @param cards 
+	 * @return true if the cards match the councillors in this council
+	 */
+	public boolean cardsMatch(List<PoliticCard> cards) {
+		Queue<ColorCouncillor> newCouncillors = new PriorityQueue<>(councillors);
+		
+		if (cards.size() > councillors.size()) {
+			return false;
+		} else {
+			for (PoliticCard card : cards) {
+				if (card.isJolly()) {
+					continue;
+				}
+				else if (newCouncillors.contains(colorPoliticToCouncillor(card))) {
+					newCouncillors.remove(colorPoliticToCouncillor(card));
+				} else {
+					return false;
+				}
+			}
+			return true;
 		}
-		return boughtCounsellor;
 	}
 
-	// redone previous method
-	public boolean thereIsColorsInBalcony(List<PoliticCard> cards) {
-		Queue<ColorCouncillor> newCouncillors = councillors;
-		for (PoliticCard card : cards) {
-			if (newCouncillors.contains(colorPoliticToCouncillor(card))) {
-				newCouncillors.remove(colorPoliticToCouncillor(card));
-			} else
-				return false;
+	/**
+	 * Returns the amount cards that match this council.
+	 * All the cards must match.
+	 * @param cards - cards to be checked
+	 * @return The cost in coins the player has to pay to bribe this council with these cards
+	 * @throws IllegalArgumentException if there are cards that don't match
+	 */
+	public int numOfMatchingCards(List<PoliticCard> cards) {
+		// TODO possiamo aggiungere jolly all'infinito, non funziona
+		int bribedCouncillors = 0;
+		Queue<ColorCouncillor> newCouncillors = new PriorityQueue<>(councillors);
+
+		if (cards.size() > councillors.size()) {
+			throw new IllegalArgumentException("Too many cards!");
+		} else {
+			for (PoliticCard card : cards) {
+				if (card.isJolly())
+					bribedCouncillors++;
+				else if (newCouncillors.contains(colorPoliticToCouncillor(card))) {
+					newCouncillors.remove(colorPoliticToCouncillor(card));
+					bribedCouncillors++;
+				} else
+					throw new IllegalArgumentException("Some cards didn't match! -- Hint: the code should check the cards before calling this method --");
+			}
+		
+			return bribedCouncillors;
 		}
-		return true;
 	}
 
-	
-	// TODO: rifarlo senza eccezione? 
-	// questo metodo andrebbe usato solo se almeno una carta matcha, altrimenti ritornare il costo non ha senso
-	// mettiamoci un bel @requires hehe
+	/**
+	 * Returns the amount of coins the player has to pay to bribe this council passed as parameter.
+	 * All the cards must be used.
+	 * @param cards - cards selected to bribe the council
+	 * @return The cost in coins the player has to pay to bribe this council with these cards
+	 * @throws IllegalArgumentException if there are unused cards
+	 */
 	public int councillorCost(List<PoliticCard> cards) {
 		int cost;
-		
-		switch (cardsInBalcony(cards)) {
-		case 1:
-			cost = 10;
-			break;
-		case 2:
-			cost = 7;
-			break;
-		case 3:
-			cost = 4;
-			break;
-		case 4:
+		int numMatching = numOfMatchingCards(cards);
+
+		if (numMatching == councillors.size()) {
 			cost = 0;
-			break;
-		default:
-			throw new RuntimeException("No cards matched! -- Controlla le carte prima di usare questo metodo --");
+		} else {
+			cost = 1 + 3 * (councillors.size()-numMatching);
 		}
-		
+
 		for (PoliticCard card : cards) {
 			if (card.getColor() == ColorPolitic.JOLLY)
 				cost++;
