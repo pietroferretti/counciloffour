@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.controller.actions.market;
+package it.polimi.ingsw.ps14.model.actions.market;
 
 import java.util.ArrayList;
 import java.util.Collections;

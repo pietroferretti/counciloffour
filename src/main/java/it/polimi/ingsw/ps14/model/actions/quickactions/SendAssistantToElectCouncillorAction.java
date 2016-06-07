@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.controller.actions.quickactions;
+package it.polimi.ingsw.ps14.model.actions.quickactions;
 
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.controller.actions.quickactions;
+package it.polimi.ingsw.ps14.model.actions.quickactions;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;

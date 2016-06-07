@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.controller.actions.mainactions;
+package it.polimi.ingsw.ps14.model.actions.mainactions;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;

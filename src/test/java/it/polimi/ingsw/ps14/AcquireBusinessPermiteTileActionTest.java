@@ -9,14 +9,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import it.polimi.ingsw.ps14.controller.actions.mainactions.AcquireBusinessPermiteTileAction;
-import it.polimi.ingsw.ps14.controller.actions.mainactions.MainAction;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.Settings;
+import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 
 public class AcquireBusinessPermiteTileActionTest {
 

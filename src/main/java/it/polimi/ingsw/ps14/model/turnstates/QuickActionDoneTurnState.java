@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ps14.model.turnstates;
 
-import it.polimi.ingsw.ps14.controller.actions.mainactions.MainAction;
 import it.polimi.ingsw.ps14.model.actions.Action;
+import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 
 public class QuickActionDoneTurnState extends TurnState {
 
