@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.controller.actions.quickactions;
 
+import it.polimi.ingsw.ps14.BusinessPermit;
 import it.polimi.ingsw.ps14.GameBoard;
 import it.polimi.ingsw.ps14.Player;
 import it.polimi.ingsw.ps14.Region;
@@ -24,7 +25,13 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 	public TurnState execute(TurnState previousState) {
 		super.getPlayer().useAssistants(1);
 		super.getGameBoard().addAssistants(1);
-		// TODO aggiungere "metti carte in fondo al mazzo" al deck di business permit in regione
+		
+		BusinessPermit[] permitArray = region.getBusinessPermits().getAvailablePermits();
+		for (BusinessPermit card : permitArray) {
+			region.getBusinessPermits().removeBusinessPermit(card);
+			region.getBusinessPermits().addCardToDeckBottom(card);
+		}
+		region.getBusinessPermits().fillEmptySpots();
 		
 		return nextState(previousState);
 	}

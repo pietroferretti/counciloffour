@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps14;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class BusinessCardsRegion {
 
@@ -43,7 +44,7 @@ public class BusinessCardsRegion {
 		}
 		return false;
 	}
-
+	
 	public boolean cardIsFaceUp(BusinessPermit card) {
 		for (BusinessPermit busPer : availablePermits)
 			if (busPer.equals(card)) {
@@ -56,18 +57,37 @@ public class BusinessCardsRegion {
 		return availablePermits;
 	}
 	
-	public boolean businessPermitIsAvailable(BusinessPermit permit){
-		for(BusinessPermit avBP : availablePermits)
-			if(permit.equals(avBP)) return true;
-		return false;
-	}
-	
 	public int cardsLeftInDeck() {
 		return deck.size();
 	}
 	
-	public void putCardInDeckEnd(BusinessPermit card){
+	public void addCardToDeckBottom(BusinessPermit card){
 		deck.add(card);
+	}
+	
+	public int findIndexBusinessPermit(BusinessPermit card) {
+		if(cardIsFaceUp(card)) {
+			return Arrays.asList(availablePermits).indexOf(card);
+		} else {
+			throw new NoSuchElementException();
+		}
+	}
+	
+	public void removeBusinessPermit(BusinessPermit card) {
+		availablePermits[findIndexBusinessPermit(card)] = null;
+	}
+
+	public boolean fillEmptySpots() {
+		for (int i=0; i < availablePermits.length; i++) {
+			if (availablePermits[i] == null) {
+				if(deck.isEmpty()) {
+					return false;
+				} else {
+					availablePermits[i] = drawCardFromDeck();
+				}
+			}
+		}
+		return true;
 	}
 
 

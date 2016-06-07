@@ -10,6 +10,7 @@ import it.polimi.ingsw.ps14.ColorCouncillor;
 import it.polimi.ingsw.ps14.King;
 import it.polimi.ingsw.ps14.NobilityTrack;
 import it.polimi.ingsw.ps14.Player;
+import it.polimi.ingsw.ps14.PoliticCard;
 import it.polimi.ingsw.ps14.Region;
 import it.polimi.ingsw.ps14.model.bonus.*;
 
@@ -21,14 +22,23 @@ public class Printer {
 		this.output = output;
 	}
 
-	/*
-	 * For each region prints: type, bonus, coucil, permits available, cities
+	/**
+	 * It prints strings :)
+	 * 
+	 * @param s
+	 *            Any string.
 	 */
-
-	private void print(String s) {
+	protected void print(String s) {
 		output.println(s);
 	}
 
+	// ----------------------------BONUS------------------------------
+
+	/**
+	 * It prints all bonuses of a single object.
+	 * 
+	 * @param bonusCard
+	 */
 	private void printBonuses(List<Bonus> bonusCard) {
 		// copied from BonusList :D
 		for (Bonus bon : bonusCard) {
@@ -72,6 +82,8 @@ public class Printer {
 		output.format("+%d assistant(s)\n", bon.getQuantity());
 	}
 
+	// -------------------------BUSINESS PERMITS---------------------------
+
 	private void printBusinessPermit(BusinessPermit businessPermit) {
 		print("Permit to build in: ");
 		printCitiesName(businessPermit.getCities());
@@ -80,7 +92,7 @@ public class Printer {
 		printBonuses(businessPermit.getBonus().getBonusCard());
 	}
 
-	private void printBusinessPermits(BusinessPermit[] businessPermits) {
+	private void printBusinessPermitsRegion(BusinessPermit[] businessPermits) {
 		int i = 0;
 		print("BUSINESS PERMITS:");
 		print("");
@@ -90,46 +102,46 @@ public class Printer {
 		}
 	}
 
+	/**
+	 * It prints a player's used permit bonuses numbering them starting from 1
+	 * (in order to make easier a player's choice). So, each bonus is identified
+	 * by its own position+1.
+	 * 
+	 * @param usedCards
+	 */
+	private void printUsedBusinessPermitsPlayer(List<BusinessPermit> usedCards) {
+		print("Used Bonus:");
+		int i = 1;
+		for (BusinessPermit businessPermit : usedCards) {
+			output.format("%d° used bonus:%n", i);
+			printBonuses(businessPermit.getBonus().getBonusCard());
+		}
+	}
+
+	/**
+	 * 
+	 * @param validCards
+	 *            - Player's usable permits
+	 */
+	private void printValidBusinessPermitsPlayer(List<BusinessPermit> validCards) {
+		if (validCards.isEmpty())
+			print("You don't own any business permit");
+		else {
+			int i = 0;
+			print("Business Permits:");
+			print("");
+			for (BusinessPermit businessPermit : validCards) {
+				output.format("%d° PERMIT:%n", i);
+				printBusinessPermit(businessPermit);
+			}
+		}
+	}
+
+	// ---------------------------CITIES--------------------------
+
 	private void printCitiesName(List<City> cities) {
 		for (City city : cities) {
 			print(city.getName());
-		}
-	}
-
-	private void printCouncil(Queue<ColorCouncillor> councillors) {
-		print("head");
-		for (ColorCouncillor colorCouncillor : councillors) {
-			output.println(colorCouncillor);
-		}
-		print("tail");
-	}
-
-	protected void printRegions(List<Region> regions) {
-
-		print("-----REGIONS LIST-----");
-		print("");
-
-		for (Region region : regions) {
-
-			print("TYPE:");
-			print("");
-			output.println(region.getType());
-
-			print("BONUS:");
-			print("");
-			printBonusVictoryPoint(region.getBonusRegion());
-
-			print("COUNCIL:");
-			printCouncil(region.getBalcony().readBalcony());
-
-			printBusinessPermits(region.getBusinessPermits().getAvailablePermits());
-
-			output.format("This region contains %d cities", region.getCities().size());
-			print("");
-			print("CITIES:");
-			print("");
-			printCitiesName(region.getCities());
-			printCities(region.getCities());
 		}
 	}
 
@@ -152,6 +164,18 @@ public class Printer {
 		print("");
 	}
 
+	// ---------------------------COUNCIL----------------------------
+
+	private void printCouncil(Queue<ColorCouncillor> councillors) {
+		print("head");
+		for (ColorCouncillor colorCouncillor : councillors) {
+			output.println(colorCouncillor);
+		}
+		print("tail");
+	}
+
+	// ---------------------------KING-----------------------------
+
 	protected void printKing(King king) {
 		print("The king is in " + king.getCity().getName());
 		print("");
@@ -159,27 +183,35 @@ public class Printer {
 		printCouncil(king.getBalcony().readBalcony());
 	}
 
+	// -----------------------NOBILITY TRACK-------------------------
+	/**
+	 * It prints a list of nobility points and correlated bonuses; it also
+	 * prints each player's nobility points.
+	 * 
+	 * @param nobilityTrack
+	 * @param players
+	 */
 	protected void printNobilityTrack(NobilityTrack nobilityTrack, List<Player> players) {
-		// TODO COME CACCHIO FUNZIONA LA NOSTRA HASHMAP?? AHAHA
+
+		// TODO COME CACCHIO FUNZIONA?? è da rivedere la classe
+
 		for (Player player : players) {
 			output.format("%s has %d nobility point(s)", player.getName().toUpperCase(), player.getLevel());
 		}
 
 	}
 
-	protected void printVictoryPoints(List<Player> players) {
-		for (Player player : players) {
-			output.format("%s has %d victory point(s)", player.getName().toUpperCase(), player.getPoints());
-		}
-	}
+	// ------------------------------PLAYER------------------------------
 
 	/**
-	 * It prints a specific player's politic cards and used business permits
+	 * It prints a specific player's politic cards and bonuses from used
+	 * business permits.
 	 * 
 	 * @param player
 	 */
 	public void printPlayerPrivateDetails(Player player) {
-		//TODO
+		printPoliticCards(player.getHand());
+		printUsedBusinessPermitsPlayer(player.getBusinessHand().getUsedCards());
 	}
 
 	/**
@@ -189,7 +221,83 @@ public class Printer {
 	 * @param player
 	 */
 	public void printPlayerPublicDetails(Player player) {
-		//TODO
+		print("Name: " + player.getName());
+
+		// TODO print("Color: " + player.getColor().toString());
+
+		print("Coins: " + Integer.toString(player.getCoins()));
+		printValidBusinessPermitsPlayer(player.getBusinessHand().getValidCards());
+		print("Assistants: " + Integer.toString(player.getAssistants()));
+		print("Nobility level: " + Integer.toString(player.getLevel()));
+		print("Victory Points: " + Integer.toString(player.getPoints()));
 
 	}
+
+	// -------------------------POLITIC CARDS-------------------------
+
+	/**
+	 * It prints a player's politic cards numbering them starting from 1 (in
+	 * order to make easier a player's choice). So, each card is identified by
+	 * its own position+1.
+	 * 
+	 * @param hand
+	 *            Player's politic cards
+	 */
+	private void printPoliticCards(List<PoliticCard> hand) {
+		print("Politic cards:");
+		int i = 1;
+		for (PoliticCard politicCard : hand) {
+			output.format("%d° card:%n", i);
+			printPoliticCard(politicCard);
+		}
+	}
+
+	/**
+	 * It prints the color of a specific politic card.
+	 * 
+	 * @param politicCard
+	 */
+	private void printPoliticCard(PoliticCard politicCard) {
+		print(politicCard.getColor().toString());
+	}
+
+	// ---------------------------REGIONS-----------------------------
+
+	/**
+	 * For each region prints: type, bonus, coucil, permits available, cities
+	 * 
+	 * @param regions
+	 */
+	protected void printRegions(Region region) {
+
+		print("TYPE:");
+		print("");
+		output.println(region.getType());
+
+		print("BONUS:");
+		print("");
+		printBonusVictoryPoint(region.getBonusRegion());
+
+		print("COUNCIL:");
+		printCouncil(region.getBalcony().readBalcony());
+
+		printBusinessPermitsRegion(region.getBusinessPermits().getAvailablePermits());
+
+		output.format("This region contains %d cities", region.getCities().size());
+		print("");
+		print("CITIES:");
+		print("");
+		printCitiesName(region.getCities());
+		printCities(region.getCities());
+
+	}
+
+	// -----------------------VICTORY PATH---------------------------
+
+	protected void printVictoryPoints(List<Player> players) {
+		for (Player player : players) {
+			output.format("%s has %d victory point(s)", player.getName().toUpperCase(), player.getPoints());
+		}
+	}
+
 }

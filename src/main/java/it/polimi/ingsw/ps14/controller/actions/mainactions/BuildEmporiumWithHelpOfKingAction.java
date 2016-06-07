@@ -27,7 +27,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 	public boolean isValid() {
 		Balcony balcony = super.getGameBoard().getKing().getBalcony();
 
-		if (balcony.cardsInBalcony(cards) == -1)
+		if (balcony.cardsMatch(cards))
 			return false;
 		// TODO: send error: ERROR in color choice
 		if (super.getPlayer().getCoins() < balcony.councillorCost(cards))

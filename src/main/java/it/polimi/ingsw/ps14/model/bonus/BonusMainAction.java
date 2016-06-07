@@ -10,7 +10,7 @@ public class BonusMainAction extends Bonus{
 	
 	public void useBonus(Player player){
 		for(int i=0;i<super.getQuantity();i++){
-			//add main action!!!!!!!!!!!!
+			player.additionalMainsToDo++;
 		}
 	}
 }

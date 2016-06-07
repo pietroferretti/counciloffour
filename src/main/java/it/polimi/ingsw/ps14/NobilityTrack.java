@@ -1,12 +1,17 @@
 package it.polimi.ingsw.ps14;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
 import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
+import it.polimi.ingsw.ps14.model.bonus.BonusFromTokens;
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
 import it.polimi.ingsw.ps14.model.bonus.BonusMainAction;
 import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
+import it.polimi.ingsw.ps14.model.bonus.BonusTakeBusinessPermit;
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
 
 /**
@@ -20,9 +25,16 @@ public class NobilityTrack extends Observable implements Cloneable {
 	 * aggiungere la personalizzazione della nobility track dai settings
 	 */
 	private final GameBoard gameboard;
+	private final Map<Integer, Bonus> bonusesByLevel;
 
 	public NobilityTrack(GameBoard gameboard) {
 		this.gameboard = gameboard;
+		bonusesByLevel = new HashMap<>();
+	}
+	
+	public NobilityTrack(GameBoard gameboard, Map<Integer, Bonus> bonusesByLevel) {
+		this.gameboard = gameboard;
+		this.bonusesByLevel = bonusesByLevel; 
 	}
 
 	/**
@@ -32,7 +44,27 @@ public class NobilityTrack extends Observable implements Cloneable {
 	 * @param player
 	 *            - The player that needs to get the bonus
 	 */
-	public void awardNobilityBonus(Player player) {
+	public boolean awardNobilityBonus(Player player) {
+		int nobilityLevel = player.getLevel();
+		Bonus bonusThisLevel = bonusesByLevel.get(new Integer(nobilityLevel));
+		
+		if (bonusThisLevel != null) {
+			// TODO
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Given a Player, this method finds the bonus corresponding to their
+	 * nobility level and applies it to the Player.
+	 * DEPRECATED
+	 * 
+	 * @param player
+	 *            - The player that needs to get the bonus
+	 */
+	public void awardNobilityBonusSwitch(Player player) {
 		switch (player.getLevel()) {
 		case 2:
 			// 2 coins, 2 victory points

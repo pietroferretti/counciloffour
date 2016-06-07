@@ -30,7 +30,7 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	@Override
 	public boolean isValid() {
 		
-		if (balcony.cardsInBalcony(cards)==-1)
+		if (balcony.cardsMatch(cards))
 			return false;
 		// TODO: send error: ERROR in color choice
 		if (super.getPlayer().getCoins() < balcony.councillorCost(cards))

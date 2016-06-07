@@ -16,7 +16,6 @@ public class Region extends Observable implements Cloneable {
 	private Balcony balcony;
 
 	private BusinessCardsRegion businessPermits; // unused + used
-	// TODO: ma quindi i due permit a faccia in su? sono in businessCardRegion
 
 	private BonusVictoryPoint bonusRegion;
 

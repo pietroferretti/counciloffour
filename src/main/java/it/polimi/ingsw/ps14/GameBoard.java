@@ -254,7 +254,7 @@ public class GameBoard {
 	}
 	
 	/*
-	 * -------------------------- POLITIC CARDS DECK ---------------------------
+	 * -------------------------- POLITIC CARD DECK ---------------------------
 	 */
 	
 	public PoliticDeck getPoliticDeck() {
