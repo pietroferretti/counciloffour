@@ -13,14 +13,25 @@ public class PlayerView extends Observable implements Observer {
 		this.playerCopy = playerCopy;
 	}
 
+	private void setPlayerCopy(Player playerCopy) {
+		this.playerCopy = playerCopy;
+		setChanged();
+
+	}
+
+	public Player getPlayerCopy() {
+		return playerCopy;
+	}
+
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object message) {
 
 		if (!(o instanceof Player)) {
 			throw new IllegalArgumentException();
 		}
 		try {
 			setPlayerCopy(((Player) o).clone());
+			notifyObservers(message);
 
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
@@ -29,13 +40,4 @@ public class PlayerView extends Observable implements Observer {
 
 	}
 
-	private void setPlayerCopy(Player playerCopy) {
-		this.playerCopy = playerCopy;
-		setChanged();
-		notifyObservers();
-	}
-
-	public Player getPlayerCopy() {
-		return playerCopy;
-	}
 }

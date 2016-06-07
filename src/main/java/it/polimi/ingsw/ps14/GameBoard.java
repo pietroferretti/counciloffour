@@ -393,4 +393,18 @@ public class GameBoard {
 	public NobilityTrack getNobilityTrack() {
 		return nobilityTrack;
 	}
+
+	@Override
+	public String toString() {
+		return "GameBoard [random=" + random + ", regions=" + regions
+				+ ", king=" + king + ", cities=" + cities
+				+ ", availableAssistants=" + availableAssistants
+				+ ", nobilityTrack=" + nobilityTrack
+				+ ", availableCouncillors=" + availableCouncillors
+				+ ", bonusGold=" + bonusGold + ", bonusSilver=" + bonusSilver
+				+ ", bonusBronze=" + bonusBronze + ", bonusBlue=" + bonusBlue
+				+ ", bonusesKing=" + bonusesKing + ", politicDeck="
+				+ politicDeck + "]";
+	}
+	
 }

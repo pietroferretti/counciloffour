@@ -25,16 +25,19 @@ public class BusinessCardsPlayer {
 
 	/**
 	 * remove business permit from validCard and add it to usedCard
-	 * @param card card to use
+	 * 
+	 * @param card
+	 *            card to use
 	 */
 	public void usePermit(BusinessPermit card) {
 			validCards.remove(card);
 			usedCards.add(card);
 	}
-	
-	public boolean contains(BusinessPermit cardChoice){
-		for(BusinessPermit card : validCards){
-			if(card.equals(cardChoice))return true;
+
+	public boolean contains(BusinessPermit cardChoice) {
+		for (BusinessPermit card : validCards) {
+			if (card.equals(cardChoice))
+				return true;
 		}
 		return false;
 	}

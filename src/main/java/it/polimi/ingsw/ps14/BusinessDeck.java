@@ -29,4 +29,10 @@ public class BusinessDeck {
 		deck.add(card);
 	}
 
+	@Override
+	public String toString() {
+		return "BusinessDeck [deck=" + deck + ", drawnCards=" + drawnCards
+				+ "]";
+	}
+
 }

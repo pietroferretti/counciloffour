@@ -25,4 +25,10 @@ public class ItemForSale {
 		return owner;
 	}
 
+	@Override
+	public String toString() {
+		return "ItemForSale [item=" + item + ", price=" + price + ", owner="
+				+ owner + "]";
+	}
+
 }

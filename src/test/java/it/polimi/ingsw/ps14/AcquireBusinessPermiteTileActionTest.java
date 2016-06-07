@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.controller.actions.mainactions;
+package it.polimi.ingsw.ps14;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,6 +15,8 @@ import it.polimi.ingsw.ps14.Player;
 import it.polimi.ingsw.ps14.PoliticCard;
 import it.polimi.ingsw.ps14.RegionType;
 import it.polimi.ingsw.ps14.Settings;
+import it.polimi.ingsw.ps14.controller.actions.mainactions.AcquireBusinessPermiteTileAction;
+import it.polimi.ingsw.ps14.controller.actions.mainactions.MainAction;
 
 public class AcquireBusinessPermiteTileActionTest {
 

@@ -82,4 +82,7 @@ public class Region extends Observable implements Cloneable {
 		r.bonusRegion = this.bonusRegion;
 		return r;
 	}
+
+
+
 }

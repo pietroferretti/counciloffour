@@ -73,5 +73,11 @@ public class PoliticDeck {
 		discardedCards.clear();
 		shuffle();
 	}
+
+	@Override
+	public String toString() {
+		return "PoliticDeck [deck=" + deck + ", discardedCards="
+				+ discardedCards + "]";
+	}
 	
 }
