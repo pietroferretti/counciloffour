@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
 
+import it.polimi.ingsw.ps14.exceptions.InvalidSettingsException;
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
 import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
@@ -185,7 +186,7 @@ public class GameBoard {
 			bonus = new BonusVictoryPoint(quantity);
 			break;
 		default:
-			throw new RuntimeException("Bonus not recognized! Check your settings file.");
+			throw new InvalidSettingsException("Bonus not recognized! Check your settings file.");
 		}
 		
 		return bonus;
@@ -223,7 +224,7 @@ public class GameBoard {
 			settingsDeck = settings.permitDeckMountains;
 			break;
 		default:
-			throw new RuntimeException("Region type not recognised while loading permit decks.");
+			throw new InvalidSettingsException("Region type not recognised while loading permit decks.");
 		}
 		
 		List<BusinessPermit> permitList = new ArrayList<>();
@@ -378,7 +379,7 @@ public class GameBoard {
 				return city;
 			}
 		}
-		throw new RuntimeException("City not found! Check your settings file?");
+		throw new InvalidSettingsException("City not found! Check your settings file?");
 	}
 	
 

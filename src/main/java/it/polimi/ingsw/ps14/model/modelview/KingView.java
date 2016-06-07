@@ -2,11 +2,15 @@ package it.polimi.ingsw.ps14.model.modelview;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.King;
+import it.polimi.ingsw.ps14.Settings;
 
 public class KingView extends Observable implements Observer {
-
+	private static final Logger LOGGER= Logger.getLogger(Settings.class.getName());
+	
 	King kingCopy;
 
 	public KingView(King kingCopy) {
@@ -24,7 +28,7 @@ public class KingView extends Observable implements Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg){
 
 		// TODO controllare
 
@@ -34,8 +38,7 @@ public class KingView extends Observable implements Observer {
 		try {
 			setKingCopy(((King) o).clone());
 		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Couldn't copy King.", e);
 		}
 
 	}

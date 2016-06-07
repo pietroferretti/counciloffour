@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps14.controller.turnstates;
 
 import it.polimi.ingsw.ps14.controller.actions.Action;
+import it.polimi.ingsw.ps14.exceptions.IllegalActionException;
+import it.polimi.ingsw.ps14.exceptions.InvalidActionException;
 
 public abstract class TurnState {
 	
@@ -14,10 +16,11 @@ public abstract class TurnState {
 	public abstract boolean isActionLegal(Action action);
 
 	public TurnState executeAction(Action action) {
-		// check if the player can do the action based on his "attributes"
+		
 		if (!isActionLegal(action)) {
-			// TODO: definire ActionNotLegalException
-			throw new RuntimeException("You cannot do this action now!");
+			throw new IllegalActionException("You cannot do this action now!");
+		} else if (!action.isValid()) {
+			throw new InvalidActionException();	// TODO Explain why it is invalid
 		}
 
 		return action.execute(this);

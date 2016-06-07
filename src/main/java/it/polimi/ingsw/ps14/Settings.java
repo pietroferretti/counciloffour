@@ -9,12 +9,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import it.polimi.ingsw.ps14.exceptions.InvalidSettingsException;
+
 public class Settings {
+	private static final Logger LOGGER= Logger.getLogger(Settings.class.getName());
 	
 	public final int councillorsEachBalcony;
 	public final int availableCouncillorsEachColor;
@@ -36,7 +40,8 @@ public class Settings {
 		try {
 			settingsFile = new BufferedReader(new FileReader(filename));
 		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException("Couldn't open settings file on path '" + filename + "'");
+			LOGGER.info("Couldn't open settings file on path '" + filename + "'");
+			throw e;
 		}
 
 		// Create some useful JSON parsers
@@ -79,7 +84,7 @@ public class Settings {
 		try {
 			settingsFile.close();
 		} catch (IOException e) {
-			System.out.println("Couldn't close settings file");
+			LOGGER.info("Couldn't close settings file");
 			throw e;
 		}
 	}
@@ -130,7 +135,7 @@ public class Settings {
 				if (kingCityString == null) {
 					kingCityString = cityEntry.getKey();
 				} else {
-					throw new RuntimeException("More than one purple city in the settings file!");
+					throw new InvalidSettingsException("More than one purple city in the settings file!");
 				}
 			}
 		}
@@ -138,7 +143,7 @@ public class Settings {
 		if (kingCityString != null) {
 			return kingCityString;
 		} else {
-			throw new RuntimeException("No purple cities found in the settings file!");
+			throw new InvalidSettingsException("No purple cities found in the settings file!");
 		}
 	}
 	
