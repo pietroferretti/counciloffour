@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.controller;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,9 +16,9 @@ public class Controller implements Observer {
 	private Game model;
 	private List<View> views;
 
-	public Controller(Game model, List<View> views) {
+	public Controller(Game model) {
 		this.model = model;
-		this.views = views;
+		views = new ArrayList<>();
 	}
 
 	@Override
