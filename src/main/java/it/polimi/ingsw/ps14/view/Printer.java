@@ -59,15 +59,15 @@ public class Printer {
 	}
 
 	private void printBonusVictoryPoint(Bonus bon) {
-		output.format("+%d victory points\n", bon.getQuantity());
+		output.format("+%d victory points%n", bon.getQuantity());
 	}
 
 	private void printBonusPoliticCard(Bonus bon) {
-		output.format("+%d politic card\n", bon.getQuantity());
+		output.format("+%d politic card%n", bon.getQuantity());
 	}
 
 	private void printBonusNobility(Bonus bon) {
-		output.format("+%d nobility points\n", bon.getQuantity());
+		output.format("+%d nobility points%n", bon.getQuantity());
 	}
 
 	private void printBonusMainAction() {
@@ -75,11 +75,11 @@ public class Printer {
 	}
 
 	private void printBonusCoin(Bonus bon) {
-		output.format("+%d coins\n", bon.getQuantity());
+		output.format("+%d coins%n", bon.getQuantity());
 	}
 
 	private void printBonusAssistant(Bonus bon) {
-		output.format("+%d assistant(s)\n", bon.getQuantity());
+		output.format("+%d assistant(s)%n", bon.getQuantity());
 	}
 
 	// -------------------------BUSINESS PERMITS---------------------------

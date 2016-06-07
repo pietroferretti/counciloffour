@@ -39,5 +39,11 @@ public class Game extends Observable implements Cloneable {
 		// magari una exception?
 		return null;
 	}
+	
+	@Override
+	public Game clone() throws CloneNotSupportedException{
+		// TODO 
+		throw new CloneNotSupportedException();
+	}
 
 }
