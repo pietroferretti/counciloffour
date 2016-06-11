@@ -14,7 +14,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.ps14.controller.Controller;
-import it.polimi.ingsw.ps14.model.Game;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.view.CLIView;
 import it.polimi.ingsw.ps14.view.View;
@@ -61,8 +60,8 @@ public class Server {
 	/*
 	 * Mi metto in attesa di un altro giocatore
 	 */
-	public synchronized void meeting(ConnectionSocket c, int IDPlayer) {
-		waitingConnection.put(IDPlayer, c);
+	public synchronized void meeting(ConnectionSocket c, int idPlayer) {
+		waitingConnection.put(idPlayer, c);
 		if (waitingConnection.size() == 2) {
 			timer.cancel();
 
@@ -76,10 +75,10 @@ public class Server {
 					try {
 
 						List<Integer> keys = new ArrayList<>(waitingConnection.keySet());
-						Game model = new Game();// Q:game contiene anche list di
-												// player...come glielo passo?
-												// A:li setto dopo
-						Controller controller = new Controller(model);
+						//Game model = new Game();	// Q:game contiene anche list di
+													// player...come glielo passo?
+													// A:li setto dopo
+						// Controller controller = new Controller(model);
 						for (int key : keys) {
 							if (waitingConnection.get(key) instanceof ConnectionSocket) {
 								ConnectionSocket conn = waitingConnection.get(key);
@@ -87,7 +86,8 @@ public class Server {
 								// lista
 								// giocatori...come faccio ad averla prima di
 								// mostrare la cli ai connessi?
-								View playerView = new CLIView(conn.getSocketIn(), conn.getSocketOut(), new Player(key));
+//								View playerView = new CLIView(conn.getSocketIn(), conn.getSocketOut(), new Player(key));
+								View playerView = new CLIView(conn.getSocketIn(), conn.getSocketOut(), key);
 								// Cliview
 								// scambia
 								// oggetti
@@ -95,15 +95,15 @@ public class Server {
 								// server,
 								// non
 								// stringhe!
-								model.addObserver(playerView);
-								playerView.addObserver(controller);// sistema il
+								// model.addObserver(playerView);
+								// playerView.addObserver(controller);// sistema il
 																	// costruttore
 																	// di
 																	// cliview
 																	// e questo
 																	// va a
 																	// posto
-								model.addPlayer(new Player(key));// aggiungere
+								// model.addPlayer(new Player(key));// aggiungere
 																	// un
 																	// costruttore
 																	// che
