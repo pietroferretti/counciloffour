@@ -2,7 +2,9 @@ package it.polimi.ingsw.ps14.view;
 
 import java.util.Observable;
 
-public class GUIView extends Observable implements View, Runnable {
+import it.polimi.ingsw.ps14.model.modelview.ModelView;
+
+public class GUIView extends View implements Runnable {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -49,6 +51,30 @@ public class GUIView extends Observable implements View, Runnable {
 	public void showQuickActions() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int getPlayerID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setModelView(ModelView modelView) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPlayerName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void print(String message) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

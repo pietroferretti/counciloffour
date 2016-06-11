@@ -26,24 +26,35 @@ import it.polimi.ingsw.ps14.model.modelview.RegionView;
 //TODO faccio stampare solo i dettagli del giocatori che ha finito il turno
 //TODO metodo per tutti i miei dettagli?
 //TODO implementare richiesta per stampa di tutto
-public class CLIView extends Observable implements View, Runnable {
+public class CLIView extends View implements Runnable {
 
 	private Scanner input;
 	// private PrintStream output;
 	private Printer printer;
 
 	// each player owns a specific view CLI or GUI identified by his ID.
-	private int playerID;
+	private final int playerID;
 
 	private ModelView mv;
 	private Message message;
+	
+	public CLIView(InputStream inputStream, OutputStream outputStream, int playerID) {
+		input = new Scanner(inputStream);
+		// output = new PrintStream(outputStream);
+		printer = new Printer(new PrintStream(outputStream));
+		this.playerID = playerID;
+	}
 
-	public CLIView(InputStream inputStream, OutputStream outputStream, ModelView modelView, int playerID) {
+	public CLIView(InputStream inputStream, OutputStream outputStream, int playerID, ModelView modelView) {
 		input = new Scanner(inputStream);
 		// output = new PrintStream(outputStream);
 		printer = new Printer(new PrintStream(outputStream));
 		mv = modelView;
 		this.playerID = playerID;
+	}	
+	
+	public void setModelView(ModelView modelView) {
+		mv = modelView;
 	}
 
 	public int getPlayerID() {
@@ -165,6 +176,18 @@ public class CLIView extends Observable implements View, Runnable {
 	public void showQuickActions() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String getPlayerName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void print(String message) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

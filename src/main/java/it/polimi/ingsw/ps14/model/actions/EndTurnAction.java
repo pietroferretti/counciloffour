@@ -5,7 +5,7 @@ import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
-public class EndTurnAction extends Action {
+public class EndTurnAction extends TurnAction {
 
 	public EndTurnAction(Player player, GameBoard gameBoard) {
 		super(player, gameBoard);

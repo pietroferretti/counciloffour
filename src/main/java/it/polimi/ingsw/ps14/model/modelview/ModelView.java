@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
 /*
@@ -23,13 +24,13 @@ public class ModelView extends Observable implements Observer {
 
 	// private String message;
 
-	public ModelView(List<Player> players) throws CloneNotSupportedException {
-		// TODO Auto-generated constructor stub
+	public ModelView(Model model) throws CloneNotSupportedException {
+		// TODO Ancora tutto da scrivere, copiare tutti i componenti dal model
 
 		playersView = new ArrayList<>();
 
 		// add a playerView for each player
-		for (Player player : players) {
+		for (Player player : model.getPlayers()) {
 			playersView.add(new PlayerView(player.clone()));
 		}
 

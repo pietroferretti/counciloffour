@@ -4,6 +4,7 @@ import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class BuildEmporiumUsingPermitTileAction extends MainAction {
@@ -60,6 +61,11 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		
 		//check city neighbours token
 		//????????????????????
+		
+		if (super.getPlayer().numEmporiums() == 10) {
+			super.getPlayer().addPoints(3);
+			return new EndTurnState();
+		}
 		
 		return nextState(previousState);
 	}

@@ -3,52 +3,12 @@ package it.polimi.ingsw.ps14.model;
 import java.util.ArrayList;
 import java.util.List;
 
-//PROBABILE CONTROLLER
 
 public class GameLogic {
 
-	private GameBoard gameboard;
+	private GameLogic() {};
 
-	private ArrayList<Player> players;
- 
-	private Settings settings;
-
-	/*
-	 * È GameLogic a passare il controllo da giocatore a giocatore? - magari
-	 * passare nomi utenti invece dei Player --> creiamo i player qui
-	 */
-	public GameLogic(ArrayList<Player> players, Settings settings) {
-		if (players.size() < 2) {
-			throw new IllegalArgumentException("Too few players!");
-		}
-		this.players = players;
-		this.settings = settings;
-
-		this.gameboard = new GameBoard(settings); // Inizializzare la gameboard
-													// con i
-		// dati in settings
-	}
-
-	private boolean setupGame() {
-		/*
-		 * TODO: - scegli ordine giocatori - dai carte, monete, assistenti ai
-		 * giocatori - popola balconi qui?
-		 * 
-		 * Ricordare: diversi setup a seconda del numero di giocatori
-		 */
-		return false;
-	}
-
-	private boolean round(Player player) {
-		// returns true if the game is ending
-		return false;
-	}
-
-	private void marketPhase() {
-		// TODO
-	}
-
-	private void distributeEndGamePoints() {
+	public static void distributeEndGamePoints(List<Player> players) {
 		/*
 		 * Assegna punti aggiuntivi ai giocatori alla fine del gioco
 		 * NobilityTrack: 5 punti al primo, 2 al secondo - se più giocatori sono
@@ -63,7 +23,7 @@ public class GameLogic {
 		List<Player> firstHighNobility;
 		List<Player> secondHighNobility;
 		
-		highNobilityLists = findHighNobles();
+		highNobilityLists = findHighNobles(players);
 		firstHighNobility = highNobilityLists.get(0);
 		secondHighNobility = highNobilityLists.get(1);
 		
@@ -71,39 +31,16 @@ public class GameLogic {
 		awardPointsNobility(firstHighNobility, secondHighNobility);
 
 		// Find players with the most permits
-		List<Player> mostPermits = findMostPermits();
+		List<Player> mostPermits = findMostPermits(players);
 		
 		// Give points to the players with the most permits
 		for (Player permitMaster : mostPermits) {
 			permitMaster.addPoints(3);
 		}
 	}
-
-	public Player playGame() {
-		setupGame();
-
-		boolean endgame = false;
-		while (!endgame) {
-			// TODO: Abbiamo bisogno di un modo per passare il controllo di
-			// giocatore in giocatore...
-			// TODO: cambiare leggermente il codice in modo che quando un
-			// giocatore ha costruito 10 empori
-			// ogni altro giocatore faccia un ulteriore turno di gioco, senza
-			// market
-			for (Player activePlayer : players) {
-				endgame = round(activePlayer);
-			}
-			marketPhase();
-		}
-
-		distributeEndGamePoints();
-		Player winner = findWinner();
-		return winner;
-		// print results somewhere
-	}
 	
 	// I used a list of lists to return two values: 
-	List<List<Player>> findHighNobles() {
+	private static List<List<Player>> findHighNobles(List<Player> players) {
 		List<Player> firstHighNobility = new ArrayList<>();
 		List<Player> secondHighNobility = new ArrayList<>();
 		List<List<Player>> result = new ArrayList<>();
@@ -140,7 +77,7 @@ public class GameLogic {
 		return result;
 	}
 
-	void awardPointsNobility(List<Player> firstHighNobility, List<Player> secondHighNobility) {
+	private static void awardPointsNobility(List<Player> firstHighNobility, List<Player> secondHighNobility) {
 		if (firstHighNobility.size() == 1) {
 			firstHighNobility.get(0).addPoints(5);
 			for (Player secondHighNoble : secondHighNobility) {
@@ -153,7 +90,7 @@ public class GameLogic {
 		}
 	}
 	
-	List<Player> findMostPermits() {
+	private static List<Player> findMostPermits(List<Player> players) {
 		List<Player> mostPermits = new ArrayList<>();
 		
 		mostPermits.add(players.get(0));
@@ -168,16 +105,10 @@ public class GameLogic {
 		
 		return mostPermits;
 	}
-	
-	void awardPointsPermits(List<Player> mostPermits) {
-		for (Player mostPermitsPlayer : mostPermits) {
-			mostPermitsPlayer.addPoints(3);
-		}
-	}
 
 	// Find the winner by comparing points (and assistants and cards if
 	// there's a draw)
-	Player findWinner() {
+	public static Player findWinner(List<Player> players) {
 		Player winner;
 		
 		winner = players.get(0);

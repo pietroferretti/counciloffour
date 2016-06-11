@@ -1,16 +1,17 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
 
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
@@ -27,7 +28,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 	public boolean isValid() {
 		Balcony balcony = super.getGameBoard().getKing().getBalcony();
 
-		if (balcony.cardsMatch(cards))
+		if (!balcony.cardsMatch(cards))
 			return false;
 		// TODO: send error: ERROR in color choice
 		if (super.getPlayer().getCoins() < balcony.councillorCost(cards))
@@ -131,6 +132,11 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 		// TODO: bonus citta adiacenti
 
+		if (super.getPlayer().numEmporiums() == 10) {
+			super.getPlayer().addPoints(3);
+			return new EndTurnState();
+		}
+		
 		return super.nextState(previousState);
 	}
 }

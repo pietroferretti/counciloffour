@@ -2,14 +2,14 @@ package it.polimi.ingsw.ps14.controller;
 
 public class TurnFinishedMsg implements Message {
 
-	private int PlayerID;
+	private final int playerID;
 
 	public TurnFinishedMsg(int playerID) {
-		PlayerID = playerID;
+		this.playerID = playerID;
 	}
 
 	public int getPlayerID() {
-		return PlayerID;
+		return playerID;
 	}
 
 }

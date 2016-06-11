@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.model.turnstates;
 
 import it.polimi.ingsw.ps14.exceptions.IllegalActionException;
-import it.polimi.ingsw.ps14.exceptions.InvalidActionException;
 import it.polimi.ingsw.ps14.model.actions.Action;
 
 public abstract class TurnState {
@@ -19,9 +18,7 @@ public abstract class TurnState {
 		
 		if (!isActionLegal(action)) {
 			throw new IllegalActionException("You cannot do this action now!");
-		} else if (!action.isValid()) {
-			throw new InvalidActionException();	// TODO Explain why it is invalid
-		}
+		} 
 
 		return action.execute(this);
 

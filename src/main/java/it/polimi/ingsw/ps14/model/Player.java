@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Random;
 
-import it.polimi.ingsw.ps14.controller.NewPlayerMsg;
 import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPublicMsg;
 
 public class Player extends Observable implements Cloneable {
 
+	private static Random rand = new Random();
 	private static int idCounter = 1;
 	private final int id;
 	private String name;
@@ -43,7 +44,9 @@ public class Player extends Observable implements Cloneable {
 	 * @param numberOfCards
 	 *            number of politic cards to drawn
 	 * @param id
+	 * @deprecated
 	 */
+	@Deprecated
 	public Player(String name, Color color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
 		this.id = idCounter;
 		idCounter++;
@@ -59,6 +62,22 @@ public class Player extends Observable implements Cloneable {
 		// usedPermitTiles = new ArrayList<>();
 	}
 
+	public Player(int id, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
+		this.id = id;
+		this.coins = coins;
+		this.assistants = assistants;
+		level = 0;
+		points = 0;
+		this.hand = deck.drawMultipleCards(numberOfCards);
+		businessHand = new BusinessCardsPlayer();
+		// permitTiles = new ArrayList<>();
+		// usedPermitTiles = new ArrayList<>();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		color = new Color(r, g, b);
+	}
+	
 	/**
 	 * non setto nome e colore, tutto il resto a 0
 	 */
@@ -307,6 +326,11 @@ public class Player extends Observable implements Cloneable {
 		// TODO come/cosa cavolo notifico??
 		businessHand.sellPermits(item);
 
+	}
+	
+	public int numEmporiums() {
+		// TODO !!!
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

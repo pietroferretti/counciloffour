@@ -2,14 +2,14 @@ package it.polimi.ingsw.ps14.model.actions.mainactions;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.actions.Action;
+import it.polimi.ingsw.ps14.model.actions.TurnAction;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
-public abstract class MainAction extends Action {
+public abstract class MainAction extends TurnAction {
 
 	public MainAction(Player player, GameBoard gameBoard) {
 		super(player, gameBoard);

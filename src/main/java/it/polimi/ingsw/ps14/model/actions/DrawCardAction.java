@@ -2,10 +2,10 @@ package it.polimi.ingsw.ps14.model.actions;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
-import it.polimi.ingsw.ps14.model.turnstates.*;
+import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
-public class DrawCardAction extends Action {
+public class DrawCardAction extends TurnAction {
 
 	public DrawCardAction(Player player, GameBoard gameBoard) {
 		super(player, gameBoard);

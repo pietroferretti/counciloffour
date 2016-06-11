@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.controller;
 
-import it.polimi.ingsw.ps14.model.Game;
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
@@ -9,12 +9,12 @@ import it.polimi.ingsw.ps14.view.View;
 public class TurnLogic {
 
 	private final Player player;
-	private Game game;
+	private Model game;
 	private TurnState state;
 
 	private final View playerView;
 
-	public TurnLogic(Player player, Game game, View playerView, TurnState state) {
+	public TurnLogic(Player player, Model game, View playerView, TurnState state) {
 		this.player = player;
 		this.game = game;
 		this.playerView = playerView;
