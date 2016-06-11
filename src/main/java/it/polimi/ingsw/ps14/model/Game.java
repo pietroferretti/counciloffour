@@ -27,6 +27,10 @@ public class Game extends Observable implements Cloneable {
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
+	
+	public void addPlayer(Player player){
+		players.add(player);
+	}
 
 	public GameBoard getGameBoard() {
 		return gameBoard;
