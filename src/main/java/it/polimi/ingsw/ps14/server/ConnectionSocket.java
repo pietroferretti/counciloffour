@@ -65,12 +65,13 @@ public class ConnectionSocket extends Observable implements Runnable {
 					this.notifyObservers(action);
 
 				}
-				if (object instanceof String) {
+				
+				else if (object instanceof String) {
 					// non è che tutti gli object possono essere visti come
 					// stringhe e viene sempre eseguito questo if?
 					String data = (String) object;
-					System.out.println("VIEW: received the string " + data);
-					// this.socketOut.writeObject(data);
+					System.out.println("SERVER: received the string " + data);
+					this.socketOut.writeObject("ricevuto!");
 					this.socketOut.flush();
 				}
 

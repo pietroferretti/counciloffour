@@ -22,7 +22,7 @@ import it.polimi.ingsw.ps14.view.View;
  * La classe Server resta in ascolto su una specifica porta e gestisce la ripartizione delle connessioni in ingresso,
  */
 public class Server {
-	private static final int PORT = 12345;
+	private static final int PORT = 19999;
 	private static final int COUNTDOWN = 20;
 	private static int IDPlayer;
 	private ServerSocket serverSocket;
@@ -82,19 +82,8 @@ public class Server {
 						for (int key : keys) {
 							if (waitingConnection.get(key) instanceof ConnectionSocket) {
 								ConnectionSocket conn = waitingConnection.get(key);
-								// cli view vuole modelview, model view vuola
-								// lista
-								// giocatori...come faccio ad averla prima di
-								// mostrare la cli ai connessi?
 //								View playerView = new CLIView(conn.getSocketIn(), conn.getSocketOut(), new Player(key));
 								View playerView = new CLIView(conn.getSocketIn(), conn.getSocketOut(), key);
-								// Cliview
-								// scambia
-								// oggetti
-								// col
-								// server,
-								// non
-								// stringhe!
 								// model.addObserver(playerView);
 								// playerView.addObserver(controller);// sistema il
 																	// costruttore
@@ -132,7 +121,6 @@ public class Server {
 
 	public Server() throws IOException {
 		timer = new Timer();
-		this.serverSocket = new ServerSocket(PORT);
 	}
 
 	public void startSocket() {
@@ -140,7 +128,7 @@ public class Server {
 		ServerSocket serverSocket;
 		try {
 			serverSocket = new ServerSocket(PORT);
-			System.out.println("SERVER SOCKET READY ON PORT" + PORT);
+			System.out.println("SERVER SOCKET READY ON PORT " + PORT);
 		} catch (IOException e1) {
 			System.out.println("SERVER SOCKET ERROR");
 			e1.printStackTrace();
