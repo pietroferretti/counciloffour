@@ -23,7 +23,7 @@ import it.polimi.ingsw.ps14.view.View;
  */
 public class Server {
 	private static final int PORT = 19999;
-	private static final int COUNTDOWN = 20;
+	private static final int COUNTDOWN = 5;
 	private static int IDPlayer;
 	private ServerSocket serverSocket;
 
@@ -33,8 +33,8 @@ public class Server {
 
 	private Map<Integer, ConnectionSocket> waitingConnection = new HashMap<>();
 
-	static Timer timer;
-	TimerTask timerTask;
+	private static Timer timer;
+	private TimerTask timerTask;
 
 	/*
 	 * Registro una connessione attiva
@@ -63,50 +63,60 @@ public class Server {
 	public synchronized void meeting(ConnectionSocket c, int idPlayer) {
 		waitingConnection.put(idPlayer, c);
 		if (waitingConnection.size() == 2) {
-			timer.cancel();
+			
+System.err.println("ho due connessioni!");
+
 
 			timer = new Timer();
-
-			timer.schedule(timerTask, (long) COUNTDOWN * 1000);
 
 			timerTask = new TimerTask() {
 				@Override
 				public void run() {
 					try {
 
-						List<Integer> keys = new ArrayList<>(waitingConnection.keySet());
-						//Game model = new Game();	// Q:game contiene anche list di
-													// player...come glielo passo?
-													// A:li setto dopo
+						List<Integer> keys = new ArrayList<>(
+								waitingConnection.keySet());
+						
+						System.err.println("creo partita con "+ keys.size()+" connessioni!");
+
+						// Game model = new Game();
 						// Controller controller = new Controller(model);
 						for (int key : keys) {
 							if (waitingConnection.get(key) instanceof ConnectionSocket) {
-								ConnectionSocket conn = waitingConnection.get(key);
-//								View playerView = new CLIView(conn.getSocketIn(), conn.getSocketOut(), new Player(key));
-								View playerView = new CLIView(conn.getSocketIn(), conn.getSocketOut(), key);
+								ConnectionSocket conn = waitingConnection
+										.get(key);
+								// View playerView = new
+								// CLIView(conn.getSocketIn(),
+								// conn.getSocketOut(), new Player(key));
+								View playerView = new CLIView(
+										conn.getSocketIn(),
+										conn.getSocketOut(), key);
+								System.out.println("CREATO NUOVO GIOCO :)");
 								// model.addObserver(playerView);
-								// playerView.addObserver(controller);// sistema il
-																	// costruttore
-																	// di
-																	// cliview
-																	// e questo
-																	// va a
-																	// posto
-								// model.addPlayer(new Player(key));// aggiungere
-																	// un
-																	// costruttore
-																	// che
-																	// costruisce
-																	// un
-																	// player
-																	// partendo
-																	// dall'id
+								// playerView.addObserver(controller);// sistema
+								// il
+								// costruttore
+								// di
+								// cliview
+								// e questo
+								// va a
+								// posto
+								// model.addPlayer(new Player(key));//
+								// aggiungere
+								// un
+								// costruttore
+								// che
+								// costruisce
+								// un
+								// player
+								// partendo
+								// dall'id
 							}
-						
-						//if(waitingConnection.get(key) instanceof ConnectionRMI){
-							//??????????????????????????????????
+
+							// if(waitingConnection.get(key) instanceof
+							// ConnectionRMI){
+							// ??????????????????????????????????
 						}
-					
 
 						waitingConnection.clear();
 					} catch (Exception e) {
@@ -116,6 +126,8 @@ public class Server {
 					}
 				}
 			};
+			timer.schedule(timerTask, (long) COUNTDOWN * 1000);
+
 		}
 	}
 
@@ -137,9 +149,12 @@ public class Server {
 		while (true) {
 			try {
 				Socket newSocket = serverSocket.accept();
-				ConnectionSocket connection = new ConnectionSocket(newSocket, this, IDPlayer);
+				ConnectionSocket connection = new ConnectionSocket(newSocket,
+						this, IDPlayer);
 				IDPlayer++;
 				registerConnection(connection);
+				meeting(connection, IDPlayer);
+				System.out.println("appena uscito da meeting");
 				executor.submit(connection);// like Thread.start();
 			} catch (IOException e) {
 				System.out.println("Errore di connessione!");
@@ -161,7 +176,8 @@ public class Server {
 			System.out.println("START SOCKET");
 			server.startSocket();
 		} catch (IOException e) {
-			System.err.println("Impossibile inizializzare il server: " + e.getMessage() + "!");
+			System.err.println("Impossibile inizializzare il server: "
+					+ e.getMessage() + "!");
 		}
 	}
 
