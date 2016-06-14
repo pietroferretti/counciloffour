@@ -15,7 +15,6 @@ public class Player extends Observable {
 	private static int idCounter = 1;
 	private final int id;
 	private String name;
-	// TODO ci serve una funzione che li assegni random
 	private Color color;
 	private int coins;
 	private int assistants;
@@ -185,7 +184,7 @@ public class Player extends Observable {
 	 * 
 	 * @return
 	 */
-	public int upLevel() {
+	public int levelUp() {
 		level++;
 		setChanged();
 		notifyObservers(new PlayerChangedPublicMsg(id, name + " leveled up!"));
@@ -197,7 +196,7 @@ public class Player extends Observable {
 	 * 
 	 * @param n
 	 */
-	public void upLevel(int n) {
+	public void levelUp(int n) {
 		level = level + n;
 		setChanged();
 		notifyObservers(new PlayerChangedPublicMsg(id,

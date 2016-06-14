@@ -13,7 +13,7 @@ import it.polimi.ingsw.ps14.server.ServerView;
 import it.polimi.ingsw.ps14.view.View;
 
 public class Game {
-	private static final Logger LOGGER= Logger.getLogger(Main.class.getName());
+	private static final Logger LOGGER= Logger.getLogger(Game.class.getName());
 
 	private final Model model;
 	private final ModelView modelView;
@@ -27,7 +27,7 @@ public class Game {
 		model = new Model();
 		
 		// TODO different amount of coins and assistants
-		// TODO random player order
+
 		List<Player> playerList = new ArrayList<>();
 		for (View view : views) {
 			Player player = new Player(view.getPlayerID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6);
@@ -50,4 +50,3 @@ public class Game {
 			serverView.addObserver(controller);
 		}		
 	}	
-}

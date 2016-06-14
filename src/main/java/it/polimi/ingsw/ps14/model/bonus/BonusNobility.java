@@ -11,7 +11,7 @@ public class BonusNobility extends Bonus{
 	
 	//nobility is player.level
 	public void useBonus(Player player, GameBoard gameboard) {
-		player.upLevel(super.getQuantity());
+		player.levelUp(super.getQuantity());
 	}
 	
 }

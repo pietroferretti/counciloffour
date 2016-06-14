@@ -33,7 +33,7 @@ public class NobilityTrack extends Observable implements Cloneable {
 	 * @param player
 	 *            - The player that needs to get the bonus
 	 */
-	public boolean awardNobilityBonus(Player player, GameBoard gameboard) {
+	public boolean useBonus(Player player, GameBoard gameboard) {
 		int nobilityLevel = player.getLevel();
 		BonusList bonusThisLevel = bonusesByLevel.get(new Integer(nobilityLevel));
 		
