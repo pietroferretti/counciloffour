@@ -7,6 +7,10 @@ public class PoliticCard implements Card {
 	public PoliticCard(ColorPolitic color) {
 		this.color = color;
 	}
+	
+	public PoliticCard(PoliticCard pc){
+		this.color=pc.color;
+	}
 
 	public ColorPolitic getColor() {
 		return color;

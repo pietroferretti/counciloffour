@@ -12,7 +12,7 @@ public class PoliticDeck {
 	public PoliticDeck(int numColoredCards, int numJolly) {
 		deck = new ArrayList<>();
 		discardedCards = new ArrayList<>();
-		
+
 		for (int i = 0; i < numColoredCards; i++) {
 			for (ColorPolitic color : ColorPolitic.values()) {
 				if (color != ColorPolitic.JOLLY) {
@@ -21,16 +21,27 @@ public class PoliticDeck {
 			}
 
 		}
-		
+
 		for (int i = 0; i < numJolly; i++) {
 			deck.add(new PoliticCard(ColorPolitic.JOLLY));
 		}
-		
+
 		shuffle();
 
 	}
 
-	public void addPoliticCard(PoliticCard card){
+	public PoliticDeck(PoliticDeck pd) {
+		deck = new ArrayList<>(pd.deck.size());
+		for (PoliticCard politicCard : pd.deck) {
+			this.deck.add(new PoliticCard(politicCard));
+		}
+		discardedCards = new ArrayList<>(pd.discardedCards.size());
+		for (PoliticCard politicCard : pd.discardedCards) {
+			this.discardedCards.add(new PoliticCard(politicCard));
+		}
+	}
+
+	public void addPoliticCard(PoliticCard card) {
 		deck.add(card);
 	}
 
@@ -55,19 +66,19 @@ public class PoliticDeck {
 		}
 		return result;
 	}
-	
-	public void discardCard(PoliticCard card){
+
+	public void discardCard(PoliticCard card) {
 		discardedCards.add(card);
 	}
-	
-	public void discardCards(List<PoliticCard> cards){
+
+	public void discardCards(List<PoliticCard> cards) {
 		discardedCards.addAll(cards);
 	}
-	
-	public void shuffle(){
+
+	public void shuffle() {
 		Collections.shuffle(deck);
 	}
-	
+
 	private void shuffleAll() {
 		deck.addAll(discardedCards);
 		discardedCards.clear();
@@ -76,8 +87,7 @@ public class PoliticDeck {
 
 	@Override
 	public String toString() {
-		return "PoliticDeck [deck=" + deck + ", discardedCards="
-				+ discardedCards + "]";
+		return "PoliticDeck [deck=" + deck + ", discardedCards=" + discardedCards + "]";
 	}
-	
+
 }

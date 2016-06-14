@@ -2,8 +2,6 @@ package it.polimi.ingsw.ps14.view;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import it.polimi.ingsw.ps14.controller.Message;
 import it.polimi.ingsw.ps14.model.GameBoard;

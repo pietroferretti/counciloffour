@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +24,17 @@ public class BusinessCardsRegion {
 		availablePermits = new BusinessPermit[2];
 	}
 
+	public BusinessCardsRegion(BusinessCardsRegion bcr) {
+		this.deck = new ArrayList<>();
+		for (BusinessPermit bp : bcr.deck) {
+			this.deck.add(new BusinessPermit(bp));
+		}
+		this.availablePermits = new BusinessPermit[2];
+		for (int i = 0; i < availablePermits.length; i++) {
+			this.availablePermits[i] = new BusinessPermit(bcr.availablePermits[i]);
+		}
+	}
+
 	private void shuffle() {
 		Collections.shuffle(deck);
 	}
@@ -36,7 +48,7 @@ public class BusinessCardsRegion {
 	}
 
 	public boolean substituteCard(BusinessPermit toSubstitute) {
-		for (int i=0; i < availablePermits.length; i++) {
+		for (int i = 0; i < availablePermits.length; i++) {
 			if (availablePermits[i] == toSubstitute) {
 				availablePermits[i] = drawCardFromDeck();
 				return true;
@@ -44,7 +56,7 @@ public class BusinessCardsRegion {
 		}
 		return false;
 	}
-	
+
 	public boolean cardIsFaceUp(BusinessPermit card) {
 		for (BusinessPermit busPer : availablePermits)
 			if (busPer.equals(card)) {
@@ -56,31 +68,31 @@ public class BusinessCardsRegion {
 	public BusinessPermit[] getAvailablePermits() {
 		return availablePermits;
 	}
-	
+
 	public int cardsLeftInDeck() {
 		return deck.size();
 	}
-	
-	public void addCardToDeckBottom(BusinessPermit card){
+
+	public void addCardToDeckBottom(BusinessPermit card) {
 		deck.add(card);
 	}
-	
+
 	public int findIndexBusinessPermit(BusinessPermit card) {
-		if(cardIsFaceUp(card)) {
+		if (cardIsFaceUp(card)) {
 			return Arrays.asList(availablePermits).indexOf(card);
 		} else {
 			throw new NoSuchElementException();
 		}
 	}
-	
+
 	public void removeBusinessPermit(BusinessPermit card) {
 		availablePermits[findIndexBusinessPermit(card)] = null;
 	}
 
 	public boolean fillEmptySpots() {
-		for (int i=0; i < availablePermits.length; i++) {
+		for (int i = 0; i < availablePermits.length; i++) {
 			if (availablePermits[i] == null) {
-				if(deck.isEmpty()) {
+				if (deck.isEmpty()) {
 					return false;
 				} else {
 					availablePermits[i] = drawCardFromDeck();
@@ -89,7 +101,5 @@ public class BusinessCardsRegion {
 		}
 		return true;
 	}
-
-
 
 }

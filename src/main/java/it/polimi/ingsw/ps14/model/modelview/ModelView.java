@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
