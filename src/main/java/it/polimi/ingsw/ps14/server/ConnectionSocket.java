@@ -23,7 +23,8 @@ public class ConnectionSocket extends Observable implements Runnable {
 
 	private boolean active = true;
 
-	public ConnectionSocket(Socket socket, Server server, int IDPlayer) throws IOException {
+	public ConnectionSocket(Socket socket, Server server, int IDPlayer)
+			throws IOException {
 		this.socket = socket;
 		this.server = server;
 		this.IDPlayer = IDPlayer;
@@ -33,11 +34,9 @@ public class ConnectionSocket extends Observable implements Runnable {
 		//
 	}
 
-	
 	public ObjectInputStream getSocketIn() {
 		return socketIn;
 	}
-
 
 	public ObjectOutputStream getSocketOut() {
 		return socketOut;
@@ -50,13 +49,11 @@ public class ConnectionSocket extends Observable implements Runnable {
 	@Override
 	public void run() {
 
-		server.meeting(this, IDPlayer);
-
 		try {
 			while (isActive()) {
-				
-				//ESEMPIO DI COME SI PUò USARE
-				
+
+				// ESEMPIO DI COME SI PUÒ USARE
+
 				Object object = socketIn.readObject();
 				if (object instanceof Action) {
 					Action action = (Action) object;
@@ -65,13 +62,11 @@ public class ConnectionSocket extends Observable implements Runnable {
 					this.notifyObservers(action);
 
 				}
-				
+
 				else if (object instanceof String) {
-					// non è che tutti gli object possono essere visti come
-					// stringhe e viene sempre eseguito questo if?
 					String data = (String) object;
 					System.out.println("SERVER: received the string " + data);
-					this.socketOut.writeObject("ricevuto!");
+					this.socketOut.writeObject("ricevuto da " + IDPlayer);
 					this.socketOut.flush();
 				}
 

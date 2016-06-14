@@ -29,7 +29,7 @@ public class ClientOutHandler implements Runnable {
 				e.printStackTrace();
 			}
 
-			System.out.println("received "+ inputLine);
+			System.out.println("sending "+ inputLine);
 				
 			
 
