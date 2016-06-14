@@ -3,10 +3,15 @@ package it.polimi.ingsw.ps14.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Questa roba è solo una collezione di metodi per la fase finale del gioco,
+ * forse vanno spostati in controller in qualche modo.
+ */
 public class GameLogic {
+	// TODO spostare i metodi in fondo al controller
 
-	private GameLogic() {};
+	private GameLogic() {
+	};
 
 	public static void distributeEndGamePoints(List<Player> players) {
 		/*
@@ -22,29 +27,29 @@ public class GameLogic {
 		List<List<Player>> highNobilityLists;
 		List<Player> firstHighNobility;
 		List<Player> secondHighNobility;
-		
+
 		highNobilityLists = findHighNobles(players);
 		firstHighNobility = highNobilityLists.get(0);
 		secondHighNobility = highNobilityLists.get(1);
-		
+
 		// Give points to the players with the highest nobility
 		awardPointsNobility(firstHighNobility, secondHighNobility);
 
 		// Find players with the most permits
 		List<Player> mostPermits = findMostPermits(players);
-		
+
 		// Give points to the players with the most permits
 		for (Player permitMaster : mostPermits) {
 			permitMaster.addPoints(3);
 		}
 	}
-	
-	// I used a list of lists to return two values: 
+
+	// I used a list of lists to return two values:
 	private static List<List<Player>> findHighNobles(List<Player> players) {
 		List<Player> firstHighNobility = new ArrayList<>();
 		List<Player> secondHighNobility = new ArrayList<>();
 		List<List<Player>> result = new ArrayList<>();
-		
+
 		// Initialize lists by checking the first two players
 		if (players.get(0).getLevel() > players.get(1).getLevel()) {
 			firstHighNobility.add(players.get(0));
@@ -71,7 +76,7 @@ public class GameLogic {
 				secondHighNobility.add(players.get(i));
 			}
 		}
-		
+
 		result.add(firstHighNobility);
 		result.add(secondHighNobility);
 		return result;
@@ -89,20 +94,21 @@ public class GameLogic {
 			}
 		}
 	}
-	
+
 	private static List<Player> findMostPermits(List<Player> players) {
 		List<Player> mostPermits = new ArrayList<>();
-		
+
 		mostPermits.add(players.get(0));
 		for (int i = 1; i < players.size(); i++) {
-			if (players.get(i).getBusinessHand().getNumberOfPermits() > mostPermits.get(0).getBusinessHand().getNumberOfPermits()) {
+			if (players.get(i).getBusinessHand().getNumberOfPermits() > mostPermits.get(0).getBusinessHand()
+					.getNumberOfPermits()) {
 				mostPermits.clear();
 				mostPermits.add(players.get(i));
 			} else if (players.get(i).getLevel() == mostPermits.get(0).getLevel()) {
 				mostPermits.add(players.get(i));
 			}
 		}
-		
+
 		return mostPermits;
 	}
 
@@ -110,7 +116,7 @@ public class GameLogic {
 	// there's a draw)
 	public static Player findWinner(List<Player> players) {
 		Player winner;
-		
+
 		winner = players.get(0);
 		for (int i = 1; i < players.size(); i++) {
 			if (players.get(i).getPoints() > winner.getPoints()) {

@@ -2,23 +2,19 @@ package it.polimi.ingsw.ps14.model;
 
 import java.util.Random;
 
+/**
+ * Colors that a councillor can be. Used in {@link Balcony}.
+ */
 public enum ColorCouncillor {
 
-	PURPLE,
+	PURPLE, PINK, WHITE, ORANGE, BLACK, BLUE;
 
-	PINK,
-
-	WHITE,
-
-	ORANGE,
-
-	BLACK,
-
-	BLUE;
-	
 	private static final Random random = new Random();
-	
-	public static ColorCouncillor getRandomCouncillor(){
+
+	/**
+	 * Returns a random councillor color.
+	 */
+	public static ColorCouncillor getRandomCouncillor() {
 		return values()[random.nextInt(values().length)];
 	}
 }

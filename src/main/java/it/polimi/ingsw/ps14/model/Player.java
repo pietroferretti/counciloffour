@@ -43,7 +43,7 @@ public class Player extends Observable {
 	 * @param numberOfCards
 	 *            number of politic cards to drawn
 	 * @param id
-	 * @deprecated
+	 * @deprecated color is not random, I don't remember
 	 */
 	@Deprecated
 	public Player(String name, Color color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {

@@ -19,6 +19,11 @@ import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.view.View;
 
+/**
+ * test
+ * @author peter
+ *
+ */
 public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 

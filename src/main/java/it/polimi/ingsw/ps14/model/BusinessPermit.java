@@ -6,16 +6,21 @@ import java.util.List;
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
 
 public class BusinessPermit implements Card {
+	
+	static int idCounter = 0;
 
 	private final Integer id;
 	private final List<City> cities;
 	private final BonusList bonus;
 
-	public BusinessPermit(List<City> cities, BonusList bonus, Integer id) {
+	public BusinessPermit(List<City> cities, BonusList bonus) {
+		id = idCounter;
+		idCounter++;
 		this.cities = cities;
 		this.bonus = bonus;
-		this.id=id;
 	}
+	
+
 
 	public BusinessPermit(BusinessPermit bp) {
 		this.cities = new ArrayList<>();
