@@ -12,7 +12,6 @@ public class BonusVictoryPoint extends Bonus {
 		used = false;
 	}
 
-	
 	@Override
 	public void useBonus(Player player, Model model) {
 
@@ -25,6 +24,11 @@ public class BonusVictoryPoint extends Bonus {
 
 	public void setUsed() {
 		used = true;
+	}
+
+	@Override
+	public String toString() {
+		return "+" + Integer.toString(getQuantity()) + " victory points%n";
 	}
 
 }

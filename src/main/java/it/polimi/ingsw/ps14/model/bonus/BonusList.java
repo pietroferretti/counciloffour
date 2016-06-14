@@ -6,10 +6,6 @@ import it.polimi.ingsw.ps14.model.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
-
-
 public class BonusList {
 
 	private final List<Bonus> bonuses;
@@ -51,13 +47,16 @@ public class BonusList {
 		return bonuses;
 	}
 
-/**
- * use bonus according bonus type
- * @param player player who use the bonus
- * @param deck politicDeck of the gameboard
- */
-	public void useBonus(Player player, Model model){
-		for(Bonus bonus : bonuses){
+	/**
+	 * use bonus according bonus type
+	 * 
+	 * @param player
+	 *            player who use the bonus
+	 * @param deck
+	 *            politicDeck of the gameboard
+	 */
+	public void useBonus(Player player, Model model) {
+		for (Bonus bonus : bonuses) {
 			bonus.useBonus(player, model);
 		}
 	}
