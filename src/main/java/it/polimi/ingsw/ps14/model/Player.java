@@ -9,13 +9,12 @@ import java.util.Random;
 import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPublicMsg;
 
-public class Player extends Observable implements Cloneable {
+public class Player extends Observable {
 
 	private static Random rand = new Random();
 	private static int idCounter = 1;
 	private final int id;
 	private String name;
-	// TODO ci serve una funzione che li assegni random
 	private Color color;
 	private int coins;
 	private int assistants;
@@ -77,7 +76,7 @@ public class Player extends Observable implements Cloneable {
 		float b = rand.nextFloat();
 		color = new Color(r, g, b);
 	}
-	
+
 	/**
 	 * non setto nome e colore, tutto il resto a 0
 	 */
@@ -107,24 +106,16 @@ public class Player extends Observable implements Cloneable {
 		businessHand = new BusinessCardsPlayer();
 	}
 
-	private Player(int id) {
-		this.id = id;
-	}
-
-	@Override
-	public Player clone() throws CloneNotSupportedException {
-		Player p = new Player(id);
-		p.name = name;
-		p.color = color;
-		p.coins = coins;
-		p.assistants = assistants;
-		p.level = level;
-		p.points = points;
-		p.hand = hand;
-		p.businessHand = businessHand;
-		// p.permitTiles = permitTIles;
-		// p.usedPermitTiles = usedPermitTiles;
-		return p;
+	public Player(Player player) {
+		id = player.id;
+		name = player.name;
+		color = player.color;
+		coins = player.coins;
+		assistants = player.assistants;
+		level = player.level;
+		points = player.points;
+		hand = player.hand;
+		businessHand = player.businessHand;
 	}
 
 	public String getName() {
@@ -193,7 +184,7 @@ public class Player extends Observable implements Cloneable {
 	 * 
 	 * @return
 	 */
-	public int upLevel() {
+	public int levelUp() {
 		level++;
 		setChanged();
 		notifyObservers(new PlayerChangedPublicMsg(id, name + " leveled up!"));
@@ -205,10 +196,11 @@ public class Player extends Observable implements Cloneable {
 	 * 
 	 * @param n
 	 */
-	public void upLevel(int n) {
+	public void levelUp(int n) {
 		level = level + n;
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained +" + Integer.toString(assistants) + " levels!"));
+		notifyObservers(new PlayerChangedPublicMsg(id,
+				name + " gained +" + Integer.toString(n) + " levels! Now his level is " + Integer.toString(level)));
 	}
 
 	public int getPoints() {
@@ -218,7 +210,8 @@ public class Player extends Observable implements Cloneable {
 	public void addPoints(int points) {
 		this.points = this.points + points;
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained +" + Integer.toString(assistants) + " points!"));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained +" + Integer.toString(points)
+				+ " points! Now he has " + Integer.toString(this.points)));
 	}
 
 	public List<PoliticCard> getHand() {
@@ -232,28 +225,12 @@ public class Player extends Observable implements Cloneable {
 	public void addPolitic(PoliticCard card) {
 		hand.add(card);
 		setChanged();
-		notifyObservers(new PlayerChangedPrivateMsg(id));
+		notifyObservers(new PlayerChangedPrivateMsg(id, "You gain " + card.toString()));
 	}
 
 	public int getId() {
 		return id;
 	}
-	// @Override
-	// public boolean equals(Object o) {
-	// // If the object is compared with itself then return true
-	// if (o == this) {
-	// return true;
-	// }
-	//
-	// /* Check if o is an instance of Player or not
-	// "null instanceof [type]" also returns false */
-	// if (!(o instanceof Player)) {
-	// return false;
-	// }
-	//
-	// Player p = (Player) o;
-	// return p.id==this.id;
-	// }
 
 	public boolean hasCardInHand(ColorPolitic color) {
 		boolean cardInHand = false;
@@ -294,6 +271,8 @@ public class Player extends Observable implements Cloneable {
 	public PoliticCard useCard(ColorPolitic color) {
 		PoliticCard card = findCardInHand(color);
 		if (hand.remove(card) == true) {
+			setChanged();
+			notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
 			return card;
 		} else {
 			// TODO: eccezione se non trova la carta nella mano
@@ -304,7 +283,7 @@ public class Player extends Observable implements Cloneable {
 	public void removeCard(PoliticCard card) {
 		hand.remove(card);
 		setChanged();
-		notifyObservers(new PlayerChangedPrivateMsg(id));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
 
 	}
 
@@ -315,7 +294,7 @@ public class Player extends Observable implements Cloneable {
 	public void acquireBusinessPermit(BusinessPermit permitTile) {
 		businessHand.acquireBusinessPermit(permitTile);
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " acquired a business permit!"));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " acquired a business permit: " + permitTile.toString()));
 	}
 
 	public int getNumberOfPermits() {
@@ -327,7 +306,7 @@ public class Player extends Observable implements Cloneable {
 		businessHand.sellPermits(item);
 
 	}
-	
+
 	public int numEmporiums() {
 		// TODO !!!
 		throw new UnsupportedOperationException();
@@ -336,8 +315,7 @@ public class Player extends Observable implements Cloneable {
 	@Override
 	public String toString() {
 		return "Player [name=" + name + ", color=" + color + ", coins=" + coins + ", assistants=" + assistants
-				+ ", level=" + level + ", points=" + points + ", hand=" + hand + ", businessHand=" + businessHand
-				+ ", additionalMainsToDo=" + additionalMainsToDo + "]";
+				+ ", level=" + level + ", points=" + points + ", hand=" + hand + ", businessHand=" + businessHand + "]";
 	}
 
 }

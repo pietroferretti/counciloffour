@@ -12,7 +12,7 @@ public class BonusNobility extends Bonus{
 	//nobility is player.level
 	@Override
 	public void useBonus(Player player, Model model) {
-		player.upLevel(super.getQuantity());
+		player.levelUp(super.getQuantity());
 	}
 	
 }
