@@ -15,4 +15,8 @@ public class BonusMainAction extends Bonus{
 			player.additionalMainsToDo++;
 		}
 	}
+	@Override
+	public String toString() {
+		return "+1 main action";
+	}
 }

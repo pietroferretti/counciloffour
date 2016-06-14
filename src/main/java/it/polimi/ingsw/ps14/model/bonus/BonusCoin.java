@@ -4,13 +4,18 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusCoin extends Bonus {
-	
-	public BonusCoin(int quantity){
+
+	public BonusCoin(int quantity) {
 		super(quantity);
 	}
 
 	@Override
 	public void useBonus(Player player, Model model) {
 		player.addCoins(super.getQuantity());
+	}
+
+	@Override
+	public String toString() {
+		return "+" + Integer.toString(getQuantity()) + "coins%n";
 	}
 }

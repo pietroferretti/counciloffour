@@ -33,6 +33,7 @@ public class CLIView extends View {
 	/**
 	 * It prints infos about regions, king, nobility track and victory points.
 	 */
+	
 	@Override
 	public void showGameboard(GameBoard gameBoard) {
 		// TODO fix it!!

@@ -41,20 +41,7 @@ public class Printer {
 	 */
 	private void printBonuses(List<Bonus> bonusCard) {
 		// copied from BonusList :D
-		for (Bonus bon : bonusCard) {
-			if (bon instanceof BonusAssistant)
-				printBonusAssistant(bon);
-			else if (bon instanceof BonusCoin)
-				printBonusCoin(bon);
-			else if (bon instanceof BonusMainAction)
-				printBonusMainAction();
-			else if (bon instanceof BonusNobility)
-				printBonusNobility(bon);
-			else if (bon instanceof BonusPoliticCard)
-				printBonusPoliticCard(bon);
-			else if (bon instanceof BonusVictoryPoint)
-				printBonusVictoryPoint(bon);
-		}
+		
 
 	}
 
@@ -67,19 +54,19 @@ public class Printer {
 	}
 
 	private void printBonusNobility(Bonus bon) {
-		output.format("+%d nobility points%n", bon.getQuantity());
+		
 	}
 
 	private void printBonusMainAction() {
-		print("+1 main action");
+		
 	}
 
 	private void printBonusCoin(Bonus bon) {
-		output.format("+%d coins%n", bon.getQuantity());
+		
 	}
 
 	private void printBonusAssistant(Bonus bon) {
-		output.format("+%d assistant(s)%n", bon.getQuantity());
+		
 	}
 
 	// -------------------------BUSINESS PERMITS---------------------------
