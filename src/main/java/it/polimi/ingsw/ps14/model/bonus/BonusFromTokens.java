@@ -42,7 +42,8 @@ public class BonusFromTokens extends SpecialNobilityBonus {
 		}
 		
 		
-
+		model.notifyObservers(bonusChoosable);
+		//TODO: continue
 		// se quantity > tokens ??
 
 		// display a list of tokens to the player, remove nobility upgrades

@@ -7,12 +7,15 @@ import it.polimi.ingsw.ps14.model.bonus.BonusList;
 public class BusinessPermit implements Card {
 
 	private final List<City> cities;
+private final Integer id;
+
 
 	private final BonusList bonus;
 
-	public BusinessPermit(List<City> cities, BonusList bonus) {
+	public BusinessPermit(List<City> cities, BonusList bonus, Integer id) {
 		this.cities = cities;
 		this.bonus = bonus;
+		this.id=id;
 	}
 
 	public List<City> getCities() {
@@ -23,9 +26,13 @@ public class BusinessPermit implements Card {
 		return bonus;
 	}
 	
-	public void useBonuses(Player player, GameBoard gameboard){
-		bonus.useBonus(player, gameboard);
+	public void useBonuses(Player player, Model model){
+		bonus.useBonus(player, model);
 	}
+
+	public Integer getId() {
+	return id;
+}
 
 	
 	/**

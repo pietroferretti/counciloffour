@@ -2,13 +2,12 @@ package it.polimi.ingsw.ps14.model.actions.mainactions;
 
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.City;
-import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,38 +15,42 @@ import java.util.PriorityQueue;
 
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
-	private City city;
-	private List<PoliticCard> cards;
+	private String cityName;
+	private List<Integer> politicCardsID;
 
-	public BuildEmporiumWithHelpOfKingAction(Player player,
-			GameBoard gameBoard, City city, List<PoliticCard> cards) {
-		super(player, gameBoard);
-		this.city = city;
-		this.cards = cards;
+	public BuildEmporiumWithHelpOfKingAction(Integer playerID, String city,
+			List<Integer> cardsID) {
+		super(playerID);
+		this.cityName = city;
+		this.politicCardsID = cardsID;
 	}
 
-	public boolean isValid() {
-		Balcony balcony = super.getGameBoard().getKing().getBalcony();
+	public boolean isValid(Model model) {
+		Player player = id2player(super.getPlayer(), model);
+		List<PoliticCard> cards = politicID2cards(politicCardsID, player);
+		City city = id2city(cityName, model);
+
+		Balcony balcony = model.getGameBoard().getKing().getBalcony();
 
 		if (!balcony.cardsMatch(cards))
 			return false;
 		// TODO: send error: ERROR in color choice
-		if (super.getPlayer().getCoins() < balcony.councillorCost(cards))
+		if (player.getCoins() < balcony.councillorCost(cards))
 			return false;
 		// TODO: send ERROR: not enough coins
 
 		// player don't have built in the city yet
-		if (city.isEmporiumBuilt(super.getPlayer()))
+		if (city.isEmporiumBuilt(player))
 			return false;
 
 		// check if player has money enough to pay players that have built in
 		// the city yet
-		if (super.getPlayer().getAssistants() < city.numEmporiumsBuilt())
+		if (player.getAssistants() < city.numEmporiumsBuilt())
 			return false;
 
 		// player has coins enough to move king
-		City cityKing = super.getGameBoard().getKing().getCity();
-		if (super.getPlayer().getCoins() < kingPathCost(cityKing, city))
+		City cityKing = model.getGameBoard().getKing().getCity();
+		if (player.getCoins() < kingPathCost(cityKing, city, model))
 			return false;
 
 		return true;
@@ -62,7 +65,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 	 *            where king wants to go
 	 * @return coin that player must pay to move the king
 	 */
-	private Integer kingPathCost(City start, City stop) {
+	private Integer kingPathCost(City start, City stop, Model model) {
 		Map<String, Integer> cost = new HashMap<>();
 		PriorityQueue<String> queue = new PriorityQueue<>();
 		City u;
@@ -74,7 +77,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		else {
 
 			// rendi tutti i vertici non marcati
-			for (City city : super.getGameBoard().getCities()) {
+			for (City city : model.getGameBoard().getCities()) {
 				cost.put(city.getName(), null);
 			}
 
@@ -85,7 +88,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 			queue.add(start.getName());
 			while (!queue.isEmpty()) {
 
-				u = super.getGameBoard().getCityByName(queue.poll());
+				u = model.getGameBoard().getCityByName(queue.poll());
 				for (City city : u.getNeighbors()) {
 
 					if (cost.get((city.getName())) == null) {
@@ -104,45 +107,48 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		}
 	}
 
-	public TurnState execute(TurnState previousState) {
-		Balcony balcony = super.getGameBoard().getKing().getBalcony();
-		City cityKing = super.getGameBoard().getKing().getCity();
+	public TurnState execute(TurnState previousState, Model model) {
+
+		Player player = id2player(super.getPlayer(), model);
+		List<PoliticCard> cards = politicID2cards(politicCardsID, player);
+		City city = id2city(cityName, model);
+
+		Balcony balcony = model.getGameBoard().getKing().getBalcony();
+		City cityKing = model.getGameBoard().getKing().getCity();
 
 		// remove coins to buy concillor
-		super.getPlayer().useCoins(balcony.councillorCost(cards));
+		player.useCoins(balcony.councillorCost(cards));
 
 		// remove cards politic used
-		super.getPlayer().getHand().removeAll(cards);
+		player.getHand().removeAll(cards);
 
 		// add politic cards used to gameboard
-		super.getGameBoard().getPoliticDeck().discardCards(cards);
+		model.getGameBoard().getPoliticDeck().discardCards(cards);
 
 		// one assistant for each emporium that is built
-		super.getPlayer().useAssistants(city.numEmporiumsBuilt());
+		player.useAssistants(city.numEmporiumsBuilt());
 
 		// pay to move king
-		super.getPlayer().useCoins(kingPathCost(cityKing, city));
+		player.useCoins(kingPathCost(cityKing, city, model));
 
 		// move king
-		super.getGameBoard().getKing().setCity(city);
+		model.getGameBoard().getKing().setCity(city);
 
 		// build emporium
-		city.buildEmporium(super.getPlayer());
+		city.buildEmporium(player);
 
 		// apply city token
-		city.getToken().useBonus(super.getPlayer(), super.getGameBoard());
+		city.getToken().useBonus(player, model);
 
-		//check bonus neighbors
-		useBonusNeighbors(city);
+		// check bonus neighbors
+		useBonusNeighbors(city,player,model);
 
-		if (super.getPlayer().numEmporiums() == 10) {
-			super.getPlayer().addPoints(3);
+		if (player.numEmporiums() == 10) {
+			player.addPoints(3);
 			return new EndTurnState();
 		}
 
-		return super.nextState(previousState);
+		return super.nextState(previousState,player);
 	}
-
-	
 
 }

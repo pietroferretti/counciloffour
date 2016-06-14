@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import it.polimi.ingsw.ps14.model.GameBoard;
-import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusList {
 
@@ -36,7 +36,7 @@ public class BonusList {
  */
 	public void useBonus(Player player, Model model){
 		for(Bonus bonus : bonuses){
-			bonus.useBonus(player, gameboard);
+			bonus.useBonus(player, model);
 		}
 	}
 

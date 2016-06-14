@@ -3,9 +3,11 @@ package it.polimi.ingsw.ps14.model;
 public class PoliticCard implements Card {
 
 	private final ColorPolitic color;
+	private final Integer id;
 
-	public PoliticCard(ColorPolitic color) {
+	public PoliticCard(ColorPolitic color,Integer id) {
 		this.color = color;
+		this.id=id;
 	}
 
 	public ColorPolitic getColor() {
@@ -16,6 +18,12 @@ public class PoliticCard implements Card {
 		if (color.equals(ColorPolitic.JOLLY))
 			return true;
 		return false;
+	}
+
+	
+	
+	public Integer getId() {
+		return id;
 	}
 
 	@Override
