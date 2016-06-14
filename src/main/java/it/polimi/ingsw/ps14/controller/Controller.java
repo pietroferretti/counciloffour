@@ -22,8 +22,7 @@ import java.util.Observer;
 import java.util.logging.Logger;
 
 public class Controller implements Observer {
-	private static final Logger LOGGER = Logger.getLogger(Controller.class
-			.getName());
+	private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
 	private Model model;
 	private List<View> views;
@@ -70,8 +69,7 @@ public class Controller implements Observer {
 				} else if (view instanceof GUIView) {
 					// TODO
 				} else
-					throw new IllegalArgumentException(
-							"Views contains something different from GUI/CLI view");
+					throw new IllegalArgumentException("Views contains something different from GUI/CLI view");
 			}
 		}
 
@@ -82,17 +80,14 @@ public class Controller implements Observer {
 		else if (arg instanceof TurnAction) {
 			TurnAction action = (TurnAction) arg;
 			if (model.getGamePhase() == GamePhase.TURNS) {
-				if (playerView.getPlayerID() == model.getCurrentPlayer()
-						.getId()) {
+				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
 					if (model.getCurrentTurnState().isActionLegal(action)) {
-						model.setCurrentTurnState(model.getCurrentTurnState()
-								.executeAction(action));
+						model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action));
 						if (model.getCurrentTurnState() instanceof EndTurnState) {
 
 							if (model.getPlayerOrder().isEmpty()) {
 								model.setGamePhase(GamePhase.MARKET);
-								List<Player> marketPlayers = new ArrayList<>(
-										players);
+								List<Player> marketPlayers = new ArrayList<>(players);
 								Collections.shuffle(marketPlayers);
 								model.setPlayerOrder(marketPlayers);
 								model.nextPlayer();
@@ -103,8 +98,7 @@ public class Controller implements Observer {
 						}
 
 						if (model.getCurrentPlayer().numEmporiums() >= 10) {
-							playerView
-									.print("You built 10 emporiums. The game is about to end.");
+							playerView.print("You built 10 emporiums. The game is about to end.");
 							System.out.println("Final turns!");
 							model.setGamePhase(GamePhase.FINALTURNS);
 							// set playerorder = tutti i giocatori tranne questo
@@ -116,31 +110,24 @@ public class Controller implements Observer {
 																			// details
 					}
 				} else {
-					playerView.print("It's not your turn! Current player: "
-							+ model.getCurrentPlayer().toString());
+					playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().toString());
 				}
 
 			} else if (model.getGamePhase() == GamePhase.MARKET) {
-				playerView
-						.print("You cannot do that action during the Market phase");
+				playerView.print("You cannot do that action during the Market phase");
 
 			} else if (model.getGamePhase() == GamePhase.FINALTURNS) {
 				// TODO
-				if (playerView.getPlayerID() == model.getCurrentPlayer()
-						.getId()) {
+				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
 					if (model.getCurrentTurnState().isActionLegal(action)) {
-						model.setCurrentTurnState(model.getCurrentTurnState()
-								.executeAction(action));
+						model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action));
 						if (model.getCurrentTurnState() instanceof EndTurnState) {
 							if (model.getPlayerOrder().isEmpty()) {
 
 								System.out.println("The game has ended.");
-								GameLogic.distributeEndGamePoints(model
-										.getPlayers());
-								Player winner = GameLogic.findWinner(model
-										.getPlayers());
-								System.out.println("*** " + winner.getName()
-										+ " is the winner! ***");
+								GameLogic.distributeEndGamePoints(model.getPlayers());
+								Player winner = GameLogic.findWinner(model.getPlayers());
+								System.out.println("*** " + winner.getName() + " is the winner! ***");
 								// TODO aggiungi dettagli e più :D
 
 							} else {
@@ -153,21 +140,18 @@ public class Controller implements Observer {
 																			// details
 					}
 				} else {
-					playerView.print("It's not your turn! Current player: "
-							+ model.getCurrentPlayer().getName());
+					playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
 				}
 
 			} else if (model.getGamePhase() == GamePhase.END) {
-				playerView
-						.print("The game has ended, you cannot perform this action.");
+				playerView.print("The game has ended, you cannot perform this action.");
 			}
 
 		} else if (arg instanceof SellAction) {
 			SellAction action = (SellAction) arg;
 			if (model.getGamePhase() == GamePhase.MARKET) {
 				if (model.getCurrentMarketState() == MarketState.SELLING) {
-					if (playerView.getPlayerID() == model.getCurrentPlayer()
-							.getId()) {
+					if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
 						if (action.isValid()) {
 							action.sell();
 						} else {
@@ -175,22 +159,19 @@ public class Controller implements Observer {
 																				// details
 						}
 					} else {
-						playerView.print("It's not your turn! Current player: "
-								+ model.getCurrentPlayer().getName());
+						playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
 					}
 				} else {
 					playerView.print("You cannot sell now.");
 				}
 			} else {
-				playerView
-						.print("You can only do this during the Market phase.");
+				playerView.print("You can only do this during the Market phase.");
 			}
 		} else if (arg instanceof BuyAction) {
 			BuyAction action = (BuyAction) arg;
 			if (model.getGamePhase() == GamePhase.MARKET) {
 				if (model.getCurrentMarketState() == MarketState.BUYING) {
-					if (playerView.getPlayerID() == model.getCurrentPlayer()
-							.getId()) {
+					if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
 						if (action.isValid()) {
 							action.buy();
 							// action cambia lo stato del market se
@@ -205,15 +186,13 @@ public class Controller implements Observer {
 																				// details
 						}
 					} else {
-						playerView.print("It's not your turn! Current player: "
-								+ model.getCurrentPlayer().getName());
+						playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
 					}
 				} else {
 					playerView.print("You cannot buy now.");
 				}
 			} else {
-				playerView
-						.print("You can only do this during the Market phase.");
+				playerView.print("You can only do this during the Market phase.");
 			}
 		} else {
 			LOGGER.warning("Message/Action not recognized!");

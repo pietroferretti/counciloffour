@@ -20,7 +20,6 @@ public class ModelView extends Observable implements Observer {
 	private List<RegionView> regionsView;
 	private KingView kingView;
 	private NobilityTrackView nobilityTrackView;
-	private VictoryPathView victoryPathView;
 
 	// private String message;
 
@@ -28,7 +27,12 @@ public class ModelView extends Observable implements Observer {
 		// TODO Ancora tutto da scrivere, copiare tutti i componenti dal model
 
 		playersView = new ArrayList<>();
-
+		regionsView = new ArrayList<>();
+		kingView = new KingView(model.getGameBoard().getKing());
+		nobilityTrackView = new NobilityTrackView(model.getGameBoard().getNobilityTrack());
+		
+		
+		
 		// add a playerView for each player
 		for (Player player : model.getPlayers()) {
 			playersView.add(new PlayerView(player.clone()));
@@ -46,7 +50,6 @@ public class ModelView extends Observable implements Observer {
 
 		kingView.addObserver(this);
 		nobilityTrackView.addObserver(this);
-		victoryPathView.addObserver(this);
 
 	}
 
@@ -87,10 +90,6 @@ public class ModelView extends Observable implements Observer {
 
 	public NobilityTrackView getNobilityTrackView() {
 		return nobilityTrackView;
-	}
-
-	public VictoryPathView getVictoryPathView() {
-		return victoryPathView;
 	}
 
 }
