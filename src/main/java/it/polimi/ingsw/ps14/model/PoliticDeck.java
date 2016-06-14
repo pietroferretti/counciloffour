@@ -8,22 +8,25 @@ public class PoliticDeck {
 
 	private List<PoliticCard> deck;
 	private List<PoliticCard> discardedCards;
+	private static Integer idCounter=0;
 
 	public PoliticDeck(int numColoredCards, int numJolly) {
 		deck = new ArrayList<>();
 		discardedCards = new ArrayList<>();
-
+		
 		for (int i = 0; i < numColoredCards; i++) {
 			for (ColorPolitic color : ColorPolitic.values()) {
 				if (color != ColorPolitic.JOLLY) {
-					deck.add(new PoliticCard(color));
+					idCounter++;
+					deck.add(new PoliticCard(color,idCounter));
 				}
 			}
 
 		}
 
 		for (int i = 0; i < numJolly; i++) {
-			deck.add(new PoliticCard(ColorPolitic.JOLLY));
+			idCounter++;
+			deck.add(new PoliticCard(ColorPolitic.JOLLY,idCounter));
 		}
 
 		shuffle();
@@ -33,10 +36,12 @@ public class PoliticDeck {
 	public PoliticDeck(PoliticDeck pd) {
 		deck = new ArrayList<>(pd.deck.size());
 		for (PoliticCard politicCard : pd.deck) {
+			idCounter++;
 			this.deck.add(new PoliticCard(politicCard));
 		}
 		discardedCards = new ArrayList<>(pd.discardedCards.size());
 		for (PoliticCard politicCard : pd.discardedCards) {
+			idCounter++;
 			this.discardedCards.add(new PoliticCard(politicCard));
 		}
 	}
