@@ -9,7 +9,7 @@ import java.util.Random;
 import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPublicMsg;
 
-public class Player extends Observable implements Cloneable {
+public class Player extends Observable {
 
 	private static Random rand = new Random();
 	private static int idCounter = 1;
@@ -77,7 +77,7 @@ public class Player extends Observable implements Cloneable {
 		float b = rand.nextFloat();
 		color = new Color(r, g, b);
 	}
-	
+
 	/**
 	 * non setto nome e colore, tutto il resto a 0
 	 */
@@ -107,24 +107,16 @@ public class Player extends Observable implements Cloneable {
 		businessHand = new BusinessCardsPlayer();
 	}
 
-	private Player(int id) {
-		this.id = id;
-	}
-
-	@Override
-	public Player clone() throws CloneNotSupportedException {
-		Player p = new Player(id);
-		p.name = name;
-		p.color = color;
-		p.coins = coins;
-		p.assistants = assistants;
-		p.level = level;
-		p.points = points;
-		p.hand = hand;
-		p.businessHand = businessHand;
-		// p.permitTiles = permitTIles;
-		// p.usedPermitTiles = usedPermitTiles;
-		return p;
+	public Player(Player player) {
+		id = player.id;
+		name = player.name;
+		color = player.color;
+		coins = player.coins;
+		assistants = player.assistants;
+		level = player.level;
+		points = player.points;
+		hand = player.hand;
+		businessHand = player.businessHand;
 	}
 
 	public String getName() {
@@ -327,7 +319,7 @@ public class Player extends Observable implements Cloneable {
 		businessHand.sellPermits(item);
 
 	}
-	
+
 	public int numEmporiums() {
 		// TODO !!!
 		throw new UnsupportedOperationException();
