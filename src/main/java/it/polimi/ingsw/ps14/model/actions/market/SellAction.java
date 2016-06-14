@@ -1,40 +1,31 @@
 package it.polimi.ingsw.ps14.model.actions.market;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.Market;
-import it.polimi.ingsw.ps14.model.Player;
+
+import java.util.List;
 
 public class SellAction {
 
-	/**
-	 * !!!!!!!!!Listener!!!!!!!!!!! qunado ricevo un oggetto da viewPlayer
-	 * controllo se il player può venderla
-	 */
 
 	private Market market;
-	private List<Player> players;
+	private List<ItemForSale> items;
 
-	public SellAction(List<Player> activePlayers) {
-		players = new ArrayList<>(activePlayers);
-		market = new Market();
+	public SellAction(Market market, List<ItemForSale> items) {
+		this.market = market;
+		this.items=items;
 	}
 
-	public void selling() {
-		for (Player pl : players) {
-			/* LISTENER DEGLI OGGETTI CHE METTO IN VENDITA */
-
-		}
+	public boolean isValid() {
+		for(ItemForSale item : items)
+			if(!item.isValid()) return false;
+		return true;
+	}
+	
+	public void sell(){
+		for(ItemForSale item : items)
+			market.addItem(item);
 	}
 
-	public void buying() {
-		Collections.shuffle(players);
-		for (Player pl : players) {
-			/* LISTENER DEGLI OGGETTI CHE VOGLIO COMPRARE */
-
-		}
-	}
 
 }

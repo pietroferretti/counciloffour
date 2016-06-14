@@ -76,13 +76,9 @@ public class ItemForSale {
 		return true;
 	}
 
-	
-
 	public Object getItem() {
 		return item;
 	}
-	
-
 
 	public Player getOwner() {
 		return owner;
@@ -98,6 +94,14 @@ public class ItemForSale {
 
 	public void setItem(Card item) {
 		this.item = item;
+	}
+
+	public boolean equals(ItemForSale obj) {
+		if (obj.getAssistants() == assistants && obj.getItem().equals(obj)
+				&& obj.getPrice() == price && obj.getOwner().equals(owner))
+			return true;
+		else
+			return false;
 	}
 
 	@Override
