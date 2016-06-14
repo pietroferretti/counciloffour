@@ -1,25 +1,29 @@
 package it.polimi.ingsw.ps14.model.actions.quickactions;
 
-import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class EngageAssistantAction extends QuickAction {
 
-	public EngageAssistantAction(Player player, GameBoard gameBoard) {
-		super(player, gameBoard);
+	public EngageAssistantAction(Integer playerID) {
+		super(playerID);
 	}
 
-	public boolean isValid() {
-		return (super.getGameBoard().getAvailableAssistants() >= 1 
-					&& super.getPlayer().getCoins() >= 3);
+	public boolean isValid(Model model) {
+		Player player = id2player(getPlayer(), model);
+
+		return (model.getGameBoard().getAvailableAssistants() >= 1 && player
+				.getCoins() >= 3);
 	}
-	
-	public TurnState execute(TurnState previousState) {
-		super.getPlayer().useCoins(3);
-		super.getGameBoard().useAssistants(1);
-		super.getPlayer().addAssistants(1);
-		
-		return nextState(previousState); 
+
+	public TurnState execute(TurnState previousState, Model model) {
+		Player player = id2player(getPlayer(), model);
+
+		player.useCoins(3);
+		model.getGameBoard().useAssistants(1);
+		player.addAssistants(1);
+
+		return nextState(previousState, model);
 	}
 }

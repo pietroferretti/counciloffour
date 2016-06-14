@@ -1,30 +1,38 @@
 package it.polimi.ingsw.ps14.model.actions.quickactions;
 
 import it.polimi.ingsw.ps14.model.BusinessPermit;
-import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class ChangeBusinessPermitTilesAction extends QuickAction {
 
-	private final Region region;
+	private final RegionType regType;
 	
-	public ChangeBusinessPermitTilesAction(Player player, GameBoard gameBoard, Region region) {
-		super(player, gameBoard);
-		this.region = region;
+	public ChangeBusinessPermitTilesAction(Integer playerID, RegionType region) {
+		super(playerID);
+		this.regType = region;
 	}
 
-	public boolean isValid() {
+	public boolean isValid(Model model) {
+		Player player=id2player(super.getPlayer(),model);
+		Region region=model.getGameBoard().getRegion(regType);
+		
 		return (region.getBusinessPermits().cardsLeftInDeck() > 0
-					&& super.getPlayer().getAssistants() >= 1
+					&& player.getAssistants() >= 1
 					&& region != null);
 	}
 	
 	@Override
-	public TurnState execute(TurnState previousState) {
-		super.getPlayer().useAssistants(1);
-		super.getGameBoard().addAssistants(1);
+	public TurnState execute(TurnState previousState,Model model) {
+		Player player=id2player(super.getPlayer(),model);
+		Region region=model.getGameBoard().getRegion(regType);
+		
+		
+		player.useAssistants(1);
+		model.getGameBoard().addAssistants(1);
 		
 		BusinessPermit[] permitArray = region.getBusinessPermits().getAvailablePermits();
 		for (BusinessPermit card : permitArray) {
@@ -33,7 +41,7 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 		}
 		region.getBusinessPermits().fillEmptySpots();
 		
-		return nextState(previousState);
+		return nextState(previousState,model);
 	}
 	
 }
