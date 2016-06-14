@@ -1,10 +1,5 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.GameBoard;
@@ -12,6 +7,12 @@ import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
@@ -72,7 +73,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 			return 0;
 		else {
 
-		//	 rendi tutti i vertici non marcati
+			// rendi tutti i vertici non marcati
 			for (City city : super.getGameBoard().getCities()) {
 				cost.put(city.getName(), null);
 			}
@@ -83,20 +84,21 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 			// enqueue s
 			queue.add(start.getName());
 			while (!queue.isEmpty()) {
-				
+
 				u = super.getGameBoard().getCityByName(queue.poll());
 				for (City city : u.getNeighbors()) {
 
-					if (cost.get((city.getName()))==null) {
+					if (cost.get((city.getName())) == null) {
 
 						queue.add(city.getName());
 						cost.replace(city.getName(), cost.get(u.getName())
 								+ costEachCity);
 					}
 				}
-				if (queue.contains(stop.getName())){
-					//System.out.println(cost.get(stop.getName())); //Per TEST
-					return cost.get(stop.getName());}
+				if (queue.contains(stop.getName())) {
+					// System.out.println(cost.get(stop.getName())); //Per TEST
+					return cost.get(stop.getName());
+				}
 			}
 			return null;
 		}
@@ -130,13 +132,17 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		// apply city token
 		city.getToken().useBonus(super.getPlayer(), super.getGameBoard());
 
-		// TODO: bonus citta adiacenti
+		//check bonus neighbors
+		useBonusNeighbors(city);
 
 		if (super.getPlayer().numEmporiums() == 10) {
 			super.getPlayer().addPoints(3);
 			return new EndTurnState();
 		}
-		
+
 		return super.nextState(previousState);
 	}
+
+	
+
 }

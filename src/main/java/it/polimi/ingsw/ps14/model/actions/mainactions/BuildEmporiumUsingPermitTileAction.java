@@ -59,8 +59,8 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		city.getToken().useBonus(super.getPlayer(), super.getGameBoard());
 
 		
-		//check city neighbours token
-		//????????????????????
+		//check bonus neighbors
+		useBonusNeighbors(city);
 		
 		if (super.getPlayer().numEmporiums() == 10) {
 			super.getPlayer().addPoints(3);
