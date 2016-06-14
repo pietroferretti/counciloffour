@@ -6,7 +6,7 @@ import java.util.List;
 public class Market {
 
 	private List<ItemForSale> objectsForSale;
-
+	
 	public Market() {
 		objectsForSale = new ArrayList<>();
 	}

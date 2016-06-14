@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
@@ -18,6 +19,14 @@ private final Integer id;
 		this.id=id;
 	}
 
+	public BusinessPermit(BusinessPermit bp) {
+		this.cities = new ArrayList<>();
+		for (City city : bp.cities) {
+			this.cities.add(new City(city));
+		}
+		this.bonus = new BonusList(bp.bonus);
+	}
+
 	public List<City> getCities() {
 		return cities;
 	}
@@ -26,7 +35,7 @@ private final Integer id;
 		return bonus;
 	}
 	
-	public void useBonuses(Player player, Model model){
+	public void useBonuses(Player player, Model model) {
 		bonus.useBonus(player, model);
 	}
 
@@ -34,12 +43,13 @@ private final Integer id;
 	return id;
 }
 
-	
 	/**
-	 * Check if city parameter is contained in the cities declared in the businessPermit
+	 * Check if city parameter is contained in the cities declared in the
+	 * businessPermit
 	 *
-	 * @param  city city to check
-	 * @return      true is it is contained, false if it is NOT contained
+	 * @param city
+	 *            city to check
+	 * @return true is it is contained, false if it is NOT contained
 	 */
 	public boolean contains(City city) {
 		for (City cty : cities)
@@ -48,5 +58,4 @@ private final Integer id;
 		return false;
 	}
 
-	
 }

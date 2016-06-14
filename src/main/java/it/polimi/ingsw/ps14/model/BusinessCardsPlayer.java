@@ -12,21 +12,33 @@ public class BusinessCardsPlayer {
 		usedCards = new ArrayList<>();
 	}
 
+	public BusinessCardsPlayer(BusinessCardsPlayer bcp) {
+		validCards = new ArrayList<>();
+		usedCards = new ArrayList<>();
+		for (BusinessPermit businessPermit : bcp.usedCards) {
+			this.usedCards.add(new BusinessPermit(businessPermit));
+		}
+		for (BusinessPermit businessPermit : bcp.validCards) {
+			this.validCards.add(new BusinessPermit(businessPermit));
+		}
+	}
+
 	/**
-	 * check if there is caard in unused businessPermitCard 
-	 * @param card card to check
+	 * check if there is caard in unused businessPermitCard
+	 * 
+	 * @param card
+	 *            card to check
 	 * @return
 	 */
 	public boolean checkBusinessPermit(BusinessPermit card) {
 		if (validCards.contains(card))
 			return true;
-		else
-			return false;
+		return false;
 	}
 
-	
 	/**
 	 * add business permit to valid card
+	 * 
 	 * @param card
 	 */
 	public void acquireBusinessPermit(BusinessPermit card) {
@@ -40,8 +52,8 @@ public class BusinessCardsPlayer {
 	 *            card to use
 	 */
 	public void usePermit(BusinessPermit card) {
-			validCards.remove(card);
-			usedCards.add(card);
+		validCards.remove(card);
+		usedCards.add(card);
 	}
 
 	public boolean contains(BusinessPermit cardChoice) {
@@ -58,6 +70,7 @@ public class BusinessCardsPlayer {
 
 	/**
 	 * remove from valid cards player
+	 * 
 	 * @param item
 	 */
 	public void sellPermits(BusinessPermit item) {

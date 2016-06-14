@@ -15,6 +15,11 @@ public class King extends Observable implements Cloneable {
 		this.city = startCityKing;
 	}
 
+	public King(King k) {
+		this.city = new City(k.city);
+		this.balcony = new Balcony(k.balcony);
+	}
+
 	public City getCity() {
 		return city;
 	}

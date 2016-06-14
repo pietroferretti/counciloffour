@@ -8,17 +8,19 @@ import it.polimi.ingsw.ps14.model.bonus.BonusList;
 public class City {
 
 	private final String name;
-	
+
 	private final ColorCity color;
 
 	private final Region region;
-	
+
 	private List<City> neighbors;
+	// usato solo per la copia
+	private List<String> neighborsName;
 
 	private BonusList token;
-	
+
 	private ArrayList<Player> emporiums;
-	
+
 	public City(String name, ColorCity color, Region region) {
 		this.name = name;
 		this.color = color;
@@ -27,7 +29,7 @@ public class City {
 		this.token = null;
 		emporiums = new ArrayList<>();
 	}
-	
+
 	public City(String name, ColorCity color, Region region, List<City> neighbors, BonusList token) {
 		this.name = name;
 		this.color = color;
@@ -36,11 +38,26 @@ public class City {
 		this.token = token;
 		emporiums = new ArrayList<>();
 	}
-	
+
+	public City(City c) {
+		this.name = c.name;
+		this.color = c.color;
+		this.region = new Region(c.region);
+		this.neighborsName = new ArrayList<>(c.neighbors.size());
+		for (City city : c.neighbors) {
+			this.neighborsName.add(city.name);
+		}
+		this.emporiums = new ArrayList<>(c.emporiums.size());
+		for (Player player : c.emporiums) {
+			this.emporiums.add(new Player(player));
+		}
+		this.token = new BonusList(token);
+	}
+
 	public int numEmporiumsBuilt() {
 		return emporiums.size();
 	}
-	
+
 	public boolean isEmporiumBuilt(Player player) {
 		return emporiums.contains(player);
 	}
@@ -49,7 +66,7 @@ public class City {
 	public List<City> findLinkedEmporiums(Player player) {
 		List<City> cities = new ArrayList<>();
 		for (City neighbor : neighbors) {
-			if (neighbor.isEmporiumBuilt(player)){
+			if (neighbor.isEmporiumBuilt(player)) {
 				cities.add(neighbor);
 			}
 		}
@@ -59,8 +76,7 @@ public class City {
 	public void buildEmporium(Player player) {
 		if (!isEmporiumBuilt(player)) {
 			emporiums.add(player);
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException("Error: the player has already built an emporium in this city");
 		}
 	}
@@ -68,11 +84,11 @@ public class City {
 	public void setNeighbors(List<City> neighbors) {
 		this.neighbors = neighbors;
 	}
-	
+
 	public void setToken(BonusList token) {
 		this.token = token;
 	}
-	
+
 	public List<Player> getEmporiums() {
 		return emporiums;
 	}
@@ -96,7 +112,5 @@ public class City {
 	public BonusList getToken() {
 		return token;
 	}
-
-
 
 }

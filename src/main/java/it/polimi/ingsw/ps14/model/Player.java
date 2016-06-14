@@ -114,8 +114,12 @@ public class Player extends Observable {
 		assistants = player.assistants;
 		level = player.level;
 		points = player.points;
-		hand = player.hand;
-		businessHand = player.businessHand;
+		hand = new ArrayList<>(player.hand.size());
+		for (PoliticCard politicCard : player.hand) {
+			hand.add(new PoliticCard(politicCard));
+		}
+		businessHand = new BusinessCardsPlayer(player.businessHand);
+		additionalMainsToDo = player.additionalMainsToDo;
 	}
 
 	public String getName() {

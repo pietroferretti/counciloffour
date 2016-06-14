@@ -27,6 +27,17 @@ public class Region extends Observable implements Cloneable {
 		bonusRegion = null;
 	}
 
+	public Region(Region r) {
+		this.balcony = new Balcony(r.balcony);
+		this.type = r.type;
+		this.cities = new ArrayList<>(r.cities.size());
+		for (City city : r.cities) {
+			this.cities.add(new City(city));
+		}
+		this.businessPermits = new BusinessCardsRegion(r.businessPermits);
+		this.bonusRegion = new BonusVictoryPoint(r.bonusRegion.getQuantity());
+	}
+
 	public RegionType getType() {
 		return type;
 	}
@@ -76,13 +87,11 @@ public class Region extends Observable implements Cloneable {
 
 	@Override
 	public Region clone() throws CloneNotSupportedException {
-		Region r=new Region(balcony.readBalcony(), type);
+		Region r = new Region(balcony.readBalcony(), type);
 		r.cities = this.cities;
 		r.businessPermits = this.businessPermits;
 		r.bonusRegion = this.bonusRegion;
 		return r;
 	}
-
-
 
 }

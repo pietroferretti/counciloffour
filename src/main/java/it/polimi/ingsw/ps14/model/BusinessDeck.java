@@ -15,10 +15,21 @@ public class BusinessDeck {
 		shuffle();
 	}
 
-	public void shuffle(){
+	public BusinessDeck(BusinessDeck bd) {
+		this.deck = new ArrayList<>(bd.deck.size());
+		for (BusinessPermit businessPermit : bd.deck) {
+			this.deck.add(new BusinessPermit(businessPermit));
+		}
+		drawnCards = new ArrayList<>(bd.drawnCards.size());
+		for (BusinessPermit businessPermit : bd.drawnCards) {
+			this.drawnCards.add(new BusinessPermit(businessPermit));
+		}
+	}
+
+	public void shuffle() {
 		Collections.shuffle(deck);
 	}
-	
+
 	public BusinessPermit drawCard() {
 		BusinessPermit card = (BusinessPermit) deck.remove(0);
 		drawnCards.add(card);
@@ -31,8 +42,7 @@ public class BusinessDeck {
 
 	@Override
 	public String toString() {
-		return "BusinessDeck [deck=" + deck + ", drawnCards=" + drawnCards
-				+ "]";
+		return "BusinessDeck [deck=" + deck + ", drawnCards=" + drawnCards + "]";
 	}
 
 }
