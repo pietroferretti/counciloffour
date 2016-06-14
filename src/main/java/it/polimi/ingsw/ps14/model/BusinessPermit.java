@@ -25,6 +25,7 @@ private final Integer id;
 			this.cities.add(new City(city));
 		}
 		this.bonus = new BonusList(bp.bonus);
+		this.id=new Integer(bp.getId());
 	}
 
 	public List<City> getCities() {
