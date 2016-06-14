@@ -269,7 +269,7 @@ public class GameBoard {
 			
 			Map<String, Integer> bonusMap = (Map<String, Integer>) settingsPermit.get("bonus");
 			BonusList bonusList = buildBonusFromMap(bonusMap);
-			permit = new BusinessPermit(cityList, bonusList);
+			permit = BusinessPermitFactory.createBusinessPermit(cityList, bonusList);
 			permitList.add(permit);
 		}
 		

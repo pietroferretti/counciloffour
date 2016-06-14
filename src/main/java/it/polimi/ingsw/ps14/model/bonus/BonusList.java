@@ -50,8 +50,7 @@ public class BonusList {
 	public List<Bonus> getBonusCard() {
 		return bonuses;
 	}
-<<<<<<< HEAD
-	
+
 /**
  * use bonus according bonus type
  * @param player player who use the bonus
@@ -60,20 +59,6 @@ public class BonusList {
 	public void useBonus(Player player, Model model){
 		for(Bonus bonus : bonuses){
 			bonus.useBonus(player, model);
-=======
-
-	/**
-	 * use bonus according bonus type
-	 * 
-	 * @param player
-	 *            player who use the bonus
-	 * @param deck
-	 *            politicDeck of the gameboard
-	 */
-	public void useBonus(Player player, Model model) {
-		for (Bonus bonus : bonuses) {
-			bonus.useBonus(player, gameboard);
->>>>>>> branch 'master' of https://Federico_Oldani@bitbucket.org/jumpingspiders/counciloffour.git
 		}
 	}
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model.turnstates;
 
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.actions.Action;
 import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction;
@@ -11,9 +12,9 @@ public class CardDrawnState extends TurnState {
 	}
 
 	@Override
-	public boolean isActionLegal(Action action) {
+	public boolean isActionLegal(Action action, Model model) {
 		return (action instanceof MainAction || action instanceof QuickAction) 
-				&& action.isValid();
+				&& action.isValid(model);
 	}
 
 }

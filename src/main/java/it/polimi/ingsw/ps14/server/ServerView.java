@@ -10,7 +10,7 @@ import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.view.View;
 
-public class ServerView extends View implements Observer {
+public class ServerView extends View {
 
 	private ModelView mv;
 	private Message message;
@@ -23,6 +23,7 @@ public class ServerView extends View implements Observer {
 		this.connection = connection;
 	}
 
+	@Override
 	public void setModelView(ModelView modelView) {
 		mv = modelView;
 	}
@@ -31,6 +32,11 @@ public class ServerView extends View implements Observer {
 		this.message = message;
 		setChanged();
 		notifyObservers(message);
+	}
+	
+	@Override
+	public int getPlayerID() {
+		return playerID;
 	}
 
 	@Override

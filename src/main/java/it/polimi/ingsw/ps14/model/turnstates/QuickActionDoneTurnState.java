@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model.turnstates;
 
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.actions.Action;
 import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 
@@ -10,8 +11,8 @@ public class QuickActionDoneTurnState extends TurnState {
 	}
 
 	@Override
-	public boolean isActionLegal(Action action) {
-		return action instanceof MainAction && action.isValid();
+	public boolean isActionLegal(Action action, Model model) {
+		return action instanceof MainAction && action.isValid(model);
 	}
 
 }
