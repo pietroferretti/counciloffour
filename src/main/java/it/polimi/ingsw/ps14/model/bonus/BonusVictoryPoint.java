@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
-import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusVictoryPoint extends Bonus {
@@ -9,7 +9,8 @@ public class BonusVictoryPoint extends Bonus {
 		super(quantity);
 	}
 	
-	public void useBonus(Player player, GameBoard gameboard) {
+	@Override
+	public void useBonus(Player player, Model model) {
 		player.addPoints(super.getQuantity());
 	}
 

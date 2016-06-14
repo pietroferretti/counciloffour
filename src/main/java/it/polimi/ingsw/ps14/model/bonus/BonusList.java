@@ -34,7 +34,7 @@ public class BonusList {
  * @param player player who use the bonus
  * @param deck politicDeck of the gameboard
  */
-	public void useBonus(Player player, GameBoard gameboard){
+	public void useBonus(Player player, Model model){
 		for(Bonus bonus : bonuses){
 			bonus.useBonus(player, gameboard);
 		}

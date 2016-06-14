@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
-import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusTakeBusinessPermits extends SpecialNobilityBonus {
@@ -13,9 +13,10 @@ public class BonusTakeBusinessPermits extends SpecialNobilityBonus {
 	/**
 	 * The player can get a free permit from the board.
 	 * @param player The player that got the bonus
-	 * @param gameboard The current gameboard, to get the business permits
+	 * @param model The current gameboard, to get the business permits
 	 */
-	public void useBonus(Player player, GameBoard gameboard) {
+	@Override
+	public void useBonus(Player player, Model model) {
 		for(int i=0; i<super.getQuantity(); i++) {
 			// per ogni regione
 			// prendi i permit disponibili
