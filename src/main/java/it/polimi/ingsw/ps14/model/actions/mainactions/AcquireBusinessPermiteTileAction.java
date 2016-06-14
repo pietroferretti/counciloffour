@@ -16,21 +16,21 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	private RegionType regionType;
 	private Balcony balcony;
 	private Integer permitID;
-	private List<Integer> politicCardsID;
+	private List<PoliticCard> cards;
 
-	public AcquireBusinessPermiteTileAction(Integer playerID, RegionType region, Integer permitID, List<Integer> politicCardsID) {
+	public AcquireBusinessPermiteTileAction(Integer playerID, RegionType region, Integer permitID, List<PoliticCard> politicCards) {
 		super(playerID);
 		this.regionType = region;
 		this.permitID = permitID;
-		this.politicCardsID = politicCardsID;
+		this.cards = politicCards;
 	}
 
 	@Override
 	public boolean isValid(Model model) {
 		Player player = id2player(super.getPlayer(), model);
-		List<PoliticCard> cards = politicID2cards(politicCardsID,player);
 		Region region = model.getGameBoard().getRegion(regionType);
 		BusinessPermit permitTile = id2permit(permitID, region);
+		
 		if (!balcony.cardsMatch(cards))
 			return false;
 		// TODO: send error: ERROR in color choice
@@ -47,7 +47,6 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	public TurnState execute(TurnState previousState,Model model) {
 		
 		Player player = id2player(super.getPlayer(), model);
-		List<PoliticCard> cards = politicID2cards(politicCardsID,player);
 		Region region = model.getGameBoard().getRegion(regionType);
 		BusinessPermit permitTile = id2permit(permitID, region);
 

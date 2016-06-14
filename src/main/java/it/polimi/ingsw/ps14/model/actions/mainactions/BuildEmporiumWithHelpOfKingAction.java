@@ -16,18 +16,17 @@ import java.util.PriorityQueue;
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 	private String cityName;
-	private List<Integer> politicCardsID;
+	private List<PoliticCard> cards;
 
 	public BuildEmporiumWithHelpOfKingAction(Integer playerID, String city,
-			List<Integer> cardsID) {
+			List<PoliticCard> cards) {
 		super(playerID);
 		this.cityName = city;
-		this.politicCardsID = cardsID;
+		this.cards = cards;
 	}
 
 	public boolean isValid(Model model) {
 		Player player = id2player(super.getPlayer(), model);
-		List<PoliticCard> cards = politicID2cards(politicCardsID, player);
 		City city = id2city(cityName, model);
 
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
@@ -110,7 +109,6 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 	public TurnState execute(TurnState previousState, Model model) {
 
 		Player player = id2player(super.getPlayer(), model);
-		List<PoliticCard> cards = politicID2cards(politicCardsID, player);
 		City city = id2city(cityName, model);
 
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();

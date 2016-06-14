@@ -54,14 +54,7 @@ public abstract class MainAction extends TurnAction {
 			cityVisited.add(city);
 		}
 	}
-	
-	protected List<PoliticCard> politicID2cards(List<Integer> politicCardsID ,Player player){
-		List<PoliticCard> politicCards=new ArrayList<>();
-		for (Integer integer : politicCardsID) 
-			for(PoliticCard pc : player.getHand())
-				if(integer==pc.getId()) politicCards.add(pc);
-		return politicCards;
-	}
+
 	
 	
 	protected BusinessPermit id2permit(Integer permitID, Player player){
