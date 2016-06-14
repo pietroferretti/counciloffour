@@ -3,7 +3,6 @@ package it.polimi.ingsw.ps14.model.bonus;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
@@ -30,17 +29,17 @@ public class BonusList {
 		this.bonuses = new ArrayList<>();
 		for (Bonus bon : bl.bonuses) {
 			if (bon instanceof BonusAssistant)
-				this.bonuses.add(new BonusAssistant(bon));
+				this.bonuses.add(new BonusAssistant(bon.getQuantity()));
 			else if (bon instanceof BonusCoin)
-				this.bonuses.add(new BonusCoin(bon));
+				this.bonuses.add(new BonusCoin(bon.getQuantity()));
 			else if (bon instanceof BonusMainAction)
-				this.bonuses.add(new BonusMainAction(bon));
+				this.bonuses.add(new BonusMainAction(bon.getQuantity()));
 			else if (bon instanceof BonusNobility)
-				this.bonuses.add(new BonusNobility(bon));
+				this.bonuses.add(new BonusNobility(bon.getQuantity()));
 			else if (bon instanceof BonusPoliticCard)
-				this.bonuses.add(new BonusPoliticCard(bon));
+				this.bonuses.add(new BonusPoliticCard(bon.getQuantity()));
 			else if (bon instanceof BonusVictoryPoint)
-				this.bonuses.add(new BonusVictoryPoint(bon));
+				this.bonuses.add(new BonusVictoryPoint(bon.getQuantity()));
 		}
 	}
 
@@ -62,6 +61,12 @@ public class BonusList {
 		}
 	}
 
-	// public List<Bonus> getBonus() {
-	// return bonus;
+	@Override
+	public String toString() {
+		String s = null;
+		for (Bonus bon : bonuses) {
+			s = s + bon.toString() + " ";
+		}
+		return s;
+	}
 }
