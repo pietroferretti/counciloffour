@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps14.view;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Observable;
 
 import it.polimi.ingsw.ps14.controller.Message;
 import it.polimi.ingsw.ps14.model.GameBoard;
@@ -121,5 +122,17 @@ public class CLIView extends View {
 	public void showOtherPlayersDetails() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getPlayerID() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

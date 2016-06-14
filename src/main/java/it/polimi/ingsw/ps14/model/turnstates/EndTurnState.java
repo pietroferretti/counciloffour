@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model.turnstates;
 
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.actions.Action;
 
 public class EndTurnState extends TurnState {
@@ -9,7 +10,7 @@ public class EndTurnState extends TurnState {
 	}
 
 	@Override
-	public boolean isActionLegal(Action action) {
+	public boolean isActionLegal(Action action, Model model) {
 		// No actions allowed
 		return false;
 	}

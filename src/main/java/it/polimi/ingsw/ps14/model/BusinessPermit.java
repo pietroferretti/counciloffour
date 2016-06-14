@@ -7,10 +7,8 @@ import it.polimi.ingsw.ps14.model.bonus.BonusList;
 
 public class BusinessPermit implements Card {
 
+	private final Integer id;
 	private final List<City> cities;
-private final Integer id;
-
-
 	private final BonusList bonus;
 
 	public BusinessPermit(List<City> cities, BonusList bonus, Integer id) {
@@ -25,7 +23,7 @@ private final Integer id;
 			this.cities.add(new City(city));
 		}
 		this.bonus = new BonusList(bp.bonus);
-		this.id=new Integer(bp.getId());
+		this.id = new Integer(bp.getId());
 	}
 
 	public List<City> getCities() {

@@ -1,5 +1,12 @@
 package it.polimi.ingsw.ps14.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.model.GameLogic;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.MarketState;
@@ -10,16 +17,7 @@ import it.polimi.ingsw.ps14.model.actions.market.BuyAction;
 import it.polimi.ingsw.ps14.model.actions.market.SellAction;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
-import it.polimi.ingsw.ps14.view.CLIView;
-import it.polimi.ingsw.ps14.view.GUIView;
 import it.polimi.ingsw.ps14.view.View;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.logging.Logger;
 
 public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
@@ -61,8 +59,8 @@ public class Controller implements Observer {
 			TurnAction action = (TurnAction) arg;
 			if (model.getGamePhase() == GamePhase.TURNS) {
 				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-					if (model.getCurrentTurnState().isActionLegal(action)) {
-						model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action));
+					if (model.getCurrentTurnState().isActionLegal(action, null)) {
+						model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, null));
 						if (model.getCurrentTurnState() instanceof EndTurnState) {
 
 							if (model.getPlayerOrder().isEmpty()) {
@@ -78,7 +76,7 @@ public class Controller implements Observer {
 						}
 
 						if (model.getCurrentPlayer().numEmporiums() >= 10) {
-							playerView.print("You built 10 emporiums. The game is about to end.");
+//							playerView.print("You built 10 emporiums. The game is about to end.");
 							System.out.println("Final turns!");
 							model.setGamePhase(GamePhase.FINALTURNS);
 							// set playerorder = tutti i giocatori tranne questo
@@ -86,21 +84,21 @@ public class Controller implements Observer {
 							model.nextPlayer();
 						}
 					} else {
-						playerView.print("You cannot do this action now!"); // TODO
+//						playerView.print("You cannot do this action now!"); // TODO
 																			// details
 					}
 				} else {
-					playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().toString());
+//					playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().toString());
 				}
 
 			} else if (model.getGamePhase() == GamePhase.MARKET) {
-				playerView.print("You cannot do that action during the Market phase");
+//				playerView.print("You cannot do that action during the Market phase");
 
 			} else if (model.getGamePhase() == GamePhase.FINALTURNS) {
 				// TODO
 				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-					if (model.getCurrentTurnState().isActionLegal(action)) {
-						model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action));
+					if (model.getCurrentTurnState().isActionLegal(action, null)) {
+						model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, null));
 						if (model.getCurrentTurnState() instanceof EndTurnState) {
 							if (model.getPlayerOrder().isEmpty()) {
 
@@ -116,15 +114,15 @@ public class Controller implements Observer {
 						}
 
 					} else {
-						playerView.print("You cannot do this action now!"); // TODO
+//						playerView.print("You cannot do this action now!"); // TODO
 																			// details
 					}
 				} else {
-					playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+//					playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
 				}
 
 			} else if (model.getGamePhase() == GamePhase.END) {
-				playerView.print("The game has ended, you cannot perform this action.");
+//				playerView.print("The game has ended, you cannot perform this action.");
 			}
 
 		} else if (arg instanceof SellAction) {
@@ -135,17 +133,17 @@ public class Controller implements Observer {
 						if (action.isValid()) {
 							action.sell();
 						} else {
-							playerView.print("You cannot do this action now!"); // TODO
+//							playerView.print("You cannot do this action now!"); // TODO
 																				// details
 						}
 					} else {
-						playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+//						playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
 					}
 				} else {
-					playerView.print("You cannot sell now.");
+//					playerView.print("You cannot sell now.");
 				}
 			} else {
-				playerView.print("You can only do this during the Market phase.");
+//				playerView.print("You can only do this during the Market phase.");
 			}
 		} else if (arg instanceof BuyAction) {
 			BuyAction action = (BuyAction) arg;
@@ -162,17 +160,17 @@ public class Controller implements Observer {
 							// playerOrder -> new ArrayList<>(players);
 							// nextPlayer();
 						} else {
-							playerView.print("You cannot do this action now!"); // TODO
+//							playerView.print("You cannot do this action now!"); // TODO
 																				// details
 						}
 					} else {
-						playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+//						playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
 					}
 				} else {
-					playerView.print("You cannot buy now.");
+//					playerView.print("You cannot buy now.");
 				}
 			} else {
-				playerView.print("You can only do this during the Market phase.");
+//				playerView.print("You can only do this during the Market phase.");
 			}
 		} else {
 			LOGGER.warning("Message/Action not recognized!");

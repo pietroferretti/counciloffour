@@ -47,4 +47,16 @@ public class GUIView extends View implements Runnable {
 	public void setModelView(ModelView modelView) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getPlayerID() {
+		// TODO Auto-generated method stub
+		return 0;
 	}}

@@ -17,7 +17,8 @@ public class Game {
 
 	private final Model model;
 	private final ModelView modelView;
-	private final ServerView serverView;
+//	private final ServerView serverView;
+	private final List<View> views;
 	private final Controller controller;
 	
 	public Game(List<View> viewList) throws IOException, CloneNotSupportedException {
@@ -45,8 +46,13 @@ public class Game {
 			LOGGER.warning("Clone non supportato, riguardare il codice!");
 			throw e;
 		}
+	
+		for (View view : views) {
+			modelView.addObserver(view);
+			
+		}
 		
-			modelView.addObserver(serverView);
-			serverView.addObserver(controller);
+//		modelView.addObserver(serverView);
+//		serverView.addObserver(controller);
 		}		
 	}	
