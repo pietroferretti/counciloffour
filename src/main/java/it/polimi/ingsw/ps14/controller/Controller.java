@@ -130,13 +130,6 @@ public class Controller implements Observer {
 							}
 						}
 						
-						if (model.getCurrentPlayer().numEmporiums() >= 10) {
-							playerView.print("You built 10 emporiums. The game is about to end.");
-							System.out.println("Final turns!");
-							model.setGamePhase(GamePhase.FINALTURNS);
-							// TODO set playerorder = tutti i giocatori tranne questo che ha finito
-							model.nextPlayer();
-						}
 					} else {
 						playerView.print("You cannot do this action now!"); 	//TODO details
 					}
