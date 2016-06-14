@@ -13,11 +13,6 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import it.polimi.ingsw.ps14.controller.Controller;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.view.CLIView;
-import it.polimi.ingsw.ps14.view.View;
-
 /*
  * La classe Server resta in ascolto su una specifica porta e gestisce la ripartizione delle connessioni in ingresso,
  */
@@ -54,7 +49,6 @@ public class Server {
 				iterator.remove();
 			}
 		}
-
 	}
 
 	/*
@@ -88,9 +82,9 @@ System.err.println("ho due connessioni!");
 								// View playerView = new
 								// CLIView(conn.getSocketIn(),
 								// conn.getSocketOut(), new Player(key));
-								View playerView = new CLIView(
-										conn.getSocketIn(),
-										conn.getSocketOut(), key);
+//								View playerView = new CLIView(
+//										conn.getSocketIn(),
+//										conn.getSocketOut(), key);
 								System.out.println("CREATO NUOVO GIOCO :)");
 								// model.addObserver(playerView);
 								// playerView.addObserver(controller);// sistema

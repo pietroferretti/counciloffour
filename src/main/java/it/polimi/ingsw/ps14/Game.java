@@ -9,6 +9,7 @@ import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
+import it.polimi.ingsw.ps14.server.ServerView;
 import it.polimi.ingsw.ps14.view.View;
 
 public class Game {
@@ -16,7 +17,7 @@ public class Game {
 
 	private final Model model;
 	private final ModelView modelView;
-	private final List<View> views;
+	private final ServerView serverView;
 	private final Controller controller;
 	
 	public Game(List<View> viewList) throws IOException, CloneNotSupportedException {
@@ -45,9 +46,8 @@ public class Game {
 			throw e;
 		}
 		
-		for (View view: views) {
-			modelView.addObserver(view);
-			view.addObserver(controller);
+			modelView.addObserver(serverView);
+			serverView.addObserver(controller);
 		}		
 	}	
 }

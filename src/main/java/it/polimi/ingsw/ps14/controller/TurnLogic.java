@@ -30,7 +30,7 @@ public class TurnLogic {
 	// inizio con stampa di ttutti i miei dettagli??
 	protected void play() {
 		if(state instanceof InitialTurnState){
-			playerView.show("Hi " + player.getName() + ", choose if you want to perform a quick or a main action!");
+			playerView.print("Hi " + player.getName() + ", choose if you want to perform a quick or a main action!");
 			playerView.showMainActions();
 			playerView.showQuickActions();
 			//parse answer

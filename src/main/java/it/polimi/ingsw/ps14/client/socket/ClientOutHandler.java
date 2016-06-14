@@ -4,12 +4,18 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
+import it.polimi.ingsw.ps14.controller.Message;
+import it.polimi.ingsw.ps14.view.View;
+
 public class ClientOutHandler implements Runnable {
 
+	private View clientView;
 	private ObjectOutputStream socketOut;
 
-	public ClientOutHandler(ObjectOutputStream socketOut) {
+
+	public ClientOutHandler(ObjectOutputStream socketOut, View view) {
 		this.socketOut = socketOut;
+		this.clientView = view;
 	}
 
 	@Override
@@ -21,17 +27,20 @@ public class ClientOutHandler implements Runnable {
 		while (true) {
 
 			String inputLine = stdIn.nextLine();
-			try {
-				socketOut.writeObject(inputLine);
-				socketOut.flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Message inputMsg = clientView.writeMsg(inputLine);
 
-			System.out.println("sending "+ inputLine);
-				
-			
+			if (inputMsg != null) {
+				try {
+					socketOut.writeObject(inputMsg);
+					socketOut.flush();
+					System.out.println("sending " + inputLine);
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
 
 		}
 	}
