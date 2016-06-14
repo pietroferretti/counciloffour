@@ -1,21 +1,14 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Scanner;
 
 import it.polimi.ingsw.ps14.controller.Message;
-import it.polimi.ingsw.ps14.controller.NewPlayerMsg;
+import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
-import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPrivateMsg;
-import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPublicMsg;
-import it.polimi.ingsw.ps14.model.modelview.PlayerView;
-import it.polimi.ingsw.ps14.model.modelview.RegionView;
 
 /*
  * --------------------------Command Line Interface-----------------------
@@ -26,114 +19,34 @@ import it.polimi.ingsw.ps14.model.modelview.RegionView;
 //TODO faccio stampare solo i dettagli del giocatori che ha finito il turno
 //TODO metodo per tutti i miei dettagli?
 //TODO implementare richiesta per stampa di tutto
-public class CLIView extends View implements Runnable {
+public class CLIView extends View {
 
-	private Scanner input;
-	// private PrintStream output;
 	private Printer printer;
+	private boolean gameStarted;
+	private boolean myTurn;
+	private Interpreter interpreter = new Interpreter();
 
-	// each player owns a specific view CLI or GUI identified by his ID.
-	private final int playerID;
-
-	private ModelView mv;
-	private Message message;
-	
-	public CLIView(InputStream inputStream, OutputStream outputStream, int playerID) {
-		input = new Scanner(inputStream);
-		// output = new PrintStream(outputStream);
+	public CLIView(OutputStream outputStream) {
 		printer = new Printer(new PrintStream(outputStream));
-		this.playerID = playerID;
-	}
-
-	public CLIView(InputStream inputStream, OutputStream outputStream, int playerID, ModelView modelView) {
-		input = new Scanner(inputStream);
-		// output = new PrintStream(outputStream);
-		printer = new Printer(new PrintStream(outputStream));
-		mv = modelView;
-		this.playerID = playerID;
-	}	
-	
-	public void setModelView(ModelView modelView) {
-		mv = modelView;
-	}
-
-	public int getPlayerID() {
-		return playerID;
+		gameStarted = false;
+		myTurn = false;
 	}
 
 	/**
 	 * It prints infos about regions, king, nobility track and victory points.
 	 */
 	@Override
-	public void showGameboard() {
-		show("-----REGIONS LIST-----");
-		show("");
-		for (RegionView regionView : mv.getRegionsView()) {
-			printer.printRegions(regionView.getRegionCopy());
-		}
-		printer.printKing(mv.getKingView().getKingCopy());
-		printer.printNobilityTrack(mv.getNobilityTrackView().getNobilityTrackCopy(), getPlayers());
-		printer.printVictoryPoints(getPlayers());
-	}
-
-	private void setMessage(Message message) {
-		this.message = message;
-		setChanged();
-		notifyObservers(message);
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-
-		show("Insert your name:");
-		String name = input.nextLine();
-		setMessage(new NewPlayerMsg(name));
-
-		// TODO CONTROLLARE!!!
-		// while (true) {
-		// input.nextLine();
+	public void showGameboard(GameBoard gameBoard) {
+		// TODO fix it!!
+		// print("-----REGIONS LIST-----");
+		// print("");
+		// for (RegionView regionView : mv.getRegionsView()) {
+		// printer.printRegions(regionView.getRegionCopy());
 		// }
-
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-
-		if (!(o instanceof ModelView)) {
-
-			throw new IllegalArgumentException();
-
-		} else if (arg instanceof PlayerChangedPublicMsg) {
-			// avvisare altri
-			if (((PlayerChangedPublicMsg) arg).getPlayerID() == playerID)
-				showThisPlayerDetails();
-			else
-				showOtherPlayersDetails();
-
-		} else if (arg instanceof PlayerChangedPrivateMsg) {
-
-			if (((PlayerChangedPublicMsg) arg).getPlayerID() == playerID)
-				showThisPlayerDetails();
-			// avvisare altri
-
-		} else if ("REGIONVIEW".equals((String) arg)) {
-			showOtherPlayersDetails();
-		}
-
-	}
-
-	/**
-	 * It prints each player public details
-	 * 
-	 */
-	// TODO It prints other players public details
-	@Override
-	public void showOtherPlayersDetails() {
-		for (Player player : getPlayers()) {
-			if (!(player.getId() == playerID))
-				printer.printPlayerPublicDetails(player);
-		}
+		// printer.printKing(mv.getKingView().getKingCopy());
+		// printer.printNobilityTrack(mv.getNobilityTrackView().getNobilityTrackCopy(),
+		// getPlayers());
+		// printer.printVictoryPoints(getPlayers());
 	}
 
 	/**
@@ -141,29 +54,13 @@ public class CLIView extends View implements Runnable {
 	 */
 	// TODO change this in all player details
 	@Override
-	public void showThisPlayerDetails() {
-		for (Player player : getPlayers()) {
-			if (player.getId() == playerID) {
-				printer.printPlayerPublicDetails(player);
-				printer.printPlayerPrivateDetails(player);
-				break;
-			}
-
-		}
+	public void showThisPlayerDetails(Player player) {
+		printer.printPlayerPublicDetails(player);
+		printer.printPlayerPrivateDetails(player);
 	}
 
-	private List<Player> getPlayers() {
-		List<Player> players = new ArrayList<>();
-		for (PlayerView playerView : mv.getPlayersView()) {
-			players.add(playerView.getPlayerCopy());
-		}
-		return players;
-	}
-
-	@Override
-	public void show(String string) {
+	public void print(String string) {
 		printer.print(string);
-
 	}
 
 	@Override
@@ -184,10 +81,46 @@ public class CLIView extends View implements Runnable {
 		return null;
 	}
 
+	public Message writeMsg(String input) {
+		if (!gameStarted) {
+			print("The game hasn't started yet!!!!");
+			return null;
+		}
+		if (!myTurn) {
+			print("Wait for your turn!");
+			return null;
+		} else
+			return Interpreter.parseString(input);
+	}
+
 	@Override
-	public void print(String message) {
+	public void readMsg(Message arg) {
+
+		if (arg instanceof UpdateThisPlayerMsg) {
+			showThisPlayerDetails(((UpdateThisPlayerMsg) arg).getPlayer());
+
+		} else if (arg instanceof UpdateOtherPlayerMsg) {
+			showOtherPlayerDetails(((UpdateOtherPlayerMsg) arg).getPlayer());
+
+		} else if (arg instanceof UpdateGameBoardMsg) {
+			showGameboard(((UpdateGameBoardMsg) arg).getGameBoard());
+		}
+
+	}
+
+	private void showOtherPlayerDetails(Player player) {
+		printer.printPlayerPublicDetails(player);
+	}
+
+	@Override
+	public void setModelView(ModelView modelView) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void showOtherPlayersDetails() {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

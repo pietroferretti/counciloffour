@@ -18,7 +18,7 @@ public class Model extends Observable implements Cloneable {
 	private TurnState currentTurnState;
 	private MarketState currentMarketState;
 	private List<Player> playerOrder;
-
+	
 	public Model() throws IOException {
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		players = new ArrayList<>();
@@ -27,6 +27,10 @@ public class Model extends Observable implements Cloneable {
 	public Model(List<Player> players) throws IOException{
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		this.players = players;
+	}
+
+	public Model(Model m) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public void setGameBoard(GameBoard gameBoard) {
@@ -102,6 +106,9 @@ public class Model extends Observable implements Cloneable {
 
 	public void nextPlayer() {
 		currentPlayer = playerOrder.remove(0);
+		//TODO
+		setChanged();
+		notifyObservers(new NextPlayerMsg());
 	}
 	
 	@Override

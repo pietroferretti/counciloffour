@@ -64,7 +64,6 @@ public class Server {
 				iterator.remove();
 			}
 		}
-
 	}
 
 	/*
@@ -90,7 +89,7 @@ public class Server {
 							if (waitingConnection.get(key) instanceof ConnectionSocket) {
 								ConnectionSocket conn = waitingConnection.get(key);
 
-								views.add(new CLIView(conn.getSocketIn(), conn.getSocketOut(), key));
+								views.add(new CLIView(conn.getSocketOut()));
 								System.out.println("CREATO NUOVA VIEW");
 
 							}

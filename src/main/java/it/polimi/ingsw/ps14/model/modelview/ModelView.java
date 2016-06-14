@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.GamePhase;
+import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 /*
  * Questa classe viene introdotta per disaccoppiare il model dalla view
@@ -14,14 +18,22 @@ import it.polimi.ingsw.ps14.model.Player;
  */
 
 public class ModelView extends Observable implements Observer {
-
+	// TODO modelview osserva model NEL MAIN
 	private List<PlayerView> playersView;
-
 	private List<RegionView> regionsView;
 	private KingView kingView;
 	private NobilityTrackView nobilityTrackView;
 
-	// private String message;
+	private Player currentPlayerCopy;
+	private GamePhase gamePhaseCopy;
+	private TurnState currentTurnStateCopy;
+	private MarketState currentMarketStateCopy;
+
+	/*
+	 * private GameBoard gameBoard; private List<Player> players; private
+	 * List<Player> playerOrder;
+	 * 
+	 */
 
 	public ModelView(Model model) throws CloneNotSupportedException {
 		// TODO Ancora tutto da scrivere, copiare tutti i componenti dal model
@@ -35,7 +47,7 @@ public class ModelView extends Observable implements Observer {
 		
 		// add a playerView for each player
 		for (Player player : model.getPlayers()) {
-			playersView.add(new PlayerView(player.clone()));
+			playersView.add(new PlayerView(new Player(player)));
 		}
 
 		// ModelView observes each playerView
@@ -68,10 +80,11 @@ public class ModelView extends Observable implements Observer {
 		} else if (o instanceof NobilityTrackView) {
 			setChanged();
 			notifyObservers("NOBILITYTRACKVIEW");
-		} else if (o instanceof VictoryPathView) {
-			setChanged();
-			notifyObservers("VICTORYPATHVIEW");
-		} else
+		} 
+		else if (o instanceof Model){
+			
+		}
+		else
 			throw new IllegalArgumentException();
 
 	}

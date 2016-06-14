@@ -56,27 +56,7 @@ public class Controller implements Observer {
 			// TODO verifica id player
 			model.getPlayers().get(0).setName(((NewPlayerMsg) arg).getName());
 		}
-
-		// TODO che noia ma bisogna ripensarlo in MVC, in modo che il controller
-		// non chiami mai la view
-		else if (arg instanceof GameStartedMsg) {
-
-			for (View view : views) {
-				if (view instanceof CLIView) {
-					view.showGameboard();
-					view.showOtherPlayersDetails();
-					view.showThisPlayerDetails();
-				} else if (view instanceof GUIView) {
-					// TODO
-				} else
-					throw new IllegalArgumentException("Views contains something different from GUI/CLI view");
-			}
-		}
-
-		else if (arg instanceof TurnFinishedMsg) {
-			// TODO
-		}
-
+		
 		else if (arg instanceof TurnAction) {
 			TurnAction action = (TurnAction) arg;
 			if (model.getGamePhase() == GamePhase.TURNS) {
