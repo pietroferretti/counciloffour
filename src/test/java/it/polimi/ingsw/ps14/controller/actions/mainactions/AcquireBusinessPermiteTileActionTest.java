@@ -54,7 +54,7 @@ public class AcquireBusinessPermiteTileActionTest {
 
 		assertEquals(action.isValid(model),true);
 		
-		System.out.println( model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].getBonus().getBonusCard().toString());
+		System.out.println( model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].getBonusList().getListOfBonuses().toString());
 
 		
 		action.execute(null, model);
