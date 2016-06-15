@@ -76,6 +76,7 @@ public class City {
 	public void buildEmporium(Player player) {
 		if (!isEmporiumBuilt(player)) {
 			emporiums.add(player);
+			player.incrementNumEmporiums();
 		} else {
 			throw new IllegalArgumentException("Error: the player has already built an emporium in this city");
 		}

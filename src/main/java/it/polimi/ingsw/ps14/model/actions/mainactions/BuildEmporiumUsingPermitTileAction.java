@@ -61,7 +61,6 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		
 		//build emporium in the city
 		city.buildEmporium(player);
-		player.addNumEmporiums(); //count emporium build for each player
 
 		
 		//apply city token
