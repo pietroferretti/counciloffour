@@ -14,7 +14,6 @@ import java.util.List;
 public class AcquireBusinessPermiteTileAction extends MainAction {
 
 	private RegionType regionType;
-	private Balcony balcony;
 	private Integer permitID;
 	private List<PoliticCard> cards;
 
@@ -29,6 +28,7 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	public boolean isValid(Model model) {
 		Player player = id2player(super.getPlayer(), model);
 		Region region = model.getGameBoard().getRegion(regionType);
+		Balcony balcony = region.getBalcony();
 		BusinessPermit permitTile = id2permit(permitID, region);
 		
 		if (!balcony.cardsMatch(cards))
@@ -49,6 +49,8 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		Player player = id2player(super.getPlayer(), model);
 		Region region = model.getGameBoard().getRegion(regionType);
 		BusinessPermit permitTile = id2permit(permitID, region);
+		Balcony balcony = region.getBalcony();
+
 
 		// pay councillors
 		player.useCoins(balcony.councillorCost(cards));

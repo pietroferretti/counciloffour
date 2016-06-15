@@ -20,7 +20,7 @@ public class GameBoardTest {
 		}
 		
 		GameBoard gameboard = new GameBoard(settingsInstance);
-		System.out.println("Nessun errore!");
+		System.out.println("Balcony: " + gameboard.getKing().getBalcony().toString());
 	}
 
 }

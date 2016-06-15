@@ -81,7 +81,7 @@ public class Controller implements Observer {
 							}
 						}
 
-						if (model.getCurrentPlayer().numEmporiums() >= 10) {
+						if (model.getCurrentPlayer().getNumEmporiums() >= 10) {
 //							playerView.print("You built 10 emporiums. The game is about to end.");
 							System.out.println("Final turns!");
 							model.setGamePhase(GamePhase.FINALTURNS);

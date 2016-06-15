@@ -24,6 +24,8 @@ public class Player extends Observable {
 	// private List<BusinessPermit> usedPermitTiles;
 	private List<PoliticCard> hand;
 	private BusinessCardsPlayer businessHand;
+	private int numEmporiums=0;
+
 
 	public int additionalMainsToDo;
 
@@ -311,9 +313,13 @@ public class Player extends Observable {
 
 	}
 
-	public int numEmporiums() {
-		// TODO !!!
-		throw new UnsupportedOperationException();
+
+	public void addNumEmporiums() {
+		this.numEmporiums++;
+	}
+	
+	public int getNumEmporiums(){
+		return this.numEmporiums;
 	}
 
 	@Override

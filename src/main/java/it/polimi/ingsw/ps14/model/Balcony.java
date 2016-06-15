@@ -124,11 +124,7 @@ public class Balcony {
 
 	@Override
 	public String toString() {
-		String data = null;
-		for (ColorCouncillor con : councillors) {
-			data = con.name() + ", ";
-		}
-		return data;
+		return councillors.toString();
 	}
 
 }

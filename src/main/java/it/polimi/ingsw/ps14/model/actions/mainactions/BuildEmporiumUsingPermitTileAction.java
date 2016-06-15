@@ -20,8 +20,11 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 	@Override
 	public boolean isValid(Model model) {
 		Player player = id2player(super.getPlayer(), model);
+		if(player==null) return false;
 		BusinessPermit businessCard = id2permit(businessCardID, player);
+		if(businessCard==null) return false;
 		City city = id2city(cityName, model);
+		if(city==null) return false;
 
 		//check if player has this business permit
 		if(!player.getBusinessHand().contains(businessCard)) return false;
@@ -58,16 +61,17 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		
 		//build emporium in the city
 		city.buildEmporium(player);
+		player.addNumEmporiums(); //count emporium build for each player
 
 		
 		//apply city token
 		city.getToken().useBonus(player, model);
-
+		
 		
 		//check bonus neighbors
 		useBonusNeighbors(city,player,model);
 		
-		if (player.numEmporiums() == 10) {
+		if (player.getNumEmporiums() == 10) {
 			player.addPoints(3);
 			return new EndTurnState();
 		}
