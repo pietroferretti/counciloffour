@@ -7,7 +7,10 @@ public class ActionMsg implements Message {
 	private Action action;
 	
 	public ActionMsg(Action action){
-		this.action=action;
+		this.action = action;
 	}
 	
+	public Action getAction() {
+		return action;
+	}
 }

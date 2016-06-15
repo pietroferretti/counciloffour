@@ -1,18 +1,18 @@
 package it.polimi.ingsw.ps14.view;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.Observable;
+import java.util.Scanner;
+
+import it.polimi.ingsw.ps14.client.ClientView;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.UpdateGameBoardMsg;
 import it.polimi.ingsw.ps14.message.UpdateOtherPlayerMsg;
 import it.polimi.ingsw.ps14.message.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
-
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.Observable;
-import java.util.Scanner;
 
 /*
  * --------------------------Command Line Interface-----------------------
@@ -23,7 +23,7 @@ import java.util.Scanner;
 //TODO faccio stampare solo i dettagli del giocatori che ha finito il turno
 //TODO metodo per tutti i miei dettagli?
 //TODO implementare richiesta per stampa di tutto
-public class CLIView extends View implements Runnable {
+public class CLIView extends ClientView implements Runnable {
 
 	private Printer printer;
 	private boolean gameStarted;
@@ -32,12 +32,12 @@ public class CLIView extends View implements Runnable {
 	Scanner scan = new Scanner(System.in);
 	private final Integer playerID;
 
-	public CLIView(OutputStream outputStream, Integer playerID) {
+	public CLIView(OutputStream outputStream) {
 
 		printer = new Printer(new PrintStream(outputStream));
 		gameStarted = false;
 		myTurn = false;
-		this.playerID = playerID;
+		this.playerID = 0;
 		interpreter = new Interpreter(playerID);
 	}
 
@@ -45,7 +45,7 @@ public class CLIView extends View implements Runnable {
 	 * It prints infos about regions, king, nobility track and victory points.
 	 */
 
-	@Override
+	
 	public void showGameboard(GameBoard gameBoard) {
 		// FIXME
 		// print("-----REGIONS LIST-----");
@@ -63,7 +63,7 @@ public class CLIView extends View implements Runnable {
 	 * It prints this player private details
 	 */
 	// TODO change this in all player details
-	@Override
+	
 	public void showThisPlayerDetails(Player player) {
 		printer.printPlayerPublicDetails(player);
 		printer.printPlayerPrivateDetails(player);
@@ -73,19 +73,18 @@ public class CLIView extends View implements Runnable {
 		printer.print(string);
 	}
 
-	@Override
+	
 	public void showMainActions() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public void showQuickActions() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public String getPlayerName() {
 		// TODO Auto-generated method stub
 		return null;
@@ -103,7 +102,7 @@ public class CLIView extends View implements Runnable {
 			return interpreter.parseString(input);
 	}
 
-	@Override
+	
 	public void readMsg(Message arg) {
 
 		if (arg instanceof UpdateThisPlayerMsg) {
@@ -122,30 +121,34 @@ public class CLIView extends View implements Runnable {
 		printer.printPlayerPublicDetails(player);
 	}
 
-	@Override
 	public void setModelView(ModelView modelView) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public void showOtherPlayersDetails() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public int getPlayerID() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@Override
+	public void handleMessage(Message message) {
+		//TODO come l'update
+	}
+	
 	@Override
 	public void run() {
 		String input = scan.nextLine();
@@ -156,7 +159,6 @@ public class CLIView extends View implements Runnable {
 			print("Wait for your turn!");
 		} else
 			interpreter.parseString(input);
-		
-
 	}
+	
 }
