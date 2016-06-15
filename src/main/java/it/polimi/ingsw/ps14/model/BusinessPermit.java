@@ -14,7 +14,7 @@ public class BusinessPermit implements Card {
 	private final BonusList bonus;
 
 	public BusinessPermit(List<City> cities, BonusList bonus) {
-		id = idCounter;
+		this.id = idCounter;
 		idCounter++;
 		this.cities = cities;
 		this.bonus = bonus;
