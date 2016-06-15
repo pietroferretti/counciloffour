@@ -42,7 +42,7 @@ public class ElectCouncillorActionTest {
 		System.out.println(player.toString());
 
 		MainAction action = new ElectCouncillorAction(player.getId(),
-				ColorCouncillor.ORANGE, RegionType.COAST);
+				ColorCouncillor.ORANGE, "COAST");
 		assertEquals(action.isValid(model), true);
 		
 		action.execute(null,model);

@@ -133,11 +133,12 @@ public class Interpreter {
 	}
 	
 	private PoliticCard string2politicCard(String string){
-		PoliticCard[] colorValue = 
-
-		for (PoliticCard color : colorValue) {
-			if (color.name().compareTo(string) == 0)
-				return PoliticCard.valueOf(word);
-		}
+//		PoliticCard[] colorValue = 
+//
+//		for (PoliticCard color : colorValue) {
+//			if (color.name().compareTo(string) == 0)
+//				return PoliticCard.valueOf(word);
+//		}
+		return null;
 	}
 }
