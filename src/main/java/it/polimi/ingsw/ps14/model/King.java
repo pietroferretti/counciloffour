@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Queue;
 
-public class King extends Observable implements Cloneable {
+public class King extends Observable {
 
 	private City city;
 
@@ -26,6 +26,8 @@ public class King extends Observable implements Cloneable {
 
 	public void setCity(City city) {
 		this.city = city;
+		setChanged();
+		notifyObservers();
 	}
 
 	public Balcony getBalcony() {
@@ -57,13 +59,8 @@ public class King extends Observable implements Cloneable {
 	}
 
 	@Override
-	public King clone() throws CloneNotSupportedException {
-		return new King(balcony.readBalcony(), city);
-	}
-
-	@Override
 	public String toString() {
-		return "King [city=" + city + ", balcony=" + balcony + "]";
+		return "The king is in " + city.getName() + "%nKING'S COUNCIL:" + balcony.toString();
 	}
 
 }

@@ -57,7 +57,7 @@ public class GameBoard extends Observable {
 		bonusSilver = settings.buildingBonuses.get("bonusSilver");
 		bonusBronze = settings.buildingBonuses.get("bonusBronze");
 		bonusBlue = settings.buildingBonuses.get("bonusBlue");
-		kingBonuses = new PriorityQueue<Integer>();
+		kingBonuses = new PriorityQueue<>();
 		kingBonuses.add(settings.buildingBonuses.get("bonusKing1"));
 		kingBonuses.add(settings.buildingBonuses.get("bonusKing2"));
 		kingBonuses.add(settings.buildingBonuses.get("bonusKing3"));
@@ -289,7 +289,7 @@ public class GameBoard extends Observable {
 		return availableCouncillors.get(color);
 	}
 
-	public EnumMap<ColorCouncillor, Integer> getAvailableCouncillors() {
+	public Map<ColorCouncillor, Integer> getAvailableCouncillors() {
 		return availableCouncillors;
 	}
 
@@ -301,6 +301,8 @@ public class GameBoard extends Observable {
 	public boolean useCouncillor(ColorCouncillor councillor) {
 		if (councillorIsAvailable(councillor)) {
 			availableCouncillors.put(councillor, availableCouncillors.get(councillor) - 1);
+			setChanged();
+			notifyObservers();
 			return true;
 		} else
 			return false;
@@ -308,6 +310,8 @@ public class GameBoard extends Observable {
 
 	public void addDiscardedCouncillor(ColorCouncillor color) {
 		availableCouncillors.put(color, availableCouncillors.get(color) + 1);
+		setChanged();
+		notifyObservers();
 	}
 
 	public ColorCouncillor getRandomAvailableCouncillor() {
@@ -335,17 +339,19 @@ public class GameBoard extends Observable {
 
 	public void setAvailableAssistants(int availableAssistants) {
 		this.availableAssistants = availableAssistants;
+		setChanged();
+		notifyObservers();
 	}
 
 	public int getAvailableAssistants() {
 		return availableAssistants;
 	}
 
-	public boolean useAssistants(int quantity) { // TODO: ma se li
-													// considerassimo
-													// infiniti??
+	public boolean useAssistants(int quantity) {
 		if (availableAssistants >= quantity) {
 			availableAssistants = availableAssistants - quantity;
+			setChanged();
+			notifyObservers();
 			return true;
 		} else
 			return false;
@@ -357,6 +363,8 @@ public class GameBoard extends Observable {
 
 	public void addAssistants(int quantity) {
 		availableAssistants += quantity;
+		setChanged();
+		notifyObservers();
 	}
 
 	/*
@@ -385,10 +393,6 @@ public class GameBoard extends Observable {
 		return king;
 	}
 
-	public void setKing(King king) {
-		this.king = king;
-	}
-
 	/*
 	 * --------------------------- CITIES -----------------------------
 	 */
@@ -406,10 +410,6 @@ public class GameBoard extends Observable {
 		return cities;
 	}
 
-	public void setCities(List<City> cities) {
-		this.cities = cities;
-	}
-
 	public Queue<Integer> getKingBonuses() {
 		return kingBonuses;
 	}
@@ -417,6 +417,10 @@ public class GameBoard extends Observable {
 	public NobilityTrack getNobilityTrack() {
 		return nobilityTrack;
 	}
+
+	/*
+	 * --------------------------- REGION BONUS -----------------------------
+	 */
 
 	public int getBonusGold() {
 		return bonusGold;
@@ -432,6 +436,30 @@ public class GameBoard extends Observable {
 
 	public int getBonusBlue() {
 		return bonusBlue;
+	}
+
+	public void useBonusGold() {
+		bonusGold = 0;
+		setChanged();
+		notifyObservers();
+	}
+
+	public void useBonusSilver() {
+		bonusSilver = 0;
+		setChanged();
+		notifyObservers();
+	}
+
+	public void useBonusBronze() {
+		bonusBronze = 0;
+		setChanged();
+		notifyObservers();
+	}
+
+	public void useBonusBlue() {
+		bonusBlue = 0;
+		setChanged();
+		notifyObservers();
 	}
 
 	@Override

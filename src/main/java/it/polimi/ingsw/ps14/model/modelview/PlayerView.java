@@ -6,7 +6,7 @@ import java.util.Observer;
 import it.polimi.ingsw.ps14.model.Player;
 
 public class PlayerView extends Observable implements Observer {
-	
+
 	private Player playerCopy;
 
 	public PlayerView(Player playerCopy) {
@@ -27,9 +27,10 @@ public class PlayerView extends Observable implements Observer {
 
 		if (!(o instanceof Player)) {
 			throw new IllegalArgumentException();
+		} else {
+			setPlayerCopy(new Player((Player) o));
+			notifyObservers(message);
 		}
-		setPlayerCopy(new Player((Player) o));
-		notifyObservers(message);
 
 	}
 

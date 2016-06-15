@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 // TODO notify ogni volta che qualcosa viene modificato?
@@ -68,6 +67,8 @@ public class Model extends Observable {
 
 	public void setGamePhase(GamePhase phase) {
 		this.gamePhase = phase;
+		setChanged();
+		notifyObservers();
 	}
 
 	public GamePhase getGamePhase() {
@@ -76,10 +77,6 @@ public class Model extends Observable {
 
 	public Player getCurrentPlayer() {
 		return currentPlayer;
-	}
-
-	public void setCurrentPlayer(Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
 	}
 
 	public TurnState getCurrentTurnState() {
@@ -96,6 +93,8 @@ public class Model extends Observable {
 
 	public void setCurrentMarketState(MarketState currentMarketState) {
 		this.currentMarketState = currentMarketState;
+		setChanged();
+		notifyObservers();
 	}
 
 	public List<Player> getPlayerOrder() {
@@ -109,7 +108,7 @@ public class Model extends Observable {
 	public void nextPlayer() {
 		currentPlayer = playerOrder.remove(0);
 		setChanged();
-		notifyObservers(new NewCurrentPlayerMsg(currentPlayer.getName(), currentPlayer.getId()));
+		notifyObservers();
 	}
 
 }

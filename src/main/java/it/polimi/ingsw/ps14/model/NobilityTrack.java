@@ -48,6 +48,8 @@ public class NobilityTrack extends Observable {
 
 		if (bonusThisLevel != null) {
 			bonusThisLevel.useBonus(player, model);
+			setChanged();
+			notifyObservers();
 			return true;
 		} else {
 			return false;

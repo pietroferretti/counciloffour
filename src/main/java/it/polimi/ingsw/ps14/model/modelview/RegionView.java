@@ -26,12 +26,12 @@ public class RegionView extends Observable implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 
-		// TODO controllare
-
 		if (!(o instanceof Region)) {
 			throw new IllegalArgumentException();
+		} else {
+			setRegionCopy(new Region((Region) o));
 		}
-		setRegionCopy(new Region((Region) o));
+
 	}
 
 }

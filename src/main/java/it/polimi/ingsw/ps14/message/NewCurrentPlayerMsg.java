@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps14.message;
 
 public class NewCurrentPlayerMsg implements Message {
 	
-	private String playerName;
+	/*private String playerName;
 	private int playerID;
 
 	public NewCurrentPlayerMsg(String playerName, int playerID) {
@@ -16,5 +16,5 @@ public class NewCurrentPlayerMsg implements Message {
 
 	public String getPlayerName() {
 		return playerName;
-	}
+	}*/
 }

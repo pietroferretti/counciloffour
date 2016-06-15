@@ -164,10 +164,7 @@ public class Printer {
 	// ---------------------------KING-----------------------------
 
 	protected void printKing(King king) {
-		print("The king is in " + king.getCity().getName());
-		print("");
-		print("KING'S COUNCIL:");
-		printCouncil(king.getBalcony().readBalcony());
+		
 	}
 
 	// -----------------------NOBILITY TRACK-------------------------

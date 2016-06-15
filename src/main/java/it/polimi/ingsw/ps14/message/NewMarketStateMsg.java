@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps14.message;
 import it.polimi.ingsw.ps14.model.MarketState;
 
 public class NewMarketStateMsg implements Message {
-	private MarketState NewMarketState;
+	/*private MarketState NewMarketState;
 
 	public NewMarketStateMsg(MarketState newMarketState) {
 		NewMarketState = newMarketState;
@@ -11,5 +11,5 @@ public class NewMarketStateMsg implements Message {
 
 	public MarketState getNewMarketState() {
 		return NewMarketState;
-	}
+	}*/
 }
