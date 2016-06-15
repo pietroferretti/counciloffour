@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.view;
+package it.polimi.ingsw.ps14.message;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
 

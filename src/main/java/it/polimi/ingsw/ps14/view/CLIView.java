@@ -4,7 +4,10 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Observable;
 
-import it.polimi.ingsw.ps14.controller.Message;
+import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.UpdateGameBoardMsg;
+import it.polimi.ingsw.ps14.message.UpdateOtherPlayerMsg;
+import it.polimi.ingsw.ps14.message.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;

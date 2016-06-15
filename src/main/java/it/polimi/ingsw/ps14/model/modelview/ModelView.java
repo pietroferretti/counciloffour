@@ -18,15 +18,17 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class ModelView extends Observable implements Observer {
 	// TODO modelview osserva model NEL MAIN
+
 	private List<PlayerView> playersView;
 	private List<RegionView> regionsView;
 	private KingView kingView;
 	private NobilityTrackView nobilityTrackView;
 
-	private Player currentPlayerCopy;
-	private GamePhase gamePhaseCopy;
-	private TurnState currentTurnStateCopy;
-	private MarketState currentMarketStateCopy;
+	private CurrentPlayerView currentPlayerView;
+
+	private GamePhaseView gamePhaseView;
+	// private TurnStateView currentTurnStateView;
+	private MarketStateView currentMarketStateView;
 
 	/*
 	 * private GameBoard gameBoard; private List<Player> players; private
@@ -37,16 +39,18 @@ public class ModelView extends Observable implements Observer {
 	public ModelView(Model model) throws CloneNotSupportedException {
 		// TODO Ancora tutto da scrivere, copiare tutti i componenti dal model
 
-		playersView = new ArrayList<>();
-		regionsView = new ArrayList<>();
+		playersView = new ArrayList<>(model.getPlayers().size());
+		regionsView = new ArrayList<>(model.getGameBoard().getRegions().size());
 		kingView = new KingView(model.getGameBoard().getKing());
 		nobilityTrackView = new NobilityTrackView(model.getGameBoard().getNobilityTrack());
-		
-		
-		
+
 		// add a playerView for each player
+		int index = 0;
 		for (Player player : model.getPlayers()) {
 			playersView.add(new PlayerView(new Player(player)));
+			// playerView observes player
+			player.addObserver(playersView.get(index));
+			index++;
 		}
 
 		// ModelView observes each playerView
@@ -79,11 +83,9 @@ public class ModelView extends Observable implements Observer {
 		} else if (o instanceof NobilityTrackView) {
 			setChanged();
 			notifyObservers("NOBILITYTRACKVIEW");
-		} 
-		else if (o instanceof Model){
-			
-		}
-		else
+		} else if (o instanceof Model) {
+
+		} else
 			throw new IllegalArgumentException();
 
 	}

@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps14.view;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.controller.Message;
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;

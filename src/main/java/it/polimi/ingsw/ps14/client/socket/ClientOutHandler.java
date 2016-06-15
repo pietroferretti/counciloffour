@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
-import it.polimi.ingsw.ps14.controller.Message;
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.view.View;
 
 public class ClientOutHandler implements Runnable {

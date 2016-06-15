@@ -2,19 +2,15 @@ package it.polimi.ingsw.ps14.model.modelview;
 
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.model.NobilityTrack;
-import it.polimi.ingsw.ps14.model.Settings;
 
 public class NobilityTrackView extends Observable implements Observer {
-	private static final Logger LOGGER= Logger.getLogger(Settings.class.getName());
 
 	NobilityTrack nobilityTrackCopy;
 
 	public NobilityTrackView(NobilityTrack nobilityTrackCopy) {
-		this.nobilityTrackCopy = nobilityTrackCopy;
+		this.nobilityTrackCopy = new NobilityTrack(nobilityTrackCopy);
 	}
 
 	public NobilityTrack getNobilityTrackCopy() {
@@ -34,11 +30,8 @@ public class NobilityTrackView extends Observable implements Observer {
 
 		if (!(o instanceof NobilityTrack)) {
 			throw new IllegalArgumentException();
-		}
-		try {
-			setNobilityTrackCopy(((NobilityTrack) o).clone());
-		} catch (CloneNotSupportedException e) {
-			LOGGER.log(Level.SEVERE, "Couldn't copy NobilityTrack", e);
+		} else {
+			setNobilityTrackCopy(new NobilityTrack((NobilityTrack) o));
 		}
 
 	}

@@ -3,11 +3,12 @@ package it.polimi.ingsw.ps14.server;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import it.polimi.ingsw.ps14.controller.Message;
+
+import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.PlayerChangedPrivateMsg;
+import it.polimi.ingsw.ps14.message.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
-import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPrivateMsg;
-import it.polimi.ingsw.ps14.model.modelview.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.view.View;
 
 public class ServerView extends View {

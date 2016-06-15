@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.controller;
+package it.polimi.ingsw.ps14.message;
 
 public class NewPlayerMsg implements Message {
 

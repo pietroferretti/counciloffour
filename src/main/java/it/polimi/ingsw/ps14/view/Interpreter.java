@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.view;
 
-import it.polimi.ingsw.ps14.controller.Message;
+import it.polimi.ingsw.ps14.message.DrawCardMsg;
+import it.polimi.ingsw.ps14.message.Message;
 
 public class Interpreter {
 	
