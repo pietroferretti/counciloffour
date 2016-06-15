@@ -1,16 +1,18 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.Observable;
-
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.UpdateGameBoardMsg;
 import it.polimi.ingsw.ps14.message.UpdateOtherPlayerMsg;
 import it.polimi.ingsw.ps14.message.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
+
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.Observable;
+import java.util.Scanner;
 
 /*
  * --------------------------Command Line Interface-----------------------
@@ -21,26 +23,31 @@ import it.polimi.ingsw.ps14.model.modelview.ModelView;
 //TODO faccio stampare solo i dettagli del giocatori che ha finito il turno
 //TODO metodo per tutti i miei dettagli?
 //TODO implementare richiesta per stampa di tutto
-public class CLIView extends View {
+public class CLIView extends View implements Runnable {
 
 	private Printer printer;
 	private boolean gameStarted;
 	private boolean myTurn;
-	private Interpreter interpreter = new Interpreter();
+	private Interpreter interpreter;
+	Scanner scan = new Scanner(System.in);
+	private final Integer playerID;
 
-	public CLIView(OutputStream outputStream) {
+	public CLIView(OutputStream outputStream, Integer playerID) {
+
 		printer = new Printer(new PrintStream(outputStream));
 		gameStarted = false;
 		myTurn = false;
+		this.playerID = playerID;
+		interpreter = new Interpreter(playerID);
 	}
 
 	/**
 	 * It prints infos about regions, king, nobility track and victory points.
 	 */
-	
+
 	@Override
 	public void showGameboard(GameBoard gameBoard) {
-		// TODO fix it!!
+		// FIXME
 		// print("-----REGIONS LIST-----");
 		// print("");
 		// for (RegionView regionView : mv.getRegionsView()) {
@@ -93,7 +100,7 @@ public class CLIView extends View {
 			print("Wait for your turn!");
 			return null;
 		} else
-			return Interpreter.parseString(input);
+			return interpreter.parseString(input);
 	}
 
 	@Override
@@ -124,18 +131,32 @@ public class CLIView extends View {
 	@Override
 	public void showOtherPlayersDetails() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public int getPlayerID() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void run() {
+		String input = scan.nextLine();
+		interpreter.sent(input);
+		if (!gameStarted) {
+			print("The game hasn't started yet!!!!");
+		} else if (!myTurn) {
+			print("Wait for your turn!");
+		} else
+			interpreter.parseString(input);
+		
+
 	}
 }

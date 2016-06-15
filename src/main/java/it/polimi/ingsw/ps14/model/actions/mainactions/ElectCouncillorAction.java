@@ -13,24 +13,28 @@ public class ElectCouncillorAction extends MainAction {
 	private final RegionType regionType;
 
 	// chi chiama questo metodo deve ricavare il balcone dalla region o dal king
-	public ElectCouncillorAction(Integer playerID, ColorCouncillor councillor,
-			RegionType regionType) {
+	public ElectCouncillorAction(Integer playerID, ColorCouncillor councillor,String regionTypeOrKing) {
 		super(playerID);
 		this.councillor = councillor;
-		this.regionType = regionType;
+		if(regionTypeOrKing.compareTo("KING")!=0)
+			this.regionType = RegionType.valueOf(regionTypeOrKing);
+		else 
+			regionType=null;
 	}
 
 	@Override
 	public boolean isValid(Model model) {
-
-
 		return model.getGameBoard().councillorIsAvailable(councillor);
 	}
 
 	@Override
 	public TurnState execute(TurnState previousState,Model model) {
 		Player player = id2player(super.getPlayer(), model);
-		Balcony balcony = model.getGameBoard().getRegion(regionType).getBalcony();
+		Balcony balcony ;
+		if(regionType!=null)
+			balcony=model.getGameBoard().getRegion(regionType).getBalcony();
+		else
+			balcony=model.getGameBoard().getKing().getBalcony();
 		
 		int electCouncillorPrize = 4;
 		// electCouncillor return discarded councillor, discarded councillor is
