@@ -1,43 +1,47 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
 
 public class BusinessDeck {
 
-	private List<BusinessPermit> deck;
-	private List<BusinessPermit> drawnCards;
+	private Deque<BusinessPermit> deck;
+	private Deque<BusinessPermit> drawnCards;
 
 	public BusinessDeck(List<BusinessPermit> deck) {
-		this.deck = deck;
-		drawnCards = new ArrayList<>();
+		this.deck = new ArrayDeque<>(deck);
+		drawnCards = new ArrayDeque<>();
 		shuffle();
 	}
 
 	public BusinessDeck(BusinessDeck bd) {
-		this.deck = new ArrayList<>(bd.deck.size());
+		this.deck = new ArrayDeque<>(bd.deck.size());
 		for (BusinessPermit businessPermit : bd.deck) {
 			this.deck.add(new BusinessPermit(businessPermit));
 		}
-		drawnCards = new ArrayList<>(bd.drawnCards.size());
+		drawnCards = new ArrayDeque<>(bd.drawnCards.size());
 		for (BusinessPermit businessPermit : bd.drawnCards) {
 			this.drawnCards.add(new BusinessPermit(businessPermit));
 		}
 	}
 
 	public void shuffle() {
-		Collections.shuffle(deck);
+		List<BusinessPermit> tempList = new ArrayList<>(deck);
+		Collections.shuffle(tempList);
+		deck = new ArrayDeque<>(tempList);
 	}
 
 	public BusinessPermit drawCard() {
-		BusinessPermit card = (BusinessPermit) deck.remove(0);
-		drawnCards.add(card);
+		BusinessPermit card = (BusinessPermit) deck.removeFirst();
+		drawnCards.addFirst(card);
 		return card;
 	}
 
 	public void addToBottom(BusinessPermit card) {
-		deck.add(card);
+		deck.addLast(card);
 	}
 
 	@Override

@@ -40,18 +40,34 @@ public class City {
 	}
 
 	public City(City c) {
+		
 		this.name = c.name;
 		this.color = c.color;
-		this.region = new Region(c.region);
-		this.neighborsName = new ArrayList<>(c.neighbors.size());
-		for (City city : c.neighbors) {
-			this.neighborsName.add(city.name);
+		
+		if (c.region != null) {
+			this.region = new Region(c.region);
+		} else {
+			region = null;
 		}
-		this.emporiums = new ArrayList<>(c.emporiums.size());
-		for (Player player : c.emporiums) {
-			this.emporiums.add(new Player(player));
+		
+		if (c.neighbors != null) {
+			this.neighborsName = new ArrayList<>(c.neighbors.size());
+		
+			for (City city : c.neighbors) {
+				this.neighborsName.add(city.name);
+			}
 		}
-		this.token = new BonusList(token);
+		
+		if (c.emporiums != null) {
+			this.emporiums = new ArrayList<>(c.emporiums.size());
+			for (Player player : c.emporiums) {
+				this.emporiums.add(new Player(player));
+			}
+		}
+		
+		if (c.token != null) {
+			this.token = new BonusList(c.token);
+		}
 	}
 
 	public int numEmporiumsBuilt() {

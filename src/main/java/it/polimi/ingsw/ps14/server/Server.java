@@ -129,11 +129,13 @@ public class Server {
 			}
 		}
 		
-		try {
-			serverSocket.close();
-		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE, "Error while closing the server socket.", e);
-		}
+	    if (serverSocket != null && !serverSocket.isClosed()) {
+	        try {
+	            serverSocket.close();
+	        } catch (IOException e) {
+	            LOGGER.log(Level.SEVERE, "Error when closing server socket.", e);
+	        }
+	    }
 	}
 
 

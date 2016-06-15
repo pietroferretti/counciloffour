@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps14.message;
 
-public interface Message {
+import java.io.Serializable;
+
+public interface Message extends Serializable {
 
 }

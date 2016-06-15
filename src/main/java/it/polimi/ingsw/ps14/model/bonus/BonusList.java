@@ -27,26 +27,33 @@ public class BonusList {
 
 	public BonusList(BonusList bl) {
 		this.bonuses = new ArrayList<>();
-		for (Bonus bon : bl.bonuses) {
-			if (bon instanceof BonusAssistant)
-				this.bonuses.add(new BonusAssistant(bon.getQuantity()));
-			else if (bon instanceof BonusCoin)
-				this.bonuses.add(new BonusCoin(bon.getQuantity()));
-			else if (bon instanceof BonusMainAction)
-				this.bonuses.add(new BonusMainAction(bon.getQuantity()));
-			else if (bon instanceof BonusNobility)
-				this.bonuses.add(new BonusNobility(bon.getQuantity()));
-			else if (bon instanceof BonusPoliticCard)
-				this.bonuses.add(new BonusPoliticCard(bon.getQuantity()));
-			else if (bon instanceof BonusVictoryPoint)
-				this.bonuses.add(new BonusVictoryPoint(bon.getQuantity()));
+		
+		if (bl.bonuses != null) {
+			for (Bonus bon : bl.bonuses) {
+				if (bon instanceof BonusAssistant)
+					this.bonuses.add(new BonusAssistant(bon.getQuantity()));
+				else if (bon instanceof BonusCoin)
+					this.bonuses.add(new BonusCoin(bon.getQuantity()));
+				else if (bon instanceof BonusMainAction)
+					this.bonuses.add(new BonusMainAction(bon.getQuantity()));
+				else if (bon instanceof BonusNobility)
+					this.bonuses.add(new BonusNobility(bon.getQuantity()));
+				else if (bon instanceof BonusPoliticCard)
+					this.bonuses.add(new BonusPoliticCard(bon.getQuantity()));
+				else if (bon instanceof BonusVictoryPoint)
+					this.bonuses.add(new BonusVictoryPoint(bon.getQuantity()));
+			}
 		}
 	}
 
-	public List<Bonus> getBonusCard() {
+	public List<Bonus> getListOfBonuses() {
 		return bonuses;
 	}
 
+	public Bonus getBonus(int index) {
+		return bonuses.get(index);
+	}
+	
 	/**
 	 * use bonus according bonus type
 	 * 

@@ -68,7 +68,7 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		region.getBusinessPermits().substituteCard(permitTile);
 
 		// TODO: bonus
-		permitTile.getBonus().useBonus(player, model);
+		permitTile.getBonusList().useBonus(player, model);
 
 		return nextState(previousState,player);
 	}

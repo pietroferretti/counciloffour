@@ -19,8 +19,6 @@ public class BusinessPermit implements Card {
 		this.cities = cities;
 		this.bonus = bonus;
 	}
-	
-
 
 	public BusinessPermit(BusinessPermit bp) {
 		this.cities = new ArrayList<>();
@@ -35,7 +33,7 @@ public class BusinessPermit implements Card {
 		return cities;
 	}
 
-	public BonusList getBonus() {
+	public BonusList getBonusList() {
 		return bonus;
 	}
 	
@@ -44,8 +42,8 @@ public class BusinessPermit implements Card {
 	}
 
 	public Integer getId() {
-	return id;
-}
+		return id;
+	}
 
 	/**
 	 * Check if city parameter is contained in the cities declared in the
@@ -56,9 +54,13 @@ public class BusinessPermit implements Card {
 	 * @return true is it is contained, false if it is NOT contained
 	 */
 	public boolean contains(City city) {
-		for (City cty : cities)
-			if (cty.equals(city))
+		
+		for (City cty : cities) {
+			if (cty.equals(city)) {
 				return true;
+			}
+		}
+		
 		return false;
 	}
 

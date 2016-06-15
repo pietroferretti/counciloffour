@@ -76,7 +76,7 @@ public class Printer {
 		printCitiesName(businessPermit.getCities());
 		print("");
 		print("Bonus: ");
-		printBonuses(businessPermit.getBonus().getBonusCard());
+		printBonuses(businessPermit.getBonusList().getListOfBonuses());
 	}
 
 	private void printBusinessPermitsRegion(BusinessPermit[] businessPermits) {
@@ -101,7 +101,7 @@ public class Printer {
 		int i = 1;
 		for (BusinessPermit businessPermit : usedCards) {
 			output.format("%d° used bonus:%n", i);
-			printBonuses(businessPermit.getBonus().getBonusCard());
+			printBonuses(businessPermit.getBonusList().getListOfBonuses());
 		}
 	}
 
@@ -147,7 +147,7 @@ public class Printer {
 		print("Neighbors:");
 		printCitiesName(city.getNeighbors());
 		print("Bonus:");
-		printBonuses(city.getToken().getBonusCard());
+		printBonuses(city.getToken().getListOfBonuses());
 		print("");
 	}
 

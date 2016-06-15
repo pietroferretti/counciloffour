@@ -33,7 +33,7 @@ public class BonusFromTokens extends SpecialNobilityBonus {
 		for (City c : model.getGameBoard().getCities()) {
 			isValid = true;
 			if (c.isEmporiumBuilt(player)) {
-				for (Bonus b : c.getToken().getBonusCard())
+				for (Bonus b : c.getToken().getListOfBonuses())
 					if (b instanceof BonusNobility)
 						isValid = false;
 				if (isValid)
