@@ -22,6 +22,10 @@ public class AcquireBusinessPermiteTileActionTest {
 
 	@Test
 	public void test() throws IOException {
+		
+		
+		//FIXME dipende troppo da variabili casuali 
+		
 		Settings settingsInstance = null;
 		try {
 			settingsInstance = new Settings("settings.json");
@@ -33,19 +37,31 @@ public class AcquireBusinessPermiteTileActionTest {
 		List<Player> pls=new ArrayList<>();
 		List<PoliticCard> cards=new ArrayList<>();
 //		cards.add(new PoliticCard(ColorPolitic.BLACK));
-		cards.add(new PoliticCard(ColorPolitic.JOLLY));
+//		cards.add(new PoliticCard(ColorPolitic.JOLLY));
 //		cards.add(new PoliticCard(ColorPolitic.PINK));
-		Player player=new Player("ubaldo",Color.DARK_GRAY,20,12,model.getGameBoard().getPoliticDeck(),6);
+		Player player=new Player("ubaldo",Color.DARK_GRAY,20,12,model.getGameBoard().getPoliticDeck(),4);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
 
-		System.out.println(player.toString());
+		cards.add(new PoliticCard(player.getHand().get(0)));
+		cards.add(new PoliticCard(player.getHand().get(1)));
+		cards.add(new PoliticCard(player.getHand().get(3)));
+
 		
 		MainAction action = new AcquireBusinessPermiteTileAction(player.getId(), RegionType.COAST, model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].getId(), cards);
+		
+		System.out.println(player.getHand().toString());
+
 		assertEquals(action.isValid(model),true);
+		
+		System.out.println( model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].getBonus().getBonusCard().toString());
+
+		
 		action.execute(null, model);
 		
-		System.out.println(player.toString());
+		System.out.println(player.getHand().toString());
+
+		System.out.println(player.getHand().toString());
 
 	}
 
