@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
 
 /*
  * Questa classe viene introdotta per disaccoppiare il model dalla view
@@ -37,9 +38,6 @@ public class ModelView extends Observable implements Observer {
 		// TODO Ancora tutto da scrivere, copiare tutti i componenti dal model
 
 		playersView = new ArrayList<>(model.getPlayers().size());
-		regionsView = new ArrayList<>(model.getGameBoard().getRegions().size());
-		kingView = new KingView(model.getGameBoard().getKing());
-		nobilityTrackView = new NobilityTrackView(model.getGameBoard().getNobilityTrack());
 
 		// add a playerView for each player
 		int index = 0;
@@ -49,6 +47,30 @@ public class ModelView extends Observable implements Observer {
 			player.addObserver(playersView.get(index));
 			index++;
 		}
+
+		regionsView = new ArrayList<>(model.getGameBoard().getRegions().size());
+
+		int i = 0;
+		for (Region region : model.getGameBoard().getRegions()) {
+			regionsView.add(new RegionView(new Region(region)));
+			region.addObserver(regionsView.get(i));
+			i++;
+		}
+
+		kingView = new KingView(model.getGameBoard().getKing());
+		model.getGameBoard().getKing().addObserver(kingView);
+
+		nobilityTrackView = new NobilityTrackView(model.getGameBoard().getNobilityTrack());
+		model.getGameBoard().getNobilityTrack().addObserver(nobilityTrackView);
+
+		gamePhaseView = new GamePhaseView(model.getGamePhase());
+		model.addObserver(gamePhaseView);
+
+		currentPlayerView = new CurrentPlayerView(model.getCurrentPlayer().getName(), model.getCurrentPlayer().getId());
+		model.addObserver(currentPlayerView);
+
+		currentMarketStateView = new MarketStateView(model.getCurrentMarketState());
+		model.addObserver(currentMarketStateView);
 
 		// ModelView observes each playerView
 		for (PlayerView playerView : playersView) {
@@ -62,7 +84,9 @@ public class ModelView extends Observable implements Observer {
 
 		kingView.addObserver(this);
 		nobilityTrackView.addObserver(this);
-
+		gamePhaseView.addObserver(this);
+		currentPlayerView.addObserver(this);
+		currentMarketStateView.addObserver(this);
 	}
 
 	@Override
