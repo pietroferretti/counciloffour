@@ -37,7 +37,6 @@ public class Interpreter {
 		// DRAW
 		case "DRAW":
 			return (new ActionMsg(new DrawCardAction(playerID)));
-			break;
 
 		// ELECT COLOR REGIONTYPE_KING
 		case "ELECT":
@@ -55,7 +54,7 @@ public class Interpreter {
 			if (st == null)
 				return null;
 			return (new ActionMsg(new ElectCouncillorAction(playerID, cc, st)));
-			break;
+			
 
 		//ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
 		case "ACQUIRE":
@@ -72,16 +71,14 @@ public class Interpreter {
 			permID=string2int(word[2]);
 			if(permID==null) return null;
 						
-			for(int i=3;i<word.length;i++)
+		//	for(int i=3;i<word.length;i++)
 	            
 			
 			
 
 		}
 
-		if (input.matches("^draw$")) {
-			return new DrawCardMsg();
-		}
+		
 
 		if (input.matches("^(main action | main)$")) {
 			// TODO STAMPA COMANDI
