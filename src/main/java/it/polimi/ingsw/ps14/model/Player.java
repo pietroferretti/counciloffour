@@ -314,7 +314,7 @@ public class Player extends Observable {
 	}
 
 
-	public void addNumEmporiums() {
+	public void incrementNumEmporiums() {
 		this.numEmporiums++;
 	}
 	
