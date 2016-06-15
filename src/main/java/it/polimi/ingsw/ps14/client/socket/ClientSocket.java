@@ -14,7 +14,7 @@ import it.polimi.ingsw.ps14.view.View;
 public class ClientSocket {
 
 	private final static int PORT = 19999;
-	private final static String IP = "192.168.43.212";
+	private final static String IP = "127.0.0.1";
 
 	View view = new CLIView(System.out);
 
