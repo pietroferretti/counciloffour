@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps14.message;
 
 public class RegionBonusesChangedMsg implements Message {
 
-	private int newBonusGold;
+	/*private int newBonusGold;
 	private int newBonusSilver;
 	private int newBonusBronze;
 	private int newBonusBlue;
@@ -28,6 +28,6 @@ public class RegionBonusesChangedMsg implements Message {
 
 	public int getNewBonusBlue() {
 		return newBonusBlue;
-	}
+	}*/
 
 }

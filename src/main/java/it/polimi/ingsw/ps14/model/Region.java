@@ -46,7 +46,7 @@ public class Region extends Observable implements Cloneable {
 		this.cities = cities;
 	}
 
-	public void addCity(City city) {
+	protected void addCity(City city) {
 		this.cities.add(city);
 	}
 
@@ -61,37 +61,28 @@ public class Region extends Observable implements Cloneable {
 		return null;
 	}
 
-	public void setBalcony(Balcony balcony) {
-		this.balcony = balcony;
-	}
-
 	public Balcony getBalcony() {
 		return balcony;
 	}
 
-	public void setBusinessPermits(BusinessCardsRegion decks) {
+	protected void setBusinessPermits(BusinessCardsRegion decks) {
 		businessPermits = decks;
+		setChanged();
+		notifyObservers();
 	}
 
 	public BusinessCardsRegion getBusinessPermits() {
 		return businessPermits;
 	}
 
-	public void setBonusRegion(BonusVictoryPoint bonusRegion) {
+	protected void setBonusRegion(BonusVictoryPoint bonusRegion) {
 		this.bonusRegion = bonusRegion;
+		setChanged();
+		notifyObservers();
 	}
 
 	public BonusVictoryPoint getBonusRegion() {
 		return bonusRegion;
-	}
-
-	@Override
-	public Region clone() throws CloneNotSupportedException {
-		Region r = new Region(balcony.readBalcony(), type);
-		r.cities = this.cities;
-		r.businessPermits = this.businessPermits;
-		r.bonusRegion = this.bonusRegion;
-		return r;
 	}
 
 }

@@ -1,9 +1,8 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
-import java.util.List;
-
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
+import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
@@ -11,13 +10,17 @@ import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AcquireBusinessPermiteTileAction extends MainAction {
 
 	private RegionType regionType;
 	private Integer permitID;
 	private List<PoliticCard> cards;
 
-	public AcquireBusinessPermiteTileAction(Integer playerID, RegionType region, Integer permitID, List<PoliticCard> politicCards) {
+	public AcquireBusinessPermiteTileAction(Integer playerID,
+			RegionType region, Integer permitID, List<PoliticCard> politicCards) {
 		super(playerID);
 		this.regionType = region;
 		this.permitID = permitID;
@@ -31,6 +34,12 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		Balcony balcony = region.getBalcony();
 		BusinessPermit permitTile = id2permit(permitID, region);
 		
+		List<ColorPolitic> colors = new ArrayList<>();
+		for (PoliticCard p : cards)
+			colors.add(p.getColor());
+
+		if (!player.hasPoliticCard(colors))
+			return false;
 		if (!balcony.cardsMatch(cards))
 			return false;
 		// TODO: send error: ERROR in color choice
@@ -44,19 +53,21 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	}
 
 	@Override
-	public TurnState execute(TurnState previousState,Model model) {
+	public TurnState execute(TurnState previousState, Model model) {
+
+		
 		
 		Player player = id2player(super.getPlayer(), model);
 		Region region = model.getGameBoard().getRegion(regionType);
 		BusinessPermit permitTile = id2permit(permitID, region);
 		Balcony balcony = region.getBalcony();
 
-
 		// pay councillors
 		player.useCoins(balcony.councillorCost(cards));
 
-		// remove cards politic used
-		player.getHand().removeAll(cards);
+		// remove politic cards used
+		for (PoliticCard pc : cards)
+			player.removeColor(pc.getColor());
 
 		// add politic cards used to gameboard
 		model.getGameBoard().getPoliticDeck().discardCards(cards);
@@ -70,7 +81,7 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		// TODO: bonus
 		permitTile.getBonusList().useBonus(player, model);
 
-		return nextState(previousState,player);
+		return nextState(previousState, player);
 	}
 
 }

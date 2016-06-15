@@ -27,11 +27,13 @@ public class KingBonusesView extends Observable implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		
 		if (!(o instanceof GameBoard)) {
 			throw new IllegalArgumentException();
 		}
-		if (arg instanceof KingBonusesChanged) {
-			showableKingBonus = ((KingBonusesChanged) arg).getKingBonusesCopy().peek();
+		
+		else {
+			showableKingBonus = ((GameBoard) o).getKingBonuses().peek();
 			setChanged();
 			notifyObservers();
 		}

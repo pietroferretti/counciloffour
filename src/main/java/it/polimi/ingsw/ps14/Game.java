@@ -38,13 +38,7 @@ public class Game {
 		
 		controller = new Controller(model, views);
 		
-		// TODO rifare tutti i clone() come costruttori
-		try {
-			modelView = new ModelView(model);
-		} catch (CloneNotSupportedException e) {
-			LOGGER.warning("Clone non supportato, riguardare il codice!");
-			throw e;
-		}
+		modelView = new ModelView(model);
 	
 		for (View view : views) {
 			modelView.addObserver(view);

@@ -3,7 +3,6 @@ package it.polimi.ingsw.ps14.model.modelview;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.model.Model;
 
 public class CurrentPlayerView extends Observable implements Observer {
@@ -16,17 +15,23 @@ public class CurrentPlayerView extends Observable implements Observer {
 		this.currentPlayerIDCopy = currentPlayerIDCopy;
 	}
 
+	public String getCurrentPlayerNameCopy() {
+		return currentPlayerNameCopy;
+	}
+
+	public int getCurrentPlayerIDCopy() {
+		return currentPlayerIDCopy;
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		if (!(o instanceof Model)) {
 			throw new IllegalArgumentException();
-		}
-		if (arg instanceof NewCurrentPlayerMsg) {
-			currentPlayerIDCopy = ((NewCurrentPlayerMsg) arg).getPlayerID();
-			currentPlayerNameCopy = ((NewCurrentPlayerMsg) arg).getPlayerName();
+		} else {
+			currentPlayerIDCopy = ((Model) o).getCurrentPlayer().getId();
+			currentPlayerNameCopy = ((Model) o).getCurrentPlayer().getName();
 			setChanged();
-			notifyObservers((NewCurrentPlayerMsg) arg);
+			notifyObservers();
 		}
 
 	}

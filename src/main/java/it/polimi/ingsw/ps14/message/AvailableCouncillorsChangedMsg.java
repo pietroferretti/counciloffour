@@ -6,7 +6,7 @@ import it.polimi.ingsw.ps14.model.ColorCouncillor;
 
 public class AvailableCouncillorsChangedMsg implements Message {
 
-	private EnumMap<ColorCouncillor, Integer> newValues;
+	/*private EnumMap<ColorCouncillor, Integer> newValues;
 
 	public AvailableCouncillorsChangedMsg(EnumMap<ColorCouncillor, Integer> newValues) {
 		this.newValues = newValues;
@@ -14,5 +14,5 @@ public class AvailableCouncillorsChangedMsg implements Message {
 
 	public EnumMap<ColorCouncillor, Integer> getNewValues() {
 		return newValues;
-	}
+	}*/
 }

@@ -21,8 +21,8 @@ public class ModelView extends Observable implements Observer {
 	private CurrentPlayerView currentPlayerView;
 
 	private GamePhaseView gamePhaseView;
-	// private TurnStateView currentTurnStateView;
-	private MarketStateView currentMarketStateView;
+	// private TurnStateView currentTurnStateView; secondo me non serve
+	private MarketStateView marketStateView;
 
 	// ------------------------GAMEBOARD--------------------
 	private List<RegionView> regionsView;
@@ -37,16 +37,13 @@ public class ModelView extends Observable implements Observer {
 
 	// private List<City> cities; non penso serva tanto passa dalla regione o
 	// no?
-	//
-
 	/*
 	 * private GameBoard gameBoard; private List<Player> players; private
 	 * List<Player> playerOrder;
 	 * 
 	 */
 
-	public ModelView(Model model) throws CloneNotSupportedException {
-		// TODO Ancora tutto da scrivere, copiare tutti i componenti dal model
+	public ModelView(Model model) {
 
 		playersView = new ArrayList<>(model.getPlayers().size());
 
@@ -80,8 +77,8 @@ public class ModelView extends Observable implements Observer {
 		currentPlayerView = new CurrentPlayerView(model.getCurrentPlayer().getName(), model.getCurrentPlayer().getId());
 		model.addObserver(currentPlayerView);
 
-		currentMarketStateView = new MarketStateView(model.getCurrentMarketState());
-		model.addObserver(currentMarketStateView);
+		marketStateView = new MarketStateView(model.getCurrentMarketState());
+		model.addObserver(marketStateView);
 
 		availableAssistantsView = new AvailableAssistantsView(model.getGameBoard().getAvailableAssistants());
 		model.getGameBoard().addObserver(availableAssistantsView);
@@ -111,7 +108,7 @@ public class ModelView extends Observable implements Observer {
 		nobilityTrackView.addObserver(this);
 		gamePhaseView.addObserver(this);
 		currentPlayerView.addObserver(this);
-		currentMarketStateView.addObserver(this);
+		marketStateView.addObserver(this);
 		availableAssistantsView.addObserver(this);
 		availableCouncillorsView.addObserver(this);
 		kingBonusesView.addObserver(this);
@@ -120,40 +117,40 @@ public class ModelView extends Observable implements Observer {
 
 	@Override
 	public void update(Observable o, Object message) {
-		// TODO check
 		if (o instanceof PlayerView) {
 			setChanged();
 			notifyObservers(message);
 		} else if (o instanceof RegionView) {
 			setChanged();
-			notifyObservers("REGIONVIEW");
+			notifyObservers(o);
 		} else if (o instanceof KingView) {
 			setChanged();
-			notifyObservers("KINGVIEW");
+			notifyObservers(o);
 		} else if (o instanceof NobilityTrackView) {
 			setChanged();
-			notifyObservers("NOBILITYTRACKVIEW");
-		} else if (o instanceof Model) {
-
+			notifyObservers(o);
+		} else if (o instanceof GamePhaseView) {
+			setChanged();
+			notifyObservers(o);
+		} else if (o instanceof CurrentPlayerView) {
+			setChanged();
+			notifyObservers(o);
+		} else if (o instanceof MarketStateView) {
+			setChanged();
+			notifyObservers(o);
+		} else if (o instanceof AvailableAssistantsView) {
+			setChanged();
+			notifyObservers(o);
+		} else if (o instanceof AvailableCouncillorsView) {
+			setChanged();
+			notifyObservers(o);
+		} else if (o instanceof KingBonusesView) {
+			setChanged();
+			notifyObservers(o);
+		} else if (o instanceof RegionBonusesView) {
+			setChanged();
+			notifyObservers(o);
 		} else
 			throw new IllegalArgumentException();
-
 	}
-
-	public List<PlayerView> getPlayersView() {
-		return playersView;
-	}
-
-	public List<RegionView> getRegionsView() {
-		return regionsView;
-	}
-
-	public KingView getKingView() {
-		return kingView;
-	}
-
-	public NobilityTrackView getNobilityTrackView() {
-		return nobilityTrackView;
-	}
-
 }

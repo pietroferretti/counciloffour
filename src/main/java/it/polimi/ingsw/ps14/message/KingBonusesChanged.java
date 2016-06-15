@@ -4,7 +4,7 @@ import java.util.Queue;
 
 public class KingBonusesChanged implements Message {
 
-	private Queue<Integer> KingBonusesCopy;
+	/*private Queue<Integer> KingBonusesCopy;
 
 	public KingBonusesChanged(Queue<Integer> kingBonusesCopy) {
 		KingBonusesCopy = kingBonusesCopy;
@@ -12,6 +12,6 @@ public class KingBonusesChanged implements Message {
 
 	public Queue<Integer> getKingBonusesCopy() {
 		return KingBonusesCopy;
-	}
+	}*/
 
 }

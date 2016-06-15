@@ -3,9 +3,7 @@ package it.polimi.ingsw.ps14.model.modelview;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.message.RegionBonusesChangedMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
-import it.polimi.ingsw.ps14.model.Player;
 
 public class RegionBonusesView extends Observable implements Observer {
 
@@ -42,15 +40,15 @@ public class RegionBonusesView extends Observable implements Observer {
 		if (!(o instanceof GameBoard)) {
 			throw new IllegalArgumentException();
 		}
-		if (arg instanceof RegionBonusesChangedMsg) {
-			bonusBlueCopy = ((RegionBonusesChangedMsg) arg).getNewBonusBlue();
-			bonusBronzeCopy = ((RegionBonusesChangedMsg) arg).getNewBonusBronze();
-			bonusSilverCopy = ((RegionBonusesChangedMsg) arg).getNewBonusSilver();
-			bonusGoldCopy = ((RegionBonusesChangedMsg) arg).getNewBonusGold();
+
+		else {
+			bonusBlueCopy = ((GameBoard) o).getBonusBlue();
+			bonusBronzeCopy = ((GameBoard) o).getBonusBronze();
+			bonusSilverCopy = ((GameBoard) o).getBonusSilver();
+			bonusGoldCopy = ((GameBoard) o).getBonusGold();
 			setChanged();
 			notifyObservers();
 		}
-
 	}
 
 }
