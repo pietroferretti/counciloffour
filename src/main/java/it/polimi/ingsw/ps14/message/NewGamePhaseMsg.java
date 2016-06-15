@@ -1,15 +1,16 @@
 package it.polimi.ingsw.ps14.message;
 
-import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.GamePhase;
 
 public class NewGamePhaseMsg {
-	private Model model;
 
-	public NewGamePhaseMsg(Model model) {
-		this.model = model;
+	private GamePhase newGamePhase;
+
+	public NewGamePhaseMsg(GamePhase newGamePhase) {
+		this.newGamePhase = newGamePhase;
 	}
 
-	public Model getModel() {
-		return model;
+	public GamePhase getNewGamePhase() {
+		return newGamePhase;
 	}
 }
