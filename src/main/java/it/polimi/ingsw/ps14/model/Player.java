@@ -24,8 +24,7 @@ public class Player extends Observable {
 	// private List<BusinessPermit> usedPermitTiles;
 	private List<PoliticCard> hand;
 	private BusinessCardsPlayer businessHand;
-	private int numEmporiums=0;
-
+	private int numEmporiums = 0;
 
 	public int additionalMainsToDo;
 
@@ -48,7 +47,8 @@ public class Player extends Observable {
 	 * @deprecated color is not random, I don't remember
 	 */
 	@Deprecated
-	public Player(String name, Color color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
+	public Player(String name, Color color, int coins, int assistants,
+			PoliticDeck deck, int numberOfCards) {
 		this.id = idCounter;
 		idCounter++;
 		this.name = name;
@@ -63,7 +63,8 @@ public class Player extends Observable {
 		// usedPermitTiles = new ArrayList<>();
 	}
 
-	public Player(int id, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
+	public Player(int id, int coins, int assistants, PoliticDeck deck,
+			int numberOfCards) {
 		this.id = id;
 		this.coins = coins;
 		this.assistants = assistants;
@@ -140,7 +141,8 @@ public class Player extends Observable {
 		if (this.coins >= coins) {
 			this.coins = this.coins - coins;
 			setChanged();
-			notifyObservers(new PlayerChangedPublicMsg(id, name + " paid " + Integer.toString(coins) + " coins!"));
+			notifyObservers(new PlayerChangedPublicMsg(id, name + " paid "
+					+ Integer.toString(coins) + " coins!"));
 			return true;
 		} else
 			return false;
@@ -149,7 +151,8 @@ public class Player extends Observable {
 	public void addCoins(int coins) {
 		this.coins = this.coins + coins;
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " earned " + Integer.toString(coins) + " coins!"));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " earned "
+				+ Integer.toString(coins) + " coins!"));
 	}
 
 	public int getAssistants() {
@@ -160,8 +163,8 @@ public class Player extends Observable {
 		if (assistants >= assistantNumber) {
 			assistants = assistants - assistantNumber;
 			setChanged();
-			notifyObservers(new PlayerChangedPublicMsg(id,
-					name + " used " + Integer.toString(assistantNumber) + " assistant(s)!"));
+			notifyObservers(new PlayerChangedPublicMsg(id, name + " used "
+					+ Integer.toString(assistantNumber) + " assistant(s)!"));
 			return true;
 		} else
 			return false;
@@ -170,8 +173,8 @@ public class Player extends Observable {
 	public void addAssistants(int assistants) {
 		this.assistants = this.assistants + assistants;
 		setChanged();
-		notifyObservers(
-				new PlayerChangedPublicMsg(id, name + " gained " + Integer.toString(assistants) + " assistant(s)!"));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained "
+				+ Integer.toString(assistants) + " assistant(s)!"));
 	}
 
 	public int getLevel() {
@@ -205,8 +208,9 @@ public class Player extends Observable {
 	public void levelUp(int n) {
 		level = level + n;
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id,
-				name + " gained +" + Integer.toString(n) + " levels! Now his level is " + Integer.toString(level)));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained +"
+				+ Integer.toString(n) + " levels! Now his level is "
+				+ Integer.toString(level)));
 	}
 
 	public int getPoints() {
@@ -216,12 +220,22 @@ public class Player extends Observable {
 	public void addPoints(int points) {
 		this.points = this.points + points;
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained +" + Integer.toString(points)
-				+ " points! Now he has " + Integer.toString(this.points)));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained +"
+				+ Integer.toString(points) + " points! Now he has "
+				+ Integer.toString(this.points)));
 	}
 
 	public List<PoliticCard> getHand() {
 		return hand;
+	}
+
+	public void removeColor(ColorPolitic color) {
+		int i=0;
+		while(i<hand.size() && hand.get(i).getColor()!=color)
+			i++;
+		if(i<hand.size() && hand.get(i).getColor()==color)
+				hand.remove(hand.get(i));
+			
 	}
 
 	public int getNumberOfCards() {
@@ -231,7 +245,8 @@ public class Player extends Observable {
 	public void addPolitic(PoliticCard card) {
 		hand.add(card);
 		setChanged();
-		notifyObservers(new PlayerChangedPrivateMsg(id, "You gain " + card.toString()));
+		notifyObservers(new PlayerChangedPrivateMsg(id, "You gain "
+				+ card.toString()));
 	}
 
 	public int getId() {
@@ -278,7 +293,8 @@ public class Player extends Observable {
 		PoliticCard card = findCardInHand(color);
 		if (hand.remove(card) == true) {
 			setChanged();
-			notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
+			notifyObservers(new PlayerChangedPublicMsg(id, name
+					+ " use a Politic card: " + card.toString()));
 			return card;
 		} else {
 			// TODO: eccezione se non trova la carta nella mano
@@ -289,7 +305,8 @@ public class Player extends Observable {
 	public void removeCard(PoliticCard card) {
 		hand.remove(card);
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
+		notifyObservers(new PlayerChangedPublicMsg(id, name
+				+ " use a Politic card: " + card.toString()));
 
 	}
 
@@ -300,7 +317,8 @@ public class Player extends Observable {
 	public void acquireBusinessPermit(BusinessPermit permitTile) {
 		businessHand.acquireBusinessPermit(permitTile);
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " acquired a business permit: " + permitTile.toString()));
+		notifyObservers(new PlayerChangedPublicMsg(id, name
+				+ " acquired a business permit: " + permitTile.toString()));
 	}
 
 	public int getNumberOfPermits() {
@@ -313,19 +331,39 @@ public class Player extends Observable {
 
 	}
 
-
 	public void incrementNumEmporiums() {
 		this.numEmporiums++;
 	}
-	
-	public int getNumEmporiums(){
+
+	public int getNumEmporiums() {
 		return this.numEmporiums;
 	}
 
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", color=" + color + ", coins=" + coins + ", assistants=" + assistants
-				+ ", level=" + level + ", points=" + points + ", hand=" + hand + ", businessHand=" + businessHand + "]";
+		return "Player [name=" + name + ", color=" + color + ", coins=" + coins
+				+ ", assistants=" + assistants + ", level=" + level
+				+ ", points=" + points + ", hand=" + hand + ", businessHand="
+				+ businessHand + "]";
+	}
+
+	/**
+	 * check if politicCards is available in player hand
+	 * 
+	 * @param color
+	 * @return
+	 */
+	public boolean hasPoliticCard(List<ColorPolitic> colors) {
+		List<ColorPolitic> copy = new ArrayList<>();
+		for (PoliticCard p : hand)
+			copy.add(p.getColor());
+
+		for (ColorPolitic cp : colors)
+			if (copy.contains(cp))
+				copy.remove(cp);
+			else
+				return false;
+		return true;
 	}
 
 }

@@ -33,7 +33,7 @@ public class CLIView extends ClientView implements Runnable {
 	private final Integer playerID;
 
 	public CLIView(OutputStream outputStream) {
-
+		
 		printer = new Printer(new PrintStream(outputStream));
 		gameStarted = false;
 		myTurn = false;
@@ -47,16 +47,15 @@ public class CLIView extends ClientView implements Runnable {
 
 	
 	public void showGameboard(GameBoard gameBoard) {
-		// FIXME
-		// print("-----REGIONS LIST-----");
-		// print("");
-		// for (RegionView regionView : mv.getRegionsView()) {
-		// printer.printRegions(regionView.getRegionCopy());
-		// }
-		// printer.printKing(mv.getKingView().getKingCopy());
-		// printer.printNobilityTrack(mv.getNobilityTrackView().getNobilityTrackCopy(),
-		// getPlayers());
-		// printer.printVictoryPoints(getPlayers());
+		 print("-----REGIONS LIST-----");
+		 print("");
+//		 for (RegionView regionView : mv.getRegionsView()) {
+//		 printer.printRegions(regionView.getRegionCopy());
+//		 }
+//		 printer.printKing(mv.getKingView().getKingCopy());
+//		 printer.printNobilityTrack(mv.getNobilityTrackView().getNobilityTrackCopy(),
+//		 getPlayers());
+//		 printer.printVictoryPoints(getPlayers());
 	}
 
 	/**
@@ -153,12 +152,17 @@ public class CLIView extends ClientView implements Runnable {
 	public void run() {
 		String input = scan.nextLine();
 		interpreter.sent(input);
+		Message msg;
 		if (!gameStarted) {
 			print("The game hasn't started yet!!!!");
 		} else if (!myTurn) {
 			print("Wait for your turn!");
-		} else
-			interpreter.parseString(input);
+		} else{
+			msg=interpreter.parseString(input);
+			if(msg==null)
+				print("Input error! Retry:");
+			//else TODO invia msg
+		}
 	}
 	
 }

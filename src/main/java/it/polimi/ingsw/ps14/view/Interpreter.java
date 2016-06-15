@@ -1,13 +1,22 @@
 package it.polimi.ingsw.ps14.view;
 
 import it.polimi.ingsw.ps14.message.ActionMsg;
+import it.polimi.ingsw.ps14.message.ChooseUsedPermitMsg;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.Action;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.ElectCouncillorAction;
+import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTilesAction;
+import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
+import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
+import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +39,11 @@ public class Interpreter {
 	}
 
 	public Message parseString(String input) {
+		RegionType rt;
+		Integer permID;
+		ColorCouncillor cc;
+		List<PoliticCard> politics = new ArrayList<>();
+		String st;
 		String[] word = input.split(" ");
 
 		switch (word[0]) {
@@ -38,13 +52,10 @@ public class Interpreter {
 		case "DRAW":
 			return (new ActionMsg(new DrawCardAction(playerID)));
 
-		// ELECT COLOR REGIONTYPE_KING
+			// ELECT COLOR REGIONTYPE_KING
 		case "ELECT":
 			if (word.length != 3)
 				return null;
-
-			ColorCouncillor cc;
-			String st;
 
 			cc = string2colorCouncillor(word[1]);
 			st = string2regionTypeKing(word[2]);
@@ -54,60 +65,115 @@ public class Interpreter {
 			if (st == null)
 				return null;
 			return (new ActionMsg(new ElectCouncillorAction(playerID, cc, st)));
-			
 
-		//ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
+			// ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
 		case "ACQUIRE":
-			if(word.length < 4) return null;
-			
-			RegionType rt;
-			Integer permID;
-			List<PoliticCard> politics=new ArrayList<>();
-			PoliticCard pc;
-			
-			rt=string2RegionType(word[1]);
-			if(rt==null) return null;
-			
-			permID=string2int(word[2]);
-			if(permID==null) return null;
-						
-		//	for(int i=3;i<word.length;i++)
-	        //FIXME    
-			
-			
+			if (word.length < 4)
+				return null;
 
+			rt = string2RegionType(word[1]);
+			if (rt == null)
+				return null;
+
+			permID = string2int(word[2]);
+			if (permID == null)
+				return null;
+
+			for (int i = 3; i < word.length; i++)
+				politics.add(string2politicCard(word[i]));
+
+			return new ActionMsg(new AcquireBusinessPermiteTileAction(permID,
+					rt, permID, politics));
+
+			// BUILD-WITH-KING CITYname CARDS
+		case "BUILD-WITH-KING":
+
+			if (word.length < 3)
+				return null;
+
+			String city = word[1];
+
+			for (int i = 3; i < word.length; i++)
+				politics.add(string2politicCard(word[i]));
+
+			return new ActionMsg(new BuildEmporiumWithHelpOfKingAction(
+					playerID, city, politics));
+
+			// BUILD-WITH-PERMIT PERMITid CITYname
+		case "BUILD-WITH-PERMIT":
+			if (word.length != 3)
+				return null;
+			try {
+				Integer permitID = Integer.parseInt(word[1]);
+				return new ActionMsg(new BuildEmporiumUsingPermitTileAction(
+						playerID, permitID, word[2]));
+			} catch (NumberFormatException e) {
+				return null;
+			}
+
+			// ENGAGE
+		case "ENGAGE":
+			if (word.length != 1)
+				return null;
+			return new ActionMsg(new EngageAssistantAction(playerID));
+
+			// CHANGE REGIONTYPE
+		case "CHANGE":
+			if (word.length != 2)
+				return null;
+			rt = string2RegionType(word[1]);
+			return new ActionMsg(new ChangeBusinessPermitTilesAction(playerID,
+					rt));
+
+			// MAIN
+		case "MAIN":
+			if (word.length != 1)
+				return null;
+			return new ActionMsg(
+					new PerformAdditionalMainActionAction(playerID));
+
+			// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
+		case "ELECT-WITH-ASSISTANT":
+			if (word.length != 3)
+				return null;
+			rt = string2RegionType(word[1]);
+			cc = string2colorCouncillor(word[2]);
+
+			return new ActionMsg(new SendAssistantToElectCouncillorAction(
+					playerID, rt, cc));
+
+			// USED-CARD PERMITid
+		case "USED-CARD":
+			if (word.length == 2)
+				return null;
+			try {
+				permID = Integer.parseInt(word[1]);
+				// FIXME
+				return new ChooseUsedPermitMsg(permID);
+			} catch (NumberFormatException e) {
+				return null;
+			}
+
+		default:
+			return null;
 		}
-
-			
-		
-		
-
-		if (input.matches("^(main action | main)$")) {
-			// TODO STAMPA COMANDI
-			// return new MainActionRequestMsg();
-		}
-
-		if (input.matches("^build with king(\\s*\\d*)+$")) {
-			// MA LA CITY CHE PRENDE NON è QUELLA DEL RE??
-
-			// return new MainActionRBuildEmporiumWithHelpOfKingtMsg();
-		}
-		return null;
 
 	}
 
 	private Integer string2int(String string) {
-		Integer permID=null;
+		Integer permID = null;
 		try {
-			 permID= Integer.parseInt(string);
+			permID = Integer.parseInt(string);
 		} catch (NumberFormatException e) {
-		      return null;
-		}		return permID;
+			return null;
+		}
+		return permID;
 	}
 
 	private String string2regionTypeKing(String string) {
-		
-		if(string2RegionType(string)!=null) return string;
+
+		if (string2RegionType(string) != null)
+			return string;
 		if (string.compareTo("KING") == 0)
 			return string;
 		return null;
@@ -123,8 +189,8 @@ public class Interpreter {
 		}
 		return null;
 	}
-	
-	private RegionType string2RegionType(String input){
+
+	private RegionType string2RegionType(String input) {
 		RegionType[] regions = RegionType.values();
 
 		for (RegionType reg : regions) {
@@ -133,14 +199,13 @@ public class Interpreter {
 		}
 		return null;
 	}
-	
-	private PoliticCard string2politicCard(String string){
-//		PoliticCard[] colorValue = 
-//
-//		for (PoliticCard color : colorValue) {
-//			if (color.name().compareTo(string) == 0)
-//				return PoliticCard.valueOf(word);
-//		}
+
+	private PoliticCard string2politicCard(String string) {
+		ColorPolitic[] colors = ColorPolitic.values();
+
+		for (ColorPolitic cp : colors)
+			if (string.compareTo(cp.name()) == 0)
+				return new PoliticCard(ColorPolitic.valueOf(string));
 		return null;
 	}
 }
