@@ -5,26 +5,17 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.exceptions.InvalidSettingsException;
-import it.polimi.ingsw.ps14.model.bonus.Bonus;
-import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
-import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
-import it.polimi.ingsw.ps14.model.bonus.BonusFromBusinessPermits;
-import it.polimi.ingsw.ps14.model.bonus.BonusFromTokens;
-import it.polimi.ingsw.ps14.model.bonus.BonusList;
-import it.polimi.ingsw.ps14.model.bonus.BonusMainAction;
-import it.polimi.ingsw.ps14.model.bonus.BonusNobility;
-import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
-import it.polimi.ingsw.ps14.model.bonus.BonusTakeBusinessPermits;
-import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
+import it.polimi.ingsw.ps14.model.bonus.*;
 
-public class GameBoard {
-	private static final Logger LOGGER= Logger.getLogger(Settings.class.getName());
+public class GameBoard extends Observable {
+	private static final Logger LOGGER = Logger.getLogger(Settings.class.getName());
 
 	Random random = new Random();
 
@@ -35,28 +26,28 @@ public class GameBoard {
 	private NobilityTrack nobilityTrack;
 	// HashMap to store how many councillors there are for each color
 	private EnumMap<ColorCouncillor, Integer> availableCouncillors = new EnumMap<>(ColorCouncillor.class);
-	private Integer bonusGold;
-	private Integer bonusSilver;
-	private Integer bonusBronze;
-	private Integer bonusBlue;
-	private List<Integer> bonusesKing;
+	private int bonusGold;
+	private int bonusSilver;
+	private int bonusBronze;
+	private int bonusBlue;
+	private Queue<Integer> kingBonuses;
 	private PoliticDeck politicDeck;
 
 	public GameBoard(Settings settings) {
-		
+
 		// Fill the councillors hash map
 		for (ColorCouncillor councillor : ColorCouncillor.values())
 			availableCouncillors.put(councillor, settings.availableCouncillorsEachColor);
 
 		// Set the number of assistants available in the game
 		this.availableAssistants = settings.availableAssistants;
-		
+
 		// Build the politic card deck
 		politicDeck = new PoliticDeck(settings.numColoredCards, settings.numJollyCards);
 
 		// Create Regions and Cities reading from the settings file
 		buildRegionsAndCities(settings);
-		
+
 		// Generate a King object
 		City kingStartingCity = getCityByName(settings.kingStartingCityString);
 		king = new King(generateRandomBalcony(settings.councillorsEachBalcony), kingStartingCity);
@@ -66,38 +57,42 @@ public class GameBoard {
 		bonusSilver = settings.buildingBonuses.get("bonusSilver");
 		bonusBronze = settings.buildingBonuses.get("bonusBronze");
 		bonusBlue = settings.buildingBonuses.get("bonusBlue");
-		bonusesKing = new ArrayList<>();
-		bonusesKing.add(settings.buildingBonuses.get("bonusKing1")); 
-		bonusesKing.add(settings.buildingBonuses.get("bonusKing2"));
-		bonusesKing.add(settings.buildingBonuses.get("bonusKing3"));
-		bonusesKing.add(settings.buildingBonuses.get("bonusKing4"));
-		bonusesKing.add(settings.buildingBonuses.get("bonusKing5"));
-		
+		kingBonuses = new PriorityQueue<Integer>();
+		kingBonuses.add(settings.buildingBonuses.get("bonusKing1"));
+		kingBonuses.add(settings.buildingBonuses.get("bonusKing2"));
+		kingBonuses.add(settings.buildingBonuses.get("bonusKing3"));
+		kingBonuses.add(settings.buildingBonuses.get("bonusKing4"));
+		kingBonuses.add(settings.buildingBonuses.get("bonusKing5"));
+
 		// Get the tokens
 		List<BonusList> tokens;
 		tokens = getTokensFromSettings(settings);
-		
+
 		// Randomly assign a token to each city
 		distributeTokens(tokens);
-		
+
 		// Get permit decks
-		BusinessCardsRegion permitDeckCoast = new BusinessCardsRegion(getPermitDeckFromSettings(settings, RegionType.COAST));
-		BusinessCardsRegion permitDeckHills = new BusinessCardsRegion(getPermitDeckFromSettings(settings, RegionType.HILLS));
-		BusinessCardsRegion permitDeckMountains = new BusinessCardsRegion(getPermitDeckFromSettings(settings, RegionType.MOUNTAINS));
-		
+		BusinessCardsRegion permitDeckCoast = new BusinessCardsRegion(
+				getPermitDeckFromSettings(settings, RegionType.COAST));
+		BusinessCardsRegion permitDeckHills = new BusinessCardsRegion(
+				getPermitDeckFromSettings(settings, RegionType.HILLS));
+		BusinessCardsRegion permitDeckMountains = new BusinessCardsRegion(
+				getPermitDeckFromSettings(settings, RegionType.MOUNTAINS));
+
 		// Give permit decks to each region
 		getRegion(RegionType.COAST).setBusinessPermits(permitDeckCoast);
 		getRegion(RegionType.HILLS).setBusinessPermits(permitDeckHills);
 		getRegion(RegionType.MOUNTAINS).setBusinessPermits(permitDeckMountains);
-		
+
 		// Get bonuses for each region
 		BonusVictoryPoint bonusCoast = new BonusVictoryPoint(settings.buildingBonuses.get("bonusCoast").intValue());
 		BonusVictoryPoint bonusHills = new BonusVictoryPoint(settings.buildingBonuses.get("bonusHills").intValue());
-		BonusVictoryPoint bonusMountains = new BonusVictoryPoint(settings.buildingBonuses.get("bonusMountains").intValue());
+		BonusVictoryPoint bonusMountains = new BonusVictoryPoint(
+				settings.buildingBonuses.get("bonusMountains").intValue());
 		getRegion(RegionType.COAST).setBonusRegion(bonusCoast);
 		getRegion(RegionType.HILLS).setBonusRegion(bonusHills);
 		getRegion(RegionType.MOUNTAINS).setBonusRegion(bonusMountains);
-		
+
 		// Create a NobilityTrack object
 		Map<Integer, BonusList> nobilityTrackMap = buildNobilityTrack(settings.nobilityTrack);
 		nobilityTrack = new NobilityTrack(nobilityTrackMap);
@@ -107,16 +102,14 @@ public class GameBoard {
 	/*
 	 * ------------------------- CONSTRUCTOR METHOD ---------------------------
 	 */
-	/*
-	 */
-	
+
 	void buildRegionsAndCities(Settings settings) {
 		// Build a region for each regionType, with random balconies
 		regions = new ArrayList<>();
 		for (RegionType regT : RegionType.values()) {
-			regions.add(new Region(generateRandomBalcony(settings.councillorsEachBalcony),regT));
+			regions.add(new Region(generateRandomBalcony(settings.councillorsEachBalcony), regT));
 		}
-		
+
 		// Populate the "cities" array and the Regions
 		cities = new ArrayList<>();
 		for (String cityName : settings.map.keySet()) {
@@ -126,9 +119,9 @@ public class GameBoard {
 
 			String regionString = (String) settings.map.get(cityName).get("region");
 			RegionType type = RegionType.valueOf(regionString.toUpperCase());
-			
+
 			Region cityRegion = getRegion(type);
-			
+
 			City newCity = new City(cityName, cityColor, cityRegion);
 			cities.add(newCity);
 			cityRegion.addCity(newCity);
@@ -147,24 +140,24 @@ public class GameBoard {
 			city.setNeighbors(neighborsList);
 		}
 	}
-	
+
 	BonusList buildBonusFromMap(Map<String, Integer> bonusAsMap) {
 		List<Bonus> bonuses = new ArrayList<>();
-		
-		for (Map.Entry<String, Integer> bonusEntry: bonusAsMap.entrySet()) {
+
+		for (Map.Entry<String, Integer> bonusEntry : bonusAsMap.entrySet()) {
 			String bonusType = bonusEntry.getKey();
 			int quantity = bonusEntry.getValue().intValue();
 			Bonus tempBonus = newBonusFromString(bonusType, quantity);
 			bonuses.add(tempBonus);
 		}
-		
-		return new BonusList(bonuses);		
+
+		return new BonusList(bonuses);
 	}
-	
+
 	Bonus newBonusFromString(String bonusType, int quantity) {
 		Bonus bonus;
-		
-		switch(bonusType.toLowerCase()) {
+
+		switch (bonusType.toLowerCase()) {
 		case "assistants":
 			bonus = new BonusAssistant(quantity);
 			break;
@@ -195,55 +188,55 @@ public class GameBoard {
 		default:
 			throw new InvalidSettingsException("Bonus not recognized! Check your settings file.");
 		}
-		
+
 		return bonus;
 	}
-	
+
 	Map<Integer, BonusList> buildNobilityTrack(Map<Integer, Map<String, Integer>> nobilityTrackSettings) {
 		Map<Integer, BonusList> nobilityTrackMap = new HashMap<>();
-		
-		for (Map.Entry<Integer, Map<String, Integer>> levelEntry: nobilityTrackSettings.entrySet()) {
+
+		for (Map.Entry<Integer, Map<String, Integer>> levelEntry : nobilityTrackSettings.entrySet()) {
 			Integer level = levelEntry.getKey();
 			Map<String, Integer> bonusAsMap = levelEntry.getValue();
 			BonusList bonusThisLevel = buildBonusFromMap(bonusAsMap);
 			nobilityTrackMap.put(level, bonusThisLevel);
 		}
-		
+
 		return nobilityTrackMap;
-	}	
-	
+	}
+
 	List<BonusList> getTokensFromSettings(Settings settings) {
 		List<BonusList> tokens = new ArrayList<>();
 		List<Map<String, Integer>> settingsTokens = settings.tokens;
-		
+
 		for (Map<String, Integer> tokenAsMap : settingsTokens) {
 			tokens.add(buildBonusFromMap(tokenAsMap));
 		}
-		
+
 		return tokens;
 	}
-	
+
 	void distributeTokens(List<BonusList> tokens) {
 		List<BonusList> tokensCopy = new ArrayList<>(tokens);
 		Random generator = new Random();
-		
+
 		for (City city : cities) {
 			if (city.getColor() != ColorCity.PURPLE) {
 				try {
 					BonusList token = tokensCopy.get(generator.nextInt(tokensCopy.size()));
 					city.setToken(token);
 					tokensCopy.remove(token);
-				} catch (IllegalArgumentException  e) {
+				} catch (IllegalArgumentException e) {
 					LOGGER.info("Not enough tokens! Check your settings file.");
 					throw e;
 				}
 			}
 		}
 	}
-	
+
 	List<BusinessPermit> getPermitDeckFromSettings(Settings settings, RegionType regionType) {
 		List<Map<String, Object>> settingsDeck;
-		switch(regionType) {
+		switch (regionType) {
 		case COAST:
 			settingsDeck = settings.permitDeckCoast;
 			break;
@@ -256,30 +249,30 @@ public class GameBoard {
 		default:
 			throw new InvalidSettingsException("Region type not recognised while loading permit decks.");
 		}
-		
+
 		List<BusinessPermit> permitList = new ArrayList<>();
 		for (Map<String, Object> settingsPermit : settingsDeck) {
 			BusinessPermit permit;
 			List<String> settingsCityList = (List<String>) settingsPermit.get("cities");
 			List<City> cityList = new ArrayList<>();
-			
+
 			for (String cityName : settingsCityList) {
 				cityList.add(getCityByName(cityName));
 			}
-			
+
 			Map<String, Integer> bonusMap = (Map<String, Integer>) settingsPermit.get("bonus");
 			BonusList bonusList = buildBonusFromMap(bonusMap);
 			permit = new BusinessPermit(cityList, bonusList);
 			permitList.add(permit);
 		}
-		
+
 		return permitList;
 	}
-	
+
 	/*
 	 * -------------------------- POLITIC CARD DECK ---------------------------
 	 */
-	
+
 	public PoliticDeck getPoliticDeck() {
 		return politicDeck;
 	}
@@ -295,7 +288,11 @@ public class GameBoard {
 	public Integer getAvailableCouncillors(ColorCouncillor color) {
 		return availableCouncillors.get(color);
 	}
-		
+
+	public EnumMap<ColorCouncillor, Integer> getAvailableCouncillors() {
+		return availableCouncillors;
+	}
+
 	// check if the chosen color is available
 	public boolean councillorIsAvailable(ColorCouncillor color) {
 		return getAvailableCouncillors(color) > 0;
@@ -309,26 +306,26 @@ public class GameBoard {
 			return false;
 	}
 
-	public void addDiscardedCouncillor(ColorCouncillor color){
-		availableCouncillors.put(color, availableCouncillors.get(color)+1);
+	public void addDiscardedCouncillor(ColorCouncillor color) {
+		availableCouncillors.put(color, availableCouncillors.get(color) + 1);
 	}
-	
+
 	public ColorCouncillor getRandomAvailableCouncillor() {
 		ColorCouncillor color;
-		
+
 		do {
 			color = ColorCouncillor.getRandomCouncillor();
 		} while (!councillorIsAvailable(color));
-		
+
 		return color;
 	}
-	
+
 	private Queue<ColorCouncillor> generateRandomBalcony(int councillorsEachBalcony) {
 		Queue<ColorCouncillor> tempBalcony = new PriorityQueue<>();
-		
+
 		for (int j = 0; j < councillorsEachBalcony; j++)
 			tempBalcony.add(getRandomAvailableCouncillor());
-		
+
 		return tempBalcony;
 	}
 
@@ -344,7 +341,8 @@ public class GameBoard {
 		return availableAssistants;
 	}
 
-	public boolean useAssistants(int quantity) { // TODO: ma se li considerassimo
+	public boolean useAssistants(int quantity) { // TODO: ma se li
+													// considerassimo
 													// infiniti??
 		if (availableAssistants >= quantity) {
 			availableAssistants = availableAssistants - quantity;
@@ -360,15 +358,15 @@ public class GameBoard {
 	public void addAssistants(int quantity) {
 		availableAssistants += quantity;
 	}
-	
+
 	/*
 	 * -------------------------- REGIONS ---------------------------
 	 */
 
 	public Region getRegion(RegionType type) {
 
-		for(Region regionInList: regions) {
-			if(regionInList.getType() == type) {
+		for (Region regionInList : regions) {
+			if (regionInList.getType() == type) {
 				return regionInList;
 			}
 		}
@@ -378,7 +376,7 @@ public class GameBoard {
 	public List<Region> getRegions() {
 		return regions;
 	}
-	
+
 	/*
 	 * --------------------------- KING -----------------------------
 	 */
@@ -403,7 +401,6 @@ public class GameBoard {
 		}
 		throw new InvalidSettingsException("City not found! Check your settings file?");
 	}
-	
 
 	public List<City> getCities() {
 		return cities;
@@ -413,21 +410,37 @@ public class GameBoard {
 		this.cities = cities;
 	}
 
+	public Queue<Integer> getKingBonuses() {
+		return kingBonuses;
+	}
+
 	public NobilityTrack getNobilityTrack() {
 		return nobilityTrack;
 	}
 
+	public int getBonusGold() {
+		return bonusGold;
+	}
+
+	public int getBonusSilver() {
+		return bonusSilver;
+	}
+
+	public int getBonusBronze() {
+		return bonusBronze;
+	}
+
+	public int getBonusBlue() {
+		return bonusBlue;
+	}
+
 	@Override
 	public String toString() {
-		return "GameBoard [random=" + random + ", regions=" + regions
-				+ ", king=" + king + ", cities=" + cities
-				+ ", availableAssistants=" + availableAssistants
-				+ ", nobilityTrack=" + nobilityTrack
-				+ ", availableCouncillors=" + availableCouncillors
-				+ ", bonusGold=" + bonusGold + ", bonusSilver=" + bonusSilver
-				+ ", bonusBronze=" + bonusBronze + ", bonusBlue=" + bonusBlue
-				+ ", bonusesKing=" + bonusesKing + ", politicDeck="
-				+ politicDeck + "]";
+		return "GameBoard [random=" + random + ", regions=" + regions + ", king=" + king + ", cities=" + cities
+				+ ", availableAssistants=" + availableAssistants + ", nobilityTrack=" + nobilityTrack
+				+ ", availableCouncillors=" + availableCouncillors + ", bonusGold=" + bonusGold + ", bonusSilver="
+				+ bonusSilver + ", bonusBronze=" + bonusBronze + ", bonusBlue=" + bonusBlue + ", bonusesKing="
+				+ kingBonuses + ", politicDeck=" + politicDeck + "]";
 	}
-	
+
 }

@@ -16,17 +16,28 @@ import it.polimi.ingsw.ps14.model.Region;
 
 public class ModelView extends Observable implements Observer {
 	// TODO modelview osserva model NEL MAIN
-
+	// --------------------------MODEL----------------------
 	private List<PlayerView> playersView;
-	private List<RegionView> regionsView;
-	private KingView kingView;
-	private NobilityTrackView nobilityTrackView;
-
 	private CurrentPlayerView currentPlayerView;
 
 	private GamePhaseView gamePhaseView;
 	// private TurnStateView currentTurnStateView;
 	private MarketStateView currentMarketStateView;
+
+	// ------------------------GAMEBOARD--------------------
+	private List<RegionView> regionsView;
+	private KingView kingView;
+	private NobilityTrackView nobilityTrackView;
+	private AvailableAssistantsView availableAssistantsView;
+	private AvailableCouncillorsView availableCouncillorsView;
+	private KingBonusesView kingBonusesView;
+	private RegionBonusesView regionBonusesView;
+
+	// private PoliticDeckView politicDeckView;
+
+	// private List<City> cities; non penso serva tanto passa dalla regione o
+	// no?
+	//
 
 	/*
 	 * private GameBoard gameBoard; private List<Player> players; private
@@ -72,6 +83,20 @@ public class ModelView extends Observable implements Observer {
 		currentMarketStateView = new MarketStateView(model.getCurrentMarketState());
 		model.addObserver(currentMarketStateView);
 
+		availableAssistantsView = new AvailableAssistantsView(model.getGameBoard().getAvailableAssistants());
+		model.getGameBoard().addObserver(availableAssistantsView);
+
+		availableCouncillorsView = new AvailableCouncillorsView(model.getGameBoard().getAvailableCouncillors());
+		model.getGameBoard().addObserver(availableCouncillorsView);
+
+		kingBonusesView = new KingBonusesView(model.getGameBoard().getKingBonuses().peek());
+		model.getGameBoard().addObserver(kingBonusesView);
+
+		regionBonusesView = new RegionBonusesView(model.getGameBoard().getBonusGold(),
+				model.getGameBoard().getBonusSilver(), model.getGameBoard().getBonusBronze(),
+				model.getGameBoard().getBonusBlue());
+		model.getGameBoard().addObserver(regionBonusesView);
+
 		// ModelView observes each playerView
 		for (PlayerView playerView : playersView) {
 			playerView.addObserver(this);
@@ -87,6 +112,10 @@ public class ModelView extends Observable implements Observer {
 		gamePhaseView.addObserver(this);
 		currentPlayerView.addObserver(this);
 		currentMarketStateView.addObserver(this);
+		availableAssistantsView.addObserver(this);
+		availableCouncillorsView.addObserver(this);
+		kingBonusesView.addObserver(this);
+		regionBonusesView.addObserver(this);
 	}
 
 	@Override
