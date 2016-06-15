@@ -1,10 +1,13 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.actions.TurnAction;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
@@ -12,10 +15,6 @@ import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
 
 public abstract class MainAction extends TurnAction {
 

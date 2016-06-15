@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.Test;
 
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
-import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;

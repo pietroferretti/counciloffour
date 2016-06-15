@@ -1,8 +1,6 @@
 package it.polimi.ingsw.ps14.model.actions;
 
-import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 

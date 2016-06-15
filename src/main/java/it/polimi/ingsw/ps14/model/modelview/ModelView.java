@@ -5,11 +5,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.model.GamePhase;
-import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 /*
  * Questa classe viene introdotta per disaccoppiare il model dalla view

@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
-import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusList {
 

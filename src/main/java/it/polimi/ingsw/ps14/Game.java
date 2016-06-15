@@ -9,7 +9,6 @@ import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
-import it.polimi.ingsw.ps14.server.ServerView;
 import it.polimi.ingsw.ps14.view.View;
 
 public class Game {

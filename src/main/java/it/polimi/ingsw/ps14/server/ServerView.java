@@ -2,7 +2,6 @@ package it.polimi.ingsw.ps14.server;
 
 import java.io.IOException;
 import java.util.Observable;
-import java.util.Observer;
 
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.PlayerChangedPrivateMsg;

@@ -12,7 +12,7 @@ import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
-import it.polimi.ingsw.ps14.model.bonus.*;
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
 
 public class Printer {
 

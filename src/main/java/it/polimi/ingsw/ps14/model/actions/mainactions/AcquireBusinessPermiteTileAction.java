@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
+import java.util.List;
+
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.Model;
@@ -8,8 +10,6 @@ import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-
-import java.util.List;
 
 public class AcquireBusinessPermiteTileAction extends MainAction {
 

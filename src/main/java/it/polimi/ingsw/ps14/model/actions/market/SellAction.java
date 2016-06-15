@@ -1,9 +1,9 @@
 package it.polimi.ingsw.ps14.model.actions.market;
 
+import java.util.List;
+
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.Market;
-
-import java.util.List;
 
 public class SellAction {
 

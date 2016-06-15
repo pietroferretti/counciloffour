@@ -1,5 +1,10 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.Model;
@@ -7,11 +12,6 @@ import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
 
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 

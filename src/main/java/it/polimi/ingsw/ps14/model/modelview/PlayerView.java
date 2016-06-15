@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps14.model.modelview;
 
 import java.util.Observable;
 import java.util.Observer;
+
 import it.polimi.ingsw.ps14.model.Player;
 
 public class PlayerView extends Observable implements Observer {

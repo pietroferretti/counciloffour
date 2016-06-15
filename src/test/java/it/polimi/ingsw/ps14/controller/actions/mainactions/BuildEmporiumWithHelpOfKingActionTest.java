@@ -1,14 +1,6 @@
 package it.polimi.ingsw.ps14.controller.actions.mainactions;
 
 import static org.junit.Assert.assertEquals;
-import it.polimi.ingsw.ps14.model.ColorPolitic;
-import it.polimi.ingsw.ps14.model.GameBoard;
-import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.PoliticCard;
-import it.polimi.ingsw.ps14.model.Settings;
-import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
-import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -16,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import it.polimi.ingsw.ps14.model.ColorPolitic;
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.Settings;
+import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 
 public class BuildEmporiumWithHelpOfKingActionTest {
 

@@ -1,6 +1,14 @@
 package it.polimi.ingsw.ps14.controller.actions.mainactions;
 
 import static org.junit.Assert.assertEquals;
+
+import java.awt.Color;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
@@ -11,20 +19,6 @@ import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.Settings;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
-import it.polimi.ingsw.ps14.model.bonus.Bonus;
-import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
-import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
-import it.polimi.ingsw.ps14.model.bonus.BonusList;
-import it.polimi.ingsw.ps14.model.bonus.BonusNobility;
-import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
-import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
-
-import java.awt.Color;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
 
 public class BuildEmporiumUsingPermitTileActionTest {
 

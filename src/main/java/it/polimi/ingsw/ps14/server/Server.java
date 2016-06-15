@@ -16,8 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.Game;
-import it.polimi.ingsw.ps14.controller.Controller;
-import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.view.CLIView;
 import it.polimi.ingsw.ps14.view.View;
 
