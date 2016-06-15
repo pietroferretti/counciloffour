@@ -12,7 +12,7 @@ import it.polimi.ingsw.ps14.model.modelview.ModelView;
 import it.polimi.ingsw.ps14.view.View;
 
 public class Game {
-	private static final Logger LOGGER= Logger.getLogger(Game.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
 
 	private final Model model;
 	private final ModelView modelView;

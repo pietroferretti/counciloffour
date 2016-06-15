@@ -24,134 +24,127 @@ import it.polimi.ingsw.ps14.view.View;
  */
 public class Server {
 	private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
+	
 	private static final int PORT = 19999;
 	private static final int COUNTDOWN = 20;
-	private static int IDPlayer;
+	
+	private int idCounter;
 	private ServerSocket serverSocket;
 
 	private ExecutorService executor;
 
-	private List<ConnectionSocket> connections = new ArrayList<ConnectionSocket>();
-
-	private Map<Integer, ConnectionSocket> waitingConnection = new HashMap<>();
+	private List<SocketServerView> connections = new ArrayList<>();
+	private List<SocketServerView> waitingConnections = new ArrayList<>();
 
 	private static Timer timer;
 	private TimerTask timerTask;
 	
 	private static List<Game> activeGames = new ArrayList<>();
 	
-	public Server() throws IOException {
+	public Server() {
 		timer = new Timer();
+		idCounter = 0;
 	}
 	
 	/*
 	 * Registro una connessione attiva
 	 */
-	private synchronized void registerConnection(ConnectionSocket c) {
+	private synchronized void registerConnection(SocketServerView c) {
 		connections.add(c);
 	}
 
 	/*
 	 * Deregistro una connessione
 	 */
-	public synchronized void deregisterConnection(ConnectionSocket c) {
+	public synchronized void deregisterConnection(SocketServerView c) {
 		connections.remove(c);
-		Iterator<Integer> iterator = waitingConnection.keySet().iterator();
-		while (iterator.hasNext()) {
-			if (waitingConnection.get(iterator.next()) == c) {
-				iterator.remove();
-			}
+		if (waitingConnections.contains(c)) {
+			waitingConnections.remove(c);
 		}
 	}
 
 	/*
 	 * Mi metto in attesa di un altro giocatore
 	 */
-	public synchronized void meeting(ConnectionSocket c, int idPlayer) {
-		waitingConnection.put(idPlayer, c);
-		if (waitingConnection.size() == 2) {
+	public synchronized void meeting(SocketServerView c) {
+		waitingConnections.add(c);
+		
+		if (waitingConnections.size() == 2) {
 
 			timer = new Timer();
-
 			timerTask = new TimerTask() {
+				
 				@Override
 				public void run() {
+					
 					try {
+						LOGGER.info(String.format("Creating game with %d player.", waitingConnections.size()));
 
-						List<Integer> keys = new ArrayList<>(waitingConnection.keySet());
+						List<View> views = new ArrayList<>(waitingConnections);
 
-						System.err.println("creo partita con " + keys.size() + " connessioni!");
-
-						List<View> views = new ArrayList<>();
-						for (int key : keys) {
-							if (waitingConnection.get(key) instanceof ConnectionSocket) {
-								ConnectionSocket conn = waitingConnection.get(key);
-
-								views.add(new CLIView(conn.getSocketOut()));
-								System.out.println("CREATO NUOVA VIEW");
-
-							}
-
-							// if(waitingConnection.get(key) instanceof
-							// ConnectionRMI){
-							// ??????????????????????????????????
-						}
-						
 						activeGames.add(new Game(views));
 						
-						waitingConnection.clear();
+						waitingConnections.clear();
+						
 					} catch (Exception e) {
 						LOGGER.log(Level.SEVERE, "Unexpected exception while creating a " + "new game.", e);
 					}
 				}
 			};
 			timer.schedule(timerTask, (long) COUNTDOWN * 1000);
-
 		}
-	}
-
-	public void startSocket() {
-		executor = Executors.newFixedThreadPool(128);
-		ServerSocket serverSocket;
-		try {
-			serverSocket = new ServerSocket(PORT);
-			System.out.println("SERVER SOCKET READY ON PORT " + PORT);
-		} catch (IOException e1) {
-			System.out.println("SERVER SOCKET ERROR");
-			e1.printStackTrace();
-			return;
-		}
-		while (true) {
-			try {
-				Socket newSocket = serverSocket.accept();
-				ConnectionSocket connection = new ConnectionSocket(newSocket, this, IDPlayer);
-				IDPlayer++;
-				registerConnection(connection);
-				meeting(connection, IDPlayer);
-				System.out.println("appena uscito da meeting");
-				executor.submit(connection);// like Thread.start();
-			} catch (IOException e) {
-				System.out.println("Errore di connessione!");
-			}
-		}
+		LOGGER.info("Connection added.");
 	}
 
 	public void startRMI() {
 		// idplayer ++ quando attivo una nuova connessione
+		LOGGER.warning("RMI not yet implemented");
+	}
+	
+	public void startSocket() {
+		executor = Executors.newFixedThreadPool(128);
+
+		try {
+			serverSocket = new ServerSocket(PORT);
+			LOGGER.info("SERVER SOCKET READY ON PORT " + PORT);
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "SERVER SOCKET ERROR", e);
+			return;
+		}
+		
+		boolean exit = false;
+		while (!exit) {
+			try {
+				Socket newSocket = serverSocket.accept();
+				SocketServerView connection = new SocketServerView(newSocket, this, idCounter);
+				idCounter++;
+				registerConnection(connection);
+				meeting(connection);
+
+				executor.submit(connection);
+				
+			} catch (IOException e) {
+				LOGGER.log(Level.SEVERE, "Socket connection error!", e);
+				exit = true;
+			}
+		}
+		
+		try {
+			serverSocket.close();
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "Error while closing the server socket.", e);
+		}
 	}
 
+
 	public static void main(String[] args) {
-		Server server;
-		IDPlayer = 0;
-		try {
-			server = new Server();
-			System.out.println("START RMI");
-			server.startRMI();
-			System.out.println("START SOCKET");
-			server.startSocket();
-		} catch (IOException e) {
-			System.err.println("Impossibile inizializzare il server: " + e.getMessage() + "!");
-		}
+		Server server = new Server();
+			
+		LOGGER.info("STARTING RMI SERVER");
+		server.startRMI();
+		
+		LOGGER.info("STARTING SOCKET SERVER");
+		server.startSocket();
 	}
 
 }
