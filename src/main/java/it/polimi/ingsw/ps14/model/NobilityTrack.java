@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Observable;
 
@@ -10,7 +11,7 @@ import it.polimi.ingsw.ps14.model.bonus.BonusList;
  * This class contains all the bonuses a player can get when leveling up on the
  * nobility track.
  */
-public class NobilityTrack extends Observable implements Cloneable {
+public class NobilityTrack extends Observable {
 	/*
 	 * TODO Se abbiamo sbatti possiamo fare delle classi per i bonus speciali,
 	 * poi caricarli in NobilityTrack all'inizializzazione del gioco +
@@ -21,9 +22,18 @@ public class NobilityTrack extends Observable implements Cloneable {
 	public NobilityTrack() {
 		bonusesByLevel = new HashMap<>();
 	}
-	
+
 	public NobilityTrack(Map<Integer, BonusList> bonusesByLevel) {
-		this.bonusesByLevel = bonusesByLevel; 
+		this.bonusesByLevel = bonusesByLevel;
+	}
+
+	public NobilityTrack(NobilityTrack nt) {
+
+		bonusesByLevel = new HashMap<>(nt.bonusesByLevel.size());
+
+		for (Map.Entry<Integer, BonusList> entry : nt.bonusesByLevel.entrySet()) {
+			this.bonusesByLevel.put(entry.getKey(), new BonusList(entry.getValue()));
+		}
 	}
 
 	/**
@@ -36,7 +46,7 @@ public class NobilityTrack extends Observable implements Cloneable {
 	public boolean useBonus(Player player, Model model) {
 		int nobilityLevel = player.getLevel();
 		BonusList bonusThisLevel = bonusesByLevel.get(new Integer(nobilityLevel));
-		
+
 		if (bonusThisLevel != null) {
 			bonusThisLevel.useBonus(player, model);
 			return true;
@@ -44,19 +54,18 @@ public class NobilityTrack extends Observable implements Cloneable {
 			return false;
 		}
 	}
-	
+
 	public boolean bonusExistsAtLevel(int level) {
 		return bonusesByLevel.get(level) != null;
 	}
 
 	@Override
 	public String toString() {
-		// TODO
-		throw new UnsupportedOperationException();
+		String s = "NOBILITY TRACK:%n";
+		for (Map.Entry<Integer, BonusList> entry : bonusesByLevel.entrySet()) {
+			s = s + "%nlevel: " + Integer.toString(entry.getKey()) + " bonus: " + entry.getValue().toString();
+		}
+		return s;
 	}
 
-	@Override
-	public NobilityTrack clone() throws CloneNotSupportedException {
-		return new NobilityTrack(new HashMap<>(bonusesByLevel));
-	}
 }
