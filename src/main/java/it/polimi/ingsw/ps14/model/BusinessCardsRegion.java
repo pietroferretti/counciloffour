@@ -31,7 +31,8 @@ public class BusinessCardsRegion {
 		}
 		this.availablePermits = new BusinessPermit[2];
 		for (int i = 0; i < availablePermits.length; i++) {
-			this.availablePermits[i] = new BusinessPermit(bcr.availablePermits[i]);
+			this.availablePermits[i] = new BusinessPermit(
+					bcr.availablePermits[i]);
 		}
 	}
 
@@ -58,10 +59,16 @@ public class BusinessCardsRegion {
 	}
 
 	public boolean cardIsFaceUp(BusinessPermit card) {
-		for (BusinessPermit busPer : availablePermits)
-			if (busPer.equals(card)) {
+		
+//		System.out.println(availablePermits[0].toString());
+//		System.out.println(availablePermits[1].toString());
+
+		for (BusinessPermit busPer : availablePermits) {			
+			if (busPer != null && busPer.getId() == card.getId()){
 				return true;
 			}
+				
+		}
 		return false;
 	}
 

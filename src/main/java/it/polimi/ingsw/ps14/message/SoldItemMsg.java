@@ -4,8 +4,12 @@ import it.polimi.ingsw.ps14.model.ItemForSale;
 
 public class SoldItemMsg {
 
+	int idSeller;
+	ItemForSale item;
+	
 	public SoldItemMsg(int idSeller, ItemForSale item) {
-		// TODO Auto-generated constructor stub
+		this.idSeller=idSeller;
+		this.item=item;
 	}
 
 	
