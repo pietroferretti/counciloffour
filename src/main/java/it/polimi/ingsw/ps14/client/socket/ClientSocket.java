@@ -16,10 +16,18 @@ public class ClientSocket{
 	private Socket socket;
 	
 	public ClientSocket() throws IOException {
-
-		socket = new Socket(IP, PORT);
-		System.out.println("Connection created");
-
+		
+		try {
+		
+			socket = new Socket(IP, PORT);
+			System.out.println("Connection created");
+		
+		} catch (IOException e) {
+			
+			LOGGER.warning(String.format("Couldn't create socket at IP '%s' on port '%d'", IP, PORT));
+			throw e;
+			
+		}
 	}
 
 	public InputStream getInputStream() {
