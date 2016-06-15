@@ -72,12 +72,14 @@ public class Interpreter {
 			if(permID==null) return null;
 						
 		//	for(int i=3;i<word.length;i++)
-	            
+	        //FIXME    
 			
 			
 
 		}
 
+			
+		
 		
 
 		if (input.matches("^(main action | main)$")) {
