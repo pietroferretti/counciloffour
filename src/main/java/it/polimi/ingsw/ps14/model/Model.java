@@ -5,26 +5,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 // TODO notify ogni volta che qualcosa viene modificato?
-public class Model extends Observable implements Cloneable {
+public class Model extends Observable {
 
 	private GameBoard gameBoard;
 	private List<Player> players;
-	
+
 	private GamePhase gamePhase;
 	private Player currentPlayer;
 	private TurnState currentTurnState;
 	private MarketState currentMarketState;
 	private List<Player> playerOrder;
-	
+
 	public Model() throws IOException {
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		players = new ArrayList<>();
 	}
-	
-	public Model(List<Player> players) throws IOException{
+
+	public Model(List<Player> players) throws IOException {
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		this.players = players;
 	}
@@ -51,8 +52,10 @@ public class Model extends Observable implements Cloneable {
 
 	/**
 	 * 
-	 * @param id - the id of the player we're looking for
-	 * @return The player with that id, null if no player in this game has that id
+	 * @param id
+	 *            - the id of the player we're looking for
+	 * @return The player with that id, null if no player in this game has that
+	 *         id
 	 */
 	public Player getIDPlayer(int id) {
 		for (Player player : players) {
@@ -62,11 +65,11 @@ public class Model extends Observable implements Cloneable {
 		// magari una exception?
 		return null;
 	}
-	
+
 	public void setGamePhase(GamePhase phase) {
 		this.gamePhase = phase;
 	}
-	
+
 	public GamePhase getGamePhase() {
 		return gamePhase;
 	}
@@ -95,7 +98,6 @@ public class Model extends Observable implements Cloneable {
 		this.currentMarketState = currentMarketState;
 	}
 
-
 	public List<Player> getPlayerOrder() {
 		return playerOrder;
 	}
@@ -106,15 +108,8 @@ public class Model extends Observable implements Cloneable {
 
 	public void nextPlayer() {
 		currentPlayer = playerOrder.remove(0);
-		//TODO
 		setChanged();
-		notifyObservers(new NextPlayerMsg());
-	}
-	
-	@Override
-	public Model clone() throws CloneNotSupportedException {
-		// TODO
-		throw new CloneNotSupportedException();
+		notifyObservers(new NewCurrentPlayerMsg(currentPlayer.getName(), currentPlayer.getId()));
 	}
 
 }
