@@ -33,7 +33,6 @@ public class Client {
 			input = scanner.nextLine().toUpperCase();
 		} while (!input.matches("^(SOCKET|RMI)$"));
 		
-		ClientView clientView = new CLIView();
 
 		// Un giorno, "CLI o GUI?"
 
@@ -46,9 +45,8 @@ public class Client {
 			
 				// messagehandlerout = new socketmessagehandlerout(socket.out)
 				MessageHandlerOut msgHandlerOut = new SocketMessageHandlerOut(new ObjectOutputStream(socket.getOutputStream()));
-				
-				// 
-				clientView.setHandlerOut(msgHandlerOut);
+				ClientView clientView = new CLIView(msgHandlerOut);
+
 				
 				// messagehandlerin = new socketmessagehandlerin(clientview)
 				MessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(clientView, new ObjectInputStream(socket.getInputStream()));

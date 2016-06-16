@@ -33,7 +33,8 @@ public class CLIView extends ClientView implements Runnable {
 	private final Integer playerID;
 	private MessageHandlerOut msgHandlerOut;
 
-	public CLIView(){
+	public CLIView(MessageHandlerOut msgHandlerOut){
+		this.msgHandlerOut=msgHandlerOut;
 		printer = new Printer(new PrintStream(System.out));
 		gameStarted = false;
 		myTurn = false;
