@@ -32,14 +32,19 @@ public class CLIView extends ClientView implements Runnable {
 	private Interpreter interpreter;
 	private final Integer playerID;
 	private MessageHandlerOut msgHandlerOut;
+	private Scanner in;
 
-	public CLIView(MessageHandlerOut msgHandlerOut){
-		this.msgHandlerOut=msgHandlerOut;
+	public CLIView(Scanner scanner) {
 		printer = new Printer(new PrintStream(System.out));
 		gameStarted = false;
 		myTurn = false;
 		this.playerID = 0;
 		interpreter = new Interpreter();
+		in=scanner;
+	}
+
+	public void setMessageHandlerOut(MessageHandlerOut msgHandlerOut) {
+		this.msgHandlerOut = msgHandlerOut;
 	}
 
 	/**
@@ -118,12 +123,11 @@ public class CLIView extends ClientView implements Runnable {
 
 	@Override
 	public void run() {
-		Scanner in = new Scanner(System.in);
 
 		while (true) {
 			print("Enter command:");
 			String input = in.nextLine();
-			
+
 			Message msg;
 			print("inserito " + input);
 			if (!gameStarted) {

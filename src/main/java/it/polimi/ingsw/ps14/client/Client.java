@@ -26,15 +26,14 @@ public class Client {
 
 		System.out.println("Welcome to Council of Four!");
 
+		// Un giorno, "CLI o GUI?"
+		ClientView clientView = new CLIView(scanner);
 
 		String input;
 		do {
 			System.out.println("Socket or RMI?");
 			input = scanner.nextLine().toUpperCase();
 		} while (!input.matches("^(SOCKET|RMI)$"));
-		
-
-		// Un giorno, "CLI o GUI?"
 
 		if (input.matches("^(SOCKET)$")) {
 
@@ -45,8 +44,9 @@ public class Client {
 			
 				// messagehandlerout = new socketmessagehandlerout(socket.out)
 				MessageHandlerOut msgHandlerOut = new SocketMessageHandlerOut(new ObjectOutputStream(socket.getOutputStream()));
-				ClientView clientView = new CLIView(msgHandlerOut);
-
+				
+				// 
+				clientView.setHandlerOut(msgHandlerOut);
 				
 				// messagehandlerin = new socketmessagehandlerin(clientview)
 				MessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(clientView, new ObjectInputStream(socket.getInputStream()));
@@ -73,7 +73,6 @@ public class Client {
 		}
 
 		// ?
-		scanner.close();
 	}
 
 }
