@@ -1,8 +1,24 @@
 package it.polimi.ingsw.ps14.view;
 
 import it.polimi.ingsw.ps14.message.ActionMsg;
+import it.polimi.ingsw.ps14.message.AssistantNumberChangedMsg;
+import it.polimi.ingsw.ps14.message.AvailableCouncillorsChangedMsg;
 import it.polimi.ingsw.ps14.message.ChooseUsedPermitMsg;
+import it.polimi.ingsw.ps14.message.EndTurnMsg;
+import it.polimi.ingsw.ps14.message.GameStartedMsg;
+import it.polimi.ingsw.ps14.message.KingBonusesChanged;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
+import it.polimi.ingsw.ps14.message.NewGamePhaseMsg;
+import it.polimi.ingsw.ps14.message.NewMarketStateMsg;
+import it.polimi.ingsw.ps14.message.PlayerChangedPrivateMsg;
+import it.polimi.ingsw.ps14.message.PlayerChangedPublicMsg;
+import it.polimi.ingsw.ps14.message.RegionBonusesChangedMsg;
+import it.polimi.ingsw.ps14.message.SoldItemMsg;
+import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
+import it.polimi.ingsw.ps14.message.UpdateGameBoardMsg;
+import it.polimi.ingsw.ps14.message.UpdateOtherPlayerMsg;
+import it.polimi.ingsw.ps14.message.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.PoliticCard;
@@ -23,22 +39,71 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Interpreter {
-	private final Integer playerID;
 	Scanner scan = new Scanner(System.in);
 
-	public Interpreter(Integer playerID) {
-		this.playerID = playerID;
-	}
+	public String parseMsg(Message msg) {
+		if (msg instanceof AssistantNumberChangedMsg) {
+			AssistantNumberChangedMsg arg = (AssistantNumberChangedMsg) msg;
 
-	public void sent(String input) {
+		}
+		if (msg instanceof AvailableCouncillorsChangedMsg) {
 
+		}
+
+		if (msg instanceof AvailableCouncillorsChangedMsg) {
+
+		}
+		if (msg instanceof EndTurnMsg) {
+
+		}
+		if (msg instanceof GameStartedMsg) {
+
+		}
+		if (msg instanceof KingBonusesChanged) {
+
+		}
+		if (msg instanceof NewCurrentPlayerMsg) {
+
+		}
+		if (msg instanceof NewGamePhaseMsg) {
+
+		}
+		if (msg instanceof NewMarketStateMsg) {
+
+		}
+		if (msg instanceof PlayerChangedPrivateMsg) {
+
+		}
+		if (msg instanceof PlayerChangedPublicMsg) {
+
+		}
+		if (msg instanceof RegionBonusesChangedMsg) {
+
+		}
+		if (msg instanceof SoldItemMsg) {
+
+		}
+		if (msg instanceof TurnFinishedMsg) {
+			// qui o in input dall'utente
+
+		}
+		if (msg instanceof UpdateOtherPlayerMsg) {
+
+		}
+		if (msg instanceof UpdateGameBoardMsg) {
+
+		}
+		if (msg instanceof UpdateThisPlayerMsg) {
+
+		}
+		return null;
 	}
 
 	public void sentAction(Action input) {
 		new ActionMsg(input);
 	}
 
-	public Message parseString(String input) {
+	public Message parseString(String input, Integer playerID) {
 		RegionType rt;
 		Integer permID;
 		ColorCouncillor cc;
@@ -153,6 +218,10 @@ public class Interpreter {
 			} catch (NumberFormatException e) {
 				return null;
 			}
+			
+		case "FINISH":
+			if(word.length!=1) return null;
+			return new TurnFinishedMsg(playerID);
 
 		default:
 			return null;

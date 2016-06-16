@@ -26,14 +26,16 @@ public class Client {
 
 		System.out.println("Welcome to Council of Four!");
 
-		// Un giorno, "CLI o GUI?"
-		ClientView clientView = new CLIView(System.out);
 
 		String input;
 		do {
 			System.out.println("Socket or RMI?");
 			input = scanner.nextLine().toUpperCase();
 		} while (!input.matches("^(SOCKET|RMI)$"));
+		
+		ClientView clientView = new CLIView();
+
+		// Un giorno, "CLI o GUI?"
 
 		if (input.matches("^(SOCKET)$")) {
 
