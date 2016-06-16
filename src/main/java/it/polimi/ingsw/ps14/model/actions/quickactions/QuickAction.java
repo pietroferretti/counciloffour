@@ -11,14 +11,18 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public abstract class QuickAction extends TurnAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3321069405772489974L;
 
 	public QuickAction(Integer playerID) {
 		super(playerID);
 	}
-	
-	protected TurnState nextState(TurnState previousState,Model model) {
-		Player player=super.id2player(getPlayer(), model);
-		
+
+	protected TurnState nextState(TurnState previousState, Model model) {
+		Player player = super.id2player(getPlayer(), model);
+
 		if (previousState instanceof CardDrawnState)
 			return new QuickActionDoneTurnState(player.additionalMainsToDo);
 		if (previousState instanceof MainActionDoneTurnState)

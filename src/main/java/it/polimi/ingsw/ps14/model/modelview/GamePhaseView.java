@@ -1,13 +1,18 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.Model;
 
-public class GamePhaseView extends Observable implements Observer {
+public class GamePhaseView extends Observable implements Observer, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2399337825927999620L;
 	private GamePhase gamePhaseCopy;
 
 	public GamePhaseView(GamePhase gamePhaseCopy) {

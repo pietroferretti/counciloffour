@@ -1,13 +1,18 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class BusinessCardsRegion {
+public class BusinessCardsRegion implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1821273532546033109L;
 	private List<BusinessPermit> deck;
 	private BusinessPermit[] availablePermits;
 
@@ -31,8 +36,7 @@ public class BusinessCardsRegion {
 		}
 		this.availablePermits = new BusinessPermit[2];
 		for (int i = 0; i < availablePermits.length; i++) {
-			this.availablePermits[i] = new BusinessPermit(
-					bcr.availablePermits[i]);
+			this.availablePermits[i] = new BusinessPermit(bcr.availablePermits[i]);
 		}
 	}
 
@@ -59,15 +63,12 @@ public class BusinessCardsRegion {
 	}
 
 	public boolean cardIsFaceUp(BusinessPermit card) {
-		
-//		System.out.println(availablePermits[0].toString());
-//		System.out.println(availablePermits[1].toString());
 
-		for (BusinessPermit busPer : availablePermits) {			
-			if (busPer != null && busPer.getId() == card.getId()){
+		for (BusinessPermit busPer : availablePermits) {
+			if (busPer != null && busPer.getId() == card.getId()) {
 				return true;
 			}
-				
+
 		}
 		return false;
 	}

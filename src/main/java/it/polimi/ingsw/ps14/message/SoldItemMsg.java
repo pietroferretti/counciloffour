@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps14.message;
 
-import it.polimi.ingsw.ps14.model.ItemForSale;
-
 public class SoldItemMsg {
 /*
 	int idSeller;

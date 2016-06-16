@@ -6,9 +6,13 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class EndTurnAction extends TurnAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1900633390342622536L;
+
 	public EndTurnAction(Integer playerID) {
 		super(playerID);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

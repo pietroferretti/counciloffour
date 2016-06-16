@@ -9,11 +9,14 @@ import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusFromTokens extends SpecialNobilityBonus {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1702851638011675183L;
+
 	public BonusFromTokens(int quantity) {
 		super(quantity);
 	}
-
-
 
 	// TODO mi serve un modo per comunicare con il giocatore
 	/**
@@ -40,10 +43,9 @@ public class BonusFromTokens extends SpecialNobilityBonus {
 					bonusChoosable.add(c.getToken());
 			}
 		}
-		
-		
+
 		model.notifyObservers(bonusChoosable);
-		//TODO: continue
+		// TODO: continue
 		// se quantity > tokens ??
 
 		// display a list of tokens to the player, remove nobility upgrades

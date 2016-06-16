@@ -1,11 +1,17 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
 
-public class City {
+public class City implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6004358049049353737L;
 
 	private final String name;
 
@@ -13,6 +19,7 @@ public class City {
 
 	private final Region region;
 
+	@SuppressWarnings("unused")
 	private RegionType regionType = null;
 
 	private List<City> neighbors;
@@ -32,8 +39,7 @@ public class City {
 		emporiums = new ArrayList<>();
 	}
 
-	public City(String name, ColorCity color, Region region,
-			List<City> neighbors, BonusList token) {
+	public City(String name, ColorCity color, Region region, List<City> neighbors, BonusList token) {
 		this.name = name;
 		this.color = color;
 		this.neighbors = neighbors;
@@ -94,8 +100,7 @@ public class City {
 			emporiums.add(player);
 			player.incrementNumEmporiums();
 		} else {
-			throw new IllegalArgumentException(
-					"Error: the player has already built an emporium in this city");
+			throw new IllegalArgumentException("Error: the player has already built an emporium in this city");
 		}
 	}
 

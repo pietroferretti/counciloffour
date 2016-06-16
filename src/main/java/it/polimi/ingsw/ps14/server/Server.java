@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
@@ -16,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.Game;
-import it.polimi.ingsw.ps14.view.CLIView;
 import it.polimi.ingsw.ps14.view.View;
 
 /*
@@ -24,10 +20,10 @@ import it.polimi.ingsw.ps14.view.View;
  */
 public class Server {
 	private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
-	
+
 	private static final int PORT = 19999;
 	private static final int COUNTDOWN = 20;
-	
+
 	private int idCounter;
 	private ServerSocket serverSocket;
 
@@ -38,14 +34,14 @@ public class Server {
 
 	private static Timer timer;
 	private TimerTask timerTask;
-	
+
 	private static List<Game> activeGames = new ArrayList<>();
-	
+
 	public Server() {
 		timer = new Timer();
 		idCounter = 0;
 	}
-	
+
 	/*
 	 * Registro una connessione attiva
 	 */
@@ -68,24 +64,24 @@ public class Server {
 	 */
 	public synchronized void meeting(SocketServerView c) {
 		waitingConnections.add(c);
-		
+
 		if (waitingConnections.size() == 2) {
 
 			timer = new Timer();
 			timerTask = new TimerTask() {
-				
+
 				@Override
 				public void run() {
-					
+
 					try {
 						LOGGER.info(String.format("Creating game with %d player.", waitingConnections.size()));
 
 						List<View> views = new ArrayList<>(waitingConnections);
 
 						activeGames.add(new Game(views));
-						
+
 						waitingConnections.clear();
-						
+
 					} catch (Exception e) {
 						LOGGER.log(Level.SEVERE, "Unexpected exception while creating a " + "new game.", e);
 					}
@@ -100,7 +96,7 @@ public class Server {
 		// idplayer ++ quando attivo una nuova connessione
 		LOGGER.warning("RMI not yet implemented");
 	}
-	
+
 	public void startSocket() {
 		executor = Executors.newFixedThreadPool(128);
 
@@ -111,7 +107,7 @@ public class Server {
 			LOGGER.log(Level.SEVERE, "SERVER SOCKET ERROR", e);
 			return;
 		}
-		
+
 		boolean exit = false;
 		while (!exit) {
 			try {
@@ -122,29 +118,28 @@ public class Server {
 				meeting(connection);
 
 				executor.submit(connection);
-				
+
 			} catch (IOException e) {
 				LOGGER.log(Level.SEVERE, "Socket connection error!", e);
 				exit = true;
 			}
 		}
-		
-	    if (serverSocket != null && !serverSocket.isClosed()) {
-	        try {
-	            serverSocket.close();
-	        } catch (IOException e) {
-	            LOGGER.log(Level.SEVERE, "Error when closing server socket.", e);
-	        }
-	    }
-	}
 
+		if (serverSocket != null && !serverSocket.isClosed()) {
+			try {
+				serverSocket.close();
+			} catch (IOException e) {
+				LOGGER.log(Level.SEVERE, "Error when closing server socket.", e);
+			}
+		}
+	}
 
 	public static void main(String[] args) {
 		Server server = new Server();
-			
+
 		LOGGER.info("STARTING RMI SERVER");
 		server.startRMI();
-		
+
 		LOGGER.info("STARTING SOCKET SERVER");
 		server.startSocket();
 	}

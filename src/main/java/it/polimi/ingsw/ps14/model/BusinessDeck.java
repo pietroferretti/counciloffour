@@ -1,13 +1,18 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-public class BusinessDeck {
+public class BusinessDeck implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8258733937074712103L;
 	private Deque<BusinessPermit> deck;
 	private Deque<BusinessPermit> drawnCards;
 

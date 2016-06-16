@@ -6,6 +6,11 @@ import it.polimi.ingsw.ps14.model.PoliticDeck;
 
 public class BonusPoliticCard extends Bonus {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4552031128366823391L;
+
 	public BonusPoliticCard(int quantity) {
 		super(quantity);
 	}

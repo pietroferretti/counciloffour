@@ -1,12 +1,17 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.Region;
 
-public class RegionView extends Observable implements Observer {
+public class RegionView extends Observable implements Observer, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9193941425700612401L;
 	private Region regionCopy;
 
 	public RegionView(Region regionCopy) {

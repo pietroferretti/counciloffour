@@ -1,12 +1,17 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.Model;
 
-public class CurrentPlayerView extends Observable implements Observer {
+public class CurrentPlayerView extends Observable implements Observer, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4547112770153965861L;
 	private String currentPlayerNameCopy;
 	private int currentPlayerIDCopy;
 

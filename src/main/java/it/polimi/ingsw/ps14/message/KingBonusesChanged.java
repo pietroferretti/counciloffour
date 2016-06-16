@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps14.message;
 
-import java.util.Queue;
-
 public class KingBonusesChanged implements Message {
 
 	/*private Queue<Integer> KingBonusesCopy;

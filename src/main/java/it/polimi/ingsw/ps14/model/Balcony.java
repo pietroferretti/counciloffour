@@ -1,11 +1,15 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class Balcony {
-
+public class Balcony implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2587226995863764413L;
 	private Queue<ColorCouncillor> councillors;
 
 	public Balcony(Queue<ColorCouncillor> initialCouncillors) {
@@ -17,7 +21,7 @@ public class Balcony {
 		for (ColorCouncillor colorCouncillor : b.councillors) {
 			this.councillors.add(colorCouncillor);
 		}
-		
+
 	}
 
 	public ColorCouncillor electCouncillor(ColorCouncillor color) {

@@ -5,6 +5,11 @@ import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusNobility extends Bonus {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4670449670079163294L;
+
 	public BonusNobility(int quantity) {
 		super(quantity);
 	}

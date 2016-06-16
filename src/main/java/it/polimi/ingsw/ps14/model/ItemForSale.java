@@ -1,7 +1,13 @@
 package it.polimi.ingsw.ps14.model;
 
-public class ItemForSale {
+import java.io.Serializable;
 
+public class ItemForSale implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6925492154183921807L;
 	/**
 	 * This class represents one item for sale. It can be a card (business or
 	 * politic) or a set of assistants. If it is a card, assistants is null. If
@@ -40,8 +46,7 @@ public class ItemForSale {
 	 *            price for each assistants
 	 * @param player
 	 */
-	public ItemForSale(Integer assistant, int priceForEachAssistant,
-			Player owner) {
+	public ItemForSale(Integer assistant, int priceForEachAssistant, Player owner) {
 		this.assistants = assistant;
 		this.price = priceForEachAssistant;
 		this.owner = owner;
@@ -61,8 +66,7 @@ public class ItemForSale {
 
 		if (item != null) {
 			if (item instanceof BusinessPermit)
-				if (!owner.getBusinessHand().checkBusinessPermit(
-						(BusinessPermit) item))
+				if (!owner.getBusinessHand().checkBusinessPermit((BusinessPermit) item))
 					return false;
 
 			if (item instanceof PoliticCard)
@@ -97,8 +101,8 @@ public class ItemForSale {
 	}
 
 	public boolean equals(ItemForSale obj) {
-		if (obj.getAssistants() == assistants && obj.getItem().equals(obj)
-				&& obj.getPrice() == price && obj.getOwner().equals(owner))
+		if (obj.getAssistants() == assistants && obj.getItem().equals(obj) && obj.getPrice() == price
+				&& obj.getOwner().equals(owner))
 			return true;
 		else
 			return false;
@@ -106,8 +110,7 @@ public class ItemForSale {
 
 	@Override
 	public String toString() {
-		return "ItemForSale [item=" + item + ", price=" + price + ", owner="
-				+ owner + "]";
+		return "ItemForSale [item=" + item + ", price=" + price + ", owner=" + owner + "]";
 	}
 
 }

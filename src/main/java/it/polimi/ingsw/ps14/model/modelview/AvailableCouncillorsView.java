@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Observable;
@@ -8,8 +9,12 @@ import java.util.Observer;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.GameBoard;
 
-public class AvailableCouncillorsView extends Observable implements Observer {
+public class AvailableCouncillorsView extends Observable implements Observer, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5160628764761062551L;
 	private EnumMap<ColorCouncillor, Integer> availableCouncillorsCopy;
 
 	public AvailableCouncillorsView(Map<ColorCouncillor, Integer> availableCouncillors) {

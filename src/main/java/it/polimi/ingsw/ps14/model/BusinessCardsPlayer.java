@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BusinessCardsPlayer implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7627943885672603400L;
 	private List<BusinessPermit> validCards;
 	private List<BusinessPermit> usedCards;
 

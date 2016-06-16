@@ -1,10 +1,16 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Observable;
 import java.util.Queue;
 
-public class King extends Observable {
+public class King extends Observable implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5853003754386331566L;
 
 	private City city;
 

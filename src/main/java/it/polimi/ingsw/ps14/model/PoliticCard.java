@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class PoliticCard implements Card,Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4425604938548305334L;
 	private final ColorPolitic color;
 
 	public PoliticCard(ColorPolitic color) {

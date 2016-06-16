@@ -1,12 +1,6 @@
 package it.polimi.ingsw.ps14.controller.actions.quickAction;
 
-import static org.junit.Assert.*;
-import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.RegionType;
-import it.polimi.ingsw.ps14.model.Settings;
-import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTilesAction;
-import it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -14,6 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.RegionType;
+import it.polimi.ingsw.ps14.model.Settings;
+import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTilesAction;
+import it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction;
 
 public class ChangeBusinessPermitTilesActionTest {
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -12,9 +13,24 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.exceptions.InvalidSettingsException;
-import it.polimi.ingsw.ps14.model.bonus.*;
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
+import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
+import it.polimi.ingsw.ps14.model.bonus.BonusCoin;
+import it.polimi.ingsw.ps14.model.bonus.BonusFromBusinessPermits;
+import it.polimi.ingsw.ps14.model.bonus.BonusFromTokens;
+import it.polimi.ingsw.ps14.model.bonus.BonusList;
+import it.polimi.ingsw.ps14.model.bonus.BonusMainAction;
+import it.polimi.ingsw.ps14.model.bonus.BonusNobility;
+import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
+import it.polimi.ingsw.ps14.model.bonus.BonusTakeBusinessPermits;
+import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
 
-public class GameBoard extends Observable {
+public class GameBoard extends Observable implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8154193006137131849L;
+
 	private static final Logger LOGGER = Logger.getLogger(Settings.class.getName());
 
 	Random random = new Random();

@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PoliticDeck implements Serializable{
+public class PoliticDeck implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8163955914204877210L;
 	private List<PoliticCard> deck;
 	private List<PoliticCard> discardedCards;
 
 	public PoliticDeck(int numColoredCards, int numJolly) {
 		deck = new ArrayList<>();
 		discardedCards = new ArrayList<>();
-		
+
 		for (int i = 0; i < numColoredCards; i++) {
 			for (ColorPolitic color : ColorPolitic.values()) {
 				if (color != ColorPolitic.JOLLY) {

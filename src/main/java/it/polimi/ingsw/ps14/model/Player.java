@@ -1,8 +1,5 @@
 package it.polimi.ingsw.ps14.model;
 
-import it.polimi.ingsw.ps14.message.PlayerChangedPrivateMsg;
-import it.polimi.ingsw.ps14.message.PlayerChangedPublicMsg;
-
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,8 +7,15 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Random;
 
+import it.polimi.ingsw.ps14.message.PlayerChangedPrivateMsg;
+import it.polimi.ingsw.ps14.message.PlayerChangedPublicMsg;
+
 public class Player extends Observable implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 479024623935337422L;
 	private static Random rand = new Random();
 	private static int idCounter = 1;
 	private final int id;

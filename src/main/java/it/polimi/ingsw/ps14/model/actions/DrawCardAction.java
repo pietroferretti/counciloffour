@@ -7,9 +7,13 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class DrawCardAction extends TurnAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4399052017170395915L;
+
 	public DrawCardAction(Integer playerID) {
 		super(playerID);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -20,12 +24,11 @@ public class DrawCardAction extends TurnAction {
 
 	@Override
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player= id2player(super.getPlayer(),model);
-		
+		Player player = id2player(super.getPlayer(), model);
+
 		player.addPolitic(model.getGameBoard().getPoliticDeck().drawCard());
 		player.additionalMainsToDo = 0;
 		return new CardDrawnState();
 	}
-
 
 }

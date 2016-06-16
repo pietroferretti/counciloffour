@@ -1,16 +1,15 @@
 package it.polimi.ingsw.ps14.view;
 
-import it.polimi.ingsw.ps14.client.ClientView;
-import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
-import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.model.GameBoard;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.modelview.ModelView;
-
 import java.io.PrintStream;
 import java.util.Observable;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
+
+import it.polimi.ingsw.ps14.client.ClientView;
+import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.modelview.ModelView;
 
 /*
  * --------------------------Command Line Interface-----------------------

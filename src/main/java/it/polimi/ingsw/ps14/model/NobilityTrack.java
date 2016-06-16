@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -10,7 +11,11 @@ import it.polimi.ingsw.ps14.model.bonus.BonusList;
  * This class contains all the bonuses a player can get when leveling up on the
  * nobility track.
  */
-public class NobilityTrack extends Observable {
+public class NobilityTrack extends Observable implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6062832074489950572L;
 	/*
 	 * TODO Se abbiamo sbatti possiamo fare delle classi per i bonus speciali,
 	 * poi caricarli in NobilityTrack all'inizializzazione del gioco +

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -8,8 +9,12 @@ import java.util.Observable;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 // TODO notify ogni volta che qualcosa viene modificato?
-public class Model extends Observable {
+public class Model extends Observable implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4787221737865002835L;
 	private GameBoard gameBoard;
 	private List<Player> players;
 

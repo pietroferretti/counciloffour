@@ -9,6 +9,10 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class ElectCouncillorAction extends MainAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7653027906566733276L;
 	private final ColorCouncillor councillor;
 	private final RegionType regionType;
 

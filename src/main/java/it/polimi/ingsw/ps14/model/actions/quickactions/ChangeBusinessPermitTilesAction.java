@@ -9,39 +9,40 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class ChangeBusinessPermitTilesAction extends QuickAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7772522018552870637L;
 	private final RegionType regType;
-	
+
 	public ChangeBusinessPermitTilesAction(Integer playerID, RegionType region) {
 		super(playerID);
 		this.regType = region;
 	}
 
 	public boolean isValid(Model model) {
-		Player player=id2player(super.getPlayer(),model);
-		Region region=model.getGameBoard().getRegion(regType);
-		
-		return (region.getBusinessPermits().cardsLeftInDeck() > 0
-					&& player.getAssistants() >= 1
-					&& region != null);
+		Player player = id2player(super.getPlayer(), model);
+		Region region = model.getGameBoard().getRegion(regType);
+
+		return (region.getBusinessPermits().cardsLeftInDeck() > 0 && player.getAssistants() >= 1 && region != null);
 	}
-	
+
 	@Override
-	public TurnState execute(TurnState previousState,Model model) {
-		Player player=id2player(super.getPlayer(),model);
-		Region region=model.getGameBoard().getRegion(regType);
-		
-		
+	public TurnState execute(TurnState previousState, Model model) {
+		Player player = id2player(super.getPlayer(), model);
+		Region region = model.getGameBoard().getRegion(regType);
+
 		player.useAssistants(1);
 		model.getGameBoard().addAssistants(1);
-		
+
 		BusinessPermit[] permitArray = region.getBusinessPermits().getAvailablePermits();
 		for (BusinessPermit card : permitArray) {
 			region.getBusinessPermits().removeBusinessPermit(card);
 			region.getBusinessPermits().addCardToDeckBottom(card);
 		}
 		region.getBusinessPermits().fillEmptySpots();
-		
-		return nextState(previousState,model);
+
+		return nextState(previousState, model);
 	}
-	
+
 }

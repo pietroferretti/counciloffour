@@ -1,13 +1,18 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
-public class BonusList {
+public class BonusList implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4986740288070659066L;
 	private final List<Bonus> bonuses;
 
 	public BonusList(List<Bonus> bonuses) {
@@ -27,7 +32,7 @@ public class BonusList {
 
 	public BonusList(BonusList bl) {
 		this.bonuses = new ArrayList<>();
-		
+
 		if (bl.bonuses != null) {
 			for (Bonus bon : bl.bonuses) {
 				if (bon instanceof BonusAssistant)
@@ -53,7 +58,7 @@ public class BonusList {
 	public Bonus getBonus(int index) {
 		return bonuses.get(index);
 	}
-	
+
 	/**
 	 * use bonus according bonus type
 	 * 

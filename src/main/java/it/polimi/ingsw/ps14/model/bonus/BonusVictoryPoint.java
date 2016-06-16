@@ -5,6 +5,10 @@ import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusVictoryPoint extends Bonus {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6153823313381004339L;
 	private boolean used;
 
 	public BonusVictoryPoint(int quantity) {

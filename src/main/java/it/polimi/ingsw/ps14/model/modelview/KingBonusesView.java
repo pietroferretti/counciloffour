@@ -1,9 +1,9 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.message.KingBonusesChanged;
 import it.polimi.ingsw.ps14.model.GameBoard;
 
 /**
@@ -13,8 +13,12 @@ import it.polimi.ingsw.ps14.model.GameBoard;
  *
  */
 
-public class KingBonusesView extends Observable implements Observer {
+public class KingBonusesView extends Observable implements Observer, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6832136279230385710L;
 	private int showableKingBonus;
 
 	public KingBonusesView(int showableKingBonus) {
@@ -27,11 +31,11 @@ public class KingBonusesView extends Observable implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+
 		if (!(o instanceof GameBoard)) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		else {
 			showableKingBonus = ((GameBoard) o).getKingBonuses().peek();
 			setChanged();

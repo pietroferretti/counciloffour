@@ -7,7 +7,12 @@ import java.util.List;
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
 
 public class BusinessPermit implements Card, Serializable {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1807264304675939603L;
+
 	static int idCounter = 0;
 
 	private final Integer id;
@@ -37,7 +42,7 @@ public class BusinessPermit implements Card, Serializable {
 	public BonusList getBonusList() {
 		return bonus;
 	}
-	
+
 	public void useBonuses(Player player, Model model) {
 		bonus.useBonus(player, model);
 	}
@@ -55,13 +60,13 @@ public class BusinessPermit implements Card, Serializable {
 	 * @return true is it is contained, false if it is NOT contained
 	 */
 	public boolean contains(City city) {
-		
+
 		for (City cty : cities) {
 			if (cty.equals(city)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 

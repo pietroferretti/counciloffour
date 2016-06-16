@@ -18,63 +18,65 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public abstract class MainAction extends TurnAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1129134728564497045L;
+
 	public MainAction(Integer playerID) {
 		super(playerID);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean isValid(Model model) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public TurnState execute(TurnState previousState,Model model) {
-		// TODO Auto-generated method stub
+	public TurnState execute(TurnState previousState, Model model) {
 		return null;
 	}
-	
-	public void useBonusNeighbors(City city,Player player,Model model) {
+
+	public void useBonusNeighbors(City city, Player player, Model model) {
 		List<City> cityVisited = new ArrayList<>();
 		PriorityQueue<City> cityToken = new PriorityQueue<>();
 		cityToken.add(city);
 		int cont = 1;
 		while (cont == 1) {
-			city=cityToken.poll();
-			cont=0;
+			city = cityToken.poll();
+			cont = 0;
 			for (City c : city.getNeighbors()) {
 				if (c.isEmporiumBuilt(player) && !cityVisited.contains(c) && !cityToken.contains(c)) {
-					c.getToken().useBonus(player,model);
+					c.getToken().useBonus(player, model);
 					cityToken.add(c);
-					cont=1;
+					cont = 1;
 				}
 			}
 			cityVisited.add(city);
 		}
 	}
 
-	
-	
-	protected BusinessPermit id2permit(Integer permitID, Player player){
-		for(BusinessPermit bp : player.getBusinessHand().getValidCards())
-			if(bp.getId()==permitID) return bp;
+	protected BusinessPermit id2permit(Integer permitID, Player player) {
+		for (BusinessPermit bp : player.getBusinessHand().getValidCards())
+			if (bp.getId() == permitID)
+				return bp;
 		return null;
 	}
-	
-	protected BusinessPermit id2permit(Integer permitID, Region region){
-		for(BusinessPermit bp : region.getBusinessPermits().getAvailablePermits())
-			if(bp.getId()==permitID) return bp;
+
+	protected BusinessPermit id2permit(Integer permitID, Region region) {
+		for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits())
+			if (bp.getId() == permitID)
+				return bp;
 		return null;
 	}
-	
-	protected City id2city(String name, Model model){
-		for(City c : model.getGameBoard().getCities())
-			if(c.getName().compareTo(name)==0)
+
+	protected City id2city(String name, Model model) {
+		for (City c : model.getGameBoard().getCities())
+			if (c.getName().compareTo(name) == 0)
 				return c;
 		return null;
 	}
-	
+
 	protected TurnState nextState(TurnState previousState, Player player) {
 		if (previousState instanceof CardDrawnState)
 			return new MainActionDoneTurnState(player.additionalMainsToDo);

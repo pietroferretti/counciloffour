@@ -15,6 +15,10 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4780505443771942777L;
 	private String cityName;
 	private List<PoliticCard> cards;
 

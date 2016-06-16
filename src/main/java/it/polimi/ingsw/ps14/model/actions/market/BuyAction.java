@@ -1,13 +1,19 @@
 package it.polimi.ingsw.ps14.model.actions.market;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 
-public class BuyAction {
+public class BuyAction implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8768443626805335203L;
 	private Market market;
 	private ItemForSale obj;
 	private Player buyer;
@@ -20,8 +26,7 @@ public class BuyAction {
 		assistantToBuy = null;
 	}
 
-	public BuyAction(Market market, ItemForSale obj, Player buyer,
-			Integer assistantToBuy) {
+	public BuyAction(Market market, ItemForSale obj, Player buyer, Integer assistantToBuy) {
 		this.market = market;
 		this.obj = obj;
 		this.buyer = buyer;
@@ -90,15 +95,12 @@ public class BuyAction {
 					item.getOwner().addCoins(item.getPrice());
 
 					if (item.getItem() instanceof BusinessPermit) {
-						item.getOwner().getBusinessHand()
-								.sellPermits((BusinessPermit) item.getItem());
-						buyer.getBusinessHand().acquireBusinessPermit(
-								(BusinessPermit) item.getItem());
+						item.getOwner().getBusinessHand().sellPermits((BusinessPermit) item.getItem());
+						buyer.getBusinessHand().acquireBusinessPermit((BusinessPermit) item.getItem());
 					}
 
 					if (item.getItem() instanceof PoliticCard) {
-						item.getOwner().getHand()
-								.remove((PoliticCard) item.getItem());
+						item.getOwner().getHand().remove((PoliticCard) item.getItem());
 						buyer.getHand().add((PoliticCard) item.getItem());
 					}
 
@@ -107,8 +109,7 @@ public class BuyAction {
 
 					buyer.useCoins(item.getPrice() * item.getAssistants());
 					buyer.addAssistants(item.getAssistants());
-					item.getOwner().addCoins(
-							item.getPrice() * item.getAssistants());
+					item.getOwner().addCoins(item.getPrice() * item.getAssistants());
 					item.getOwner().useAssistants(item.getAssistants());
 				}
 

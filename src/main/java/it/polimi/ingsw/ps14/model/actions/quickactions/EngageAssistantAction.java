@@ -6,6 +6,11 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public class EngageAssistantAction extends QuickAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8330396498177010120L;
+
 	public EngageAssistantAction(Integer playerID) {
 		super(playerID);
 	}
@@ -13,8 +18,7 @@ public class EngageAssistantAction extends QuickAction {
 	public boolean isValid(Model model) {
 		Player player = id2player(getPlayer(), model);
 
-		return (model.getGameBoard().getAvailableAssistants() >= 1 && player
-				.getCoins() >= 3);
+		return (model.getGameBoard().getAvailableAssistants() >= 1 && player.getCoins() >= 3);
 	}
 
 	public TurnState execute(TurnState previousState, Model model) {

@@ -1,12 +1,17 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
 
-public class RegionBonusesView extends Observable implements Observer {
+public class RegionBonusesView extends Observable implements Observer , Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7564102966362129716L;
 	private int bonusGoldCopy;
 	private int bonusSilverCopy;
 	private int bonusBronzeCopy;

@@ -1,10 +1,15 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Market {
+public class Market implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6466607003340777967L;
 	private List<ItemForSale> objectsForSale;
 	
 	public Market() {

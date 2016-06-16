@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -14,7 +15,11 @@ import it.polimi.ingsw.ps14.model.Region;
  * e quindi impedire eventuali modifiche non permesse al model.
  */
 
-public class ModelView extends Observable implements Observer {
+public class ModelView extends Observable implements Observer, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5876325204323947651L;
 	// TODO modelview osserva model NEL MAIN
 	// --------------------------MODEL----------------------
 	private List<PlayerView> playersView;

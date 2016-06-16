@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -7,7 +8,12 @@ import java.util.Queue;
 
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
 
-public class Region extends Observable implements Cloneable {
+public class Region extends Observable implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5272252892577316568L;
 
 	private final RegionType type;
 
