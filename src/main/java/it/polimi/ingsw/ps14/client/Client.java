@@ -43,7 +43,7 @@ public class Client {
 				ClientSocket socket = new ClientSocket();
 			
 				// messagehandlerout = new socketmessagehandlerout(socket.out)
-				MessageHandlerOut msgHandlerOut = new SocketMessageHandlerOut(new ObjectOutputStream(socket.getOutputStream()));
+				SocketMessageHandlerOut msgHandlerOut = new SocketMessageHandlerOut(new ObjectOutputStream(socket.getOutputStream()));
 				
 				// 
 				clientView.setHandlerOut(msgHandlerOut);

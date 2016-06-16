@@ -20,6 +20,7 @@ public class SocketMessageHandlerOut implements MessageHandlerOut {
 	@Override
 	public void handleMessage(Message message) {
 		try {
+			System.out.println("sto inviando");
 			socketOut.writeObject(message);
 			socketOut.flush();
 			System.out.println(String.format("Sending message %s on socket", message.toString()));	// per debug, da togliere?

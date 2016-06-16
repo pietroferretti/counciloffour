@@ -124,6 +124,10 @@ public class CLIView extends ClientView implements Runnable {
 	@Override
 	public void run() {
 
+		//per debug
+		gameStarted=true;
+		myTurn=true;
+		
 		while (true) {
 			print("Enter command:");
 			String input = in.nextLine();
@@ -132,23 +136,22 @@ public class CLIView extends ClientView implements Runnable {
 			print("inserito " + input);
 			if (!gameStarted) {
 
-				print("c");
 				print("The game hasn't started yet!!!!");
 			} else if (!myTurn) {
 
-				print("c");
 				print("Wait for your turn!");
 			} else {
-
-				print("c");
+				print("ciao");
 				msg = interpreter.parseString(input, playerID);
 				if (msg == null)
 					print("Input error! Retry:");
-				else
-					handleMessageOut(msg);
-				// else TODO invia msg
+				else{
+					print("messaggio:"+msg.toString());
+					msgHandlerOut.handleMessage(msg);
+				}
+					
+				//  invia msg
 
-				print("c");
 			}
 		}
 	}
