@@ -31,8 +31,6 @@ public class KingView extends Observable implements Observer, Serializable {
 	@Override
 	public void update(Observable o, Object arg) {
 
-		// TODO controllare
-
 		if (!(o instanceof King)) {
 			throw new IllegalArgumentException();
 		} else {

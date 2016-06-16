@@ -31,8 +31,6 @@ public class NobilityTrackView extends Observable implements Observer, Serializa
 	@Override
 	public void update(Observable o, Object arg) {
 
-		// TODO controllare
-
 		if (!(o instanceof NobilityTrack)) {
 			throw new IllegalArgumentException();
 		} else {
