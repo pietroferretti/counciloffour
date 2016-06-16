@@ -15,7 +15,7 @@ public class AvailableCouncillorsView extends Observable implements Observer, Se
 	 * 
 	 */
 	private static final long serialVersionUID = -5160628764761062551L;
-	private EnumMap<ColorCouncillor, Integer> availableCouncillorsCopy;
+	private Map<ColorCouncillor, Integer> availableCouncillorsCopy;
 
 	public AvailableCouncillorsView(Map<ColorCouncillor, Integer> availableCouncillors) {
 		availableCouncillorsCopy = new EnumMap<>(availableCouncillors);

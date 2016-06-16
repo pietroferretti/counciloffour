@@ -6,6 +6,16 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import it.polimi.ingsw.ps14.message.AvailableAssistantsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.AvailableCouncillorsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.CurrentPlayerUpdatedMsg;
+import it.polimi.ingsw.ps14.message.GamePhaseUpdatedMsg;
+import it.polimi.ingsw.ps14.message.KingBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.KingUpdatedMsg;
+import it.polimi.ingsw.ps14.message.MarketStateUpdatedMsg;
+import it.polimi.ingsw.ps14.message.NobilityTrackdUpdatedMsg;
+import it.polimi.ingsw.ps14.message.RegionBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
@@ -20,8 +30,9 @@ public class ModelView extends Observable implements Observer, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 5876325204323947651L;
+
 	// TODO modelview osserva model NEL MAIN
-	// --------------------------MODEL----------------------
+	// --------------------------MODEL------------------------
 	private List<PlayerView> playersView;
 	private CurrentPlayerView currentPlayerView;
 
@@ -29,7 +40,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 	// private TurnStateView currentTurnStateView; secondo me non serve
 	private MarketStateView marketStateView;
 
-	// ------------------------GAMEBOARD--------------------
+	// ------------------------GAMEBOARD-----------------------
 	private List<RegionView> regionsView;
 	private KingView kingView;
 	private NobilityTrackView nobilityTrackView;
@@ -127,34 +138,39 @@ public class ModelView extends Observable implements Observer, Serializable {
 			notifyObservers(message);
 		} else if (o instanceof RegionView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(new RegionUpdatedMsg(((RegionView) o).getRegionCopy()));
 		} else if (o instanceof KingView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(new KingUpdatedMsg(((KingView) o).getKingCopy()));
 		} else if (o instanceof NobilityTrackView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(new NobilityTrackdUpdatedMsg(((NobilityTrackView) o).getNobilityTrackCopy()));
 		} else if (o instanceof GamePhaseView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(new GamePhaseUpdatedMsg(((GamePhaseView) o).getGamePhaseCopy()));
 		} else if (o instanceof CurrentPlayerView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(new CurrentPlayerUpdatedMsg(((CurrentPlayerView) o).getCurrentPlayerNameCopy(),
+					((CurrentPlayerView) o).getCurrentPlayerIDCopy()));
 		} else if (o instanceof MarketStateView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(new MarketStateUpdatedMsg(((MarketStateView) o).getCurrentMarketStateCopy()));
 		} else if (o instanceof AvailableAssistantsView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(
+					new AvailableAssistantsUpdatedMsg(((AvailableAssistantsView) o).getAvailableAssistantsCopy()));
 		} else if (o instanceof AvailableCouncillorsView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(
+					new AvailableCouncillorsUpdatedMsg(((AvailableCouncillorsView) o).getAvailableCouncillorsCopy()));
 		} else if (o instanceof KingBonusesView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(new KingBonusesUpdatedMsg(((KingBonusesView) o).getShowableKingBonus()));
 		} else if (o instanceof RegionBonusesView) {
 			setChanged();
-			notifyObservers(o);
+			notifyObservers(new RegionBonusesUpdatedMsg(((RegionBonusesView) o).getBonusGoldCopy(),
+					((RegionBonusesView) o).getBonusSilverCopy(), ((RegionBonusesView) o).getBonusBronzeCopy(),
+					((RegionBonusesView) o).getBonusBlueCopy()));
 		} else
 			throw new IllegalArgumentException();
 	}
