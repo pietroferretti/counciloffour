@@ -1,16 +1,15 @@
 package it.polimi.ingsw.ps14.message;
 
-import it.polimi.ingsw.ps14.model.Player;
 
-public class UpdateOtherPlayerMsg {
+public class UpdateOtherPlayerMsg implements Message {
 
-	private final Player player;
+	private final Integer playerID;
 
-	public Player getPlayer() {
-		return player;
+	public UpdateOtherPlayerMsg(Integer playerID) {
+		this.playerID = playerID;
 	}
 
-	public UpdateOtherPlayerMsg(Player player) {
-		this.player = player;
+	public Integer getPlayerID() {
+		return playerID;
 	}
 }

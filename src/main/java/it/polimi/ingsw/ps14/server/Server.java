@@ -72,7 +72,7 @@ public class Server {
 
 				@Override
 				public void run() {
-
+					if(waitingConnections.size()>=2){
 					try {
 						LOGGER.info(String.format("Creating game with %d player.", waitingConnections.size()));
 
@@ -84,6 +84,7 @@ public class Server {
 
 					} catch (Exception e) {
 						LOGGER.log(Level.SEVERE, "Unexpected exception while creating a " + "new game.", e);
+					}
 					}
 				}
 			};

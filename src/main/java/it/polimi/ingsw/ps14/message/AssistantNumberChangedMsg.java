@@ -11,4 +11,11 @@ public class AssistantNumberChangedMsg implements Message {
 	public int getNewNumber() {
 		return newNumber;
 	}
+
+	@Override
+	public String toString() {
+		return "Assistant available now: "+newNumber;
+	}
+	
+	
 }

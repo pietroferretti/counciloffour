@@ -1,15 +1,17 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.io.PrintStream;
-import java.util.Observable;
-import java.util.Scanner;
-import java.util.concurrent.Callable;
-
 import it.polimi.ingsw.ps14.client.ClientView;
+import it.polimi.ingsw.ps14.message.EndTurnMsg;
+import it.polimi.ingsw.ps14.message.GameStartedMsg;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
+
+import java.io.PrintStream;
+import java.util.Observable;
+import java.util.Scanner;
 
 /*
  * --------------------------Command Line Interface-----------------------
@@ -20,7 +22,7 @@ import it.polimi.ingsw.ps14.model.modelview.ModelView;
 //TODO faccio stampare solo i dettagli del giocatori che ha finito il turno
 //TODO metodo per tutti i miei dettagli?
 //TODO implementare richiesta per stampa di tutto
-public class CLIView extends ClientView implements Callable {
+public class CLIView extends ClientView implements Runnable {
 
 	private Printer printer;
 	private boolean gameStarted;
@@ -35,10 +37,8 @@ public class CLIView extends ClientView implements Callable {
 		myTurn = false;
 		this.playerID = 0;
 		interpreter = new Interpreter();
-		in=scanner;
+		in = scanner;
 	}
-
-	
 
 	/**
 	 * It prints infos about regions, king, nobility track and victory points.
@@ -111,16 +111,33 @@ public class CLIView extends ClientView implements Callable {
 
 	@Override
 	public void handleMessage(Message message) {
-		interpreter.parseMsg(message);
+		String str;
+		if (message != null) {
+
+			if (message instanceof GameStartedMsg)
+				gameStarted = true;
+			else if (message instanceof EndTurnMsg)
+				myTurn = false;
+			else if (message instanceof NewCurrentPlayerMsg) {
+				print("Turno di "
+						+ ((NewCurrentPlayerMsg) message).getPlayerName());
+				if (((NewCurrentPlayerMsg) message).getPlayerID() == playerID)
+					myTurn = true;
+			} else {
+				str = interpreter.parseMsg(message);
+				if (str != null)
+					print(str);
+			}
+		}
 	}
 
 	@Override
-	public Object call() {
+	public void run() {
 
-		//per debug
-		gameStarted=true;
-		myTurn=true;
-		
+		// per debug
+		// gameStarted=true;
+		// myTurn=true;
+
 		while (true) {
 			print("Enter command:");
 			String input = in.nextLine();
@@ -138,20 +155,16 @@ public class CLIView extends ClientView implements Callable {
 				msg = interpreter.parseString(input, playerID);
 				if (msg == null)
 					print("Input error! Retry:");
-				else{
-					print("messaggio:"+msg.toString());
+				else {
+					print("messaggio:" + msg.toString());
 
 					handleMessageOut(msg);
 				}
-					
-				//  invia msg
+
+				// invia msg
 
 			}
 		}
-	}
-	
-	public void run(){
-		call();
 	}
 
 }

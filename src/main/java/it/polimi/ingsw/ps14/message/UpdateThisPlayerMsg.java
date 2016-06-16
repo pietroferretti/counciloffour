@@ -4,13 +4,13 @@ import it.polimi.ingsw.ps14.model.Player;
 
 public class UpdateThisPlayerMsg implements Message {
 	
-	private final Player player;
+	private final Integer playerID;
 
-	public UpdateThisPlayerMsg(Player player) {
-		this.player = player;
+	public UpdateThisPlayerMsg(Integer playerID) {
+		this.playerID = playerID;
 	}
 
-	public Player getPlayer() {
-		return player;
+	public Integer getPlayerID() {
+		return playerID;
 	}
 }

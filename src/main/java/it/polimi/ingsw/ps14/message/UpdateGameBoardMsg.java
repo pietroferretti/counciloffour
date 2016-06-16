@@ -1,15 +1,9 @@
 package it.polimi.ingsw.ps14.message;
 
-import it.polimi.ingsw.ps14.model.GameBoard;
 
-public class UpdateGameBoardMsg {
-	private GameBoard gameBoard;
+public class UpdateGameBoardMsg implements Message {
 
-	public UpdateGameBoardMsg(GameBoard gameBoard) {
-		this.gameBoard = gameBoard;
+	public UpdateGameBoardMsg() {
 	}
 
-	public GameBoard getGameBoard() {
-		return gameBoard;
-	}
 }

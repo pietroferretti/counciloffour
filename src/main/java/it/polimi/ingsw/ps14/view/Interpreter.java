@@ -1,19 +1,10 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import it.polimi.ingsw.ps14.message.ActionMsg;
 import it.polimi.ingsw.ps14.message.AssistantNumberChangedMsg;
 import it.polimi.ingsw.ps14.message.AvailableCouncillorsChangedMsg;
 import it.polimi.ingsw.ps14.message.ChooseUsedPermitMsg;
-import it.polimi.ingsw.ps14.message.EndTurnMsg;
-import it.polimi.ingsw.ps14.message.GameStartedMsg;
-import it.polimi.ingsw.ps14.message.KingBonusesChanged;
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.message.NewGamePhaseMsg;
 import it.polimi.ingsw.ps14.message.NewMarketStateMsg;
 import it.polimi.ingsw.ps14.message.PlayerChangedPrivateMsg;
@@ -26,9 +17,7 @@ import it.polimi.ingsw.ps14.message.UpdateOtherPlayerMsg;
 import it.polimi.ingsw.ps14.message.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
-import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
-import it.polimi.ingsw.ps14.model.PoliticDeck;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.Action;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
@@ -41,32 +30,21 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Interpreter {
 	Scanner scan = new Scanner(System.in);
 
 	public String parseMsg(Message msg) {
 		if (msg instanceof AssistantNumberChangedMsg) {
 			AssistantNumberChangedMsg arg = (AssistantNumberChangedMsg) msg;
-
+			return arg.toString();
 		}
 		if (msg instanceof AvailableCouncillorsChangedMsg) {
-
-		}
-
-		if (msg instanceof AvailableCouncillorsChangedMsg) {
-
-		}
-		if (msg instanceof EndTurnMsg) {
-
-		}
-		if (msg instanceof GameStartedMsg) {
-
-		}
-		if (msg instanceof KingBonusesChanged) {
-
-		}
-		if (msg instanceof NewCurrentPlayerMsg) {
-
+			AvailableCouncillorsChangedMsg arg = (AvailableCouncillorsChangedMsg) msg;
+			return arg.toString();
 		}
 		if (msg instanceof NewGamePhaseMsg) {
 
@@ -84,10 +62,6 @@ public class Interpreter {
 
 		}
 		if (msg instanceof SoldItemMsg) {
-
-		}
-		if (msg instanceof TurnFinishedMsg) {
-			// qui o in input dall'utente
 
 		}
 		if (msg instanceof UpdateOtherPlayerMsg) {
@@ -216,18 +190,46 @@ public class Interpreter {
 				return null;
 			try {
 				permID = Integer.parseInt(word[1]);
-				// FIXME
 				return new ChooseUsedPermitMsg(permID);
 			} catch (NumberFormatException e) {
 				return null;
 			}
-			
+			// FINISH
 		case "FINISH":
-			if(word.length!=1) return null;
+			if (word.length != 1)
+				return null;
 			return new TurnFinishedMsg(playerID);
 
-		case "prova" : 
-			return new UpdateThisPlayerMsg( new Player("ubaldo",Color.DARK_GRAY,20,12,new PoliticDeck(2,2),4));
+			// SHOW MYDETAILS/DETAILS/GAMEBOARD
+		case "SHOW":
+			if (word.length != 2)
+				return null;
+
+			if (word[1].compareTo("MYDETAILS") == 0) {
+				try {
+					playerID = Integer.parseInt(word[1]);
+					return new UpdateThisPlayerMsg(playerID);
+				} catch (NumberFormatException e) {
+					return null;
+				}
+			}
+			if (word[1].compareTo("DETAILS") == 0) {
+				try {
+					playerID = Integer.parseInt(word[1]);
+					return new UpdateOtherPlayerMsg(playerID);
+				} catch (NumberFormatException e) {
+					return null;
+				}
+			}
+			if (word[1].compareTo("GAMEBOARD") == 0) {
+				try {
+					playerID = Integer.parseInt(word[1]);
+					return new UpdateGameBoardMsg();
+				} catch (NumberFormatException e) {
+					return null;
+				}
+			}
+
 		default:
 			return null;
 		}
