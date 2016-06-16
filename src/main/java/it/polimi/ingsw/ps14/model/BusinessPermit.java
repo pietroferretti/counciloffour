@@ -70,4 +70,14 @@ public class BusinessPermit implements Card, Serializable {
 		return false;
 	}
 
+	@Override
+	// TODO aggiungere ID
+	public String toString() {
+		String s = "%nPermit to build in: ";
+		for (City city : cities) {
+			s = s + city.getName() + " ";
+		}
+		return s + "%nBonus: " + bonus.toString();
+	}
+
 }

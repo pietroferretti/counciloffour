@@ -41,52 +41,41 @@ public class Printer {
 	 */
 	private void printBonuses(List<Bonus> bonusCard) {
 		// copied from BonusList :D
-		
 
 	}
 
 	private void printBonusVictoryPoint(Bonus bon) {
-		
+
 	}
 
 	private void printBonusPoliticCard(Bonus bon) {
-		
+
 	}
 
 	private void printBonusNobility(Bonus bon) {
-		
+
 	}
 
 	private void printBonusMainAction() {
-		
+
 	}
 
 	private void printBonusCoin(Bonus bon) {
-		
+
 	}
 
 	private void printBonusAssistant(Bonus bon) {
-		
+
 	}
 
 	// -------------------------BUSINESS PERMITS---------------------------
 
 	private void printBusinessPermit(BusinessPermit businessPermit) {
-		print("Permit to build in: ");
-		printCitiesName(businessPermit.getCities());
-		print("");
-		print("Bonus: ");
-		printBonuses(businessPermit.getBonusList().getListOfBonuses());
+
 	}
 
 	private void printBusinessPermitsRegion(BusinessPermit[] businessPermits) {
-		int i = 0;
-		print("BUSINESS PERMITS:");
-		print("");
-		for (BusinessPermit businessPermit : businessPermits) {
-			output.format("%d° PERMIT:%n", i);
-			printBusinessPermit(businessPermit);
-		}
+
 	}
 
 	/**
@@ -154,17 +143,13 @@ public class Printer {
 	// ---------------------------COUNCIL----------------------------
 
 	private void printCouncil(Queue<ColorCouncillor> councillors) {
-		print("head");
-		for (ColorCouncillor colorCouncillor : councillors) {
-			output.println(colorCouncillor);
-		}
-		print("tail");
+
 	}
 
 	// ---------------------------KING-----------------------------
 
 	protected void printKing(King king) {
-		
+
 	}
 
 	// -----------------------NOBILITY TRACK-------------------------
@@ -253,26 +238,6 @@ public class Printer {
 	 * @param regions
 	 */
 	protected void printRegions(Region region) {
-
-		print("TYPE:");
-		print("");
-		output.println(region.getType());
-
-		print("BONUS:");
-		print("");
-		printBonusVictoryPoint(region.getBonusRegion());
-
-		print("COUNCIL:");
-		printCouncil(region.getBalcony().readBalcony());
-
-		printBusinessPermitsRegion(region.getBusinessPermits().getAvailablePermits());
-
-		output.format("This region contains %d cities", region.getCities().size());
-		print("");
-		print("CITIES:");
-		print("");
-		printCitiesName(region.getCities());
-		printCities(region.getCities());
 
 	}
 
