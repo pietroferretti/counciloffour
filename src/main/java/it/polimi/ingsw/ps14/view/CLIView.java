@@ -1,19 +1,16 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.Observable;
-import java.util.Scanner;
-
 import it.polimi.ingsw.ps14.client.ClientView;
-import it.polimi.ingsw.ps14.client.MessageHandlerOut;
+import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.UpdateGameBoardMsg;
-import it.polimi.ingsw.ps14.message.UpdateOtherPlayerMsg;
-import it.polimi.ingsw.ps14.message.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
+
+import java.io.PrintStream;
+import java.util.Observable;
+import java.util.Scanner;
+import java.util.concurrent.Callable;
 
 /*
  * --------------------------Command Line Interface-----------------------
@@ -24,14 +21,13 @@ import it.polimi.ingsw.ps14.model.modelview.ModelView;
 //TODO faccio stampare solo i dettagli del giocatori che ha finito il turno
 //TODO metodo per tutti i miei dettagli?
 //TODO implementare richiesta per stampa di tutto
-public class CLIView extends ClientView implements Runnable {
+public class CLIView extends ClientView implements Callable {
 
 	private Printer printer;
 	private boolean gameStarted;
 	private boolean myTurn;
 	private Interpreter interpreter;
 	private final Integer playerID;
-	private MessageHandlerOut msgHandlerOut;
 	private Scanner in;
 
 	public CLIView(Scanner scanner) {
@@ -43,9 +39,7 @@ public class CLIView extends ClientView implements Runnable {
 		in=scanner;
 	}
 
-	public void setMessageHandlerOut(MessageHandlerOut msgHandlerOut) {
-		this.msgHandlerOut = msgHandlerOut;
-	}
+	
 
 	/**
 	 * It prints infos about regions, king, nobility track and victory points.
@@ -122,7 +116,7 @@ public class CLIView extends ClientView implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	public Object call() {
 
 		//per debug
 		gameStarted=true;
@@ -147,13 +141,18 @@ public class CLIView extends ClientView implements Runnable {
 					print("Input error! Retry:");
 				else{
 					print("messaggio:"+msg.toString());
-					msgHandlerOut.handleMessage(msg);
+
+					handleMessageOut(msg);
 				}
 					
 				//  invia msg
 
 			}
 		}
+	}
+	
+	public void run(){
+		call();
 	}
 
 }

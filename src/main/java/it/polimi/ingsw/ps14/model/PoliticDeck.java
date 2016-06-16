@@ -1,10 +1,11 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PoliticDeck {
+public class PoliticDeck implements Serializable{
 
 	private List<PoliticCard> deck;
 	private List<PoliticCard> discardedCards;

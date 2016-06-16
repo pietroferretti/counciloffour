@@ -44,7 +44,6 @@ public class Client {
 			
 				// messagehandlerout = new socketmessagehandlerout(socket.out)
 				SocketMessageHandlerOut msgHandlerOut = new SocketMessageHandlerOut(new ObjectOutputStream(socket.getOutputStream()));
-				
 				// 
 				clientView.setHandlerOut(msgHandlerOut);
 				

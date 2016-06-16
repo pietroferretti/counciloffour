@@ -3,7 +3,9 @@ package it.polimi.ingsw.ps14.model.actions;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
-public abstract class Action {
+import java.io.Serializable;
+
+public abstract class Action implements Serializable {
 
 	private final Integer playerID;
 

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps14.model;
 
-public class PoliticCard implements Card {
+import java.io.Serializable;
+
+public class PoliticCard implements Card,Serializable {
 
 	private final ColorPolitic color;
 

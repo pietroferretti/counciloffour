@@ -1,9 +1,10 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusinessCardsPlayer {
+public class BusinessCardsPlayer implements Serializable {
 	private List<BusinessPermit> validCards;
 	private List<BusinessPermit> usedCards;
 

@@ -1,11 +1,12 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
 
-public class BusinessPermit implements Card {
+public class BusinessPermit implements Card, Serializable {
 	
 	static int idCounter = 0;
 

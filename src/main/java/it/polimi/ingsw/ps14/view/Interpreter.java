@@ -21,7 +21,9 @@ import it.polimi.ingsw.ps14.message.UpdateOtherPlayerMsg;
 import it.polimi.ingsw.ps14.message.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
+import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.PoliticDeck;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.Action;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
@@ -34,6 +36,7 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -148,7 +151,7 @@ public class Interpreter {
 				politics.add(string2politicCard(word[i]));
 
 			return new ActionMsg(new AcquireBusinessPermiteTileAction(permID,
-					rt, permID, politics));
+					rt, permID, new ArrayList<PoliticCard>(politics)));
 
 			// BUILD-WITH-KING CITYname CARDS
 		case "BUILD-WITH-KING":
@@ -223,6 +226,8 @@ public class Interpreter {
 			if(word.length!=1) return null;
 			return new TurnFinishedMsg(playerID);
 
+		case "prova" : 
+			return new UpdateThisPlayerMsg( new Player("ubaldo",Color.DARK_GRAY,20,12,new PoliticDeck(2,2),4));
 		default:
 			return null;
 		}
