@@ -2,10 +2,13 @@ package it.polimi.ingsw.ps14.model;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.Observable;
 
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 // TODO notify ogni volta che qualcosa viene modificato?
@@ -24,7 +27,9 @@ public class Model extends Observable implements Serializable {
 	private Player currentPlayer;
 	private TurnState currentTurnState;
 	private MarketState currentMarketState;
-	private List<Player> playerOrder;
+	private Deque<Player> playerOrder;
+	
+	private Message message;
 
 	public Model() throws IOException {
 		gameBoard = new GameBoard(new Settings("settings.json"));
@@ -92,6 +97,8 @@ public class Model extends Observable implements Serializable {
 
 	public void setCurrentTurnState(TurnState currentTurnState) {
 		this.currentTurnState = currentTurnState;
+		setChanged();
+		notifyObservers();
 	}
 
 	public MarketState getCurrentMarketState() {
@@ -104,16 +111,27 @@ public class Model extends Observable implements Serializable {
 		notifyObservers();
 	}
 
-	public List<Player> getPlayerOrder() {
+	public Deque<Player> getPlayerOrder() {
 		return playerOrder;
 	}
 
 	public void setPlayerOrder(List<Player> playerOrder) {
-		this.playerOrder = playerOrder;
+		this.playerOrder = new ArrayDeque<>(playerOrder);
 	}
 
+	public Player getNextPlayer() {
+		return playerOrder.peek();
+	}
+	
+	public void playerDone() {
+		currentPlayer = playerOrder.pollFirst();
+		setChanged();
+		notifyObservers();
+	}
+	
 	public void nextPlayer() {
-		currentPlayer = playerOrder.remove(0);
+		playerOrder.addLast(currentPlayer);
+		currentPlayer = playerOrder.pollFirst();
 		setChanged();
 		notifyObservers();
 	}
@@ -124,10 +142,24 @@ public class Model extends Observable implements Serializable {
 
 	public void setMarket(Market market) {
 		this.market = market;
+		setChanged();
+		notifyObservers();
 	}
 
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+		setChanged();
+		notifyObservers();
+	}
+
+	public Message getMessage() {
+		return message;
+	}
+
+	public void setMessage(Message messageToSend) {
+		this.message = messageToSend;
+		setChanged();
+		notifyObservers();
 	}
 
 }
