@@ -29,7 +29,7 @@ public class ItemForSale implements Serializable {
 	private Integer ownerID;
 	private Type type;
 	private int barCode;
-	private static int counter=0;
+	private static int counter = 0;
 
 	public enum Type {
 		BUSINESS, POLITIC, ASSISTANT;
@@ -49,9 +49,8 @@ public class ItemForSale implements Serializable {
 		this.ownerID = ownerID;
 		this.color = null;
 		counter++;
-		barCode=counter;
-		
-		
+		barCode = counter;
+
 	}
 
 	public ItemForSale(ColorPolitic color, int price, Integer ownerID) {
@@ -61,7 +60,7 @@ public class ItemForSale implements Serializable {
 		this.ownerID = ownerID;
 		this.color = color;
 		counter++;
-		barCode=counter;
+		barCode = counter;
 	}
 
 	public int getPrice() {
@@ -101,8 +100,6 @@ public class ItemForSale implements Serializable {
 		return true;
 	}
 
-	
-	
 	public Integer getIdORquantity() {
 		return idORquantity;
 	}
@@ -114,22 +111,23 @@ public class ItemForSale implements Serializable {
 	public Integer getOwnerID() {
 		return ownerID;
 	}
-	
+
 	public Integer getBarCode() {
 		return barCode;
 	}
-	
-	public boolean equals(ItemForSale obj){
-		if(barCode==obj.barCode) return true;
+
+	public boolean equals(ItemForSale obj) {
+		if (barCode == obj.barCode)
+			return true;
 		return false;
 	}
 
-	public void removeAssistant(int howMany){
-		if(idORquantity!=null && howMany<=idORquantity){
-			idORquantity=idORquantity-howMany;
+	public void removeAssistant(int howMany) {
+		if (idORquantity != null && howMany <= idORquantity) {
+			idORquantity = idORquantity - howMany;
 		}
 	}
-	
+
 	protected Player id2player(Integer id, Model model) {
 		for (Player p : model.getPlayers())
 			if (p.getId() == id)
@@ -144,5 +142,21 @@ public class ItemForSale implements Serializable {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		if (type.name().matches("BUSINESS")) {
+			return (" BAR_CODE=" + barCode + ":" + type + ", idORquantity="
+					+ idORquantity + ", price=" + price + ", ownerID=" + ownerID);
+		}
+		if (type.name().matches("ASSISTANT")) {
+			return (" BAR_CODE=" + barCode + ":" + type + ", idORquantity="
+					+ idORquantity + ", price=" + price + ", ownerID=" + ownerID);
+		}
+		if (type.name().matches("POLITIC")) {
+			return (" BAR_CODE=" + barCode + ":" + type + ", color=" + color
+					+ ", price=" + price + ", ownerID=" + ownerID);
+		}
+		return null;
+	}
 
 }

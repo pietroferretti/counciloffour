@@ -1,5 +1,6 @@
-package it.polimi.ingsw.ps14.message;
+package it.polimi.ingsw.ps14.message.fromClient;
 
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.Player;
 
 public class UpdateThisPlayerMsg implements Message {
