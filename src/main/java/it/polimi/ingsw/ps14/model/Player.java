@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Random;
 
-import it.polimi.ingsw.ps14.message.PlayerChangedPrivateMsg;
-import it.polimi.ingsw.ps14.message.PlayerChangedPublicMsg;
+import it.polimi.ingsw.ps14.message.fromServer.PlayerChangedPrivateMsg;
+import it.polimi.ingsw.ps14.message.fromServer.PlayerChangedPublicMsg;
 
 public class Player extends Observable implements Serializable {
 

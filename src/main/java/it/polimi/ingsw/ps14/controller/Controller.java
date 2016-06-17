@@ -7,8 +7,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps14.message.ActionMsg;
 import it.polimi.ingsw.ps14.message.NewPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromClient.ActionMsg;
 import it.polimi.ingsw.ps14.model.GameLogic;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.MarketState;

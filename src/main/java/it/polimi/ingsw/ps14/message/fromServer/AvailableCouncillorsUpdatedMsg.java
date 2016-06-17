@@ -1,8 +1,17 @@
-package it.polimi.ingsw.ps14.message;
+package it.polimi.ingsw.ps14.message.fromServer;
 
 import java.util.Map;
 
+
+
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
+
+/**
+ * councillors in gameboard are changed
+ * 
+ *
+ */
 
 public class AvailableCouncillorsUpdatedMsg implements Message {
 

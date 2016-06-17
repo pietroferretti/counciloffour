@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.message;
+package it.polimi.ingsw.ps14.message.fromServer;
 
 public class SoldItemMsg {
 /*

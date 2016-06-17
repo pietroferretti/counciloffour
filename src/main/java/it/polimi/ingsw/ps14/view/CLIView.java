@@ -1,10 +1,11 @@
 package it.polimi.ingsw.ps14.view;
 
 import it.polimi.ingsw.ps14.client.ClientView;
-import it.polimi.ingsw.ps14.message.GameStartedMsg;
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
+import it.polimi.ingsw.ps14.message.fromClient.NewCurrentPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromServer.CurrentPlayerUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.GameStartedMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
@@ -113,13 +114,12 @@ public class CLIView extends ClientView implements Runnable {
 	public void handleMessage(Message message) {
 		String str;
 		if (message != null) {
-
 			if (message instanceof GameStartedMsg)
 				gameStarted = true;
 			else if (message instanceof TurnFinishedMsg)
 				if (((TurnFinishedMsg) message).getPlayerID() == playerID)
 					myTurn = false;
-				else if (message instanceof NewCurrentPlayerMsg) {
+				else if (message instanceof CurrentPlayerUpdatedMsg) {
 					print("Turno di "
 							+ ((NewCurrentPlayerMsg) message).getPlayerName());
 					if (((NewCurrentPlayerMsg) message).getPlayerID() == playerID)

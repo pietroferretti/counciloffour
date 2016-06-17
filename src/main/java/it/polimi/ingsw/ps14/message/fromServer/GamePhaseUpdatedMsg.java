@@ -1,5 +1,6 @@
-package it.polimi.ingsw.ps14.message;
+package it.polimi.ingsw.ps14.message.fromServer;
 
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.GamePhase;
 
 public class GamePhaseUpdatedMsg implements Message {
@@ -21,7 +22,7 @@ public class GamePhaseUpdatedMsg implements Message {
 
 	@Override
 	public String toString() {
-		return ("GamePhase" + updatedGamePhase.toString());
+		return ("GamePhase: " + updatedGamePhase.toString());
 	}
 	
 	

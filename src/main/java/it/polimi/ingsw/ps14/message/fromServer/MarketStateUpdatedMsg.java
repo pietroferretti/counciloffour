@@ -1,5 +1,6 @@
-package it.polimi.ingsw.ps14.message;
+package it.polimi.ingsw.ps14.message.fromServer;
 
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.MarketState;
 
 public class MarketStateUpdatedMsg implements Message {

@@ -1,29 +1,29 @@
 package it.polimi.ingsw.ps14.view;
 
-import it.polimi.ingsw.ps14.message.ActionMsg;
-import it.polimi.ingsw.ps14.message.AvailableAssistantsUpdatedMsg;
-import it.polimi.ingsw.ps14.message.AvailableCouncillorsUpdatedMsg;
-import it.polimi.ingsw.ps14.message.ChooseUsedPermitMsg;
-import it.polimi.ingsw.ps14.message.CurrentPlayerUpdatedMsg;
-import it.polimi.ingsw.ps14.message.GamePhaseUpdatedMsg;
-import it.polimi.ingsw.ps14.message.KingBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.KingUpdatedMsg;
-import it.polimi.ingsw.ps14.message.MarketStateUpdatedMsg;
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.message.NewGamePhaseMsg;
 import it.polimi.ingsw.ps14.message.NewMarketStateMsg;
-import it.polimi.ingsw.ps14.message.NobilityTrackdUpdatedMsg;
-import it.polimi.ingsw.ps14.message.PlayerChangedPrivateMsg;
-import it.polimi.ingsw.ps14.message.PlayerChangedPublicMsg;
-import it.polimi.ingsw.ps14.message.RegionBonusesChangedMsg;
-import it.polimi.ingsw.ps14.message.RegionBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.RegionUpdatedMsg;
-import it.polimi.ingsw.ps14.message.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
-import it.polimi.ingsw.ps14.message.UpdateGameBoardMsg;
-import it.polimi.ingsw.ps14.message.UpdateOtherPlayerMsg;
-import it.polimi.ingsw.ps14.message.UpdateThisPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromClient.ActionMsg;
+import it.polimi.ingsw.ps14.message.fromClient.ChooseUsedPermitMsg;
+import it.polimi.ingsw.ps14.message.fromClient.NewCurrentPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromClient.UpdateGameBoardMsg;
+import it.polimi.ingsw.ps14.message.fromClient.UpdateOtherPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromClient.UpdateThisPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromServer.AvailableAssistantsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.AvailableCouncillorsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.CurrentPlayerUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.ErrorMsg;
+import it.polimi.ingsw.ps14.message.fromServer.GamePhaseUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.KingBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.KingUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.MarketStateUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.NobilityTrackdUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.PlayerChangedPrivateMsg;
+import it.polimi.ingsw.ps14.message.fromServer.PlayerChangedPublicMsg;
+import it.polimi.ingsw.ps14.message.fromServer.RegionBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.RegionUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.SoldItemMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -56,8 +56,11 @@ public class Interpreter {
 			return ((AvailableCouncillorsUpdatedMsg) msg).toString();
 
 		}
-		if (msg instanceof CurrentPlayerUpdatedMsg) {
-			return ((CurrentPlayerUpdatedMsg) msg).toString();
+		if (msg instanceof ErrorMsg) {
+			if(ErrorMsg)
+				if(((ErrorMsg) msg).getPlayerID()==playerID)
+			
+			return ((ErrorMsg) msg).toString();
 
 		}
 		if (msg instanceof GamePhaseUpdatedMsg) {
@@ -100,10 +103,7 @@ public class Interpreter {
 			return ((PlayerChangedPublicMsg) msg).toString();
 
 		}
-		if (msg instanceof RegionBonusesChangedMsg) {
-			return ((RegionBonusesChangedMsg) msg).toString();
-
-		}
+		
 		if (msg instanceof RegionBonusesUpdatedMsg) {
 			return ((RegionBonusesUpdatedMsg) msg).toString();
 
