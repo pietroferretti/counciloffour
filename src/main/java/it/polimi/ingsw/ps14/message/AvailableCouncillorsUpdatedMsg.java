@@ -20,4 +20,12 @@ public class AvailableCouncillorsUpdatedMsg implements Message {
 	public Map<ColorCouncillor, Integer> getUpdatedAvailableCouncillors() {
 		return updatedAvailableCouncillors;
 	}
+	
+	public String toString() {
+		String str=null;
+		ColorCouncillor[] map= ColorCouncillor.values();
+		for(ColorCouncillor m : map)
+			str=str+m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString()+"\n";
+		return str;
+	}
 }

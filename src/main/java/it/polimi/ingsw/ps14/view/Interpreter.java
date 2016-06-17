@@ -1,15 +1,24 @@
 package it.polimi.ingsw.ps14.view;
 
 import it.polimi.ingsw.ps14.message.ActionMsg;
-import it.polimi.ingsw.ps14.message.AssistantNumberChangedMsg;
-import it.polimi.ingsw.ps14.message.AvailableCouncillorsChangedMsg;
+import it.polimi.ingsw.ps14.message.AvailableAssistantsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.AvailableCouncillorsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.ChooseUsedPermitMsg;
+import it.polimi.ingsw.ps14.message.CurrentPlayerUpdatedMsg;
+import it.polimi.ingsw.ps14.message.GamePhaseUpdatedMsg;
+import it.polimi.ingsw.ps14.message.KingBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.KingUpdatedMsg;
+import it.polimi.ingsw.ps14.message.MarketStateUpdatedMsg;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.message.NewGamePhaseMsg;
 import it.polimi.ingsw.ps14.message.NewMarketStateMsg;
+import it.polimi.ingsw.ps14.message.NobilityTrackdUpdatedMsg;
 import it.polimi.ingsw.ps14.message.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.message.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.message.RegionBonusesChangedMsg;
+import it.polimi.ingsw.ps14.message.RegionBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.UpdateGameBoardMsg;
@@ -17,6 +26,7 @@ import it.polimi.ingsw.ps14.message.UpdateOtherPlayerMsg;
 import it.polimi.ingsw.ps14.message.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
+import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.Action;
@@ -38,41 +48,75 @@ public class Interpreter {
 	Scanner scan = new Scanner(System.in);
 
 	public String parseMsg(Message msg) {
-		if (msg instanceof AssistantNumberChangedMsg) {
-			AssistantNumberChangedMsg arg = (AssistantNumberChangedMsg) msg;
-			return arg.toString();
+
+		if (msg instanceof AvailableAssistantsUpdatedMsg) {
+			return ((AvailableAssistantsUpdatedMsg) msg).toString();
 		}
-		if (msg instanceof AvailableCouncillorsChangedMsg) {
-			AvailableCouncillorsChangedMsg arg = (AvailableCouncillorsChangedMsg) msg;
-			return arg.toString();
+		if (msg instanceof AvailableCouncillorsUpdatedMsg) {
+			return ((AvailableCouncillorsUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof CurrentPlayerUpdatedMsg) {
+			return ((CurrentPlayerUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof GamePhaseUpdatedMsg) {
+			return ((GamePhaseUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof KingBonusesUpdatedMsg) {
+			return ((KingBonusesUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof KingUpdatedMsg) {
+			return ((KingUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof MarketStateUpdatedMsg) {
+			return ((MarketStateUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof NewCurrentPlayerMsg) {
+			return ((NewCurrentPlayerMsg) msg).toString();
+
 		}
 		if (msg instanceof NewGamePhaseMsg) {
+			return ((NewGamePhaseMsg) msg).toString();
 
 		}
 		if (msg instanceof NewMarketStateMsg) {
+			return ((NewMarketStateMsg) msg).toString();
+
+		}
+		if (msg instanceof NobilityTrackdUpdatedMsg) {
+			return ((NobilityTrackdUpdatedMsg) msg).toString();
 
 		}
 		if (msg instanceof PlayerChangedPrivateMsg) {
+			return ((PlayerChangedPrivateMsg) msg).toString();
 
 		}
 		if (msg instanceof PlayerChangedPublicMsg) {
+			return ((PlayerChangedPublicMsg) msg).toString();
 
 		}
 		if (msg instanceof RegionBonusesChangedMsg) {
+			return ((RegionBonusesChangedMsg) msg).toString();
+
+		}
+		if (msg instanceof RegionBonusesUpdatedMsg) {
+			return ((RegionBonusesUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof RegionUpdatedMsg) {
+			return ((RegionUpdatedMsg) msg).toString();
 
 		}
 		if (msg instanceof SoldItemMsg) {
+			return ((SoldItemMsg) msg).toString();
 
 		}
-		if (msg instanceof UpdateOtherPlayerMsg) {
 
-		}
-		if (msg instanceof UpdateGameBoardMsg) {
-
-		}
-		if (msg instanceof UpdateThisPlayerMsg) {
-
-		}
 		return null;
 	}
 
@@ -88,7 +132,7 @@ public class Interpreter {
 		String st;
 		String[] word = input.split(" ");
 
-		switch (word[0]) {
+		switch (word[0].toUpperCase()) {
 
 		// DRAW
 		case "DRAW":
@@ -229,6 +273,20 @@ public class Interpreter {
 					return null;
 				}
 			}
+			//SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... ASSISTANTS NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE...
+			case "SELL":
+			String[] busIDs;
+			String[] stub;
+			List<ItemForSale> items;
+			if(word.length<3) return null;
+			for(int i=1;i<word.length;i++){
+				
+				if(word[i].matches("BUSINESS") && (i+1)<=word.length){
+					busIDs=word[i+1].split(",");
+				//	for(int j=0;j<busIDs.length;j++)
+				//TODO finish this method		
+				}
+			}
 
 		default:
 			return null;
@@ -284,4 +342,5 @@ public class Interpreter {
 				return new PoliticCard(ColorPolitic.valueOf(string));
 		return null;
 	}
+	
 }

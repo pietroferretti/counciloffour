@@ -19,6 +19,7 @@ public class Market implements Serializable{
 	public List<ItemForSale> getObjectsForSale() {
 		return objectsForSale;
 	}
+	
 
 	public ItemForSale getObject(ItemForSale item) {
 		for (ItemForSale prod : objectsForSale)
@@ -33,9 +34,16 @@ public class Market implements Serializable{
 	 * @param item
 	 * @return the selling object
 	 */
-	private ItemForSale findObject(ItemForSale item) {
+	public ItemForSale findObject(ItemForSale item) {
 		for (ItemForSale object : objectsForSale)
 			if (object.equals(item))
+				return object;
+		return null;
+	}
+	
+	public ItemForSale id2itemForSale(Integer itemID) {
+		for (ItemForSale object : objectsForSale)
+			if (itemID==object.getBarCode())
 				return object;
 		return null;
 	}
@@ -47,17 +55,14 @@ public class Market implements Serializable{
 	 *            item to sell
 	 * @return true if the action is valid, return false if not
 	 */
-	public boolean addItem(ItemForSale item) {
-		if (item.isValid()) {
+	public void addItem(ItemForSale item) {
 			objectsForSale.add(item);
-			return true;
-		} else
-			return false;
 	}
 
 	public void removeItem(ItemForSale item) {
-		if (objectsForSale.contains(item))
-			objectsForSale.remove(item);
+		ItemForSale itemToRemove = findObject(item);
+		if (itemToRemove!=null)
+			objectsForSale.remove(itemToRemove);
 	}
 
 	@Override

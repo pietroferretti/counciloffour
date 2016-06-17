@@ -13,5 +13,9 @@ public class PlayerChangedPublicMsg {
 	public int getPlayerID() {
 		return playerID;
 	}
+	
+	public String getNotice(){
+		return notice;
+	}
 
 }

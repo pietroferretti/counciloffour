@@ -19,4 +19,11 @@ public class GamePhaseUpdatedMsg implements Message {
 		return updatedGamePhase;
 	}
 
+	@Override
+	public String toString() {
+		return ("GamePhase" + updatedGamePhase.toString());
+	}
+	
+	
+
 }

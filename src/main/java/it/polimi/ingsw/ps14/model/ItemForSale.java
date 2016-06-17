@@ -1,6 +1,11 @@
 package it.polimi.ingsw.ps14.model;
 
+import it.polimi.ingsw.ps14.model.actions.Action;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemForSale implements Serializable {
 
@@ -18,10 +23,17 @@ public class ItemForSale implements Serializable {
 	 * 
 	 */
 
-	private Card item;
-	private Integer assistants;
-	private final int price;
-	private final Player owner;
+	private Integer idORquantity;
+	private ColorPolitic color;
+	private int price;
+	private Integer ownerID;
+	private Type type;
+	private int barCode;
+	private static int counter=0;
+
+	public enum Type {
+		BUSINESS, POLITIC, ASSISTANT;
+	}
 
 	/**
 	 * CARD (business or politic) for sale
@@ -30,31 +42,34 @@ public class ItemForSale implements Serializable {
 	 * @param price
 	 * @param owner
 	 */
-	public ItemForSale(Card item, int price, Player owner) {
-		this.item = item;
+	public ItemForSale(Type type, int idORquantity, int price, Integer ownerID) {
+		this.type = type;
+		this.idORquantity = idORquantity;
 		this.price = price;
-		this.owner = owner;
-		this.assistants = null;
+		this.ownerID = ownerID;
+		this.color = null;
+		counter++;
+		barCode=counter;
+		
+		
 	}
 
-	/**
-	 * ASSISTANTS for sale
-	 * 
-	 * @param assistant
-	 *            how many assistant to sell
-	 * @param priceForEachAssistant
-	 *            price for each assistants
-	 * @param player
-	 */
-	public ItemForSale(Integer assistant, int priceForEachAssistant, Player owner) {
-		this.assistants = assistant;
-		this.price = priceForEachAssistant;
-		this.owner = owner;
-		this.item = null;
+	public ItemForSale(ColorPolitic color, int price, Integer ownerID) {
+		this.type = Type.POLITIC;
+		this.idORquantity = null;
+		this.price = price;
+		this.ownerID = ownerID;
+		this.color = color;
+		counter++;
+		barCode=counter;
 	}
 
 	public int getPrice() {
 		return price;
+	}
+
+	public Type getType() {
+		return type;
 	}
 
 	/**
@@ -62,55 +77,72 @@ public class ItemForSale implements Serializable {
 	 * 
 	 * @return
 	 */
-	public boolean isValid() {
+	public boolean isValid(Model model) {
 
-		if (item != null) {
-			if (item instanceof BusinessPermit)
-				if (!owner.getBusinessHand().checkBusinessPermit((BusinessPermit) item))
-					return false;
+		Player player = id2player(ownerID, model);
 
-			if (item instanceof PoliticCard)
-				if (!owner.getHand().contains((PoliticCard) item))
-					return false;
-		}
-		if (assistants != null)
-			if (assistants > owner.getAssistants())
+		if (type.name().matches("BUSINESS")) {
+			BusinessPermit busPer = id2permit(idORquantity, player);
+			if (player == null || busPer == null)
 				return false;
-
+		}
+		if (type.name().matches("ASSISTANT")) {
+			if (player == null)
+				return false;
+			if (player.getAssistants() < idORquantity)
+				return false;
+		}
+		if (type.name().matches("POLITIC")) {
+			if (player == null)
+				return false;
+			if (!player.hasCardInHand(color))
+				return false;
+		}
 		return true;
 	}
 
-	public Object getItem() {
-		return item;
+	
+	
+	public Integer getIdORquantity() {
+		return idORquantity;
 	}
 
-	public Player getOwner() {
-		return owner;
+	public ColorPolitic getColor() {
+		return color;
 	}
 
-	public Integer getAssistants() {
-		return assistants;
+	public Integer getOwnerID() {
+		return ownerID;
+	}
+	
+	public Integer getBarCode() {
+		return barCode;
+	}
+	
+	public boolean equals(ItemForSale obj){
+		if(barCode==obj.barCode) return true;
+		return false;
 	}
 
-	public void setAssistants(Integer assistants) {
-		this.assistants = assistants;
+	public void removeAssistant(int howMany){
+		if(idORquantity!=null && howMany<=idORquantity){
+			idORquantity=idORquantity-howMany;
+		}
+	}
+	
+	protected Player id2player(Integer id, Model model) {
+		for (Player p : model.getPlayers())
+			if (p.getId() == id)
+				return p;
+		return null;
 	}
 
-	public void setItem(Card item) {
-		this.item = item;
+	protected BusinessPermit id2permit(Integer permitID, Player player) {
+		for (BusinessPermit bp : player.getBusinessHand().getValidCards())
+			if (bp.getId() == permitID)
+				return bp;
+		return null;
 	}
 
-	public boolean equals(ItemForSale obj) {
-		if (obj.getAssistants() == assistants && obj.getItem().equals(obj) && obj.getPrice() == price
-				&& obj.getOwner().equals(owner))
-			return true;
-		else
-			return false;
-	}
-
-	@Override
-	public String toString() {
-		return "ItemForSale [item=" + item + ", price=" + price + ", owner=" + owner + "]";
-	}
 
 }

@@ -18,4 +18,6 @@ public class NobilityTrackdUpdatedMsg implements Message {
 	public NobilityTrack getUpdatedNobilityTrack() {
 		return updatedNobilityTrack;
 	}
+	
+	
 }

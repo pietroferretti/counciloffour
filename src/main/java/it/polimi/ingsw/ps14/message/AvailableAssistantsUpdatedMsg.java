@@ -16,5 +16,10 @@ public class AvailableAssistantsUpdatedMsg implements Message {
 	public int getUpdatedAvailableAssistants() {
 		return updatedAvailableAssistants;
 	}
+	
+	@Override
+	public String toString() {
+		return "Assistant available now: "+updatedAvailableAssistants;
+	}
 
 }

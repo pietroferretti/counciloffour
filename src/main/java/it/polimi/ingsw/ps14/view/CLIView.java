@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ps14.view;
 
 import it.polimi.ingsw.ps14.client.ClientView;
-import it.polimi.ingsw.ps14.message.EndTurnMsg;
 import it.polimi.ingsw.ps14.message.GameStartedMsg;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.NewCurrentPlayerMsg;
+import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
@@ -116,18 +116,19 @@ public class CLIView extends ClientView implements Runnable {
 
 			if (message instanceof GameStartedMsg)
 				gameStarted = true;
-			else if (message instanceof EndTurnMsg)
-				myTurn = false;
-			else if (message instanceof NewCurrentPlayerMsg) {
-				print("Turno di "
-						+ ((NewCurrentPlayerMsg) message).getPlayerName());
-				if (((NewCurrentPlayerMsg) message).getPlayerID() == playerID)
-					myTurn = true;
-			} else {
-				str = interpreter.parseMsg(message);
-				if (str != null)
-					print(str);
-			}
+			else if (message instanceof TurnFinishedMsg)
+				if (((TurnFinishedMsg) message).getPlayerID() == playerID)
+					myTurn = false;
+				else if (message instanceof NewCurrentPlayerMsg) {
+					print("Turno di "
+							+ ((NewCurrentPlayerMsg) message).getPlayerName());
+					if (((NewCurrentPlayerMsg) message).getPlayerID() == playerID)
+						myTurn = true;
+				} else {
+					str = interpreter.parseMsg(message);
+					if (str != null)
+						print(str);
+				}
 		}
 	}
 

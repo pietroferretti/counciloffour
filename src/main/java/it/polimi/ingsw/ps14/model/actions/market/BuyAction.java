@@ -1,12 +1,13 @@
 package it.polimi.ingsw.ps14.model.actions.market;
 
-import java.io.Serializable;
-
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.Market;
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
+
+import java.io.Serializable;
 
 public class BuyAction implements Serializable {
 
@@ -14,57 +15,67 @@ public class BuyAction implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8768443626805335203L;
-	private Market market;
-	private ItemForSale obj;
-	private Player buyer;
+	private Integer objBarCode;
+	private Integer buyerID;
 	private Integer assistantToBuy;
 
-	public BuyAction(Market market, ItemForSale obj, Player buyer) {
-		this.market = market;
-		this.obj = obj;
-		this.buyer = buyer;
+	public BuyAction(Integer barCode, Integer buyerID) {
+		this.objBarCode = barCode;
+		this.buyerID = buyerID;
 		assistantToBuy = null;
 	}
 
-	public BuyAction(Market market, ItemForSale obj, Player buyer, Integer assistantToBuy) {
-		this.market = market;
-		this.obj = obj;
-		this.buyer = buyer;
+	public BuyAction(Integer barCode, Integer buyerID, Integer assistantToBuy) {
+		this.buyerID = buyerID;
+		this.objBarCode = barCode;
 		this.assistantToBuy = assistantToBuy;
 	}
 
 	/**
-	 * if assistant2buy is null, I'm buying a item. if item is null, I'm buying
-	 * one or more assistant
+	 * if assistant2buy is null, I'm buying the whole item. Otherwise Im buying only some of the assistants
+	 * 
 	 * 
 	 * @return
 	 */
-	public boolean isValid() {
-		if (!market.getObjectsForSale().contains(obj))
+	public boolean isValid(Model model, Market market) {
+		Player buyer = id2player(buyerID, model);
+		ItemForSale obj = market.id2itemForSale(objBarCode);
+		if (obj == null)
 			return false;
 
 		if (assistantToBuy == null) {
 			// im buying whole item
 
-			if (obj.getItem() != null) {
-				// im buying a card
-
+			if (obj.getType().equals(ItemForSale.Type.BUSINESS)) {
+				if (obj.getIdORquantity() == null)
+					return false;
 				if (buyer.getCoins() < obj.getPrice())
 					return false;
+			}
 
-			} else {
-				// im buying all assistants of the item
-
-				if (obj.getItem() != null)
+			if (obj.getType().equals(ItemForSale.Type.ASSISTANT)) {
+				if (obj.getIdORquantity() == null)
 					return false;
-
-				if (buyer.getCoins() < obj.getPrice() * obj.getAssistants())
+				if (buyer.getCoins() < obj.getPrice() * obj.getIdORquantity())
 					return false;
 			}
-		} else if (assistantToBuy != null) {
-			// im buying SOME asistant of the item
 
-			if (obj.getItem() != null)
+			if (obj.getType().equals(ItemForSale.Type.POLITIC)) {
+				if (obj.getColor() == null)
+					return false;
+				if (buyer.getCoins() < obj.getPrice())
+					return false;
+			}
+
+		} else {
+			// im buying SOME assistants of the item
+
+			if (!obj.getType().equals(ItemForSale.Type.ASSISTANT))
+				return false;
+
+			if (obj.getIdORquantity() == null)
+				return false;
+			if (obj.getIdORquantity() < assistantToBuy)
 				return false;
 
 			if (buyer.getCoins() < obj.getPrice() * assistantToBuy)
@@ -75,59 +86,73 @@ public class BuyAction implements Serializable {
 	}
 
 	/**
-	 * BUY only some of selling assistants
+	 * BUY  action
 	 * 
 	 * @param buyer
 	 * @param assistantToBuy
 	 *            how many assistants do you want to buy
 	 */
-	public void buy() {
-		ItemForSale item = market.getObject(obj);
-		if (item != null) {
+	public void execute(Model model, Market market) {
+		ItemForSale item = market.id2itemForSale(objBarCode);
+		Player owner = id2player(item.getOwnerID(), model);
+		Player buyer = id2player(buyerID, model);
+
+		if (owner != null && buyer != null && item != null) {
 
 			if (assistantToBuy == null) {
 				// im buying whole item
 
-				if (item.getItem() != null) {
-					// im buying a card
+				buyer.useCoins(item.getPrice());
+				owner.addCoins(item.getPrice());
 
-					buyer.useCoins(item.getPrice());
-					item.getOwner().addCoins(item.getPrice());
+				if (item.getType().equals(ItemForSale.Type.BUSINESS)) {
+					BusinessPermit busPer = id2permit(item.getIdORquantity(),
+							owner);
+					owner.getBusinessHand().sellPermits(busPer);
+					buyer.getBusinessHand().acquireBusinessPermit(busPer);
+				}
+				if (item.getType().equals(ItemForSale.Type.ASSISTANT)) {
+					buyer.useCoins(item.getPrice() * item.getIdORquantity());
+					buyer.addAssistants(item.getIdORquantity());
+					owner.addCoins(item.getPrice() * item.getIdORquantity());
+					owner.useAssistants(item.getIdORquantity());
+				}
 
-					if (item.getItem() instanceof BusinessPermit) {
-						item.getOwner().getBusinessHand().sellPermits((BusinessPermit) item.getItem());
-						buyer.getBusinessHand().acquireBusinessPermit((BusinessPermit) item.getItem());
-					}
-
-					if (item.getItem() instanceof PoliticCard) {
-						item.getOwner().getHand().remove((PoliticCard) item.getItem());
-						buyer.getHand().add((PoliticCard) item.getItem());
-					}
-
-				} else {
-					// im buying all assistants of the item
-
-					buyer.useCoins(item.getPrice() * item.getAssistants());
-					buyer.addAssistants(item.getAssistants());
-					item.getOwner().addCoins(item.getPrice() * item.getAssistants());
-					item.getOwner().useAssistants(item.getAssistants());
+				if (item.getType().equals(ItemForSale.Type.POLITIC)) {
+					owner.removeColor(item.getColor());
+					buyer.addPolitic(new PoliticCard(item.getColor()));
 				}
 
 				market.removeItem(item);
-
-			} else if (assistantToBuy != null) {
-				// im buying SOME asistant of the item
-
+			}
+		} else {
+			// im buying SOME assistants of the item
+			if (item.getType().equals(ItemForSale.Type.ASSISTANT)) {
 				buyer.useCoins(item.getPrice() * assistantToBuy);
 				buyer.addAssistants(assistantToBuy);
-				item.getOwner().addCoins(item.getPrice() * assistantToBuy);
-				item.getOwner().useAssistants(assistantToBuy);
+				owner.addCoins(item.getPrice() * assistantToBuy);
+				owner.useAssistants(assistantToBuy);
+				item.removeAssistant(assistantToBuy);
 
-				item.setAssistants(item.getAssistants() - assistantToBuy);
-				if (item.getAssistants() == 0)
+				if (item.getIdORquantity() == 0)
 					market.removeItem(item);
-
 			}
+
 		}
+
+	}
+
+	protected Player id2player(Integer id, Model model) {
+		for (Player p : model.getPlayers())
+			if (p.getId() == id)
+				return p;
+		return null;
+	}
+
+	protected BusinessPermit id2permit(Integer permitID, Player player) {
+		for (BusinessPermit bp : player.getBusinessHand().getValidCards())
+			if (bp.getId() == permitID)
+				return bp;
+		return null;
 	}
 }

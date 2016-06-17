@@ -18,8 +18,8 @@ public class RegionBonusesUpdatedMsg implements Message {
 	 * @param updatedBonusBronze
 	 * @param updatedBonusBlue
 	 */
-	public RegionBonusesUpdatedMsg(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
-			int updatedBonusBlue) {
+	public RegionBonusesUpdatedMsg(int updatedBonusGold,
+			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) {
 		this.updatedBonusGold = updatedBonusGold;
 		this.updatedBonusSilver = updatedBonusSilver;
 		this.updatedBonusBronze = updatedBonusBronze;
@@ -40,6 +40,13 @@ public class RegionBonusesUpdatedMsg implements Message {
 
 	public int getUpdatedBonusBlue() {
 		return updatedBonusBlue;
+	}
+
+	@Override
+	public String toString() {
+		return "RegionBonuses now: BonusGold=" + updatedBonusGold
+				+ ", BonusSilver=" + updatedBonusSilver + ", BonusBronze="
+				+ updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue;
 	}
 
 }

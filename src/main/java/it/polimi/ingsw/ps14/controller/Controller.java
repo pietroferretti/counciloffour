@@ -162,8 +162,8 @@ public class Controller implements Observer {
 		if (model.getGamePhase() == GamePhase.MARKET) {
 			if (model.getCurrentMarketState() == MarketState.SELLING) {
 				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-					if (action.isValid()) {
-						action.sell();
+					if (action.isValid(model)) {
+						action.sell();//TODO add parameter market. Market should be created at each beginning of MarketPhase in the game
 					} else {
 //						playerView.print("You cannot do this action now!"); // TODO
 																			// details
@@ -185,8 +185,8 @@ public class Controller implements Observer {
 		if (model.getGamePhase() == GamePhase.MARKET) {
 			if (model.getCurrentMarketState() == MarketState.BUYING) {
 				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-					if (action.isValid()) {
-						action.buy();
+					if (action.isValid(model, market)) {
+						action.buy(market);
 						// action cambia lo stato del market se
 						// tutti hanno finito:
 						// market -> END

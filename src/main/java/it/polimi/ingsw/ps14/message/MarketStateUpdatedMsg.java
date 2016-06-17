@@ -18,4 +18,10 @@ public class MarketStateUpdatedMsg implements Message {
 	public MarketState getUpdatedMarketState() {
 		return updatedMarketState;
 	}
+
+	@Override
+	public String toString() {
+		return "MarketState" + updatedMarketState.toString();
+	}
+
 }

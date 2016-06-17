@@ -14,4 +14,10 @@ public class PlayerChangedPrivateMsg {
 		return playerID;
 	}
 
+	public String getMessage() {
+		return message;
+	}
+	
+	
+
 }

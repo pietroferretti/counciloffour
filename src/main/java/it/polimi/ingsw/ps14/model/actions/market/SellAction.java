@@ -1,10 +1,11 @@
 package it.polimi.ingsw.ps14.model.actions.market;
 
-import java.io.Serializable;
-import java.util.List;
-
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.Market;
+import it.polimi.ingsw.ps14.model.Model;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class SellAction implements Serializable {
 
@@ -12,22 +13,20 @@ public class SellAction implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6644216312168944647L;
-	private Market market;
 	private List<ItemForSale> items;
 
-	public SellAction(Market market, List<ItemForSale> items) {
-		this.market = market;
+	public SellAction( List<ItemForSale> items) {
 		this.items = items;
 	}
 
-	public boolean isValid() {
+	public boolean isValid(Model model) {
 		for (ItemForSale item : items)
-			if (!item.isValid())
+			if (!item.isValid(model))
 				return false;
 		return true;
 	}
 
-	public void sell() {
+	public void sell(Market market) {
 		for (ItemForSale item : items)
 			market.addItem(item);
 	}
