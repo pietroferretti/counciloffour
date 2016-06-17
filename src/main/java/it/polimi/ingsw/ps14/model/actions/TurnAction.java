@@ -2,7 +2,6 @@ package it.polimi.ingsw.ps14.model.actions;
 
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 public abstract class TurnAction extends Action {
 
@@ -13,16 +12,6 @@ public abstract class TurnAction extends Action {
 
 	public TurnAction(Integer playerID) {
 		super(playerID);
-	}
-
-	@Override
-	public boolean isValid(Model model) {
-		return false;
-	}
-
-	@Override
-	public TurnState execute(TurnState previousState, Model model) {
-		return null;
 	}
 
 	protected Player id2player(Integer id, Model model) {
