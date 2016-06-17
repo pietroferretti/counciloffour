@@ -8,7 +8,7 @@ import java.util.Observer;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.NewPlayerMsg;
-import it.polimi.ingsw.ps14.message.fromClient.ActionMsg;
+import it.polimi.ingsw.ps14.message.fromClient.TurnActionMsg;
 import it.polimi.ingsw.ps14.model.GameLogic;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.Market;
@@ -64,10 +64,10 @@ public class Controller implements Observer {
 			model.getPlayers().get(0).setName(((NewPlayerMsg) arg).getName());
 		}
 		
-		else if (arg instanceof ActionMsg) {
+		else if (arg instanceof TurnActionMsg) {
 			
 			// do different things depending on the action
-			actionVisitor(serverView, ((ActionMsg) arg).getAction());
+			actionVisitor(serverView, ((TurnActionMsg) arg).getAction());
 			
 		} else {
 			

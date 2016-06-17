@@ -4,7 +4,7 @@ import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.NewGamePhaseMsg;
 import it.polimi.ingsw.ps14.message.NewMarketStateMsg;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
-import it.polimi.ingsw.ps14.message.fromClient.ActionMsg;
+import it.polimi.ingsw.ps14.message.fromClient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromClient.ChooseUsedPermitMsg;
 import it.polimi.ingsw.ps14.message.fromClient.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromClient.UpdateGameBoardMsg;
@@ -118,7 +118,7 @@ public class Interpreter {
 	}
 
 	public void sentAction(Action input) {
-		new ActionMsg(input);
+		new TurnActionMsg(input);
 	}
 
 	public Message parseString(String input, Integer playerID) {
@@ -133,7 +133,7 @@ public class Interpreter {
 
 		// DRAW
 		case "DRAW":
-			return (new ActionMsg(new DrawCardAction(playerID)));
+			return (new TurnActionMsg(new DrawCardAction(playerID)));
 
 			// ELECT COLOR REGIONTYPE_KING
 		case "ELECT":
@@ -147,7 +147,7 @@ public class Interpreter {
 				return null;
 			if (st == null)
 				return null;
-			return (new ActionMsg(new ElectCouncillorAction(playerID, cc, st)));
+			return (new TurnActionMsg(new ElectCouncillorAction(playerID, cc, st)));
 
 			// ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
 		case "ACQUIRE":
@@ -165,7 +165,7 @@ public class Interpreter {
 			for (int i = 3; i < word.length; i++)
 				politics.add(string2politicCard(word[i]));
 
-			return new ActionMsg(new AcquireBusinessPermiteTileAction(permID,
+			return new TurnActionMsg(new AcquireBusinessPermiteTileAction(permID,
 					rt, permID, new ArrayList<PoliticCard>(politics)));
 
 			// BUILD-WITH-KING CITYname CARDS
@@ -179,7 +179,7 @@ public class Interpreter {
 			for (int i = 3; i < word.length; i++)
 				politics.add(string2politicCard(word[i]));
 
-			return new ActionMsg(new BuildEmporiumWithHelpOfKingAction(
+			return new TurnActionMsg(new BuildEmporiumWithHelpOfKingAction(
 					playerID, city, politics));
 
 			// BUILD-WITH-PERMIT PERMITid CITYname
@@ -188,7 +188,7 @@ public class Interpreter {
 				return null;
 			try {
 				Integer permitID = Integer.parseInt(word[1]);
-				return new ActionMsg(new BuildEmporiumUsingPermitTileAction(
+				return new TurnActionMsg(new BuildEmporiumUsingPermitTileAction(
 						playerID, permitID, word[2]));
 			} catch (NumberFormatException e) {
 				return null;
@@ -198,21 +198,21 @@ public class Interpreter {
 		case "ENGAGE":
 			if (word.length != 1)
 				return null;
-			return new ActionMsg(new EngageAssistantAction(playerID));
+			return new TurnActionMsg(new EngageAssistantAction(playerID));
 
 			// CHANGE REGIONTYPE
 		case "CHANGE":
 			if (word.length != 2)
 				return null;
 			rt = string2RegionType(word[1]);
-			return new ActionMsg(new ChangeBusinessPermitTilesAction(playerID,
+			return new TurnActionMsg(new ChangeBusinessPermitTilesAction(playerID,
 					rt));
 
 			// MAIN
 		case "MAIN":
 			if (word.length != 1)
 				return null;
-			return new ActionMsg(
+			return new TurnActionMsg(
 					new PerformAdditionalMainActionAction(playerID));
 
 			// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
@@ -222,7 +222,7 @@ public class Interpreter {
 			rt = string2RegionType(word[1]);
 			cc = string2colorCouncillor(word[2]);
 
-			return new ActionMsg(new SendAssistantToElectCouncillorAction(
+			return new TurnActionMsg(new SendAssistantToElectCouncillorAction(
 					playerID, rt, cc));
 
 			// USED-CARD PERMITid
