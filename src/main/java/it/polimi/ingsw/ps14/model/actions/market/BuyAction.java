@@ -37,7 +37,8 @@ public class BuyAction implements Serializable {
 	 * 
 	 * @return
 	 */
-	public boolean isValid(Model model, Market market) {
+	public boolean isValid(Model model) {
+		Market market = model.getMarket();
 		Player buyer = id2player(buyerID, model);
 		ItemForSale obj = market.id2itemForSale(objBarCode);
 		if (obj == null)
@@ -92,7 +93,8 @@ public class BuyAction implements Serializable {
 	 * @param assistantToBuy
 	 *            how many assistants do you want to buy
 	 */
-	public void execute(Model model, Market market) {
+	public void execute(Model model) {
+		Market market = model.getMarket();
 		ItemForSale item = market.id2itemForSale(objBarCode);
 		Player owner = id2player(item.getOwnerID(), model);
 		Player buyer = id2player(buyerID, model);
