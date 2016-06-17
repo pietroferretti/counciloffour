@@ -141,7 +141,7 @@ public class CLIView extends ClientView implements Runnable {
 		while (true) {
 			print("Enter command:");
 			String input = in.nextLine();
-
+			
 			Message msg;
 			print("inserito " + input);
 			if (!gameStarted) {
@@ -152,7 +152,7 @@ public class CLIView extends ClientView implements Runnable {
 				print("Wait for your turn!");
 			} else {
 				print("ciao");
-				msg = interpreter.parseString(input, playerID);
+				msg = interpreter.parseString(input.toUpperCase(), playerID);
 				if (msg == null)
 					print("Input error! Retry:");
 				else {

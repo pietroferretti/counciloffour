@@ -129,7 +129,7 @@ public class Interpreter {
 		String st;
 		String[] word = input.split(" ");
 
-		switch (word[0].toUpperCase()) {
+		switch (word[0]) {
 
 		// DRAW
 		case "DRAW":
@@ -272,18 +272,29 @@ public class Interpreter {
 			}
 			//SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... ASSISTANTS NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE...
 			case "SELL":
-			String[] busIDs;
+			String[] busPer;
 			String[] stub;
-			List<ItemForSale> items;
+			Integer id,price;
+			List<ItemForSale> items = new ArrayList<>();
 			if(word.length<3) return null;
 			for(int i=1;i<word.length;i++){
-				
 				if(word[i].matches("BUSINESS") && (i+1)<=word.length){
-					busIDs=word[i+1].split(",");
-				//	for(int j=0;j<busIDs.length;j++)
-				//TODO finish this method		
+					busPer=word[i+1].split(",");
+				
+					for(String s : busPer){
+						stub=s.split("-");
+						if(stub.length!=2) return null;
+						try{
+							id=Integer.parseInt(stub[0]);
+							price=Integer.parseInt(stub[1]);
+						}catch(NumberFormatException e){
+							return null;
+						}
+						items.add(new ItemForSale(ItemForSale.Type.BUSINESS, id, price, playerID));
+					}
 				}
 			}
+			//TODO finish this method		
 
 		default:
 			return null;
