@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.message.fromServer;
+package it.polimi.ingsw.ps14.message.fromserver;
 
 public abstract class PrivateMessage {
 

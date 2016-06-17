@@ -6,16 +6,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.message.fromServer.AvailableAssistantsUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromServer.AvailableCouncillorsUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromServer.CurrentPlayerUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromServer.GamePhaseUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromServer.KingBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromServer.KingUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromServer.MarketStateUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromServer.NobilityTrackdUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromServer.RegionBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromServer.RegionUpdatedMsg;
+import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.fromserver.*;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
@@ -48,6 +40,9 @@ public class ModelView extends Observable implements Observer, Serializable {
 	private AvailableCouncillorsView availableCouncillorsView;
 	private KingBonusesView kingBonusesView;
 	private RegionBonusesView regionBonusesView;
+	private MarketView marketView;
+
+	private MessageView messageView;
 
 	// private PoliticDeckView politicDeckView;
 
@@ -110,6 +105,12 @@ public class ModelView extends Observable implements Observer, Serializable {
 				model.getGameBoard().getBonusBlue());
 		model.getGameBoard().addObserver(regionBonusesView);
 
+		marketView = new MarketView(model.getMarket());
+		model.getMarket().addObserver(marketView);
+
+		messageView = new MessageView(model.getMessage());
+		model.addObserver(messageView);
+
 		// ModelView observes each playerView
 		for (PlayerView playerView : playersView) {
 			playerView.addObserver(this);
@@ -129,6 +130,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		availableCouncillorsView.addObserver(this);
 		kingBonusesView.addObserver(this);
 		regionBonusesView.addObserver(this);
+		messageView.addObserver(this);
 	}
 
 	@Override
@@ -171,6 +173,13 @@ public class ModelView extends Observable implements Observer, Serializable {
 			notifyObservers(new RegionBonusesUpdatedMsg(((RegionBonusesView) o).getBonusGoldCopy(),
 					((RegionBonusesView) o).getBonusSilverCopy(), ((RegionBonusesView) o).getBonusBronzeCopy(),
 					((RegionBonusesView) o).getBonusBlueCopy()));
+		} else if (o instanceof MarketView) {
+			setChanged();
+			notifyObservers(new MarketUpdatedMsg(((MarketView) o).getMarketCopy()));
+		} else if (o instanceof MessageView) {
+			setChanged();
+			// controllare TODO
+			notifyObservers((Message) o);
 		} else
 			throw new IllegalArgumentException();
 	}

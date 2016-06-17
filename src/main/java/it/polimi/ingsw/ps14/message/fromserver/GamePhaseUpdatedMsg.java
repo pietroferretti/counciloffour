@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.message.fromServer;
+package it.polimi.ingsw.ps14.message.fromserver;
 
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.GamePhase;

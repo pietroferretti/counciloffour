@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ps14.server;
 
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.fromServer.PlayerIDMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

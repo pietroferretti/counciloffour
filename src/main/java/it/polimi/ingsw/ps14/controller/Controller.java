@@ -11,7 +11,7 @@ import it.polimi.ingsw.ps14.message.NewPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromClient.DoneBuyingMsg;
 import it.polimi.ingsw.ps14.message.fromClient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromClient.TurnActionMsg;
-import it.polimi.ingsw.ps14.message.fromServer.ErrorMsg;
+import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.model.GameLogic;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.Market;

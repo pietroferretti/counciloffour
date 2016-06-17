@@ -50,7 +50,6 @@ public class ItemForSale implements Serializable {
 		this.color = null;
 		counter++;
 		barCode = counter;
-
 	}
 
 	public ItemForSale(ColorPolitic color, int price, Integer ownerID) {
@@ -61,6 +60,15 @@ public class ItemForSale implements Serializable {
 		this.color = color;
 		counter++;
 		barCode = counter;
+	}
+
+	public ItemForSale(ItemForSale i) {
+		this.idORquantity = i.idORquantity;
+		this.color = i.color;
+		this.price = i.price;
+		this.ownerID = i.ownerID;
+		this.type = i.type;
+		this.barCode = i.barCode;
 	}
 
 	public int getPrice() {
@@ -145,16 +153,16 @@ public class ItemForSale implements Serializable {
 	@Override
 	public String toString() {
 		if (type.name().matches("BUSINESS")) {
-			return (" BAR_CODE=" + barCode + ":" + type + ", idORquantity="
-					+ idORquantity + ", price=" + price + ", ownerID=" + ownerID);
+			return (" BAR_CODE=" + barCode + ":" + type + ", idORquantity=" + idORquantity + ", price=" + price
+					+ ", ownerID=" + ownerID);
 		}
 		if (type.name().matches("ASSISTANT")) {
-			return (" BAR_CODE=" + barCode + ":" + type + ", idORquantity="
-					+ idORquantity + ", price=" + price + ", ownerID=" + ownerID);
+			return (" BAR_CODE=" + barCode + ":" + type + ", idORquantity=" + idORquantity + ", price=" + price
+					+ ", ownerID=" + ownerID);
 		}
 		if (type.name().matches("POLITIC")) {
-			return (" BAR_CODE=" + barCode + ":" + type + ", color=" + color
-					+ ", price=" + price + ", ownerID=" + ownerID);
+			return (" BAR_CODE=" + barCode + ":" + type + ", color=" + color + ", price=" + price + ", ownerID="
+					+ ownerID);
 		}
 		return null;
 	}
