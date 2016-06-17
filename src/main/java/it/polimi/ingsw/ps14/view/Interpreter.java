@@ -57,9 +57,6 @@ public class Interpreter {
 
 		}
 		if (msg instanceof ErrorMsg) {
-			if(ErrorMsg)
-				if(((ErrorMsg) msg).getPlayerID()==playerID)
-			
 			return ((ErrorMsg) msg).toString();
 
 		}
@@ -96,11 +93,11 @@ public class Interpreter {
 
 		}
 		if (msg instanceof PlayerChangedPrivateMsg) {
-			return ((PlayerChangedPrivateMsg) msg).toString();
+			return ((PlayerChangedPrivateMsg) msg).getMessage().toString();
 
 		}
 		if (msg instanceof PlayerChangedPublicMsg) {
-			return ((PlayerChangedPublicMsg) msg).toString();
+			return ((PlayerChangedPublicMsg) msg).getNotice().toString();
 
 		}
 		
@@ -109,11 +106,11 @@ public class Interpreter {
 
 		}
 		if (msg instanceof RegionUpdatedMsg) {
-			return ((RegionUpdatedMsg) msg).toString();
+			return ((RegionUpdatedMsg) msg).getUpdatedRegion().toString();
 
 		}
 		if (msg instanceof SoldItemMsg) {
-			return ((SoldItemMsg) msg).toString();
+			return ((SoldItemMsg) msg).getItemSold().toString();
 
 		}
 

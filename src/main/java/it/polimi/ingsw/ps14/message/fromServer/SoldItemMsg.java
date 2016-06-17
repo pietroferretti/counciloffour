@@ -1,14 +1,19 @@
 package it.polimi.ingsw.ps14.message.fromServer;
 
+import it.polimi.ingsw.ps14.model.ItemForSale;
+
 public class SoldItemMsg {
-/*
-	int idSeller;
-	ItemForSale item;
+
 	
-	public SoldItemMsg(int idSeller, ItemForSale item) {
-		this.idSeller=idSeller;
+	private ItemForSale item;
+	
+	public SoldItemMsg(ItemForSale item) {
 		this.item=item;
-	}*/
+	}
+	
+	public ItemForSale getItemSold(){
+		return item;
+	}
 
 	
 }

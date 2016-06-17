@@ -117,18 +117,17 @@ public class CLIView extends ClientView implements Runnable {
 			if (message instanceof GameStartedMsg)
 				gameStarted = true;
 			else if (message instanceof TurnFinishedMsg)
-				if (((TurnFinishedMsg) message).getPlayerID() == playerID)
-					myTurn = false;
-				else if (message instanceof CurrentPlayerUpdatedMsg) {
-					print("Turno di "
-							+ ((NewCurrentPlayerMsg) message).getPlayerName());
-					if (((NewCurrentPlayerMsg) message).getPlayerID() == playerID)
-						myTurn = true;
-				} else {
-					str = interpreter.parseMsg(message);
-					if (str != null)
-						print(str);
-				}
+				myTurn = false;
+			else if (message instanceof CurrentPlayerUpdatedMsg) {
+				print("Turno di "
+						+ ((NewCurrentPlayerMsg) message).getPlayerName());
+				if (((NewCurrentPlayerMsg) message).getPlayerID() == playerID)
+					myTurn = true;
+			} else {
+				str = interpreter.parseMsg(message);
+				if (str != null)
+					print(str);
+			}
 		}
 	}
 
