@@ -6,6 +6,7 @@ import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.fromClient.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromServer.CurrentPlayerUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromServer.GameStartedMsg;
+import it.polimi.ingsw.ps14.message.fromServer.PlayerIDMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
@@ -29,16 +30,16 @@ public class CLIView extends ClientView implements Runnable {
 	private boolean gameStarted;
 	private boolean myTurn;
 	private Interpreter interpreter;
-	private final Integer playerID;
+	private Integer playerID; //settare playerID
 	private Scanner in;
 
 	public CLIView(Scanner scanner) {
 		printer = new Printer(new PrintStream(System.out));
 		gameStarted = false;
 		myTurn = false;
-		this.playerID = 0;
 		interpreter = new Interpreter();
 		in = scanner;
+		playerID=null;
 	}
 
 	/**
@@ -114,6 +115,8 @@ public class CLIView extends ClientView implements Runnable {
 	public void handleMessage(Message message) {
 		String str;
 		if (message != null) {
+			if((message instanceof PlayerIDMsg) && playerID==null)
+				playerID=((PlayerIDMsg) message).getPlayerID();
 			if (message instanceof GameStartedMsg)
 				gameStarted = true;
 			else if (message instanceof TurnFinishedMsg)
@@ -144,7 +147,9 @@ public class CLIView extends ClientView implements Runnable {
 			
 			Message msg;
 			print("inserito " + input);
-			if (!gameStarted) {
+			if(input.toUpperCase().matches("INSTRUCTION"))
+				showIntruction();
+			else if (!gameStarted) {
 
 				print("The game hasn't started yet!!!!");
 			} else if (!myTurn) {
@@ -165,6 +170,26 @@ public class CLIView extends ClientView implements Runnable {
 
 			}
 		}
+	}
+
+	private void showIntruction() {
+		print("INSTRUCTION:");
+		print("DRAW - draw a politic card");
+		print("ELECT COLOR REGIONTYPE_KING - elect COLOR councillor in balcony of REGION TYPE or KING");
+		print("ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC - acquire permit whit id PERMIT-ID of region REGIONTYPE using COLOR1 COLOR2 ...");
+		print("BUILD-WITH-KING CITYname CARDS - build emporium in city CITYname with help of the king using COLOR1 COLOR2 ...");
+		print("BUILD-WITH-PERMIT PERMITid CITYname - build emporium using PERMIT-ID in CITYname");
+		print("ENGAGE - engage assistant");
+		print("CHANGE REGIONTYPE - change business permit of REGIONTYPE");
+		print("MAIN - perform an other main action");
+		print("ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR - elect COLOR councillor in balcony REGIONTYPE with help of assistant ");
+		print("USED-CARD PERMITid - choose used card to recicle");
+		print("FINISH - finish action");
+		print("SHOW MYDETAILS/DETAILS/GAMEBOARD - show whatever you want");
+		print("SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... ASSISTANTS NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE... - sell!sell!sell!");
+		print("BUY ITEM_ID QUANTITY(optional) - buy! insert quantity only if buy some assistant of the item and not the whole item");
+		
+		
 	}
 
 }

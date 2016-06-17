@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ps14.server;
 
+import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.fromServer.PlayerIDMsg;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -8,8 +11,6 @@ import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import it.polimi.ingsw.ps14.message.Message;
 
 public class SocketServerView extends ServerView implements Runnable {
 	private static final Logger LOGGER = Logger.getLogger(SocketServerView.class.getName());
@@ -28,6 +29,7 @@ public class SocketServerView extends ServerView implements Runnable {
 		this.server = server;
 		this.socketIn = new ObjectInputStream(socket.getInputStream());
 		this.socketOut = new ObjectOutputStream(socket.getOutputStream());
+		socketOut.writeObject(new PlayerIDMsg(idPlayer));
 	}
 
 	private synchronized boolean isActive() {
