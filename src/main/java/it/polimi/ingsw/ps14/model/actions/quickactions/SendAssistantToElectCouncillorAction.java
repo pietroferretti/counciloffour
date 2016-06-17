@@ -23,7 +23,7 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 	}
 
 	public boolean isValid(Model model) {
-		Player player = id2player(super.getPlayer(), model);
+		Player player = model.id2player(super.getPlayer());
 		Balcony balcony = model.getGameBoard().getRegion(regType).getBalcony();
 
 		return (player.getAssistants() >= 1 && model.getGameBoard().councillorIsAvailable(color) && balcony != null
@@ -31,7 +31,7 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 	}
 
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player = id2player(super.getPlayer(), model);
+		Player player = model.id2player(super.getPlayer());
 		Balcony balcony = model.getGameBoard().getRegion(regType).getBalcony();
 
 		player.useAssistants(1);

@@ -24,7 +24,7 @@ public class DrawCardAction extends TurnAction {
 
 	@Override
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player = id2player(super.getPlayer(), model);
+		Player player = model.id2player(super.getPlayer());
 
 		player.addPolitic(model.getGameBoard().getPoliticDeck().drawCard());
 		player.additionalMainsToDo = 0;

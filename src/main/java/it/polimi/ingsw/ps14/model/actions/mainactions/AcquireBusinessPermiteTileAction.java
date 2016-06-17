@@ -33,10 +33,10 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 
 	@Override
 	public boolean isValid(Model model) {
-		Player player = id2player(super.getPlayer(), model);
+		Player player = model.id2player(super.getPlayer());
 		Region region = model.getGameBoard().getRegion(regionType);
 		Balcony balcony = region.getBalcony();
-		BusinessPermit permitTile = id2permit(permitID, region);
+		BusinessPermit permitTile = model.id2permit(permitID, region);
 
 		List<ColorPolitic> colors = new ArrayList<>();
 		for (PoliticCard p : cards)
@@ -59,9 +59,9 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	@Override
 	public TurnState execute(TurnState previousState, Model model) {
 
-		Player player = id2player(super.getPlayer(), model);
+		Player player = model.id2player(super.getPlayer());
 		Region region = model.getGameBoard().getRegion(regionType);
-		BusinessPermit permitTile = id2permit(permitID, region);
+		BusinessPermit permitTile = model.id2permit(permitID, region);
 		Balcony balcony = region.getBalcony();
 
 		// pay councillors

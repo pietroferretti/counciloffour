@@ -16,13 +16,13 @@ public class EngageAssistantAction extends QuickAction {
 	}
 
 	public boolean isValid(Model model) {
-		Player player = id2player(getPlayer(), model);
+		Player player = model.id2player(getPlayer());
 
 		return (model.getGameBoard().getAvailableAssistants() >= 1 && player.getCoins() >= 3);
 	}
 
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player = id2player(getPlayer(), model);
+		Player player = model.id2player(getPlayer());
 
 		player.useCoins(3);
 		model.getGameBoard().useAssistants(1);

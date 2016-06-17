@@ -39,7 +39,7 @@ public class BuyAction implements Serializable {
 	 */
 	public boolean isValid(Model model) {
 		Market market = model.getMarket();
-		Player buyer = id2player(buyerID, model);
+		Player buyer = model.id2player(buyerID);
 		ItemForSale obj = market.id2itemForSale(objBarCode);
 		if (obj == null)
 			return false;
@@ -96,8 +96,8 @@ public class BuyAction implements Serializable {
 	public void execute(Model model) {
 		Market market = model.getMarket();
 		ItemForSale item = market.id2itemForSale(objBarCode);
-		Player owner = id2player(item.getOwnerID(), model);
-		Player buyer = id2player(buyerID, model);
+		Player owner = model.id2player(item.getOwnerID());
+		Player buyer = model.id2player(buyerID);
 
 		if (owner != null && buyer != null && item != null) {
 
@@ -108,7 +108,7 @@ public class BuyAction implements Serializable {
 				owner.addCoins(item.getPrice());
 
 				if (item.getType().equals(ItemForSale.Type.BUSINESS)) {
-					BusinessPermit busPer = id2permit(item.getIdORquantity(),
+					BusinessPermit busPer = model.id2permit(item.getIdORquantity(),
 							owner);
 					owner.getBusinessHand().sellPermits(busPer);
 					buyer.getBusinessHand().acquireBusinessPermit(busPer);
@@ -144,17 +144,5 @@ public class BuyAction implements Serializable {
 
 	}
 
-	protected Player id2player(Integer id, Model model) {
-		for (Player p : model.getPlayers())
-			if (p.getId() == id)
-				return p;
-		return null;
-	}
-
-	protected BusinessPermit id2permit(Integer permitID, Player player) {
-		for (BusinessPermit bp : player.getBusinessHand().getValidCards())
-			if (bp.getId() == permitID)
-				return bp;
-		return null;
-	}
+	
 }

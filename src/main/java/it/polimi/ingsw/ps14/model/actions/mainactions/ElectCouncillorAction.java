@@ -33,7 +33,7 @@ public class ElectCouncillorAction extends MainAction {
 
 	@Override
 	public TurnState execute(TurnState previousState,Model model) {
-		Player player = id2player(super.getPlayer(), model);
+		Player player = model.id2player(super.getPlayer());
 		Balcony balcony ;
 		if(regionType!=null)
 			balcony=model.getGameBoard().getRegion(regionType).getBalcony();

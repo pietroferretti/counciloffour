@@ -21,7 +21,7 @@ public abstract class QuickAction extends TurnAction {
 	}
 
 	protected TurnState nextState(TurnState previousState, Model model) {
-		Player player = super.id2player(getPlayer(), model);
+		Player player = model.id2player(getPlayer());
 
 		if (previousState instanceof CardDrawnState)
 			return new QuickActionDoneTurnState(player.additionalMainsToDo);

@@ -56,26 +56,7 @@ public abstract class MainAction extends TurnAction {
 		}
 	}
 
-	protected BusinessPermit id2permit(Integer permitID, Player player) {
-		for (BusinessPermit bp : player.getBusinessHand().getValidCards())
-			if (bp.getId() == permitID)
-				return bp;
-		return null;
-	}
 
-	protected BusinessPermit id2permit(Integer permitID, Region region) {
-		for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits())
-			if (bp.getId() == permitID)
-				return bp;
-		return null;
-	}
-
-	protected City id2city(String name, Model model) {
-		for (City c : model.getGameBoard().getCities())
-			if (c.getName().compareTo(name) == 0)
-				return c;
-		return null;
-	}
 
 	protected TurnState nextState(TurnState previousState, Player player) {
 		if (previousState instanceof CardDrawnState)

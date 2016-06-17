@@ -16,13 +16,13 @@ public class PerformAdditionalMainActionAction extends QuickAction {
 	}
 
 	public boolean isValid(Model model) {
-		Player player = id2player(getPlayer(), model);
+		Player player = model.id2player(getPlayer());
 
 		return player.getAssistants() >= 3;
 	}
 
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player = id2player(getPlayer(), model);
+		Player player = model.id2player(getPlayer());
 
 		player.useAssistants(3);
 		model.getGameBoard().addAssistants(3);

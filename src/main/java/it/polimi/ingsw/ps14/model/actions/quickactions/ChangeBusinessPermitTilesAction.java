@@ -21,7 +21,7 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 	}
 
 	public boolean isValid(Model model) {
-		Player player = id2player(super.getPlayer(), model);
+		Player player = model.id2player(super.getPlayer());
 		Region region = model.getGameBoard().getRegion(regType);
 
 		return (region.getBusinessPermits().cardsLeftInDeck() > 0 && player.getAssistants() >= 1 && region != null);
@@ -29,7 +29,7 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 
 	@Override
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player = id2player(super.getPlayer(), model);
+		Player player = model.id2player(super.getPlayer());
 		Region region = model.getGameBoard().getRegion(regType);
 
 		player.useAssistants(1);

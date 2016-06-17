@@ -23,13 +23,13 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 
 	@Override
 	public boolean isValid(Model model) {
-		Player player = id2player(super.getPlayer(), model);
+		Player player = model.id2player(super.getPlayer());
 		if (player == null)
 			return false;
-		BusinessPermit businessCard = id2permit(businessCardID, player);
+		BusinessPermit businessCard = model.id2permit(businessCardID, player);
 		if (businessCard == null)
 			return false;
-		City city = id2city(cityName, model);
+		City city = model.id2city(cityName);
 		if (city == null)
 			return false;
 
@@ -55,9 +55,9 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 
 	@Override
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player = id2player(super.getPlayer(), model);
-		BusinessPermit businessCard = id2permit(businessCardID, player);
-		City city = id2city(cityName, model);
+		Player player = model.id2player(super.getPlayer());
+		BusinessPermit businessCard = model.id2permit(businessCardID, player);
+		City city = model.id2city(cityName);
 
 		// use permit
 		player.getBusinessHand().usePermit(businessCard);

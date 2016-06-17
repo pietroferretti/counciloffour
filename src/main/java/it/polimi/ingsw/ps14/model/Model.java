@@ -174,5 +174,33 @@ public class Model extends Observable implements Serializable {
 		setChanged();
 		notifyObservers();
 	}
+	
+	public Player id2player(Integer id) {
+		for (Player p :players)
+			if (p.getId() == id)
+				return p;
+		return null;
+	}
 
+	public BusinessPermit id2permit(Integer permitID, Player player) {
+		for (BusinessPermit bp : player.getBusinessHand().getValidCards())
+			if (bp.getId() == permitID)
+				return bp;
+		return null;
+	}
+	
+
+	public BusinessPermit id2permit(Integer permitID, Region region) {
+		for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits())
+			if (bp.getId() == permitID)
+				return bp;
+		return null;
+	}
+
+	public City id2city(String name) {
+		for (City c : gameBoard.getCities())
+			if (c.getName().compareTo(name) == 0)
+				return c;
+		return null;
+	}
 }

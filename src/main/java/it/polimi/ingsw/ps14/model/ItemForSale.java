@@ -1,11 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
-import it.polimi.ingsw.ps14.model.actions.Action;
-import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemForSale implements Serializable {
 
