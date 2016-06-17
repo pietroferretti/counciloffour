@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 // TODO notify ogni volta che qualcosa viene modificato?
@@ -25,6 +26,8 @@ public class Model extends Observable implements Serializable {
 	private TurnState currentTurnState;
 	private MarketState currentMarketState;
 	private List<Player> playerOrder;
+	
+	private Message messageToSend;
 
 	public Model() throws IOException {
 		gameBoard = new GameBoard(new Settings("settings.json"));
@@ -128,6 +131,14 @@ public class Model extends Observable implements Serializable {
 
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+	}
+
+	public Message getMessageToSend() {
+		return messageToSend;
+	}
+
+	public void setMessageToSend(Message messageToSend) {
+		this.messageToSend = messageToSend;
 	}
 
 }
