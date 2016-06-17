@@ -18,7 +18,10 @@ public class Model extends Observable implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4787221737865002835L;
-	
+
+	private static int idCounter = 1;
+	private final int idGame;
+
 	private List<Player> players;
 	private GameBoard gameBoard;
 	private Market market;
@@ -28,20 +31,26 @@ public class Model extends Observable implements Serializable {
 	private TurnState currentTurnState;
 	private MarketState currentMarketState;
 	private Deque<Player> playerOrder;
-	
+
 	private Message message;
 
 	public Model() throws IOException {
+		idGame = idCounter;
+		idCounter++;
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		players = new ArrayList<>();
 	}
 
 	public Model(List<Player> players) throws IOException {
+		idGame = idCounter;
+		idCounter++;
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		this.players = players;
 	}
 
 	public Model(Model m) {
+		idGame = idCounter;
+		idCounter++;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -75,6 +84,10 @@ public class Model extends Observable implements Serializable {
 		}
 		// magari una exception?
 		return null;
+	}
+
+	public int getIdGame() {
+		return idGame;
 	}
 
 	public void setGamePhase(GamePhase phase) {
@@ -122,13 +135,13 @@ public class Model extends Observable implements Serializable {
 	public Player getNextPlayer() {
 		return playerOrder.peek();
 	}
-	
+
 	public void playerDone() {
 		currentPlayer = playerOrder.pollFirst();
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public void nextPlayer() {
 		playerOrder.addLast(currentPlayer);
 		currentPlayer = playerOrder.pollFirst();
