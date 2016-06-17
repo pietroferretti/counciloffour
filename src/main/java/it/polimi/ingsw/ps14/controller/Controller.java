@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps14.message.ActionMsg;
 import it.polimi.ingsw.ps14.message.NewPlayerMsg;
 import it.polimi.ingsw.ps14.model.GameLogic;
 import it.polimi.ingsw.ps14.model.GamePhase;
+import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
@@ -56,7 +57,7 @@ public class Controller implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		View playerView = (View) o;
+		View serverView = (View) o;
 
 		if (arg instanceof NewPlayerMsg) {
 			// TODO verifica id player
@@ -65,53 +66,93 @@ public class Controller implements Observer {
 		
 		else if (arg instanceof ActionMsg) {
 			
-			actionVisitor(playerView, ((ActionMsg) arg).getAction());
-			
-		} else if (arg instanceof SellAction) {
-			
-			actionVisitor(playerView, ((ActionMsg) arg).getAction());
-		
-		} else if (arg instanceof BuyAction) {
-			
-			actionVisitor(playerView, ((ActionMsg) arg).getAction());
+			// do different things depending on the action
+			actionVisitor(serverView, ((ActionMsg) arg).getAction());
 			
 		} else {
 			
-			LOGGER.warning("Message/Action not recognized!");
+			LOGGER.warning("Message not recognized!");
 		
 		}
 	}
 	
-	public void actionVisitor(View playerView, Action action) {
+	public void actionVisitor(View serverView, Action action) {
+		
+		// no specific action recognized
 		throw new UnsupportedOperationException();
+	
 	}
 	
-	public void actionVisitor(View playerView, TurnAction action) {
+	/**
+	 * Called if the action sent by the view is a TurnAction.
+	 * Does checks and executes the action, updates the state of the game phases and turns.
+	 * @param serverView
+	 * @param action 
+	 */
+	public void actionVisitor(View serverView, TurnAction action) {
+		
+		// if we're in the regular turns phase (i.e. not market)
 		if (model.getGamePhase() == GamePhase.TURNS) {
-			if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-				if (model.getCurrentTurnState().isActionLegal(action, null)) {
-					model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, null));
-					if (model.getCurrentTurnState() instanceof EndTurnState) {
-
-						if (model.getPlayerOrder().isEmpty()) {
-							model.setGamePhase(GamePhase.MARKET);
-							List<Player> marketPlayers = new ArrayList<>(players);
-							Collections.shuffle(marketPlayers);
-							model.setPlayerOrder(marketPlayers);
-							model.nextPlayer();
-
-						} else {
-							model.nextPlayer();
-						}
-					}
-
+		
+			// checks if it's the turn of the player that sent the action
+			if (serverView.getPlayerID() == model.getCurrentPlayer().getId()) {
+			
+				// checks if we are in the right state to execute this action (e.g. we can still perform a Main Action)
+				if (model.getCurrentTurnState().isActionLegal(action, model)) {
+				
+					// executes the action and updates the state
+					model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, model));
+					
+					// checks if a player has built all 10 emporiums
 					if (model.getCurrentPlayer().getNumEmporiums() >= 10) {
+						
 //						playerView.print("You built 10 emporiums. The game is about to end.");
 						System.out.println("Final turns!");
+					
 						model.setGamePhase(GamePhase.FINALTURNS);
-						// set playerorder = tutti i giocatori tranne questo
-						// che ha finito
+
+						// find this player's position in the players list
+						int index = -1;
+						for (Player player : players) {
+							if (serverView.getPlayerID() == player.getId()) {
+								index = players.indexOf(player);
+							}
+						}
+						
+						// sets the final players as all the players except the one that built 10 emporiums
+						// the turns are in the usual order, starting from the next player
+						List<Player> finalPlayers = new ArrayList<>();
+						finalPlayers.addAll(players.subList(index+1, players.size()));
+						finalPlayers.addAll(players.subList(0, index));
+						model.setPlayerOrder(finalPlayers);
 						model.nextPlayer();
+						
+					} else {
+						
+						// if the action ended the turn
+						if (model.getCurrentTurnState() instanceof EndTurnState) {
+		
+							// if no more players have to play their turn in this phase
+							if (model.getPlayerOrder().isEmpty()) {
+								
+								// the turns phase has ended, the market phase starts 
+								model.setGamePhase(GamePhase.MARKET);
+								model.setMarket(new Market());
+								
+								List<Player> marketPlayers = new ArrayList<>(players);
+								Collections.shuffle(marketPlayers);
+								model.setPlayerOrder(marketPlayers);
+								model.nextPlayer();
+		
+							} else {
+								
+								// it's the next player's turn
+								model.nextPlayer();
+							
+							}
+					}
+
+
 					}
 				} else {
 //					playerView.print("You cannot do this action now!"); // TODO
@@ -122,23 +163,41 @@ public class Controller implements Observer {
 			}
 
 		} else if (model.getGamePhase() == GamePhase.MARKET) {
+			
+			// players cannot perform TurnActions during the market phase
 //			playerView.print("You cannot do that action during the Market phase");
 
 		} else if (model.getGamePhase() == GamePhase.FINALTURNS) {
-			// TODO
-			if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
+
+			// checks if it's the turn of the player that sent the action
+			if (serverView.getPlayerID() == model.getCurrentPlayer().getId()) {
+				
+				// checks if we are in the right state to execute this action (e.g. we can still perform a Main Action)
 				if (model.getCurrentTurnState().isActionLegal(action, null)) {
+					
+					// executes the action and updates the state
 					model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, null));
+					
+					// if the action ended the player's turn
 					if (model.getCurrentTurnState() instanceof EndTurnState) {
+						
+						// if no more players have to play their turn
 						if (model.getPlayerOrder().isEmpty()) {
 
+							// the game has ended, awarding final points and finding the winner
+							model.setGamePhase(GamePhase.END);
 							System.out.println("The game has ended.");
+							
 							GameLogic.distributeEndGamePoints(model.getPlayers());
+							
 							Player winner = GameLogic.findWinner(model.getPlayers());
+							
 							System.out.println("*** " + winner.getName() + " is the winner! ***");
 							// TODO aggiungi dettagli e più :D
 
 						} else {
+							
+							// it's the next player's turn
 							model.nextPlayer();
 						}
 					}
@@ -157,36 +216,58 @@ public class Controller implements Observer {
 		
 	}
 	
-	public void actionVisitor(View playerView, SellAction action) {
+	/**
+	 * Called if the action sent by the view is a SellAction (market phase).
+	 * Does checks and executes the action, updates the state of the game and market phases.
+	 * @param serverView
+	 * @param action
+	 */
+	public void actionVisitor(View serverView, SellAction action) {
 		
+		// checks if we're actually in the market phase
 		if (model.getGamePhase() == GamePhase.MARKET) {
+			
+			// checks if we are in the market selling phase
 			if (model.getCurrentMarketState() == MarketState.SELLING) {
-				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
+				
+				// checks if it's the turn of the player that sent the action
+				if (serverView.getPlayerID() == model.getCurrentPlayer().getId()) {
+					
 					if (action.isValid(model)) {
-						action.sell();//TODO add parameter market. Market should be created at each beginning of MarketPhase in the game
+					
+						action.execute(model.getMarket());
+				
 					} else {
+				
 //						playerView.print("You cannot do this action now!"); // TODO
 																			// details
 					}
 				} else {
+					
 //					playerView.print("It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+				
 				}
 			} else {
+
 //				playerView.print("You cannot sell now.");
+
 			}
 		} else {
+			
 //			playerView.print("You can only do this during the Market phase.");
+		
 		}
 		
 	}
 
 	public void actionVisitor(View playerView, BuyAction action) {
 		
+		// checks if we're actually in the market phase
 		if (model.getGamePhase() == GamePhase.MARKET) {
 			if (model.getCurrentMarketState() == MarketState.BUYING) {
 				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-					if (action.isValid(model, market)) {
-						action.buy(market);
+					if (action.isValid(model, model.getMarket())) {
+						action.execute(model, model.getMarket());
 						// action cambia lo stato del market se
 						// tutti hanno finito:
 						// market -> END

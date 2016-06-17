@@ -26,7 +26,7 @@ public class SellAction implements Serializable {
 		return true;
 	}
 
-	public void sell(Market market) {
+	public void execute(Market market) {
 		for (ItemForSale item : items)
 			market.addItem(item);
 	}

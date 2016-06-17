@@ -15,8 +15,10 @@ public class Model extends Observable implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4787221737865002835L;
-	private GameBoard gameBoard;
+	
 	private List<Player> players;
+	private GameBoard gameBoard;
+	private Market market;
 
 	private GamePhase gamePhase;
 	private Player currentPlayer;
@@ -114,6 +116,18 @@ public class Model extends Observable implements Serializable {
 		currentPlayer = playerOrder.remove(0);
 		setChanged();
 		notifyObservers();
+	}
+
+	public Market getMarket() {
+		return market;
+	}
+
+	public void setMarket(Market market) {
+		this.market = market;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
 
 }
