@@ -179,13 +179,15 @@ public class Interpreter {
 
 			return new TurnActionMsg(new BuildEmporiumWithHelpOfKingAction(playerID, city, politics));
 
-		// BUILD-WITH-PERMIT PERMITid CITYname
+		// BUILD-WITH-PERMIT  CITYname PERMITid
 		case "BUILD-WITH-PERMIT":
 			if (word.length != 3)
 				return null;
+			
+			String cityname = word[1];
 			try {
-				Integer permitID = Integer.parseInt(word[1]);
-				return new TurnActionMsg(new BuildEmporiumUsingPermitTileAction(playerID, permitID, word[2]));
+				Integer permitID = Integer.parseInt(word[2]);
+				return new TurnActionMsg(new BuildEmporiumUsingPermitTileAction(playerID, permitID, cityname));
 			} catch (NumberFormatException e) {
 				return null;
 			}
@@ -210,6 +212,7 @@ public class Interpreter {
 			return new TurnActionMsg(new PerformAdditionalMainActionAction(playerID));
 
 		// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
+		// TODO importante, aggiungere anche il king!!!!
 		case "ELECT-WITH-ASSISTANT":
 			if (word.length != 3)
 				return null;

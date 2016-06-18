@@ -10,6 +10,11 @@ public class CardDrawnState extends TurnState {
 	public CardDrawnState() {
 		super(0);	// There can't be any additional main actions at the start of the turn
 	}
+	
+	@Override
+	public TurnState makeCopy() {
+		return new CardDrawnState();
+	}
 
 	@Override
 	public boolean isActionLegal(Action action, Model model) {

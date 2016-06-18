@@ -12,6 +12,11 @@ public abstract class TurnState {
 		this.additionalMains = additionalMains;
 	}
 	
+	/**
+	 * Prototype Pattern!
+	 */
+	public abstract TurnState makeCopy();
+	
 	// check if we can do an action based on the TurnState we are in
 	public abstract boolean isActionLegal(Action action, Model model);
 

@@ -11,6 +11,11 @@ public class InitialTurnState extends TurnState {
 	}
 	
 	@Override
+	public TurnState makeCopy() {
+		return new InitialTurnState();
+	}
+	
+	@Override
 	public boolean isActionLegal(Action action, Model model) {
 		return action instanceof DrawCardAction && action.isValid(model);
 	}

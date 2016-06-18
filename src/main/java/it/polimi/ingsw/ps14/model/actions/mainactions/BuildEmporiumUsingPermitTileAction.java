@@ -79,7 +79,7 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 			return new EndTurnState();
 		}
 
-		return nextState(previousState, player);
+		return nextState(previousState, model);
 	}
 
 }

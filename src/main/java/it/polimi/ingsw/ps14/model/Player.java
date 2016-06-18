@@ -32,7 +32,6 @@ public class Player extends Observable implements Serializable {
 	private BusinessCardsPlayer businessHand;
 	
 	private int numEmporiums = 0;
-	public int additionalMainsToDo;
 
 	/**
 	 * New player
@@ -128,7 +127,6 @@ public class Player extends Observable implements Serializable {
 			hand.add(new PoliticCard(politicCard));
 		}
 		businessHand = new BusinessCardsPlayer(player.businessHand);
-		additionalMainsToDo = player.additionalMainsToDo;
 	}
 
 	public String getName() {

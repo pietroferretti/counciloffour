@@ -17,7 +17,7 @@ public class BonusMainAction extends Bonus {
 	@Override
 	public void useBonus(Player player, Model model) {
 		for (int i = 0; i < super.getQuantity(); i++) {
-			player.additionalMainsToDo++;
+			model.incrementAdditionalMainsToDo();
 		}
 	}
 

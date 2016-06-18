@@ -15,7 +15,6 @@ import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.GamePhaseUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
@@ -24,6 +23,7 @@ import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
 import it.polimi.ingsw.ps14.message.fromserver.RegionBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
 import it.polimi.ingsw.ps14.model.modelview.PlayerView;
 import it.polimi.ingsw.ps14.model.modelview.RegionView;
@@ -127,7 +127,7 @@ public class SocketServerView extends ServerView implements Runnable {
 			// sendMessage(new
 			// CurrentPlayerUpdatedMsg(modelCopy.getCurrentPlayerView().getCurrentPlayerNameCopy(),
 			// modelCopy.getCurrentPlayerView().getCurrentPlayerIDCopy()));
-			sendMessage(new GamePhaseUpdatedMsg(modelCopy.getGamePhaseView().getGamePhaseCopy()));
+			sendMessage(new StateUpdatedMsg(modelCopy.getStateView().getStateCopy()));
 			sendMessage(new AvailableAssistantsUpdatedMsg(
 					modelCopy.getAvailableAssistantsView().getAvailableAssistantsCopy()));
 			sendMessage(new KingBonusesUpdatedMsg(modelCopy.getKingBonusesView().getShowableKingBonus()));
