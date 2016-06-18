@@ -24,6 +24,11 @@ public class Balcony implements Serializable {
 
 	}
 
+	/**
+	 * elect new councillor and discard a councillor from the head of balcony
+	 * @param color to elect
+	 * @return color councillor discarded
+	 */
 	public ColorCouncillor electCouncillor(ColorCouncillor color) {
 		ColorCouncillor discarded = councillors.poll();
 		councillors.add(color);
@@ -75,7 +80,7 @@ public class Balcony implements Serializable {
 	 *             if there are cards that don't match
 	 */
 	public int numOfMatchingCards(List<PoliticCard> cards) {
-		// TODO possiamo aggiungere jolly all'infinito, non funziona
+		// FIXME possiamo aggiungere jolly all'infinito, non funziona
 		int bribedCouncillors = 0;
 		Queue<ColorCouncillor> newCouncillors = new LinkedList<>(councillors);
 
@@ -128,12 +133,8 @@ public class Balcony implements Serializable {
 
 	
 	
-	@Override
+@Override
 	public String toString() {
-		return "Balcony [councillors=" + councillors + "]";
-	}
-
-	public String tboString() {
 		String s = "%nhead%n";
 		for (ColorCouncillor colorCouncillor : councillors) {
 			s = s + colorCouncillor.toString() + " ";

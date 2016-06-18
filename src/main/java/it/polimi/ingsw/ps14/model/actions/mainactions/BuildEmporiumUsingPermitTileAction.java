@@ -27,14 +27,10 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		if (player == null)
 			return false;
 		BusinessPermit businessCard = model.id2permit(businessCardID, player);
-		if (businessCard == null)
+		if (businessCard == null) // if player doesn't have card return null
 			return false;
 		City city = model.id2city(cityName);
 		if (city == null)
-			return false;
-
-		// check if player has this business permit
-		if (!player.getBusinessHand().contains(businessCard))
 			return false;
 
 		// city is in the list of business permit selected
