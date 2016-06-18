@@ -31,10 +31,12 @@ public class MessageView extends Observable implements Observer, Serializable {
 			throw new IllegalArgumentException();
 		else {
 			Message msg = ((Model) o).getMessage();
+
 			if (msg instanceof ErrorMsg) {
 				messageCopy = new ErrorMsg(((ErrorMsg) msg).getPlayerID(), ((ErrorMsg) msg).getInfo());
 			} else {
 				// TODO
+				messageCopy = msg;
 
 			}
 			setChanged();

@@ -10,6 +10,7 @@ import java.util.Observable;
 
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
+import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 // TODO notify ogni volta che qualcosa viene modificato?
@@ -41,6 +42,10 @@ public class Model extends Observable implements Serializable {
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		players = new ArrayList<>();
 		market = new Market();
+		
+		setGamePhase(GamePhase.TURNS);
+		setCurrentTurnState(new InitialTurnState());
+		setCurrentMarketState(MarketState.END);
 	}
 
 	public Model(List<Player> players) throws IOException {
@@ -49,6 +54,10 @@ public class Model extends Observable implements Serializable {
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		this.players = players;
 		market = new Market();
+		
+		setGamePhase(GamePhase.TURNS);
+		setCurrentTurnState(new InitialTurnState());
+		setCurrentMarketState(MarketState.END);
 	}
 
 	public Model(Model m) {
@@ -59,6 +68,8 @@ public class Model extends Observable implements Serializable {
 	
 	public void startGame() {
 		message = new GameStartedMsg();
+		setChanged();
+		notifyObservers();
 	}
 
 	public void setGameBoard(GameBoard gameBoard) {
