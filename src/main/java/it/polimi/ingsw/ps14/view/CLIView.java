@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.GamePhase;
+import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
@@ -249,6 +250,8 @@ public class CLIView extends ClientView implements Runnable {
 	
 	private void showCommandsTurns() {
 		
+		print("* Turns Phase *"); 	//TODO lo teniamo?
+		
 		if (gameState.getCurrentPlayer().getId() != playerID) {
 			
 			print(String.format("It's player %d's turn.", gameState.getCurrentPlayer().getId()));
@@ -282,7 +285,7 @@ public class CLIView extends ClientView implements Runnable {
 				
 			} else if (currTurnState instanceof EndTurnState) {
 				
-				print("End of your turn, this shouldn't happen.");
+				print("End of your turn, you shouldn't be here.");
 				LOGGER.warning("Something went wrong, it's still this player's turn even after it ended!!");			
 				
 			}
@@ -292,6 +295,43 @@ public class CLIView extends ClientView implements Runnable {
 	}
 	
 	private void showCommandsMarket() {
+		
+		print("* Market Phase *");
+		
+		if (gameState.getCurrentMarketState() == MarketState.SELLING) {
+			
+			print("Currently selling.");
+			
+			if (gameState.getCurrentPlayer().getId() == playerID) {
+				
+				print(String.format("It's player %d's turn to sell.", gameState.getCurrentPlayer().getId()));
+				
+			} else {
+				
+				print("It's your turn to sell.");
+				
+			}
+			
+		} else if (gameState.getCurrentMarketState() == MarketState.BUYING) {
+		
+			print("Currently buying.");
+			
+			if (gameState.getCurrentPlayer().getId() == playerID) {
+				
+				print(String.format("It's player %d's turn to buy.", gameState.getCurrentPlayer().getId()));
+				
+			} else {
+				
+				print("It's your turn to buy. You can buy something or pass the turn.");
+				
+			}
+		
+		} else if (gameState.getCurrentMarketState() == MarketState.END) {
+			
+			print("The market has ended, you shouldn't be here.");
+			LOGGER.warning("Something went wrong, the game is still in the market phase even after it ended!!");
+			
+		}
 		
 	}
 	
