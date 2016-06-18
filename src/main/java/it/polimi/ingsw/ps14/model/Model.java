@@ -59,12 +59,6 @@ public class Model extends Observable implements Serializable {
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);
 	}
-
-	public Model(Model m) {
-		idGame = idCounter;
-		idCounter++;
-		// TODO Auto-generated constructor stub
-	}
 	
 	public void startGame() {
 		message = new GameStartedMsg();
