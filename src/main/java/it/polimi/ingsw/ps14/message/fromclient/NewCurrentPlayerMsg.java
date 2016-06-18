@@ -1,9 +1,13 @@
-package it.polimi.ingsw.ps14.message.fromClient;
+package it.polimi.ingsw.ps14.message.fromclient;
 
 import it.polimi.ingsw.ps14.message.Message;
 
 public class NewCurrentPlayerMsg implements Message {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3207087041540300469L;
 	private String playerName;
 	private int playerID;
 

@@ -8,14 +8,13 @@ import java.util.Observer;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.NewPlayerMsg;
-import it.polimi.ingsw.ps14.message.fromClient.BuyMsg;
-import it.polimi.ingsw.ps14.message.fromClient.DoneBuyingMsg;
-import it.polimi.ingsw.ps14.message.fromClient.SellMsg;
-import it.polimi.ingsw.ps14.message.fromClient.TurnActionMsg;
+import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
+import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
+import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.model.GameLogic;
 import it.polimi.ingsw.ps14.model.GamePhase;
-import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;

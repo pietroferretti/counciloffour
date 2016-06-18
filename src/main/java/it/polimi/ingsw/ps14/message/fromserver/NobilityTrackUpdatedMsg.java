@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps14.message.fromserver;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.NobilityTrack;
 
-public class NobilityTrackdUpdatedMsg implements Message {
+public class NobilityTrackUpdatedMsg implements Message {
 
 	/**
 	 * 
@@ -12,7 +12,7 @@ public class NobilityTrackdUpdatedMsg implements Message {
 	
 	private NobilityTrack updatedNobilityTrack;
 
-	public NobilityTrackdUpdatedMsg(NobilityTrack updatedNobilityTrack) {
+	public NobilityTrackUpdatedMsg(NobilityTrack updatedNobilityTrack) {
 		this.updatedNobilityTrack = updatedNobilityTrack;
 	}
 
