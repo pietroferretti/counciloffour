@@ -27,13 +27,14 @@ import java.util.logging.Logger;
 //TODO metodo per tutti i miei dettagli?
 //TODO implementare richiesta per stampa di tutto
 public class CLIView extends ClientView implements Runnable {
-	private static final Logger LOGGER = Logger.getLogger(CLIView.class.getName());
-	
+	private static final Logger LOGGER = Logger.getLogger(CLIView.class
+			.getName());
+
 	private Printer printer;
 	private boolean gameStarted;
 	private boolean myTurn;
 	private Interpreter interpreter;
-	private Integer playerID; //settare playerID
+	private Integer playerID; // settare playerID
 	private Scanner in;
 
 	public CLIView(Scanner scanner) {
@@ -42,7 +43,7 @@ public class CLIView extends ClientView implements Runnable {
 		myTurn = false;
 		interpreter = new Interpreter();
 		in = scanner;
-		playerID=null;
+		playerID = null;
 	}
 
 	/**
@@ -118,11 +119,11 @@ public class CLIView extends ClientView implements Runnable {
 	public void handleMessage(Message message) {
 		String str;
 		if (message != null) {
-			if((message instanceof PlayerIDMsg) && playerID==null) {
-			
-				playerID=((PlayerIDMsg) message).getPlayerID();
+			if ((message instanceof PlayerIDMsg) && playerID == null) {
+
+				playerID = ((PlayerIDMsg) message).getPlayerID();
 				LOGGER.info(String.format("Player id set as %d", playerID));
-			
+
 			} else if (message instanceof GameStartedMsg) {
 				gameStarted = true;
 			} else if (message instanceof TurnFinishedMsg) {
@@ -147,17 +148,19 @@ public class CLIView extends ClientView implements Runnable {
 	@Override
 	public void run() {
 
+		print("Enter your name: da implementare ancora");
+		String input = in.nextLine();
 		// per debug
-//		 gameStarted=true;
-		 myTurn=true;
+		// gameStarted=true;
+		// myTurn=true;
 
 		while (true) {
 			print("Enter command:");
-			String input = in.nextLine();
-			
+			input = in.nextLine();
+
 			Message msg;
 			print("inserito " + input);
-			if(input.toUpperCase().matches("INSTRUCTION"))
+			if (input.toUpperCase().matches("INSTRUCTION"))
 				showIntruction();
 			else if (!gameStarted) {
 
@@ -185,21 +188,20 @@ public class CLIView extends ClientView implements Runnable {
 	private void showIntruction() {
 		print("INSTRUCTIONS:");
 		print("DRAW - draw a politic card");
-		print("ELECT COLOR REGIONTYPE_KING - elect COLOR councillor in balcony of REGION TYPE or KING");
-		print("ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC - acquire permit whit id PERMIT-ID of region REGIONTYPE using COLOR1 COLOR2 ...");
-		print("BUILD-WITH-KING CITYname CARDS - build emporium in city CITYname with help of the king using COLOR1 COLOR2 ...");
-		print("BUILD-WITH-PERMIT PERMITid CITYname - build emporium using PERMIT-ID in CITYname");
+		print("ELECT COLOR REGIONTYPE_KING - elect COLOR councillor\n\t in balcony of REGION TYPE or KING");
+		print("ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC - acquire\n\t permit whit id PERMIT-ID of region REGIONTYPE using COLOR1 COLOR2 ...");
+		print("BUILD-WITH-KING CITYname CARDS - build emporium in city\n\t CITYname with help of the king using COLOR1 COLOR2 ...");
+		print("BUILD-WITH-PERMIT PERMITid CITYname - build emporium \n\tusing PERMIT-ID in CITYname");
 		print("ENGAGE - engage assistant");
 		print("CHANGE REGIONTYPE - change business permit of REGIONTYPE");
 		print("MAIN - perform an other main action");
-		print("ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR - elect COLOR councillor in balcony REGIONTYPE with help of assistant ");
+		print("ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR - elect\n\t COLOR councillor in balcony REGIONTYPE with help of assistant ");
 		print("USED-CARD PERMITid - choose used card to recycle");
 		print("FINISH - finish action");
 		print("SHOW MYDETAILS/DETAILS/GAMEBOARD - show whatever you want");
-		print("SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... ASSISTANTS NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE... - sell!sell!sell!");
-		print("BUY ITEM_ID QUANTITY(optional) - buy! insert quantity only if buy some assistant of the item and not the whole item");
-		
-		
+		print("SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... \n\tASSISTANTS NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE... - sell!sell!sell!");
+		print("BUY ITEM_ID QUANTITY(optional) - buy! insert quantity\n\t only if buy some assistant of the item and not the whole item");
+
 	}
 
 }
