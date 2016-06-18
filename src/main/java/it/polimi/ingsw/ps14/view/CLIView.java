@@ -16,6 +16,7 @@ import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.State;
+import it.polimi.ingsw.ps14.model.WaitingFor;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
@@ -250,7 +251,7 @@ public class CLIView extends ClientView implements Runnable {
 	
 	private void showCommandsTurns() {
 		
-		print("* Turns Phase *"); 	//TODO lo teniamo?
+		print("* Turns Phase *"); 
 		
 		if (gameState.getCurrentPlayer().getId() != playerID) {
 			
@@ -260,35 +261,72 @@ public class CLIView extends ClientView implements Runnable {
 			
 			print("It's your turn.");
 			
-			TurnState currTurnState = gameState.getCurrentTurnState();
-			if (currTurnState instanceof InitialTurnState) {
-				
-				print("Draw a card.");
-				
-			} else if ((currTurnState instanceof CardDrawnState) 
-						|| (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() > 0)) {
-				
-				print("You can do a main or a quick action.");
-				
-			} else if ((currTurnState instanceof QuickActionDoneTurnState)
-						|| (currTurnState instanceof MainAndQuickActionDoneTurnState && gameState.getAdditionalMainsToDo() > 0)) {
-						
-				print("You can do a main action.");
+			if (gameState.getWaitingFor() == WaitingFor.NOTHING) {
 			
-			} else if (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() == 0) {
+				showCommandsTurnStates();
 				
-				print("You can do a quick action or pass the turn.");
+			} else if (gameState.getWaitingFor() == WaitingFor.TAKEPERMIT) {
 				
-			} else if (currTurnState instanceof MainAndQuickActionDoneTurnState && gameState.getAdditionalMainsToDo() == 0) {
+				print("You got a bonus by moving forward in the nobility track!");
+				print("You can choose a free permit between these: ");
+				// for permit in gameState.getAvailableChoices()
+				// print(permit)
+				//TODO
 				
-				print("You have already done your main and quick action. You have to pass the turn.");
+			} else if (gameState.getWaitingFor() == WaitingFor.FROMPERMITS) {
 				
-			} else if (currTurnState instanceof EndTurnState) {
+				print("You got a bonus by moving forward in the nobility track!");
+				print("You can get the benefits of one of the business permits you own for the second time.");
+				print("Choose between these bonuses:");
+				// for bonus in gameState.getAvailableChoices()
+				// print(bonus)
+				//TODO				
 				
-				print("End of your turn, you shouldn't be here.");
-				LOGGER.warning("Something went wrong, it's still this player's turn even after it ended!!");			
+			} else if (gameState.getWaitingFor() == WaitingFor.FROMTOKENS) {
+				
+				print("You got a bonus by moving forward in the nobility track!");
+				print("You can get a bonus from one of the cities where you built an emporium");
+				print("Choose between these bonuses:");
+				//for bonus in gameState.getAvailableChoices()
+				// print(bonus)
+				//TODO
+				//TODO come cacchio si fa con più di un token?
 				
 			}
+			
+		}
+		
+	}
+	
+	private void showCommandsTurnStates() {
+		
+		TurnState currTurnState = gameState.getCurrentTurnState();
+		if (currTurnState instanceof InitialTurnState) {
+			
+			print("Draw a card.");
+			
+		} else if ((currTurnState instanceof CardDrawnState) 
+					|| (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() > 0)) {
+			
+			print("You can do a main or a quick action.");
+			
+		} else if ((currTurnState instanceof QuickActionDoneTurnState)
+					|| (currTurnState instanceof MainAndQuickActionDoneTurnState && gameState.getAdditionalMainsToDo() > 0)) {
+					
+			print("You can do a main action.");
+		
+		} else if (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() == 0) {
+			
+			print("You can do a quick action or pass the turn.");
+			
+		} else if (currTurnState instanceof MainAndQuickActionDoneTurnState && gameState.getAdditionalMainsToDo() == 0) {
+			
+			print("You have already done your main and quick action. You have to pass the turn.");
+			
+		} else if (currTurnState instanceof EndTurnState) {
+			
+			print("End of your turn, you shouldn't be here.");
+			LOGGER.warning("Something went wrong, it's still this player's turn even after it ended!!");			
 			
 		}
 		

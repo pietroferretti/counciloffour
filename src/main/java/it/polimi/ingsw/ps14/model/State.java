@@ -33,7 +33,7 @@ public class State extends Observable implements Serializable {
 	 * They can represent permits (on the board or the player's) or cities 
 	 * (to find the respective token)
 	 */
-	private List<Integer> availableChoices;	
+	private List<Integer> availableChoices;		// TODO riscrivere come oggetti
 	
 	/**
 	 * Empty constructor, everything should be set by Model at the beginning of a game
