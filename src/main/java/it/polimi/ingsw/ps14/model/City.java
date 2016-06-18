@@ -84,7 +84,11 @@ public class City implements Serializable {
 		return emporiums.contains(player);
 	}
 
-	// Return all the neighboring cities where the player has built an emporium
+	/**
+	 * Return all the neighboring cities where the player has built an emporium
+	 * @param player
+	 * @return
+	 */
 	public List<City> findLinkedEmporiums(Player player) {
 		List<City> cities = new ArrayList<>();
 		for (City neighbor : neighbors) {

@@ -44,6 +44,10 @@ public class BusinessCardsRegion implements Serializable {
 		Collections.shuffle(deck);
 	}
 
+	/**
+	 * draw a card from the deck
+	 * @return new drawn card
+	 */
 	private BusinessPermit drawCardFromDeck() {
 		if (!deck.isEmpty()) {
 			return deck.remove(0);
@@ -52,6 +56,11 @@ public class BusinessCardsRegion implements Serializable {
 		}
 	}
 
+	/**
+	 * substitute the card toSubstitute with a new one, drawn from deck
+	 * @param toSubstitute
+	 * @return true if this method is successfully done
+	 */
 	public boolean substituteCard(BusinessPermit toSubstitute) {
 		for (int i = 0; i < availablePermits.length; i++) {
 			if (availablePermits[i] == toSubstitute) {
@@ -62,6 +71,11 @@ public class BusinessCardsRegion implements Serializable {
 		return false;
 	}
 
+	/**
+	 * check if card is one of the available card from this region
+	 * @param card to check
+	 * @return true or false
+	 */
 	public boolean cardIsFaceUp(BusinessPermit card) {
 
 		for (BusinessPermit busPer : availablePermits) {
@@ -85,6 +99,11 @@ public class BusinessCardsRegion implements Serializable {
 		deck.add(card);
 	}
 
+	/**
+	 * find the parameter index of the array of available cards 
+	 * @param card that you want to know index
+	 * @return index of the parameter card
+	 */
 	public int findIndexBusinessPermit(BusinessPermit card) {
 		if (cardIsFaceUp(card)) {
 			return Arrays.asList(availablePermits).indexOf(card);
@@ -93,10 +112,19 @@ public class BusinessCardsRegion implements Serializable {
 		}
 	}
 
+	/**
+	 * remove businessPermit from available card and insert null
+	 * @param card
+	 */
 	public void removeBusinessPermit(BusinessPermit card) {
 		availablePermits[findIndexBusinessPermit(card)] = null;
 	}
 
+	
+	/**
+	 * if deck is not empty, this method fill the empty spot of the available cards
+	 * @return false is the deck is empty,  otherwise true
+	 */
 	public boolean fillEmptySpots() {
 		for (int i = 0; i < availablePermits.length; i++) {
 			if (availablePermits[i] == null) {

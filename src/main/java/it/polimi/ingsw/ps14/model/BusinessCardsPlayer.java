@@ -61,13 +61,7 @@ public class BusinessCardsPlayer implements Serializable {
 		usedCards.add(card);
 	}
 
-	public boolean contains(BusinessPermit cardChoice) {
-		for (BusinessPermit card : validCards) {
-			if (card.equals(cardChoice))
-				return true;
-		}
-		return false;
-	}
+
 
 	public int getNumberOfPermits() {
 		return validCards.size() + usedCards.size();
