@@ -66,7 +66,9 @@ public class Server {
 		waitingConnections.add(c);
 
 		if (waitingConnections.size() == 2) {
-
+			
+			LOGGER.info("Starting timer.");
+			
 			timer = new Timer();
 			timerTask = new TimerTask() {
 

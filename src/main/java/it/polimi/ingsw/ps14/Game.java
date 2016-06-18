@@ -16,7 +16,6 @@ public class Game {
 
 	private final Model model;
 	private final ModelView modelView;
-//	private final ServerView serverView;
 	private final List<View> views;
 	private final Controller controller;
 	
@@ -24,6 +23,7 @@ public class Game {
 		
 		views = viewList;
 		
+		LOGGER.info("Creating Model.");
 		model = new Model();
 		
 		// TODO different amount of coins and assistants
@@ -36,16 +36,18 @@ public class Game {
 		
 		model.setPlayers(playerList);
 		
+		LOGGER.info("Creating Controller.");
 		controller = new Controller(model, views);
 		
+		LOGGER.info("Creating ModelView.");
 		modelView = new ModelView(model);
 	
 		for (View view : views) {
+			
+			view.addObserver(controller);
 			modelView.addObserver(view);
 			
 		}
-		
-//		modelView.addObserver(serverView);
-//		serverView.addObserver(controller);
-		}		
-	}	
+	
+	}		
+}	

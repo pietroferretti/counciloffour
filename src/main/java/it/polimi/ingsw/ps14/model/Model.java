@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Observable;
 
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 // TODO notify ogni volta che qualcosa viene modificato?
@@ -39,6 +40,7 @@ public class Model extends Observable implements Serializable {
 		idCounter++;
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		players = new ArrayList<>();
+		market = new Market();
 	}
 
 	public Model(List<Player> players) throws IOException {
@@ -46,12 +48,17 @@ public class Model extends Observable implements Serializable {
 		idCounter++;
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		this.players = players;
+		market = new Market();
 	}
 
 	public Model(Model m) {
 		idGame = idCounter;
 		idCounter++;
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void startGame() {
+		message = new GameStartedMsg();
 	}
 
 	public void setGameBoard(GameBoard gameBoard) {
@@ -136,13 +143,13 @@ public class Model extends Observable implements Serializable {
 		return playerOrder.peek();
 	}
 
-	public void playerDone() {
+	public void loadNextPlayer() {
 		currentPlayer = playerOrder.pollFirst();
 		setChanged();
 		notifyObservers();
 	}
 
-	public void nextPlayer() {
+	public void queueAndLoadNextPlayer() {
 		playerOrder.addLast(currentPlayer);
 		currentPlayer = playerOrder.pollFirst();
 		setChanged();
