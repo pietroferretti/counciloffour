@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps14.client.ClientView;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.CurrentPlayerUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
@@ -16,6 +15,13 @@ import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.State;
+import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
+import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 /*
  * --------------------------Command Line Interface-----------------------
@@ -175,9 +181,11 @@ public class CLIView extends ClientView implements Runnable {
 
 				print("The game hasn't started yet!!!!");
 
-			} else if (!myTurn) {
-
-				print("Wait for your turn!");
+//			} else if (!myTurn) {
+//
+//				print("Wait for your turn!");
+			
+				// TODO lasciare al giocatore la possibilità di fare 'show' e 'help'
 
 			} else {
 
@@ -224,7 +232,7 @@ public class CLIView extends ClientView implements Runnable {
 			
 		} else if (gameState.getGamePhase() == GamePhase.FINALTURNS) {
 			
-			print("It's your final turn!");	// solo se è il suo turno?
+			print("Final turns!");	
 			showCommandsTurns();
 		
 		} else if (gameState.getGamePhase() == GamePhase.MARKET) {
@@ -240,6 +248,46 @@ public class CLIView extends ClientView implements Runnable {
 	}
 	
 	private void showCommandsTurns() {
+		
+		if (gameState.getCurrentPlayer().getId() != playerID) {
+			
+			print(String.format("It's player %d's turn.", gameState.getCurrentPlayer().getId()));
+			
+		} else {
+			
+			print("It's your turn.");
+			
+			TurnState currTurnState = gameState.getCurrentTurnState();
+			if (currTurnState instanceof InitialTurnState) {
+				
+				print("Draw a card.");
+				
+			} else if ((currTurnState instanceof CardDrawnState) 
+						|| (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() > 0)) {
+				
+				print("You can do a main or a quick action.");
+				
+			} else if ((currTurnState instanceof QuickActionDoneTurnState)
+						|| (currTurnState instanceof MainAndQuickActionDoneTurnState && gameState.getAdditionalMainsToDo() > 0)) {
+						
+				print("You can do a main action.");
+			
+			} else if (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() == 0) {
+				
+				print("You can do a quick action or pass the turn.");
+				
+			} else if (currTurnState instanceof MainAndQuickActionDoneTurnState && gameState.getAdditionalMainsToDo() == 0) {
+				
+				print("You have already done your main and quick action. You have to pass the turn.");
+				
+			} else if (currTurnState instanceof EndTurnState) {
+				
+				print("End of your turn, this shouldn't happen.");
+				LOGGER.warning("Something went wrong, it's still this player's turn even after it ended!!");			
+				
+			}
+			
+		}
 		
 	}
 	
