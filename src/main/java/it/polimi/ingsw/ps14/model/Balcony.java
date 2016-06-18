@@ -1,8 +1,8 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Balcony implements Serializable {
@@ -17,7 +17,7 @@ public class Balcony implements Serializable {
 	}
 
 	public Balcony(Balcony b) {
-		this.councillors = new PriorityQueue<>();
+		this.councillors = new LinkedList<>();
 		for (ColorCouncillor colorCouncillor : b.councillors) {
 			this.councillors.add(colorCouncillor);
 		}
@@ -45,7 +45,7 @@ public class Balcony implements Serializable {
 	 * @return true if the cards match the councillors in this council
 	 */
 	public boolean cardsMatch(List<PoliticCard> cards) {
-		Queue<ColorCouncillor> newCouncillors = new PriorityQueue<>(councillors);
+		Queue<ColorCouncillor> newCouncillors = new LinkedList<>(councillors);
 
 		if (cards.size() > councillors.size()) {
 			return false;
@@ -77,7 +77,7 @@ public class Balcony implements Serializable {
 	public int numOfMatchingCards(List<PoliticCard> cards) {
 		// TODO possiamo aggiungere jolly all'infinito, non funziona
 		int bribedCouncillors = 0;
-		Queue<ColorCouncillor> newCouncillors = new PriorityQueue<>(councillors);
+		Queue<ColorCouncillor> newCouncillors = new LinkedList<>(councillors);
 
 		if (cards.size() > councillors.size()) {
 			throw new IllegalArgumentException("Too many cards!");
@@ -126,13 +126,19 @@ public class Balcony implements Serializable {
 		return cost;
 	}
 
+	
+	
 	@Override
 	public String toString() {
+		return "Balcony [councillors=" + councillors + "]";
+	}
+
+	public String tboString() {
 		String s = "%nhead%n";
 		for (ColorCouncillor colorCouncillor : councillors) {
 			s = s + colorCouncillor.toString() + " ";
 		}
-		return s + "%ntail%n";
+		return ( s + "%ntail%n");
 	}
 
 }

@@ -1,17 +1,5 @@
 package it.polimi.ingsw.ps14.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Random;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.exceptions.InvalidSettingsException;
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
@@ -24,6 +12,18 @@ import it.polimi.ingsw.ps14.model.bonus.BonusNobility;
 import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
 import it.polimi.ingsw.ps14.model.bonus.BonusTakeBusinessPermits;
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Queue;
+import java.util.Random;
+import java.util.logging.Logger;
 
 public class GameBoard extends Observable implements Serializable {
 	/**
@@ -73,7 +73,7 @@ public class GameBoard extends Observable implements Serializable {
 		bonusSilver = settings.buildingBonuses.get("bonusSilver");
 		bonusBronze = settings.buildingBonuses.get("bonusBronze");
 		bonusBlue = settings.buildingBonuses.get("bonusBlue");
-		kingBonuses = new PriorityQueue<>();
+		kingBonuses = new LinkedList<>();
 		kingBonuses.add(settings.buildingBonuses.get("bonusKing1"));
 		kingBonuses.add(settings.buildingBonuses.get("bonusKing2"));
 		kingBonuses.add(settings.buildingBonuses.get("bonusKing3"));
@@ -341,7 +341,7 @@ public class GameBoard extends Observable implements Serializable {
 	}
 
 	private Queue<ColorCouncillor> generateRandomBalcony(int councillorsEachBalcony) {
-		Queue<ColorCouncillor> tempBalcony = new PriorityQueue<>();
+		Queue<ColorCouncillor> tempBalcony = new LinkedList<>();
 
 		for (int j = 0; j < councillorsEachBalcony; j++)
 			tempBalcony.add(getRandomAvailableCouncillor());
