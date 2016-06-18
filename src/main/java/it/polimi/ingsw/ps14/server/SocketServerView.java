@@ -1,8 +1,5 @@
 package it.polimi.ingsw.ps14.server;
 
-import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,6 +8,10 @@ import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
 
 public class SocketServerView extends ServerView implements Runnable {
 	private static final Logger LOGGER = Logger.getLogger(SocketServerView.class.getName());
@@ -80,7 +81,11 @@ public class SocketServerView extends ServerView implements Runnable {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (arg instanceof Message) {
+		if (arg instanceof PrivateMessage) {
+			if (((PrivateMessage) arg).getPlayerID() == super.getPlayerID()){
+				sendMessage((Message) arg);
+			}
+		} else if (arg instanceof Message) {
 			sendMessage((Message) arg);
 		} else {
 			LOGGER.warning(String.format("The server view with id '%d' received an object that is not a message. %n"

@@ -34,7 +34,7 @@ public class CLIView extends ClientView implements Runnable {
 	private boolean gameStarted;
 	private boolean myTurn;
 	private Interpreter interpreter;
-	private Integer playerID; // settare playerID
+	private Integer playerID; 
 	private Scanner in;
 
 	public CLIView(Scanner scanner) {
@@ -95,11 +95,7 @@ public class CLIView extends ClientView implements Runnable {
 		printer.printPlayerPublicDetails(player);
 	}
 
-	public void setModelView(ModelView modelView) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	public void showOtherPlayersDetails() {
 		// TODO Auto-generated method stub
 
@@ -110,9 +106,8 @@ public class CLIView extends ClientView implements Runnable {
 
 	}
 
-	public int getPlayerID() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Integer getPlayerID() {
+		return playerID;
 	}
 
 	@Override
@@ -127,13 +122,16 @@ public class CLIView extends ClientView implements Runnable {
 			} else if (message instanceof GameStartedMsg) {
 				gameStarted = true;
 			} else if (message instanceof TurnFinishedMsg) {
-				myTurn = false;
+				//turnfinishedmsg?
 			} else if (message instanceof CurrentPlayerUpdatedMsg) {
 				// TODO nome?
 				print("Player " + ((CurrentPlayerUpdatedMsg) message).getUpdateCurrentPlayerIDCopy() + "'s turn");
 				if (((CurrentPlayerUpdatedMsg) message).getUpdateCurrentPlayerIDCopy() == playerID) {
 					myTurn = true;
+				} else {
+					myTurn = false;
 				}
+				
 			} else {
 				str = interpreter.parseMsg(message);
 				if (str != null) {
@@ -161,16 +159,21 @@ public class CLIView extends ClientView implements Runnable {
 			Message msg;
 			print("inserito " + input);
 			if (input.toUpperCase().matches("INSTRUCTION"))
-				showIntruction();
+				
+				showInstructions();
+			
 			else if (!gameStarted) {
 
 				print("The game hasn't started yet!!!!");
+			
 			} else if (!myTurn) {
 
 				print("Wait for your turn!");
+				
 			} else {
-				print("ciao");
+				
 				msg = interpreter.parseString(input.toUpperCase(), playerID);
+				
 				if (msg == null)
 					print("Input error! Retry:");
 				else {
@@ -185,7 +188,7 @@ public class CLIView extends ClientView implements Runnable {
 		}
 	}
 
-	private void showIntruction() {
+	private void showInstructions() {
 		print("INSTRUCTIONS:");
 		print("DRAW - draw a politic card");
 		print("ELECT COLOR REGIONTYPE_KING - elect COLOR councillor\n\t in balcony of REGION TYPE or KING");
