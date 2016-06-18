@@ -6,12 +6,13 @@ import static org.junit.Assert.assertFalse;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
 
 public class AvailableAssistantsViewTest {
 
 	private static Model model;
-	private static ModelView mv;
 	private static AvailableAssistantsView aav2;
 
 	@BeforeClass
@@ -19,7 +20,7 @@ public class AvailableAssistantsViewTest {
 		model = new Model();
 		aav2 = new AvailableAssistantsView(model.getGameBoard().getAvailableAssistants());
 		model.getGameBoard().addObserver(aav2);
-		
+
 	}
 
 	@Test
@@ -28,11 +29,15 @@ public class AvailableAssistantsViewTest {
 		assertEquals(model.getGameBoard().getAvailableAssistants(), aav.getAvailableAssistantsCopy());
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testUpdate() {
 		model.getGameBoard().setAvailableAssistants(70);
 		assertEquals(model.getGameBoard().getAvailableAssistants(), aav2.getAvailableAssistantsCopy());
-		assertFalse(aav2.hasChanged()); //quindi ha eseguito notifyObserver
+		assertFalse(aav2.hasChanged()); // quindi ha eseguito notifyObserver
+
+		Player player = new Player();
+		player.addObserver(aav2);
+		player.addCoins(4);
 	}
 
 }

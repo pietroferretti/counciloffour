@@ -309,7 +309,12 @@ public class GameBoard extends Observable implements Serializable {
 		return availableCouncillors;
 	}
 
-	// check if the chosen color is available
+	/**
+	 * It checks if the chosen color is available.
+	 * 
+	 * @param color - {@link ColorCouncillor}
+	 * @return true if there is an available councillor of that color.
+	 */
 	public boolean councillorIsAvailable(ColorCouncillor color) {
 		return getAvailableCouncillors(color) > 0;
 	}
@@ -387,6 +392,16 @@ public class GameBoard extends Observable implements Serializable {
 	 * -------------------------- REGIONS ---------------------------
 	 */
 
+	/**
+	 * 
+	 * @param RegionType
+	 *            (COAST,
+	 * 
+	 *            HILLS,
+	 * 
+	 *            MOUNTAINS)
+	 * @return Region of that type.
+	 */
 	public Region getRegion(RegionType type) {
 
 		for (Region regionInList : regions) {
