@@ -8,6 +8,7 @@ import java.util.Observer;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.NewPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromClient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromClient.DoneBuyingMsg;
 import it.polimi.ingsw.ps14.message.fromClient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromClient.TurnActionMsg;
@@ -47,7 +48,7 @@ public class Controller implements Observer {
 		model.setGamePhase(GamePhase.TURNS);
 		model.setCurrentTurnState(new InitialTurnState());
 		model.setPlayerOrder(players);
-		model.playerDone();
+		model.loadNextPlayer();
 		model.setCurrentMarketState(MarketState.END);
 
 	}
@@ -61,6 +62,8 @@ public class Controller implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		View serverView = (View) o;
+		
+		LOGGER.info(String.format("Received object %s", arg));
 
 		if (arg instanceof NewPlayerMsg) {
 			// TODO verifica id player
@@ -79,7 +82,7 @@ public class Controller implements Observer {
 			
 		} else if (arg instanceof DoneBuyingMsg) {
 			
-			
+			doneBuying(serverView);
 		
 		} else {
 			
@@ -130,7 +133,7 @@ public class Controller implements Observer {
 						finalPlayers.addAll(players.subList(index+1, players.size()));
 						finalPlayers.addAll(players.subList(0, index));
 						model.setPlayerOrder(finalPlayers);
-						model.playerDone();
+						model.loadNextPlayer();
 						
 					} else {
 						
@@ -142,7 +145,7 @@ public class Controller implements Observer {
 								
 								// the turns phase has ended, the market phase starts 
 								model.setGamePhase(GamePhase.MARKET);
-								model.setMarket(new Market());
+								model.getMarket().clear();
 								
 								marketPlayers = new ArrayList<>(players);
 								Collections.shuffle(marketPlayers);
@@ -153,7 +156,7 @@ public class Controller implements Observer {
 							} else {
 								
 								// it's the next player's turn
-								model.playerDone();
+								model.loadNextPlayer();
 							
 							}
 						}
@@ -203,7 +206,7 @@ public class Controller implements Observer {
 						} else {
 							
 							// it's the next player's turn
-							model.playerDone();
+							model.loadNextPlayer();
 						}
 					}
 
@@ -258,7 +261,7 @@ public class Controller implements Observer {
 						} else {
 							
 							// it's the next player's turn
-							model.playerDone();
+							model.loadNextPlayer();
 						}
 						
 					} else {
@@ -296,7 +299,7 @@ public class Controller implements Observer {
 						
 						action.execute(model);
 						
-						model.nextPlayer();
+						model.queueAndLoadNextPlayer();
 						
 					} else {
 						
@@ -326,10 +329,46 @@ public class Controller implements Observer {
 	
 	public void doneBuying(View playerView) {
 		
-		// if MARKET, BUYING, currentplayer!=playerview.id
-			// model.playerdone()
-			// if playerorder.isempty
-				// gamephase = TURNS
+		// checks if we're actually in the market phase
+		if (model.getGamePhase() == GamePhase.MARKET) {
+			
+			if (model.getCurrentMarketState() == MarketState.BUYING) {
+				
+				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
+					
+					if (!model.getPlayerOrder().isEmpty()) {
+					
+						model.loadNextPlayer();
+					
+					} else {
+						
+						model.getMarket().clear();
+						model.setGamePhase(GamePhase.TURNS);
+						model.setCurrentTurnState(new InitialTurnState());
+						model.setPlayerOrder(players);
+						model.loadNextPlayer();
+						
+					}
+					
+					
+				} else {
+					
+					sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+				
+				}
+				
+			} else {
+				
+				sendErrorMsg(playerView, "You cannot do this now.");
+			
+			}
+			
+		} else {
+			
+			sendErrorMsg(playerView, "You can only do this during the Market phase.");
+		
+		}
+		
 	}
 	
 	public void sendErrorMsg(View playerview, String errorMessage) {

@@ -26,6 +26,9 @@ public class SocketMessageHandlerIn extends MessageHandlerIn {
 
 			try {
 				Object object = socketIn.readObject();
+				
+				LOGGER.info(String.format("Received object %s", object));
+				
 				if (object instanceof Message) {
 					handleMessage((Message) object);
 				} else {

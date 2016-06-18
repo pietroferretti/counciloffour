@@ -30,6 +30,7 @@ public class SocketServerView extends ServerView implements Runnable {
 		this.socketIn = new ObjectInputStream(socket.getInputStream());
 		this.socketOut = new ObjectOutputStream(socket.getOutputStream());
 		socketOut.writeObject(new PlayerIDMsg(idPlayer));
+		LOGGER.info(String.format("Sent id to player %d", super.getPlayerID()));
 	}
 
 	private synchronized boolean isActive() {
@@ -59,7 +60,10 @@ public class SocketServerView extends ServerView implements Runnable {
 				
 				Object objectReceived = socketIn.readObject();
 				
+				LOGGER.info(String.format("Received object %s", objectReceived));
+				
 				if (objectReceived instanceof Message) {
+					setChanged();
 					notifyObservers(objectReceived);
 				} else {
 					LOGGER.warning(String.format("The socket with id '%d' received an object that is not a message. %n"
@@ -77,15 +81,20 @@ public class SocketServerView extends ServerView implements Runnable {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (arg instanceof Message) {
-			try {
-				socketOut.writeObject(arg);
-			} catch (IOException e) {
-				LOGGER.log(Level.SEVERE, String.format("Error while writing on socket with id '%d'", super.getPlayerID()), e);
-			}
+			sendMessage((Message) arg);
 		} else {
 			LOGGER.warning(String.format("The server view with id '%d' received an object that is not a message. %n"
 											+ "Object received: %s", super.getPlayerID(), arg.toString()));
 		}
 	}
 
+	public void sendMessage(Message msg) {
+		try {
+			socketOut.writeObject(msg);
+			LOGGER.info(String.format("Writing message %s on socket", msg));
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, String.format("Error while writing on socket with id '%d'", super.getPlayerID()), e);
+		}
+	}
+	
 }

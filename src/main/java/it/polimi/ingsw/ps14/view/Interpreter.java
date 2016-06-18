@@ -127,7 +127,7 @@ public class Interpreter {
 		String st;
 		String[] word = input.split(" ");
 
-		switch (word[0]) {
+		switch (word[0].toUpperCase()) {
 
 		// DRAW
 		case "DRAW":

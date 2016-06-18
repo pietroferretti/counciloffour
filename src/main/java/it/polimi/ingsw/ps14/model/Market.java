@@ -71,6 +71,10 @@ public class Market extends Observable implements Serializable {
 		if (itemToRemove != null)
 			objectsForSale.remove(itemToRemove);
 	}
+	
+	public void clear() {
+		objectsForSale = new ArrayList<>();
+	}
 
 	@Override
 	public String toString() {
