@@ -41,8 +41,8 @@ public class BonusList implements Serializable {
 					this.bonuses.add(new BonusCoin(bon.getQuantity()));
 				else if (bon instanceof BonusMainAction)
 					this.bonuses.add(new BonusMainAction(bon.getQuantity()));
-				else if (bon instanceof BonusNobility)
-					this.bonuses.add(new BonusNobility(bon.getQuantity()));
+				else if (bon instanceof BonusNobilityLvlUp)
+					this.bonuses.add(new BonusNobilityLvlUp(bon.getQuantity()));
 				else if (bon instanceof BonusPoliticCard)
 					this.bonuses.add(new BonusPoliticCard(bon.getQuantity()));
 				else if (bon instanceof BonusVictoryPoint)

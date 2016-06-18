@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.CurrentPlayerUpdatedMsg;
@@ -243,9 +244,12 @@ public class ModelView extends Observable implements Observer, Serializable {
 			setChanged();
 			notifyObservers(new MarketUpdatedMsg(((MarketView) o).getMarketCopy()));
 		} else if (o instanceof MessageView) {
-			setChanged();
-			// controllare TODO
-			notifyObservers(((MessageView) o).getMessageCopy());
+			// TODO controllare 
+			Message messageToSend = ((MessageView) o).getMessageCopy();
+			if (messageToSend != null) {
+				setChanged();
+				notifyObservers(((MessageView) o).getMessageCopy());
+			}
 		} else
 			throw new IllegalArgumentException();
 	}

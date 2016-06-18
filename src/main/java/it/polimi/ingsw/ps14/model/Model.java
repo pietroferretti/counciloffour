@@ -187,6 +187,10 @@ public class Model extends Observable implements Serializable {
 		notifyObservers();
 	}
 	
+	public void clearMessage() {
+		message = null;
+	}
+	
 	public Player id2player(Integer id) {
 		for (Player p :players)
 			if (p.getId() == id)
