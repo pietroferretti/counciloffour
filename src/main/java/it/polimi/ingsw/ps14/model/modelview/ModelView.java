@@ -125,8 +125,8 @@ public class ModelView extends Observable implements Observer, Serializable {
 		marketView = new MarketView(model.getMarket());
 		model.getMarket().addObserver(marketView);
 
-		messageView = new MessageView(model.getMessage());
-		model.addObserver(messageView);
+		messageView = new MessageView(model.getMessageObservable());
+		model.getMessageObservable().addObserver(messageView);
 
 		// ModelView observes each playerView
 		for (PlayerView playerView : playersView) {

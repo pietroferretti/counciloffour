@@ -35,7 +35,7 @@ public class Model extends Observable implements Serializable {
 //	private Deque<Player> playerOrder;
 	private State state;
 
-	private Message message;
+	private MessageObservable message;
 
 	public Model() throws IOException {
 		idGame = idCounter;
@@ -48,6 +48,8 @@ public class Model extends Observable implements Serializable {
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);
+		
+		message = new MessageObservable();
 	}
 
 	public Model(List<Player> players) throws IOException {
@@ -60,6 +62,8 @@ public class Model extends Observable implements Serializable {
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);
+		
+		message = new MessageObservable();
 	}
 
 	public Model(Model m) {
@@ -69,7 +73,7 @@ public class Model extends Observable implements Serializable {
 	}
 	
 	public void startGame() {
-		message = new GameStartedMsg();
+		setMessage(new GameStartedMsg());
 		setChanged();
 		notifyObservers();
 	}
@@ -229,15 +233,17 @@ public class Model extends Observable implements Serializable {
 		setChanged();
 		notifyObservers();
 	}
-
-	public Message getMessage() {
+	
+	public MessageObservable getMessageObservable() {
 		return message;
 	}
 
+	public Message getMessage() {
+		return message.getMessage();
+	}
+
 	public void setMessage(Message messageToSend) {
-		this.message = messageToSend;
-		setChanged();
-		notifyObservers();
+		this.message.setMessage(messageToSend);
 	}
 	
 	public void clearMessage() {
