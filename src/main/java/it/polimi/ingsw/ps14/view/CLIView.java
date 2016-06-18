@@ -125,6 +125,7 @@ public class CLIView extends ClientView implements Runnable {
 				LOGGER.info(String.format("Player id set as %d", playerID));
 
 			} else if (message instanceof GameStartedMsg) {
+				print("GAME STARTED!");
 				gameStarted = true;
 			} else if (message instanceof TurnFinishedMsg) {
 				myTurn = false;
