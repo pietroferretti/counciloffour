@@ -3,7 +3,9 @@ package it.polimi.ingsw.ps14.model;
 import java.util.Random;
 
 /**
- * Colors that a councillor can be. Used in {@link Balcony}.
+ * Colors that a councillor can be. Used in {@link Balcony}.<br>
+ * <b>PURPLE, PINK, WHITE, ORANGE, BLACK, BLUE</b>
+ * 
  */
 public enum ColorCouncillor {
 
