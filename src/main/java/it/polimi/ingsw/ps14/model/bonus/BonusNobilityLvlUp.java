@@ -3,14 +3,14 @@ package it.polimi.ingsw.ps14.model.bonus;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
-public class BonusNobility extends Bonus {
+public class BonusNobilityLvlUp extends Bonus {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4670449670079163294L;
 
-	public BonusNobility(int quantity) {
+	public BonusNobilityLvlUp(int quantity) {
 		super(quantity);
 	}
 

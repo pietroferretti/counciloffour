@@ -30,17 +30,23 @@ public class MessageView extends Observable implements Observer, Serializable {
 		if (!(o instanceof Model))
 			throw new IllegalArgumentException();
 		else {
+			
 			Message msg = ((Model) o).getMessage();
-
-			if (msg instanceof ErrorMsg) {
-				messageCopy = new ErrorMsg(((ErrorMsg) msg).getPlayerID(), ((ErrorMsg) msg).getInfo());
-			} else {
-				// TODO
-				messageCopy = msg;
-
+	
+			if (msg != null) {
+				
+				if (msg instanceof ErrorMsg) {
+					messageCopy = new ErrorMsg(((ErrorMsg) msg).getPlayerID(), ((ErrorMsg) msg).getInfo());
+				} else {
+					// TODO
+					messageCopy = msg;
+				}
+				((Model) o).clearMessage();
+				
+				setChanged();
+				notifyObservers();
+				
 			}
-			setChanged();
-			notifyObservers();
 		}
 
 	}

@@ -16,21 +16,22 @@ public class Player extends Observable implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 479024623935337422L;
+	
 	private static Random rand = new Random();
 	private static int idCounter = 1;
 	private final int id;
 	private String name;
 	private Color color;
+	
 	private int coins;
 	private int assistants;
-	private int level; // nobility
+	private int level; 		// nobility
 	private int points;
-	// private List<BusinessPermit> permitTiles;
-	// private List<BusinessPermit> usedPermitTiles;
+	
 	private List<PoliticCard> hand;
 	private BusinessCardsPlayer businessHand;
+	
 	private int numEmporiums = 0;
-
 	public int additionalMainsToDo;
 
 	/**
@@ -86,7 +87,7 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
-	 * non setto nome e colore, tutto il resto a 0
+	 * No argument constructor for Player
 	 */
 	public Player() {
 		this.id = idCounter;
@@ -196,7 +197,6 @@ public class Player extends Observable implements Serializable {
 	/**
 	 * players can upgrade the nobility level up to infinity
 	 * 
-	 * @return
 	 */
 	public int levelUp() {
 		level++;
@@ -206,7 +206,7 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
-	 * double upgrade of nobility through bonus
+	 * upgrade of nobility
 	 * 
 	 * @param n
 	 */
