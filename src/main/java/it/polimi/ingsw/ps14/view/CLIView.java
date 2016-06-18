@@ -128,9 +128,9 @@ public class CLIView extends ClientView implements Runnable {
 			} else if (message instanceof TurnFinishedMsg) {
 				myTurn = false;
 			} else if (message instanceof CurrentPlayerUpdatedMsg) {
-				print("Turno di "
-						+ ((NewCurrentPlayerMsg) message).getPlayerName());
-				if (((NewCurrentPlayerMsg) message).getPlayerID() == playerID) {
+				// TODO nome?
+				print("Player " + ((CurrentPlayerUpdatedMsg) message).getUpdateCurrentPlayerIDCopy() + "'s turn");
+				if (((CurrentPlayerUpdatedMsg) message).getUpdateCurrentPlayerIDCopy() == playerID) {
 					myTurn = true;
 				}
 			} else {

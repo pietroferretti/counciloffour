@@ -91,7 +91,8 @@ public class SocketServerView extends ServerView implements Runnable {
 	public void sendMessage(Message msg) {
 		try {
 			socketOut.writeObject(msg);
-			LOGGER.info(String.format("Writing message %s on socket", msg));
+			socketOut.flush();
+			LOGGER.info(String.format("Writing message %s on socket %d", msg, super.getPlayerID()));
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, String.format("Error while writing on socket with id '%d'", super.getPlayerID()), e);
 		}
