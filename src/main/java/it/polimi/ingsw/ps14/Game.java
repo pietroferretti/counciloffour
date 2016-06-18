@@ -48,6 +48,9 @@ public class Game {
 			modelView.addObserver(view);
 			
 		}
+		
+		LOGGER.info("Starting game.");
+		model.startGame();
 	
 	}		
 }	

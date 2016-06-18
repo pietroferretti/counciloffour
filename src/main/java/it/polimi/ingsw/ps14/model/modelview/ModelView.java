@@ -179,7 +179,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		} else if (o instanceof MessageView) {
 			setChanged();
 			// controllare TODO
-			notifyObservers((Message) o);
+			notifyObservers(((MessageView) o).getMessageCopy());
 		} else
 			throw new IllegalArgumentException();
 	}

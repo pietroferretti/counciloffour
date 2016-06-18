@@ -45,11 +45,8 @@ public class Controller implements Observer {
 		this.players = model.getPlayers();
 		Collections.shuffle(players);
 
-		model.setGamePhase(GamePhase.TURNS);
-		model.setCurrentTurnState(new InitialTurnState());
 		model.setPlayerOrder(players);
 		model.loadNextPlayer();
-		model.setCurrentMarketState(MarketState.END);
 
 	}
 

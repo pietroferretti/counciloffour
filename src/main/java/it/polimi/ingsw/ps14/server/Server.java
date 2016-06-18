@@ -64,6 +64,7 @@ public class Server {
 	 */
 	public synchronized void meeting(SocketServerView c) {
 		waitingConnections.add(c);
+		LOGGER.info("Connection added.");
 
 		if (waitingConnections.size() == 2) {
 			
@@ -85,14 +86,14 @@ public class Server {
 						waitingConnections.clear();
 
 					} catch (Exception e) {
-						LOGGER.log(Level.SEVERE, "Unexpected exception while creating a " + "new game.", e);
+						LOGGER.log(Level.SEVERE, "Unexpected exception while creating a new game.", e);
 					}
 					}
 				}
 			};
 			timer.schedule(timerTask, (long) COUNTDOWN * 1000);
 		}
-		LOGGER.info("Connection added.");
+
 	}
 
 	public void startRMI() {
