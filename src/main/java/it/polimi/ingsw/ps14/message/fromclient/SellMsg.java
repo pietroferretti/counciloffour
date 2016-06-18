@@ -1,10 +1,7 @@
-package it.polimi.ingsw.ps14.message.fromClient;
+package it.polimi.ingsw.ps14.message.fromclient;
 
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.actions.market.SellAction;
-
-import java.util.List;
 
 public class SellMsg implements Message {
 
@@ -15,13 +12,11 @@ public class SellMsg implements Message {
 	private SellAction action;
 
 	public SellMsg(SellAction action) {
-		this.action=action;
+		this.action = action;
 	}
 
 	public SellAction getAction() {
 		return action;
 	}
 
-
-	
 }

@@ -6,8 +6,17 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.fromserver.*;
+import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.CurrentPlayerUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.GamePhaseUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.MarketStateUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.RegionBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
@@ -16,7 +25,12 @@ import it.polimi.ingsw.ps14.model.Region;
  * Questa classe viene introdotta per disaccoppiare il model dalla view
  * e quindi impedire eventuali modifiche non permesse al model.
  */
-
+/**
+ * This class aim to divide the model part from the view part especially to
+ * prevent any changes in model done by the view. It contains a deep copy of
+ * everything that the view can know.
+ *
+ */
 public class ModelView extends Observable implements Observer, Serializable {
 	/**
 	 * 
@@ -133,6 +147,58 @@ public class ModelView extends Observable implements Observer, Serializable {
 		messageView.addObserver(this);
 	}
 
+	public List<PlayerView> getPlayersView() {
+		return playersView;
+	}
+
+	public CurrentPlayerView getCurrentPlayerView() {
+		return currentPlayerView;
+	}
+
+	public GamePhaseView getGamePhaseView() {
+		return gamePhaseView;
+	}
+
+	public MarketStateView getMarketStateView() {
+		return marketStateView;
+	}
+
+	public List<RegionView> getRegionsView() {
+		return regionsView;
+	}
+
+	public KingView getKingView() {
+		return kingView;
+	}
+
+	public NobilityTrackView getNobilityTrackView() {
+		return nobilityTrackView;
+	}
+
+	public AvailableAssistantsView getAvailableAssistantsView() {
+		return availableAssistantsView;
+	}
+
+	public AvailableCouncillorsView getAvailableCouncillorsView() {
+		return availableCouncillorsView;
+	}
+
+	public KingBonusesView getKingBonusesView() {
+		return kingBonusesView;
+	}
+
+	public RegionBonusesView getRegionBonusesView() {
+		return regionBonusesView;
+	}
+
+	public MarketView getMarketView() {
+		return marketView;
+	}
+
+	public MessageView getMessageView() {
+		return messageView;
+	}
+
 	@Override
 	public void update(Observable o, Object message) {
 		if (o instanceof PlayerView) {
@@ -146,7 +212,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 			notifyObservers(new KingUpdatedMsg(((KingView) o).getKingCopy()));
 		} else if (o instanceof NobilityTrackView) {
 			setChanged();
-			notifyObservers(new NobilityTrackdUpdatedMsg(((NobilityTrackView) o).getNobilityTrackCopy()));
+			notifyObservers(new NobilityTrackUpdatedMsg(((NobilityTrackView) o).getNobilityTrackCopy()));
 		} else if (o instanceof GamePhaseView) {
 			setChanged();
 			notifyObservers(new GamePhaseUpdatedMsg(((GamePhaseView) o).getGamePhaseCopy()));
@@ -182,5 +248,20 @@ public class ModelView extends Observable implements Observer, Serializable {
 			notifyObservers(((MessageView) o).getMessageCopy());
 		} else
 			throw new IllegalArgumentException();
+	}
+
+	/**
+	 * It returns a specific player.
+	 * 
+	 * @param id
+	 *            - int ID of the player we're searching for
+	 * @return Player with that specific ID or null if it doesn't exist.
+	 */
+	public Player getPlayerByID(int id) {
+		for (PlayerView playerView : playersView) {
+			if (playerView.getPlayerCopy().getId() == id)
+				return playerView.getPlayerCopy();
+		}
+		return null;
 	}
 }

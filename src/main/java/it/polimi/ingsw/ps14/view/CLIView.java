@@ -1,21 +1,18 @@
 package it.polimi.ingsw.ps14.view;
 
-import it.polimi.ingsw.ps14.client.Client;
+import java.io.PrintStream;
+import java.util.Observable;
+import java.util.Scanner;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.ClientView;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
-import it.polimi.ingsw.ps14.message.fromClient.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.CurrentPlayerUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.modelview.ModelView;
-
-import java.io.PrintStream;
-import java.util.Observable;
-import java.util.Scanner;
-import java.util.logging.Logger;
 
 /*
  * --------------------------Command Line Interface-----------------------
@@ -27,14 +24,13 @@ import java.util.logging.Logger;
 //TODO metodo per tutti i miei dettagli?
 //TODO implementare richiesta per stampa di tutto
 public class CLIView extends ClientView implements Runnable {
-	private static final Logger LOGGER = Logger.getLogger(CLIView.class
-			.getName());
+	private static final Logger LOGGER = Logger.getLogger(CLIView.class.getName());
 
 	private Printer printer;
 	private boolean gameStarted;
 	private boolean myTurn;
 	private Interpreter interpreter;
-	private Integer playerID; 
+	private Integer playerID;
 	private Scanner in;
 
 	public CLIView(Scanner scanner) {
@@ -95,7 +91,6 @@ public class CLIView extends ClientView implements Runnable {
 		printer.printPlayerPublicDetails(player);
 	}
 
-	
 	public void showOtherPlayersDetails() {
 		// TODO Auto-generated method stub
 
@@ -122,7 +117,7 @@ public class CLIView extends ClientView implements Runnable {
 			} else if (message instanceof GameStartedMsg) {
 				gameStarted = true;
 			} else if (message instanceof TurnFinishedMsg) {
-				//turnfinishedmsg?
+				// turnfinishedmsg?
 			} else if (message instanceof CurrentPlayerUpdatedMsg) {
 				// TODO nome?
 				print("Player " + ((CurrentPlayerUpdatedMsg) message).getUpdateCurrentPlayerIDCopy() + "'s turn");
@@ -131,7 +126,7 @@ public class CLIView extends ClientView implements Runnable {
 				} else {
 					myTurn = false;
 				}
-				
+
 			} else {
 				str = interpreter.parseMsg(message);
 				if (str != null) {
@@ -159,21 +154,21 @@ public class CLIView extends ClientView implements Runnable {
 			Message msg;
 			print("inserito " + input);
 			if (input.toUpperCase().matches("INSTRUCTION"))
-				
+
 				showInstructions();
-			
+
 			else if (!gameStarted) {
 
 				print("The game hasn't started yet!!!!");
-			
+
 			} else if (!myTurn) {
 
 				print("Wait for your turn!");
-				
+
 			} else {
-				
+
 				msg = interpreter.parseString(input.toUpperCase(), playerID);
-				
+
 				if (msg == null)
 					print("Input error! Retry:");
 				else {
