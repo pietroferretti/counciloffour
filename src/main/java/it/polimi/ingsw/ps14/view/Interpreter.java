@@ -246,29 +246,14 @@ public class Interpreter {
 			if (word.length != 2)
 				return null;
 
-			if (word[1].compareTo("MYDETAILS") == 0) {
-				try {
-					playerID = Integer.parseInt(word[1]);
-					return new UpdateThisPlayerMsg(playerID);
-				} catch (NumberFormatException e) {
-					return null;
-				}
+			if (word[1].compareTo("MYDETAILS") == 0) {					
+					return new UpdateThisPlayerMsg(playerID);				
 			}
 			if (word[1].compareTo("DETAILS") == 0) {
-				try {
-					playerID = Integer.parseInt(word[1]);
 					return new UpdateOtherPlayerMsg(playerID);
-				} catch (NumberFormatException e) {
-					return null;
-				}
 			}
 			if (word[1].compareTo("GAMEBOARD") == 0) {
-				try {
-					playerID = Integer.parseInt(word[1]);
 					return new UpdateGameBoardMsg();
-				} catch (NumberFormatException e) {
-					return null;
-				}
 			}
 			// SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... ASSISTANTS
 			// NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE...
