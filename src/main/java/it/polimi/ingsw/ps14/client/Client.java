@@ -1,18 +1,21 @@
 package it.polimi.ingsw.ps14.client;
 
+import it.polimi.ingsw.ps14.client.RMI.ClientRMI;
+import it.polimi.ingsw.ps14.client.socket.ClientSocket;
+import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
+import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
+import it.polimi.ingsw.ps14.view.CLIView;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import it.polimi.ingsw.ps14.client.socket.ClientSocket;
-import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
-import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
-import it.polimi.ingsw.ps14.view.CLIView;
 
 public class Client {
 	private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
@@ -20,7 +23,7 @@ public class Client {
 	private Client() {
 	};
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, NotBoundException, AlreadyBoundException {
 
 		Scanner scanner = new Scanner(System.in);
 
@@ -35,6 +38,7 @@ public class Client {
 			input = scanner.nextLine().toUpperCase();
 		} while (!input.matches("^(SOCKET|RMI)$"));
 
+		
 		if (input.matches("^(SOCKET)$")) {
 
 			// crea socket
@@ -66,6 +70,11 @@ public class Client {
 			
 		} else if (input.matches("^(RMI)$")) {
 			LOGGER.warning("RMI not yet implemented");
+			
+			ClientRMI rmi= new ClientRMI(scanner);
+			
+			
+			
 		} else {
 			scanner.close();
 			throw new IllegalArgumentException("Something went wrong while parsing the connection type");

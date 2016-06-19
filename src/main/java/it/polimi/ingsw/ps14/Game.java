@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
@@ -16,12 +17,13 @@ public class Game {
 
 	private final Model model;
 	private final ModelView modelView;
-	private final List<View> views;
+	private final List<View> viewsSocket;
+	private final List<ClientViewRemote> viewsRMI;
 	private final Controller controller;
 	
-	public Game(List<View> viewList) throws IOException, CloneNotSupportedException {
-		
-		views = viewList;
+	public Game(List<View> viewList, List<ClientViewRemote> viewsRMI) throws IOException, CloneNotSupportedException {
+		this.viewsRMI=viewsRMI;
+		viewsSocket = viewList;
 		
 		LOGGER.info("Creating Model.");
 		model = new Model();
@@ -29,10 +31,11 @@ public class Game {
 		// TODO different amount of coins and assistants
 
 		List<Player> playerList = new ArrayList<>();
-		for (View view : views) {
+		for (View view : viewsSocket) {
 			Player player = new Player(view.getPlayerID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6);
 			playerList.add(player);
 		}
+		
 		
 		model.setPlayers(playerList);
 		
