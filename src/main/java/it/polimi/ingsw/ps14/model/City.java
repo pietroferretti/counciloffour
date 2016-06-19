@@ -61,11 +61,11 @@ public class City implements Serializable {
 				this.neighborsName.add(city.name);
 			}
 		}
-		
+
 		if (c.getRegion() != null) {
 			regionType = c.getRegion().getType();
 		}
-		
+
 		if (c.emporiums != null) {
 			this.emporiums = new ArrayList<>(c.emporiums.size());
 			for (Player player : c.emporiums) {
@@ -88,6 +88,7 @@ public class City implements Serializable {
 
 	/**
 	 * Return all the neighboring cities where the player has built an emporium
+	 * 
 	 * @param player
 	 * @return
 	 */
@@ -104,6 +105,7 @@ public class City implements Serializable {
 	public void buildEmporium(Player player) {
 		if (!isEmporiumBuilt(player)) {
 			emporiums.add(player);
+			region.setCities();
 			player.incrementNumEmporiums();
 		} else {
 			throw new IllegalArgumentException("Error: the player has already built an emporium in this city");
@@ -140,6 +142,32 @@ public class City implements Serializable {
 
 	public BonusList getToken() {
 		return token;
+	}
+
+	@Override
+	public String toString() {
+		return name.toUpperCase() + "\nColor: " + color + "\nNeighbors: " + toStringNeighborsName() + "\nBonus: "
+				+ token.toString() + toStringEmporiums();
+
+	}
+
+	private String toStringEmporiums() {
+		if (emporiums.isEmpty())
+			return "\nNo emporiums in this city yet";
+		String s = "\nThese players own an emporium in this city:\n";
+		for (Player player : emporiums) {
+			s = s + player.getName() + " ";
+		}
+		return s + "\n";
+	}
+
+	private String toStringNeighborsName() {
+		String s = "\n";
+		for (String neigh : neighborsName) {
+			s = s + neigh + " ";
+		}
+		return s;
+
 	}
 
 }

@@ -47,7 +47,9 @@ public class AcquireBusinessPermiteTileActionTest {
 		cards.add(new PoliticCard(player.getHand().get(3).getColor()));
 
 		
-		MainAction action = new AcquireBusinessPermiteTileAction(player.getId(), RegionType.COAST, model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].getId(), cards);
+		MainAction action = new AcquireBusinessPermiteTileAction(player.getId(), RegionType.COAST,
+				model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].getId(),
+				cards);
 		
 		System.out.println(player.getHand().toString());
 
