@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
+import java.text.Format;
 import java.util.List;
 import java.util.Observable;
 import java.util.Queue;
@@ -39,6 +40,11 @@ public class King extends Observable implements Serializable {
 	public Balcony getBalcony() {
 		return balcony;
 	}
+	
+	public void setBalcony() {
+		setChanged();
+		notifyObservers();
+	}
 
 	/**
 	 * Versione in cui l'utente inserisce tutte le città da attraversare, forse
@@ -66,7 +72,7 @@ public class King extends Observable implements Serializable {
 
 	@Override
 	public String toString() {
-		return "The king is in " + city.getName() + "%nKING'S COUNCIL:" + balcony.toString();
+		return "The king is in " + city.getName() + "\nKING'S COUNCIL:" + balcony.toString();
 	}
 
 }

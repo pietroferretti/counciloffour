@@ -70,6 +70,11 @@ public class Region extends Observable implements Serializable {
 	public Balcony getBalcony() {
 		return balcony;
 	}
+	
+	public void setBalcony() {
+		setChanged();
+		notifyObservers();
+	}
 
 	protected void setBusinessPermits(BusinessCardsRegion decks) {
 		businessPermits = decks;
