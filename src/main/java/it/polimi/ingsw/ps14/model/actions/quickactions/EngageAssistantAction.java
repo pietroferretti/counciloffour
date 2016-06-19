@@ -15,12 +15,14 @@ public class EngageAssistantAction extends QuickAction {
 		super(playerID);
 	}
 
+	@Override
 	public boolean isValid(Model model) {
 		Player player = model.id2player(getPlayer());
 
 		return (model.getGameBoard().getAvailableAssistants() >= 1 && player.getCoins() >= 3);
 	}
 
+	@Override
 	public TurnState execute(TurnState previousState, Model model) {
 		Player player = model.id2player(getPlayer());
 

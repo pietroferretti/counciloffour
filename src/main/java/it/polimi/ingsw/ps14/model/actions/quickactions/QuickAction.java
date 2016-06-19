@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.model.actions.quickactions;
 
 import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.actions.TurnAction;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
@@ -21,12 +20,12 @@ public abstract class QuickAction extends TurnAction {
 	}
 
 	protected TurnState nextState(TurnState previousState, Model model) {
-		Player player = model.id2player(getPlayer());
+		int addMains = model.getAdditionalMainsToDo();
 
 		if (previousState instanceof CardDrawnState)
-			return new QuickActionDoneTurnState(player.additionalMainsToDo);
+			return new QuickActionDoneTurnState(addMains);
 		if (previousState instanceof MainActionDoneTurnState)
-			return new MainAndQuickActionDoneTurnState(player.additionalMainsToDo);
+			return new MainAndQuickActionDoneTurnState(addMains);
 		return null;
 	}
 

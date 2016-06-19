@@ -22,6 +22,7 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 		this.regType = regionType;
 	}
 
+	@Override
 	public boolean isValid(Model model) {
 		Player player = model.id2player(super.getPlayer());
 		Balcony balcony = model.getGameBoard().getRegion(regType).getBalcony();
@@ -30,6 +31,7 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 				&& color != null);
 	}
 
+	@Override
 	public TurnState execute(TurnState previousState, Model model) {
 		Player player = model.id2player(super.getPlayer());
 		Balcony balcony = model.getGameBoard().getRegion(regType).getBalcony();

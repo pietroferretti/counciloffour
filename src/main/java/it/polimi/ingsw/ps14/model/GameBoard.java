@@ -8,7 +8,7 @@ import it.polimi.ingsw.ps14.model.bonus.BonusFromBusinessPermits;
 import it.polimi.ingsw.ps14.model.bonus.BonusFromTokens;
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
 import it.polimi.ingsw.ps14.model.bonus.BonusMainAction;
-import it.polimi.ingsw.ps14.model.bonus.BonusNobility;
+import it.polimi.ingsw.ps14.model.bonus.BonusNobilityLvlUp;
 import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
 import it.polimi.ingsw.ps14.model.bonus.BonusTakeBusinessPermits;
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
@@ -40,8 +40,8 @@ public class GameBoard extends Observable implements Serializable {
 	private List<City> cities;
 	private int availableAssistants;
 	private NobilityTrack nobilityTrack;
-	// HashMap to store how many councillors there are for each color
-	private EnumMap<ColorCouncillor, Integer> availableCouncillors = new EnumMap<>(ColorCouncillor.class);
+	// Map to store how many councillors there are for each color
+	private Map<ColorCouncillor, Integer> availableCouncillors = new EnumMap<>(ColorCouncillor.class);
 	private int bonusGold;
 	private int bonusSilver;
 	private int bonusBronze;
@@ -184,7 +184,7 @@ public class GameBoard extends Observable implements Serializable {
 			bonus = new BonusMainAction(quantity);
 			break;
 		case "nobility":
-			bonus = new BonusNobility(quantity);
+			bonus = new BonusNobilityLvlUp(quantity);
 			break;
 		case "cards":
 			bonus = new BonusPoliticCard(quantity);
@@ -309,7 +309,12 @@ public class GameBoard extends Observable implements Serializable {
 		return availableCouncillors;
 	}
 
-	// check if the chosen color is available
+	/**
+	 * It checks if the chosen color is available.
+	 * 
+	 * @param color - {@link ColorCouncillor}
+	 * @return true if there is an available councillor of that color.
+	 */
 	public boolean councillorIsAvailable(ColorCouncillor color) {
 		return getAvailableCouncillors(color) > 0;
 	}
@@ -387,6 +392,16 @@ public class GameBoard extends Observable implements Serializable {
 	 * -------------------------- REGIONS ---------------------------
 	 */
 
+	/**
+	 * 
+	 * @param RegionType
+	 *            (COAST,
+	 * 
+	 *            HILLS,
+	 * 
+	 *            MOUNTAINS)
+	 * @return Region of that type.
+	 */
 	public Region getRegion(RegionType type) {
 
 		for (Region regionInList : regions) {

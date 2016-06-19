@@ -61,9 +61,11 @@ public class City implements Serializable {
 				this.neighborsName.add(city.name);
 			}
 		}
-
-		regionType = c.getRegion().getType();
-
+		
+		if (c.getRegion() != null) {
+			regionType = c.getRegion().getType();
+		}
+		
 		if (c.emporiums != null) {
 			this.emporiums = new ArrayList<>(c.emporiums.size());
 			for (Player player : c.emporiums) {

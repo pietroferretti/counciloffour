@@ -10,6 +10,11 @@ public class QuickActionDoneTurnState extends TurnState {
 		super(additionalMains);
 	}
 
+	@Override 
+	public TurnState makeCopy() {
+		return new QuickActionDoneTurnState(super.additionalMains);
+	}
+	
 	@Override
 	public boolean isActionLegal(Action action, Model model) {
 		return action instanceof MainAction && action.isValid(model);

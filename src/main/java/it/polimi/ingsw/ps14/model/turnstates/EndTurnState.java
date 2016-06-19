@@ -10,6 +10,11 @@ public class EndTurnState extends TurnState {
 	}
 
 	@Override
+	public TurnState makeCopy() {
+		return new EndTurnState();
+	}
+	
+	@Override
 	public boolean isActionLegal(Action action, Model model) {
 		// No actions allowed
 		return false;

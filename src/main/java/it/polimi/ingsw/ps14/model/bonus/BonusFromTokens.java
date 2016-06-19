@@ -37,7 +37,7 @@ public class BonusFromTokens extends SpecialNobilityBonus {
 			isValid = true;
 			if (c.isEmporiumBuilt(player)) {
 				for (Bonus b : c.getToken().getListOfBonuses())
-					if (b instanceof BonusNobility)
+					if (b instanceof BonusNobilityLvlUp)
 						isValid = false;
 				if (isValid)
 					bonusChoosable.add(c.getToken());

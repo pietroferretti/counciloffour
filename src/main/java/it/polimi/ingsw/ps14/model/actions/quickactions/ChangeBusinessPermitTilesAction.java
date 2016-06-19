@@ -20,6 +20,7 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 		this.regType = region;
 	}
 
+	@Override
 	public boolean isValid(Model model) {
 		Player player = model.id2player(super.getPlayer());
 		Region region = model.getGameBoard().getRegion(regType);

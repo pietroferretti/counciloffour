@@ -151,7 +151,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 			return new EndTurnState();
 		}
 
-		return super.nextState(previousState,player);
+		return super.nextState(previousState, model);
 	}
 
 }

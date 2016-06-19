@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.message.fromClient;
+package it.polimi.ingsw.ps14.message.fromclient;
 
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.actions.market.BuyAction;

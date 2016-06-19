@@ -27,7 +27,7 @@ public class DrawCardAction extends TurnAction {
 		Player player = model.id2player(super.getPlayer());
 
 		player.addPolitic(model.getGameBoard().getPoliticDeck().drawCard());
-		player.additionalMainsToDo = 0;
+		model.setAdditionalMainsToDo(0); 
 		return new CardDrawnState();
 	}
 
