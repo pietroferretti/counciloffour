@@ -1,10 +1,15 @@
 package it.polimi.ingsw.ps14.model.turnstates;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.ps14.exceptions.IllegalActionException;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.actions.Action;
 
-public abstract class TurnState {
+public abstract class TurnState implements Serializable{
+	
+
+	private static final long serialVersionUID = -8394194912933055049L;
 	
 	public final int additionalMains;
 	

@@ -132,6 +132,7 @@ public class CLIView extends ClientView implements Runnable {
 			} else if (message instanceof GameStartedMsg) {
 				print("GAME STARTED!");
 				gameStarted = true;
+				this.gameState = ((GameStartedMsg) message).getState();
 			} else if (message instanceof TurnFinishedMsg) {
 				// turnfinishedmsg cosa fa?
 				
@@ -229,7 +230,11 @@ public class CLIView extends ClientView implements Runnable {
 	private void showAvailableCommands() {
 		// TODO raffinare
 		
-		if (gameState.getGamePhase() == GamePhase.TURNS) {
+		if (gameState == null) {
+			
+			print("The game hasn't started yet.");
+			
+		} else if (gameState.getGamePhase() == GamePhase.TURNS) {
 			
 			showCommandsTurns();
 			

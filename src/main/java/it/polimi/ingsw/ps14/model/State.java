@@ -45,8 +45,8 @@ public class State extends Observable implements Serializable {
 		currentMarketState = null;
 		playerOrder = null;
 		currentPlayer = null;
-		waitingFor = null;
-		availableChoices = null;
+		waitingFor = WaitingFor.NOTHING;
+		availableChoices = new ArrayList<>();
 	}
 	
 	/**
@@ -62,6 +62,7 @@ public class State extends Observable implements Serializable {
 		currentPlayer = new Player(originalState.getCurrentPlayer());
 		waitingFor = originalState.getWaitingFor();
 		availableChoices = new ArrayList<>(originalState.getAvailableChoices());
+		
 	}
 
 	/**

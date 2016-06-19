@@ -67,7 +67,7 @@ public class Model extends Observable implements Serializable {
 	}
 	
 	public void startGame() {
-		setMessage(new GameStartedMsg());
+		setMessage(new GameStartedMsg(getState()));
 		setChanged();
 		notifyObservers();
 	}

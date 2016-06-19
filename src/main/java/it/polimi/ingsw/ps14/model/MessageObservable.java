@@ -32,4 +32,8 @@ public class MessageObservable extends Observable {
 		setChanged();
 		notifyObservers();
 	}
+	
+	public void clearMessage() {
+		message = null;
+	}
 }
