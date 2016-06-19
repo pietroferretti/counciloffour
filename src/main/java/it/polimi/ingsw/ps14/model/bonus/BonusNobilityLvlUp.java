@@ -22,6 +22,6 @@ public class BonusNobilityLvlUp extends Bonus {
 
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(getQuantity()) + " nobility points%n";
+		return "+" + Integer.toString(getQuantity()) + " nobility points\n";
 	}
 }

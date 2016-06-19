@@ -76,7 +76,7 @@ public class Region extends Observable implements Serializable {
 		notifyObservers();
 	}
 
-	protected void setBusinessPermits(BusinessCardsRegion decks) {
+	public void setBusinessPermits(BusinessCardsRegion decks) {
 		businessPermits = decks;
 		setChanged();
 		notifyObservers();
@@ -99,15 +99,15 @@ public class Region extends Observable implements Serializable {
 	@Override
 	public String toString() {
 
-		String stype = "%nTYPE:%n" + type.toString() + "\n";
+		String stype = "\nTYPE:\n" + type.toString() + "\n";
 
-		String sbonus = "%BONUS:%n" + bonusRegion.toString() + "\n";
+		String sbonus = "\nBONUS:\n" + bonusRegion.toString() + "\n";
 
-		String scouncil = "%COUNCIL:%n" + balcony.toString() + "\n";
+		String scouncil = "\nCOUNCIL:\n" + balcony.toString() + "\n";
 
-		String spermits = "%nBUSINESS PERMITS:%n" + businessPermits.toString() + "\n";
+		String spermits = "\nBUSINESS PERMITS:\n" + businessPermits.toString() + "\n";
 
-		String scitiesName = "%nThis region contains " + Integer.toString(cities.size()) + "%CITIES:%n";
+		String scitiesName = "\nThis region contains " + Integer.toString(cities.size()) + "\nCITIES:\n";
 		for (City city : cities) {
 			scitiesName = scitiesName + city.getName();
 		}

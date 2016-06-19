@@ -140,10 +140,11 @@ public class BusinessCardsRegion implements Serializable {
 
 	@Override
 	public String toString() {
-		String s = null;
+		String s = "";
 		int i = 0;
 		for (BusinessPermit businessPermit : availablePermits) {
-			s = s + Integer.toString(i) + "° PERMIT:%n" + businessPermit.toString();
+			i++;
+			s = s + Integer.toString(i) + "° PERMIT:\n" + businessPermit.toString();
 		}
 		return s;
 	}

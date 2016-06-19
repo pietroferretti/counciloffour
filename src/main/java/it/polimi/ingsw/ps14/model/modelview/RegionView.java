@@ -15,7 +15,8 @@ public class RegionView extends Observable implements Observer, Serializable {
 	private Region regionCopy;
 
 	public RegionView(Region regionCopy) {
-		this.regionCopy = regionCopy;
+
+		this.regionCopy = new Region(regionCopy);
 	}
 
 	public Region getRegionCopy() {
