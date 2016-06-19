@@ -15,18 +15,20 @@ public class PerformAdditionalMainActionAction extends QuickAction {
 		super(playerID);
 	}
 
+	@Override
 	public boolean isValid(Model model) {
 		Player player = model.id2player(getPlayer());
 
 		return player.getAssistants() >= 3;
 	}
 
+	@Override
 	public TurnState execute(TurnState previousState, Model model) {
 		Player player = model.id2player(getPlayer());
 
 		player.useAssistants(3);
 		model.getGameBoard().addAssistants(3);
-		player.additionalMainsToDo++;
+		model.incrementAdditionalMainsToDo();
 
 		return nextState(previousState, model);
 	}

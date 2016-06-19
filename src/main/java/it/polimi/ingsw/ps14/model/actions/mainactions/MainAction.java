@@ -55,20 +55,19 @@ public abstract class MainAction extends TurnAction {
 		}
 	}
 
-
-
-	protected TurnState nextState(TurnState previousState, Player player) {
+	protected TurnState nextState(TurnState previousState, Model model) {
+		
 		if (previousState instanceof CardDrawnState)
-			return new MainActionDoneTurnState(player.additionalMainsToDo);
+			return new MainActionDoneTurnState(model.getAdditionalMainsToDo());
 		if (previousState instanceof MainActionDoneTurnState) {
-			player.additionalMainsToDo--;
-			return new MainActionDoneTurnState(player.additionalMainsToDo);
+			model.decrementAdditionalMainsToDo();
+			return new MainActionDoneTurnState(model.getAdditionalMainsToDo());
 		}
 		if (previousState instanceof QuickActionDoneTurnState)
-			return new MainAndQuickActionDoneTurnState(player.additionalMainsToDo);
+			return new MainAndQuickActionDoneTurnState(model.getAdditionalMainsToDo());
 		if (previousState instanceof MainAndQuickActionDoneTurnState) {
-			player.additionalMainsToDo--;
-			return new MainAndQuickActionDoneTurnState(player.additionalMainsToDo);
+			model.decrementAdditionalMainsToDo();
+			return new MainAndQuickActionDoneTurnState(model.getAdditionalMainsToDo());
 		}
 		return null;
 	}

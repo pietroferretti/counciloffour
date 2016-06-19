@@ -52,7 +52,7 @@ public class ElectCouncillorAction extends MainAction {
 		// electCouncillor give 4 coins to player
 		player.addCoins(electCouncillorPrize);
 
-		return nextState(previousState,player);
+		return nextState(previousState, model);
 	}
 
 }

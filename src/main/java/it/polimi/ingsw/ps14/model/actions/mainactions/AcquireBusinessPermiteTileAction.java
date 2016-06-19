@@ -83,7 +83,7 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		// TODO: bonus
 		permitTile.getBonusList().useBonus(player, model);
 
-		return nextState(previousState, player);
+		return nextState(previousState, model);
 	}
 
 }

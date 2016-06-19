@@ -16,7 +16,7 @@ public class MarketView extends Observable implements Observer, Serializable {
 	private Market marketCopy;
 
 	public MarketView(Market marketCopy) {
-		this.marketCopy = marketCopy;
+		this.marketCopy = new Market(marketCopy);
 	}
 
 	public Market getMarketCopy() {

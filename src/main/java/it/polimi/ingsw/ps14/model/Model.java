@@ -28,13 +28,14 @@ public class Model extends Observable implements Serializable {
 	private GameBoard gameBoard;
 	private Market market;
 
-	private GamePhase gamePhase;
-	private Player currentPlayer;
-	private TurnState currentTurnState;
-	private MarketState currentMarketState;
-	private Deque<Player> playerOrder;
+//	private GamePhase gamePhase;
+//	private Player currentPlayer;
+//	private TurnState currentTurnState;
+//	private MarketState currentMarketState;
+//	private Deque<Player> playerOrder;
+	private State state;
 
-	private Message message;
+	private MessageObservable message;
 
 	public Model() throws IOException {
 		idGame = idCounter;
@@ -42,10 +43,13 @@ public class Model extends Observable implements Serializable {
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		players = new ArrayList<>();
 		market = new Market();
+		state = new State();
 		
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);
+		
+		message = new MessageObservable();
 	}
 
 	public Model(List<Player> players) throws IOException {
@@ -58,10 +62,12 @@ public class Model extends Observable implements Serializable {
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);
+		
+		message = new MessageObservable();
 	}
 	
 	public void startGame() {
-		message = new GameStartedMsg();
+		setMessage(new GameStartedMsg());
 		setChanged();
 		notifyObservers();
 	}
@@ -94,73 +100,124 @@ public class Model extends Observable implements Serializable {
 			if (player.getId() == id)
 				return player;
 		}
-		// magari una exception?
 		return null;
 	}
 
 	public int getIdGame() {
 		return idGame;
 	}
+	
+	public void setState(State state) {
+		this.state = state;
+	}
+	
+	public State getState() {
+		return state;
+	}
 
 	public void setGamePhase(GamePhase phase) {
-		this.gamePhase = phase;
-		setChanged();
-		notifyObservers();
+		state.setGamePhase(phase);
 	}
 
 	public GamePhase getGamePhase() {
-		return gamePhase;
+		return state.getGamePhase();
 	}
 
 	public Player getCurrentPlayer() {
-		return currentPlayer;
+		return state.getCurrentPlayer();
 	}
 
+	public void setCurrentPlayer(Player currentPlayer) {
+		state.setCurrentPlayer(currentPlayer);
+	}
+	
 	public TurnState getCurrentTurnState() {
-		return currentTurnState;
+		return state.getCurrentTurnState();
 	}
 
 	public void setCurrentTurnState(TurnState currentTurnState) {
-		this.currentTurnState = currentTurnState;
-		setChanged();
-		notifyObservers();
+		state.setCurrentTurnState(currentTurnState);
+	}
+	
+	/**
+	 * @return the additionalMainsToDo
+	 */
+	public int getAdditionalMainsToDo() {
+		return state.getAdditionalMainsToDo();
 	}
 
+	/**
+	 * @param additionalMainsToDo the additionalMainsToDo to set
+	 */
+	public void setAdditionalMainsToDo(int additionalMainsToDo) {
+		state.setAdditionalMainsToDo(additionalMainsToDo);
+	}
+	
+	public void incrementAdditionalMainsToDo() {
+		state.setAdditionalMainsToDo(state.getAdditionalMainsToDo() + 1);
+	}
+
+	public void decrementAdditionalMainsToDo() {
+		state.setAdditionalMainsToDo(state.getAdditionalMainsToDo() - 1);
+	}
+	
 	public MarketState getCurrentMarketState() {
-		return currentMarketState;
+		return state.getCurrentMarketState();
 	}
 
 	public void setCurrentMarketState(MarketState currentMarketState) {
-		this.currentMarketState = currentMarketState;
-		setChanged();
-		notifyObservers();
+		state.setCurrentMarketState(currentMarketState);
 	}
 
 	public Deque<Player> getPlayerOrder() {
-		return playerOrder;
+		return state.getPlayerOrder();
 	}
 
 	public void setPlayerOrder(List<Player> playerOrder) {
-		this.playerOrder = new ArrayDeque<>(playerOrder);
+		state.setPlayerOrder(new ArrayDeque<>(playerOrder));
 	}
 
 	public Player getNextPlayer() {
-		return playerOrder.peek();
+		return state.getNextPlayer();
 	}
 
 	public void loadNextPlayer() {
-		currentPlayer = playerOrder.pollFirst();
-		setChanged();
-		notifyObservers();
+		state.loadNextPlayer();
 	}
 
 	public void queueAndLoadNextPlayer() {
-		playerOrder.addLast(currentPlayer);
-		currentPlayer = playerOrder.pollFirst();
-		setChanged();
-		notifyObservers();
+		state.queueAndLoadNextPlayer();
 	}
 
+	/**
+	 * @return the waitingFor state
+	 */
+	public WaitingFor getWaitingFor() {
+		return state.getWaitingFor();
+	}
+
+	/**
+	 * @param waitingFor the waitingFor state to set
+	 */
+	public void setWaitingFor(WaitingFor waitingFor) {
+		state.setWaitingFor(waitingFor);
+	}
+
+	/**
+	 * @return the availableChoices
+	 */
+	public List<Integer> getAvailableChoices() {
+		return state.getAvailableChoices();
+	}
+
+	/**
+	 * @param availableChoices the availableChoices to set
+	 */
+	public void setAvailableChoices(List<Integer> availableChoices) {
+		state.setAvailableChoices(availableChoices);
+	}
+	
+	
 	public Market getMarket() {
 		return market;
 	}
@@ -170,21 +227,17 @@ public class Model extends Observable implements Serializable {
 		setChanged();
 		notifyObservers();
 	}
-
-	public void setCurrentPlayer(Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
-		setChanged();
-		notifyObservers();
-	}
-
-	public Message getMessage() {
+	
+	public MessageObservable getMessageObservable() {
 		return message;
 	}
 
+	public Message getMessage() {
+		return message.getMessage();
+	}
+
 	public void setMessage(Message messageToSend) {
-		this.message = messageToSend;
-		setChanged();
-		notifyObservers();
+		this.message.setMessage(messageToSend);
 	}
 	
 	public void clearMessage() {
