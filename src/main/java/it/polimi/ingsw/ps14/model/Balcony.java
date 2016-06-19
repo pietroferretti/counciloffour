@@ -135,11 +135,11 @@ public class Balcony implements Serializable {
 	
 @Override
 	public String toString() {
-		String s = "%nhead%n";
+		String s = "\nhead ";
 		for (ColorCouncillor colorCouncillor : councillors) {
 			s = s + colorCouncillor.toString() + " ";
 		}
-		return ( s + "%ntail%n");
+		return  s + "tail\n";
 	}
 
 }

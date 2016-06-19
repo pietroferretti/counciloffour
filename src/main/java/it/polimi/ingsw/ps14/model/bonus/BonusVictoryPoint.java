@@ -32,7 +32,7 @@ public class BonusVictoryPoint extends Bonus {
 
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(getQuantity()) + " victory points%n";
+		return "+" + Integer.toString(getQuantity()) + " victory points\n";
 	}
 
 }

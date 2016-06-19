@@ -21,6 +21,6 @@ public class BonusCoin extends Bonus {
 
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(getQuantity()) + "coins%n";
+		return "+" + Integer.toString(getQuantity()) + "coins\n";
 	}
 }

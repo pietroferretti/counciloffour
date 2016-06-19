@@ -45,7 +45,10 @@ public class ElectCouncillorAction extends MainAction {
 		// added to availableCouncillors in gameboard
 		model.getGameBoard().addDiscardedCouncillor(
 				balcony.electCouncillor(councillor));
-
+		if(regionType!=null)
+			model.getGameBoard().getRegion(regionType).setBalcony();
+		else
+			model.getGameBoard().getKing().setBalcony();
 		// electCouncillor give 4 coins to player
 		player.addCoins(electCouncillorPrize);
 

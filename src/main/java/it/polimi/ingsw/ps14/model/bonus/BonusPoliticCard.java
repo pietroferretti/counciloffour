@@ -25,7 +25,7 @@ public class BonusPoliticCard extends Bonus {
 
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(getQuantity()) + " politic card(s)%n";
+		return "+" + Integer.toString(getQuantity()) + " politic card(s)\n";
 	}
 
 }

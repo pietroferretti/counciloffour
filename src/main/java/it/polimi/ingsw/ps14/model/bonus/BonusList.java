@@ -75,9 +75,9 @@ public class BonusList implements Serializable {
 
 	@Override
 	public String toString() {
-		String s = null;
+		String s = "";
 		for (Bonus bon : bonuses) {
-			s = s + bon.toString() + "%n";
+			s = s + bon.toString() + "\n";
 		}
 		return s;
 	}

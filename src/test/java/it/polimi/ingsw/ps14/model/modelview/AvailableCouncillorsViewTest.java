@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,6 +28,7 @@ public class AvailableCouncillorsViewTest {
 	@Test
 	public void testAvailableCouncillorsView() {
 		AvailableCouncillorsView acv = new AvailableCouncillorsView(model.getGameBoard().getAvailableCouncillors());
+		assertNotSame(model.getGameBoard().getAvailableCouncillors(), acv.getAvailableCouncillorsCopy());
 		assertEquals(model.getGameBoard().getAvailableCouncillors(), acv.getAvailableCouncillorsCopy());
 	}
 

@@ -22,6 +22,6 @@ public class BonusAssistant extends Bonus {
 
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(getQuantity()) + " assistant(s)%n";
+		return "+" + Integer.toString(getQuantity()) + " assistant(s)\n";
 	}
 }
