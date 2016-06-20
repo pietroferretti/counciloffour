@@ -257,7 +257,7 @@ public class Model extends Observable implements Serializable {
 		return null;
 	}
 
-	public City id2city(String name) {
+	public City name2city(String name) {
 		for (City c : gameBoard.getCities())
 			if (c.getName().compareTo(name) == 0)
 				return c;
