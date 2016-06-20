@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
@@ -130,6 +130,7 @@ public class SocketServerView extends ServerView implements Runnable {
 	 *            - Request for updates.
 	 */
 	private void sendUpdates(UpdateRequestMsg requestReceived) {
+		
 		if (requestReceived instanceof UpdateGameBoardMsg) {
 			// TODO inutile se solo chi ha il turno può fare richieste
 			// sendMessage(new
@@ -152,7 +153,7 @@ public class SocketServerView extends ServerView implements Runnable {
 
 		} else if (requestReceived instanceof UpdateThisPlayerMsg) {
 			sendPersonalUpdate();
-		} else if (requestReceived instanceof UpdateOtherPlayerMsg) {
+		} else if (requestReceived instanceof UpdateOtherPlayersMsg) {
 			sendOthersUpdate();
 		}
 	}
