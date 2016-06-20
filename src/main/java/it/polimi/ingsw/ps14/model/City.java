@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.ingsw.ps14.model.bonus.BonusList;
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
 
 public class City implements Serializable {
 
@@ -26,7 +26,7 @@ public class City implements Serializable {
 	// usato solo per la copia
 	private List<String> neighborsName;
 
-	private BonusList token;
+	private Bonus token;
 
 	private ArrayList<Player> emporiums;
 
@@ -39,7 +39,7 @@ public class City implements Serializable {
 		emporiums = new ArrayList<>();
 	}
 
-	public City(String name, ColorCity color, Region region, List<City> neighbors, BonusList token) {
+	public City(String name, ColorCity color, Region region, List<City> neighbors, Bonus token) {
 		this.name = name;
 		this.color = color;
 		this.neighbors = neighbors;
@@ -74,7 +74,7 @@ public class City implements Serializable {
 		}
 
 		if (c.token != null) {
-			this.token = new BonusList(c.token);
+			this.token = c.token.makeCopy();
 		}
 	}
 
@@ -116,7 +116,7 @@ public class City implements Serializable {
 		this.neighbors = neighbors;
 	}
 
-	public void setToken(BonusList token) {
+	public void setToken(Bonus token) {
 		this.token = token;
 	}
 
@@ -140,7 +140,7 @@ public class City implements Serializable {
 		return region;
 	}
 
-	public BonusList getToken() {
+	public Bonus getToken() {
 		return token;
 	}
 

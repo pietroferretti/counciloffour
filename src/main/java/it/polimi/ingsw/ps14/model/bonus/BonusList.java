@@ -1,18 +1,15 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
-public class BonusList implements Serializable {
+public class BonusList implements Bonus {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4986740288070659066L;
+
 	private final List<Bonus> bonuses;
 
 	public BonusList(List<Bonus> bonuses) {
@@ -31,24 +28,20 @@ public class BonusList implements Serializable {
 	}
 
 	public BonusList(BonusList bl) {
+		
+		//TODO
 		this.bonuses = new ArrayList<>();
 
 		if (bl.bonuses != null) {
 			for (Bonus bon : bl.bonuses) {
-				if (bon instanceof BonusAssistant)
-					this.bonuses.add(new BonusAssistant(bon.getQuantity()));
-				else if (bon instanceof BonusCoin)
-					this.bonuses.add(new BonusCoin(bon.getQuantity()));
-				else if (bon instanceof BonusMainAction)
-					this.bonuses.add(new BonusMainAction(bon.getQuantity()));
-				else if (bon instanceof BonusNobilityLvlUp)
-					this.bonuses.add(new BonusNobilityLvlUp(bon.getQuantity()));
-				else if (bon instanceof BonusPoliticCard)
-					this.bonuses.add(new BonusPoliticCard(bon.getQuantity()));
-				else if (bon instanceof BonusVictoryPoint)
-					this.bonuses.add(new BonusVictoryPoint(bon.getQuantity()));
+				this.bonuses.add(bon.makeCopy());
 			}
 		}
+	}
+	
+	@Override
+	public BonusList makeCopy() {
+		return new BonusList(this);
 	}
 
 	public List<Bonus> getListOfBonuses() {
