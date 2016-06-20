@@ -1,8 +1,6 @@
 package it.polimi.ingsw.ps14.message.fromclient;
 
-import it.polimi.ingsw.ps14.message.Message;
-
-public class UpdateGameBoardMsg implements Message {
+public class UpdateGameBoardMsg implements UpdateRequestMsg {
 
 	/**
 	 * 

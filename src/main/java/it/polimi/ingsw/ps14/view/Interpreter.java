@@ -5,12 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.NewGamePhaseMsg;
-import it.polimi.ingsw.ps14.message.NewMarketStateMsg;
-import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
-import it.polimi.ingsw.ps14.message.fromclient.NewCurrentPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
@@ -19,10 +16,8 @@ import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
-import it.polimi.ingsw.ps14.message.fromserver.GamePhaseUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.MarketStateUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg;
@@ -35,6 +30,7 @@ import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
+import it.polimi.ingsw.ps14.model.actions.EndTurnAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
@@ -48,76 +44,6 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCounc
 
 public class Interpreter {
 	Scanner scan = new Scanner(System.in);
-
-//	public String parseMsg(Message msg) {
-//
-//		if (msg instanceof AvailableAssistantsUpdatedMsg) {
-//			return ((AvailableAssistantsUpdatedMsg) msg).toString();
-//		}
-//		if (msg instanceof AvailableCouncillorsUpdatedMsg) {
-//			return ((AvailableCouncillorsUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof ErrorMsg) {
-//			return ((ErrorMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof GamePhaseUpdatedMsg) {
-//			return ((GamePhaseUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof KingBonusesUpdatedMsg) {
-//			return ((KingBonusesUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof KingUpdatedMsg) {
-//			return ((KingUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof MarketStateUpdatedMsg) {
-//			return ((MarketStateUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof NewCurrentPlayerMsg) {
-//			return ((NewCurrentPlayerMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof NewGamePhaseMsg) {
-//			return ((NewGamePhaseMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof NewMarketStateMsg) {
-//			return ((NewMarketStateMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof NobilityTrackUpdatedMsg) {
-//			return ((NobilityTrackUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof PlayerChangedPrivateMsg) {
-//			return ((PlayerChangedPrivateMsg) msg).getMessage().toString();
-//
-//		}
-//		if (msg instanceof PlayerChangedPublicMsg) {
-//			return ((PlayerChangedPublicMsg) msg).getNotice().toString();
-//
-//		}
-//
-//		if (msg instanceof RegionBonusesUpdatedMsg) {
-//			return ((RegionBonusesUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof RegionUpdatedMsg) {
-//			return ((RegionUpdatedMsg) msg).getUpdatedRegion().toString();
-//
-//		}
-//		if (msg instanceof SoldItemMsg) {
-//			return ((SoldItemMsg) msg).getItemSold().toString();
-//
-//		}
-//
-//		return null;
-//	}
 	
 	//TODO ma perché non metterli tutti come toString()?
 	
@@ -137,10 +63,6 @@ public class Interpreter {
 			return msg.toString();
 	}
 	
-	public String parseMsg(GamePhaseUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
 	public String parseMsg(KingBonusesUpdatedMsg msg) {
 			return msg.toString();
 	}
@@ -149,19 +71,7 @@ public class Interpreter {
 			return msg.toString();
 	}
 	
-	public String parseMsg(MarketStateUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(NewCurrentPlayerMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(NewGamePhaseMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(NewMarketStateMsg msg) {
+	public String parseMsg(PlayerNameMsg msg) {
 			return msg.toString();
 	}
 	
@@ -307,7 +217,7 @@ public class Interpreter {
 		case "PASS":
 			if (word.length != 1)
 				return null;
-			return new TurnFinishedMsg(playerID);
+			return new TurnActionMsg(new EndTurnAction(playerID));
 
 		// SHOW MYDETAILS/DETAILS/GAMEBOARD
 		case "SHOW":

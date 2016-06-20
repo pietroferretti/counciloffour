@@ -161,22 +161,18 @@ public class CLIView extends ClientView implements Runnable {
 	@Override
 	public void run() {
 
-		print("Enter your name: da implementare ancora");
-		String input = in.nextLine();
-		
 		// per debug
 		// gameStarted=true;
 		// myTurn=true;
 
 		while (true) {
 			
+			print("");
 			showAvailableCommands();
 			
 			print("Enter command:");
-			input = in.nextLine();
+			String input = in.nextLine();
 
-			Message msg;
-			print("inserito " + input);
 			if (input.toUpperCase().matches("INSTRUCTIONS") || input.toUpperCase().matches("HELP")) { 
 
 				showInstructions();
@@ -193,10 +189,10 @@ public class CLIView extends ClientView implements Runnable {
 
 			} else {
 
-				msg = interpreter.parseString(input.toUpperCase(), playerID);
+				Message msg = interpreter.parseString(input.toUpperCase(), playerID);
 
 				if (msg == null)
-					print("Input error! Retry:");
+					print("Command not recognized! Retry:");
 				else {
 					print("messaggio:" + msg.toString());
 
@@ -228,7 +224,6 @@ public class CLIView extends ClientView implements Runnable {
 	}
 
 	private void showAvailableCommands() {
-		// TODO raffinare
 		
 		if (gameState == null) {
 			
