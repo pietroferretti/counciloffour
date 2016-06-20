@@ -19,7 +19,6 @@ public class PlayerViewTest {
 
 	private Model model;
 	private Player player, player2, player3;
-	// private RegionView rvCOAST;
 	private PlayerView playerView2, playerView3;
 
 	@SuppressWarnings("deprecation")

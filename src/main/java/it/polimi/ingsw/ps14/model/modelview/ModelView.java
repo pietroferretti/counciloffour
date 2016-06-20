@@ -42,7 +42,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 	// private CurrentPlayerView currentPlayerView;
 	//
 	// private GamePhaseView gamePhaseView;
-	// // private TurnStateView currentTurnStateView; secondo me non serve
+	// private TurnStateView currentTurnStateView; secondo me non serve
 	// private MarketStateView marketStateView;
 	private StateView stateView;
 
@@ -57,16 +57,6 @@ public class ModelView extends Observable implements Observer, Serializable {
 	private MarketView marketView;
 
 	private MessageView messageView;
-
-	// private PoliticDeckView politicDeckView;
-
-	// private List<City> cities; non penso serva tanto passa dalla regione o
-	// no?
-	/*
-	 * private GameBoard gameBoard; private List<Player> players; private
-	 * List<Player> playerOrder;
-	 * 
-	 */
 
 	public ModelView(Model model) {
 
@@ -94,7 +84,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		model.getGameBoard().getKing().addObserver(kingView);
 
 		nobilityTrackView = new NobilityTrackView(model.getGameBoard().getNobilityTrack());
-		model.getGameBoard().getNobilityTrack().addObserver(nobilityTrackView);
+		// model.getGameBoard().getNobilityTrack().addObserver(nobilityTrackView);
 
 		// gamePhaseView = new GamePhaseView(model.getGamePhase());
 		// model.addObserver(gamePhaseView);
@@ -141,7 +131,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		}
 
 		kingView.addObserver(this);
-		nobilityTrackView.addObserver(this);
+		// nobilityTrackView.addObserver(this);
 		// gamePhaseView.addObserver(this);
 		// currentPlayerView.addObserver(this);
 		// marketStateView.addObserver(this);
@@ -220,9 +210,10 @@ public class ModelView extends Observable implements Observer, Serializable {
 		} else if (o instanceof KingView) {
 			setChanged();
 			notifyObservers(new KingUpdatedMsg(((KingView) o).getKingCopy()));
-		} else if (o instanceof NobilityTrackView) {
-			setChanged();
-			notifyObservers(new NobilityTrackUpdatedMsg(((NobilityTrackView) o).getNobilityTrackCopy()));
+			// } else if (o instanceof NobilityTrackView) {
+			// setChanged();
+			// notifyObservers(new NobilityTrackUpdatedMsg(((NobilityTrackView)
+			// o).getNobilityTrackCopy()));
 
 		} else if (o instanceof StateView) {
 

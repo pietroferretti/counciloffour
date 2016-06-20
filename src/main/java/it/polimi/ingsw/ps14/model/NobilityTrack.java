@@ -53,8 +53,6 @@ public class NobilityTrack extends Observable implements Serializable {
 
 		if (bonusThisLevel != null) {
 			bonusThisLevel.useBonus(player, model);
-			setChanged();
-			notifyObservers();
 			return true;
 		} else {
 			return false;
@@ -67,9 +65,9 @@ public class NobilityTrack extends Observable implements Serializable {
 
 	@Override
 	public String toString() {
-		String s = "NOBILITY TRACK:%n";
+		String s = "\nNOBILITY TRACK:\n";
 		for (Map.Entry<Integer, BonusList> entry : bonusesByLevel.entrySet()) {
-			s = s + "%nlevel: " + Integer.toString(entry.getKey()) + " bonus: " + entry.getValue().toString();
+			s = s + "\nlevel: " + Integer.toString(entry.getKey()) + " bonus: " + entry.getValue().toString();
 		}
 		return s;
 	}
