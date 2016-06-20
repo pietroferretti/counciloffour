@@ -1,14 +1,13 @@
 package it.polimi.ingsw.ps14.client.socket;
 
+import it.polimi.ingsw.ps14.message.Message;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps14.client.MessageHandlerOut;
-import it.polimi.ingsw.ps14.message.Message;
-
-public class SocketMessageHandlerOut implements MessageHandlerOut {
+public class SocketMessageHandlerOut implements Runnable{
 	private static final Logger LOGGER = Logger.getLogger(SocketMessageHandlerOut.class.getName());
 
 	private ObjectOutputStream socketOut;
@@ -17,8 +16,7 @@ public class SocketMessageHandlerOut implements MessageHandlerOut {
 		this.socketOut = socketOut;
 	}
 
-	@Override
-	public void handleMessage(Message message) {
+	public void sendMessage(Message message) {
 
 		try {
 			
@@ -29,6 +27,10 @@ public class SocketMessageHandlerOut implements MessageHandlerOut {
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Error writing on socket", e);
 		}
+	}
+
+	@Override
+	public void run() {
 	}
 
 }

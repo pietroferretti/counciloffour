@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.client;
 
 import it.polimi.ingsw.ps14.client.RMI.ClientRMIView;
+import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
@@ -72,20 +73,21 @@ public class Client {
 
 				}
 
+				
 				SocketMessageHandlerOut msgHandlerOut = new SocketMessageHandlerOut(
 						new ObjectOutputStream(socket.getOutputStream()));
 
-				clientView.setHandlerOut(msgHandlerOut);
+				SocketCommunication socketCommunication = new SocketCommunication(msgHandlerOut,clientView);
 
-				MessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(
-						clientView, new ObjectInputStream(
+				
+				SocketMessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(socketCommunication, new ObjectInputStream(
 								socket.getInputStream()));
 
 				// sends the player name to the server
-				clientView.handleMessageOut(new PlayerNameMsg(name));
-
+				socketCommunication.sendPlayerName(name);
+				
 				ExecutorService executor = Executors.newFixedThreadPool(2);
-				executor.submit(clientView);
+				executor.submit(msgHandlerOut);
 				executor.submit(msgHandlerIn);
 
 			} catch (IOException e) {

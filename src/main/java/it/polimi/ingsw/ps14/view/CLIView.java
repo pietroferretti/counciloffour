@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.view;
 
 import it.polimi.ingsw.ps14.client.ClientView;
+import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
@@ -54,6 +55,10 @@ public class CLIView extends ClientView implements Runnable {
 		interpreter = new Interpreter();
 		in = scanner;
 		playerID = null;
+	}
+	
+	public void setCommunication(Communication communication){
+		interpreter.setCommunication(communication);
 	}
 
 	/**
@@ -114,7 +119,6 @@ public class CLIView extends ClientView implements Runnable {
 		return playerID;
 	}
 
-	@Override
 	public void handleMessage(Message message) {
 		String str;
 		if (message != null) {
@@ -190,7 +194,7 @@ public class CLIView extends ClientView implements Runnable {
 				else {
 					print("messaggio:" + msg.toString());
 
-					handleMessageOut(msg);
+//					sendMessage(msg); DA FARE IN INTERPRETE SU COMM.SENDMESSAGE
 				}
 
 				// invia msg
@@ -365,6 +369,12 @@ public class CLIView extends ClientView implements Runnable {
 			LOGGER.warning("Something went wrong, the game is still in the market phase even after it ended!!");
 			
 		}
+		
+	}
+
+	@Override
+	public void readMessage(Message message) {
+		// TODO Auto-generated method stub
 		
 	}
 	
