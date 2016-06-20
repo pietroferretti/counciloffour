@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.server;
 
 import it.polimi.ingsw.ps14.Game;
+import it.polimi.ingsw.ps14.client.RMI.ClientFolda;
 import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.view.View;
 
@@ -66,10 +67,10 @@ public class Server {
 	/*
 	 * Registro una connessione attiva in rmi
 	 */
-	public synchronized void registerWaitingConnectionRMI(ClientViewRemote c) {
-		c.setID(idCounter);
+	public synchronized void registerWaitingConnectionRMI(View c) {
+		View connection=new ClientFolda(idCounter);
 		idCounter++;
-		waitingConnectionsRMI.add(c);
+		waitingConnections.add(c);
 
 	}
 

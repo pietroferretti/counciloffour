@@ -6,10 +6,11 @@ import java.util.Observable;
 
 public interface ClientViewRemote
 extends Remote{
-
-	public void setID(Integer id);
-
+	
+	
 	public Integer getID();
+	
+	public void setID();
 	
 	//metodi invocabili dal server sul client
 	public void updateClient(Observable o,

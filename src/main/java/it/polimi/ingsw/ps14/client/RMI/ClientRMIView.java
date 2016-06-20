@@ -5,22 +5,15 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Observable;
 
-public class ClientRMIView extends UnicastRemoteObject implements ClientViewRemote, Serializable,ClientFolda{
+public class ClientRMIView extends UnicastRemoteObject implements ClientViewRemote, Serializable{
 	
 	private Integer id;
-
+	
 	protected ClientRMIView() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public void setID(Integer id){
-		this.id=id;
-	}
 
-	public Integer getID(){
-		return id;
-	}
 	/**
 	 * 
 	 */
@@ -30,4 +23,19 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientViewRemo
 	          Object arg) throws RemoteException {
 		System.out.println(arg.toString());
 	}
+
+	public Integer getID() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Override
+	public void setID() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
