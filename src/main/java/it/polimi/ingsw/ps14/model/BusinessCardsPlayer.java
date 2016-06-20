@@ -94,13 +94,22 @@ public class BusinessCardsPlayer implements Serializable {
 	@Override
 	public String toString() {
 		String s = "\nBUSINESS CARDS\nValid Cards: ";
-		for (BusinessPermit businessPermit : validCards) {
-			s = s + businessPermit.toString();
+		if (validCards.isEmpty())
+			s = s + "\nNo valid cards yet.\n";
+		else {
+			for (BusinessPermit businessPermit : validCards) {
+				s = s + businessPermit.toString();
+			}
 		}
-		s = s + "\nUsed Cards: ";
-		for (BusinessPermit businessPermit : usedCards) {
-			s = s + businessPermit.toString();
+		s = s + "Used Cards: ";
+		if (usedCards.isEmpty())
+			s = s + "\nNo used cards yet.";
+		else {
+			for (BusinessPermit businessPermit : usedCards) {
+				s = s + businessPermit.toString();
+			}
 		}
+
 		return s;
 	}
 

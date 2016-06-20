@@ -226,7 +226,8 @@ public class Player extends Observable implements Serializable {
 			i++;
 		if (i < hand.size() && hand.get(i).getColor() == color)
 			hand.remove(hand.get(i));
-
+		setChanged();
+		notifyObservers(new PlayerChangedPublicMsg(id, name + "has used a " + color.toString() + " card."));
 	}
 
 	public int getNumberOfCards() {
@@ -290,13 +291,13 @@ public class Player extends Observable implements Serializable {
 			return null;
 		}
 	}
-
-	public void removeCard(PoliticCard card) {
-		hand.remove(card);
-		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
-
-	}
+//@Deprecated
+//	public void removeCard(PoliticCard card) {
+//		hand.remove(card);
+//		setChanged();
+//		notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
+//
+//	}
 
 	public BusinessCardsPlayer getBusinessHand() {
 		return businessHand;
