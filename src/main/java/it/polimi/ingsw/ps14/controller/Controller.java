@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
@@ -54,8 +55,12 @@ public class Controller implements Observer {
 		View serverView = (View) o;
 		
 		LOGGER.info(String.format("Received object %s", arg));
-
-		if (arg instanceof TurnActionMsg) {
+		
+		if (arg instanceof PlayerNameMsg) {
+			
+			updatePlayerName(serverView, ((PlayerNameMsg) arg).getPlayerName());
+			
+		} else if (arg instanceof TurnActionMsg) {
 			
 			executeTurnAction(serverView, ((TurnActionMsg) arg).getAction());
 			
@@ -78,13 +83,19 @@ public class Controller implements Observer {
 		}
 	}
 	
+	private void updatePlayerName(View playerView, String name) {
+		
+		model.id2player(playerView.getPlayerID()).setName(name);
+		
+	}
+	
 	/**
 	 * Called if the action sent by the view is a TurnAction.
 	 * Does checks and executes the action, updates the state of the game phases and turns.
 	 * @param playerView
 	 * @param action 
 	 */
-	public void executeTurnAction(View playerView, TurnAction action) {
+	private void executeTurnAction(View playerView, TurnAction action) {
 		
 		// if we're in the regular turns phase (i.e. not market)
 		if (model.getGamePhase() == GamePhase.TURNS) {
@@ -275,7 +286,7 @@ public class Controller implements Observer {
 		
 	}
 
-	public void executeBuyAction(View playerView, BuyAction action) {
+	private void executeBuyAction(View playerView, BuyAction action) {
 		
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() == GamePhase.MARKET) {
@@ -316,7 +327,7 @@ public class Controller implements Observer {
 	
 	}
 	
-	public void doneBuying(View playerView) {
+	private void doneBuying(View playerView) {
 		
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() == GamePhase.MARKET) {
@@ -360,7 +371,7 @@ public class Controller implements Observer {
 		
 	}
 	
-	public void sendErrorMsg(View playerview, String errorMessage) {
+	private void sendErrorMsg(View playerview, String errorMessage) {
 		model.setMessage(new ErrorMsg(playerview.getPlayerID(), errorMessage));
 	}
 	
