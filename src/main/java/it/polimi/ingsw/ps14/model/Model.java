@@ -13,12 +13,8 @@ import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
-// TODO notify ogni volta che qualcosa viene modificato?
 public class Model extends Observable implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4787221737865002835L;
 
 	private static int idCounter = 1;
@@ -28,11 +24,6 @@ public class Model extends Observable implements Serializable {
 	private GameBoard gameBoard;
 	private Market market;
 
-//	private GamePhase gamePhase;
-//	private Player currentPlayer;
-//	private TurnState currentTurnState;
-//	private MarketState currentMarketState;
-//	private Deque<Player> playerOrder;
 	private State state;
 
 	private MessageObservable message;
