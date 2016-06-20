@@ -33,12 +33,19 @@ public class OtherPlayerUpdateMsg implements Message, Serializable {
 		this.numEmporiums = p.getNumEmporiums();
 	}
 
-	// printValidBusinessPermitsPlayer(player.getBusinessHand().getValidCards());
+	/**
+	 * It prints a specific player's name, color, business permits, assistants
+	 * number, nobility level, victory points
+	 * 
+	 * @param player
+	 */
+
 	@Override
 	public String toString() {
 		return "\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
 				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
 				+ "\nVictory Points: " + Integer.toString(points);
+		// printValidBusinessPermitsPlayer(player.getBusinessHand().getValidCards());
 	}
 
 }

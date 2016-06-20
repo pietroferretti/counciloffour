@@ -71,9 +71,8 @@ public class BusinessPermit implements Card, Serializable {
 	}
 
 	@Override
-	// TODO aggiungere ID
 	public String toString() {
-		String s = "\nPermit to build in: ";
+		String s = "\nPermit ID: " + Integer.toString(id) + "\nPermit to build in: ";
 		for (City city : cities) {
 			s = s + city.getName() + " ";
 		}

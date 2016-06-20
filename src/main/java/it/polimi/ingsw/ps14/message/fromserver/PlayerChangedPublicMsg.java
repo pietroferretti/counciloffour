@@ -2,8 +2,7 @@ package it.polimi.ingsw.ps14.message.fromserver;
 
 import it.polimi.ingsw.ps14.message.Message;
 
-
-public class PlayerChangedPublicMsg implements Message{
+public class PlayerChangedPublicMsg implements Message {
 
 	private static final long serialVersionUID = -4322939345181165635L;
 	/**
@@ -21,9 +20,14 @@ public class PlayerChangedPublicMsg implements Message{
 	public int getPlayerID() {
 		return playerID;
 	}
-	
-	public String getNotice(){
+
+	public String getNotice() {
 		return notice;
+	}
+
+	@Override
+	public String toString() {
+		return "\nPlayer: " + Integer.toString(playerID) + notice;
 	}
 
 }

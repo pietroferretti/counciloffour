@@ -16,21 +16,21 @@ public class Player extends Observable implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 479024623935337422L;
-	
+
 	private static Random rand = new Random();
 	private static int idCounter = 1;
 	private final int id;
 	private String name;
 	private Color color;
-	
+
 	private int coins;
 	private int assistants;
-	private int level; 		// nobility
+	private int level; // nobility
 	private int points;
-	
+
 	private List<PoliticCard> hand;
 	private BusinessCardsPlayer businessHand;
-	
+
 	private int numEmporiums = 0;
 
 	/**
@@ -52,8 +52,7 @@ public class Player extends Observable implements Serializable {
 	 * @deprecated color is not random, I don't remember
 	 */
 	@Deprecated
-	public Player(String name, Color color, int coins, int assistants,
-			PoliticDeck deck, int numberOfCards) {
+	public Player(String name, Color color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
 		this.id = idCounter;
 		idCounter++;
 		this.name = name;
@@ -66,8 +65,7 @@ public class Player extends Observable implements Serializable {
 		businessHand = new BusinessCardsPlayer();
 	}
 
-	public Player(int id, int coins, int assistants, PoliticDeck deck,
-			int numberOfCards) {
+	public Player(int id, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
 		this.id = id;
 		this.coins = coins;
 		this.assistants = assistants;
@@ -139,8 +137,7 @@ public class Player extends Observable implements Serializable {
 		if (this.coins >= coins) {
 			this.coins = this.coins - coins;
 			setChanged();
-			notifyObservers(new PlayerChangedPublicMsg(id, name + " paid "
-					+ Integer.toString(coins) + " coins!"));
+			notifyObservers(new PlayerChangedPublicMsg(id, name + " paid " + Integer.toString(coins) + " coins!"));
 			return true;
 		} else
 			return false;
@@ -149,8 +146,7 @@ public class Player extends Observable implements Serializable {
 	public void addCoins(int coins) {
 		this.coins = this.coins + coins;
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " earned "
-				+ Integer.toString(coins) + " coins!"));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " earned " + Integer.toString(coins) + " coins!"));
 	}
 
 	public int getAssistants() {
@@ -161,8 +157,8 @@ public class Player extends Observable implements Serializable {
 		if (assistants >= assistantNumber) {
 			assistants = assistants - assistantNumber;
 			setChanged();
-			notifyObservers(new PlayerChangedPublicMsg(id, name + " used "
-					+ Integer.toString(assistantNumber) + " assistant(s)!"));
+			notifyObservers(new PlayerChangedPublicMsg(id,
+					name + " used " + Integer.toString(assistantNumber) + " assistant(s)!"));
 			return true;
 		} else
 			return false;
@@ -171,8 +167,8 @@ public class Player extends Observable implements Serializable {
 	public void addAssistants(int assistants) {
 		this.assistants = this.assistants + assistants;
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained "
-				+ Integer.toString(assistants) + " assistant(s)!"));
+		notifyObservers(
+				new PlayerChangedPublicMsg(id, name + " gained " + Integer.toString(assistants) + " assistant(s)!"));
 	}
 
 	public int getLevel() {
@@ -205,9 +201,8 @@ public class Player extends Observable implements Serializable {
 	public void levelUp(int n) {
 		level = level + n;
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained +"
-				+ Integer.toString(n) + " levels! Now his level is "
-				+ Integer.toString(level)));
+		notifyObservers(new PlayerChangedPublicMsg(id,
+				name + " gained +" + Integer.toString(n) + " levels! Now his level is " + Integer.toString(level)));
 	}
 
 	public int getPoints() {
@@ -217,9 +212,8 @@ public class Player extends Observable implements Serializable {
 	public void addPoints(int points) {
 		this.points = this.points + points;
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained +"
-				+ Integer.toString(points) + " points! Now he has "
-				+ Integer.toString(this.points)));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " gained +" + Integer.toString(points)
+				+ " points! Now he has " + Integer.toString(this.points)));
 	}
 
 	public List<PoliticCard> getHand() {
@@ -227,12 +221,12 @@ public class Player extends Observable implements Serializable {
 	}
 
 	public void removeColor(ColorPolitic color) {
-		int i=0;
-		while(i<hand.size() && hand.get(i).getColor()!=color)
+		int i = 0;
+		while (i < hand.size() && hand.get(i).getColor() != color)
 			i++;
-		if(i<hand.size() && hand.get(i).getColor()==color)
-				hand.remove(hand.get(i));
-			
+		if (i < hand.size() && hand.get(i).getColor() == color)
+			hand.remove(hand.get(i));
+
 	}
 
 	public int getNumberOfCards() {
@@ -242,8 +236,7 @@ public class Player extends Observable implements Serializable {
 	public void addPolitic(PoliticCard card) {
 		hand.add(card);
 		setChanged();
-		notifyObservers(new PlayerChangedPrivateMsg(id, "You gain "
-				+ card.toString()));
+		notifyObservers(new PlayerChangedPrivateMsg(id, "You gain " + card.toString()));
 	}
 
 	public int getId() {
@@ -290,8 +283,7 @@ public class Player extends Observable implements Serializable {
 		PoliticCard card = findCardInHand(color);
 		if (hand.remove(card) == true) {
 			setChanged();
-			notifyObservers(new PlayerChangedPublicMsg(id, name
-					+ " use a Politic card: " + card.toString()));
+			notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
 			return card;
 		} else {
 			// TODO: eccezione se non trova la carta nella mano
@@ -302,8 +294,7 @@ public class Player extends Observable implements Serializable {
 	public void removeCard(PoliticCard card) {
 		hand.remove(card);
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name
-				+ " use a Politic card: " + card.toString()));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
 
 	}
 
@@ -314,8 +305,7 @@ public class Player extends Observable implements Serializable {
 	public void acquireBusinessPermit(BusinessPermit permitTile) {
 		businessHand.acquireBusinessPermit(permitTile);
 		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id, name
-				+ " acquired a business permit: " + permitTile.toString()));
+		notifyObservers(new PlayerChangedPublicMsg(id, name + " acquired a business permit: " + permitTile.toString()));
 	}
 
 	public int getNumberOfPermits() {
@@ -323,13 +313,17 @@ public class Player extends Observable implements Serializable {
 	}
 
 	public void sellPermits(BusinessPermit item) {
-		// TODO come/cosa cavolo notifico??
+		// TODO NOTIFY (MA NEL SENSO METTE IN VENDITA O HA GIà VENDUTO?)
 		businessHand.sellPermits(item);
-
+		// setChanged();
+		// notifyObservers();
 	}
 
 	public void incrementNumEmporiums() {
 		this.numEmporiums++;
+		setChanged();
+		notifyObservers(new PlayerChangedPublicMsg(id,
+				name + " built a new emporium. Now he has " + Integer.toString(numEmporiums)));
 	}
 
 	public int getNumEmporiums() {
@@ -338,10 +332,13 @@ public class Player extends Observable implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", color=" + color + ", coins=" + coins
-				+ ", assistants=" + assistants + ", level=" + level
-				+ ", points=" + points + ", hand=" + hand + ", businessHand="
-				+ businessHand + "]";
+		String s = "\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
+				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
+				+ "\nVictory Points: " + Integer.toString(points) + "\nPolitic Cads: ";
+		for (PoliticCard politicCard : hand) {
+			s = s + politicCard.toString();
+		}
+		return s + businessHand.toString();
 	}
 
 	/**
