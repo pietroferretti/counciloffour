@@ -64,8 +64,6 @@ public class Player extends Observable implements Serializable {
 		points = 0;
 		this.hand = deck.drawMultipleCards(numberOfCards);
 		businessHand = new BusinessCardsPlayer();
-		// permitTiles = new ArrayList<>();
-		// usedPermitTiles = new ArrayList<>();
 	}
 
 	public Player(int id, int coins, int assistants, PoliticDeck deck,
@@ -77,8 +75,6 @@ public class Player extends Observable implements Serializable {
 		points = 0;
 		this.hand = deck.drawMultipleCards(numberOfCards);
 		businessHand = new BusinessCardsPlayer();
-		// permitTiles = new ArrayList<>();
-		// usedPermitTiles = new ArrayList<>();
 		float r = rand.nextFloat();
 		float g = rand.nextFloat();
 		float b = rand.nextFloat();
@@ -108,8 +104,6 @@ public class Player extends Observable implements Serializable {
 		assistants = 0;
 		level = 0;
 		points = 0;
-		// permitTiles = new ArrayList<>();
-		// usedPermitTiles = new ArrayList<>();
 		hand = new ArrayList<>();
 		businessHand = new BusinessCardsPlayer();
 	}
