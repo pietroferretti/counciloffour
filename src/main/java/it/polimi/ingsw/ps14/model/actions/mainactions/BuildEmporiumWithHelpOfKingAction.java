@@ -32,7 +32,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 	public boolean isValid(Model model) {
 		Player player = model.id2player(super.getPlayer());
-		City city = model.id2city(cityName);
+		City city = model.name2city(cityName);
 
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
 
@@ -113,7 +113,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 	public TurnState execute(TurnState previousState, Model model) {
 
 		Player player = model.id2player(super.getPlayer());
-		City city = model.id2city(cityName);
+		City city = model.name2city(cityName);
 
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
 		City cityKing = model.getGameBoard().getKing().getCity();

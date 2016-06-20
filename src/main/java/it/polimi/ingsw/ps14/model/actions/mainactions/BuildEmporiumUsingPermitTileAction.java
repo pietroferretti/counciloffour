@@ -29,7 +29,7 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		BusinessPermit businessCard = model.id2permit(businessCardID, player);
 		if (businessCard == null) // if player doesn't have card return null
 			return false;
-		City city = model.id2city(cityName);
+		City city = model.name2city(cityName);
 		if (city == null)
 			return false;
 
@@ -53,7 +53,7 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 	public TurnState execute(TurnState previousState, Model model) {
 		Player player = model.id2player(super.getPlayer());
 		BusinessPermit businessCard = model.id2permit(businessCardID, player);
-		City city = model.id2city(cityName);
+		City city = model.name2city(cityName);
 
 		// use permit
 		player.getBusinessHand().usePermit(businessCard);
