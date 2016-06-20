@@ -10,8 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
@@ -83,14 +84,21 @@ public class SocketServerView extends ServerView implements Runnable {
 
 				LOGGER.info(String.format("Received object %s", objectReceived));
 
-				if (!(objectReceived instanceof UpdateRequestMsg && objectReceived instanceof Message)) {
+				if (objectReceived instanceof PlayerNameMsg) {
+					
+					super.setPlayerName(((PlayerNameMsg) objectReceived).getPlayerName());
+					LOGGER.info(String.format("Set player name as '%s' for socketview %d", super.getPlayerName(), super.getPlayerID()));
+				
+				} else if (objectReceived instanceof UpdateRequestMsg) {
+					
+					sendUpdates((UpdateRequestMsg) objectReceived);
+	
+				} else if (objectReceived instanceof Message) {
+				
 					setChanged();
 					notifyObservers(objectReceived);
-				}
-				else if (objectReceived instanceof UpdateRequestMsg)
-					sendUpdates((UpdateRequestMsg) objectReceived);
-
-				else {
+			
+				} else {
 					LOGGER.warning(String.format("The socket with id '%d' received an object that is not a message. %n"
 							+ "Object received: %s", super.getPlayerID(), objectReceived.toString()));
 				}
@@ -122,6 +130,7 @@ public class SocketServerView extends ServerView implements Runnable {
 	 *            - Request for updates.
 	 */
 	private void sendUpdates(UpdateRequestMsg requestReceived) {
+		
 		if (requestReceived instanceof UpdateGameBoardMsg) {
 			// TODO inutile se solo chi ha il turno può fare richieste
 			// sendMessage(new
@@ -144,7 +153,7 @@ public class SocketServerView extends ServerView implements Runnable {
 
 		} else if (requestReceived instanceof UpdateThisPlayerMsg) {
 			sendPersonalUpdate();
-		} else if (requestReceived instanceof UpdateOtherPlayerMsg) {
+		} else if (requestReceived instanceof UpdateOtherPlayersMsg) {
 			sendOthersUpdate();
 		}
 	}

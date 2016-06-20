@@ -34,7 +34,7 @@ public class City implements Serializable {
 		this.name = name;
 		this.color = color;
 		this.region = region;
-		this.neighbors = null;
+		this.neighbors = new ArrayList<>();
 		this.token = null;
 		emporiums = new ArrayList<>();
 	}

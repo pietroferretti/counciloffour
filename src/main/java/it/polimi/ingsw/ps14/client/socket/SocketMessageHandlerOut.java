@@ -21,10 +21,10 @@ public class SocketMessageHandlerOut implements MessageHandlerOut {
 	public void handleMessage(Message message) {
 
 		try {
-			System.out.println("sto inviando");
+			
+			System.out.println(String.format("Sending message %s on socket", message.toString()));	// per debug, da togliere?
 			socketOut.writeObject(message);
 			socketOut.flush();
-			System.out.println(String.format("Sending message %s on socket", message.toString()));	// per debug, da togliere?
 
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Error writing on socket", e);

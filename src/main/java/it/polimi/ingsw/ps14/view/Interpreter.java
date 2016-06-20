@@ -1,41 +1,34 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.NewGamePhaseMsg;
-import it.polimi.ingsw.ps14.message.NewMarketStateMsg;
-import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
-import it.polimi.ingsw.ps14.message.fromclient.FinishTurnMsg;
-import it.polimi.ingsw.ps14.message.fromclient.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
-import it.polimi.ingsw.ps14.message.fromserver.GamePhaseUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.MarketStateUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
+import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
+import it.polimi.ingsw.ps14.model.actions.EndTurnAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
@@ -47,149 +40,142 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Interpreter {
 	Scanner scan = new Scanner(System.in);
 
-//	public String parseMsg(Message msg) {
-//
-//		if (msg instanceof AvailableAssistantsUpdatedMsg) {
-//			return ((AvailableAssistantsUpdatedMsg) msg).toString();
-//		}
-//		if (msg instanceof AvailableCouncillorsUpdatedMsg) {
-//			return ((AvailableCouncillorsUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof ErrorMsg) {
-//			return ((ErrorMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof GamePhaseUpdatedMsg) {
-//			return ((GamePhaseUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof KingBonusesUpdatedMsg) {
-//			return ((KingBonusesUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof KingUpdatedMsg) {
-//			return ((KingUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof MarketStateUpdatedMsg) {
-//			return ((MarketStateUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof NewCurrentPlayerMsg) {
-//			return ((NewCurrentPlayerMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof NewGamePhaseMsg) {
-//			return ((NewGamePhaseMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof NewMarketStateMsg) {
-//			return ((NewMarketStateMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof NobilityTrackUpdatedMsg) {
-//			return ((NobilityTrackUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof PlayerChangedPrivateMsg) {
-//			return ((PlayerChangedPrivateMsg) msg).getMessage().toString();
-//
-//		}
-//		if (msg instanceof PlayerChangedPublicMsg) {
-//			return ((PlayerChangedPublicMsg) msg).getNotice().toString();
-//
-//		}
-//
-//		if (msg instanceof RegionBonusesUpdatedMsg) {
-//			return ((RegionBonusesUpdatedMsg) msg).toString();
-//
-//		}
-//		if (msg instanceof RegionUpdatedMsg) {
-//			return ((RegionUpdatedMsg) msg).getUpdatedRegion().toString();
-//
-//		}
-//		if (msg instanceof SoldItemMsg) {
-//			return ((SoldItemMsg) msg).getItemSold().toString();
-//
-//		}
-//
-//		return null;
-//	}
-	
-	//TODO ma perché non metterli tutti come toString()?
-	
+	// TODO ma perché non metterli tutti come toString()?
+
 	public String parseMsg(Message msg) {
+
+		if (msg instanceof AvailableAssistantsUpdatedMsg) {
+			return ((AvailableAssistantsUpdatedMsg) msg).toString();
+		}
+		if (msg instanceof AvailableCouncillorsUpdatedMsg) {
+			return ((AvailableCouncillorsUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof ErrorMsg) {
+			return ((ErrorMsg) msg).toString();
+
+		}
+
+		if (msg instanceof KingBonusesUpdatedMsg) {
+			return ((KingBonusesUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof KingUpdatedMsg) {
+			return ((KingUpdatedMsg) msg).toString();
+
+		}
+
+		if (msg instanceof NobilityTrackUpdatedMsg) {
+			return ((NobilityTrackUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof PlayerChangedPrivateMsg) {
+			return ((PlayerChangedPrivateMsg) msg).getMessage().toString();
+
+		}
+		if (msg instanceof PlayerChangedPublicMsg) {
+			return ((PlayerChangedPublicMsg) msg).getNotice().toString();
+
+		}
+
+		if (msg instanceof RegionBonusesUpdatedMsg) {
+			return ((RegionBonusesUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof RegionUpdatedMsg) {
+			return ((RegionUpdatedMsg) msg).getUpdatedRegion().toString();
+
+		}
+		if (msg instanceof SoldItemMsg) {
+			return ((SoldItemMsg) msg).getItemSold().toString();
+
+		}
+		if (msg instanceof StateUpdatedMsg) {
+			return ((StateUpdatedMsg) msg).toString();
+		}
+		// TODO
+		if (msg instanceof PersonalUpdateMsg)
+			return ((PersonalUpdateMsg) msg).toString();
+		if (msg instanceof OtherPlayerUpdateMsg)
+			return ((OtherPlayerUpdateMsg) msg).toString();
 		return null;
 	}
-	
-	public String parseMsg(AvailableAssistantsUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(AvailableCouncillorsUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(ErrorMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(GamePhaseUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(KingBonusesUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(KingUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(MarketStateUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(NewCurrentPlayerMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(NewGamePhaseMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(NewMarketStateMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(NobilityTrackUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(PlayerChangedPrivateMsg msg) {
-			return msg.getMessage().toString();
-	}
-	
-	public String parseMsg(PlayerChangedPublicMsg msg) {
-			return msg.getNotice().toString();
-	}
 
-	
-	public String parseMsg(RegionBonusesUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(RegionUpdatedMsg msg) {
-			return msg.getUpdatedRegion().toString();
-	}
-	
-	public String parseMsg(SoldItemMsg msg) {
-			return msg.getItemSold().toString();
-	}
+	// public String parseMsg(Message msg) {
+	// return null;
+	// }
+	//
+	// public String parseMsg(AvailableAssistantsUpdatedMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(AvailableCouncillorsUpdatedMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(ErrorMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(GamePhaseUpdatedMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(KingBonusesUpdatedMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(KingUpdatedMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(MarketStateUpdatedMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(NewCurrentPlayerMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(NewGamePhaseMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(NewMarketStateMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(NobilityTrackUpdatedMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(PlayerChangedPrivateMsg msg) {
+	// return msg.getMessage().toString();
+	// }
+	//
+	// public String parseMsg(PlayerChangedPublicMsg msg) {
+	// return msg.getNotice().toString();
+	// }
+	//
+	//
+	// public String parseMsg(RegionBonusesUpdatedMsg msg) {
+	// return msg.toString();
+	// }
+	//
+	// public String parseMsg(RegionUpdatedMsg msg) {
+	// return msg.getUpdatedRegion().toString();
+	// }
+	//
+	// public String parseMsg(SoldItemMsg msg) {
+	// return msg.getItemSold().toString();
+	// }
 
 	public Message parseString(String input, Integer playerID) {
 		RegionType rt;
@@ -251,11 +237,11 @@ public class Interpreter {
 
 			return new TurnActionMsg(new BuildEmporiumWithHelpOfKingAction(playerID, city, politics));
 
-		// BUILD-WITH-PERMIT  CITYname PERMITid
+		// BUILD-WITH-PERMIT CITYname PERMITid
 		case "BUILD-WITH-PERMIT":
 			if (word.length != 3)
 				return null;
-			
+
 			String cityname = word[1];
 			try {
 				Integer permitID = Integer.parseInt(word[2]);
@@ -304,25 +290,25 @@ public class Interpreter {
 				return null;
 			}
 			// FINISH
-		case "FINISH": return new FinishTurnMsg();
+		case "FINISH":
 		case "PASS":
 			if (word.length != 1)
 				return null;
-			return new TurnFinishedMsg(playerID);
+			return new TurnActionMsg(new EndTurnAction(playerID));
 
 		// SHOW MYDETAILS/DETAILS/GAMEBOARD
 		case "SHOW":
 			if (word.length != 2)
 				return null;
 
-			if (word[1].compareTo("MYDETAILS") == 0) {					
-					return new UpdateThisPlayerMsg(playerID);				
+			if (word[1].compareTo("MYDETAILS") == 0) {
+				return new UpdateThisPlayerMsg(playerID);
 			}
 			if (word[1].compareTo("DETAILS") == 0) {
-					return new UpdateOtherPlayerMsg(playerID);
+				return new UpdateOtherPlayersMsg(playerID);
 			}
 			if (word[1].compareTo("GAMEBOARD") == 0) {
-					return new UpdateGameBoardMsg();
+				return new UpdateGameBoardMsg();
 			}
 			// SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... ASSISTANTS
 			// NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE...

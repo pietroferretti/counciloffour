@@ -22,4 +22,9 @@ public class PersonalUpdateMsg implements Message, Serializable {
 		return player;
 	}
 
+	@Override
+	public String toString() {
+		return "\nPERSONAL DETAILS:\n" + player.toString();
+	}
+
 }

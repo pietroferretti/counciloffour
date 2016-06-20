@@ -179,15 +179,7 @@ public class Printer {
 	 * @param player
 	 */
 	public void printPlayerPublicDetails(Player player) {
-		print("Name: " + player.getName());
-
-		// TODO print("Color: " + player.getColor().toString());
-
-		print("Coins: " + Integer.toString(player.getCoins()));
-		printValidBusinessPermitsPlayer(player.getBusinessHand().getValidCards());
-		print("Assistants: " + Integer.toString(player.getAssistants()));
-		print("Nobility level: " + Integer.toString(player.getLevel()));
-		print("Victory Points: " + Integer.toString(player.getPoints()));
+		
 
 	}
 

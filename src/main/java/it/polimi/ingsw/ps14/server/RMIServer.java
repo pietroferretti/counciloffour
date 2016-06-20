@@ -3,11 +3,10 @@ package it.polimi.ingsw.ps14.server;
 import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.model.actions.Action;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Observable;
 
-public class RMIServer extends Observable implements Remote {
+public class RMIServer extends Observable implements RMIViewRemote {
 
 	private Server server;
 

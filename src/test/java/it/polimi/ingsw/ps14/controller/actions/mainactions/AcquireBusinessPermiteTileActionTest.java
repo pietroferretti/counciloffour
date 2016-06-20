@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.controller.actions.mainactions;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -15,7 +15,6 @@ import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.Settings;
 import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
-import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 
 public class AcquireBusinessPermiteTileActionTest {
 
@@ -47,13 +46,13 @@ public class AcquireBusinessPermiteTileActionTest {
 		cards.add(new PoliticCard(player.getHand().get(3).getColor()));
 
 		
-		MainAction action = new AcquireBusinessPermiteTileAction(player.getId(), RegionType.COAST,
+		AcquireBusinessPermiteTileAction action = new AcquireBusinessPermiteTileAction(player.getId(), RegionType.COAST,
 				model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].getId(),
 				cards);
 		
 		System.out.println(player.getHand().toString());
 
-		assertEquals(action.isValid(model),true);
+		assertTrue(action.isValid(model));
 		
 		System.out.println( model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].getBonusList().getListOfBonuses().toString());
 

@@ -12,15 +12,12 @@ public class BuyMsg implements Message {
 	
 	private BuyAction action;
 
+	public BuyMsg(BuyAction action) {
+		this.action = action;
+	}
+	
 	public BuyAction getAction() {
 		return action;
 	}
-
-	public BuyMsg(BuyAction action) {
-		super();
-		this.action = action;
-	}
-
-	
 	
 }

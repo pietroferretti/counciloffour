@@ -4,6 +4,7 @@ import it.polimi.ingsw.ps14.client.RMI.ClientRMI;
 import it.polimi.ingsw.ps14.client.socket.ClientSocket;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
+import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.view.CLIView;
 
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class Client {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("Welcome to Council of Four!");
+		
+		System.out.println("Choose a name:");
+		String name = scanner.nextLine();
 
 		// Un giorno, "CLI o GUI?"
 		ClientView clientView = new CLIView(scanner);
@@ -35,30 +39,26 @@ public class Client {
 		String input;
 		do {
 			System.out.println("Socket or RMI?");
-			input = scanner.nextLine().toUpperCase();
-		} while (!input.matches("^(SOCKET|RMI)$"));
+			input = scanner.nextLine();
+		} while (!input.toUpperCase().matches("^(SOCKET|RMI)$"));
 
-		
-		if (input.matches("^(SOCKET)$")) {
 
-			// crea socket
+		if (input.toUpperCase().matches("^(SOCKET)$")) {
+
 			try {
 			
 				ClientSocket socket = new ClientSocket();
 			
-				// messagehandlerout = new socketmessagehandlerout(socket.out)
 				SocketMessageHandlerOut msgHandlerOut = new SocketMessageHandlerOut(new ObjectOutputStream(socket.getOutputStream()));
-				// 
+				
 				clientView.setHandlerOut(msgHandlerOut);
 				
-				// messagehandlerin = new socketmessagehandlerin(clientview)
 				MessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(clientView, new ObjectInputStream(socket.getInputStream()));
+	
+				// sends the player name to the server
+				clientView.handleMessageOut(new PlayerNameMsg(name));
 				
-				// all'interno di CLIView aggiungiamo un ciclo while true get input
-				// from scanner
-	
 				ExecutorService executor = Executors.newFixedThreadPool(2);
-	
 				executor.submit(clientView);
 				executor.submit(msgHandlerIn);
 			
@@ -68,7 +68,7 @@ public class Client {
 				
 			}
 			
-		} else if (input.matches("^(RMI)$")) {
+		} else if (input.toUpperCase().matches("^(RMI)$")) {
 			LOGGER.warning("RMI not yet implemented");
 			
 			ClientRMI rmi= new ClientRMI(scanner);
