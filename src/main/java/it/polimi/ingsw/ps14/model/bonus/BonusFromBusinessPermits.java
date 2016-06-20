@@ -3,29 +3,34 @@ package it.polimi.ingsw.ps14.model.bonus;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
-public class BonusFromBusinessPermits extends SpecialNobilityBonus {
+public class BonusFromBusinessPermits implements SpecialNobilityBonus {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -254514472185231405L;
 
+	private final int quantity;
+
 	public BonusFromBusinessPermits(int quantity) {
-		super(quantity);
+		if (quantity < 1)
+			throw new IllegalArgumentException("Impossible quantity for this bonus");
+		this.quantity = quantity;
 	}
 
-	// TODO mi serve un modo per comunicare con il giocatore
 	// TODO more than one?
 	/**
 	 * The player obtains the bonus of one (or more) of the business permits he
 	 * prevously bought.
 	 * 
 	 * @param player
-	 *            The player that got the bonus
+	 *            the player that got the bonus
+	 * @param model
+	 *            the game model
 	 */
 	@Override
 	public void useBonus(Player player, Model model) {
-		for (int i = 0; i < super.getQuantity(); i++) {
+		for (int i = 0; i < quantity; i++) {
 			// prendi tutti i business permit del giocatore (usati e non usati)
 
 			// mostra all'utente la lista
@@ -39,4 +44,15 @@ public class BonusFromBusinessPermits extends SpecialNobilityBonus {
 
 		}
 	}
+
+	@Override
+	public BonusFromBusinessPermits makeCopy() {
+		return new BonusFromBusinessPermits(quantity);
+	}
+
+	@Override
+	public String toString() {
+		return "\nChoose a business permit bonus that you've already used!";
+	}
+
 }

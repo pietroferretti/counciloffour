@@ -3,25 +3,33 @@ package it.polimi.ingsw.ps14.model.bonus;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
-public class BonusNobilityLvlUp extends Bonus {
+public class BonusNobilityLvlUp implements Bonus {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4670449670079163294L;
 
-	public BonusNobilityLvlUp(int quantity) {
-		super(quantity);
-	}
+	private final int quantity;
 
+	public BonusNobilityLvlUp(int quantity) {
+		if (quantity < 1)
+			throw new IllegalArgumentException("Impossible quantity for this bonus");
+		this.quantity = quantity;
+	}
 	// nobility is player.level
 	@Override
 	public void useBonus(Player player, Model model) {
-		player.levelUp(super.getQuantity());
+		player.levelUp(quantity);
 	}
 
 	@Override
+	public BonusNobilityLvlUp makeCopy() {
+		return new BonusNobilityLvlUp(quantity);
+	}
+	
+	@Override
 	public String toString() {
-		return "+" + Integer.toString(getQuantity()) + " nobility points\n";
+		return "\n+" + Integer.toString(quantity) + " nobility points";
 	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
 
 public class BusinessPermit implements Card, Serializable {
@@ -17,9 +18,9 @@ public class BusinessPermit implements Card, Serializable {
 
 	private final Integer id;
 	private final List<City> cities;
-	private final BonusList bonus;
+	private final Bonus bonus;
 
-	public BusinessPermit(List<City> cities, BonusList bonus) {
+	public BusinessPermit(List<City> cities, Bonus bonus) {
 		this.id = idCounter;
 		idCounter++;
 		this.cities = cities;
@@ -39,7 +40,7 @@ public class BusinessPermit implements Card, Serializable {
 		return cities;
 	}
 
-	public BonusList getBonusList() {
+	public Bonus getBonusList() {
 		return bonus;
 	}
 

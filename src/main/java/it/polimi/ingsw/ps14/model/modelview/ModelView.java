@@ -13,7 +13,7 @@ import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.RegionBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.Model;
@@ -42,7 +42,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 	// private CurrentPlayerView currentPlayerView;
 	//
 	// private GamePhaseView gamePhaseView;
-	// // private TurnStateView currentTurnStateView; secondo me non serve
+	// private TurnStateView currentTurnStateView; secondo me non serve
 	// private MarketStateView marketStateView;
 	private StateView stateView;
 
@@ -53,20 +53,10 @@ public class ModelView extends Observable implements Observer, Serializable {
 	private AvailableAssistantsView availableAssistantsView;
 	private AvailableCouncillorsView availableCouncillorsView;
 	private KingBonusesView kingBonusesView;
-	private RegionBonusesView regionBonusesView;
+	private CitiesColorBonusesView citiesColorBonusesView;
 	private MarketView marketView;
 
 	private MessageView messageView;
-
-	// private PoliticDeckView politicDeckView;
-
-	// private List<City> cities; non penso serva tanto passa dalla regione o
-	// no?
-	/*
-	 * private GameBoard gameBoard; private List<Player> players; private
-	 * List<Player> playerOrder;
-	 * 
-	 */
 
 	public ModelView(Model model) {
 
@@ -94,7 +84,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		model.getGameBoard().getKing().addObserver(kingView);
 
 		nobilityTrackView = new NobilityTrackView(model.getGameBoard().getNobilityTrack());
-		model.getGameBoard().getNobilityTrack().addObserver(nobilityTrackView);
+		// model.getGameBoard().getNobilityTrack().addObserver(nobilityTrackView);
 
 		// gamePhaseView = new GamePhaseView(model.getGamePhase());
 		// model.addObserver(gamePhaseView);
@@ -119,10 +109,10 @@ public class ModelView extends Observable implements Observer, Serializable {
 		kingBonusesView = new KingBonusesView(model.getGameBoard().getKingBonuses().peek());
 		model.getGameBoard().addObserver(kingBonusesView);
 
-		regionBonusesView = new RegionBonusesView(model.getGameBoard().getBonusGold(),
+		citiesColorBonusesView = new CitiesColorBonusesView(model.getGameBoard().getBonusGold(),
 				model.getGameBoard().getBonusSilver(), model.getGameBoard().getBonusBronze(),
 				model.getGameBoard().getBonusBlue());
-		model.getGameBoard().addObserver(regionBonusesView);
+		model.getGameBoard().addObserver(citiesColorBonusesView);
 
 		marketView = new MarketView(model.getMarket());
 		model.getMarket().addObserver(marketView);
@@ -141,7 +131,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		}
 
 		kingView.addObserver(this);
-		nobilityTrackView.addObserver(this);
+		// nobilityTrackView.addObserver(this);
 		// gamePhaseView.addObserver(this);
 		// currentPlayerView.addObserver(this);
 		// marketStateView.addObserver(this);
@@ -149,7 +139,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		availableAssistantsView.addObserver(this);
 		availableCouncillorsView.addObserver(this);
 		kingBonusesView.addObserver(this);
-		regionBonusesView.addObserver(this);
+		citiesColorBonusesView.addObserver(this);
 		messageView.addObserver(this);
 	}
 
@@ -197,8 +187,8 @@ public class ModelView extends Observable implements Observer, Serializable {
 		return kingBonusesView;
 	}
 
-	public RegionBonusesView getRegionBonusesView() {
-		return regionBonusesView;
+	public CitiesColorBonusesView getCitiesColorBonusesView() {
+		return citiesColorBonusesView;
 	}
 
 	public MarketView getMarketView() {
@@ -220,9 +210,10 @@ public class ModelView extends Observable implements Observer, Serializable {
 		} else if (o instanceof KingView) {
 			setChanged();
 			notifyObservers(new KingUpdatedMsg(((KingView) o).getKingCopy()));
-		} else if (o instanceof NobilityTrackView) {
-			setChanged();
-			notifyObservers(new NobilityTrackUpdatedMsg(((NobilityTrackView) o).getNobilityTrackCopy()));
+			// } else if (o instanceof NobilityTrackView) {
+			// setChanged();
+			// notifyObservers(new NobilityTrackUpdatedMsg(((NobilityTrackView)
+			// o).getNobilityTrackCopy()));
 
 		} else if (o instanceof StateView) {
 
@@ -240,11 +231,11 @@ public class ModelView extends Observable implements Observer, Serializable {
 		} else if (o instanceof KingBonusesView) {
 			setChanged();
 			notifyObservers(new KingBonusesUpdatedMsg(((KingBonusesView) o).getShowableKingBonus()));
-		} else if (o instanceof RegionBonusesView) {
+		} else if (o instanceof CitiesColorBonusesView) {
 			setChanged();
-			notifyObservers(new RegionBonusesUpdatedMsg(((RegionBonusesView) o).getBonusGoldCopy(),
-					((RegionBonusesView) o).getBonusSilverCopy(), ((RegionBonusesView) o).getBonusBronzeCopy(),
-					((RegionBonusesView) o).getBonusBlueCopy()));
+			notifyObservers(new CitiesColorBonusesUpdatedMsg(((CitiesColorBonusesView) o).getBonusGoldCopy(),
+					((CitiesColorBonusesView) o).getBonusSilverCopy(), ((CitiesColorBonusesView) o).getBonusBronzeCopy(),
+					((CitiesColorBonusesView) o).getBonusBlueCopy()));
 		} else if (o instanceof MarketView) {
 			setChanged();
 			notifyObservers(new MarketUpdatedMsg(((MarketView) o).getMarketCopy()));

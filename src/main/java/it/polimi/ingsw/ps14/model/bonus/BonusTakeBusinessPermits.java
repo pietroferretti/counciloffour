@@ -3,15 +3,19 @@ package it.polimi.ingsw.ps14.model.bonus;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
-public class BonusTakeBusinessPermits extends SpecialNobilityBonus {
+public class BonusTakeBusinessPermits implements SpecialNobilityBonus {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6778943163874682668L;
 
+	private final int quantity;
+
 	public BonusTakeBusinessPermits(int quantity) {
-		super(quantity);
+		if (quantity < 1)
+			throw new IllegalArgumentException("Impossible quantity for this bonus");
+		this.quantity = quantity;
 	}
 
 	// TODO mi serve un modo per comunicare con il giocatore
@@ -25,7 +29,7 @@ public class BonusTakeBusinessPermits extends SpecialNobilityBonus {
 	 */
 	@Override
 	public void useBonus(Player player, Model model) {
-		for (int i = 0; i < super.getQuantity(); i++) {
+		for (int i = 0; i < quantity; i++) {
 			// per ogni regione
 			// prendi i permit disponibili
 
@@ -41,5 +45,15 @@ public class BonusTakeBusinessPermits extends SpecialNobilityBonus {
 			// region.getBusinessPermits().fillEmptySpots()
 
 		}
+	}
+
+	@Override
+	public BonusTakeBusinessPermits makeCopy() {
+		return new BonusTakeBusinessPermits(quantity);
+	}
+
+	@Override
+	public String toString() {
+		return "\n+" + Integer.toString(quantity) + " business permits!";
 	}
 }

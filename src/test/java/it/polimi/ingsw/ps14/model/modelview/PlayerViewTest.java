@@ -19,7 +19,6 @@ public class PlayerViewTest {
 
 	private Model model;
 	private Player player, player2, player3;
-	// private RegionView rvCOAST;
 	private PlayerView playerView2, playerView3;
 
 	@SuppressWarnings("deprecation")
@@ -46,6 +45,7 @@ public class PlayerViewTest {
 
 		assertNotSame(player, pv1.getPlayerCopy());
 		assertEquals(player.getAssistants(), pv1.getPlayerCopy().getAssistants());
+		
 		assertEquals(player.getBusinessHand().getNumberOfPermits(),
 				pv1.getPlayerCopy().getBusinessHand().getNumberOfPermits());
 		assertEquals(player.getBusinessHand().getUsedCards(), pv1.getPlayerCopy().getBusinessHand().getUsedCards());

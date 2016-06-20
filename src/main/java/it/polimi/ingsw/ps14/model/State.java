@@ -10,17 +10,17 @@ import java.util.Observable;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 /**
- * This class contains everything concerning the state of the game: 
- * the game phase, the turn or market state, the current player and
- * the players that will come next.
+ * This class contains everything concerning the state of the game: the game
+ * phase, the turn or market state, the current player and the players that will
+ * come next.
  *
- * Having this data as a different object makes it easier for ModelView
- * to detect changes and notify the clients.
+ * Having this data as a different object makes it easier for ModelView to
+ * detect changes and notify the clients.
  */
 public class State extends Observable implements Serializable {
 
 	private static final long serialVersionUID = 4882929384753627181L;
-	
+
 	private GamePhase gamePhase;
 	private TurnState currentTurnState;
 	private int additionalMainsToDo;
@@ -30,13 +30,14 @@ public class State extends Observable implements Serializable {
 	private WaitingFor waitingFor;
 	/**
 	 * The ids of the objects the player can choose from when a request is sent.
-	 * They can represent permits (on the board or the player's) or cities 
-	 * (to find the respective token)
+	 * They can represent permits (on the board or the player's) or cities (to
+	 * find the respective token)
 	 */
-	private List<Integer> availableChoices;		// TODO riscrivere come oggetti
-	
+	private List<Integer> availableChoices; // TODO riscrivere come oggetti
+
 	/**
-	 * Empty constructor, everything should be set by Model at the beginning of a game
+	 * Empty constructor, everything should be set by Model at the beginning of
+	 * a game
 	 */
 	public State() {
 		gamePhase = null;
@@ -48,10 +49,13 @@ public class State extends Observable implements Serializable {
 		waitingFor = WaitingFor.NOTHING;
 		availableChoices = new ArrayList<>();
 	}
-	
+
 	/**
-	 * Copy constructor, makes a copy of all the fields of the original State object
-	 * @param originalState the state you want to copy
+	 * Copy constructor, makes a copy of all the fields of the original State
+	 * object
+	 * 
+	 * @param originalState
+	 *            the state you want to copy
 	 */
 	public State(State originalState) {
 		gamePhase = originalState.getGamePhase();
@@ -62,7 +66,6 @@ public class State extends Observable implements Serializable {
 		currentPlayer = new Player(originalState.getCurrentPlayer());
 		waitingFor = originalState.getWaitingFor();
 		availableChoices = new ArrayList<>(originalState.getAvailableChoices());
-		
 	}
 
 	/**
@@ -73,7 +76,8 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param gamePhase the gamePhase to set
+	 * @param gamePhase
+	 *            the gamePhase to set
 	 */
 	public void setGamePhase(GamePhase gamePhase) {
 		this.gamePhase = gamePhase;
@@ -89,7 +93,8 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param currentTurnState the currentTurnState to set
+	 * @param currentTurnState
+	 *            the currentTurnState to set
 	 */
 	public void setCurrentTurnState(TurnState currentTurnState) {
 		this.currentTurnState = currentTurnState;
@@ -105,7 +110,8 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param additionalMainsToDo the additionalMainsToDo to set
+	 * @param additionalMainsToDo
+	 *            the additionalMainsToDo to set
 	 */
 	public void setAdditionalMainsToDo(int additionalMainsToDo) {
 		this.additionalMainsToDo = additionalMainsToDo;
@@ -119,7 +125,8 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param currentMarketState the currentMarketState to set
+	 * @param currentMarketState
+	 *            the currentMarketState to set
 	 */
 	public void setCurrentMarketState(MarketState currentMarketState) {
 		this.currentMarketState = currentMarketState;
@@ -135,7 +142,8 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param playerOrder the playerOrder to set
+	 * @param playerOrder
+	 *            the playerOrder to set
 	 */
 	public void setPlayerOrder(Deque<Player> playerOrder) {
 		this.playerOrder = playerOrder;
@@ -151,7 +159,8 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param currentPlayer the currentPlayer to set
+	 * @param currentPlayer
+	 *            the currentPlayer to set
 	 */
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
@@ -165,9 +174,10 @@ public class State extends Observable implements Serializable {
 	public Player getNextPlayer() {
 		return playerOrder.peek();
 	}
-	
+
 	/**
-	 * Loads the next player from the queue, removing the last one from the schedule altogether
+	 * Loads the next player from the queue, removing the last one from the
+	 * schedule altogether
 	 */
 	public void loadNextPlayer() {
 		currentPlayer = playerOrder.pollFirst();
@@ -176,11 +186,11 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
-	 * Loads the next player from the queue, but adds the current player 
-	 * to the end of the queue, to be picked again later.
+	 * Loads the next player from the queue, but adds the current player to the
+	 * end of the queue, to be picked again later.
 	 * 
-	 * Used only for the market "Buying" phase, when the players can buy
-	 * more than once.
+	 * Used only for the market "Buying" phase, when the players can buy more
+	 * than once.
 	 */
 	public void queueAndLoadNextPlayer() {
 		playerOrder.addLast(currentPlayer);
@@ -197,7 +207,8 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param waitingFor the waitingFor state to set
+	 * @param waitingFor
+	 *            the waitingFor state to set
 	 */
 	public void setWaitingFor(WaitingFor waitingFor) {
 		this.waitingFor = waitingFor;
@@ -211,10 +222,11 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param availableChoices the availableChoices to set
+	 * @param availableChoices
+	 *            the availableChoices to set
 	 */
 	public void setAvailableChoices(List<Integer> availableChoices) {
 		this.availableChoices = availableChoices;
 	}
-	
+
 }

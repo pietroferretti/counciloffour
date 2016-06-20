@@ -39,7 +39,7 @@ public class Printer {
 	 * 
 	 * @param bonusCard
 	 */
-	private void printBonuses(List<Bonus> bonusCard) {
+	private void printBonuses(Bonus bonusCard) {
 		// copied from BonusList :D
 
 	}
@@ -90,7 +90,7 @@ public class Printer {
 		int i = 1;
 		for (BusinessPermit businessPermit : usedCards) {
 			output.format("%d° used bonus:%n", i);
-			printBonuses(businessPermit.getBonusList().getListOfBonuses());
+			printBonuses(businessPermit.getBonusList());
 		}
 	}
 

@@ -7,15 +7,19 @@ import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
-public class BonusFromTokens extends SpecialNobilityBonus {
+public class BonusFromTokens implements SpecialNobilityBonus {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1702851638011675183L;
 
+	private final int quantity;
+
 	public BonusFromTokens(int quantity) {
-		super(quantity);
+		if (quantity < 1)
+			throw new IllegalArgumentException("Impossible quantity for this bonus");
+		this.quantity = quantity;
 	}
 
 	// TODO mi serve un modo per comunicare con il giocatore
@@ -32,12 +36,12 @@ public class BonusFromTokens extends SpecialNobilityBonus {
 	@Override
 	public void useBonus(Player player, Model model) {
 		boolean isValid;
-		List<BonusList> bonusChoosable = new ArrayList<>();
+		List<Bonus> bonusChoosable = new ArrayList<>();
 		for (City c : model.getGameBoard().getCities()) {
 			isValid = true;
 			if (c.isEmporiumBuilt(player)) {
-				for (Bonus b : c.getToken().getListOfBonuses())
-					if (b instanceof BonusNobilityLvlUp)
+
+				if (c.getToken() instanceof BonusNobilityLvlUp)
 						isValid = false;
 				if (isValid)
 					bonusChoosable.add(c.getToken());
@@ -54,5 +58,15 @@ public class BonusFromTokens extends SpecialNobilityBonus {
 		// se multipli check che siano diversi
 
 		// prendi i token corrispondenti, applicali al giocatore
+	}
+	
+	@Override
+	public BonusFromTokens makeCopy() {
+		return new BonusFromTokens(quantity);
+	}
+	
+	@Override
+	public String toString() {
+		return "\nChoose a bonus from the cities in which you own an emporium!";
 	}
 }
