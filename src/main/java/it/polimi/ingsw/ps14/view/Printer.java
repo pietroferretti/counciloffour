@@ -116,9 +116,7 @@ public class Printer {
 	// ---------------------------CITIES--------------------------
 
 	private void printCitiesName(List<City> cities) {
-		for (City city : cities) {
-			print(city.getName());
-		}
+		
 	}
 
 	private void printCities(List<City> cities) {
@@ -128,16 +126,7 @@ public class Printer {
 	}
 
 	private void printCity(City city) {
-		print(city.getName().toUpperCase());
-		print("");
-		output.print("Color: ");
-		output.print(city.getColor());
-		print("");
-		print("Neighbors:");
-		printCitiesName(city.getNeighbors());
-		print("Bonus:");
-		printBonuses(city.getToken().getListOfBonuses());
-		print("");
+		
 	}
 
 	// ---------------------------COUNCIL----------------------------

@@ -52,6 +52,14 @@ public class Region extends Observable implements Serializable {
 		this.cities = cities;
 	}
 
+	/**
+	 * It just notifies to each observer that any city has changed.
+	 */
+	public void setCities() {
+		setChanged();
+		notifyObservers();
+	}
+
 	protected void addCity(City city) {
 		this.cities.add(city);
 	}
@@ -70,7 +78,7 @@ public class Region extends Observable implements Serializable {
 	public Balcony getBalcony() {
 		return balcony;
 	}
-	
+
 	public void setBalcony() {
 		setChanged();
 		notifyObservers();
@@ -78,6 +86,15 @@ public class Region extends Observable implements Serializable {
 
 	public void setBusinessPermits(BusinessCardsRegion decks) {
 		businessPermits = decks;
+		setChanged();
+		notifyObservers();
+	}
+
+	/**
+	 * It just notifies to each observer that the business permits deck has
+	 * changed. (Called by {@link ChangeBusinessPermitTilesAction})
+	 */
+	public void setBusinessPermits() {
 		setChanged();
 		notifyObservers();
 	}
@@ -117,6 +134,14 @@ public class Region extends Observable implements Serializable {
 		}
 		return stype + sbonus + scouncil + spermits + scitiesName + scities;
 
+	}
+
+	public String toStringCityName() {
+		String s = "";
+		for (City city : cities) {
+			s = s + city.getName() + " ";
+		}
+		return s;
 	}
 
 }

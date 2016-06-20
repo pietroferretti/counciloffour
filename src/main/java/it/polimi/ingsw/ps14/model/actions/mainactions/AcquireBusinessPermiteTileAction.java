@@ -79,6 +79,8 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 
 		// change face up card in region
 		region.getBusinessPermits().substituteCard(permitTile);
+		// notifies changes in business deck
+		region.setBusinessPermits();
 
 		// TODO: bonus
 		permitTile.getBonusList().useBonus(player, model);

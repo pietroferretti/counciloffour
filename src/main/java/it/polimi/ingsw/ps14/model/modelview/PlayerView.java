@@ -15,7 +15,7 @@ public class PlayerView extends Observable implements Observer, Serializable {
 	private Player playerCopy;
 
 	public PlayerView(Player playerCopy) {
-		this.playerCopy = playerCopy;
+		this.playerCopy = new Player(playerCopy);
 	}
 
 	private void setPlayerCopy(Player playerCopy) {

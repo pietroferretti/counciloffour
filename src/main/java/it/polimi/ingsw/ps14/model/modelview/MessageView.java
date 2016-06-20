@@ -42,7 +42,7 @@ public class MessageView extends Observable implements Observer, Serializable {
 					// TODO
 					messageCopy = msg;
 				}
-				((Model) o).clearMessage();
+				((MessageObservable) o).clearMessage();
 				
 				setChanged();
 				notifyObservers();

@@ -25,7 +25,7 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 		Player player = model.id2player(super.getPlayer());
 		Region region = model.getGameBoard().getRegion(regType);
 
-		return (region.getBusinessPermits().cardsLeftInDeck() > 0 && player.getAssistants() >= 1 && region != null);
+		return region.getBusinessPermits().cardsLeftInDeck() > 0 && player.getAssistants() >= 1 && region != null;
 	}
 
 	@Override
@@ -42,7 +42,8 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 			region.getBusinessPermits().addCardToDeckBottom(card);
 		}
 		region.getBusinessPermits().fillEmptySpots();
-
+		region.setBusinessPermits();
+		
 		return nextState(previousState, model);
 	}
 
