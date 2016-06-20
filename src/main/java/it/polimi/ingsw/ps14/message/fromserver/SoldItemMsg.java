@@ -15,5 +15,10 @@ public class SoldItemMsg {
 		return item;
 	}
 
+	@Override
+	public String toString() {
+		return "SoldItemMsg [item=" + item + "]";
+	}
+
 	
 }

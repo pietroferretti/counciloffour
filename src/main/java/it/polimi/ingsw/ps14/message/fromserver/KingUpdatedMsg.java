@@ -20,4 +20,9 @@ public class KingUpdatedMsg implements Message {
 		return updatedKing;
 	}
 
+	@Override
+	public String toString() {
+		return "KingUpdatedMsg [updatedKing=" + updatedKing + "]";
+	}
+
 }

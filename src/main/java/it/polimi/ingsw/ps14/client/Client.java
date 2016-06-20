@@ -1,12 +1,13 @@
 package it.polimi.ingsw.ps14.client;
 
 import it.polimi.ingsw.ps14.client.RMI.ClientRMIView;
+import it.polimi.ingsw.ps14.client.RMI.RMICommunication;
 import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
-import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.server.RMIViewRemote;
 import it.polimi.ingsw.ps14.view.CLIView;
+import it.polimi.ingsw.ps14.view.ClientView;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -78,16 +79,16 @@ public class Client {
 						new ObjectOutputStream(socket.getOutputStream()));
 
 				SocketCommunication socketCommunication = new SocketCommunication(msgHandlerOut,clientView);
-
+				clientView.setCommunication(socketCommunication);
 				
 				SocketMessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(socketCommunication, new ObjectInputStream(
 								socket.getInputStream()));
 
 				// sends the player name to the server
-				socketCommunication.sendPlayerName(name);
+				socketCommunication.setPlayerName(name);
 				
-				ExecutorService executor = Executors.newFixedThreadPool(2);
-				executor.submit(msgHandlerOut);
+				ExecutorService executor = Executors.newFixedThreadPool(3);
+				executor.submit(clientView);
 				executor.submit(msgHandlerIn);
 
 			} catch (IOException e) {
@@ -105,7 +106,7 @@ public class Client {
 			ClientRMIView rmiView = new ClientRMIView();
 
 			serverStub.registerClient(rmiView);
-
+			RMICommunication communication=new RMICommunication(serverStub);
 			CLIView cli = new CLIView(scanner);
 			cli.run();
 
