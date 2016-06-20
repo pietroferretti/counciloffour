@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.view;
 
 import it.polimi.ingsw.ps14.client.ClientView;
+import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;

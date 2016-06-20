@@ -1,12 +1,12 @@
 package it.polimi.ingsw.ps14.client;
 
 import it.polimi.ingsw.ps14.client.RMI.ClientRMIView;
+import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.server.RMIViewRemote;
 import it.polimi.ingsw.ps14.view.CLIView;
-import it.polimi.ingsw.ps14.view.SocketCommunication;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.view;
 
+import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;

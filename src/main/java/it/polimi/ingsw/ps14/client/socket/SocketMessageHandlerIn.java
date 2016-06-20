@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.client.socket;
 
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.view.SocketCommunication;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
