@@ -5,9 +5,13 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Observable;
 
+/**
+ * this class define method callable on the client
+ * 
+ *
+ */
+
 public class ClientRMIView extends UnicastRemoteObject implements ClientViewRemote, Serializable{
-	
-	private Integer id;
 	
 	protected ClientRMIView() throws RemoteException {
 		super();
@@ -24,18 +28,6 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientViewRemo
 		System.out.println(arg.toString());
 	}
 
-	public Integer getID() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	@Override
-	public void setID() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

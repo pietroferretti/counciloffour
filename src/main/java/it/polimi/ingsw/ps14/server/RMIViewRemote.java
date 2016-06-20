@@ -5,7 +5,11 @@ import it.polimi.ingsw.ps14.model.actions.Action;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-
+/**
+ * 
+ * interface that specifies methods callable from the client
+ *
+ */
 public interface RMIViewRemote extends Remote {
 
 	public void registerClient(

@@ -71,9 +71,10 @@ public class Client {
 		} else if (input.toUpperCase().matches("^(RMI)$")) {
 			LOGGER.warning("RMI not yet implemented");
 			
-			ClientRMI rmi= new ClientRMI(scanner);
+			ClientRMI rmi= new ClientRMI();
 			
-			
+			CLIView cli = new CLIView(scanner);
+			cli.run();
 			
 		} else {
 			scanner.close();

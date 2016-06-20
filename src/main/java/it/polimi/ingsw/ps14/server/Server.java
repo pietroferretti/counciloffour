@@ -124,7 +124,7 @@ public class Server {
 	}
 
 	public void startRMI() throws RemoteException, AlreadyBoundException {
-		LOGGER.warning("RMI not yet implemented");
+//		LOGGER.warning("RMI not yet implemented");
 
 		Registry registry;
 

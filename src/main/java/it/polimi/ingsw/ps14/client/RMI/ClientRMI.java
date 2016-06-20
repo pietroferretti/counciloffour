@@ -15,7 +15,11 @@ import java.rmi.registry.Registry;
 import java.util.Scanner;
 
 import javax.management.Query;
-
+/**
+ * this class manages rmi connection client side and creates CLIView 
+ * 
+ *
+ */
 public class ClientRMI {
 	private final static int RMI_PORT = 52365;
 	private static final String NAME = "council4";
@@ -24,7 +28,7 @@ public class ClientRMI {
 
 	private final static int PORT = 52365;
 
-	public ClientRMI(Scanner scanner) throws RemoteException,
+	public ClientRMI() throws RemoteException,
 			NotBoundException, AlreadyBoundException {
 
 		Registry registry = LocateRegistry.getRegistry(HOST, PORT);
@@ -34,7 +38,6 @@ public class ClientRMI {
 
 		serverStub.registerClient(rmiView);
 
-		CLIView gui = new CLIView(scanner);
 		
 		
 	//	MessageHandlerOut methodInvocation=new MessageHandlerOut(rmiView); //TODO: fare una classe apposta per invocare metodi sul server.
