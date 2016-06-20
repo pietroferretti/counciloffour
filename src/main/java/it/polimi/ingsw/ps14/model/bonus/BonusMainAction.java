@@ -32,6 +32,6 @@ public class BonusMainAction implements Bonus {
 
 	@Override
 	public String toString() {
-		return "+1 main action";
+		return "\n+1 main action!";
 	}
 }

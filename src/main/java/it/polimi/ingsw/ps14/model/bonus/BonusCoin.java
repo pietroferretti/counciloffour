@@ -30,6 +30,6 @@ public class BonusCoin implements Bonus {
 
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(quantity) + "coins\n";
+		return "\n+" + Integer.toString(quantity) + "coins";
 	}
 }

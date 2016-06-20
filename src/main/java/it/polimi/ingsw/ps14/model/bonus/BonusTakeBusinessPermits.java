@@ -46,9 +46,14 @@ public class BonusTakeBusinessPermits implements SpecialNobilityBonus {
 
 		}
 	}
-	
+
 	@Override
 	public BonusTakeBusinessPermits makeCopy() {
 		return new BonusTakeBusinessPermits(quantity);
+	}
+
+	@Override
+	public String toString() {
+		return "\n+" + Integer.toString(quantity) + " business permits!";
 	}
 }

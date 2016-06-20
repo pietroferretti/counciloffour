@@ -34,7 +34,7 @@ public class BonusPoliticCard implements Bonus {
 
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(quantity) + " politic card(s)\n";
+		return "\n+" + Integer.toString(quantity) + " politic card(s)";
 	}
 
 }

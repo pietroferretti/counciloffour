@@ -78,8 +78,8 @@ public class NobilityTrack extends Observable implements Serializable {
 	@Override
 	public String toString() {
 		String s = "\nNOBILITY TRACK:\n";
-		for (Map.Entry<Integer, BonusList> entry : bonusesByLevel.entrySet()) {
-			s = s + "\nlevel: " + Integer.toString(entry.getKey()) + " bonus: " + entry.getValue().toString();
+		for (Map.Entry<Integer, Bonus> entry : bonusesByLevel.entrySet()) {
+			s = s + "\nlevel: " + Integer.toString(entry.getKey()) + "\nbonus: " + entry.getValue().toString();
 		}
 		return s;
 	}

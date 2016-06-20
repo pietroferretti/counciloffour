@@ -25,8 +25,8 @@ public class BonusFromBusinessPermits implements SpecialNobilityBonus {
 	 * 
 	 * @param player
 	 *            the player that got the bonus
-	 * @param model 
-	 * 			  the game model
+	 * @param model
+	 *            the game model
 	 */
 	@Override
 	public void useBonus(Player player, Model model) {
@@ -48,6 +48,11 @@ public class BonusFromBusinessPermits implements SpecialNobilityBonus {
 	@Override
 	public BonusFromBusinessPermits makeCopy() {
 		return new BonusFromBusinessPermits(quantity);
+	}
+
+	@Override
+	public String toString() {
+		return "\nChoose a business permit bonus that you've already used!";
 	}
 
 }

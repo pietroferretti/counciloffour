@@ -31,6 +31,6 @@ public class BonusAssistant implements Bonus {
 
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(quantity) + " assistant(s)\n";
+		return "\n+" + Integer.toString(quantity) + " assistant(s)";
 	}
 }

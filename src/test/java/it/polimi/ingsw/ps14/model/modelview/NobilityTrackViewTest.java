@@ -22,7 +22,7 @@ public class NobilityTrackViewTest {
 		System.out.println(model.getGameBoard().getNobilityTrack().toString());
 		System.out.println(ntv1.getNobilityTrackCopy().toString());
 		assertNotSame(model.getGameBoard().getNobilityTrack(), ntv1.getNobilityTrackCopy());
-		assertEquals(model.getGameBoard().getNobilityTrack(), ntv1.getNobilityTrackCopy());
+		assertEquals(model.getGameBoard().getNobilityTrack().toString(), ntv1.getNobilityTrackCopy().toString());
 
 	}
 

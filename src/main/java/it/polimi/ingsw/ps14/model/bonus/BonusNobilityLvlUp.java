@@ -30,6 +30,6 @@ public class BonusNobilityLvlUp implements Bonus {
 	
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(quantity) + " nobility points\n";
+		return "\n+" + Integer.toString(quantity) + " nobility points";
 	}
 }

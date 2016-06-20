@@ -64,4 +64,9 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 	public BonusFromTokens makeCopy() {
 		return new BonusFromTokens(quantity);
 	}
+	
+	@Override
+	public String toString() {
+		return "\nChoose a city token bonus that you've already used!";
+	}
 }
