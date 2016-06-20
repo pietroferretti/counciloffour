@@ -81,7 +81,7 @@ public class GameBoard extends Observable implements Serializable {
 		kingBonuses.add(settings.buildingBonuses.get("bonusKing5"));
 
 		// Get the tokens
-		List<BonusList> tokens;
+		List<Bonus> tokens;
 		tokens = getTokensFromSettings(settings);
 
 		// Randomly assign a token to each city
@@ -110,7 +110,7 @@ public class GameBoard extends Observable implements Serializable {
 		getRegion(RegionType.MOUNTAINS).setBonusRegion(bonusMountains);
 
 		// Create a NobilityTrack object
-		Map<Integer, BonusList> nobilityTrackMap = buildNobilityTrack(settings.nobilityTrack);
+		Map<Integer, Bonus> nobilityTrackMap = buildNobilityTrack(settings.nobilityTrack);
 		nobilityTrack = new NobilityTrack(nobilityTrackMap);
 
 	}
@@ -157,17 +157,28 @@ public class GameBoard extends Observable implements Serializable {
 		}
 	}
 
-	BonusList buildBonusFromMap(Map<String, Integer> bonusAsMap) {
-		List<Bonus> bonuses = new ArrayList<>();
-
-		for (Map.Entry<String, Integer> bonusEntry : bonusAsMap.entrySet()) {
+	Bonus buildBonusFromMap(Map<String, Integer> bonusAsMap) {
+		
+		if (bonusAsMap.size() == 1) {
+			
+			Map.Entry<String, Integer> bonusEntry = bonusAsMap.entrySet().iterator().next();
 			String bonusType = bonusEntry.getKey();
 			int quantity = bonusEntry.getValue().intValue();
-			Bonus tempBonus = newBonusFromString(bonusType, quantity);
-			bonuses.add(tempBonus);
+			return newBonusFromString(bonusType, quantity);
+			
+		} else {
+			
+			List<Bonus> bonuses = new ArrayList<>();
+	
+			for (Map.Entry<String, Integer> bonusEntry : bonusAsMap.entrySet()) {
+				String bonusType = bonusEntry.getKey();
+				int quantity = bonusEntry.getValue().intValue();
+				Bonus tempBonus = newBonusFromString(bonusType, quantity);
+				bonuses.add(tempBonus);
+			}
+	
+			return new BonusList(bonuses);
 		}
-
-		return new BonusList(bonuses);
 	}
 
 	Bonus newBonusFromString(String bonusType, int quantity) {
@@ -208,21 +219,21 @@ public class GameBoard extends Observable implements Serializable {
 		return bonus;
 	}
 
-	Map<Integer, BonusList> buildNobilityTrack(Map<Integer, Map<String, Integer>> nobilityTrackSettings) {
-		Map<Integer, BonusList> nobilityTrackMap = new HashMap<>();
+	Map<Integer, Bonus> buildNobilityTrack(Map<Integer, Map<String, Integer>> nobilityTrackSettings) {
+		Map<Integer, Bonus> nobilityTrackMap = new HashMap<>();
 
 		for (Map.Entry<Integer, Map<String, Integer>> levelEntry : nobilityTrackSettings.entrySet()) {
 			Integer level = levelEntry.getKey();
 			Map<String, Integer> bonusAsMap = levelEntry.getValue();
-			BonusList bonusThisLevel = buildBonusFromMap(bonusAsMap);
+			Bonus bonusThisLevel = buildBonusFromMap(bonusAsMap);
 			nobilityTrackMap.put(level, bonusThisLevel);
 		}
 
 		return nobilityTrackMap;
 	}
 
-	List<BonusList> getTokensFromSettings(Settings settings) {
-		List<BonusList> tokens = new ArrayList<>();
+	List<Bonus> getTokensFromSettings(Settings settings) {
+		List<Bonus> tokens = new ArrayList<>();
 		List<Map<String, Integer>> settingsTokens = settings.tokens;
 
 		for (Map<String, Integer> tokenAsMap : settingsTokens) {
@@ -232,14 +243,14 @@ public class GameBoard extends Observable implements Serializable {
 		return tokens;
 	}
 
-	void distributeTokens(List<BonusList> tokens) {
-		List<BonusList> tokensCopy = new ArrayList<>(tokens);
+	void distributeTokens(List<Bonus> tokens) {
+		List<Bonus> tokensCopy = new ArrayList<>(tokens);
 		Random generator = new Random();
 
 		for (City city : cities) {
 			if (city.getColor() != ColorCity.PURPLE) {
 				try {
-					BonusList token = tokensCopy.get(generator.nextInt(tokensCopy.size()));
+					Bonus token = tokensCopy.get(generator.nextInt(tokensCopy.size()));
 					city.setToken(token);
 					tokensCopy.remove(token);
 				} catch (IllegalArgumentException e) {
@@ -277,7 +288,7 @@ public class GameBoard extends Observable implements Serializable {
 			}
 
 			Map<String, Integer> bonusMap = (Map<String, Integer>) settingsPermit.get("bonus");
-			BonusList bonusList = buildBonusFromMap(bonusMap);
+			Bonus bonusList = buildBonusFromMap(bonusMap);
 			permit = new BusinessPermit(cityList, bonusList);
 			permitList.add(permit);
 		}

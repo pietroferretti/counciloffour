@@ -41,7 +41,7 @@ public class Region extends Observable implements Serializable {
 			this.cities.add(new City(city));
 		}
 		this.businessPermits = new BusinessCardsRegion(r.businessPermits);
-		this.bonusRegion = new BonusVictoryPoint(r.bonusRegion.getQuantity());
+		this.bonusRegion = r.bonusRegion.makeCopy();
 	}
 
 	public RegionType getType() {

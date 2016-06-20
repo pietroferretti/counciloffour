@@ -13,7 +13,7 @@ import java.util.Observable;
 
 public class ClientRMIView extends UnicastRemoteObject implements ClientViewRemote, Serializable{
 	
-	protected ClientRMIView() throws RemoteException {
+	public ClientRMIView() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
