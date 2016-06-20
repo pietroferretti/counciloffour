@@ -23,8 +23,7 @@ public class RMICommunication implements Communication {
 		try {
 			serverStub.setPlayerName(name);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Errore nell'invocazione del metodo");
 		}
 	}
 
@@ -33,104 +32,165 @@ public class RMICommunication implements Communication {
 		try {
 			serverStub.drawCard(playerID);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Errore nell'invocazione del metodo");
+
 		}
 	}
 
 	@Override
 	public void electCouncillor(Integer playerID, ColorCouncillor cc,
 			String regionORking) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.electCouncillor(playerID, cc, regionORking);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void acquireBusinessPermitTile(Integer playerID, RegionType rt,
 			Integer permID, List<PoliticCard> politics) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub
+					.acquireBusinessPermitTile(playerID, rt, permID, politics);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void buildWithKing(Integer playerID, String city,
 			List<PoliticCard> politics) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.buildWithKing(playerID, city, politics);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void buildWithPermit(Integer playerID, Integer permitID,
 			String cityname) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.buildWithPermit(playerID, permitID, cityname);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void engage(Integer playerID) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.engage(playerID);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void changeBusinessPermitTiles(Integer playerID, RegionType rt) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.changeBusinessPermitTiles(playerID, rt);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void performAdditionalMainAction(Integer playerID) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.performAdditionalMainAction(playerID);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void electWithAssistant(Integer playerID, RegionType rt,
 			ColorCouncillor cc) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.electWithAssistant(playerID, rt, cc);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void usedCard(Integer permID) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.usedCard(permID);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void passTurn(Integer playerID) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.passTurn(playerID);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void showMyDetails(Integer playerID) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.showMyDetails(playerID);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void showDetails(Integer playerID) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.showDetails(playerID);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void showGamebord(Integer playerID) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.showGamebord(playerID);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void sell(List<ItemForSale> items) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.sell(items);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 	@Override
 	public void buy(Integer permID, Integer playerID, Integer quantity) {
-		// TODO Auto-generated method stub
+		try {
+			serverStub.buy(permID, playerID, quantity);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
 
+		}
 	}
 
 }
