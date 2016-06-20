@@ -12,9 +12,11 @@ public class GUIView extends ClientView implements Runnable {
 	}
 
 	@Override
-	public void handleMessage(Message message) {
+	public void readMessage(Message message) {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 }

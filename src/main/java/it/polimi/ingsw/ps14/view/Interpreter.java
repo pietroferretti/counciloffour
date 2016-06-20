@@ -45,6 +45,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Interpreter {
+	
+	private Communication communication;
+	
+	public void setCommunication (Communication communication){
+		this.communication=communication;
+	}
 	Scanner scan = new Scanner(System.in);
 
 	// TODO ma perché non metterli tutti come toString()?
@@ -191,7 +197,7 @@ public class Interpreter {
 		case "DRAW":
 			return (new TurnActionMsg(new DrawCardAction(playerID)));
 
-		// ELECT COLOR REGIONTYPE_KING
+			// ELECT COLOR REGIONTYPE_KING
 		case "ELECT":
 			if (word.length != 3)
 				return null;
@@ -203,9 +209,10 @@ public class Interpreter {
 				return null;
 			if (st == null)
 				return null;
-			return (new TurnActionMsg(new ElectCouncillorAction(playerID, cc, st)));
+			return (new TurnActionMsg(new ElectCouncillorAction(playerID, cc,
+					st)));
 
-		// ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
+			// ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
 		case "ACQUIRE":
 			if (word.length < 4)
 				return null;
@@ -221,10 +228,10 @@ public class Interpreter {
 			for (int i = 3; i < word.length; i++)
 				politics.add(string2politicCard(word[i]));
 
-			return new TurnActionMsg(
-					new AcquireBusinessPermiteTileAction(permID, rt, permID, new ArrayList<PoliticCard>(politics)));
+			return new TurnActionMsg(new AcquireBusinessPermiteTileAction(
+					permID, rt, permID, new ArrayList<PoliticCard>(politics)));
 
-		// BUILD-WITH-KING CITYname CARDS
+			// BUILD-WITH-KING CITYname CARDS
 		case "BUILD-WITH-KING":
 
 			if (word.length < 3)
@@ -235,9 +242,10 @@ public class Interpreter {
 			for (int i = 3; i < word.length; i++)
 				politics.add(string2politicCard(word[i]));
 
-			return new TurnActionMsg(new BuildEmporiumWithHelpOfKingAction(playerID, city, politics));
+			return new TurnActionMsg(new BuildEmporiumWithHelpOfKingAction(
+					playerID, city, politics));
 
-		// BUILD-WITH-PERMIT CITYname PERMITid
+			// BUILD-WITH-PERMIT CITYname PERMITid
 		case "BUILD-WITH-PERMIT":
 			if (word.length != 3)
 				return null;
@@ -245,7 +253,9 @@ public class Interpreter {
 			String cityname = word[1];
 			try {
 				Integer permitID = Integer.parseInt(word[2]);
-				return new TurnActionMsg(new BuildEmporiumUsingPermitTileAction(playerID, permitID, cityname));
+				return new TurnActionMsg(
+						new BuildEmporiumUsingPermitTileAction(playerID,
+								permitID, cityname));
 			} catch (NumberFormatException e) {
 				return null;
 			}
@@ -256,30 +266,33 @@ public class Interpreter {
 				return null;
 			return new TurnActionMsg(new EngageAssistantAction(playerID));
 
-		// CHANGE REGIONTYPE
+			// CHANGE REGIONTYPE
 		case "CHANGE":
 			if (word.length != 2)
 				return null;
 			rt = string2RegionType(word[1]);
-			return new TurnActionMsg(new ChangeBusinessPermitTilesAction(playerID, rt));
+			return new TurnActionMsg(new ChangeBusinessPermitTilesAction(
+					playerID, rt));
 
-		// MAIN
+			// MAIN
 		case "MAIN":
 			if (word.length != 1)
 				return null;
-			return new TurnActionMsg(new PerformAdditionalMainActionAction(playerID));
+			return new TurnActionMsg(new PerformAdditionalMainActionAction(
+					playerID));
 
-		// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
-		// TODO importante, aggiungere anche il king!!!!
+			// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
+			// TODO importante, aggiungere anche il king!!!!
 		case "ELECT-WITH-ASSISTANT":
 			if (word.length != 3)
 				return null;
 			rt = string2RegionType(word[1]);
 			cc = string2colorCouncillor(word[2]);
 
-			return new TurnActionMsg(new SendAssistantToElectCouncillorAction(playerID, rt, cc));
+			return new TurnActionMsg(new SendAssistantToElectCouncillorAction(
+					playerID, rt, cc));
 
-		// USED-CARD PERMITid
+			// USED-CARD PERMITid
 		case "USED-CARD":
 			if (word.length == 2)
 				return null;
@@ -296,7 +309,7 @@ public class Interpreter {
 				return null;
 			return new TurnActionMsg(new EndTurnAction(playerID));
 
-		// SHOW MYDETAILS/DETAILS/GAMEBOARD
+			// SHOW MYDETAILS/DETAILS/GAMEBOARD
 		case "SHOW":
 			if (word.length != 2)
 				return null;
@@ -315,7 +328,8 @@ public class Interpreter {
 		case "SELL":
 			String[] splitted;
 			String[] stub;
-			Integer id, price;
+			Integer id,
+			price;
 			List<ItemForSale> items = new ArrayList<>();
 			if (word.length < 3)
 				return null;
@@ -333,7 +347,8 @@ public class Interpreter {
 						} catch (NumberFormatException e) {
 							return null;
 						}
-						items.add(new ItemForSale(ItemForSale.Type.BUSINESS, id, price, playerID));
+						items.add(new ItemForSale(ItemForSale.Type.BUSINESS,
+								id, price, playerID));
 					}
 				}
 				if (word[i].matches("ASSISTANTS") && (i + 1) <= word.length) {
@@ -344,7 +359,8 @@ public class Interpreter {
 					} catch (NumberFormatException e) {
 						return null;
 					}
-					items.add(new ItemForSale(ItemForSale.Type.ASSISTANT, id, price, playerID));
+					items.add(new ItemForSale(ItemForSale.Type.ASSISTANT, id,
+							price, playerID));
 				}
 				if (word[i].matches("POLITIC") && (i + 1) <= word.length) {
 					ColorPolitic color;
@@ -365,7 +381,8 @@ public class Interpreter {
 								} catch (NumberFormatException e) {
 									return null;
 								}
-								items.add(new ItemForSale(color, price, playerID));
+								items.add(new ItemForSale(color, price,
+										playerID));
 							}
 					}
 					return new SellMsg(new SellAction(items));
@@ -373,7 +390,7 @@ public class Interpreter {
 			}
 			return null;
 
-		// BUY ITEM_ID QUANTITY(optional)
+			// BUY ITEM_ID QUANTITY(optional)
 		case "BUY":
 			Integer quantity = null;
 			if (word.length < 2 || word.length > 3)
@@ -388,11 +405,8 @@ public class Interpreter {
 			} catch (NumberFormatException e) {
 				return null;
 			}
-			if (quantity == null)
-				return new BuyMsg(new BuyAction(permID, playerID));
-			if (quantity > 0)
-				return new BuyMsg(new BuyAction(permID, playerID, quantity));
-			return null;
+
+			return new BuyMsg(new BuyAction(permID, playerID, quantity));
 
 		default:
 			return null;

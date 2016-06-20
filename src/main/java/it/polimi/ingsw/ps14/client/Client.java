@@ -6,6 +6,7 @@ import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.server.RMIViewRemote;
 import it.polimi.ingsw.ps14.view.CLIView;
+import it.polimi.ingsw.ps14.view.SocketCommunication;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -72,20 +73,21 @@ public class Client {
 
 				}
 
+				
 				SocketMessageHandlerOut msgHandlerOut = new SocketMessageHandlerOut(
 						new ObjectOutputStream(socket.getOutputStream()));
 
-				clientView.setHandlerOut(msgHandlerOut);
+				SocketCommunication socketCommunication = new SocketCommunication(msgHandlerOut,clientView);
 
-				MessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(
-						clientView, new ObjectInputStream(
+				
+				SocketMessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(socketCommunication, new ObjectInputStream(
 								socket.getInputStream()));
 
 				// sends the player name to the server
-				clientView.handleMessageOut(new PlayerNameMsg(name));
-
+				socketCommunication.sendPlayerName(name);
+				
 				ExecutorService executor = Executors.newFixedThreadPool(2);
-				executor.submit(clientView);
+				executor.submit(msgHandlerOut);
 				executor.submit(msgHandlerIn);
 
 			} catch (IOException e) {

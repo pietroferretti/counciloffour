@@ -55,6 +55,10 @@ public class CLIView extends ClientView implements Runnable {
 		in = scanner;
 		playerID = null;
 	}
+	
+	public void setCommunication(Communication communication){
+		interpreter.setCommunication(communication);
+	}
 
 	/**
 	 * It prints infos about regions, king, nobility track and victory points.
@@ -114,7 +118,6 @@ public class CLIView extends ClientView implements Runnable {
 		return playerID;
 	}
 
-	@Override
 	public void handleMessage(Message message) {
 		String str;
 		if (message != null) {
@@ -190,7 +193,7 @@ public class CLIView extends ClientView implements Runnable {
 				else {
 					print("messaggio:" + msg.toString());
 
-					handleMessageOut(msg);
+//					sendMessage(msg); DA FARE IN INTERPRETE SU COMM.SENDMESSAGE
 				}
 
 				// invia msg
@@ -365,6 +368,12 @@ public class CLIView extends ClientView implements Runnable {
 			LOGGER.warning("Something went wrong, the game is still in the market phase even after it ended!!");
 			
 		}
+		
+	}
+
+	@Override
+	public void readMessage(Message message) {
+		// TODO Auto-generated method stub
 		
 	}
 	
