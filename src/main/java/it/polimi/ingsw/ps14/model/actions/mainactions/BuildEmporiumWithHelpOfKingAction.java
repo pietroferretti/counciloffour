@@ -43,7 +43,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 			return false;
 		// TODO: send ERROR: not enough coins
 
-		// player don't have built in the city yet
+		// player hasn't built in the city yet
 		if (city.isEmporiumBuilt(player))
 			return false;
 
@@ -103,7 +103,6 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 					}
 				}
 				if (queue.contains(stop.getName())) {
-					// System.out.println(cost.get(stop.getName())); //Per TEST
 					return cost.get(stop.getName());
 				}
 			}
