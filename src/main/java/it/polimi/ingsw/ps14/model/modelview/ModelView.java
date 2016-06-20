@@ -39,11 +39,11 @@ public class ModelView extends Observable implements Observer, Serializable {
 	// TODO modelview osserva model NEL MAIN
 	// --------------------------MODEL------------------------
 	private List<PlayerView> playersView;
-//	private CurrentPlayerView currentPlayerView;
-//
-//	private GamePhaseView gamePhaseView;
-//	// private TurnStateView currentTurnStateView; secondo me non serve
-//	private MarketStateView marketStateView;
+	// private CurrentPlayerView currentPlayerView;
+	//
+	// private GamePhaseView gamePhaseView;
+	// // private TurnStateView currentTurnStateView; secondo me non serve
+	// private MarketStateView marketStateView;
 	private StateView stateView;
 
 	// ------------------------GAMEBOARD-----------------------
@@ -96,18 +96,20 @@ public class ModelView extends Observable implements Observer, Serializable {
 		nobilityTrackView = new NobilityTrackView(model.getGameBoard().getNobilityTrack());
 		model.getGameBoard().getNobilityTrack().addObserver(nobilityTrackView);
 
-//		gamePhaseView = new GamePhaseView(model.getGamePhase());
-//		model.addObserver(gamePhaseView);
-//
-//		currentPlayerView = new CurrentPlayerView(model.getCurrentPlayer().getName(), model.getCurrentPlayer().getId());
-//		model.addObserver(currentPlayerView);
-//
-//		marketStateView = new MarketStateView(model.getCurrentMarketState());
-//		model.addObserver(marketStateView);
+		// gamePhaseView = new GamePhaseView(model.getGamePhase());
+		// model.addObserver(gamePhaseView);
+		//
+		// currentPlayerView = new
+		// CurrentPlayerView(model.getCurrentPlayer().getName(),
+		// model.getCurrentPlayer().getId());
+		// model.addObserver(currentPlayerView);
+		//
+		// marketStateView = new MarketStateView(model.getCurrentMarketState());
+		// model.addObserver(marketStateView);
 
 		stateView = new StateView(model.getState());
 		model.getState().addObserver(stateView);
-		
+
 		availableAssistantsView = new AvailableAssistantsView(model.getGameBoard().getAvailableAssistants());
 		model.getGameBoard().addObserver(availableAssistantsView);
 
@@ -140,9 +142,9 @@ public class ModelView extends Observable implements Observer, Serializable {
 
 		kingView.addObserver(this);
 		nobilityTrackView.addObserver(this);
-//		gamePhaseView.addObserver(this);
-//		currentPlayerView.addObserver(this);
-//		marketStateView.addObserver(this);
+		// gamePhaseView.addObserver(this);
+		// currentPlayerView.addObserver(this);
+		// marketStateView.addObserver(this);
 		stateView.addObserver(this);
 		availableAssistantsView.addObserver(this);
 		availableCouncillorsView.addObserver(this);
@@ -155,18 +157,18 @@ public class ModelView extends Observable implements Observer, Serializable {
 		return playersView;
 	}
 
-//	public CurrentPlayerView getCurrentPlayerView() {
-//		return currentPlayerView;
-//	}
-//
-//	public GamePhaseView getGamePhaseView() {
-//		return gamePhaseView;
-//	}
-//
-//	public MarketStateView getMarketStateView() {
-//		return marketStateView;
-//	}
-	
+	// public CurrentPlayerView getCurrentPlayerView() {
+	// return currentPlayerView;
+	// }
+	//
+	// public GamePhaseView getGamePhaseView() {
+	// return gamePhaseView;
+	// }
+	//
+	// public MarketStateView getMarketStateView() {
+	// return marketStateView;
+	// }
+
 	public StateView getStateView() {
 		return stateView;
 	}
@@ -221,21 +223,12 @@ public class ModelView extends Observable implements Observer, Serializable {
 		} else if (o instanceof NobilityTrackView) {
 			setChanged();
 			notifyObservers(new NobilityTrackUpdatedMsg(((NobilityTrackView) o).getNobilityTrackCopy()));
-//		} else if (o instanceof GamePhaseView) {
-//			setChanged();
-//			notifyObservers(new GamePhaseUpdatedMsg(((GamePhaseView) o).getGamePhaseCopy()));
-//		} else if (o instanceof CurrentPlayerView) {
-//			setChanged();
-//			notifyObservers(new CurrentPlayerUpdatedMsg(((CurrentPlayerView) o).getCurrentPlayerNameCopy(),
-//					((CurrentPlayerView) o).getCurrentPlayerIDCopy()));
-//		} else if (o instanceof MarketStateView) {
-//			setChanged();
-//			notifyObservers(new MarketStateUpdatedMsg(((MarketStateView) o).getCurrentMarketStateCopy()));
+
 		} else if (o instanceof StateView) {
-			
+
 			setChanged();
 			notifyObservers(new StateUpdatedMsg(((StateView) o).getStateCopy()));
-			
+
 		} else if (o instanceof AvailableAssistantsView) {
 			setChanged();
 			notifyObservers(
@@ -256,7 +249,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 			setChanged();
 			notifyObservers(new MarketUpdatedMsg(((MarketView) o).getMarketCopy()));
 		} else if (o instanceof MessageView) {
-			// TODO controllare 
+			// TODO controllare
 			Message messageToSend = ((MessageView) o).getMessageCopy();
 			if (messageToSend != null) {
 				setChanged();

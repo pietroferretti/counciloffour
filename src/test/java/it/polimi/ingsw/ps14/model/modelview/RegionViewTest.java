@@ -60,6 +60,8 @@ public class RegionViewTest {
 	@Test
 	public void testUpdateBalcony() {
 
+		System.out.println("\ntestUpdateBalcony\n");
+
 		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBalcony().toString());
 		System.out.println(rv.getRegionCopy().getBalcony().toString());
 
