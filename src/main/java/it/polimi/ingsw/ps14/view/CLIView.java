@@ -111,11 +111,6 @@ public class CLIView extends ClientView implements Runnable {
 
 	}
 
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public Integer getPlayerID() {
 		return playerID;
 	}
