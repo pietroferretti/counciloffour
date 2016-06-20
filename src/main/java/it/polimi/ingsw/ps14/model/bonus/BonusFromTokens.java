@@ -67,6 +67,6 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 	
 	@Override
 	public String toString() {
-		return "\nChoose a city token bonus that you've already used!";
+		return "\nChoose a bonus from the cities in which you own an emporium!";
 	}
 }

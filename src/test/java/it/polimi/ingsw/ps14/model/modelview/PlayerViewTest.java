@@ -45,6 +45,7 @@ public class PlayerViewTest {
 
 		assertNotSame(player, pv1.getPlayerCopy());
 		assertEquals(player.getAssistants(), pv1.getPlayerCopy().getAssistants());
+		
 		assertEquals(player.getBusinessHand().getNumberOfPermits(),
 				pv1.getPlayerCopy().getBusinessHand().getNumberOfPermits());
 		assertEquals(player.getBusinessHand().getUsedCards(), pv1.getPlayerCopy().getBusinessHand().getUsedCards());

@@ -158,25 +158,25 @@ public class GameBoard extends Observable implements Serializable {
 	}
 
 	Bonus buildBonusFromMap(Map<String, Integer> bonusAsMap) {
-		
+
 		if (bonusAsMap.size() == 1) {
-			
+
 			Map.Entry<String, Integer> bonusEntry = bonusAsMap.entrySet().iterator().next();
 			String bonusType = bonusEntry.getKey();
 			int quantity = bonusEntry.getValue().intValue();
 			return newBonusFromString(bonusType, quantity);
-			
+
 		} else {
-			
+
 			List<Bonus> bonuses = new ArrayList<>();
-	
+
 			for (Map.Entry<String, Integer> bonusEntry : bonusAsMap.entrySet()) {
 				String bonusType = bonusEntry.getKey();
 				int quantity = bonusEntry.getValue().intValue();
 				Bonus tempBonus = newBonusFromString(bonusType, quantity);
 				bonuses.add(tempBonus);
 			}
-	
+
 			return new BonusList(bonuses);
 		}
 	}
@@ -323,7 +323,8 @@ public class GameBoard extends Observable implements Serializable {
 	/**
 	 * It checks if the chosen color is available.
 	 * 
-	 * @param color - {@link ColorCouncillor}
+	 * @param color
+	 *            - {@link ColorCouncillor}
 	 * @return true if there is an available councillor of that color.
 	 */
 	public boolean councillorIsAvailable(ColorCouncillor color) {
@@ -452,12 +453,22 @@ public class GameBoard extends Observable implements Serializable {
 		return cities;
 	}
 
+	public NobilityTrack getNobilityTrack() {
+		return nobilityTrack;
+	}
+
+	/*
+	 * --------------------------- KING BONUS -----------------------------
+	 */
 	public Queue<Integer> getKingBonuses() {
 		return kingBonuses;
 	}
 
-	public NobilityTrack getNobilityTrack() {
-		return nobilityTrack;
+	public int useKingBonus() {
+		int i = kingBonuses.poll();
+		setChanged();
+		notifyObservers();
+		return i;
 	}
 
 	/*
