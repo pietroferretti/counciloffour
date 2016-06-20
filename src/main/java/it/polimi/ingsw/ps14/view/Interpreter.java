@@ -7,7 +7,6 @@ import java.util.Scanner;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
-import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
@@ -24,6 +23,7 @@ import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
+import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -48,57 +48,131 @@ public class Interpreter {
 	//TODO ma perché non metterli tutti come toString()?
 	
 	public String parseMsg(Message msg) {
+
+		if (msg instanceof AvailableAssistantsUpdatedMsg) {
+			return ((AvailableAssistantsUpdatedMsg) msg).toString();
+		}
+		if (msg instanceof AvailableCouncillorsUpdatedMsg) {
+			return ((AvailableCouncillorsUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof ErrorMsg) {
+			return ((ErrorMsg) msg).toString();
+
+		}
+
+		if (msg instanceof KingBonusesUpdatedMsg) {
+			return ((KingBonusesUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof KingUpdatedMsg) {
+			return ((KingUpdatedMsg) msg).toString();
+
+		}
+
+		if (msg instanceof NobilityTrackUpdatedMsg) {
+			return ((NobilityTrackUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof PlayerChangedPrivateMsg) {
+			return ((PlayerChangedPrivateMsg) msg).getMessage().toString();
+
+		}
+		if (msg instanceof PlayerChangedPublicMsg) {
+			return ((PlayerChangedPublicMsg) msg).getNotice().toString();
+
+		}
+
+		if (msg instanceof RegionBonusesUpdatedMsg) {
+			return ((RegionBonusesUpdatedMsg) msg).toString();
+
+		}
+		if (msg instanceof RegionUpdatedMsg) {
+			return ((RegionUpdatedMsg) msg).getUpdatedRegion().toString();
+
+		}
+		if (msg instanceof SoldItemMsg) {
+			return ((SoldItemMsg) msg).getItemSold().toString();
+
+		}
+		if (msg instanceof StateUpdatedMsg) {
+			return ((StateUpdatedMsg) msg).toString();
+		}
+
 		return null;
 	}
 	
-	public String parseMsg(AvailableAssistantsUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(AvailableCouncillorsUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(ErrorMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(KingBonusesUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(KingUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(PlayerNameMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(NobilityTrackUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(PlayerChangedPrivateMsg msg) {
-			return msg.getMessage().toString();
-	}
-	
-	public String parseMsg(PlayerChangedPublicMsg msg) {
-			return msg.getNotice().toString();
-	}
 
 	
-	public String parseMsg(RegionBonusesUpdatedMsg msg) {
-			return msg.toString();
-	}
-	
-	public String parseMsg(RegionUpdatedMsg msg) {
-			return msg.getUpdatedRegion().toString();
-	}
-	
-	public String parseMsg(SoldItemMsg msg) {
-			return msg.getItemSold().toString();
-	}
+
+//	public String parseMsg(Message msg) {
+//		return null;
+//	}
+//	
+//	public String parseMsg(AvailableAssistantsUpdatedMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(AvailableCouncillorsUpdatedMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(ErrorMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(GamePhaseUpdatedMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(KingBonusesUpdatedMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(KingUpdatedMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(MarketStateUpdatedMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(NewCurrentPlayerMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(NewGamePhaseMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(NewMarketStateMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(NobilityTrackUpdatedMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(PlayerChangedPrivateMsg msg) {
+//			return msg.getMessage().toString();
+//	}
+//	
+//	public String parseMsg(PlayerChangedPublicMsg msg) {
+//			return msg.getNotice().toString();
+//	}
+//
+//	
+//	public String parseMsg(RegionBonusesUpdatedMsg msg) {
+//			return msg.toString();
+//	}
+//	
+//	public String parseMsg(RegionUpdatedMsg msg) {
+//			return msg.getUpdatedRegion().toString();
+//	}
+//	
+//	public String parseMsg(SoldItemMsg msg) {
+//			return msg.getItemSold().toString();
+//	}
 
 	public Message parseString(String input, Integer playerID) {
 		RegionType rt;
