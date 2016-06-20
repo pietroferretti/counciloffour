@@ -124,7 +124,6 @@ public class Server {
 	}
 
 	public void startRMI() throws RemoteException, AlreadyBoundException {
-		// idplayer ++ quando attivo una nuova connessione
 		LOGGER.warning("RMI not yet implemented");
 
 		Registry registry;
@@ -134,11 +133,10 @@ public class Server {
 		RMIServer rmiView = new RMIServer(this);
 		registry.bind(NAME, rmiView);
 
-		// rmiView.registerObserver(this.controller);
-		// this.gioco.registerObserver(rmiView);
+//		 rmiView.registerObserver(this.controller);
+//		 this.gioco.registerObserver(rmiView);
 
-		RMIViewRemote viewRemote = (RMIViewRemote) UnicastRemoteObject
-				.exportObject(rmiView, 0);
+		RMIViewRemote viewRemote = (RMIViewRemote) UnicastRemoteObject.exportObject(rmiView, 0);
 
 		System.out.println("Binding the server implementation to the registry");
 
