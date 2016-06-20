@@ -18,7 +18,7 @@ import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg;
-import it.polimi.ingsw.ps14.message.fromserver.RegionBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
@@ -85,8 +85,8 @@ public class Interpreter {
 
 		}
 
-		if (msg instanceof RegionBonusesUpdatedMsg) {
-			return ((RegionBonusesUpdatedMsg) msg).toString();
+		if (msg instanceof CitiesColorBonusesUpdatedMsg) {
+			return ((CitiesColorBonusesUpdatedMsg) msg).toString();
 
 		}
 		if (msg instanceof RegionUpdatedMsg) {

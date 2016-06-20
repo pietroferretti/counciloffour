@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps14.message.fromserver;
 
 import it.polimi.ingsw.ps14.message.Message;
 
-public class RegionBonusesUpdatedMsg implements Message {
+public class CitiesColorBonusesUpdatedMsg implements Message {
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class RegionBonusesUpdatedMsg implements Message {
 	 * @param updatedBonusBronze
 	 * @param updatedBonusBlue
 	 */
-	public RegionBonusesUpdatedMsg(int updatedBonusGold,
+	public CitiesColorBonusesUpdatedMsg(int updatedBonusGold,
 			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) {
 		this.updatedBonusGold = updatedBonusGold;
 		this.updatedBonusSilver = updatedBonusSilver;
@@ -46,7 +46,7 @@ public class RegionBonusesUpdatedMsg implements Message {
 
 	@Override
 	public String toString() {
-		return "RegionBonuses now: BonusGold=" + updatedBonusGold
+		return "CitiesColorBonuses now: BonusGold=" + updatedBonusGold
 				+ ", BonusSilver=" + updatedBonusSilver + ", BonusBronze="
 				+ updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue;
 	}

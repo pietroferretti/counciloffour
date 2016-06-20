@@ -22,7 +22,7 @@ import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
-import it.polimi.ingsw.ps14.message.fromserver.RegionBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
@@ -141,10 +141,10 @@ public class SocketServerView extends ServerView implements Runnable {
 					modelCopy.getAvailableAssistantsView().getAvailableAssistantsCopy()));
 			sendMessage(new KingBonusesUpdatedMsg(modelCopy.getKingBonusesView().getShowableKingBonus()));
 			sendMessage(new NobilityTrackUpdatedMsg(modelCopy.getNobilityTrackView().getNobilityTrackCopy()));
-			sendMessage(new RegionBonusesUpdatedMsg(modelCopy.getRegionBonusesView().getBonusGoldCopy(),
-					modelCopy.getRegionBonusesView().getBonusSilverCopy(),
-					modelCopy.getRegionBonusesView().getBonusBronzeCopy(),
-					modelCopy.getRegionBonusesView().getBonusBlueCopy()));
+			sendMessage(new CitiesColorBonusesUpdatedMsg(modelCopy.getCitiesColorBonusesView().getBonusGoldCopy(),
+					modelCopy.getCitiesColorBonusesView().getBonusSilverCopy(),
+					modelCopy.getCitiesColorBonusesView().getBonusBronzeCopy(),
+					modelCopy.getCitiesColorBonusesView().getBonusBlueCopy()));
 			for (RegionView rv : modelCopy.getRegionsView()) {
 				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
 			}

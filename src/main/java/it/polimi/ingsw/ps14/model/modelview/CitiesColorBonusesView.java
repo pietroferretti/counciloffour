@@ -6,7 +6,7 @@ import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
 
-public class RegionBonusesView extends Observable implements Observer , Serializable{
+public class CitiesColorBonusesView extends Observable implements Observer , Serializable{
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class RegionBonusesView extends Observable implements Observer , Serializ
 	private int bonusBronzeCopy;
 	private int bonusBlueCopy;
 
-	public RegionBonusesView(int bonusGoldCopy, int bonusSilverCopy, int bonusBronzeCopy, int bonusBlueCopy) {
+	public CitiesColorBonusesView(int bonusGoldCopy, int bonusSilverCopy, int bonusBronzeCopy, int bonusBlueCopy) {
 		this.bonusGoldCopy = bonusGoldCopy;
 		this.bonusSilverCopy = bonusSilverCopy;
 		this.bonusBronzeCopy = bonusBronzeCopy;
@@ -55,5 +55,12 @@ public class RegionBonusesView extends Observable implements Observer , Serializ
 			notifyObservers();
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "CitiesColorBonusesView [bonusGoldCopy=" + bonusGoldCopy + ", bonusSilverCopy=" + bonusSilverCopy
+				+ ", bonusBronzeCopy=" + bonusBronzeCopy + ", bonusBlueCopy=" + bonusBlueCopy + "]";
+	}
+	
 
 }
