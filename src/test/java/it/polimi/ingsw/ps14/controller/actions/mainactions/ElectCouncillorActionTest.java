@@ -40,7 +40,7 @@ public class ElectCouncillorActionTest {
 			System.out.println(reg.toString());
 		System.out.println(player.toString());
 
-		MainAction action = new ElectCouncillorAction(player.getId(),
+		ElectCouncillorAction action = new ElectCouncillorAction(player.getId(),
 				ColorCouncillor.ORANGE, "COAST");
 		assertEquals(action.isValid(model), true);
 		
