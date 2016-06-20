@@ -35,6 +35,7 @@ import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
+import it.polimi.ingsw.ps14.model.actions.EndTurnAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
@@ -307,7 +308,7 @@ public class Interpreter {
 		case "PASS":
 			if (word.length != 1)
 				return null;
-			return new TurnFinishedMsg(playerID);
+			return new TurnActionMsg(new EndTurnAction(playerID));
 
 		// SHOW MYDETAILS/DETAILS/GAMEBOARD
 		case "SHOW":
