@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps14.client.RMI;
 
+import it.polimi.ingsw.ps14.client.MessageHandlerOut;
+import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.actions.Action;
 import it.polimi.ingsw.ps14.server.RMIViewRemote;
 import it.polimi.ingsw.ps14.view.CLIView;
@@ -32,11 +34,10 @@ public class ClientRMI {
 
 		serverStub.registerClient(rmiView);
 
-		CLIView gui = new CLIView(scanner, rmiView);// gli passo rmi view remote
-													// che contiene i metodi
-													// invocabili sul server (
-													// mi servirà
-													// nell'interpreterServer)
+		CLIView gui = new CLIView(scanner);
+		
+		
+	//	MessageHandlerOut methodInvocation=new MessageHandlerOut(rmiView); //TODO: fare una classe apposta per invocare metodi sul server.
 
 		// while (true) {
 		//

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.server;
 
 import it.polimi.ingsw.ps14.Game;
-import it.polimi.ingsw.ps14.client.RMI.ClientFolda;
 import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.view.View;
 
@@ -12,10 +11,9 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
@@ -27,14 +25,14 @@ import java.util.logging.Logger;
  * La classe Server resta in ascolto su una specifica porta e gestisce la ripartizione delle connessioni in ingresso,
  */
 public class Server {
-	private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Server.class
+			.getName());
 
 	private static final int PORT = 19999;
 	private static final int COUNTDOWN = 20;
-	
+
 	private final static int RMI_PORT = 52365;
 	private final String NAME = "council4";
-
 
 	private Integer idCounter;
 	private ServerSocket serverSocket;
@@ -42,9 +40,7 @@ public class Server {
 	private ExecutorService executor;
 
 	private List<ServerView> connections = new ArrayList<>();
-	private List<ServerView> waitingConnectionsSocket = new ArrayList<>();
-	
-	private List<ClientViewRemote> waitingConnectionsRMI = new ArrayList<>();
+	private List<ServerView> waitingConnections = new ArrayList<>();
 
 	private static Timer timer;
 	private TimerTask timerTask;
@@ -62,15 +58,15 @@ public class Server {
 	public synchronized void registerConnection(ServerView c) {
 		connections.add(c);
 	}
-	
 
 	/*
 	 * Registro una connessione attiva in rmi
 	 */
-	public synchronized void registerWaitingConnectionRMI(View c) {
-		View connection=new ClientFolda(idCounter);
+	public synchronized void registerWaitingConnectionRMI(
+			ClientViewRemote clientStub) {
+		ServerView connection = new RMIServerView(idCounter, clientStub);
 		idCounter++;
-		waitingConnections.add(c);
+		waitingConnections.add(connection);
 
 	}
 
@@ -79,8 +75,8 @@ public class Server {
 	 */
 	public synchronized void deregisterConnection(SocketServerView c) {
 		connections.remove(c);
-		if (waitingConnectionsSocket.contains(c)) {
-			waitingConnectionsSocket.remove(c);
+		if (waitingConnections.contains(c)) {
+			waitingConnections.remove(c);
 		}
 	}
 
@@ -88,34 +84,37 @@ public class Server {
 	 * Mi metto in attesa di un altro giocatore
 	 */
 	public synchronized void meeting() {
-		
+
 		LOGGER.info("Connection added.");
 
-		if ((waitingConnectionsSocket.size() + waitingConnectionsRMI.size()) == 2) {
-			
+		if (waitingConnections.size() == 2) {
+
 			LOGGER.info("Starting timer.");
-			
+
 			timer = new Timer();
 			timerTask = new TimerTask() {
 
 				@Override
 				public void run() {
-					if((waitingConnectionsSocket.size() + waitingConnectionsRMI.size())>=2){
-					try {
-						LOGGER.info(String.format("Creating game with %d player.", (waitingConnectionsSocket.size() + waitingConnectionsRMI.size())));
+					if (waitingConnections.size() >= 2) {
+						try {
+							LOGGER.info(String
+									.format("Creating game with %d player.",
+											waitingConnections.size()));
 
-						List<View> viewsSocket = new ArrayList<>(waitingConnectionsSocket);
-						List<View> viewsRMI = new ArrayList<>(waitingConnectionsRMI);
+							List<View> views = new ArrayList<>(
+									waitingConnections);
+							
+							activeGames.add(new Game(views));
 
-						activeGames.add(new Game(viewsSocket,viewsRMI));
-						
+							waitingConnections.clear();
 
-						waitingConnectionsSocket.clear();
-						waitingConnectionsRMI.clear();
-
-					} catch (Exception e) {
-						LOGGER.log(Level.SEVERE, "Unexpected exception while creating a new game.", e);
-					}
+						} catch (Exception e) {
+							LOGGER.log(
+									Level.SEVERE,
+									"Unexpected exception while creating a new game.",
+									e);
+						}
 					}
 				}
 			};
@@ -127,26 +126,22 @@ public class Server {
 	public void startRMI() throws RemoteException, AlreadyBoundException {
 		// idplayer ++ quando attivo una nuova connessione
 		LOGGER.warning("RMI not yet implemented");
-		
+
 		Registry registry;
-		
-			registry = LocateRegistry.createRegistry(RMI_PORT);
-			System.out.println("Constructing the RMI registry");
-			RMIServerView rmiView=new RMIServerView(this);
-			registry.bind(NAME, rmiView);
-		
-		
-//		rmiView.registerObserver(this.controller);
-//		this.gioco.registerObserver(rmiView);
-//		
-//		RMIViewRemote viewRemote=(RMIViewRemote) UnicastRemoteObject.
-//				exportObject(rmiView, 0);
-//		
-//		System.out.println("Binding the server implementation to the registry");
-		
-		
-		
-		
+
+		registry = LocateRegistry.createRegistry(RMI_PORT);
+		System.out.println("Constructing the RMI registry");
+		RMIServer rmiView = new RMIServer(this);
+		registry.bind(NAME, rmiView);
+
+		// rmiView.registerObserver(this.controller);
+		// this.gioco.registerObserver(rmiView);
+
+		RMIViewRemote viewRemote = (RMIViewRemote) UnicastRemoteObject
+				.exportObject(rmiView, 0);
+
+		System.out.println("Binding the server implementation to the registry");
+
 	}
 
 	public void startSocket() {
@@ -164,10 +159,11 @@ public class Server {
 		while (!exit) {
 			try {
 				Socket newSocket = serverSocket.accept();
-				SocketServerView connection = new SocketServerView(newSocket, this, idCounter);
+				SocketServerView connection = new SocketServerView(newSocket,
+						this, idCounter);
 				idCounter++;
 				registerConnection(connection);
-				waitingConnectionsSocket.add(connection);
+				waitingConnections.add(connection);
 				meeting();
 
 				executor.submit(connection);
@@ -187,7 +183,8 @@ public class Server {
 		}
 	}
 
-	public static void main(String[] args) throws RemoteException, AlreadyBoundException {
+	public static void main(String[] args) throws RemoteException,
+			AlreadyBoundException {
 		Server server = new Server();
 
 		LOGGER.info("STARTING RMI SERVER");

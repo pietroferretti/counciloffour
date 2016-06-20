@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps14;
 
-import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
@@ -17,13 +16,11 @@ public class Game {
 
 	private final Model model;
 	private final ModelView modelView;
-	private final List<View> viewsSocket;
-	private final List<ClientViewRemote> viewsRMI;
+	private final List<View> views;
 	private final Controller controller;
 	
-	public Game(List<View> viewList, List<ClientViewRemote> viewsRMI) throws IOException, CloneNotSupportedException {
-		this.viewsRMI=viewsRMI;
-		viewsSocket = viewList;
+	public Game(List<View> viewList) throws IOException, CloneNotSupportedException {
+		views = viewList;
 		
 		LOGGER.info("Creating Model.");
 		model = new Model();
@@ -31,16 +28,10 @@ public class Game {
 		// TODO different amount of coins and assistants
 
 		List<Player> playerList = new ArrayList<>();
-		for (View view : viewsSocket) {
+		for (View view : views) {
 			Player player = new Player(view.getPlayerID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6);
 			playerList.add(player);
 		}
-		//__________________________________________________________---
-		for (ClientViewRemote view : viewsRMI) {
-			Player player = new Player(view.getID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6);
-			playerList.add(player);
-		}
-		//--------------------------------------------------------------
 		
 		model.setPlayers(playerList);
 		
@@ -50,20 +41,13 @@ public class Game {
 		LOGGER.info("Creating ModelView.");
 		modelView = new ModelView(model);
 	
-		for (View view : viewsSocket) {
+		for (View view : views) {
 			
 			view.addObserver(controller);
 			modelView.addObserver(view);
 			
 		}
-//______________________________________________
-		for(ClientViewRemote view : viewsRMI) {
-			
-			view.addObserver(controller);
-			modelView.addObserver(view);
-		}
-		//_---------------------------------
-		
+
 		LOGGER.info("Starting game.");
 		model.startGame();
 	

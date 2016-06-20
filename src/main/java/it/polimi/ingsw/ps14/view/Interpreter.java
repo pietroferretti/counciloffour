@@ -10,6 +10,7 @@ import it.polimi.ingsw.ps14.message.NewMarketStateMsg;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
+import it.polimi.ingsw.ps14.message.fromclient.FinishTurnMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NewCurrentPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
@@ -303,7 +304,7 @@ public class Interpreter {
 				return null;
 			}
 			// FINISH
-		case "FINISH":
+		case "FINISH": return new FinishTurnMsg();
 		case "PASS":
 			if (word.length != 1)
 				return null;
