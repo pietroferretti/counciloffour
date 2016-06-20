@@ -61,8 +61,6 @@ public class BusinessCardsPlayer implements Serializable {
 		usedCards.add(card);
 	}
 
-
-
 	public int getNumberOfPermits() {
 		return validCards.size() + usedCards.size();
 	}
@@ -95,7 +93,24 @@ public class BusinessCardsPlayer implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BusinessCardsPlayer [validCards=" + validCards + ", usedCards=" + usedCards + "]";
+		String s = "\nBUSINESS CARDS\nValid Cards: ";
+		if (validCards.isEmpty())
+			s = s + "\nNo valid cards yet.\n";
+		else {
+			for (BusinessPermit businessPermit : validCards) {
+				s = s + businessPermit.toString();
+			}
+		}
+		s = s + "Used Cards: ";
+		if (usedCards.isEmpty())
+			s = s + "\nNo used cards yet.";
+		else {
+			for (BusinessPermit businessPermit : usedCards) {
+				s = s + businessPermit.toString();
+			}
+		}
+
+		return s;
 	}
 
 }

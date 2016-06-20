@@ -30,7 +30,7 @@ public class PoliticCard implements Card,Serializable {
 
 	@Override
 	public String toString() {
-		return "PoliticCard [color=" + color + "]";
+		return "\nPoliticCard [color=" + color + "]";
 	}
 
 }

@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public abstract class View extends Observable implements Observer{
-	
+
 	private final int id;
 	private String name;
 

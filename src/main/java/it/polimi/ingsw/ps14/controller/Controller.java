@@ -31,13 +31,11 @@ public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
 	private Model model;
-	private List<View> views;
 	private List<Player> players;
 	private List<Player> marketPlayers;
 
-	public Controller(Model model, List<View> views) {
+	public Controller(Model model) {
 		this.model = model;
-		this.views = views;
 		this.players = model.getPlayers();
 		Collections.shuffle(players);
 

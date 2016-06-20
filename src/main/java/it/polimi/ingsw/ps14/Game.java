@@ -1,15 +1,15 @@
 package it.polimi.ingsw.ps14;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
 import it.polimi.ingsw.ps14.view.View;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class Game {
 	private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
@@ -20,7 +20,6 @@ public class Game {
 	private final Controller controller;
 	
 	public Game(List<View> viewList) throws IOException, CloneNotSupportedException {
-		
 		views = viewList;
 		
 		LOGGER.info("Creating Model.");
@@ -37,7 +36,7 @@ public class Game {
 		model.setPlayers(playerList);
 		
 		LOGGER.info("Creating Controller.");
-		controller = new Controller(model, views);
+		controller = new Controller(model);
 		
 		LOGGER.info("Creating ModelView.");
 		modelView = new ModelView(model);
@@ -48,7 +47,7 @@ public class Game {
 			modelView.addObserver(view);
 			
 		}
-		
+
 		LOGGER.info("Starting game.");
 		model.startGame();
 	

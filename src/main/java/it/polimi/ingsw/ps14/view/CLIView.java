@@ -1,10 +1,5 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.io.PrintStream;
-import java.util.Observable;
-import java.util.Scanner;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.client.ClientView;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
@@ -24,6 +19,10 @@ import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+
+import java.io.PrintStream;
+import java.util.Scanner;
+import java.util.logging.Logger;
 
 /*
  * --------------------------Command Line Interface-----------------------

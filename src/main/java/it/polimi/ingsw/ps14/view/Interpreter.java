@@ -1,9 +1,5 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
@@ -43,6 +39,10 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Interpreter {
 	Scanner scan = new Scanner(System.in);
