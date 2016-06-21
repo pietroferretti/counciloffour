@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SocketMessageHandlerOut implements Runnable{
+public class SocketMessageHandlerOut {
 	private static final Logger LOGGER = Logger.getLogger(SocketMessageHandlerOut.class.getName());
 
 	private ObjectOutputStream socketOut;
@@ -20,7 +20,7 @@ public class SocketMessageHandlerOut implements Runnable{
 
 		try {
 			
-			System.out.println(String.format("Sending message %s on socket", message.toString()));	// per debug, da togliere?
+			LOGGER.info(String.format("Sending message %s on socket", message.getClass()));	
 			socketOut.writeObject(message);
 			socketOut.flush();
 
@@ -29,8 +29,5 @@ public class SocketMessageHandlerOut implements Runnable{
 		}
 	}
 
-	@Override
-	public void run() {
-	}
 
 }

@@ -1,12 +1,12 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
-import it.polimi.ingsw.ps14.model.bonus.SpecialNobilityBonus;
 
 /**
  * This class contains all the bonuses a player can get when leveling up on the
@@ -16,21 +16,21 @@ public class NobilityTrack extends Observable implements Serializable {
 
 	private static final long serialVersionUID = -6062832074489950572L;
 
-	private final Map<Integer, Bonus> bonusesByLevel;
+	private final SortedMap<Integer, Bonus> bonusesByLevel;
 
 	public NobilityTrack() {
-		bonusesByLevel = new HashMap<>();
+		bonusesByLevel = new TreeMap<>();
 	}
 
-	public NobilityTrack(Map<Integer, Bonus> bonusesByLevel) {
+	public NobilityTrack(SortedMap<Integer, Bonus> bonusesByLevel) {
 		this.bonusesByLevel = bonusesByLevel;
 	}
 
 	public NobilityTrack(NobilityTrack nt) {
 
-		bonusesByLevel = new HashMap<>(nt.bonusesByLevel.size());
+		bonusesByLevel = new TreeMap<>();
 
-		for (Map.Entry<Integer, Bonus> entry : nt.bonusesByLevel.entrySet()) {
+		for (SortedMap.Entry<Integer, Bonus> entry : nt.bonusesByLevel.entrySet()) {
 			this.bonusesByLevel.put(entry.getKey(), entry.getValue().makeCopy());
 		}
 	}

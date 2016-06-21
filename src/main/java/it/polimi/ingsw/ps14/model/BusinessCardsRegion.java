@@ -1,9 +1,11 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -13,11 +15,11 @@ public class BusinessCardsRegion implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1821273532546033109L;
-	private List<BusinessPermit> deck;
+	private Deque<BusinessPermit> deck;
 	private BusinessPermit[] availablePermits;
 
 	public BusinessCardsRegion(List<BusinessPermit> deck) {
-		this.deck = deck;
+		this.deck = new ArrayDeque<>(deck);
 		shuffle();
 		availablePermits = new BusinessPermit[2];
 		availablePermits[0] = drawCardFromDeck();
@@ -30,7 +32,7 @@ public class BusinessCardsRegion implements Serializable {
 	}
 
 	public BusinessCardsRegion(BusinessCardsRegion bcr) {
-		this.deck = new ArrayList<>();
+		this.deck = new ArrayDeque<>();
 		for (BusinessPermit bp : bcr.deck) {
 			this.deck.add(new BusinessPermit(bp));
 		}
@@ -41,7 +43,9 @@ public class BusinessCardsRegion implements Serializable {
 	}
 
 	private void shuffle() {
-		Collections.shuffle(deck);
+		List<BusinessPermit> deckAsList = new ArrayList<>(deck);
+		Collections.shuffle(deckAsList);
+		deck = new ArrayDeque<>(deckAsList);
 	}
 
 	/**
@@ -50,7 +54,7 @@ public class BusinessCardsRegion implements Serializable {
 	 */
 	private BusinessPermit drawCardFromDeck() {
 		if (!deck.isEmpty()) {
-			return deck.remove(0);
+			return deck.removeFirst();
 		} else {
 			return null;
 		}
@@ -96,7 +100,7 @@ public class BusinessCardsRegion implements Serializable {
 	}
 
 	public void addCardToDeckBottom(BusinessPermit card) {
-		deck.add(card);
+		deck.addLast(card);
 	}
 
 	/**

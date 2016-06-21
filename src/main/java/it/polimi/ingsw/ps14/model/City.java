@@ -147,7 +147,7 @@ public class City implements Serializable {
 	@Override
 	public String toString() {
 		return name.toUpperCase() + "\nColor: " + color + "\nNeighbors: " + toStringNeighborsName() + "\nBonus: "
-				+ token.toString() + toStringEmporiums();
+				+ token.toString() + toStringEmporiums() + '\n';
 
 	}
 

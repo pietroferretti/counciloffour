@@ -77,7 +77,7 @@ public class SocketServerView extends ServerView implements Runnable {
 
 				Object objectReceived = socketIn.readObject();
 
-				LOGGER.info(String.format("Received object %s", objectReceived));
+				LOGGER.info(String.format("Received object %s", objectReceived.getClass()));
 
 				if (objectReceived instanceof PlayerNameMsg) {
 
@@ -179,7 +179,7 @@ public class SocketServerView extends ServerView implements Runnable {
 		try {
 			socketOut.writeObject(msg);
 			socketOut.flush();
-			LOGGER.info(String.format("Writing message %s on socket %d", msg, super.getPlayerID()));
+			LOGGER.info(String.format("Writing message %s on socket %d", msg.getClass(), super.getPlayerID()));
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, String.format("Error while writing on socket with id '%d'", super.getPlayerID()),
 					e);

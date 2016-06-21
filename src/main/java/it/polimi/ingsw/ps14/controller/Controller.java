@@ -179,7 +179,7 @@ public class Controller implements Observer {
 				}
 				
 			} else {
-				sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().toString());
+				sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
 			}
 
 		} else if (model.getGamePhase() == GamePhase.MARKET) {

@@ -129,6 +129,7 @@ public class CLIView extends ClientView implements Runnable {
 			} else if (!gameStarted) {
 
 				print("The game hasn't started yet!!!!");
+				// TODO il giocatore può fare qualcosa quando il gioco non è ancora iniziato?
 
 				// } else if (!myTurn) {
 				//
