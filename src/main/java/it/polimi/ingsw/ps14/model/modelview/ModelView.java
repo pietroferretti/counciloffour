@@ -167,6 +167,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 
 	@Override
 	public void update(Observable o, Object message) {
+
 		if (o instanceof PlayerView) {
 			setChanged();
 			notifyObservers(message);
@@ -176,10 +177,6 @@ public class ModelView extends Observable implements Observer, Serializable {
 		} else if (o instanceof KingView) {
 			setChanged();
 			notifyObservers(new KingUpdatedMsg(((KingView) o).getKingCopy()));
-			// } else if (o instanceof NobilityTrackView) {
-			// setChanged();
-			// notifyObservers(new NobilityTrackUpdatedMsg(((NobilityTrackView)
-			// o).getNobilityTrackCopy()));
 
 		} else if (o instanceof StateView) {
 

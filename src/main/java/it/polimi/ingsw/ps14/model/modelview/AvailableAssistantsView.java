@@ -22,6 +22,13 @@ public class AvailableAssistantsView extends Observable implements Observer, Ser
 		return availableAssistantsCopy;
 	}
 
+	private void setAvailableAssistantsCopy(int availableAssistantsCopy) {
+		this.availableAssistantsCopy = availableAssistantsCopy;
+		setChanged();
+		notifyObservers();
+
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 
@@ -30,9 +37,7 @@ public class AvailableAssistantsView extends Observable implements Observer, Ser
 		}
 
 		else {
-			availableAssistantsCopy = ((GameBoard) o).getAvailableAssistants();
-			setChanged();
-			notifyObservers();
+			setAvailableAssistantsCopy(((GameBoard) o).getAvailableAssistants());
 		}
 
 	}
