@@ -25,11 +25,10 @@ import java.util.logging.Logger;
  * La classe Server resta in ascolto su una specifica porta e gestisce la ripartizione delle connessioni in ingresso,
  */
 public class Server {
-	private static final Logger LOGGER = Logger.getLogger(Server.class
-			.getName());
+	private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
 	private static final int PORT = 19999;
-	private static final int COUNTDOWN = 20;
+	private static final int COUNTDOWN = 1;
 
 	private final static int RMI_PORT = 52365;
 	private final String NAME = "council4";
@@ -62,8 +61,7 @@ public class Server {
 	/*
 	 * Registro una connessione attiva in rmi
 	 */
-	public synchronized void registerWaitingConnectionRMI(
-			ClientViewRemote clientStub) {
+	public synchronized void registerWaitingConnectionRMI(ClientViewRemote clientStub) {
 		ServerView connection = new RMIServerView(idCounter, clientStub);
 		idCounter++;
 		waitingConnections.add(connection);
@@ -98,22 +96,16 @@ public class Server {
 				public void run() {
 					if (waitingConnections.size() >= 2) {
 						try {
-							LOGGER.info(String
-									.format("Creating game with %d player.",
-											waitingConnections.size()));
+							LOGGER.info(String.format("Creating game with %d player.", waitingConnections.size()));
 
-							List<ServerView> views = new ArrayList<>(
-									waitingConnections);
-							
+							List<ServerView> views = new ArrayList<>(waitingConnections);
+
 							activeGames.add(new Game(views));
 
 							waitingConnections.clear();
 
 						} catch (Exception e) {
-							LOGGER.log(
-									Level.SEVERE,
-									"Unexpected exception while creating a new game.",
-									e);
+							LOGGER.log(Level.SEVERE, "Unexpected exception while creating a new game.", e);
 						}
 					}
 				}
@@ -124,7 +116,7 @@ public class Server {
 	}
 
 	public void startRMI() throws RemoteException, AlreadyBoundException {
-//		LOGGER.warning("RMI not yet implemented");
+		// LOGGER.warning("RMI not yet implemented");
 
 		Registry registry;
 
@@ -133,8 +125,8 @@ public class Server {
 		RMIServer rmiView = new RMIServer(this);
 		registry.bind(NAME, rmiView);
 
-//		 rmiView.registerObserver(this.controller);
-//		 this.gioco.registerObserver(rmiView);
+		// rmiView.registerObserver(this.controller);
+		// this.gioco.registerObserver(rmiView);
 
 		RMIViewRemote viewRemote = (RMIViewRemote) UnicastRemoteObject.exportObject(rmiView, 0);
 
@@ -157,8 +149,7 @@ public class Server {
 		while (!exit) {
 			try {
 				Socket newSocket = serverSocket.accept();
-				SocketServerView connection = new SocketServerView(newSocket,
-						this, idCounter);
+				SocketServerView connection = new SocketServerView(newSocket, this, idCounter);
 				idCounter++;
 				registerConnection(connection);
 				waitingConnections.add(connection);
@@ -181,8 +172,7 @@ public class Server {
 		}
 	}
 
-	public static void main(String[] args) throws RemoteException,
-			AlreadyBoundException {
+	public static void main(String[] args) throws RemoteException, AlreadyBoundException {
 		Server server = new Server();
 
 		LOGGER.info("STARTING RMI SERVER");

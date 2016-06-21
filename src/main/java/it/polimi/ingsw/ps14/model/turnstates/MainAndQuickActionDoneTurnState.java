@@ -7,7 +7,7 @@ import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 
 public class MainAndQuickActionDoneTurnState extends TurnState {
 
-	public MainAndQuickActionDoneTurnState(int additionalMains){
+	public MainAndQuickActionDoneTurnState(int additionalMains) {
 		super(additionalMains);
 	}
 
@@ -15,12 +15,15 @@ public class MainAndQuickActionDoneTurnState extends TurnState {
 	public TurnState makeCopy() {
 		return new MainAndQuickActionDoneTurnState(super.additionalMains);
 	}
-	
+
 	@Override
 	public boolean isActionLegal(Action action, Model model) {
 		return ((action instanceof EndTurnAction && additionalMains == 0)
-					|| (action instanceof MainAction && additionalMains > 0)
-				) && action.isValid(model);
+				|| (action instanceof MainAction && additionalMains > 0)) && action.isValid(model);
 	}
 
+	@Override
+	public String toString() {
+		return "MainAndQuickActionDone";
+	}
 }

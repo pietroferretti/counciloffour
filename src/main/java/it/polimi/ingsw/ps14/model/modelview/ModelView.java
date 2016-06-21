@@ -9,11 +9,10 @@ import java.util.Observer;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.Model;
@@ -39,11 +38,6 @@ public class ModelView extends Observable implements Observer, Serializable {
 	// TODO modelview osserva model NEL MAIN
 	// --------------------------MODEL------------------------
 	private List<PlayerView> playersView;
-	// private CurrentPlayerView currentPlayerView;
-	//
-	// private GamePhaseView gamePhaseView;
-	// private TurnStateView currentTurnStateView; secondo me non serve
-	// private MarketStateView marketStateView;
 	private StateView stateView;
 
 	// ------------------------GAMEBOARD-----------------------
@@ -65,7 +59,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		// add a playerView for each player
 		int index = 0;
 		for (Player player : model.getPlayers()) {
-			playersView.add(new PlayerView(new Player(player)));
+			playersView.add(new PlayerView(player));
 			// playerView observes player
 			player.addObserver(playersView.get(index));
 			index++;
@@ -75,7 +69,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 
 		int i = 0;
 		for (Region region : model.getGameBoard().getRegions()) {
-			regionsView.add(new RegionView(new Region(region)));
+			regionsView.add(new RegionView(region));
 			region.addObserver(regionsView.get(i));
 			i++;
 		}
@@ -84,18 +78,6 @@ public class ModelView extends Observable implements Observer, Serializable {
 		model.getGameBoard().getKing().addObserver(kingView);
 
 		nobilityTrackView = new NobilityTrackView(model.getGameBoard().getNobilityTrack());
-		// model.getGameBoard().getNobilityTrack().addObserver(nobilityTrackView);
-
-		// gamePhaseView = new GamePhaseView(model.getGamePhase());
-		// model.addObserver(gamePhaseView);
-		//
-		// currentPlayerView = new
-		// CurrentPlayerView(model.getCurrentPlayer().getName(),
-		// model.getCurrentPlayer().getId());
-		// model.addObserver(currentPlayerView);
-		//
-		// marketStateView = new MarketStateView(model.getCurrentMarketState());
-		// model.addObserver(marketStateView);
 
 		stateView = new StateView(model.getState());
 		model.getState().addObserver(stateView);
@@ -131,10 +113,6 @@ public class ModelView extends Observable implements Observer, Serializable {
 		}
 
 		kingView.addObserver(this);
-		// nobilityTrackView.addObserver(this);
-		// gamePhaseView.addObserver(this);
-		// currentPlayerView.addObserver(this);
-		// marketStateView.addObserver(this);
 		stateView.addObserver(this);
 		availableAssistantsView.addObserver(this);
 		availableCouncillorsView.addObserver(this);
@@ -146,18 +124,6 @@ public class ModelView extends Observable implements Observer, Serializable {
 	public List<PlayerView> getPlayersView() {
 		return playersView;
 	}
-
-	// public CurrentPlayerView getCurrentPlayerView() {
-	// return currentPlayerView;
-	// }
-	//
-	// public GamePhaseView getGamePhaseView() {
-	// return gamePhaseView;
-	// }
-	//
-	// public MarketStateView getMarketStateView() {
-	// return marketStateView;
-	// }
 
 	public StateView getStateView() {
 		return stateView;
@@ -234,7 +200,8 @@ public class ModelView extends Observable implements Observer, Serializable {
 		} else if (o instanceof CitiesColorBonusesView) {
 			setChanged();
 			notifyObservers(new CitiesColorBonusesUpdatedMsg(((CitiesColorBonusesView) o).getBonusGoldCopy(),
-					((CitiesColorBonusesView) o).getBonusSilverCopy(), ((CitiesColorBonusesView) o).getBonusBronzeCopy(),
+					((CitiesColorBonusesView) o).getBonusSilverCopy(),
+					((CitiesColorBonusesView) o).getBonusBronzeCopy(),
 					((CitiesColorBonusesView) o).getBonusBlueCopy()));
 		} else if (o instanceof MarketView) {
 			setChanged();
