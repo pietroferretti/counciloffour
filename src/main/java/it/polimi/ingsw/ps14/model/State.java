@@ -28,6 +28,7 @@ public class State extends Observable implements Serializable {
 	private Deque<Player> playerOrder;
 	private Player currentPlayer;
 	private WaitingFor waitingFor;
+
 	/**
 	 * The ids of the objects the player can choose from when a request is sent.
 	 * They can represent permits (on the board or the player's) or cities (to
@@ -213,6 +214,8 @@ public class State extends Observable implements Serializable {
 	 */
 	public void setWaitingFor(WaitingFor waitingFor) {
 		this.waitingFor = waitingFor;
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -232,9 +235,11 @@ public class State extends Observable implements Serializable {
 
 	@Override
 	public String toString() {
-		return "State [gamePhase=" + gamePhase + ", currentTurnState=" + currentTurnState + ", currentMarketState="
-				+ currentMarketState + ", playerOrder=" + playerOrder + ", currentPlayer=" + currentPlayer
-				+ ", waitingFor=" + waitingFor + ", availableChoices=" + availableChoices + "]";
+		String s = "\nSTATE\n [gamePhase= " + gamePhase + ", currentTurnState= " + currentTurnState
+				+ ", currentMarketState= " + currentMarketState + ", playerOrder= ";
+		for (Player player : playerOrder) {
+			s = s + player.getName() + " ";
+		}
+		return s + ", currentPlayer= " + currentPlayer.getName() + ", waitingFor=" + waitingFor;
 	}
-
 }
