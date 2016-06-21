@@ -2,9 +2,9 @@ package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
@@ -28,13 +28,17 @@ public class State extends Observable implements Serializable {
 	private Deque<Player> playerOrder;
 	private Player currentPlayer;
 	private WaitingFor waitingFor;
+	private Integer waitingForHowMany;
+	
 	/**
-	 * The ids of the objects the player can choose from when a request is sent.
+	 * The ids of the objects the player can choose from when a request is sent,
+	 * paired with a description.
 	 * They can represent permits (on the board or the player's) or cities (to
-	 * find the respective token)
+	 * find the respective token).
 	 */
-	private List<Integer> availableChoices; // TODO riscrivere come oggetti
-
+	private Map<String, String> availableChoices;
+	private Integer levelUpsToDo;
+	
 	/**
 	 * Empty constructor, everything should be set by Model at the beginning of
 	 * a game
@@ -47,7 +51,9 @@ public class State extends Observable implements Serializable {
 		playerOrder = null;
 		currentPlayer = null;
 		waitingFor = WaitingFor.NOTHING;
-		availableChoices = new ArrayList<>();
+		waitingForHowMany = 0;
+		availableChoices = new HashMap<>();
+		levelUpsToDo = 0;
 	}
 
 	/**
@@ -65,7 +71,8 @@ public class State extends Observable implements Serializable {
 		playerOrder = new ArrayDeque<>(originalState.getPlayerOrder());
 		currentPlayer = new Player(originalState.getCurrentPlayer());
 		waitingFor = originalState.getWaitingFor();
-		availableChoices = new ArrayList<>(originalState.getAvailableChoices());
+		waitingForHowMany = originalState.getWaitingForHowMany();
+		availableChoices = new HashMap<>(originalState.getAvailableChoices());
 	}
 
 	/**
@@ -207,17 +214,34 @@ public class State extends Observable implements Serializable {
 	}
 
 	/**
+	 * This method notifies StateView, while {@link setWaitingForHowMany}, {@link setAvailableChoices} do not
 	 * @param waitingFor
 	 *            the waitingFor state to set
 	 */
 	public void setWaitingFor(WaitingFor waitingFor) {
 		this.waitingFor = waitingFor;
+		setChanged();
+		notifyObservers();
+	}
+
+	/**
+	 * @return the waitingForHowMany
+	 */
+	public Integer getWaitingForHowMany() {
+		return waitingForHowMany;
+	}
+
+	/**
+	 * @param waitingForHowMany the waitingForHowMany to set
+	 */
+	public void setWaitingForHowMany(Integer waitingForHowMany) {
+		this.waitingForHowMany = waitingForHowMany;
 	}
 
 	/**
 	 * @return the availableChoices
 	 */
-	public List<Integer> getAvailableChoices() {
+	public Map<String, String> getAvailableChoices() {
 		return availableChoices;
 	}
 
@@ -225,8 +249,26 @@ public class State extends Observable implements Serializable {
 	 * @param availableChoices
 	 *            the availableChoices to set
 	 */
-	public void setAvailableChoices(List<Integer> availableChoices) {
+	public void setAvailableChoices(Map<String, String> availableChoices) {
 		this.availableChoices = availableChoices;
 	}
 
+	/**
+	 * @return the levelUpsToDo
+	 */
+	public Integer getLevelUpsToDo() {
+		return levelUpsToDo;
+	}
+
+	/**
+	 * @param levelUpsToDo the levelUpsToDo to set
+	 */
+	public void setLevelUpsToDo(Integer levelUpsToDo) {
+		this.levelUpsToDo = levelUpsToDo;
+	}
+
+	public void decrementLevelUpsToDo() {
+		levelUpsToDo = levelUpsToDo - 1;
+	}
+	
 }

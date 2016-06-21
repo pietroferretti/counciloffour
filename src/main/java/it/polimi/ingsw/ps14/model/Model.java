@@ -6,6 +6,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import it.polimi.ingsw.ps14.message.Message;
@@ -194,18 +195,34 @@ public class Model extends Observable implements Serializable {
 		state.setWaitingFor(waitingFor);
 	}
 
+	public Integer getWaitingForHowMany() {
+		return state.getWaitingForHowMany();
+	}
+
+	public void setWaitingForHowMany(Integer number) {
+		state.setWaitingForHowMany(number);
+	}
+	
 	/**
 	 * @return the availableChoices
 	 */
-	public List<Integer> getAvailableChoices() {
+	public Map<String, String> getAvailableChoices() {
 		return state.getAvailableChoices();
 	}
 
 	/**
 	 * @param availableChoices the availableChoices to set
 	 */
-	public void setAvailableChoices(List<Integer> availableChoices) {
+	public void setAvailableChoices(Map<String, String> availableChoices) {
 		state.setAvailableChoices(availableChoices);
+	}
+	
+	public Integer getLevelUpsToDo() {
+		return state.getLevelUpsToDo();
+	}
+	
+	public void setLevelUpsToDo(Integer levelUpsToDo) {
+		state.setLevelUpsToDo(levelUpsToDo);
 	}
 	
 	

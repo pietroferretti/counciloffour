@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
 import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 
 public class BonusNobilityLvlUp implements Bonus {
@@ -17,10 +18,33 @@ public class BonusNobilityLvlUp implements Bonus {
 			throw new IllegalArgumentException("Impossible quantity for this bonus");
 		this.quantity = quantity;
 	}
+	
 	// nobility is player.level
 	@Override
 	public void useBonus(Player player, Model model) {
-		player.levelUp(quantity);
+		Integer levelUpsToDo = new Integer(quantity);
+		NobilityTrack nobilityTrack = model.getGameBoard().getNobilityTrack();
+		
+		Integer currentLevel = player.getLevel();
+		
+		while (levelUpsToDo > 0) {
+			
+			if (!nobilityTrack.isBonusSpecial(currentLevel + 1)) {
+				
+				currentLevel = player.levelUp();
+				nobilityTrack.useBonus(player, model, currentLevel);
+				levelUpsToDo--;
+				
+			} else {
+				
+				currentLevel = player.levelUp();
+				nobilityTrack.useBonus(player, model, currentLevel);  // sets the WaitingFor and related states appropriately
+				levelUpsToDo--;
+				model.setLevelUpsToDo(levelUpsToDo);	// saves the level ups still left to do
+				break;		// goes back to waiting for a message from the client
+				
+			}
+		}
 	}
 
 	@Override

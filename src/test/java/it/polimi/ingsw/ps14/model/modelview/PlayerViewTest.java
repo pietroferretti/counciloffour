@@ -193,12 +193,12 @@ public class PlayerViewTest {
 		System.out.println(player3.toString());
 		System.out.println(playerView3.getPlayerCopy().toString());
 
-		player3.levelUp(4);
-
-		assertNotSame(player3, playerView3.getPlayerCopy());
-		assertEquals(player3.getLevel(), playerView3.getPlayerCopy().getLevel());
-		System.out.println(player3.toString());
-		System.out.println(playerView3.getPlayerCopy().toString());
+//		player3.levelUp(4);
+//
+//		assertNotSame(player3, playerView3.getPlayerCopy());
+//		assertEquals(player3.getLevel(), playerView3.getPlayerCopy().getLevel());
+//		System.out.println(player3.toString());
+//		System.out.println(playerView3.getPlayerCopy().toString());
 	}
 
 	@Test
