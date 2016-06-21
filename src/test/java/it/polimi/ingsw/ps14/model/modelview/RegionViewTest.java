@@ -45,9 +45,12 @@ public class RegionViewTest {
 	@Test
 	public void testRegionView() {
 		// TODO fare controllo pezzo a pezzo
-
+		System.out.println("\ntestRegionView\n");
+		
 		RegionView rvCOAST = new RegionView(model.getGameBoard().getRegion(RegionType.COAST));
 		assertNotSame(model.getGameBoard().getRegion(RegionType.COAST), rvCOAST.getRegionCopy());
+
+		System.out.println(rvCOAST.getRegionCopy());
 
 		RegionView rvHILLS = new RegionView(model.getGameBoard().getRegion(RegionType.HILLS));
 		assertNotSame(model.getGameBoard().getRegion(RegionType.HILLS), rvHILLS.getRegionCopy());

@@ -28,7 +28,7 @@ public class Server {
 			.getName());
 
 	private static final int PORT = 19999;
-	private static final int COUNTDOWN = 5;
+	private static final int COUNTDOWN = 20;
 
 	private final static int RMI_PORT = 52365;
 	private final String NAME = "council4";
@@ -65,7 +65,6 @@ public class Server {
 			ClientViewRemote clientStub, RMIServerIn rmiServer) {
 		ServerView connection = new RMIServerView(idCounter, clientStub,
 				rmiServer);
-
 		idCounter++;
 
 		waitingConnections.add(connection);
@@ -104,8 +103,7 @@ public class Server {
 									"Creating game with %d player.",
 									waitingConnections.size()));
 
-							List<ServerView> views = new ArrayList<>(
-									waitingConnections);
+							List<ServerView> views = new ArrayList<>(waitingConnections);
 
 							activeGames.add(new Game(views));
 
@@ -126,7 +124,6 @@ public class Server {
 	}
 
 	public void startRMI() throws RemoteException, AlreadyBoundException {
-		LOGGER.warning("RMI not yet implemented");
 
 		Registry registry;
 

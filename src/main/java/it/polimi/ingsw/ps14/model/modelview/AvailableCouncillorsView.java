@@ -9,6 +9,13 @@ import java.util.Observer;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.GameBoard;
 
+/**
+ * 
+ * It contains an updated copy of the number of available councillors left for
+ * each color. It gets an update from the {@link Model}, updates itself and
+ * notifies the {@link ModelView}.
+ *
+ */
 public class AvailableCouncillorsView extends Observable implements Observer, Serializable {
 
 	/**

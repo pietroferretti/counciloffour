@@ -5,7 +5,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.NobilityTrack;
+import it.polimi.ingsw.ps14.model.State;
 
+/**
+ * 
+ * It contains an updated copy of the {@link NobilityTrack} enclosed in the
+ * {@link Model}.
+ *
+ */
 public class NobilityTrackView implements Serializable {
 
 	/**
@@ -22,21 +29,21 @@ public class NobilityTrackView implements Serializable {
 		return nobilityTrackCopy;
 	}
 
-//	private void setNobilityTrackCopy(NobilityTrack nobilityTrackCopy) {
-//		this.nobilityTrackCopy = nobilityTrackCopy;
-//		setChanged();
-//		notifyObservers();
-//	}
+	// private void setNobilityTrackCopy(NobilityTrack nobilityTrackCopy) {
+	// this.nobilityTrackCopy = nobilityTrackCopy;
+	// setChanged();
+	// notifyObservers();
+	// }
 
-//	@Override
-//	public void update(Observable o, Object arg) {
-//
-//		if (!(o instanceof NobilityTrack)) {
-//			throw new IllegalArgumentException();
-//		} else {
-//			setNobilityTrackCopy(new NobilityTrack((NobilityTrack) o));
-//		}
-//
-//	}
+	// @Override
+	// public void update(Observable o, Object arg) {
+	//
+	// if (!(o instanceof NobilityTrack)) {
+	// throw new IllegalArgumentException();
+	// } else {
+	// setNobilityTrackCopy(new NobilityTrack((NobilityTrack) o));
+	// }
+	//
+	// }
 
 }

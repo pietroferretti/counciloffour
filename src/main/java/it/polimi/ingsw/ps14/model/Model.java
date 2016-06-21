@@ -49,7 +49,7 @@ public class Model extends Observable implements Serializable {
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		this.players = players;
 		market = new Market();
-		
+		state = new State();
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);

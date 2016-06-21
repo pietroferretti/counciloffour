@@ -6,6 +6,13 @@ import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
 
+/**
+ * 
+ * It contains an updated copy of the number of available assistants left. It
+ * gets an update from the {@link Model}, updates itself and notifies the
+ * {@link ModelView}.
+ *
+ */
 public class AvailableAssistantsView extends Observable implements Observer, Serializable {
 
 	/**
@@ -22,6 +29,13 @@ public class AvailableAssistantsView extends Observable implements Observer, Ser
 		return availableAssistantsCopy;
 	}
 
+	private void setAvailableAssistantsCopy(int availableAssistantsCopy) {
+		this.availableAssistantsCopy = availableAssistantsCopy;
+		setChanged();
+		notifyObservers();
+
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 
@@ -30,9 +44,7 @@ public class AvailableAssistantsView extends Observable implements Observer, Ser
 		}
 
 		else {
-			availableAssistantsCopy = ((GameBoard) o).getAvailableAssistants();
-			setChanged();
-			notifyObservers();
+			setAvailableAssistantsCopy(((GameBoard) o).getAvailableAssistants());
 		}
 
 	}
