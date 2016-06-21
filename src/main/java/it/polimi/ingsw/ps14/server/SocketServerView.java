@@ -49,8 +49,6 @@ public class SocketServerView extends ServerView implements Runnable {
 		LOGGER.info(String.format("Sent id to player %d", super.getPlayerID()));
 	}
 
-
-
 	private synchronized boolean isActive() {
 		return active;
 	}
@@ -82,19 +80,20 @@ public class SocketServerView extends ServerView implements Runnable {
 				LOGGER.info(String.format("Received object %s", objectReceived));
 
 				if (objectReceived instanceof PlayerNameMsg) {
-					
+
 					super.setPlayerName(((PlayerNameMsg) objectReceived).getPlayerName());
-					LOGGER.info(String.format("Set player name as '%s' for socketview %d", super.getPlayerName(), super.getPlayerID()));
-				
+					LOGGER.info(String.format("Set player name as '%s' for socketview %d", super.getPlayerName(),
+							super.getPlayerID()));
+
 				} else if (objectReceived instanceof UpdateRequestMsg) {
-					
+
 					sendUpdates((UpdateRequestMsg) objectReceived);
-	
+
 				} else if (objectReceived instanceof Message) {
-				
+
 					setChanged();
 					notifyObservers(objectReceived);
-			
+
 				} else {
 					LOGGER.warning(String.format("The socket with id '%d' received an object that is not a message. %n"
 							+ "Object received: %s", super.getPlayerID(), objectReceived.toString()));
@@ -103,7 +102,7 @@ public class SocketServerView extends ServerView implements Runnable {
 		} catch (IOException | NoSuchElementException | ClassNotFoundException e) {
 			LOGGER.log(Level.SEVERE, String.format("Error in socket view with id '%d'", super.getPlayerID()), e);
 		} finally {
-//TODO remove comment			close();
+			close();
 		}
 
 	}
@@ -127,7 +126,7 @@ public class SocketServerView extends ServerView implements Runnable {
 	 *            - Request for updates.
 	 */
 	private void sendUpdates(UpdateRequestMsg requestReceived) {
-		
+
 		if (requestReceived instanceof UpdateGameBoardMsg) {
 			// TODO inutile se solo chi ha il turno può fare richieste
 			// sendMessage(new
@@ -137,14 +136,20 @@ public class SocketServerView extends ServerView implements Runnable {
 			sendMessage(new AvailableAssistantsUpdatedMsg(
 					super.getModelView().getAvailableAssistantsView().getAvailableAssistantsCopy()));
 			sendMessage(new KingBonusesUpdatedMsg(super.getModelView().getKingBonusesView().getShowableKingBonus()));
-			sendMessage(new NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
-			sendMessage(new CitiesColorBonusesUpdatedMsg(super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
+			sendMessage(
+					new NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
+			
+			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
+			
+			sendMessage(new CitiesColorBonusesUpdatedMsg(
+					super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
-//			for (RegionView rv : super.getModelView().getRegionsView()) {
-//				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
-//			}
+//			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
+			// for (RegionView rv : super.getModelView().getRegionsView()) {
+			// sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
+			// }
 			sendPersonalUpdate();
 			sendOthersUpdate();
 

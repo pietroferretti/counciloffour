@@ -8,9 +8,10 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction;
 public class CardDrawnState extends TurnState {
 
 	public CardDrawnState() {
-		super(0);	// There can't be any additional main actions at the start of the turn
+		super(0); // There can't be any additional main actions at the start of
+					// the turn
 	}
-	
+
 	@Override
 	public TurnState makeCopy() {
 		return new CardDrawnState();
@@ -18,8 +19,11 @@ public class CardDrawnState extends TurnState {
 
 	@Override
 	public boolean isActionLegal(Action action, Model model) {
-		return (action instanceof MainAction || action instanceof QuickAction) 
-				&& action.isValid(model);
+		return (action instanceof MainAction || action instanceof QuickAction) && action.isValid(model);
 	}
 
+	@Override
+	public String toString() {
+		return "Card Drawn";
+	}
 }

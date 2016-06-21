@@ -11,7 +11,7 @@ public class MainActionDoneTurnState extends TurnState {
 	public MainActionDoneTurnState(int additionalMains) {
 		super(additionalMains);
 	}
-	
+
 	@Override
 	public TurnState makeCopy() {
 		return new MainActionDoneTurnState(super.additionalMains);
@@ -19,10 +19,13 @@ public class MainActionDoneTurnState extends TurnState {
 
 	@Override
 	public boolean isActionLegal(Action action, Model model) {
-		return (action instanceof QuickAction 
-					|| (action instanceof EndTurnAction && additionalMains == 0)
-					|| (action instanceof MainAction && additionalMains > 0)
-				) && action.isValid(model);
+		return (action instanceof QuickAction || (action instanceof EndTurnAction && additionalMains == 0)
+				|| (action instanceof MainAction && additionalMains > 0)) && action.isValid(model);
+	}
+
+	@Override
+	public String toString() {
+		return "MainActionDone";
 	}
 
 }

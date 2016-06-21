@@ -39,6 +39,7 @@ public class State extends Observable implements Serializable {
 	 * Empty constructor, everything should be set by Model at the beginning of
 	 * a game
 	 */
+
 	public State() {
 		gamePhase = null;
 		currentTurnState = null;
@@ -227,6 +228,13 @@ public class State extends Observable implements Serializable {
 	 */
 	public void setAvailableChoices(List<Integer> availableChoices) {
 		this.availableChoices = availableChoices;
+	}
+
+	@Override
+	public String toString() {
+		return "State [gamePhase=" + gamePhase + ", currentTurnState=" + currentTurnState + ", currentMarketState="
+				+ currentMarketState + ", playerOrder=" + playerOrder + ", currentPlayer=" + currentPlayer
+				+ ", waitingFor=" + waitingFor + ", availableChoices=" + availableChoices + "]";
 	}
 
 }
