@@ -142,9 +142,9 @@ public class SocketServerView extends ServerView implements Runnable {
 					super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
-//			for (RegionView rv : super.getModelView().getRegionsView()) {
-//				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
-//			}
+			for (RegionView rv : super.getModelView().getRegionsView()) {
+				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
+			}
 			sendPersonalUpdate();
 			sendOthersUpdate();
 

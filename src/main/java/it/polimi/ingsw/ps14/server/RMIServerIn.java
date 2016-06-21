@@ -37,18 +37,23 @@ import java.util.Observable;
  * to send to the controller
  *
  */
-public class RMIServer extends Observable implements RMIViewRemote {
+public class RMIServerIn extends ServerView implements RMIViewRemote {
 
 	private Server server;
 
-	public RMIServer(Server server) {
+	public RMIServerIn(Integer id,Server server) {
+		super(id);
 		this.server = server;
+	}
+	
+	public void setPlayerID(Integer id){
+		super.setPlayerID(id);
 	}
 
 	public void registerClient(ClientViewRemote clientStub)
 			throws RemoteException {
 		System.out.println("CLIENT REGISTRATO");
-		server.registerWaitingConnectionRMI(clientStub);
+		server.registerWaitingConnectionRMI(clientStub,this);
 		server.meeting();
 	}
 
@@ -67,9 +72,12 @@ public class RMIServer extends Observable implements RMIViewRemote {
 
 	@Override
 	public void drawCard(Integer playerID) {
+		System.out.println("i received a draw message");
+
 		TurnActionMsg action = new TurnActionMsg(new DrawCardAction(playerID));
 		setChanged();
 		notifyObservers(action);
+		System.out.println("i notified the observers");
 	}
 
 	@Override

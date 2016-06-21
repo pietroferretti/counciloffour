@@ -43,7 +43,6 @@ public class Game {
 		modelView = new ModelView(model);
 	
 		for (ServerView view : views) {
-			
 			view.addObserver(controller);
 			modelView.addObserver(view);
 			view.setModelView(modelView);

@@ -33,6 +33,98 @@ public class OtherPlayerUpdateMsg implements Message, Serializable {
 		this.numEmporiums = p.getNumEmporiums();
 	}
 
+	
+	
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public Color getColor() {
+		return color;
+	}
+
+
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+
+
+	public int getCoins() {
+		return coins;
+	}
+
+
+
+	public void setCoins(int coins) {
+		this.coins = coins;
+	}
+
+
+
+	public int getAssistants() {
+		return assistants;
+	}
+
+
+
+	public void setAssistants(int assistants) {
+		this.assistants = assistants;
+	}
+
+
+
+	public int getLevel() {
+		return level;
+	}
+
+
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+
+
+	public int getPoints() {
+		return points;
+	}
+
+
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+
+
+	public int getNumEmporiums() {
+		return numEmporiums;
+	}
+
+
+
+	public void setNumEmporiums(int numEmporiums) {
+		this.numEmporiums = numEmporiums;
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
 	/**
 	 * It prints a specific player's name, color, business permits, assistants
 	 * number, nobility level, victory points

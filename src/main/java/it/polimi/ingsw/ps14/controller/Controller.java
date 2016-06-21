@@ -52,6 +52,8 @@ public class Controller implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("nel controller");
+
 		View serverView = (View) o;
 		
 		LOGGER.info(String.format("Received object %s", arg));

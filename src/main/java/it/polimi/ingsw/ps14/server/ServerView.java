@@ -7,8 +7,12 @@ public abstract class ServerView extends View {
 
 	private ModelView modelView;
 
-	public ServerView(int id) {
+	public ServerView(Integer id) {
 		super(id);
+	}
+	
+	public void setPlayerID(Integer id){
+		super.setPlayerID(id);
 	}
 
 	public ModelView getModelView() {
