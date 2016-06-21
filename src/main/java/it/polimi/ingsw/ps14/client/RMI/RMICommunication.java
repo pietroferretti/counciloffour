@@ -124,16 +124,6 @@ public class RMICommunication implements Communication {
 	}
 
 	@Override
-	public void usedCard(Integer permID) {
-		try {
-			serverStub.usedCard(permID);
-		} catch (RemoteException e) {
-			System.err.println("Errore nell'invocazione del metodo");
-
-		}
-	}
-
-	@Override
 	public void passTurn(Integer playerID) {
 		try {
 			serverStub.passTurn(playerID);
@@ -187,6 +177,16 @@ public class RMICommunication implements Communication {
 	public void buy(Integer permID, Integer playerID, Integer quantity) {
 		try {
 			serverStub.buy(permID, playerID, quantity);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
+
+		}
+	}
+	
+	@Override
+	public void answerNobilityRequest(List<String> objectIDs) {
+		try {
+			serverStub.answerNobilityRequest(objectIDs);
 		} catch (RemoteException e) {
 			System.err.println("Errore nell'invocazione del metodo");
 

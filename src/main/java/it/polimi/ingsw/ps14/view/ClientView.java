@@ -8,6 +8,7 @@ import it.polimi.ingsw.ps14.model.State;
 public abstract class ClientView implements Runnable {
 
 	protected Integer playerID;
+	protected String name;
 	protected boolean gameStarted;
 	protected State gameState;
 	protected boolean myTurn;
@@ -18,6 +19,14 @@ public abstract class ClientView implements Runnable {
 
 	public Integer getPlayerID() {
 		return playerID;
+	}
+	
+	public void setPlayerName(String name) {
+		this.name = name;
+	}
+	
+	public String getPlayerName(){
+		return name;
 	}
 
 	public boolean isMyTurn() {

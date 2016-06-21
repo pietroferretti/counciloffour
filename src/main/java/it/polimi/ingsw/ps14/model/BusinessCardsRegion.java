@@ -104,7 +104,7 @@ public class BusinessCardsRegion implements Serializable {
 	 * @param card that you want to know index
 	 * @return index of the parameter card
 	 */
-	private int findIndexBusinessPermit(BusinessPermit card) {
+	public int findIndexBusinessPermit(BusinessPermit card) {
 		if (cardIsFaceUp(card)) {
 			return Arrays.asList(availablePermits).indexOf(card);
 		} else {

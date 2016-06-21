@@ -7,7 +7,7 @@ import java.util.List;
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusList;
 
-public class BusinessPermit implements Card, Serializable {
+public class BusinessPermit implements Serializable {
 
 	/**
 	 * 

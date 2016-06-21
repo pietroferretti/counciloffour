@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
@@ -22,29 +25,34 @@ public class BonusNobilityLvlUp implements Bonus {
 	// nobility is player.level
 	@Override
 	public void useBonus(Player player, Model model) {
-		Integer levelUpsToDo = new Integer(quantity);
 		NobilityTrack nobilityTrack = model.getGameBoard().getNobilityTrack();
 		
 		Integer currentLevel = player.getLevel();
 		
-		while (levelUpsToDo > 0) {
+		List<Bonus> bonusesToApply = new ArrayList<>();
+		for (int level = currentLevel; level < currentLevel+quantity; level++) {
+			if (nobilityTrack.bonusExistsAtLevel(level)) {
+				bonusesToApply.add(nobilityTrack.getBonus(level));
+			}
+		}
+		
+		Bonus bonus;
+		while (!bonusesToApply.isEmpty()) {
 			
-			if (!nobilityTrack.isBonusSpecial(currentLevel + 1)) {
+			bonus = bonusesToApply.remove(0);
+			if (!(bonus instanceof SpecialNobilityBonus)) {
 				
-				currentLevel = player.levelUp();
-				nobilityTrack.useBonus(player, model, currentLevel);
-				levelUpsToDo--;
+				bonus.useBonus(player, model);
 				
 			} else {
 				
-				currentLevel = player.levelUp();
-				nobilityTrack.useBonus(player, model, currentLevel);  // sets the WaitingFor and related states appropriately
-				levelUpsToDo--;
-				model.setLevelUpsToDo(levelUpsToDo);	// saves the level ups still left to do
-				break;		// goes back to waiting for a message from the client
-				
+				bonus.useBonus(player, model);			// sets the WaitingFor and related states appropriately
+				model.setBonusesToDo(bonusesToApply);	// saves the bonuses still left to do
+				bonusesToApply.clear();					// goes back to waiting for a message from the client
 			}
+			
 		}
+		
 	}
 
 	@Override

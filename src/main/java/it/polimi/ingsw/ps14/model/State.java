@@ -37,7 +37,6 @@ public class State extends Observable implements Serializable {
 	 * find the respective token).
 	 */
 	private Map<String, String> availableChoices;
-	private Integer levelUpsToDo;
 	
 	/**
 	 * Empty constructor, everything should be set by Model at the beginning of
@@ -53,7 +52,6 @@ public class State extends Observable implements Serializable {
 		waitingFor = WaitingFor.NOTHING;
 		waitingForHowMany = 0;
 		availableChoices = new HashMap<>();
-		levelUpsToDo = 0;
 	}
 
 	/**
@@ -253,22 +251,5 @@ public class State extends Observable implements Serializable {
 		this.availableChoices = availableChoices;
 	}
 
-	/**
-	 * @return the levelUpsToDo
-	 */
-	public Integer getLevelUpsToDo() {
-		return levelUpsToDo;
-	}
-
-	/**
-	 * @param levelUpsToDo the levelUpsToDo to set
-	 */
-	public void setLevelUpsToDo(Integer levelUpsToDo) {
-		this.levelUpsToDo = levelUpsToDo;
-	}
-
-	public void decrementLevelUpsToDo() {
-		levelUpsToDo = levelUpsToDo - 1;
-	}
 	
 }

@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps14.view;
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
-import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
+import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
@@ -290,17 +290,20 @@ public class Interpreter {
 
 			communication.electWithAssistant(playerID, rt, cc);
 			return true;
-			// USED-CARD PERMITid
-		case "USED-CARD":
-			if (word.length == 2)
-				return false;
-			try {
-				permID = Integer.parseInt(word[1]);
-				communication.usedCard(permID);
-				return true;
-			} catch (NumberFormatException e) {
+			
+		case "CHOOSE":
+			if (word.length <= 1) {
 				return false;
 			}
+			
+			List<String> chosenIDs = new ArrayList<>();
+			for(int i=1; i<word.length; i++) {
+				chosenIDs.add(word[i]);
+			}
+			
+			communication.answerNobilityRequest(chosenIDs);
+			return true;
+			
 			// FINISH
 		case "FINISH":
 		case "PASS":

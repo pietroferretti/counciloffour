@@ -1,9 +1,14 @@
 package it.polimi.ingsw.ps14.server;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+
 import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
-import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
+import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
@@ -25,11 +30,6 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
-
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
 
 /**
  * 
@@ -144,13 +144,6 @@ public class RMIServer extends Observable implements RMIViewRemote {
 	}
 
 	@Override
-	public void usedCard(Integer permID) {
-		ChooseUsedPermitMsg choice = new ChooseUsedPermitMsg(permID);
-		setChanged();
-		notifyObservers(choice);
-	}
-
-	@Override
 	public void passTurn(Integer playerID) {
 		TurnActionMsg action = new TurnActionMsg(new EndTurnAction(playerID));
 		setChanged();
@@ -190,6 +183,13 @@ public class RMIServer extends Observable implements RMIViewRemote {
 		Message action = new BuyMsg(new BuyAction(permID, playerID, quantity));
 		setChanged();
 		notifyObservers(action);
+	}
+	
+	@Override
+	public void answerNobilityRequest(List<String> objectIDs) {
+		Message message = new NobilityRequestAnswerMsg(objectIDs);
+		setChanged();
+		notifyObservers(message);
 	}
 
 }

@@ -90,6 +90,23 @@ public class BusinessCardsPlayer implements Serializable {
 	public void setUsedCards(List<BusinessPermit> usedCards) {
 		this.usedCards = usedCards;
 	}
+	
+	public BusinessPermit id2permit(Integer id) {
+		
+		for (BusinessPermit permit : validCards) {
+			if (permit.getId() == id) {
+				return permit;
+			}
+		}
+		
+		for (BusinessPermit permit : usedCards) {
+			if (permit.getId() == id) {
+				return permit;
+			}
+		}
+		
+		return null;
+	}
 
 	@Override
 	public String toString() {

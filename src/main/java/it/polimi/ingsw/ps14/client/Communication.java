@@ -19,13 +19,12 @@ public interface Communication {
 	public void changeBusinessPermitTiles(Integer playerID, RegionType rt);
 	public void performAdditionalMainAction(Integer playerID);
 	public void electWithAssistant(Integer playerID,RegionType rt,ColorCouncillor cc);
-	public void usedCard(Integer permID);
 	public void passTurn(Integer playerID);
 	public void showMyDetails(Integer playerID);
 	public void showDetails(Integer playerID);
 	public void showGamebord(Integer playerID);
 	public void sell(List<ItemForSale> items);
 	public void buy(Integer permID,Integer playerID,Integer quantity);
-	
+	public void answerNobilityRequest(List<String> objectIDs);
 	
 }

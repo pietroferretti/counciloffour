@@ -4,7 +4,7 @@ import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
-import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
+import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
@@ -93,7 +93,7 @@ public class SocketCommunication implements Communication {
 	
 // ------------------------------  from client ---------------------------------
 
-	public void setPlayerName(String name) {// TODO
+	public void setPlayerName(String name) {
 		msgHandlerOut.sendMessage(new PlayerNameMsg(name));
 	}
 
@@ -175,13 +175,6 @@ public class SocketCommunication implements Communication {
 	}
 
 	@Override
-	public void usedCard(Integer permID) {
-		// TODO Auto-generated method stub
-		msgHandlerOut.sendMessage(new ChooseUsedPermitMsg(permID));
-
-	}
-
-	@Override
 	public void passTurn(Integer playerID) {
 		// TODO Auto-generated method stub
 		msgHandlerOut
@@ -223,6 +216,11 @@ public class SocketCommunication implements Communication {
 		msgHandlerOut.sendMessage(new BuyMsg(new BuyAction(permID, playerID,
 				quantity)));
 
+	}
+	
+	@Override
+	public void answerNobilityRequest(List<String> objectIDs) {
+		msgHandlerOut.sendMessage(new NobilityRequestAnswerMsg(objectIDs));
 	}
 
 }

@@ -71,8 +71,12 @@ public class NobilityTrack extends Observable implements Serializable {
 		return bonusesByLevel.get(level) != null;
 	}
 
-	public boolean isBonusSpecial(int level) {
-		return bonusesByLevel.get(level) instanceof SpecialNobilityBonus;
+//	public boolean isBonusSpecial(int level) {
+//		return bonusesByLevel.get(level) instanceof SpecialNobilityBonus;
+//	}
+	
+	public Bonus getBonus(int level) {
+		return bonusesByLevel.get(level);
 	}
 
 	@Override

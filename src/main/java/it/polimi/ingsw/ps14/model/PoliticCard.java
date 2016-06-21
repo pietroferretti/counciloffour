@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
 
-public class PoliticCard implements Card,Serializable {
+public class PoliticCard implements Serializable {
 
 	/**
 	 * 
