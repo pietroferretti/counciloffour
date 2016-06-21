@@ -102,7 +102,7 @@ public class Server {
 									.format("Creating game with %d player.",
 											waitingConnections.size()));
 
-							List<View> views = new ArrayList<>(
+							List<ServerView> views = new ArrayList<>(
 									waitingConnections);
 							
 							activeGames.add(new Game(views));

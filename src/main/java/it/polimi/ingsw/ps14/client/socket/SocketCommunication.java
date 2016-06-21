@@ -1,8 +1,8 @@
 package it.polimi.ingsw.ps14.client.socket;
 
-import it.polimi.ingsw.ps14.client.ClientView;
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
@@ -11,6 +11,9 @@ import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
+import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
@@ -27,43 +30,85 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
+import it.polimi.ingsw.ps14.view.CLIView;
+import it.polimi.ingsw.ps14.view.ClientView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SocketCommunication implements Communication {
 
+	private static final Logger LOGGER = Logger.getLogger(CLIView.class
+			.getName());
 	private SocketMessageHandlerOut msgHandlerOut;
 	private ClientView clientView;
-	
-	public SocketCommunication(SocketMessageHandlerOut msgHandlerOut,ClientView clientView) {
+
+	public SocketCommunication(SocketMessageHandlerOut msgHandlerOut,
+			ClientView clientView) {
 		this.msgHandlerOut = msgHandlerOut;
-		this.clientView=clientView;
-	}
-	
-	public void receiveMessage(Message msg){
-		//TODO
-		
-		//clientView.stampamessaggio(); MANDI AL CLIENT VIEW QUELLO DA STAMPARE
-		
+		this.clientView = clientView;
 	}
 
-public void sendPlayerName(String name){//TODO
-	msgHandlerOut.sendMessage(new PlayerNameMsg(name));
-}
 	
+	//------------------------from server --------------------------
+	public void receiveMessage(Message message) {
+		if (message != null) {
+			if ((message instanceof PlayerIDMsg)
+					&& clientView.getPlayerID() == null) {
+				clientView.setPlayerID(((PlayerIDMsg) message).getPlayerID());
+				LOGGER.info(String.format("Player id set as %d",
+						clientView.getPlayerID()));
+
+			} else if (message instanceof GameStartedMsg) {
+				// str="GAME STARTED!";
+				clientView.setGameStarted(true);
+				clientView.setGameState(((GameStartedMsg) message).getState());
+			} else if (message instanceof TurnFinishedMsg) {
+				// turnfinishedmsg cosa fa?
+
+			} else if (message instanceof StateUpdatedMsg) {
+
+				clientView.setGameState(((StateUpdatedMsg) message)
+						.getUpdatedState());
+				LOGGER.info(String.format("Game state updated.")); // dettagli è
+																	// meglio
+
+				if (clientView.getGameState().getCurrentPlayer().getId() == clientView
+						.getPlayerID()) {
+					clientView.setMyTurn(true);
+				} else {
+					clientView.setMyTurn(false);
+				}
+
+			} else {
+
+				clientView.readMessage(message);
+
+			}
+		} else
+			LOGGER.info(String.format("Couldn't interpret message."));
+
+	}
+	
+// ------------------------------  from client ---------------------------------
+
+	public void setPlayerName(String name) {// TODO
+		msgHandlerOut.sendMessage(new PlayerNameMsg(name));
+	}
+
 	@Override
 	public void drawCard(Integer playerID) {
-		msgHandlerOut.sendMessage(new TurnActionMsg(new DrawCardAction(
-				playerID)));
+		msgHandlerOut.sendMessage(new TurnActionMsg(
+				new DrawCardAction(playerID)));
 	}
 
 	@Override
 	public void electCouncillor(Integer playerID, ColorCouncillor cc,
 			String regionORking) {
 		// TODO Auto-generated method stub
-		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new ElectCouncillorAction(playerID, cc, regionORking)));
+		msgHandlerOut.sendMessage(new TurnActionMsg(new ElectCouncillorAction(
+				playerID, cc, regionORking)));
 	}
 
 	@Override
@@ -99,8 +144,8 @@ public void sendPlayerName(String name){//TODO
 	@Override
 	public void engage(Integer playerID) {
 		// TODO Auto-generated method stub
-		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new EngageAssistantAction(playerID)));
+		msgHandlerOut.sendMessage(new TurnActionMsg(new EngageAssistantAction(
+				playerID)));
 
 	}
 
@@ -139,8 +184,8 @@ public void sendPlayerName(String name){//TODO
 	@Override
 	public void passTurn(Integer playerID) {
 		// TODO Auto-generated method stub
-		msgHandlerOut.sendMessage(new TurnActionMsg(new EndTurnAction(
-				playerID)));
+		msgHandlerOut
+				.sendMessage(new TurnActionMsg(new EndTurnAction(playerID)));
 
 	}
 

@@ -19,4 +19,10 @@ public class KingBonusesUpdatedMsg implements Message {
 		return updatedShowableKingBonus;
 	}
 
+	@Override
+	public String toString() {
+		return "KingBonusesUpdatedMsg [updatedShowableKingBonus="
+				+ updatedShowableKingBonus + "]";
+	}
+
 }

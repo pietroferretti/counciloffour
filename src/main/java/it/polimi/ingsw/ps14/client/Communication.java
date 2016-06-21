@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface Communication {
 	
-	public void sendPlayerName(String name);
+	public void setPlayerName(String name);
 	public void drawCard(Integer playerID);
 	public void electCouncillor(Integer playerID, ColorCouncillor cc, String regionORking);
 	public void acquireBusinessPermitTile(Integer playerID,RegionType rt, Integer permID, List<PoliticCard> politics);

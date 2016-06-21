@@ -16,7 +16,8 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 	private final ColorCouncillor color;
 	private final RegionType regType;
 
-	public SendAssistantToElectCouncillorAction(Integer playerID, RegionType regionType, ColorCouncillor color) {
+	public SendAssistantToElectCouncillorAction(Integer playerID,
+			RegionType regionType, ColorCouncillor color) {
 		super(playerID);
 		this.color = color;
 		this.regType = regionType;
@@ -25,20 +26,30 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 	@Override
 	public boolean isValid(Model model) {
 		Player player = model.id2player(super.getPlayer());
-		Balcony balcony = model.getGameBoard().getRegion(regType).getBalcony();
+		Balcony balcony;
+		if (regType != null)
+			balcony = model.getGameBoard().getRegion(regType).getBalcony();
+		else
+			balcony = model.getGameBoard().getKing().getBalcony();
 
-		return (player.getAssistants() >= 1 && model.getGameBoard().councillorIsAvailable(color) && balcony != null
-				&& color != null);
+		return (player.getAssistants() >= 1
+				&& model.getGameBoard().councillorIsAvailable(color)
+				&& balcony != null && color != null);
 	}
 
 	@Override
 	public TurnState execute(TurnState previousState, Model model) {
 		Player player = model.id2player(super.getPlayer());
-		Balcony balcony = model.getGameBoard().getRegion(regType).getBalcony();
+		Balcony balcony;
+		if (regType != null)
+			balcony = model.getGameBoard().getRegion(regType).getBalcony();
+		else
+			balcony = model.getGameBoard().getKing().getBalcony();
 
 		player.useAssistants(1);
 		model.getGameBoard().addAssistants(1);
-		model.getGameBoard().addDiscardedCouncillor(balcony.electCouncillor(color));
+		model.getGameBoard().addDiscardedCouncillor(
+				balcony.electCouncillor(color));
 
 		return nextState(previousState, model);
 	}

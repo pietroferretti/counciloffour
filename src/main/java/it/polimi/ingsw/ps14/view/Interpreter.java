@@ -46,12 +46,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Interpreter {
-	
+
 	private Communication communication;
-	
-	public void setCommunication (Communication communication){
-		this.communication=communication;
+
+	public void setCommunication(Communication communication) {
+		this.communication = communication;
 	}
+
 	Scanner scan = new Scanner(System.in);
 
 	// TODO ma perché non metterli tutti come toString()?
@@ -84,7 +85,7 @@ public class Interpreter {
 
 		}
 		if (msg instanceof PlayerChangedPrivateMsg) {
-			return ((PlayerChangedPrivateMsg) msg).getMessage().toString();
+			return ((PlayerChangedPrivateMsg) msg).toString();
 
 		}
 		if (msg instanceof PlayerChangedPublicMsg) {
@@ -184,7 +185,7 @@ public class Interpreter {
 	// return msg.getItemSold().toString();
 	// }
 
-	public Message parseString(String input, Integer playerID) {
+	public boolean parseString(String input, Integer playerID) {
 		RegionType rt;
 		Integer permID;
 		ColorCouncillor cc;
@@ -196,134 +197,135 @@ public class Interpreter {
 
 		// DRAW
 		case "DRAW":
-			return (new TurnActionMsg(new DrawCardAction(playerID)));
-
+			communication.drawCard(playerID);
+			return true;
 			// ELECT COLOR REGIONTYPE_KING
 		case "ELECT":
 			if (word.length != 3)
-				return null;
+				return false;
 
 			cc = string2colorCouncillor(word[1]);
 			st = string2regionTypeKing(word[2]);
 
 			if (cc == null)
-				return null;
+				return false;
 			if (st == null)
-				return null;
-			return (new TurnActionMsg(new ElectCouncillorAction(playerID, cc,
-					st)));
-
+				return false;
+			communication.electCouncillor(playerID, cc, st);
+			return true;
 			// ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
 		case "ACQUIRE":
 			if (word.length < 4)
-				return null;
+				return false;
 
 			rt = string2RegionType(word[1]);
 			if (rt == null)
-				return null;
+				return false;
 
 			permID = string2int(word[2]);
 			if (permID == null)
-				return null;
+				return false;
 
 			for (int i = 3; i < word.length; i++)
 				politics.add(string2politicCard(word[i]));
 
-			return new TurnActionMsg(new AcquireBusinessPermiteTileAction(
-					permID, rt, permID, new ArrayList<PoliticCard>(politics)));
-
+			communication.acquireBusinessPermitTile(playerID, rt, permID,
+					politics);
+			return true;
 			// BUILD-WITH-KING CITYname CARDS
 		case "BUILD-WITH-KING":
 
 			if (word.length < 3)
-				return null;
+				return false;
 
 			String city = word[1];
 
 			for (int i = 3; i < word.length; i++)
 				politics.add(string2politicCard(word[i]));
 
-			return new TurnActionMsg(new BuildEmporiumWithHelpOfKingAction(
-					playerID, city, politics));
-
+			communication.buildWithKing(playerID, city, politics);
+			return true;
 			// BUILD-WITH-PERMIT CITYname PERMITid
 		case "BUILD-WITH-PERMIT":
 			if (word.length != 3)
-				return null;
+				return false;
 
 			String cityname = word[1];
 			try {
 				Integer permitID = Integer.parseInt(word[2]);
-				return new TurnActionMsg(
-						new BuildEmporiumUsingPermitTileAction(playerID,
-								permitID, cityname));
+				communication.buildWithPermit(playerID, permitID, cityname);
+				return true;
 			} catch (NumberFormatException e) {
-				return null;
+				return false;
 			}
 
 			// ENGAGE
 		case "ENGAGE":
 			if (word.length != 1)
-				return null;
-			return new TurnActionMsg(new EngageAssistantAction(playerID));
-
+				return false;
+			communication.engage(playerID);
+			return true;
 			// CHANGE REGIONTYPE
 		case "CHANGE":
 			if (word.length != 2)
-				return null;
+				return false;
 			rt = string2RegionType(word[1]);
-			return new TurnActionMsg(new ChangeBusinessPermitTilesAction(
-					playerID, rt));
+			communication.changeBusinessPermitTiles(playerID, rt);
+			return true;
 
 			// MAIN
 		case "MAIN":
 			if (word.length != 1)
-				return null;
-			return new TurnActionMsg(new PerformAdditionalMainActionAction(
-					playerID));
+				return false;
+			communication.performAdditionalMainAction(playerID);
+			return true;
 
 			// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
-			// TODO importante, aggiungere anche il king!!!!
+			// // se rt ==null ->>> balcony del re
 		case "ELECT-WITH-ASSISTANT":
-			if (word.length != 3)
-				return null;
 			rt = string2RegionType(word[1]);
+			if (rt == null && !word[1].matches("KING"))
+				return false;
 			cc = string2colorCouncillor(word[2]);
 
-			return new TurnActionMsg(new SendAssistantToElectCouncillorAction(
-					playerID, rt, cc));
-
+			communication.electWithAssistant(playerID, rt, cc);
+			return true;
 			// USED-CARD PERMITid
 		case "USED-CARD":
 			if (word.length == 2)
-				return null;
+				return false;
 			try {
 				permID = Integer.parseInt(word[1]);
-				return new ChooseUsedPermitMsg(permID);
+				communication.usedCard(permID);
+				return true;
 			} catch (NumberFormatException e) {
-				return null;
+				return false;
 			}
 			// FINISH
 		case "FINISH":
 		case "PASS":
 			if (word.length != 1)
-				return null;
-			return new TurnActionMsg(new EndTurnAction(playerID));
-
+				return false;
+			communication.passTurn(playerID);
+			return true;
 			// SHOW MYDETAILS/DETAILS/GAMEBOARD
 		case "SHOW":
 			if (word.length != 2)
-				return null;
+				return false;
 
 			if (word[1].compareTo("MYDETAILS") == 0) {
-				return new UpdateThisPlayerMsg(playerID);
+				communication.showMyDetails(playerID);
+				return true;
 			}
 			if (word[1].compareTo("DETAILS") == 0) {
-				return new UpdateOtherPlayersMsg(playerID);
+				communication.showDetails(playerID);
+				return true;
 			}
 			if (word[1].compareTo("GAMEBOARD") == 0) {
-				return new UpdateGameBoardMsg();
+				communication.showGamebord(playerID);
+				return true;
 			}
+			return false;
 			// SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... ASSISTANTS
 			// NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE...
 		case "SELL":
@@ -333,7 +335,7 @@ public class Interpreter {
 			price;
 			List<ItemForSale> items = new ArrayList<>();
 			if (word.length < 3)
-				return null;
+				return false;
 			for (int i = 1; i < word.length; i++) {
 				if (word[i].matches("BUSINESS") && (i + 1) <= word.length) {
 					splitted = word[i + 1].split(",");
@@ -341,12 +343,12 @@ public class Interpreter {
 					for (String s : splitted) {
 						stub = s.split("-");
 						if (stub.length != 2)
-							return null;
+							return false;
 						try {
 							id = Integer.parseInt(stub[0]);
 							price = Integer.parseInt(stub[1]);
 						} catch (NumberFormatException e) {
-							return null;
+							return false;
 						}
 						items.add(new ItemForSale(ItemForSale.Type.BUSINESS,
 								id, price, playerID));
@@ -358,7 +360,7 @@ public class Interpreter {
 						id = Integer.parseInt(splitted[0]);
 						price = Integer.parseInt(splitted[1]);
 					} catch (NumberFormatException e) {
-						return null;
+						return false;
 					}
 					items.add(new ItemForSale(ItemForSale.Type.ASSISTANT, id,
 							price, playerID));
@@ -370,7 +372,7 @@ public class Interpreter {
 					for (String s : splitted) {
 						stub = s.split("-");
 						if (stub.length != 2)
-							return null;
+							return false;
 						ColorPolitic[] colors = ColorPolitic.values();
 						for (ColorPolitic c : colors)
 							if (c.equals(stub[0])) {
@@ -380,22 +382,23 @@ public class Interpreter {
 								try {
 									price = Integer.parseInt(stub[1]);
 								} catch (NumberFormatException e) {
-									return null;
+									return false;
 								}
 								items.add(new ItemForSale(color, price,
 										playerID));
 							}
 					}
-					return new SellMsg(new SellAction(items));
+					communication.sell(items);
+					return true;
 				}
 			}
-			return null;
+			return false;
 
 			// BUY ITEM_ID QUANTITY(optional)
 		case "BUY":
 			Integer quantity = null;
 			if (word.length < 2 || word.length > 3)
-				return null;
+				return false;
 
 			try {
 				permID = Integer.parseInt(word[1]);
@@ -404,13 +407,13 @@ public class Interpreter {
 
 				}
 			} catch (NumberFormatException e) {
-				return null;
+				return false;
 			}
 
-			return new BuyMsg(new BuyAction(permID, playerID, quantity));
-
+			communication.buy(permID, playerID, quantity);
+			return true;
 		default:
-			return null;
+			return false;
 		}
 
 	}

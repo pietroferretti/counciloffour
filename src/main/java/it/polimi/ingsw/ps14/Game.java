@@ -4,6 +4,7 @@ import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
+import it.polimi.ingsw.ps14.server.ServerView;
 import it.polimi.ingsw.ps14.view.View;
 
 import java.io.IOException;
@@ -16,10 +17,10 @@ public class Game {
 
 	private final Model model;
 	private final ModelView modelView;
-	private final List<View> views;
+	private final List<ServerView> views;
 	private final Controller controller;
 	
-	public Game(List<View> viewList) throws IOException, CloneNotSupportedException {
+	public Game(List<ServerView> viewList) throws IOException, CloneNotSupportedException {
 		views = viewList;
 		
 		LOGGER.info("Creating Model.");
@@ -28,7 +29,7 @@ public class Game {
 		// TODO different amount of coins and assistants
 
 		List<Player> playerList = new ArrayList<>();
-		for (View view : views) {
+		for (ServerView view : views) {
 			Player player = new Player(view.getPlayerID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6);
 			playerList.add(player);
 		}
@@ -41,10 +42,11 @@ public class Game {
 		LOGGER.info("Creating ModelView.");
 		modelView = new ModelView(model);
 	
-		for (View view : views) {
+		for (ServerView view : views) {
 			
 			view.addObserver(controller);
 			modelView.addObserver(view);
+			view.setModelView(modelView);
 			
 		}
 

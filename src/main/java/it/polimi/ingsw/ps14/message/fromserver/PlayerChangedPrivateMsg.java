@@ -16,7 +16,7 @@ public class PlayerChangedPrivateMsg extends PrivateMessage implements Message{
 	}
 
 
-	public String getMessage() {
+	public String toString() {
 		return message;
 	}
 

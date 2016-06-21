@@ -20,4 +20,9 @@ public class MarketUpdatedMsg implements Message {
 		return updatedMarket;
 	}
 
+	@Override
+	public String toString() {
+		return "MarketUpdatedMsg [updatedMarket=" + updatedMarket + "]";
+	}
+
 }

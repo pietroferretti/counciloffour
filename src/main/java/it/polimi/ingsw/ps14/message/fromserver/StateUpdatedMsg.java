@@ -20,5 +20,10 @@ public class StateUpdatedMsg implements Message {
 		return updatedState;
 	}
 
+	@Override
+	public String toString() {
+		return "StateUpdatedMsg [updatedState=" + updatedState + "]";
+	}
+
 }
 

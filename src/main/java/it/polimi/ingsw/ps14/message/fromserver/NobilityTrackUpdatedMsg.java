@@ -19,6 +19,12 @@ public class NobilityTrackUpdatedMsg implements Message {
 	public NobilityTrack getUpdatedNobilityTrack() {
 		return updatedNobilityTrack;
 	}
+
+	@Override
+	public String toString() {
+		return "NobilityTrackUpdatedMsg [updatedNobilityTrack="
+				+ updatedNobilityTrack + "]";
+	}
 	
 	
 }

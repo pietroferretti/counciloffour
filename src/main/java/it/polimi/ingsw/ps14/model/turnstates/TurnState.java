@@ -28,6 +28,7 @@ public abstract class TurnState implements Serializable{
 	public TurnState executeAction(Action action, Model model) {
 		
 		if (!isActionLegal(action, model)) {
+			System.out.println("NON PUOI FARE QUESTA AZIONE");//TODO remove
 			throw new IllegalActionException("You cannot do this action now!");
 		} 
 
