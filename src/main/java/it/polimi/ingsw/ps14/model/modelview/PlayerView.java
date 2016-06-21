@@ -5,7 +5,16 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.State;
 
+/**
+ * 
+ * It contains an updated copy of a {@link Player} enclosed in the {@link Model}
+ * . It gets an update from the {@link Player}, updates itself and notifies the
+ * {@link ModelView}.
+ *
+ */
 public class PlayerView extends Observable implements Observer, Serializable {
 
 	/**

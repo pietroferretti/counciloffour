@@ -19,10 +19,6 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 
-/*
- * Questa classe viene introdotta per disaccoppiare il model dalla view
- * e quindi impedire eventuali modifiche non permesse al model.
- */
 /**
  * This class aim to divide the model part from the view part especially to
  * prevent any changes in model done by the view. It contains a deep copy of

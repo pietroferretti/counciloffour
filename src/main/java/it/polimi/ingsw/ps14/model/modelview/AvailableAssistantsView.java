@@ -6,6 +6,13 @@ import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
 
+/**
+ * 
+ * It contains an updated copy of the number of available assistants left. It
+ * gets an update from the {@link Model}, updates itself and notifies the
+ * {@link ModelView}.
+ *
+ */
 public class AvailableAssistantsView extends Observable implements Observer, Serializable {
 
 	/**
