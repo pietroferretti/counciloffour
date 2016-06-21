@@ -36,7 +36,6 @@ public class SocketServerView extends ServerView implements Runnable {
 	private ObjectInputStream socketIn;
 	private ObjectOutputStream socketOut;
 	private Server server;
-	private ModelView modelCopy;
 
 	private boolean active = true;
 
@@ -50,9 +49,7 @@ public class SocketServerView extends ServerView implements Runnable {
 		LOGGER.info(String.format("Sent id to player %d", super.getPlayerID()));
 	}
 
-	public void setModelCopy(ModelView modelCopy) {
-		this.modelCopy = modelCopy;
-	}
+
 
 	private synchronized boolean isActive() {
 		return active;
@@ -106,20 +103,20 @@ public class SocketServerView extends ServerView implements Runnable {
 		} catch (IOException | NoSuchElementException | ClassNotFoundException e) {
 			LOGGER.log(Level.SEVERE, String.format("Error in socket view with id '%d'", super.getPlayerID()), e);
 		} finally {
-			close();
+//TODO remove comment			close();
 		}
 
 	}
 
 	private void sendOthersUpdate() {
-		for (PlayerView pv : modelCopy.getPlayersView()) {
+		for (PlayerView pv : super.getModelView().getPlayersView()) {
 			if (pv.getPlayerCopy().getId() != super.getPlayerID())
 				sendMessage(new OtherPlayerUpdateMsg(pv.getPlayerCopy()));
 		}
 	}
 
 	private void sendPersonalUpdate() {
-		sendMessage(new PersonalUpdateMsg(modelCopy.getPlayerByID(super.getPlayerID())));
+		sendMessage(new PersonalUpdateMsg(super.getModelView().getPlayerByID(super.getPlayerID())));
 	}
 
 	/**
@@ -134,20 +131,20 @@ public class SocketServerView extends ServerView implements Runnable {
 		if (requestReceived instanceof UpdateGameBoardMsg) {
 			// TODO inutile se solo chi ha il turno può fare richieste
 			// sendMessage(new
-			// CurrentPlayerUpdatedMsg(modelCopy.getCurrentPlayerView().getCurrentPlayerNameCopy(),
-			// modelCopy.getCurrentPlayerView().getCurrentPlayerIDCopy()));
-			sendMessage(new StateUpdatedMsg(modelCopy.getStateView().getStateCopy()));
+			// CurrentPlayerUpdatedMsg(super.getModelView().getCurrentPlayerView().getCurrentPlayerNameCopy(),
+			// super.getModelView().getCurrentPlayerView().getCurrentPlayerIDCopy()));
+			sendMessage(new StateUpdatedMsg(super.getModelView().getStateView().getStateCopy()));
 			sendMessage(new AvailableAssistantsUpdatedMsg(
-					modelCopy.getAvailableAssistantsView().getAvailableAssistantsCopy()));
-			sendMessage(new KingBonusesUpdatedMsg(modelCopy.getKingBonusesView().getShowableKingBonus()));
-			sendMessage(new NobilityTrackUpdatedMsg(modelCopy.getNobilityTrackView().getNobilityTrackCopy()));
-			sendMessage(new CitiesColorBonusesUpdatedMsg(modelCopy.getCitiesColorBonusesView().getBonusGoldCopy(),
-					modelCopy.getCitiesColorBonusesView().getBonusSilverCopy(),
-					modelCopy.getCitiesColorBonusesView().getBonusBronzeCopy(),
-					modelCopy.getCitiesColorBonusesView().getBonusBlueCopy()));
-			for (RegionView rv : modelCopy.getRegionsView()) {
-				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
-			}
+					super.getModelView().getAvailableAssistantsView().getAvailableAssistantsCopy()));
+			sendMessage(new KingBonusesUpdatedMsg(super.getModelView().getKingBonusesView().getShowableKingBonus()));
+			sendMessage(new NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
+			sendMessage(new CitiesColorBonusesUpdatedMsg(super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
+					super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
+					super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
+					super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
+//			for (RegionView rv : super.getModelView().getRegionsView()) {
+//				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
+//			}
 			sendPersonalUpdate();
 			sendOthersUpdate();
 
