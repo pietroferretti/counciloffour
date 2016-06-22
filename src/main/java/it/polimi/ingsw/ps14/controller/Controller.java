@@ -158,7 +158,7 @@ public class Controller implements Observer {
 								
 								// the turns phase has ended, the market phase starts 
 								model.setGamePhase(GamePhase.MARKET);
-								model.setCurrentMarketState(MarketState.BUYING);
+								model.setCurrentMarketState(MarketState.SELLING);
 								model.getMarket().clear();
 								
 								marketPlayers = new ArrayList<>(players);
