@@ -98,7 +98,7 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 	public void acquireBusinessPermitTile(Integer playerID, RegionType rt,
 			Integer permID, List<PoliticCard> politics) {
 		TurnActionMsg action = new TurnActionMsg(
-				new AcquireBusinessPermiteTileAction(permID, rt, permID,
+				new AcquireBusinessPermiteTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics)));
 		sendToServerView(playerID, action);
 	}

@@ -143,6 +143,7 @@ public class Interpreter {
 
 			communication.acquireBusinessPermitTile(playerID, rt, permID,
 					politics);
+			System.out.println("ID player: "+playerID);
 			return true;
 			// BUILD-WITH-KING CITYname CARDS
 		case "BUILD-WITH-KING":
