@@ -1,103 +1,160 @@
-//package it.polimi.ingsw.ps14.model.modelview;
-//
-//import static org.junit.Assert.*;
-//
-//import org.junit.BeforeClass;
-//import org.junit.Test;
-//
-//import it.polimi.ingsw.ps14.model.Model;
-//
-//public class ModelViewTest {
-//
-//	private static Model model;
-//	private static ModelView mv;
-//
-//	@BeforeClass
-//	public static void setUpBeforeClass() throws Exception {
-//		model = new Model();
-//		// AvailableAssistantsView aav = new AvailableAssistantsView(0);
-//		mv = new ModelView(model);
-//	}
-//
-//	@Test
-//	public void testModelView(Model model) {
-//		ModelView mv = new ModelView(model);
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetPlayersView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetCurrentPlayerView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetGamePhaseView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetMarketStateView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetRegionsView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetKingView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetNobilityTrackView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetAvailableAssistantsView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetAvailableCouncillorsView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetKingBonusesView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetRegionBonusesView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetMarketView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetMessageView() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testUpdate() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetPlayerByID() {
-//		fail("Not yet implemented");
-//	}
-//
-//}
+package it.polimi.ingsw.ps14.model.modelview;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import it.polimi.ingsw.ps14.controller.Controller;
+import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.MarketState;
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.RegionType;
+
+public class ModelViewTest {
+
+	private Model model;
+	private Player player, player2, player3;
+	private ModelView mv;
+
+	@SuppressWarnings("deprecation")
+	@Before
+	public void setUp() throws Exception {
+		Model model1 = new Model();
+
+		player = new Player("efrt", Color.red, 20, 12, model1.getGameBoard().getPoliticDeck(), 6);
+		player3 = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model1.getGameBoard().getPoliticDeck(), 6);
+		player2 = new Player("sdds", Color.cyan, 20, 12, model1.getGameBoard().getPoliticDeck(), 4);
+		List<Player> players = new ArrayList<>(3);
+		players.add(player);// id 1
+		players.add(player2);// id 3
+		players.add(player3);// id 2
+
+		model = new Model(players);
+		Controller controller = new Controller(model);
+		// model.setPlayerOrder(players);
+		// model.loadNextPlayer();
+		mv = new ModelView(model);
+
+	}
+
+	@Test
+	public void testModelView() {
+		ModelView mv1 = new ModelView(model);
+
+		assertEquals(model.getGameBoard().getAvailableAssistants(),
+				mv1.getAvailableAssistantsView().getAvailableAssistantsCopy());
+
+		assertEquals(model.getGameBoard().getAvailableCouncillors(),
+				mv1.getAvailableCouncillorsView().getAvailableCouncillorsCopy());
+
+		assertNotSame(model.getGameBoard().getAvailableCouncillors(),
+				mv1.getAvailableCouncillorsView().getAvailableCouncillorsCopy());
+
+		assertEquals(model.getGameBoard().getBonusBlue(), mv1.getCitiesColorBonusesView().getBonusBlueCopy());
+		assertEquals(model.getGameBoard().getBonusBronze(), mv1.getCitiesColorBonusesView().getBonusBronzeCopy());
+		assertEquals(model.getGameBoard().getBonusGold(), mv1.getCitiesColorBonusesView().getBonusGoldCopy());
+		assertEquals(model.getGameBoard().getBonusSilver(), mv1.getCitiesColorBonusesView().getBonusSilverCopy());
+
+		assertNotSame(model.getGameBoard().getNobilityTrack(), mv1.getNobilityTrackView().getNobilityTrackCopy());
+		assertEquals(model.getGameBoard().getNobilityTrack().toString(),
+				mv1.getNobilityTrackView().getNobilityTrackCopy().toString());
+
+		assertNotSame(model.getPlayers().get(0), mv1.getPlayersView().get(0).getPlayerCopy());
+		assertEquals(model.getPlayers().get(0).toString(), mv1.getPlayersView().get(0).getPlayerCopy().toString());
+		assertNotSame(model.getPlayers().get(1), mv1.getPlayersView().get(1).getPlayerCopy());
+		assertEquals(model.getPlayers().get(1).toString(), mv1.getPlayersView().get(1).getPlayerCopy().toString());
+		assertNotSame(model.getPlayers().get(2), mv1.getPlayersView().get(2).getPlayerCopy());
+		assertEquals(model.getPlayers().get(2).toString(), mv1.getPlayersView().get(2).getPlayerCopy().toString());
+		assertNotSame(model.getMessageObservable(), mv1.getMessageView().getMessageCopy());
+		assertEquals(model.getMessageObservable().getMessage(), mv1.getMessageView().getMessageCopy());
+
+		assertNotSame(model.getGameBoard().getKing(), mv1.getKingView().getKingCopy());
+		assertEquals(model.getGameBoard().getKing().toString(), mv1.getKingView().getKingCopy().toString());
+
+		assertNotSame(model.getState(), mv1.getStateView().getStateCopy());
+		assertEquals(model.getState().toString(), mv1.getStateView().getStateCopy().toString());
+
+		assertNotSame(model.getMessageObservable(), mv1.getMessageView().getMessageCopy());
+		assertEquals(model.getMessageObservable().getMessage(), mv1.getMessageView().getMessageCopy());
+
+		assertEquals(model.getGameBoard().getKingBonuses().peek().intValue(),
+				mv1.getKingBonusesView().getShowableKingBonus());
+	}
+
+	@Test
+	public void testUpdateStateView() {
+
+		model.getState().setCurrentMarketState(MarketState.SELLING);
+
+		assertFalse(mv.hasChanged());
+	}
+
+	@Test
+	public void testUpdateRegionView() {
+		model.getGameBoard().getRegion(RegionType.COAST).getCities().get(0).buildEmporium(player);
+
+		assertFalse(mv.hasChanged());
+	}
+
+	@Test
+	public void testUpdateKingView() {
+		model.getGameBoard().getKing().setBalcony();
+		assertFalse(mv.hasChanged());
+	}
+
+	@Test
+	public void testUpdateCitiesColorBonusesView() {
+		model.getGameBoard().useBonusBlue();
+		assertFalse(mv.hasChanged());
+	}
+
+	@Test
+	public void testUpdateMessageView() {
+		Message m = new ErrorMsg(player.getId(), "prova");
+		model.setMessage(m);
+		assertFalse(mv.hasChanged());
+	}
+
+	@Test
+	public void testUpdateAvailableAssistantsView() {
+		model.getGameBoard().setAvailableAssistants(70);
+		assertFalse(mv.hasChanged());
+	}
+
+	@Test
+	public void testUpdateAvailableCouncillorsView() {
+		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.BLACK);
+		assertFalse(mv.hasChanged());
+	}
+
+	@Test
+	public void testUpdateKingBonusesView() {
+		model.getGameBoard().useKingBonus();
+		assertFalse(mv.hasChanged());
+	}
+
+	@Test
+	public void testUpdatePlayerView() {
+		player3.addCoins(10);
+		assertFalse(mv.hasChanged());
+	}
+
+	// TODO testare eccezione
+	@Test
+	public void testGetPlayerByID() {
+		assertEquals(mv.getPlayerByID(player.getId()).toString(), player.toString());
+		assertEquals(mv.getPlayerByID(player2.getId()).toString(), player2.toString());
+		assertEquals(mv.getPlayerByID(player3.getId()).toString(), player3.toString());
+	}
+
+}

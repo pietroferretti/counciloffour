@@ -5,11 +5,15 @@ import java.util.Observer;
 
 public abstract class View extends Observable implements Observer{
 
-	private final int id;
+	private Integer id;
 	private String name;
 
-	public View (int id) {
+	public View (Integer id) {
 		this.id = id;
+	}
+	
+	public void setPlayerID(Integer id){
+		this.id=id;
 	}
 	
 	public int getPlayerID() {

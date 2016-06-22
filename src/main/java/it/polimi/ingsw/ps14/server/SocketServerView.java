@@ -139,17 +139,17 @@ public class SocketServerView extends ServerView implements Runnable {
 			sendMessage(
 					new NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
 			
-			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
+//			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
 			
 			sendMessage(new CitiesColorBonusesUpdatedMsg(
 					super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
-//			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
-			// for (RegionView rv : super.getModelView().getRegionsView()) {
-			// sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
-			// }
+			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
+			for (RegionView rv : super.getModelView().getRegionsView()) {
+				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
+			 }
 			sendPersonalUpdate();
 			sendOthersUpdate();
 

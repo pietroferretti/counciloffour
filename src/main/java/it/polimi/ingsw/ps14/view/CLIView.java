@@ -7,9 +7,15 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.GamePhase;
+import it.polimi.ingsw.ps14.model.ItemForSale;
+import it.polimi.ingsw.ps14.model.King;
+import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.MarketState;
+import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.WaitingFor;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
@@ -19,6 +25,8 @@ import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
+import java.awt.Color;
+import java.util.Map;
 /*
  * --------------------------Command Line Interface-----------------------
  * It acquires infos from player and show the game state each time something
@@ -41,8 +49,7 @@ public class CLIView extends ClientView implements Runnable {
 	// TODO magari un map per fare una classifica con i punti
 
 	public CLIView(Scanner scanner) {
-//		printer = new Printer(new PrintStream(System.out));
-		gameStarted = false;
+		// printer = new Printer(new PrintStream(System.out));
 		myTurn = false;
 		interpreter = new Interpreter();
 		in = scanner;
@@ -51,6 +58,84 @@ public class CLIView extends ClientView implements Runnable {
 
 	public void setCommunication(Communication communication) {
 		interpreter.setCommunication(communication);
+	}
+
+	public void showAvailableAssistant(int update) {
+		System.out.println("Assistant available now: " + update);
+	}
+
+	public void showAvailableCouncillor(
+			Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
+		ColorCouncillor[] map = ColorCouncillor.values();
+		for (ColorCouncillor m : map)
+			System.out.println(m.toString() + " -> "
+					+ updatedAvailableCouncillors.get(m).toString() + "\n");
+	}
+
+	public void showCitiesColorBonuses(int updatedBonusGold,
+			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) {
+		System.out.println("CitiesColorBonuses now: BonusGold="
+				+ updatedBonusGold + ", BonusSilver=" + updatedBonusSilver
+				+ ", BonusBronze=" + updatedBonusBronze + ", BonusBlue="
+				+ updatedBonusBlue);
+	}
+
+	public void showError(String text) {
+		print(text);
+	}
+
+	public void showGameStart() {
+		print("Game Started! Good Luck :)");
+	}
+
+	public void showKingBonus(int updatedShowableKingBonus) {
+		System.out.println("KingBonusesUpdatedMsg [updatedShowableKingBonus="
+				+ updatedShowableKingBonus + "]");
+	}
+
+	public void showKingUpdate(King updatedKing) {
+		System.out.println("KingUpdatedMsg [updatedKing=" + updatedKing + "]");
+	}
+
+	public void showMarket(Market updatedMarket) {
+		System.out.println(updatedMarket.toString());
+	}
+
+	public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
+		System.out.println(updatedNobilityTrack.toString());
+	}
+
+	public void showPersonalDetails(Player p) {
+		System.out.println(p.toString());
+	}
+
+	public void showPlayerChangesPrivate(String message) {
+		print(message);
+	}
+
+	public void showPlayerChangesPublic(String notice) {
+		print(notice);
+	}
+
+	public void showPrivateMsg(String text) {
+		print(text);
+	}
+
+	public void showRegion(Region updatedRegion) {
+		print(updatedRegion.toString());
+	}
+
+	public void showItemSold(ItemForSale item) {
+		print(item.toString());
+	}
+
+	public void showOtherPlayer(int id, String name, Color color, int coins,
+			int assistants, int level, int points, int numEmporiums) {
+		System.out.println("\nName: " + name + "\nColor: " + color.toString()
+				+ "\nCoins: " + Integer.toString(coins) + "\nAssistants: "
+				+ Integer.toString(assistants) + "\nNobility level: "
+				+ Integer.toString(level) + "\nVictory Points: "
+				+ Integer.toString(points));
 	}
 
 	/**
@@ -69,12 +154,12 @@ public class CLIView extends ClientView implements Runnable {
 	// // getPlayers());
 	// // printer.printVictoryPoints(getPlayers());
 	// }
-	//
-	// /**
-	// * It prints this player private details
-	// */
-	// // TODO change this in all player details
-	//
+
+	/**
+	 * It prints this player private details
+	 */
+	// TODO change this in all player details
+
 	// public void showThisPlayerDetails(Player player) {
 	// printer.printPlayerPublicDetails(player);
 	// printer.printPlayerPrivateDetails(player);
@@ -94,24 +179,13 @@ public class CLIView extends ClientView implements Runnable {
 	// // TODO Auto-generated method stub
 	// return null;
 	// }
-	//
+
 	public void print(String string) {
 		System.out.println(string);
 	}
 
-	//
-	// private void showOtherPlayerDetails(Player player) {
-	// printer.printPlayerPublicDetails(player);
-	// }
-	//
-	// public void showOtherPlayersDetails() {
-	// // TODO Auto-generated method stub
-	//
-	// }
-
 	@Override
 	public void run() {
-
 
 		while (true) {
 
@@ -126,8 +200,7 @@ public class CLIView extends ClientView implements Runnable {
 
 				showInstructions();
 
-			} else if (!gameStarted) {
-
+			} else if (!isGameStarted()) {
 				print("The game hasn't started yet!!!!");
 				// TODO il giocatore può fare qualcosa quando il gioco non è ancora iniziato?
 
@@ -148,12 +221,15 @@ public class CLIView extends ClientView implements Runnable {
 	}
 
 	private void showInstructions() {
+		System.out.println("Player ID: "+playerID);
 		print("*** Commands:");
 		print("DRAW - draw a politic card");
+		print("main action:");
 		print("ELECT color coast|hills|mountains|king - elect a councillor in the chosen balcony");
 		print("ACQUIRE coast|hills|mountains permit_id card_color [card_color ...] - acquire the permit with id 'permit_id' from the chosen region using the cards specified");
 		print("BUILD-WITH-KING city_name card_color [card_color ...] - build an emporium in the city 'city_name' with the help of the king using the cards specified");
 		print("BUILD-WITH-PERMIT city_name permit_id - build an emporium in the city 'city_name' using the permit specified");
+		print("quick action:");
 		print("ENGAGE - engage an assistant");
 		print("CHANGE coast|hills|mountains - change faceup business permits in the region specified");
 		print("MAIN - perform another main action");

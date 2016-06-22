@@ -5,7 +5,15 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.Market;
+import it.polimi.ingsw.ps14.model.NobilityTrack;
 
+/**
+ * 
+ * It contains an updated copy of the {@link Market}. It gets an update from the
+ * {@link Market}, updates itself and notifies the {@link ModelView}.
+ *
+ */
+// TODO
 public class MarketView extends Observable implements Observer, Serializable {
 
 	/**

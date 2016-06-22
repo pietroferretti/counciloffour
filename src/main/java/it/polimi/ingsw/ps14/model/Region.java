@@ -141,7 +141,7 @@ public class Region extends Observable implements Serializable {
 	}
 
 	public String toStringCityName() {
-		String s = "";
+		String s = " ";
 		for (City city : cities) {
 			s = s + city.getName() + " ";
 		}

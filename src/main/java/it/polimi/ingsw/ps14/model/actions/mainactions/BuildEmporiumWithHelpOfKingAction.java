@@ -7,18 +7,22 @@ import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import it.polimi.ingsw.ps14.server.Server;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.logging.Logger;
 
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 	/**
 	 * 
 	 */
+	private static final Logger LOGGER = Logger.getLogger(Server.class
+			.getName());
 	private static final long serialVersionUID = 4780505443771942777L;
 	private String cityName;
 	private List<PoliticCard> cards;
@@ -36,6 +40,10 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
 
+		if (player == null || city == null || balcony==null){
+			LOGGER.info(String.format("isValid conversion error"));
+			return false;
+		}
 		if (!balcony.cardsMatch(cards))
 			return false;
 		// TODO: send error: ERROR in color choice
@@ -118,6 +126,11 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
 		City cityKing = model.getGameBoard().getKing().getCity();
 
+		if (player == null || city == null || balcony==null || cityKing==null){
+			LOGGER.info(String.format("execute conversion error"));
+			return null;
+		}
+		
 		// remove coins to buy concillor
 		player.useCoins(balcony.councillorCost(cards));
 

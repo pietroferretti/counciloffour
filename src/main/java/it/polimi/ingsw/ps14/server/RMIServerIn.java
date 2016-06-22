@@ -1,14 +1,8 @@
 package it.polimi.ingsw.ps14.server;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-
 import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
-import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
@@ -31,24 +25,34 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+
 /**
  * 
  * RMIServer implements all methods callable from the client, it create message
  * to send to the controller
  *
  */
-public class RMIServer extends Observable implements RMIViewRemote {
+public class RMIServerIn extends ServerView implements RMIViewRemote {
 
 	private Server server;
 
-	public RMIServer(Server server) {
+	public RMIServerIn(Integer id,Server server) {
+		super(id);
 		this.server = server;
+	}
+	
+	public void setPlayerID(Integer id){
+		super.setPlayerID(id);
 	}
 
 	public void registerClient(ClientViewRemote clientStub)
 			throws RemoteException {
 		System.out.println("CLIENT REGISTRATO");
-		server.registerWaitingConnectionRMI(clientStub);
+		server.registerWaitingConnectionRMI(clientStub,this);
 		server.meeting();
 	}
 
@@ -67,9 +71,12 @@ public class RMIServer extends Observable implements RMIViewRemote {
 
 	@Override
 	public void drawCard(Integer playerID) {
+		System.out.println("i received a draw message");
+
 		TurnActionMsg action = new TurnActionMsg(new DrawCardAction(playerID));
 		setChanged();
 		notifyObservers(action);
+		System.out.println("i notified the observers");
 	}
 
 	@Override
@@ -149,6 +156,11 @@ public class RMIServer extends Observable implements RMIViewRemote {
 		setChanged();
 		notifyObservers(action);
 	}
+	
+	@Override
+	public void answerNobilityRequest(List<String> chosenIDs) {
+		//TODO;
+	}
 
 	@Override
 	public void showMyDetails(Integer playerID) {
@@ -183,13 +195,6 @@ public class RMIServer extends Observable implements RMIViewRemote {
 		Message action = new BuyMsg(new BuyAction(permID, playerID, quantity));
 		setChanged();
 		notifyObservers(action);
-	}
-	
-	@Override
-	public void answerNobilityRequest(List<String> objectIDs) {
-		Message message = new NobilityRequestAnswerMsg(objectIDs);
-		setChanged();
-		notifyObservers(message);
 	}
 
 }

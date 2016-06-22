@@ -55,7 +55,7 @@ public class Model extends Observable implements Serializable {
 		market = new Market();
 		state = new State();
 		bonusesToDo = new ArrayList<>();
-		
+		state = new State();
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);

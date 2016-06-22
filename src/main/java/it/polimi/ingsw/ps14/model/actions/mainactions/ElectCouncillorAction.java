@@ -6,12 +6,17 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import it.polimi.ingsw.ps14.server.Server;
+
+import java.util.logging.Logger;
 
 public class ElectCouncillorAction extends MainAction {
 
 	/**
 	 * 
 	 */
+	private static final Logger LOGGER = Logger.getLogger(Server.class
+			.getName());
 	private static final long serialVersionUID = 7653027906566733276L;
 	private final ColorCouncillor councillor;
 	private final RegionType regionType;
@@ -28,6 +33,17 @@ public class ElectCouncillorAction extends MainAction {
 
 	@Override
 	public boolean isValid(Model model) {
+		
+		Player player = model.id2player(super.getPlayer());
+		Balcony balcony ;
+		if(regionType!=null)
+			balcony=model.getGameBoard().getRegion(regionType).getBalcony();
+		else
+			balcony=model.getGameBoard().getKing().getBalcony();
+		if (player == null  || balcony==null){
+			LOGGER.info(String.format("isValid conversion error"));
+			return false;
+		}
 		return model.getGameBoard().councillorIsAvailable(councillor);
 	}
 
@@ -40,6 +56,10 @@ public class ElectCouncillorAction extends MainAction {
 		else
 			balcony=model.getGameBoard().getKing().getBalcony();
 		
+		if (player == null  || balcony==null){
+			LOGGER.info(String.format("execute conversion error"));
+			return null;
+		}
 		int electCouncillorPrize = 4;
 		// electCouncillor return discarded councillor, discarded councillor is
 		// added to availableCouncillors in gameboard

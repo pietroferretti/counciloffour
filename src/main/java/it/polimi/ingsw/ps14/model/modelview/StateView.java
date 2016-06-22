@@ -6,8 +6,14 @@ import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.State;
 
+/**
+ * 
+ * It contains an updated copy of the {@link State} contained in the
+ * {@link Model}. It gets an update from the {@link State}, updates itself and
+ * notifies the {@link ModelView}.
+ *
+ */
 public class StateView extends Observable implements Observer, Serializable {
-
 	/**
 	 * 
 	 */

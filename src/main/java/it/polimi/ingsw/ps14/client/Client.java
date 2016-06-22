@@ -103,12 +103,12 @@ public class Client {
 			Registry registry = LocateRegistry.getRegistry(HOST, RMI_PORT);
 			RMIViewRemote serverStub = (RMIViewRemote) registry.lookup(NAME);
 
-			ClientRMIView rmiView = new ClientRMIView();
+			ClientRMIView rmiView = new ClientRMIView(clientView);
 
 			serverStub.registerClient(rmiView);
 			RMICommunication communication=new RMICommunication(serverStub);
-			CLIView cli = new CLIView(scanner);
-			cli.run();
+			clientView.setCommunication(communication);
+			clientView.run();
 
 		} else {
 			scanner.close();

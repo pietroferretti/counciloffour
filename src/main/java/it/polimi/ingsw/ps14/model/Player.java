@@ -277,13 +277,14 @@ public class Player extends Observable implements Serializable {
 			return null;
 		}
 	}
-//@Deprecated
-//	public void removeCard(PoliticCard card) {
-//		hand.remove(card);
-//		setChanged();
-//		notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
-//
-//	}
+	// @Deprecated
+	// public void removeCard(PoliticCard card) {
+	// hand.remove(card);
+	// setChanged();
+	// notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic
+	// card: " + card.toString()));
+	//
+	// }
 
 	public BusinessCardsPlayer getBusinessHand() {
 		return businessHand;
@@ -325,7 +326,8 @@ public class Player extends Observable implements Serializable {
 	}
 
 	@Override
-	public String toString() {
+	public String toString(){
+		
 		String s = "\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
 				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
 				+ "\nVictory Points: " + Integer.toString(points) + "\nPolitic Cads: ";
