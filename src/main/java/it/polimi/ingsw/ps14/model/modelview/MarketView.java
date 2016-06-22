@@ -38,7 +38,7 @@ public class MarketView extends Observable implements Observer, Serializable {
 		} else {
 			marketCopy = new Market((Market) o);
 			setChanged();
-			notifyObservers();
+			notifyObservers(arg);
 		}
 
 	}

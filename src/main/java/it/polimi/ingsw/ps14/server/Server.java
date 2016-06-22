@@ -28,7 +28,7 @@ public class Server {
 			.getName());
 
 	private static final int PORT = 19999;
-	private static final int COUNTDOWN = 1;
+	private static final int COUNTDOWN = 10;
 
 	private final static int RMI_PORT = 52365;
 	private final String NAME = "council4";

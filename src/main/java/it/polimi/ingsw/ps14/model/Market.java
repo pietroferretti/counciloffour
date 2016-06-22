@@ -36,10 +36,10 @@ public class Market extends Observable implements Serializable {
 	}
 
 	/**
-	 * is it a selling object?
+	 * is it an object on sale?
 	 * 
 	 * @param item
-	 * @return the selling object
+	 * @return object on sale
 	 */
 	public ItemForSale findObject(ItemForSale item) {
 		for (ItemForSale object : objectsForSale)
@@ -64,14 +64,19 @@ public class Market extends Observable implements Serializable {
 	 */
 	public void addItem(ItemForSale item) {
 		objectsForSale.add(item);
+		setChanged();
+		notifyObservers();
 	}
 
 	public void removeItem(ItemForSale item) {
 		ItemForSale itemToRemove = findObject(item);
 		if (itemToRemove != null)
 			objectsForSale.remove(itemToRemove);
+		setChanged();
+		notifyObservers("The item " + item.getType() + "with ID: " + Integer.toString(item.getBarCode()) + " of player "
+				+ Integer.toString(item.getOwnerID()) + " has been sold!");
 	}
-	
+
 	public void clear() {
 		objectsForSale = new ArrayList<>();
 	}
