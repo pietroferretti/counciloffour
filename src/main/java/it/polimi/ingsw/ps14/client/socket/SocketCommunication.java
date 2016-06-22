@@ -93,7 +93,8 @@ public class SocketCommunication implements Communication {
 	// ------------------------------ from client
 	// ---------------------------------
 
-	public void setPlayerName(String name) {
+	@Override
+	public void setPlayerName(Integer playerID, String name) {
 		msgHandlerOut.sendMessage(new PlayerNameMsg(name));
 	}
 
@@ -204,22 +205,22 @@ public class SocketCommunication implements Communication {
 	}
 
 	@Override
-	public void sell(List<ItemForSale> items) {
+	public void sell(Integer playerID, List<ItemForSale> items) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new SellMsg(new SellAction(items)));
 
 	}
 
 	@Override
-	public void buy(Integer permID, Integer playerID, Integer quantity) {
+	public void buy(Integer playerID, Integer objID, Integer quantity) {
 		// TODO Auto-generated method stub
-		msgHandlerOut.sendMessage(new BuyMsg(new BuyAction(permID, playerID,
+		msgHandlerOut.sendMessage(new BuyMsg(new BuyAction(playerID, objID,
 				quantity)));
 
 	}
 	
 	@Override
-	public void answerNobilityRequest(List<String> objectIDs) {
+	public void answerNobilityRequest(Integer playerID, List<String> objectIDs) {
 		msgHandlerOut.sendMessage(new NobilityRequestAnswerMsg(objectIDs));
 	}
 

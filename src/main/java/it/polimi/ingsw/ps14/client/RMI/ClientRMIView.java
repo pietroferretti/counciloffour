@@ -43,8 +43,8 @@ public class ClientRMIView extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void availableAssistantUpdate(int assistantUpadated) {
-		cv.showAvailableAssistant(assistantUpadated);
+	public void availableAssistantUpdate(int assistantUpdated) {
+		cv.showAvailableAssistant(assistantUpdated);
 
 	}
 

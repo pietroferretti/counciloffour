@@ -28,7 +28,7 @@ public class Server {
 			.getName());
 
 	private static final int PORT = 19999;
-	private static final int COUNTDOWN = 1;
+	private static final int COUNTDOWN = 10;
 
 	private final static int RMI_PORT = 52365;
 	private final String NAME = "council4";
@@ -62,10 +62,11 @@ public class Server {
 	 * Registro una connessione attiva in rmi
 	 */
 	public synchronized void registerWaitingConnectionRMI(
-			ClientViewRemote clientStub, RMIServerIn rmiServer) {
-		ServerView connection = new RMIServerView(idCounter, clientStub,
-				rmiServer);
+			ClientViewRemote clientStub, RMIServerIn rmiServerIn) {
+		RMIServerView connection = new RMIServerView(idCounter, clientStub);
 		idCounter++;
+		
+		rmiServerIn.addServerView(connection);
 
 		waitingConnections.add(connection);
 
@@ -129,7 +130,7 @@ public class Server {
 
 		registry = LocateRegistry.createRegistry(RMI_PORT);
 		System.out.println("Constructing the RMI registry");
-		RMIServerIn rmiView = new RMIServerIn(null, this);
+		RMIServerIn rmiView = new RMIServerIn(this);
 		registry.bind(NAME, rmiView);
 
 		// rmiView.registerObserver(this.controller);

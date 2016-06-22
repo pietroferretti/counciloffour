@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ps14.server;
 
+import java.util.Observable;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
@@ -13,15 +16,13 @@ import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
 import it.polimi.ingsw.ps14.model.modelview.PlayerView;
 import it.polimi.ingsw.ps14.model.modelview.RegionView;
-
-import java.util.Observable;
-import java.util.Observer;
-import java.util.logging.Logger;
 
 /**
  * 
@@ -29,55 +30,56 @@ import java.util.logging.Logger;
  * contains a clientStub, playerID, serverRMIout
  *
  */
-public class RMIServerView extends ServerView implements Observer {
+public class RMIServerView extends ServerView {
 	private static final Logger LOGGER = Logger
-			.getLogger(SocketServerView.class.getName());
+			.getLogger(RMIServerView.class.getName());
 
 	private RMIserverOut serverRMIout;
-	private RMIServerIn rmiServer;
 
-	public RMIServerView(int id, ClientViewRemote client, RMIServerIn rmiServer) {
+	public RMIServerView(int id, ClientViewRemote client) {
 		super(id);
-		serverRMIout = new RMIserverOut(id, client);
-		this.rmiServer = rmiServer;
-		rmiServer.setPlayerID(id);
-		rmiServer.addObserver(this);
-
+		serverRMIout = new RMIserverOut(client);
+		serverRMIout.castMessage(new PlayerIDMsg(id));
+		LOGGER.info(String.format("Sent id to player %d", super.getPlayerID()));
 	}
 
-	public RMIServerIn getRmiServerIn() {
-		return rmiServer;
+	public void forwardMessage(Message msg) {
+		if (msg instanceof PlayerNameMsg) {
+
+			super.setPlayerName(((PlayerNameMsg) msg).getPlayerName());
+			LOGGER.info(String.format(
+					"Set player name as '%s' for rmiView %d",
+					super.getPlayerName(), super.getPlayerID()));
+
+		} else if (msg instanceof UpdateRequestMsg) {
+
+			sendUpdates((UpdateRequestMsg) msg);
+
+		} else if (msg instanceof Message) {
+
+			setChanged();
+			notifyObservers(msg); // inoltro al controller
+		} 
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
+		
 		if (o instanceof ModelView) {
-			serverRMIout.update((ModelView) o, arg); // chiamo i metodi del
-														// client
-		} else if (o instanceof RMIServerIn) {
-			if (arg instanceof PlayerNameMsg) {
-
-				super.setPlayerName(((PlayerNameMsg) arg).getPlayerName());
-				LOGGER.info(String.format(
-						"Set player name as '%s' for rmiView %d",
-						super.getPlayerName(), super.getPlayerID()));
-
-			} else if (arg instanceof UpdateRequestMsg) {
-
-				sendUpdates((UpdateRequestMsg) arg);
-
+		
+			if (arg instanceof PrivateMessage) {
+				if (((PrivateMessage) arg).getPlayerID() == super.getPlayerID()) {
+					serverRMIout.castMessage((Message) arg);
+				}
 			} else if (arg instanceof Message) {
-
-				setChanged();
-				notifyObservers(arg); // inoltro al controller
+				serverRMIout.castMessage((Message) arg);
 			} else {
 				LOGGER.warning(String.format(
-						"The socket with id '%d' received an object that is not a message. %n"
-								+ "Object received: %s", super.getPlayerID(),
-						arg.toString()));
-			}
-
-		} else
+						"The server view with id '%d' received an object that is not a message. %n" + "Object received: %s",
+						super.getPlayerID(), arg.toString()));
+			}		
+			
+		}  else
 			System.err.println("osservatore sbagliato" + o);
 	}
 
