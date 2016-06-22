@@ -15,6 +15,7 @@ import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
+import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
@@ -30,8 +31,8 @@ public class ModelView extends Observable implements Observer, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 5876325204323947651L;
+	private boolean markedStarted = false;
 
-	// TODO modelview osserva model NEL MAIN
 	// --------------------------MODEL------------------------
 	private List<PlayerView> playersView;
 	private StateView stateView;
@@ -115,6 +116,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		kingBonusesView.addObserver(this);
 		citiesColorBonusesView.addObserver(this);
 		messageView.addObserver(this);
+		marketView.addObserver(this);
 	}
 
 	public List<PlayerView> getPlayersView() {
@@ -175,9 +177,16 @@ public class ModelView extends Observable implements Observer, Serializable {
 			notifyObservers(new KingUpdatedMsg(((KingView) o).getKingCopy()));
 
 		} else if (o instanceof StateView) {
-
 			setChanged();
 			notifyObservers(new StateUpdatedMsg(((StateView) o).getStateCopy()));
+			if (((StateView) o).getStateCopy().getCurrentMarketState() == MarketState.BUYING
+					&& markedStarted == false) {
+				setChanged();
+				notifyObservers(new MarketUpdatedMsg(marketView.getMarketCopy(), "MARKETSTAND"));
+				markedStarted = true;
+			}
+			if (((StateView) o).getStateCopy().getCurrentMarketState() == MarketState.END)
+				markedStarted = false;
 
 		} else if (o instanceof AvailableAssistantsView) {
 			setChanged();
@@ -197,12 +206,13 @@ public class ModelView extends Observable implements Observer, Serializable {
 					((CitiesColorBonusesView) o).getBonusBronzeCopy(),
 					((CitiesColorBonusesView) o).getBonusBlueCopy()));
 		} else if (o instanceof MarketView) {
-			setChanged();
-			notifyObservers(new MarketUpdatedMsg(((MarketView) o).getMarketCopy()));
+			if (stateView.getStateCopy().getCurrentMarketState() == MarketState.BUYING) {
+				setChanged();
+				notifyObservers(new MarketUpdatedMsg(((MarketView) o).getMarketCopy(),(String) message));
+			}
 		} else if (o instanceof MessageView) {
 			// TODO controllare
-			Message messageToSend = ((MessageView) o).getMessageCopy();
-			if (messageToSend != null) {
+			if (((MessageView) o).getMessageCopy() != null) {
 				setChanged();
 				notifyObservers(((MessageView) o).getMessageCopy());
 			}

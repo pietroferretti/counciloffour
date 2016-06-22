@@ -128,18 +128,12 @@ public class SocketServerView extends ServerView implements Runnable {
 	private void sendUpdates(UpdateRequestMsg requestReceived) {
 
 		if (requestReceived instanceof UpdateGameBoardMsg) {
-			// TODO inutile se solo chi ha il turno può fare richieste
-			// sendMessage(new
-			// CurrentPlayerUpdatedMsg(super.getModelView().getCurrentPlayerView().getCurrentPlayerNameCopy(),
-			// super.getModelView().getCurrentPlayerView().getCurrentPlayerIDCopy()));
 			sendMessage(new StateUpdatedMsg(super.getModelView().getStateView().getStateCopy()));
 			sendMessage(new AvailableAssistantsUpdatedMsg(
 					super.getModelView().getAvailableAssistantsView().getAvailableAssistantsCopy()));
 			sendMessage(new KingBonusesUpdatedMsg(super.getModelView().getKingBonusesView().getShowableKingBonus()));
 			sendMessage(
 					new NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
-			
-//			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
 			
 			sendMessage(new CitiesColorBonusesUpdatedMsg(
 					super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
@@ -150,8 +144,6 @@ public class SocketServerView extends ServerView implements Runnable {
 			for (RegionView rv : super.getModelView().getRegionsView()) {
 				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
 			 }
-			sendPersonalUpdate();
-			sendOthersUpdate();
 
 		} else if (requestReceived instanceof UpdateThisPlayerMsg) {
 			sendPersonalUpdate();

@@ -147,19 +147,14 @@ public class ItemForSale implements Serializable {
 
 	@Override
 	public String toString() {
-		if (type.name().matches("BUSINESS")) {
-			return (" BAR_CODE=" + barCode + ":" + type + ", idORquantity=" + idORquantity + ", price=" + price
-					+ ", ownerID=" + ownerID);
+		String sbarcode = " BAR_CODE =";
+		String sprice = ", price=";
+		String sowner = ", ownerID=";
+		if (type.name().matches("BUSINESS") || type.name().matches("ASSISTANT")) {
+			return sbarcode + barCode + ":" + type + ", idORquantity=" + idORquantity + sprice + price + sowner
+					+ ownerID;
 		}
-		if (type.name().matches("ASSISTANT")) {
-			return (" BAR_CODE=" + barCode + ":" + type + ", idORquantity=" + idORquantity + ", price=" + price
-					+ ", ownerID=" + ownerID);
-		}
-		if (type.name().matches("POLITIC")) {
-			return (" BAR_CODE=" + barCode + ":" + type + ", color=" + color + ", price=" + price + ", ownerID="
-					+ ownerID);
-		}
-		return null;
-	}
+		return sbarcode + barCode + ":" + type + ", color=" + color + sprice + price + sowner + ownerID;
 
+	}
 }
