@@ -19,8 +19,8 @@ public class City implements Serializable {
 
 	private final Region region;
 
-	@SuppressWarnings("unused")
-	private RegionType regionType = null;
+	// @SuppressWarnings("unused")
+	// private RegionType regionType = null;
 
 	private List<City> neighbors;
 	// usato solo per la copia
@@ -46,6 +46,7 @@ public class City implements Serializable {
 		this.region = region;
 		this.token = token;
 		emporiums = new ArrayList<>();
+
 	}
 
 	public City(City c) {
@@ -62,9 +63,9 @@ public class City implements Serializable {
 			}
 		}
 
-		if (c.getRegion() != null) {
-			regionType = c.getRegion().getType();
-		}
+		// if (c.getRegion() != null) {
+		// regionType = c.getRegion().getType();
+		// }
 
 		if (c.emporiums != null) {
 			this.emporiums = new ArrayList<>(c.emporiums.size());
@@ -114,6 +115,10 @@ public class City implements Serializable {
 
 	public void setNeighbors(List<City> neighbors) {
 		this.neighbors = neighbors;
+		this.neighborsName = new ArrayList<>(neighbors.size());
+		for (City city : neighbors) {
+			this.neighborsName.add(city.name);
+		}
 	}
 
 	public void setToken(Bonus token) {
@@ -146,8 +151,13 @@ public class City implements Serializable {
 
 	@Override
 	public String toString() {
-		return "\n" + name.toUpperCase() + "\nColor: " + color + "\nNeighbors: " + toStringNeighborsName() + "\nBonus: "
-				+ token.toString() + toStringEmporiums();
+		String s = "\n" + name.toUpperCase() + "\nColor: " + color + "\nNeighbors: " + toStringNeighborsName()
+				+ "\nBonus: ";
+		if (token == null) {
+			s = s + "No bonus for this city";
+		} else
+			s = s + token.toString();
+		return s + toStringEmporiums();
 
 	}
 
