@@ -143,7 +143,7 @@ public class Interpreter {
 
 			communication.acquireBusinessPermitTile(playerID, rt, permID,
 					politics);
-			System.out.println("ID player: "+playerID);
+			System.out.println("ID player: " + playerID);
 			return true;
 			// BUILD-WITH-KING CITYname CARDS
 		case "BUILD-WITH-KING":
@@ -203,20 +203,20 @@ public class Interpreter {
 
 			communication.electWithAssistant(playerID, rt, cc);
 			return true;
-			
+
 		case "CHOOSE":
 			if (word.length <= 1) {
 				return false;
 			}
-			
+
 			List<String> chosenIDs = new ArrayList<>();
-			for(int i=1; i<word.length; i++) {
+			for (int i = 1; i < word.length; i++) {
 				chosenIDs.add(word[i]);
 			}
-			
+
 			communication.answerNobilityRequest(playerID, chosenIDs);
 			return true;
-			
+
 			// FINISH
 		case "FINISH":
 		case "PASS":
@@ -270,8 +270,9 @@ public class Interpreter {
 								id, price, playerID));
 					}
 				}
-				if (word[i].matches("ASSISTANTS") && (i + 1) <= word.length) {
+				if (word[i].compareTo("ASSISTANTS")==0 && (i + 1) <= word.length) {
 					splitted = word[i + 1].split("-");
+					System.out.println("sono qui"+splitted[0]+splitted[1]);
 					try {
 						id = Integer.parseInt(splitted[0]);
 						price = Integer.parseInt(splitted[1]);
@@ -304,11 +305,11 @@ public class Interpreter {
 										playerID));
 							}
 					}
-					communication.sell(playerID, items);
-					return true;
+					
 				}
 			}
-			return false;
+			communication.sell(playerID, items);
+			return true;
 
 			// BUY ITEM_ID QUANTITY(optional)
 		case "BUY":

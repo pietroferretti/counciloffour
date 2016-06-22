@@ -1,14 +1,18 @@
 package it.polimi.ingsw.ps14.model.actions.quickactions;
 
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import it.polimi.ingsw.ps14.server.Server;
 
 public class ChangeBusinessPermitTilesAction extends QuickAction {
-
+	private static final Logger LOGGER = Logger.getLogger(Server.class
+			.getName());
 	/**
 	 * 
 	 */
@@ -24,7 +28,11 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 	public boolean isValid(Model model) {
 		Player player = model.id2player(super.getPlayer());
 		Region region = model.getGameBoard().getRegion(regType);
-
+		if (player == null || region == null){
+			LOGGER.info(String.format("isValid conversion error"));
+			return false;
+		}
+		
 		return region.getBusinessPermits().cardsLeftInDeck() > 0 && player.getAssistants() >= 1 && region != null;
 	}
 
