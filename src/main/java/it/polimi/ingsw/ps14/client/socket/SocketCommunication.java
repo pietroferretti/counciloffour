@@ -50,8 +50,7 @@ public class SocketCommunication implements Communication {
 		this.clientView = clientView;
 	}
 
-	
-	//------------------------from server --------------------------
+	// ------------------------from server --------------------------
 	public void receiveMessage(Message message) {
 		if (message != null) {
 			if ((message instanceof PlayerIDMsg)
@@ -61,7 +60,7 @@ public class SocketCommunication implements Communication {
 						clientView.getPlayerID()));
 
 			} else if (message instanceof GameStartedMsg) {
-				// str="GAME STARTED!";
+				clientView.showGameStart();
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
 			} else if (message instanceof TurnFinishedMsg) {
@@ -90,8 +89,9 @@ public class SocketCommunication implements Communication {
 			LOGGER.info(String.format("Couldn't interpret message."));
 
 	}
-	
-// ------------------------------  from client ---------------------------------
+
+	// ------------------------------ from client
+	// ---------------------------------
 
 	public void setPlayerName(String name) {// TODO
 		msgHandlerOut.sendMessage(new PlayerNameMsg(name));

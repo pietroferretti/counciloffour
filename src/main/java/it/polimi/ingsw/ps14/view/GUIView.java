@@ -1,9 +1,11 @@
 package it.polimi.ingsw.ps14.view;
 
 import java.awt.Color;
+import java.util.Map;
 
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.King;
 import it.polimi.ingsw.ps14.model.Market;
@@ -106,6 +108,26 @@ public class GUIView extends ClientView implements Runnable {
 	@Override
 	public void showOtherPlayer(int id, String name, Color color, int coins,
 			int assistants, int level, int points, int numEmporiums) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAvailableAssistant(int update) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAvailableCouncillor(
+			Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showCitiesColorBonuses(int updatedBonusGold,
+			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -11,7 +11,6 @@ import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
-import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
@@ -219,6 +218,7 @@ public class CLIView extends ClientView implements Runnable {
 	}
 
 	private void showInstructions() {
+		System.out.println("Player ID: "+playerID);
 		print("*** Commands:");
 		print("DRAW - draw a politic card");
 		print("main action:");

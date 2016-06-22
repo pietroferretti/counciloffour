@@ -1,10 +1,6 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.awt.Color;
-import java.util.Map;
-
 import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -15,10 +11,13 @@ import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.State;
 
+import java.awt.Color;
+import java.util.Map;
+
 public abstract class ClientView implements Runnable {
 
 	protected Integer playerID;
-	public boolean gameStarted;//TODO return to protected
+	protected boolean gameStarted;
 	protected State gameState;
 	protected boolean myTurn;
 
@@ -55,25 +54,13 @@ public abstract class ClientView implements Runnable {
 		this.gameStarted = gameStarted;
 	}
 	
-	public void showAvailableAssistant(int update) {
-		System.out.println("Assistant available now: " + update);
-	}
+	public abstract void showAvailableAssistant(int update);
 
-	public void showAvailableCouncillor(
-			Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
-		ColorCouncillor[] map = ColorCouncillor.values();
-		for (ColorCouncillor m : map)
-			System.out.println(m.toString() + " -> "
-					+ updatedAvailableCouncillors.get(m).toString() + "\n");
-	}
+	public abstract void showAvailableCouncillor(
+			Map<ColorCouncillor, Integer> updatedAvailableCouncillors);
 
-	public void showCitiesColorBonuses(int updatedBonusGold,
-			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) {
-		System.out.println("CitiesColorBonuses now: BonusGold="
-				+ updatedBonusGold + ", BonusSilver=" + updatedBonusSilver
-				+ ", BonusBronze=" + updatedBonusBronze + ", BonusBlue="
-				+ updatedBonusBlue);
-	}
+	public abstract void showCitiesColorBonuses(int updatedBonusGold,
+			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) ;
 
 	public abstract void showError(String text) ;
 

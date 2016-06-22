@@ -88,24 +88,24 @@ public class RMIServerView extends ServerView implements Observer {
 			// sendMessage(new
 			// CurrentPlayerUpdatedMsg(super.getModelView().getCurrentPlayerView().getCurrentPlayerNameCopy(),
 			// super.getModelView().getCurrentPlayerView().getCurrentPlayerIDCopy()));
-			sendMessage(new StateUpdatedMsg(super.getModelView().getStateView()
-					.getStateCopy()));
-			sendMessage(new AvailableAssistantsUpdatedMsg(super.getModelView()
-					.getAvailableAssistantsView().getAvailableAssistantsCopy()));
-			sendMessage(new KingBonusesUpdatedMsg(super.getModelView()
-					.getKingBonusesView().getShowableKingBonus()));
-			sendMessage(new NobilityTrackUpdatedMsg(super.getModelView()
-					.getNobilityTrackView().getNobilityTrackCopy()));
-			sendMessage(new CitiesColorBonusesUpdatedMsg(super.getModelView()
-					.getCitiesColorBonusesView().getBonusGoldCopy(), super
-					.getModelView().getCitiesColorBonusesView()
-					.getBonusSilverCopy(), super.getModelView()
-					.getCitiesColorBonusesView().getBonusBronzeCopy(), super
-					.getModelView().getCitiesColorBonusesView()
-					.getBonusBlueCopy()));
+			sendMessage(new StateUpdatedMsg(super.getModelView().getStateView().getStateCopy()));
+			sendMessage(new AvailableAssistantsUpdatedMsg(
+					super.getModelView().getAvailableAssistantsView().getAvailableAssistantsCopy()));
+			sendMessage(new KingBonusesUpdatedMsg(super.getModelView().getKingBonusesView().getShowableKingBonus()));
+			sendMessage(
+					new NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
+			
+//			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
+			
+			sendMessage(new CitiesColorBonusesUpdatedMsg(
+					super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
+					super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
+					super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
+					super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
+			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
 			for (RegionView rv : super.getModelView().getRegionsView()) {
 				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
-			}
+			 }
 			sendPersonalUpdate();
 			sendOthersUpdate();
 

@@ -1,8 +1,5 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
@@ -12,9 +9,15 @@ import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import it.polimi.ingsw.ps14.server.Server;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class AcquireBusinessPermiteTileAction extends MainAction {
-
+	private static final Logger LOGGER = Logger.getLogger(Server.class
+			.getName());
 	/**
 	 * 
 	 */
@@ -23,8 +26,8 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	private Integer permitID;
 	private List<PoliticCard> cards;
 
-	public AcquireBusinessPermiteTileAction(Integer playerID, RegionType region, Integer permitID,
-			List<PoliticCard> politicCards) {
+	public AcquireBusinessPermiteTileAction(Integer playerID,
+			RegionType region, Integer permitID, List<PoliticCard> politicCards) {
 		super(playerID);
 		this.regionType = region;
 		this.permitID = permitID;
@@ -37,7 +40,10 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		Region region = model.getGameBoard().getRegion(regionType);
 		Balcony balcony = region.getBalcony();
 		BusinessPermit permitTile = model.id2permit(permitID, region);
-
+		if (player == null || region == null || balcony==null || permitTile==null){
+			LOGGER.info(String.format("isValid conversion error"));
+			return false;
+		}
 		List<ColorPolitic> colors = new ArrayList<>();
 		for (PoliticCard p : cards)
 			colors.add(p.getColor());
@@ -63,7 +69,10 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		Region region = model.getGameBoard().getRegion(regionType);
 		BusinessPermit permitTile = model.id2permit(permitID, region);
 		Balcony balcony = region.getBalcony();
-
+		if (player == null || region == null || balcony==null || permitTile==null){
+			LOGGER.info(String.format("execute conversion error"));
+			return null;
+		}
 		// pay councillors
 		player.useCoins(balcony.councillorCost(cards));
 
