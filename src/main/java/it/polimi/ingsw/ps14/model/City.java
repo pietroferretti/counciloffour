@@ -146,14 +146,14 @@ public class City implements Serializable {
 
 	@Override
 	public String toString() {
-		return name.toUpperCase() + "\nColor: " + color + "\nNeighbors: " + toStringNeighborsName() + "\nBonus: "
+		return "\n" + name.toUpperCase() + "\nColor: " + color + "\nNeighbors: " + toStringNeighborsName() + "\nBonus: "
 				+ token.toString() + toStringEmporiums();
 
 	}
 
 	private String toStringEmporiums() {
 		if (emporiums.isEmpty())
-			return "\nNo emporiums in this city yet";
+			return "\nNo emporiums in this city yet\n";
 		String s = "\nThese players own an emporium in this city:\n";
 		for (Player player : emporiums) {
 			s = s + player.getName() + " ";
