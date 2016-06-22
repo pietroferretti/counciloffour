@@ -140,17 +140,6 @@ public class RMICommunication implements RMIViewRemote, Communication {
 	}
 
 	@Override
-	public void usedCard(Integer permID) {
-			try {
-				serverStub.usedCard(permID);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-	}
-
-	@Override
 	public void passTurn(Integer playerID) {
 			try {
 				serverStub.passTurn(playerID);
@@ -220,6 +209,16 @@ public class RMICommunication implements RMIViewRemote, Communication {
 	public void registerClient(ClientViewRemote clientStub) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void answerNobilityRequest(List<String> objectIDs) {
+		try {
+			serverStub.answerNobilityRequest(objectIDs);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
+
+		}
 	}
 
 }

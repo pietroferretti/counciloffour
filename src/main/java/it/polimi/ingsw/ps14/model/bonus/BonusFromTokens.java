@@ -1,11 +1,12 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.WaitingFor;
 
 public class BonusFromTokens implements SpecialNobilityBonus {
 
@@ -35,29 +36,25 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 	 */
 	@Override
 	public void useBonus(Player player, Model model) {
-		boolean isValid;
-		List<Bonus> bonusChoosable = new ArrayList<>();
+
+		Map<String, String> availableChoices = new HashMap<>();
+		
+		Bonus token;
 		for (City c : model.getGameBoard().getCities()) {
-			isValid = true;
+			
 			if (c.isEmporiumBuilt(player)) {
-
-				if (c.getToken() instanceof BonusNobilityLvlUp)
-						isValid = false;
-				if (isValid)
-					bonusChoosable.add(c.getToken());
+				
+				token = c.getToken();				
+				if (token instanceof BonusNobilityLvlUp) {
+					availableChoices.put(c.getName(), c.toString());
+				}
 			}
+			
 		}
-
-		model.notifyObservers(bonusChoosable);
-		// TODO: continue
-		// se quantity > tokens ??
-
-		// display a list of tokens to the player, remove nobility upgrades
-
-		// aspetta la scelta del giocatore (anche multipla)
-		// se multipli check che siano diversi
-
-		// prendi i token corrispondenti, applicali al giocatore
+		
+		model.setAvailableChoices(availableChoices);
+		model.setWaitingForHowMany(quantity);
+		model.setWaitingFor(WaitingFor.TAKEPERMIT);
 	}
 	
 	@Override

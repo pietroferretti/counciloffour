@@ -1,5 +1,18 @@
 package it.polimi.ingsw.ps14.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Queue;
+import java.util.Random;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.exceptions.InvalidSettingsException;
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
@@ -12,18 +25,6 @@ import it.polimi.ingsw.ps14.model.bonus.BonusNobilityLvlUp;
 import it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard;
 import it.polimi.ingsw.ps14.model.bonus.BonusTakeBusinessPermits;
 import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Queue;
-import java.util.Random;
-import java.util.logging.Logger;
 
 public class GameBoard extends Observable implements Serializable {
 	/**
@@ -110,7 +111,7 @@ public class GameBoard extends Observable implements Serializable {
 		getRegion(RegionType.MOUNTAINS).setBonusRegion(bonusMountains);
 
 		// Create a NobilityTrack object
-		Map<Integer, Bonus> nobilityTrackMap = buildNobilityTrack(settings.nobilityTrack);
+		SortedMap<Integer, Bonus> nobilityTrackMap = buildNobilityTrack(settings.nobilityTrack);
 		nobilityTrack = new NobilityTrack(nobilityTrackMap);
 
 	}
@@ -219,8 +220,8 @@ public class GameBoard extends Observable implements Serializable {
 		return bonus;
 	}
 
-	Map<Integer, Bonus> buildNobilityTrack(Map<Integer, Map<String, Integer>> nobilityTrackSettings) {
-		Map<Integer, Bonus> nobilityTrackMap = new HashMap<>();
+	SortedMap<Integer, Bonus> buildNobilityTrack(Map<Integer, Map<String, Integer>> nobilityTrackSettings) {
+		SortedMap<Integer, Bonus> nobilityTrackMap = new TreeMap<>();
 
 		for (Map.Entry<Integer, Map<String, Integer>> levelEntry : nobilityTrackSettings.entrySet()) {
 			Integer level = levelEntry.getKey();

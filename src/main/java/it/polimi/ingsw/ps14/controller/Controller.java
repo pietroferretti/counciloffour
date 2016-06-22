@@ -2,6 +2,8 @@ package it.polimi.ingsw.ps14.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -9,17 +11,24 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
+import it.polimi.ingsw.ps14.model.BusinessPermit;
+import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.WaitingFor;
 import it.polimi.ingsw.ps14.model.actions.TurnAction;
 import it.polimi.ingsw.ps14.model.actions.market.BuyAction;
 import it.polimi.ingsw.ps14.model.actions.market.SellAction;
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
+import it.polimi.ingsw.ps14.model.bonus.SpecialNobilityBonus;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.view.View;
@@ -77,6 +86,10 @@ public class Controller implements Observer {
 		} else if (arg instanceof DoneBuyingMsg) {
 			
 			doneBuying(serverView);
+			
+		} else if (arg instanceof NobilityRequestAnswerMsg) {
+			
+			handleNobilityAnswer(serverView, ((NobilityRequestAnswerMsg) arg).getIDs());
 		
 		} else {
 			
@@ -145,6 +158,7 @@ public class Controller implements Observer {
 								
 								// the turns phase has ended, the market phase starts 
 								model.setGamePhase(GamePhase.MARKET);
+								model.setCurrentMarketState(MarketState.SELLING);
 								model.getMarket().clear();
 								
 								marketPlayers = new ArrayList<>(players);
@@ -168,7 +182,7 @@ public class Controller implements Observer {
 				}
 				
 			} else {
-				sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().toString());
+				sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
 			}
 
 		} else if (model.getGamePhase() == GamePhase.MARKET) {
@@ -373,8 +387,182 @@ public class Controller implements Observer {
 		
 	}
 	
-	private void sendErrorMsg(View playerview, String errorMessage) {
-		model.setMessage(new ErrorMsg(playerview.getPlayerID(), errorMessage));
+	private void handleNobilityAnswer(View playerView, List<String> chosenIDs) {
+		
+		if (model.getWaitingFor() == WaitingFor.NOTHING) {
+			
+			sendErrorMsg(playerView, "You cannot answer a nobility bonus request if there isn't one.");
+			
+		} else {
+			
+			if (chosenIDs == null || chosenIDs.isEmpty()) {
+				
+				sendErrorMsg(playerView, "You didn't choose anything!");
+				
+			} else if (!(idsInAvailableChoices(chosenIDs) && allIDsAreDifferent(chosenIDs) && (chosenIDs.size() <= model.getWaitingForHowMany()))) {
+				
+				sendErrorMsg(playerView, "Invalid choices.");
+				
+			} else {
+				
+				if (model.getWaitingFor() == WaitingFor.TAKEPERMIT) {
+					
+					handleTakePermit(playerView, chosenIDs);
+					
+				} else if (model.getWaitingFor() == WaitingFor.FROMPERMITS) {
+					
+					handleFromPermits(playerView, chosenIDs);
+					
+				} else if (model.getWaitingFor() == WaitingFor.FROMTOKENS) {
+					
+					handleFromTokens(playerView, chosenIDs);
+					
+				}
+				
+				model.setAvailableChoices(new HashMap<>());
+				model.setWaitingForHowMany(0);
+				model.setWaitingFor(WaitingFor.NOTHING);
+				
+				Player player = model.id2player(playerView.getPlayerID());
+				applyBonusesToDo(player);
+
+				
+			}
+			
+		}
+		
+	}
+	
+	private boolean idsInAvailableChoices(List<String> chosenIDs) {
+
+		for (String id : chosenIDs) {
+			if (!model.getAvailableChoices().containsKey(id)) {
+				return false;
+			}
+		}
+		
+		return true;
+		
+	}
+	
+	private boolean allIDsAreDifferent(List<String> chosenIDs) {
+		
+		HashSet<String> uniqueIDs = new HashSet<>(chosenIDs);
+		return chosenIDs.size() == uniqueIDs.size();
+		
+	}
+	
+	private void handleTakePermit(View playerView, List<String> chosenIDs) {
+		
+		Player player = model.id2player(playerView.getPlayerID());
+		
+		Region region = null;
+		BusinessPermit permit = null;
+		BusinessPermit tempPermit;
+		
+		for (String idString : chosenIDs) {
+			for (Region r : model.getGameBoard().getRegions()) {
+				tempPermit = model.id2permit(Integer.valueOf(idString), region);
+				if (tempPermit != null) {
+					permit = tempPermit;
+					region = r;
+				}
+			}
+			
+			if (region != null) {
+				// acquire permit
+				player.getBusinessHand().acquireBusinessPermit(permit);
+
+				// change face up card in region
+				region.getBusinessPermits().substituteCard(permit);
+				// notifies changes in business deck
+				region.setBusinessPermits();
+
+				permit.getBonusList().useBonus(player, model);
+				
+			} else {
+				
+				LOGGER.warning("Something went wrong when interpreting the answer to a nobility request!");
+				sendErrorMsg(playerView, "Invalid answer!");
+				
+			}
+		}
+	}
+	
+	private void handleFromPermits(View playerView, List<String> permitIDs) {
+		
+		Player player = model.id2player(playerView.getPlayerID());
+		
+		BusinessPermit permit;
+		Bonus bonus;
+		for (String permitID : permitIDs) {
+			
+			permit = player.getBusinessHand().id2permit(Integer.valueOf(permitID));
+			
+			if (permit != null) {
+				bonus = permit.getBonusList();
+				
+				if (bonus != null) {
+					bonus.useBonus(player, model);
+				}
+				
+			} else {
+				
+				LOGGER.warning("Something went wrong when interpreting the answer to a nobility request!");
+				sendErrorMsg(playerView, "Invalid answer!");
+				
+			}
+		}		
+	}
+	
+	private void handleFromTokens(View playerView, List<String> cityNames) {
+		
+		Player player = model.id2player(playerView.getPlayerID());
+		
+		City city;
+		Bonus bonus;
+		for (String cityName : cityNames) {
+			
+			city = model.name2city(cityName);
+			
+			if (city != null) {
+				bonus = city.getToken();
+				
+				if (bonus != null) {
+					bonus.useBonus(player, model);
+				}
+				
+			} else {
+				
+				LOGGER.warning("Something went wrong when interpreting the answer to a nobility request!");
+				sendErrorMsg(playerView, "Invalid answer!");
+				
+			}
+		}
+		
+	}
+	
+	private void applyBonusesToDo(Player player) {
+		Bonus bonus;
+		while (!model.getBonusesToDo().isEmpty()) {
+			
+			bonus = model.popBonusToDo();
+			if (!(bonus instanceof SpecialNobilityBonus)) {
+				
+				bonus.useBonus(player, model);
+				
+			} else {
+				
+				bonus.useBonus(player, model);		// sets the WaitingFor and related states appropriately
+				break;								// goes back to waiting for a message from the client
+													// leaving the remaining bonuses where they are
+			}
+			
+		}
+	}
+	
+	private void sendErrorMsg(View playerView, String errorMessage) {
+		model.setMessage(new ErrorMsg(playerView.getPlayerID(), errorMessage));
 	}
 	
 	private void distributeEndGamePoints(List<Player> players) {

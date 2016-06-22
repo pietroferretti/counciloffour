@@ -91,7 +91,6 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		// notifies changes in business deck
 		region.setBusinessPermits();
 
-		// TODO: bonus
 		permitTile.getBonusList().useBonus(player, model);
 
 		return nextState(previousState, model);

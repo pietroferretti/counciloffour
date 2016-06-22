@@ -1,7 +1,12 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.WaitingFor;
 
 public class BonusFromBusinessPermits implements SpecialNobilityBonus {
 
@@ -18,10 +23,9 @@ public class BonusFromBusinessPermits implements SpecialNobilityBonus {
 		this.quantity = quantity;
 	}
 
-	// TODO more than one?
 	/**
 	 * The player obtains the bonus of one (or more) of the business permits he
-	 * prevously bought.
+	 * previously bought.
 	 * 
 	 * @param player
 	 *            the player that got the bonus
@@ -30,19 +34,19 @@ public class BonusFromBusinessPermits implements SpecialNobilityBonus {
 	 */
 	@Override
 	public void useBonus(Player player, Model model) {
-		for (int i = 0; i < quantity; i++) {
-			// prendi tutti i business permit del giocatore (usati e non usati)
 
-			// mostra all'utente la lista
-
-			// aspetta la scelta dell'utente
-
-			// trova business permit corrispondente alla scelta
-			// applica bonus
-
-			// fine
-
+		Map<String, String> availableChoices = new HashMap<>();
+		
+		for (BusinessPermit permit : player.getAllPermits()) {
+			
+			availableChoices.put(permit.getId().toString(), permit.getBonusList().toString());
+			
 		}
+		
+		model.setAvailableChoices(availableChoices);
+		model.setWaitingForHowMany(quantity);
+		model.setWaitingFor(WaitingFor.FROMPERMITS);
+
 	}
 
 	@Override

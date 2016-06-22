@@ -3,7 +3,6 @@ package it.polimi.ingsw.ps14.server;
 import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
-import it.polimi.ingsw.ps14.message.fromclient.ChooseUsedPermitMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
@@ -152,17 +151,15 @@ public class RMIServerIn extends ServerView implements RMIViewRemote {
 	}
 
 	@Override
-	public void usedCard(Integer permID) {
-		ChooseUsedPermitMsg choice = new ChooseUsedPermitMsg(permID);
-		setChanged();
-		notifyObservers(choice);
-	}
-
-	@Override
 	public void passTurn(Integer playerID) {
 		TurnActionMsg action = new TurnActionMsg(new EndTurnAction(playerID));
 		setChanged();
 		notifyObservers(action);
+	}
+	
+	@Override
+	public void answerNobilityRequest(List<String> chosenIDs) {
+		//TODO;
 	}
 
 	@Override

@@ -49,9 +49,7 @@ public class Player extends Observable implements Serializable {
 	 * @param numberOfCards
 	 *            number of politic cards to drawn
 	 * @param id
-	 * @deprecated color is not random, I don't remember
 	 */
-	@Deprecated
 	public Player(String name, Color color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
 		this.id = idCounter;
 		idCounter++;
@@ -193,18 +191,6 @@ public class Player extends Observable implements Serializable {
 		return level; // returns the new value of level to check bonuses
 	}
 
-	/**
-	 * upgrade of nobility
-	 * 
-	 * @param n
-	 */
-	public void levelUp(int n) {
-		level = level + n;
-		setChanged();
-		notifyObservers(new PlayerChangedPublicMsg(id,
-				name + " gained +" + Integer.toString(n) + " levels! Now his level is " + Integer.toString(level)));
-	}
-
 	public int getPoints() {
 		return points;
 	}
@@ -321,6 +307,13 @@ public class Player extends Observable implements Serializable {
 		// notifyObservers();
 	}
 
+	public List<BusinessPermit> getAllPermits() {
+		List<BusinessPermit> allPermits = new ArrayList<>();
+		allPermits.addAll(businessHand.getUsedCards());
+		allPermits.addAll(businessHand.getUsedCards());
+		return allPermits;
+	}
+	
 	public void incrementNumEmporiums() {
 		this.numEmporiums++;
 		setChanged();

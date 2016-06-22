@@ -6,10 +6,12 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
@@ -25,6 +27,7 @@ public class Model extends Observable implements Serializable {
 	private Market market;
 
 	private State state;
+	private List<Bonus> bonusesToDo;
 
 	private MessageObservable message;
 
@@ -35,6 +38,7 @@ public class Model extends Observable implements Serializable {
 		players = new ArrayList<>();
 		market = new Market();
 		state = new State();
+		bonusesToDo = new ArrayList<>();
 		
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
@@ -49,6 +53,8 @@ public class Model extends Observable implements Serializable {
 		gameBoard = new GameBoard(new Settings("settings.json"));
 		this.players = players;
 		market = new Market();
+		state = new State();
+		bonusesToDo = new ArrayList<>();
 		state = new State();
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
@@ -194,20 +200,43 @@ public class Model extends Observable implements Serializable {
 		state.setWaitingFor(waitingFor);
 	}
 
+	public Integer getWaitingForHowMany() {
+		return state.getWaitingForHowMany();
+	}
+
+	public void setWaitingForHowMany(Integer number) {
+		state.setWaitingForHowMany(number);
+	}
+	
 	/**
 	 * @return the availableChoices
 	 */
-	public List<Integer> getAvailableChoices() {
+	public Map<String, String> getAvailableChoices() {
 		return state.getAvailableChoices();
 	}
 
 	/**
 	 * @param availableChoices the availableChoices to set
 	 */
-	public void setAvailableChoices(List<Integer> availableChoices) {
+	public void setAvailableChoices(Map<String, String> availableChoices) {
 		state.setAvailableChoices(availableChoices);
 	}
 	
+	public List<Bonus> getBonusesToDo() {
+		return bonusesToDo;
+	}
+	
+	public Bonus popBonusToDo() {
+		return bonusesToDo.remove(0);
+	}
+	
+	public void setBonusesToDo(List<Bonus> bonusesToDo) {
+		this.bonusesToDo = bonusesToDo;
+	}
+	
+	public void addBonusesToDo(List<Bonus> newBonuses) {
+		this.bonusesToDo.addAll(newBonuses);
+	}
 	
 	public Market getMarket() {
 		return market;

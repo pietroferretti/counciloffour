@@ -45,8 +45,6 @@ public interface RMIViewRemote extends Remote{
 	public void electWithAssistant(Integer playerID, RegionType rt,
 			ColorCouncillor cc)throws RemoteException;
 
-	public void usedCard(Integer permID)throws RemoteException;
-
 	public void passTurn(Integer playerID)throws RemoteException;
 
 	public void showMyDetails(Integer playerID)throws RemoteException;
@@ -58,4 +56,6 @@ public interface RMIViewRemote extends Remote{
 	public void sell(List<ItemForSale> items)throws RemoteException;
 
 	public void buy(Integer permID, Integer playerID, Integer quantity)throws RemoteException;
+	
+	public void answerNobilityRequest(List<String> objectIDs) throws RemoteException;
 }

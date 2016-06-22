@@ -112,6 +112,10 @@ public class Region extends Observable implements Serializable {
 	public BonusVictoryPoint getBonusRegion() {
 		return bonusRegion;
 	}
+	
+	public BusinessPermit[] getAvailablePermits() {
+		return businessPermits.getAvailablePermits();
+	}
 
 	@Override
 	public String toString() {

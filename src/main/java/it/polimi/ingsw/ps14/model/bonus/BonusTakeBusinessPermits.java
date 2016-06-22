@@ -1,7 +1,15 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.WaitingFor;
 
 public class BonusTakeBusinessPermits implements SpecialNobilityBonus {
 
@@ -18,7 +26,6 @@ public class BonusTakeBusinessPermits implements SpecialNobilityBonus {
 		this.quantity = quantity;
 	}
 
-	// TODO mi serve un modo per comunicare con il giocatore
 	/**
 	 * The player can get a free permit from the board.
 	 * 
@@ -29,22 +36,22 @@ public class BonusTakeBusinessPermits implements SpecialNobilityBonus {
 	 */
 	@Override
 	public void useBonus(Player player, Model model) {
-		for (int i = 0; i < quantity; i++) {
-			// per ogni regione
-			// prendi i permit disponibili
-
-			// tieni una lista dei permit disponibili
-
-			// mostra all'utente i permit disponibili
-
-			// aspetta la scelta dell'utente (1-6 ?)
-
-			// riconosci la regione del permit
-			// prendi il permit, rimuovilo dalla regione
-			// dai il permit all utente
-			// region.getBusinessPermits().fillEmptySpots()
-
+		
+		Map<String, String> availableChoices = new HashMap<>();
+		
+		List<BusinessPermit> tempList;
+		for (Region region : model.getGameBoard().getRegions()) {
+			
+			tempList = Arrays.asList(region.getAvailablePermits());
+			for (BusinessPermit permit: tempList) {
+				availableChoices.put(permit.getId().toString(), permit.toString());
+			}
+			
 		}
+
+		model.setAvailableChoices(availableChoices);
+		model.setWaitingForHowMany(quantity);
+		model.setWaitingFor(WaitingFor.TAKEPERMIT);
 	}
 
 	@Override

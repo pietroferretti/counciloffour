@@ -19,8 +19,8 @@ public class City implements Serializable {
 
 	private final Region region;
 
-	// @SuppressWarnings("unused")
-	// private RegionType regionType = null;
+	@SuppressWarnings("unused")
+	private RegionType regionType = null;
 
 	private List<City> neighbors;
 	// usato solo per la copia
@@ -46,7 +46,6 @@ public class City implements Serializable {
 		this.region = region;
 		this.token = token;
 		emporiums = new ArrayList<>();
-
 	}
 
 	public City(City c) {
@@ -63,9 +62,9 @@ public class City implements Serializable {
 			}
 		}
 
-		// if (c.getRegion() != null) {
-		// regionType = c.getRegion().getType();
-		// }
+		if (c.getRegion() != null) {
+			regionType = c.getRegion().getType();
+		}
 
 		if (c.emporiums != null) {
 			this.emporiums = new ArrayList<>(c.emporiums.size());
@@ -115,10 +114,6 @@ public class City implements Serializable {
 
 	public void setNeighbors(List<City> neighbors) {
 		this.neighbors = neighbors;
-		this.neighborsName = new ArrayList<>(neighbors.size());
-		for (City city : neighbors) {
-			this.neighborsName.add(city.name);
-		}
 	}
 
 	public void setToken(Bonus token) {
@@ -157,13 +152,13 @@ public class City implements Serializable {
 			s = s + "No bonus for this city";
 		} else
 			s = s + token.toString();
-		return s + toStringEmporiums();
+		return s + toStringEmporiums() + "\n";
 
 	}
 
 	private String toStringEmporiums() {
 		if (emporiums.isEmpty())
-			return "\nNo emporiums in this city yet\n";
+			return "\nNo emporiums in this city yet";
 		String s = "\nThese players own an emporium in this city:\n";
 		for (Player player : emporiums) {
 			s = s + player.getName() + " ";

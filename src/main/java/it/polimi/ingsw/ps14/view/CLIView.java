@@ -1,5 +1,10 @@
 package it.polimi.ingsw.ps14.view;
 
+import java.util.Map;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -22,9 +27,6 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 import java.awt.Color;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.logging.Logger;
-
 /*
  * --------------------------Command Line Interface-----------------------
  * It acquires infos from player and show the game state each time something
@@ -200,6 +202,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			} else if (!isGameStarted()) {
 				print("The game hasn't started yet!!!!");
+				// TODO il giocatore può fare qualcosa quando il gioco non è ancora iniziato?
 
 				// } else if (!myTurn) {
 				//
@@ -210,9 +213,9 @@ public class CLIView extends ClientView implements Runnable {
 
 			} else {
 
-				if (!interpreter
-						.parseString(input.toUpperCase(), getPlayerID()))
+				if (!interpreter.parseString(input.toUpperCase(), getPlayerID())) {
 					print("Command not recognized! Retry:");
+				} 
 			}
 		}
 	}
@@ -244,7 +247,7 @@ public class CLIView extends ClientView implements Runnable {
 		print("BUY ITEM_ID QUANTITY(optional) - buy! insert quantity\n\t only if buy some assistant of the item and not the whole item");
 	}
 
-	private void showAvailableCommands() {
+	public void showAvailableCommands() {
 
 		if (gameState == null) {
 
@@ -292,29 +295,37 @@ public class CLIView extends ClientView implements Runnable {
 			} else if (gameState.getWaitingFor() == WaitingFor.TAKEPERMIT) {
 
 				print("You got a bonus by moving forward in the nobility track!");
-				print("You can choose a free permit between these: ");
-				// for permit in gameState.getAvailableChoices()
-				// print(permit)
-				// TODO
+				print(String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
+			
+				for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
+					print(String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+				}
+				
+				print("Choose with 'choose id1 [id2 ...]'");
 
 			} else if (gameState.getWaitingFor() == WaitingFor.FROMPERMITS) {
 
 				print("You got a bonus by moving forward in the nobility track!");
 				print("You can get the benefits of one of the business permits you own for the second time.");
-				print("Choose between these bonuses:");
-				// for bonus in gameState.getAvailableChoices()
-				// print(bonus)
-				// TODO
+				print(String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
+
+				for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
+					print(String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+				}
+				
+				print("Choose with 'choose id1 [id2 ...]'");
 
 			} else if (gameState.getWaitingFor() == WaitingFor.FROMTOKENS) {
 
 				print("You got a bonus by moving forward in the nobility track!");
 				print("You can get a bonus from one of the cities where you built an emporium");
-				print("Choose between these bonuses:");
-				// for bonus in gameState.getAvailableChoices()
-				// print(bonus)
-				// TODO
-				// TODO come cacchio si fa con più di un token?
+				print(String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
+
+				for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
+					print(String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+				}
+				
+				print("Choose with 'choose id1 [id2 ...]'");
 
 			}
 
@@ -401,6 +412,14 @@ public class CLIView extends ClientView implements Runnable {
 
 		}
 
+	}
+	
+	@Override 
+	public void setGameStarted(boolean gameStarted) {
+		this.gameStarted = gameStarted;
+		if (gameStarted) {
+			print("Game Started!");
+		}
 	}
 
 	@Override
