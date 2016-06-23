@@ -244,7 +244,9 @@ public class CLIView extends ClientView implements Runnable {
 		print("FINISH - pass the turn");
 		print("SHOW MYDETAILS/DETAILS/GAMEBOARD - show whatever you want");
 		print("SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... \n\tASSISTANTS NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE... - sell!sell!sell!");
+		print("SELL NONE - don't sell anything :(");
 		print("BUY ITEM_ID QUANTITY(optional) - buy! insert quantity\n\t only if buy some assistant of the item and not the whole item");
+		print("BUY FINISH - terminate your buying phase");
 	}
 
 	public void showAvailableCommands() {

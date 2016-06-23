@@ -12,6 +12,7 @@ public class Market extends Observable implements Serializable {
 	 */
 	private static final long serialVersionUID = -6466607003340777967L;
 	private List<ItemForSale> objectsForSale;
+	private static int idCounter=0;
 
 	public Market() {
 		objectsForSale = new ArrayList<>();
@@ -34,6 +35,11 @@ public class Market extends Observable implements Serializable {
 				return prod;
 		return null;
 	}
+	
+	public void someAssistantsSold(ItemForSale item,int howMany){
+		setChanged();
+		notifyObservers("Player" + Integer.toString(item.getOwnerID()) + " sold "+howMany+" assistants!");
+	}
 
 	/**
 	 * is it an object on sale?
@@ -48,7 +54,7 @@ public class Market extends Observable implements Serializable {
 		return null;
 	}
 
-	public ItemForSale id2itemForSale(Integer itemID) {
+	public ItemForSale id2itemForSale(int itemID) {
 		for (ItemForSale object : objectsForSale)
 			if (itemID == object.getBarCode())
 				return object;
@@ -63,6 +69,8 @@ public class Market extends Observable implements Serializable {
 	 * @return true if the action is valid, return false if not
 	 */
 	public void addItem(ItemForSale item) {
+		item.setBarCode(idCounter);
+		idCounter++;
 		objectsForSale.add(item);
 		setChanged();
 		notifyObservers();

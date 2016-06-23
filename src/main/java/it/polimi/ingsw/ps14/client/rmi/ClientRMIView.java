@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.client.RMI;
+package it.polimi.ingsw.ps14.client.rmi;
 
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;

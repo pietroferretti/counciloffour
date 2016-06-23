@@ -38,17 +38,18 @@ public class ItemForSaleTest {
 		p1copy = new ItemForSale(p1);
 	}
 
-	@Test
-	public void testItemForSaleTypeIntIntInteger() {
-		assertTrue(assistants.getBarCode() == 1);
-		assertTrue(business.getBarCode() == 2);
-		assertTrue(politic.getBarCode() == 3);
-	}
-
-	@Test
-	public void testItemForSaleColorPoliticIntInteger() {
-		assertTrue(p1.getBarCode() == 4);
-	}
+	//Li ho tolti dopo aver modificato itemForSale, ora il barCode viene assegnato quando vengono messi nel mercato
+//	@Test
+//	public void testItemForSaleTypeIntIntInteger() {
+//		assertTrue(assistants.getBarCode() == 1);
+//		assertTrue(business.getBarCode() == 2);
+//		assertTrue(politic.getBarCode() == 3);
+//	}
+//
+//	@Test
+//	public void testItemForSaleColorPoliticIntInteger() {
+//		assertTrue(p1.getBarCode() == 4);
+//	}
 
 	@Test
 	public void testItemForSaleItemForSale() {

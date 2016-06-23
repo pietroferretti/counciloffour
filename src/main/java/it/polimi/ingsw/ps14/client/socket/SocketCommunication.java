@@ -7,9 +7,11 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
+import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
+import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
@@ -214,10 +216,20 @@ public class SocketCommunication implements Communication {
 				quantity)));
 
 	}
-	
+
 	@Override
 	public void answerNobilityRequest(Integer playerID, List<String> objectIDs) {
 		msgHandlerOut.sendMessage(new NobilityRequestAnswerMsg(objectIDs));
+	}
+
+	@Override
+	public void sellNone(Integer playerID) {
+		msgHandlerOut.sendMessage(new SellNoneMsg());
+	}
+
+	@Override
+	public void doneFinishBuying(Integer playerID) {
+		msgHandlerOut.sendMessage(new DoneBuyingMsg());
 	}
 
 }

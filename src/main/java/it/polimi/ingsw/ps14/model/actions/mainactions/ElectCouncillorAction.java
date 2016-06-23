@@ -61,10 +61,13 @@ public class ElectCouncillorAction extends MainAction {
 			return null;
 		}
 		int electCouncillorPrize = 4;
+		
 		// electCouncillor return discarded councillor, discarded councillor is
 		// added to availableCouncillors in gameboard
 		model.getGameBoard().addDiscardedCouncillor(
 				balcony.electCouncillor(councillor));
+		model.getGameBoard().useCouncillor(councillor);
+		
 		if(regionType!=null)
 			model.getGameBoard().getRegion(regionType).setBalcony();
 		else

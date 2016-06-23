@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps14.server;
 import java.util.Observable;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
+import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;

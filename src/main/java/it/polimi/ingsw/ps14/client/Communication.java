@@ -26,5 +26,6 @@ public interface Communication {
 	public void sell(Integer playerID, List<ItemForSale> items);
 	public void buy(Integer playerID,Integer objID,Integer quantity);
 	public void answerNobilityRequest(Integer playerID, List<String> objectIDs);
-	
+	public void sellNone(Integer playerID);
+	public void doneFinishBuying(Integer playerID);
 }

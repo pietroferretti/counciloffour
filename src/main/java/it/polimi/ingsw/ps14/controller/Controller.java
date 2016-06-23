@@ -14,6 +14,7 @@ import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
+import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
@@ -105,6 +106,10 @@ public class Controller implements Observer {
 		} else if (arg instanceof DoneBuyingMsg) {
 
 			doneBuying(serverView);
+			
+		} else if (arg instanceof SellNoneMsg) {
+
+			sellNone(serverView);
 
 		} else if (arg instanceof NobilityRequestAnswerMsg) {
 
@@ -445,6 +450,39 @@ public class Controller implements Observer {
 			model.setPlayerOrder(players);
 			model.loadNextPlayer();
 
+		}
+	}
+	
+	
+	private void sellNone(View playerView) {
+
+		// checks if we're actually in the market phase
+		if (model.getGamePhase() != GamePhase.MARKET) {
+			sendErrorMsg(playerView, "You can only do this during the Market phase.");
+			return;
+		}
+
+		if (model.getCurrentMarketState() != MarketState.SELLING) {
+			sendErrorMsg(playerView, "You cannot do this now.");
+			return;
+		}
+
+		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
+			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			return;
+		}
+
+		if (!model.getPlayerOrder().isEmpty()) {
+
+			model.loadNextPlayer();
+
+		} else {
+
+			
+			model.setCurrentMarketState(MarketState.BUYING);
+			model.setPlayerOrder(marketPlayers);
+			model.setCurrentPlayer(model.getNextPlayer());
+			model.getPlayerOrder().removeFirst();
 		}
 	}
 

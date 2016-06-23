@@ -1,9 +1,11 @@
 package it.polimi.ingsw.ps14.server;
 
-import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
+import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
+import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
+import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
@@ -40,7 +42,7 @@ import java.util.Observable;
 public class RMIServerIn extends Observable implements RMIViewRemote {
 
 	private Server server;
-	
+
 	private List<RMIServerView> serverViews;
 
 	public RMIServerIn(Server server) {
@@ -51,10 +53,10 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 	public void registerClient(ClientViewRemote clientStub)
 			throws RemoteException {
 		System.out.println("CLIENT REGISTRATO");
-		server.registerWaitingConnectionRMI(clientStub,this);
+		server.registerWaitingConnectionRMI(clientStub, this);
 		server.meeting();
 	}
-	
+
 	public void addServerView(RMIServerView serverView) {
 		serverViews.add(serverView);
 	}
@@ -66,15 +68,16 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 				serverView.forwardMessage(msg);
 			}
 		}
-		
+
 	}
-	
+
 	@Override
 	public void setPlayerName(Integer playerID, String name) {
 		System.out.println("da implementare");
-//		super.setPlayerName(((PlayerNameMsg) objectReceived).getPlayerName());
-//		LOGGER.info(String.format("Set player name as '%s' for rmi view %d",
-//				super.getPlayerName(), super.getPlayerID()));//FIXME
+		// super.setPlayerName(((PlayerNameMsg)
+		// objectReceived).getPlayerName());
+		// LOGGER.info(String.format("Set player name as '%s' for rmi view %d",
+		// super.getPlayerName(), super.getPlayerID()));//FIXME
 	}
 
 	@Override
@@ -154,10 +157,10 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 		TurnActionMsg action = new TurnActionMsg(new EndTurnAction(playerID));
 		sendToServerView(playerID, action);
 	}
-	
+
 	@Override
 	public void answerNobilityRequest(Integer playerID, List<String> chosenIDs) {
-		//TODO;
+		// TODO;
 	}
 
 	@Override
@@ -188,6 +191,20 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 	public void buy(Integer playerID, Integer objID, Integer quantity) {
 		Message action = new BuyMsg(new BuyAction(playerID, objID, quantity));
 		sendToServerView(playerID, action);
+	}
+
+	@Override
+	public void sellNone(Integer playerID) throws RemoteException {
+		Message action = new SellNoneMsg();
+		sendToServerView(playerID, action);
+
+	}
+
+	@Override
+	public void doneBuying(Integer playerID) throws RemoteException {
+		Message action = new DoneBuyingMsg();
+		sendToServerView(playerID, action);
+
 	}
 
 }
