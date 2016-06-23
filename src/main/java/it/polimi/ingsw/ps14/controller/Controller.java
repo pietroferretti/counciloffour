@@ -61,7 +61,6 @@ public class Controller implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("nel controller");
 
 		View serverView = (View) o;
 		
@@ -112,137 +111,153 @@ public class Controller implements Observer {
 	 */
 	private void executeTurnAction(View playerView, TurnAction action) {
 		
-		// if we're in the regular turns phase (i.e. not market)
-		if (model.getGamePhase() == GamePhase.TURNS) {
-		
-			// checks if it's the turn of the player that sent the action
-			if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
+		switch(model.getGamePhase()) {
+			case TURNS:
+				
+				turnActionDuringTurns(playerView, action);
+				break;
 			
-				// checks if we are in the right state to execute this action (e.g. we can still perform a Main Action)
-				if (model.getCurrentTurnState().isActionLegal(action, model)) {
+			case MARKET:
 				
-					// executes the action and updates the state
-					model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, model));
-					
-					// checks if a player has built all 10 emporiums
-					if (model.getCurrentPlayer().getNumEmporiums() >= 10) {
-						
-//						playerView.print("You built 10 emporiums. The game is about to end.");
-						System.out.println("Final turns!");
-					
-						model.setGamePhase(GamePhase.FINALTURNS);
-
-						// find this player's position in the players list
-						int index = -1;
-						for (Player player : players) {
-							if (playerView.getPlayerID() == player.getId()) {
-								index = players.indexOf(player);
-							}
-						}
-						
-						// sets the final players as all the players except the one that built 10 emporiums
-						// the turns are in the usual order, starting from the next player
-						List<Player> finalPlayers = new ArrayList<>();
-						finalPlayers.addAll(players.subList(index+1, players.size()));
-						finalPlayers.addAll(players.subList(0, index));
-						model.setPlayerOrder(finalPlayers);
-						model.loadNextPlayer();
-						
-					} else {
-						
-						// if the action ended the turn
-						if (model.getCurrentTurnState() instanceof EndTurnState) {
-		
-							// if no more players have to play their turn in this phase
-							if (model.getPlayerOrder().isEmpty()) {
-								
-								// the turns phase has ended, the market phase starts 
-								model.setGamePhase(GamePhase.MARKET);
-								model.setCurrentMarketState(MarketState.SELLING);
-								model.getMarket().clear();
-								
-								marketPlayers = new ArrayList<>(players);
-								Collections.shuffle(marketPlayers);
-								model.setPlayerOrder(marketPlayers);
-								model.setCurrentPlayer(model.getNextPlayer());
-								model.getPlayerOrder().removeFirst();
-		
-							} else {
-								
-								// it's the next player's turn
-								model.setCurrentTurnState(new InitialTurnState());
-								model.loadNextPlayer();
-							
-							}
-						}
-					}
-					
-				} else {
-					sendErrorMsg(playerView, "You cannot do this action now!");
-				}
+				// players cannot perform TurnActions during the market phase
+				sendErrorMsg(playerView, "You cannot do that action during the Market phase");
+				break;
 				
-			} else {
-				sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
-			}
-
-		} else if (model.getGamePhase() == GamePhase.MARKET) {
+			case FINALTURNS:
+				
+				turnActionDuringFinalTurns(playerView, action);
+				break;
 			
-			// players cannot perform TurnActions during the market phase
-			sendErrorMsg(playerView, "You cannot do that action during the Market phase");
-
-		} else if (model.getGamePhase() == GamePhase.FINALTURNS) {
-
-			// checks if it's the turn of the player that sent the action
-			if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-				
-				// checks if we are in the right state to execute this action (e.g. we can still perform a Main Action)
-				if (model.getCurrentTurnState().isActionLegal(action, null)) {
-					
-					// executes the action and updates the state
-					model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, null));
-					
-					// if the action ended the player's turn
-					if (model.getCurrentTurnState() instanceof EndTurnState) {
-						
-						// if no more players have to play their turn
-						if (model.getPlayerOrder().isEmpty()) {
-
-							// the game has ended, awarding final points and finding the winner
-							model.setGamePhase(GamePhase.END);
-							System.out.println("The game has ended.");
-							
-							distributeEndGamePoints(model.getPlayers());
-							
-							Player winner = findWinner(model.getPlayers());
-							
-							System.out.println("*** " + winner.getName() + " is the winner! ***");
-							// TODO rifare come messaggio
-
-						} else {
-							
-							// it's the next player's turn
-							model.loadNextPlayer();
-							model.setCurrentTurnState(new InitialTurnState());
-						}
-					}
-
-				} else {
-					
-					sendErrorMsg(playerView, "You cannot do this action now!"); 																// details
-				
-				}
-			} else {
-				
-				sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			case END:
 			
-			}
-
-		} else if (model.getGamePhase() == GamePhase.END) {
-			
-			sendErrorMsg(playerView, "The game has ended, you cannot perform this action.");
-		
+				sendErrorMsg(playerView, "The game has ended, you cannot perform this action.");
+				break;
+				
+			default:
+				
+				LOGGER.warning("Trying to execute a TurnAction when the gamephase is null!!");
+				break;
 		}
 		
+	}
+	
+	private void turnActionDuringTurns(View playerView, TurnAction action) {
+		
+		// checks if it's the turn of the player that sent the action
+		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
+			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			return;
+		}
+		
+		// checks if we are in the right state to execute this action (e.g. we can still perform a Main Action)
+		if (!model.getCurrentTurnState().isActionLegal(action, model)) {
+			sendErrorMsg(playerView, "You cannot do this action now!");
+			return;
+		}
+		
+		// executes the action and updates the state
+		model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, model));
+		
+		// checks if a player has built all 10 emporiums
+		if (model.getCurrentPlayer().getNumEmporiums() >= 10) {
+			
+// TODO						playerView.print("You built 10 emporiums. The game is about to end.");
+			System.out.println("Final turns!");
+		
+			model.setGamePhase(GamePhase.FINALTURNS);
+
+			// find this player's position in the players list
+			int index = -1;
+			for (Player player : players) {
+				if (playerView.getPlayerID() == player.getId()) {
+					index = players.indexOf(player);
+				}
+			}
+			
+			if (index == -1) {
+				LOGGER.warning("Something went wrong when comparing player IDs in the controller!!");
+			}
+			
+			// sets the final players as all the players except the one that built 10 emporiums
+			// the turns are in the usual order, starting from the next player
+			List<Player> finalPlayers = new ArrayList<>();
+			finalPlayers.addAll(players.subList(index+1, players.size()));
+			finalPlayers.addAll(players.subList(0, index));
+			model.setPlayerOrder(finalPlayers);
+			model.loadNextPlayer();
+			
+		} else {
+		// the player didn't build their 10th emporium
+			
+			// if the action ended the turn
+			if (model.getCurrentTurnState() instanceof EndTurnState) {
+
+				// if no more players have to play their turn in this phase
+				if (model.getPlayerOrder().isEmpty()) {
+					
+					// the turns phase has ended, the market phase starts 
+					model.setGamePhase(GamePhase.MARKET);
+					model.setCurrentMarketState(MarketState.SELLING);
+					model.getMarket().clear();
+					
+					marketPlayers = new ArrayList<>(players);
+					Collections.shuffle(marketPlayers);
+					model.setPlayerOrder(marketPlayers);
+					model.setCurrentPlayer(model.getNextPlayer());
+					model.getPlayerOrder().removeFirst();
+
+				} else {
+					
+					// it's the next player's turn
+					model.setCurrentTurnState(new InitialTurnState());
+					model.loadNextPlayer();
+				
+				}
+			}
+		}
+	}
+	
+	private void turnActionDuringFinalTurns(View playerView, TurnAction action) {
+		
+		// checks if it's the turn of the player that sent the action
+		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
+			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			return;
+		}
+			
+		// checks if we are in the right state to execute this action (e.g. we can still perform a Main Action)
+		if (model.getCurrentTurnState().isActionLegal(action, null)) {
+			sendErrorMsg(playerView, "You cannot do this action now!"); 	
+			return;
+		}
+		
+		// executes the action and updates the state
+		model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, null));
+		
+		// if the action ended the player's turn
+		if (model.getCurrentTurnState() instanceof EndTurnState) {
+			
+			// if no more players have to play their turn
+			if (model.getPlayerOrder().isEmpty()) {
+
+				// the game has ended, awarding final points and finding the winner
+				model.setGamePhase(GamePhase.END);
+				System.out.println("The game has ended.");
+				
+				distributeEndGamePoints(model.getPlayers());
+				
+				Player winner = findWinner(model.getPlayers());
+				
+				System.out.println("*** " + winner.getName() + " is the winner! ***");
+				// TODO rifare come messaggio
+
+			} else {
+				
+				// it's the next player's turn
+				model.loadNextPlayer();
+				model.setCurrentTurnState(new InitialTurnState());
+			}
+		}
 	}
 	
 	/**
@@ -251,140 +266,109 @@ public class Controller implements Observer {
 	 * @param playerView
 	 * @param action
 	 */
-	public void executeSellAction(View playerView, SellAction action) {
+	private void executeSellAction(View playerView, SellAction action) {
 		
 		// checks if we're actually in the market phase
-		if (model.getGamePhase() == GamePhase.MARKET) {
+		if (model.getGamePhase() != GamePhase.MARKET) {
+			sendErrorMsg(playerView, "You can only do this during the Market phase.");
+			return;
+		}
 			
-			// checks if we are in the market selling phase
-			if (model.getCurrentMarketState() == MarketState.SELLING) {
+		// checks if we are in the market selling phase
+		if (model.getCurrentMarketState() != MarketState.SELLING) {
+			sendErrorMsg(playerView, "You cannot sell now.");
+			return;
+		}
 				
-				// checks if it's the turn of the player that sent the action
-				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-					
-					if (action.isValid(model)) {
-					
-						action.execute(model.getMarket());
+		// checks if it's the turn of the player that sent the action
+		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
+			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			return;
+		}
 
-						// if no more players have to play their turn
-						if (model.getPlayerOrder().isEmpty()) {
+		if (!action.isValid(model)) {
+			sendErrorMsg(playerView, "You cannot do this action now!");		//details
+			return;
+		}
 
-							model.setCurrentMarketState(MarketState.BUYING);
-							model.setPlayerOrder(marketPlayers);
-							model.setCurrentPlayer(model.getNextPlayer());
-							model.getPlayerOrder().removeFirst();
+		action.execute(model.getMarket());
 
-						} else {
-							
-							// it's the next player's turn
-							model.loadNextPlayer();
-						}
-						
-					} else {
-				
-						sendErrorMsg(playerView, "You cannot do this action now!");																	// details
-					}
-				} else {
-					
-					sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
-				
-				}
-			} else {
+		// if no more players have to play their turn
+		if (model.getPlayerOrder().isEmpty()) {
 
-				sendErrorMsg(playerView, "You cannot sell now.");
+			model.setCurrentMarketState(MarketState.BUYING);
+			model.setPlayerOrder(marketPlayers);
+			model.setCurrentPlayer(model.getNextPlayer());
+			model.getPlayerOrder().removeFirst();
 
-			}
 		} else {
 			
-			sendErrorMsg(playerView, "You can only do this during the Market phase.");
-		
-		}
-		
+			// it's the next player's turn
+			model.loadNextPlayer();
+		}		
 	}
 
 	private void executeBuyAction(View playerView, BuyAction action) {
 		
 		// checks if we're actually in the market phase
-		if (model.getGamePhase() == GamePhase.MARKET) {
+		if (model.getGamePhase() != GamePhase.MARKET) {
+			sendErrorMsg(playerView, "You can only do this during the Market phase.");
+			return;
+		}
 			
-			if (model.getCurrentMarketState() == MarketState.BUYING) {
-				
-				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-					
-					if (action.isValid(model)) {
-						
-						action.execute(model);
-						
-						model.queueAndLoadNextPlayer();
-						
-					} else {
-						
-						sendErrorMsg(playerView, "You cannot do this action now!");
-						
-					}
-					
-				} else {
-					
-					sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
-				
-				}
-				
-			} else {
-				
-				sendErrorMsg(playerView, "You cannot buy now.");
+		if (model.getCurrentMarketState() != MarketState.BUYING) {
+			sendErrorMsg(playerView, "You cannot buy now.");
+			return;
+		}
 			
-			}
+		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
+			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			return;
+		}
+		
+		if (action.isValid(model)) {
+			
+			action.execute(model);
+			model.queueAndLoadNextPlayer();
 			
 		} else {
 			
-			sendErrorMsg(playerView, "You can only do this during the Market phase.");
-		
+			sendErrorMsg(playerView, "You cannot do this action now!");
+			
 		}
-	
 	}
 	
 	private void doneBuying(View playerView) {
 		
 		// checks if we're actually in the market phase
-		if (model.getGamePhase() == GamePhase.MARKET) {
-			
-			if (model.getCurrentMarketState() == MarketState.BUYING) {
-				
-				if (playerView.getPlayerID() == model.getCurrentPlayer().getId()) {
-					
-					if (!model.getPlayerOrder().isEmpty()) {
-					
-						model.loadNextPlayer();
-					
-					} else {
-						
-						model.getMarket().clear();
-						model.setGamePhase(GamePhase.TURNS);
-						model.setCurrentTurnState(new InitialTurnState());
-						model.setPlayerOrder(players);
-						model.loadNextPlayer();
-						
-					}
-					
-					
-				} else {
-					
-					sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
-				
-				}
-				
-			} else {
-				
-				sendErrorMsg(playerView, "You cannot do this now.");
-			
-			}
-			
-		} else {
-			
+		if (model.getGamePhase() != GamePhase.MARKET) {
 			sendErrorMsg(playerView, "You can only do this during the Market phase.");
-		
+			return;
+		}
+			
+		if (model.getCurrentMarketState() != MarketState.BUYING) {
+			sendErrorMsg(playerView, "You cannot do this now.");
+			return;
 		}
 		
+		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
+			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			return;
+		}
+				
+		if (!model.getPlayerOrder().isEmpty()) {
+		
+			model.loadNextPlayer();
+		
+		} else {
+			
+			model.getMarket().clear();
+			model.setGamePhase(GamePhase.TURNS);
+			model.setCurrentTurnState(new InitialTurnState());
+			model.setPlayerOrder(players);
+			model.loadNextPlayer();
+			
+		}	
 	}
 	
 	private void handleNobilityAnswer(View playerView, List<String> chosenIDs) {
