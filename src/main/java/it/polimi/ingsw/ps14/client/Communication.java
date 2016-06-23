@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface Communication {
 	
-	public void setPlayerName(String name);
+	public void setPlayerName(Integer playerID, String name);
 	public void drawCard(Integer playerID);
 	public void electCouncillor(Integer playerID, ColorCouncillor cc, String regionORking);
 	public void acquireBusinessPermitTile(Integer playerID,RegionType rt, Integer permID, List<PoliticCard> politics);
@@ -23,8 +23,8 @@ public interface Communication {
 	public void showMyDetails(Integer playerID);
 	public void showDetails(Integer playerID);
 	public void showGamebord(Integer playerID);
-	public void sell(List<ItemForSale> items);
-	public void buy(Integer permID,Integer playerID,Integer quantity);
-	public void answerNobilityRequest(List<String> objectIDs);
+	public void sell(Integer playerID, List<ItemForSale> items);
+	public void buy(Integer playerID,Integer objID,Integer quantity);
+	public void answerNobilityRequest(Integer playerID, List<String> objectIDs);
 	
 }

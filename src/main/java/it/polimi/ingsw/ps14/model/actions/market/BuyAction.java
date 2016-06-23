@@ -21,7 +21,7 @@ public class BuyAction implements Serializable {
 
 
 
-	public BuyAction(Integer barCode, Integer buyerID, Integer assistantToBuy) {
+	public BuyAction(Integer buyerID, Integer barCode, Integer assistantToBuy) {
 		this.buyerID = buyerID;
 		this.objBarCode = barCode;
 		this.assistantToBuy = assistantToBuy;

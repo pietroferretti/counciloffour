@@ -36,17 +36,16 @@ import java.util.Observable;
  * to send to the controller
  *
  */
-public class RMIServerIn extends ServerView implements RMIViewRemote {
+
+public class RMIServerIn extends Observable implements RMIViewRemote {
 
 	private Server server;
-
-	public RMIServerIn(Integer id,Server server) {
-		super(id);
-		this.server = server;
-	}
 	
-	public void setPlayerID(Integer id){
-		super.setPlayerID(id);
+	private List<RMIServerView> serverViews;
+
+	public RMIServerIn(Server server) {
+		this.server = server;
+		serverViews = new ArrayList<>();
 	}
 
 	public void registerClient(ClientViewRemote clientStub)
@@ -55,14 +54,23 @@ public class RMIServerIn extends ServerView implements RMIViewRemote {
 		server.registerWaitingConnectionRMI(clientStub,this);
 		server.meeting();
 	}
-
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
+	
+	public void addServerView(RMIServerView serverView) {
+		serverViews.add(serverView);
 	}
 
+	public void sendToServerView(Integer playerID, Message msg) {
+
+		for (RMIServerView serverView : serverViews) {
+			if (serverView.getPlayerID() == playerID) {
+				serverView.forwardMessage(msg);
+			}
+		}
+		
+	}
+	
 	@Override
-	public void setPlayerName(String name) {
+	public void setPlayerName(Integer playerID, String name) {
 		System.out.println("da implementare");
 //		super.setPlayerName(((PlayerNameMsg) objectReceived).getPlayerName());
 //		LOGGER.info(String.format("Set player name as '%s' for rmi view %d",
@@ -74,8 +82,7 @@ public class RMIServerIn extends ServerView implements RMIViewRemote {
 		System.out.println("i received a draw message");
 
 		TurnActionMsg action = new TurnActionMsg(new DrawCardAction(playerID));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 		System.out.println("i notified the observers");
 	}
 
@@ -84,18 +91,16 @@ public class RMIServerIn extends ServerView implements RMIViewRemote {
 			String regionORking) {
 		TurnActionMsg action = new TurnActionMsg(new ElectCouncillorAction(
 				playerID, cc, regionORking));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
 	public void acquireBusinessPermitTile(Integer playerID, RegionType rt,
 			Integer permID, List<PoliticCard> politics) {
 		TurnActionMsg action = new TurnActionMsg(
-				new AcquireBusinessPermiteTileAction(permID, rt, permID,
+				new AcquireBusinessPermiteTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics)));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
@@ -103,8 +108,7 @@ public class RMIServerIn extends ServerView implements RMIViewRemote {
 			List<PoliticCard> politics) {
 		TurnActionMsg action = new TurnActionMsg(
 				new BuildEmporiumWithHelpOfKingAction(playerID, city, politics));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
@@ -113,32 +117,28 @@ public class RMIServerIn extends ServerView implements RMIViewRemote {
 		TurnActionMsg action = new TurnActionMsg(
 				new BuildEmporiumUsingPermitTileAction(playerID, permitID,
 						cityname));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
 	public void engage(Integer playerID) {
 		TurnActionMsg action = new TurnActionMsg(new EngageAssistantAction(
 				playerID));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
 	public void changeBusinessPermitTiles(Integer playerID, RegionType rt) {
 		TurnActionMsg action = new TurnActionMsg(
 				new ChangeBusinessPermitTilesAction(playerID, rt));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
 	public void performAdditionalMainAction(Integer playerID) {
 		TurnActionMsg action = new TurnActionMsg(
 				new PerformAdditionalMainActionAction(playerID));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
@@ -146,55 +146,48 @@ public class RMIServerIn extends ServerView implements RMIViewRemote {
 			ColorCouncillor cc) {
 		TurnActionMsg action = new TurnActionMsg(
 				new SendAssistantToElectCouncillorAction(playerID, rt, cc));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
 	public void passTurn(Integer playerID) {
 		TurnActionMsg action = new TurnActionMsg(new EndTurnAction(playerID));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 	
 	@Override
-	public void answerNobilityRequest(List<String> chosenIDs) {
+	public void answerNobilityRequest(Integer playerID, List<String> chosenIDs) {
 		//TODO;
 	}
 
 	@Override
 	public void showMyDetails(Integer playerID) {
 		Message action = new UpdateThisPlayerMsg(playerID);
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
 	public void showDetails(Integer playerID) {
 		Message action = new UpdateOtherPlayersMsg(playerID);
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
 	public void showGamebord(Integer playerID) {
 		Message action = new UpdateGameBoardMsg();
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
-	public void sell(List<ItemForSale> items) {
+	public void sell(Integer playerID, List<ItemForSale> items) {
 		SellMsg action = new SellMsg(new SellAction(items));
-		setChanged();
-		notifyObservers(action);
+		sendToServerView(playerID, action);
 	}
 
 	@Override
-	public void buy(Integer permID, Integer playerID, Integer quantity) {
-		Message action = new BuyMsg(new BuyAction(permID, playerID, quantity));
-		setChanged();
-		notifyObservers(action);
+	public void buy(Integer playerID, Integer objID, Integer quantity) {
+		Message action = new BuyMsg(new BuyAction(playerID, objID, quantity));
+		sendToServerView(playerID, action);
 	}
 
 }

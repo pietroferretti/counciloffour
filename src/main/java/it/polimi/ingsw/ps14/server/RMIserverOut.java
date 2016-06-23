@@ -1,5 +1,9 @@
 package it.polimi.ingsw.ps14.server;
 
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
@@ -16,40 +20,23 @@ import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
-import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 
-import java.rmi.RemoteException;
-import java.util.Observable;
-
-public class RMIserverOut extends ServerView {
-
+public class RMIserverOut {
+	
+	private static final Logger LOGGER = Logger.getLogger(RMIserverOut.class.getName());
+	
 	ClientViewRemote clientView;
 	
-	public RMIserverOut(int id, ClientViewRemote clientView)  {
-		super(id);
+	public RMIserverOut(ClientViewRemote clientView)  {
 		this.clientView= clientView; 
-		update(null,new PlayerIDMsg(id));
+		//	update(null,new PlayerIDMsg(id));
+		// TODO cosa mi significa questo update?
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		if (arg instanceof PrivateMessage) {
-			if (((PrivateMessage) arg).getPlayerID() == super.getPlayerID()) {
-				castMessage((Message) arg);
-			}
-		} else if (arg instanceof Message) {
-			castMessage((Message) arg);
-		} else {
-//			LOGGER.warning(String.format(
-//					"The server view with id '%d' received an object that is not a message. %n" + "Object received: %s",
-//					super.getPlayerID(), arg.toString()));
-		}		
-	}
-
-	protected void castMessage(Message arg) {
+	public void castMessage(Message arg) {
 		try {
 		if(arg instanceof AvailableAssistantsUpdatedMsg){
 			
@@ -108,8 +95,7 @@ public class RMIserverOut extends ServerView {
 		
 		
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error on the RMI outbound server", e);
 		}
 	}
 	

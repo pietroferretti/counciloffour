@@ -37,9 +37,11 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	@Override
 	public boolean isValid(Model model) {
 		Player player = model.id2player(super.getPlayer());
+		System.out.println("ID: "+super.getPlayer());
 		Region region = model.getGameBoard().getRegion(regionType);
 		Balcony balcony = region.getBalcony();
 		BusinessPermit permitTile = model.id2permit(permitID, region);
+		System.out.println(permitTile.getId());
 		if (player == null || region == null || balcony==null || permitTile==null){
 			LOGGER.info(String.format("isValid conversion error"));
 			return false;

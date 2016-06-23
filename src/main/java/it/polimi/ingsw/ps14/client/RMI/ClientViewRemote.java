@@ -23,9 +23,10 @@ import java.util.Observable;
 public interface ClientViewRemote extends Remote {
 
 	// metodi invocabili dal server sul client
+	
 	public void updateClient(Observable o, Object arg) throws RemoteException;
 
-	public void availableAssistantUpdate(int assistantUpadated) throws RemoteException;
+	public void availableAssistantUpdate(int assistantUpdated) throws RemoteException;
 
 	public void availableCouncillorsUpdate(
 			Map<ColorCouncillor, Integer> updatedAvailableCouncillors) throws RemoteException;

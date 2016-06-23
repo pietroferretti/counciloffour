@@ -25,9 +25,9 @@ import java.util.logging.Logger;
 
 public class Client {
 
-	private final static int RMI_PORT = 52365;
+	private static final int RMI_PORT = 52365;
 	private static final String NAME = "council4";
-	private final static String HOST = "127.0.0.1";
+	private static final String HOST = "127.0.0.1";
 	private static final int PORT = 19999;
 
 
@@ -84,8 +84,8 @@ public class Client {
 				SocketMessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(socketCommunication, new ObjectInputStream(
 								socket.getInputStream()));
 
-				// sends the player name to the server
-				socketCommunication.setPlayerName(name);
+				// FIXME send the player name to the server
+//				socketCommunication.setPlayerName(name);
 				
 				ExecutorService executor = Executors.newFixedThreadPool(3);
 				executor.submit(clientView);
@@ -106,7 +106,7 @@ public class Client {
 			ClientRMIView rmiView = new ClientRMIView(clientView);
 
 			serverStub.registerClient(rmiView);
-			RMICommunication communication=new RMICommunication(serverStub);
+			RMICommunication communication=new RMICommunication(serverStub, clientView);
 			clientView.setCommunication(communication);
 			clientView.run();
 

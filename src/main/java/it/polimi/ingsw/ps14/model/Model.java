@@ -264,14 +264,14 @@ public class Model extends Observable implements Serializable {
 		message = null;
 	}
 	
-	public Player id2player(Integer id) {
+	public Player id2player(int id) {
 		for (Player p :players)
 			if (p.getId() == id)
 				return p;
 		return null;
 	}
 
-	public BusinessPermit id2permit(Integer permitID, Player player) {
+	public BusinessPermit id2permit(int permitID, Player player) {
 		for (BusinessPermit bp : player.getBusinessHand().getValidCards())
 			if (bp.getId() == permitID)
 				return bp;
@@ -279,10 +279,14 @@ public class Model extends Observable implements Serializable {
 	}
 	
 
-	public BusinessPermit id2permit(Integer permitID, Region region) {
-		for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits())
-			if (bp.getId() == permitID)
+	public BusinessPermit id2permit(int permitID, Region region) {
+		for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits()){
+			System.out.println(permitID +"=="+ bp.getId());
+			if (bp.getId() == permitID){
+				System.out.println("bp trovato");
 				return bp;
+			}
+		}
 		return null;
 	}
 

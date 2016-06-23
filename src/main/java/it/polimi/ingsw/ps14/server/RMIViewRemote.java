@@ -20,7 +20,7 @@ public interface RMIViewRemote extends Remote{
 	public void registerClient(ClientViewRemote clientStub)
 			throws RemoteException;
 
-	public void setPlayerName(String name) throws RemoteException;
+	public void setPlayerName(Integer playerID, String name) throws RemoteException;
 
 	public void drawCard(Integer playerID) throws RemoteException;
 
@@ -53,9 +53,9 @@ public interface RMIViewRemote extends Remote{
 
 	public void showGamebord(Integer playerID)throws RemoteException;
 
-	public void sell(List<ItemForSale> items)throws RemoteException;
+	public void sell(Integer playerID, List<ItemForSale> items)throws RemoteException;
 
-	public void buy(Integer permID, Integer playerID, Integer quantity)throws RemoteException;
+	public void buy(Integer playerID, Integer objID, Integer quantity)throws RemoteException;
 	
-	public void answerNobilityRequest(List<String> objectIDs) throws RemoteException;
+	public void answerNobilityRequest(Integer playerID, List<String> objectIDs) throws RemoteException;
 }

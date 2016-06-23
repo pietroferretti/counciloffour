@@ -1,28 +1,33 @@
 package it.polimi.ingsw.ps14.client.RMI;
 
+import java.rmi.RemoteException;
+import java.util.List;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.server.RMIViewRemote;
+import it.polimi.ingsw.ps14.view.ClientView;
 
-import java.rmi.RemoteException;
-import java.util.List;
+public class RMICommunication implements Communication {
 
-public class RMICommunication implements RMIViewRemote, Communication {
+	private RMIViewRemote serverStub;
+	private ClientView clientView;
 
-	RMIViewRemote serverStub;
-
-	public RMICommunication(RMIViewRemote serverStub) throws RemoteException {
+	public RMICommunication(RMIViewRemote serverStub, ClientView clientView) throws RemoteException {
 		this.serverStub = serverStub;
+		this.clientView = clientView;
 	}
 
+	
+	
 	@Override
-	public void setPlayerName(String name) {
+	public void setPlayerName(Integer playerID, String name) {
 		
 			try {
-				serverStub.setPlayerName(name);
+				serverStub.setPlayerName(playerID, name);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -184,9 +189,9 @@ public class RMICommunication implements RMIViewRemote, Communication {
 	}
 
 	@Override
-	public void sell(List<ItemForSale> items){
+	public void sell(Integer playerID, List<ItemForSale> items){
 			try {
-				serverStub.sell(items);
+				serverStub.sell(playerID, items);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -195,26 +200,20 @@ public class RMICommunication implements RMIViewRemote, Communication {
 	}
 
 	@Override
-	public void buy(Integer permID, Integer playerID, Integer quantity) {
+	public void buy(Integer playerID, Integer objID, Integer quantity) {
 			try {
-				serverStub.buy(permID, playerID, quantity);
+				serverStub.buy(playerID, objID, quantity);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-	}
-
-	@Override
-	public void registerClient(ClientViewRemote clientStub) {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
-	public void answerNobilityRequest(List<String> objectIDs) {
+	public void answerNobilityRequest(Integer playerID, List<String> objectIDs) {
 		try {
-			serverStub.answerNobilityRequest(objectIDs);
+			serverStub.answerNobilityRequest(playerID, objectIDs);
 		} catch (RemoteException e) {
 			System.err.println("Errore nell'invocazione del metodo");
 

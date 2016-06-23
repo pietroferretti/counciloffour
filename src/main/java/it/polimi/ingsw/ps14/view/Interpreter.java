@@ -97,75 +97,6 @@ public class Interpreter {
 		return null;
 	}
 
-	// public String parseMsg(Message msg) {
-	// return null;
-	// }
-	//
-	// public String parseMsg(AvailableAssistantsUpdatedMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(AvailableCouncillorsUpdatedMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(ErrorMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(GamePhaseUpdatedMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(KingBonusesUpdatedMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(KingUpdatedMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(MarketStateUpdatedMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(NewCurrentPlayerMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(NewGamePhaseMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(NewMarketStateMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(NobilityTrackUpdatedMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(PlayerChangedPrivateMsg msg) {
-	// return msg.getMessage().toString();
-	// }
-	//
-	// public String parseMsg(PlayerChangedPublicMsg msg) {
-	// return msg.getNotice().toString();
-	// }
-	//
-	//
-	// public String parseMsg(RegionBonusesUpdatedMsg msg) {
-	// return msg.toString();
-	// }
-	//
-	// public String parseMsg(RegionUpdatedMsg msg) {
-	// return msg.getUpdatedRegion().toString();
-	// }
-	//
-	// public String parseMsg(SoldItemMsg msg) {
-	// return msg.getItemSold().toString();
-	// }
-
 	public boolean parseString(String input, Integer playerID) {
 		RegionType rt;
 		Integer permID;
@@ -212,6 +143,7 @@ public class Interpreter {
 
 			communication.acquireBusinessPermitTile(playerID, rt, permID,
 					politics);
+			System.out.println("ID player: " + playerID);
 			return true;
 			// BUILD-WITH-KING CITYname CARDS
 		case "BUILD-WITH-KING":
@@ -271,20 +203,20 @@ public class Interpreter {
 
 			communication.electWithAssistant(playerID, rt, cc);
 			return true;
-			
+
 		case "CHOOSE":
 			if (word.length <= 1) {
 				return false;
 			}
-			
+
 			List<String> chosenIDs = new ArrayList<>();
-			for(int i=1; i<word.length; i++) {
+			for (int i = 1; i < word.length; i++) {
 				chosenIDs.add(word[i]);
 			}
-			
-			communication.answerNobilityRequest(chosenIDs);
+
+			communication.answerNobilityRequest(playerID, chosenIDs);
 			return true;
-			
+
 			// FINISH
 		case "FINISH":
 		case "PASS":
@@ -338,8 +270,9 @@ public class Interpreter {
 								id, price, playerID));
 					}
 				}
-				if (word[i].matches("ASSISTANTS") && (i + 1) <= word.length) {
+				if (word[i].compareTo("ASSISTANTS")==0 && (i + 1) <= word.length) {
 					splitted = word[i + 1].split("-");
+					System.out.println("sono qui"+splitted[0]+splitted[1]);
 					try {
 						id = Integer.parseInt(splitted[0]);
 						price = Integer.parseInt(splitted[1]);
@@ -372,20 +305,21 @@ public class Interpreter {
 										playerID));
 							}
 					}
-					communication.sell(items);
-					return true;
+					
 				}
 			}
-			return false;
+			communication.sell(playerID, items);
+			return true;
 
 			// BUY ITEM_ID QUANTITY(optional)
 		case "BUY":
 			Integer quantity = null;
+			Integer objID = null;
 			if (word.length < 2 || word.length > 3)
 				return false;
 
 			try {
-				permID = Integer.parseInt(word[1]);
+				objID = Integer.parseInt(word[1]);
 				if (word.length == 3) {
 					quantity = Integer.parseInt(word[2]);
 
@@ -394,7 +328,7 @@ public class Interpreter {
 				return false;
 			}
 
-			communication.buy(permID, playerID, quantity);
+			communication.buy(playerID, objID, quantity);
 			return true;
 		default:
 			return false;
