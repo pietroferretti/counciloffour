@@ -24,7 +24,7 @@ public class ItemForSale implements Serializable {
 	private Integer ownerID;
 	private Type type;
 	private int barCode;
-	private static int counter = 0;
+
 
 	public enum Type {
 		BUSINESS, POLITIC, ASSISTANT;
@@ -36,8 +36,6 @@ public class ItemForSale implements Serializable {
 		this.price = price;
 		this.ownerID = ownerID;
 		this.color = null;
-		counter++;
-		barCode = counter;
 	}
 
 	public ItemForSale(ColorPolitic color, int price, Integer ownerID) {
@@ -46,8 +44,6 @@ public class ItemForSale implements Serializable {
 		this.price = price;
 		this.ownerID = ownerID;
 		this.color = color;
-		counter++;
-		barCode = counter;
 	}
 
 	public ItemForSale(ItemForSale i) {
@@ -56,9 +52,13 @@ public class ItemForSale implements Serializable {
 		this.price = i.price;
 		this.ownerID = i.ownerID;
 		this.type = i.type;
-		this.barCode = i.barCode;
+		this.barCode=i.barCode;
 	}
 
+	protected void setBarCode(int code){
+		this.barCode=code;
+	}
+	
 	public int getPrice() {
 		return price;
 	}
@@ -123,6 +123,7 @@ public class ItemForSale implements Serializable {
 	public boolean removeAssistant(int howMany) {
 		if (type==Type.ASSISTANT && idORquantity != null && howMany <= idORquantity) {
 			idORquantity = idORquantity - howMany;
+			
 			return true;
 		}
 		return false;
@@ -130,14 +131,14 @@ public class ItemForSale implements Serializable {
 
 	@Override
 	public String toString() {
-		String sbarcode = " BAR_CODE =";
-		String sprice = ", price=";
-		String sowner = ", ownerID=";
+		String sbarcode = "\n BAR_CODE= ";
+		String sprice = ", price= ";
+		String sowner = ", ownerID= ";
 		if (type.name().matches("BUSINESS") || type.name().matches("ASSISTANT")) {
-			return sbarcode + barCode + ":" + type + ", idORquantity=" + idORquantity + sprice + price + sowner
+			return sbarcode + barCode + ": " + type + ", idORquantity= " + idORquantity + sprice + price + sowner
 					+ ownerID;
 		}
-		return sbarcode + barCode + ":" + type + ", color=" + color + sprice + price + sowner + ownerID;
+		return sbarcode + barCode + ": " + type + ", color= " + color + sprice + price + sowner + ownerID;
 
 	}
 }

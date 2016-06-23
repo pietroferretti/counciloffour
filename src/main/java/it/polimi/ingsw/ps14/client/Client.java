@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ps14.client;
 
-import it.polimi.ingsw.ps14.client.RMI.ClientRMIView;
-import it.polimi.ingsw.ps14.client.RMI.RMICommunication;
+import it.polimi.ingsw.ps14.client.rmi.ClientRMIView;
+import it.polimi.ingsw.ps14.client.rmi.RMICommunication;
 import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;

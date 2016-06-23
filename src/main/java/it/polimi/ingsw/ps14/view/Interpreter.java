@@ -104,7 +104,8 @@ public class Interpreter {
 		List<PoliticCard> politics = new ArrayList<>();
 		String st;
 		String[] word = input.split(" ");
-
+		if (word.length < 1)
+			return false;
 		switch (word[0].toUpperCase()) {
 
 		// DRAW
@@ -250,7 +251,7 @@ public class Interpreter {
 			Integer id,
 			price;
 			List<ItemForSale> items = new ArrayList<>();
-			if (word.length < 3)
+			if (word.length < 2)
 				return false;
 			for (int i = 1; i < word.length; i++) {
 				if (word[i].matches("BUSINESS") && (i + 1) <= word.length) {
@@ -270,7 +271,8 @@ public class Interpreter {
 								id, price, playerID));
 					}
 				}
-				if (word[i].compareTo("ASSISTANTS")==0 && (i + 1) <= word.length) {
+				if (word[i].compareTo("ASSISTANTS") == 0
+						&& (i + 1) <= word.length) {
 					splitted = word[i + 1].split("-");
 					try {
 						id = Integer.parseInt(splitted[0]);
@@ -304,7 +306,11 @@ public class Interpreter {
 										playerID));
 							}
 					}
-					
+
+				}
+				if (word[i].matches("NONE")) {
+					communication.sellNone(playerID);
+					return true;
 				}
 			}
 			communication.sell(playerID, items);
@@ -316,6 +322,10 @@ public class Interpreter {
 			Integer objID = null;
 			if (word.length < 2 || word.length > 3)
 				return false;
+			if (word[1].matches("FINISH")) {
+				communication.doneFinishBuying(playerID);
+				return true;
+			}
 
 			try {
 				objID = Integer.parseInt(word[1]);
@@ -326,9 +336,10 @@ public class Interpreter {
 			} catch (NumberFormatException e) {
 				return false;
 			}
-
+			
 			communication.buy(playerID, objID, quantity);
 			return true;
+
 		default:
 			return false;
 		}

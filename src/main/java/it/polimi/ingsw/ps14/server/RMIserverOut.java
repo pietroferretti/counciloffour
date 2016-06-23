@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
+import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;

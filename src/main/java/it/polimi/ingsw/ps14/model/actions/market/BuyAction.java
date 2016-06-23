@@ -19,8 +19,6 @@ public class BuyAction implements Serializable {
 	private Integer buyerID;
 	private Integer assistantToBuy;
 
-
-
 	public BuyAction(Integer buyerID, Integer barCode, Integer assistantToBuy) {
 		this.buyerID = buyerID;
 		this.objBarCode = barCode;
@@ -28,7 +26,8 @@ public class BuyAction implements Serializable {
 	}
 
 	/**
-	 * if assistant2buy is null, I'm buying the whole item. Otherwise Im buying only some of the assistants
+	 * if assistant2buy is null, I'm buying the whole item. Otherwise Im buying
+	 * only some of the assistants
 	 * 
 	 * 
 	 * @return
@@ -83,7 +82,7 @@ public class BuyAction implements Serializable {
 	}
 
 	/**
-	 * BUY  action
+	 * BUY action
 	 * 
 	 * @param buyer
 	 * @param assistantToBuy
@@ -104,8 +103,8 @@ public class BuyAction implements Serializable {
 				owner.addCoins(item.getPrice());
 
 				if (item.getType().equals(ItemForSale.Type.BUSINESS)) {
-					BusinessPermit busPer = model.id2permit(item.getIdORquantity(),
-							owner);
+					BusinessPermit busPer = model.id2permit(
+							item.getIdORquantity(), owner);
 					owner.getBusinessHand().sellPermits(busPer);
 					buyer.getBusinessHand().acquireBusinessPermit(busPer);
 				}
@@ -123,7 +122,7 @@ public class BuyAction implements Serializable {
 
 				market.removeItem(item);
 			}
-		} else {
+		 else {
 			// im buying SOME assistants of the item
 			if (item.getType().equals(ItemForSale.Type.ASSISTANT)) {
 				buyer.useCoins(item.getPrice() * assistantToBuy);
@@ -131,14 +130,14 @@ public class BuyAction implements Serializable {
 				owner.addCoins(item.getPrice() * assistantToBuy);
 				owner.useAssistants(assistantToBuy);
 				item.removeAssistant(assistantToBuy);
-
+				market.someAssistantsSold(item, assistantToBuy);
 				if (item.getIdORquantity() == 0)
 					market.removeItem(item);
 			}
+		 }
 
 		}
 
 	}
 
-	
 }

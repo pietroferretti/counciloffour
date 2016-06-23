@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ps14.server;
 
 import it.polimi.ingsw.ps14.Game;
-import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
+import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 
 import java.io.IOException;
 import java.net.ServerSocket;

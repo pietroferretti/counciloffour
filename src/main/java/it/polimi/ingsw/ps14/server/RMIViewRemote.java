@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.server;
 
-import it.polimi.ingsw.ps14.client.RMI.ClientViewRemote;
+import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
@@ -58,4 +58,8 @@ public interface RMIViewRemote extends Remote{
 	public void buy(Integer playerID, Integer objID, Integer quantity)throws RemoteException;
 	
 	public void answerNobilityRequest(Integer playerID, List<String> objectIDs) throws RemoteException;
+	
+	public void sellNone(Integer playerID) throws RemoteException;
+	
+	public void doneBuying(Integer playerID) throws RemoteException;
 }

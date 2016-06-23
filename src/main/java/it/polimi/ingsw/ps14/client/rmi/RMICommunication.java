@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.client.RMI;
+package it.polimi.ingsw.ps14.client.rmi;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -218,6 +218,30 @@ public class RMICommunication implements Communication {
 			System.err.println("Errore nell'invocazione del metodo");
 
 		}
+	}
+
+
+
+	@Override
+	public void sellNone(Integer playerID) {
+		try {
+			serverStub.sellNone(playerID);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
+
+		}		
+	}
+
+
+
+	@Override
+	public void doneFinishBuying(Integer playerID) {
+		try {
+			serverStub.doneBuying(playerID);
+		} catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
+
+		}		
 	}
 
 }
