@@ -114,6 +114,13 @@ public class City implements Serializable {
 
 	public void setNeighbors(List<City> neighbors) {
 		this.neighbors = neighbors;
+		if (neighbors != null) {
+			this.neighborsName = new ArrayList<>(neighbors.size());
+
+			for (City city : neighbors) {
+				this.neighborsName.add(city.name);
+			}
+		}
 	}
 
 	public void setToken(Bonus token) {

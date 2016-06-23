@@ -67,7 +67,11 @@ public class Region extends Observable implements Serializable {
 	public List<City> getCities() {
 		return cities;
 	}
-
+/**
+ * It finds a specific city in the region given its name.
+ * @param cityName
+ * @return City - the required city.
+ */
 	public City findCity(String cityName) {
 		for (City city : cities)
 			if (city.getName().equals(cityName))
@@ -112,7 +116,7 @@ public class Region extends Observable implements Serializable {
 	public BonusVictoryPoint getBonusRegion() {
 		return bonusRegion;
 	}
-	
+
 	public BusinessPermit[] getAvailablePermits() {
 		return businessPermits.getAvailablePermits();
 	}
@@ -130,11 +134,11 @@ public class Region extends Observable implements Serializable {
 
 		String scitiesName = "\nThis region contains " + Integer.toString(cities.size()) + "\nCITIES:\n";
 		for (City city : cities) {
-			scitiesName = scitiesName + city.getName();
+			scitiesName = scitiesName + city.getName() + " ";
 		}
-		String scities = null;
+		String scities = "\n";
 		for (City city : cities) {
-			scities = scities + city.toString();
+			scities = scities + city.toString() + " ";
 		}
 		return stype + sbonus + scouncil + spermits + scitiesName + scities;
 

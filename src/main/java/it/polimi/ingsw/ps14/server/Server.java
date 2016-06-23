@@ -30,10 +30,10 @@ public class Server {
 	private static final int PLAYERS_NUMBER = 4;
 
 	private static final int PORT = 19999;
-	private static final int COUNTDOWN = 30;
+	private static final int COUNTDOWN = 1;
 
-	private final static int RMI_PORT = 52365;
-	private final String NAME = "council4";
+	private static final int RMI_PORT = 52365;
+	private static final String NAME = "council4";
 
 	private Integer idCounter;
 	private ServerSocket serverSocket;
