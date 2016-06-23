@@ -15,6 +15,9 @@ import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
+/**
+ * The model, contains the data and the state of the game
+ */
 public class Model extends Observable implements Serializable {
 
 	private static final long serialVersionUID = -4787221737865002835L;

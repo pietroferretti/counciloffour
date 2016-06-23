@@ -1,8 +1,11 @@
 package it.polimi.ingsw.ps14.client.socket;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.TurnFinishedMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
@@ -35,10 +38,6 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCounc
 import it.polimi.ingsw.ps14.view.CLIView;
 import it.polimi.ingsw.ps14.view.ClientView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 public class SocketCommunication implements Communication {
 
 	private static final Logger LOGGER = Logger.getLogger(CLIView.class
@@ -65,9 +64,6 @@ public class SocketCommunication implements Communication {
 				clientView.showGameStart();
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
-			} else if (message instanceof TurnFinishedMsg) {
-				// turnfinishedmsg cosa fa?
-
 			} else if (message instanceof StateUpdatedMsg) {
 
 				clientView.setGameState(((StateUpdatedMsg) message)
