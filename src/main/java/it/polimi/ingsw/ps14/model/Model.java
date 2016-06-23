@@ -42,11 +42,11 @@ public class Model extends Observable implements Serializable {
 		market = new Market();
 		state = new State();
 		bonusesToDo = new ArrayList<>();
-		
+
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);
-		
+
 		message = new MessageObservable();
 	}
 
@@ -62,10 +62,10 @@ public class Model extends Observable implements Serializable {
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);
-		
+
 		message = new MessageObservable();
 	}
-	
+
 	public void startGame() {
 		setMessage(new GameStartedMsg(getState()));
 		setChanged();
@@ -106,11 +106,11 @@ public class Model extends Observable implements Serializable {
 	public int getIdGame() {
 		return idGame;
 	}
-	
+
 	public void setState(State state) {
 		this.state = state;
 	}
-	
+
 	public State getState() {
 		return state;
 	}
@@ -130,7 +130,7 @@ public class Model extends Observable implements Serializable {
 	public void setCurrentPlayer(Player currentPlayer) {
 		state.setCurrentPlayer(currentPlayer);
 	}
-	
+
 	public TurnState getCurrentTurnState() {
 		return state.getCurrentTurnState();
 	}
@@ -138,7 +138,7 @@ public class Model extends Observable implements Serializable {
 	public void setCurrentTurnState(TurnState currentTurnState) {
 		state.setCurrentTurnState(currentTurnState);
 	}
-	
+
 	/**
 	 * @return the additionalMainsToDo
 	 */
@@ -147,12 +147,13 @@ public class Model extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param additionalMainsToDo the additionalMainsToDo to set
+	 * @param additionalMainsToDo
+	 *            the additionalMainsToDo to set
 	 */
 	public void setAdditionalMainsToDo(int additionalMainsToDo) {
 		state.setAdditionalMainsToDo(additionalMainsToDo);
 	}
-	
+
 	public void incrementAdditionalMainsToDo() {
 		state.setAdditionalMainsToDo(state.getAdditionalMainsToDo() + 1);
 	}
@@ -160,7 +161,7 @@ public class Model extends Observable implements Serializable {
 	public void decrementAdditionalMainsToDo() {
 		state.setAdditionalMainsToDo(state.getAdditionalMainsToDo() - 1);
 	}
-	
+
 	public MarketState getCurrentMarketState() {
 		return state.getCurrentMarketState();
 	}
@@ -197,7 +198,8 @@ public class Model extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param waitingFor the waitingFor state to set
+	 * @param waitingFor
+	 *            the waitingFor state to set
 	 */
 	public void setWaitingFor(WaitingFor waitingFor) {
 		state.setWaitingFor(waitingFor);
@@ -210,7 +212,7 @@ public class Model extends Observable implements Serializable {
 	public void setWaitingForHowMany(Integer number) {
 		state.setWaitingForHowMany(number);
 	}
-	
+
 	/**
 	 * @return the availableChoices
 	 */
@@ -219,28 +221,29 @@ public class Model extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param availableChoices the availableChoices to set
+	 * @param availableChoices
+	 *            the availableChoices to set
 	 */
 	public void setAvailableChoices(Map<String, String> availableChoices) {
 		state.setAvailableChoices(availableChoices);
 	}
-	
+
 	public List<Bonus> getBonusesToDo() {
 		return bonusesToDo;
 	}
-	
+
 	public Bonus popBonusToDo() {
 		return bonusesToDo.remove(0);
 	}
-	
+
 	public void setBonusesToDo(List<Bonus> bonusesToDo) {
 		this.bonusesToDo = bonusesToDo;
 	}
-	
+
 	public void addBonusesToDo(List<Bonus> newBonuses) {
 		this.bonusesToDo.addAll(newBonuses);
 	}
-	
+
 	public Market getMarket() {
 		return market;
 	}
@@ -250,7 +253,7 @@ public class Model extends Observable implements Serializable {
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public MessageObservable getMessageObservable() {
 		return message;
 	}
@@ -262,41 +265,70 @@ public class Model extends Observable implements Serializable {
 	public void setMessage(Message messageToSend) {
 		this.message.setMessage(messageToSend);
 	}
-	
+
 	public void clearMessage() {
 		message = null;
 	}
-	
+
+	/**
+	 * It returns a specific {@link Player} given his ID.
+	 * 
+	 * @param id
+	 * @return {@link Player}.
+	 */
 	public Player id2player(int id) {
-		for (Player p :players)
+		for (Player p : players)
 			if (p.getId() == id)
 				return p;
 		return null;
 	}
 
+	/**
+	 * It returns a specific {@link BusinessPermit} given its ID and its owner(
+	 * {@link Player}).
+	 * 
+	 * @param permitID
+	 * @param player
+	 * @return {@link BusinessPermit}
+	 */
 	public BusinessPermit id2permit(int permitID, Player player) {
-		for (BusinessPermit bp : player.getBusinessHand().getValidCards())
-			if (bp.getId() == permitID)
-				return bp;
+		try {
+			for (BusinessPermit bp : player.getBusinessHand().getValidCards())
+				if (bp.getId() == permitID)
+					return bp;
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		}
 		return null;
+		
 	}
-	
 
 	public BusinessPermit id2permit(int permitID, Region region) {
-		for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits()){
-			System.out.println(permitID +"=="+ bp.getId());
-			if (bp.getId() == permitID){
-				System.out.println("bp trovato");
-				return bp;
+		try {
+			for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits()) {
+				System.out.println(permitID + "==" + bp.getId());
+				if (bp.getId() == permitID) {
+					System.out.println("bp trovato");
+					return bp;
+				}
 			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
 		}
 		return null;
 	}
 
 	public City name2city(String name) {
-		for (City c : gameBoard.getCities())
-			if (c.getName().compareTo(name) == 0)
-				return c;
+		try {
+			for (City c : gameBoard.getCities())
+				if (c.getName().compareTo(name) == 0)
+					return c;
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		}
 		return null;
 	}
 }

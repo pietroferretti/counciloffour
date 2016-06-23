@@ -272,7 +272,6 @@ public class Interpreter {
 				}
 				if (word[i].compareTo("ASSISTANTS")==0 && (i + 1) <= word.length) {
 					splitted = word[i + 1].split("-");
-					System.out.println("sono qui"+splitted[0]+splitted[1]);
 					try {
 						id = Integer.parseInt(splitted[0]);
 						price = Integer.parseInt(splitted[1]);

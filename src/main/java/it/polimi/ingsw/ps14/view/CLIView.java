@@ -379,7 +379,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			print("Currently selling.");
 
-			if (gameState.getCurrentPlayer().getId() == playerID) {
+			if (gameState.getCurrentPlayer().getId() != playerID) {
 
 				print(String.format("It's player %d's turn to sell.", gameState
 						.getCurrentPlayer().getId()));
@@ -394,7 +394,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			print("Currently buying.");
 
-			if (gameState.getCurrentPlayer().getId() == playerID) {
+			if (gameState.getCurrentPlayer().getId() != playerID) {
 
 				print(String.format("It's player %d's turn to buy.", gameState
 						.getCurrentPlayer().getId()));

@@ -1,4 +1,4 @@
-//package it.polimi.ingsw.ps14.model;
+package it.polimi.ingsw.ps14.classiDaEliminare;
 //
 //import java.io.Serializable;
 //
