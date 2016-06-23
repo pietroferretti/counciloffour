@@ -30,13 +30,6 @@ public class ItemForSale implements Serializable {
 		BUSINESS, POLITIC, ASSISTANT;
 	}
 
-	/**
-	 * CARD (business or politic) for sale
-	 * 
-	 * @param item
-	 * @param price
-	 * @param owner
-	 */
 	public ItemForSale(Type type, int idORquantity, int price, Integer ownerID) {
 		this.type = type;
 		this.idORquantity = idORquantity;
@@ -81,10 +74,10 @@ public class ItemForSale implements Serializable {
 	 */
 	public boolean isValid(Model model) {
 
-		Player player = id2player(ownerID, model);
+		Player player = model.id2player(ownerID);
 
 		if (type.name().matches("BUSINESS")) {
-			BusinessPermit busPer = id2permit(idORquantity, player);
+			BusinessPermit busPer = model.id2permit(idORquantity, player);
 			if (player == null || busPer == null)
 				return false;
 		}
@@ -119,30 +112,20 @@ public class ItemForSale implements Serializable {
 		return barCode;
 	}
 
-	public boolean equals(ItemForSale obj) {
-		if (barCode == obj.barCode)
-			return true;
-		return false;
-	}
-
-	public void removeAssistant(int howMany) {
-		if (idORquantity != null && howMany <= idORquantity) {
+	/**
+	 * It remove a specific number of assistants from an ASSISTANTS type item.
+	 * 
+	 * @param howMany
+	 *            - number of assistants we want to remove
+	 * @return It returns true if it was possible to remove the choosen number
+	 *         if assistants, false otherwise.
+	 */
+	public boolean removeAssistant(int howMany) {
+		if (type==Type.ASSISTANT && idORquantity != null && howMany <= idORquantity) {
 			idORquantity = idORquantity - howMany;
+			return true;
 		}
-	}
-
-	protected Player id2player(Integer id, Model model) {
-		for (Player p : model.getPlayers())
-			if (p.getId() == id)
-				return p;
-		return null;
-	}
-
-	protected BusinessPermit id2permit(Integer permitID, Player player) {
-		for (BusinessPermit bp : player.getBusinessHand().getValidCards())
-			if (bp.getId() == permitID)
-				return bp;
-		return null;
+		return false;
 	}
 
 	@Override
