@@ -1,6 +1,9 @@
 package it.polimi.ingsw.ps14.message.fromserver;
 
+import java.util.Map;
+
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.model.ColorCity;
 
 public class CitiesColorBonusesUpdatedMsg implements Message {
 
@@ -9,46 +12,22 @@ public class CitiesColorBonusesUpdatedMsg implements Message {
 	 */
 	private static final long serialVersionUID = 1256717322717204745L;
 
-	private int updatedBonusGold;
-	private int updatedBonusSilver;
-	private int updatedBonusBronze;
-	private int updatedBonusBlue;
+	private Map<ColorCity, Integer> updatedColorBonuses;
 
-	/**
-	 * @param updatedBonusGold
-	 * @param updatedBonusSilver
-	 * @param updatedBonusBronze
-	 * @param updatedBonusBlue
-	 */
-	public CitiesColorBonusesUpdatedMsg(int updatedBonusGold,
-			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) {
-		this.updatedBonusGold = updatedBonusGold;
-		this.updatedBonusSilver = updatedBonusSilver;
-		this.updatedBonusBronze = updatedBonusBronze;
-		this.updatedBonusBlue = updatedBonusBlue;
+
+	public CitiesColorBonusesUpdatedMsg(Map<ColorCity, Integer> colorBonuses) {
+		this.updatedColorBonuses = colorBonuses;
 	}
 
-	public int getUpdatedBonusGold() {
-		return updatedBonusGold;
-	}
-
-	public int getUpdatedBonusSilver() {
-		return updatedBonusSilver;
-	}
-
-	public int getUpdatedBonusBronze() {
-		return updatedBonusBronze;
-	}
-
-	public int getUpdatedBonusBlue() {
-		return updatedBonusBlue;
-	}
+	public Map<ColorCity, Integer> getUpdatedColorBonuses() {
+		return updatedColorBonuses;
+	};
 
 	@Override
 	public String toString() {
-		return "CitiesColorBonuses now: BonusGold=" + updatedBonusGold
-				+ ", BonusSilver=" + updatedBonusSilver + ", BonusBronze="
-				+ updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue;
+		return "CitiesColorBonuses now: BonusGold=" + updatedColorBonuses.get(ColorCity.GOLD)
+				+ ", BonusSilver=" + updatedColorBonuses.get(ColorCity.SILVER) + ", BonusBronze="
+				+ updatedColorBonuses.get(ColorCity.BRONZE) + ", BonusBlue=" + updatedColorBonuses.get(ColorCity.BLUE);
 	}
 
 }

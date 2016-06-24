@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.server;
 
 import java.rmi.RemoteException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
+import it.polimi.ingsw.ps14.model.ColorCity;
 
 public class RMIserverOut {
 	
@@ -48,7 +50,8 @@ public class RMIserverOut {
 			
 			if(arg instanceof CitiesColorBonusesUpdatedMsg){
 				CitiesColorBonusesUpdatedMsg msg=(CitiesColorBonusesUpdatedMsg) arg;
-				clientView.citiesColorBonusesUpdate(msg.getUpdatedBonusGold(), msg.getUpdatedBonusSilver(), msg.getUpdatedBonusBronze(), msg.getUpdatedBonusBlue());	
+				Map<ColorCity, Integer> colorBonuses = msg.getUpdatedColorBonuses();
+				clientView.citiesColorBonusesUpdate(colorBonuses.get(ColorCity.GOLD), colorBonuses.get(ColorCity.SILVER), colorBonuses.get(ColorCity.BRONZE), colorBonuses.get(ColorCity.BLUE));	
 			}
 			
 			if(arg instanceof ErrorMsg){

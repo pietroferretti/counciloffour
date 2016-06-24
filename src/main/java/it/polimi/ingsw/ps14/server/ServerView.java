@@ -70,10 +70,7 @@ public abstract class ServerView extends Observable implements Observer {
 			sendMessage(new KingBonusesUpdatedMsg(modelView.getKingBonusesView().getShowableKingBonus()));
 			sendMessage(new NobilityTrackUpdatedMsg(modelView.getNobilityTrackView().getNobilityTrackCopy()));
 			sendMessage(new KingUpdatedMsg(modelView.getKingView().getKingCopy()));
-			sendMessage(new CitiesColorBonusesUpdatedMsg(modelView.getCitiesColorBonusesView().getBonusGoldCopy(),
-					modelView.getCitiesColorBonusesView().getBonusSilverCopy(),
-					modelView.getCitiesColorBonusesView().getBonusBronzeCopy(),
-					modelView.getCitiesColorBonusesView().getBonusBlueCopy()));
+			sendMessage(new CitiesColorBonusesUpdatedMsg(modelView.getCitiesColorBonusesView().getColorBonusesCopy()));
 			sendMessage(new RegionUpdatedMsg(modelView.getRegionsView().get(0).getRegionCopy()));
 			for (RegionView rv : modelView.getRegionsView()) {
 				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));

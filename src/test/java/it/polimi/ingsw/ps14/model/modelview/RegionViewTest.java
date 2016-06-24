@@ -1,20 +1,16 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotSame;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import it.polimi.ingsw.ps14.model.BusinessCardsRegion;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.Action;
-import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermitTileAction;
-import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.ElectCouncillorAction;
-import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTilesAction;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
@@ -82,7 +78,7 @@ public class RegionViewTest {
 	@Test
 	public void testUpdateBonusRegion() {
 
-		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBonusRegion().toString());
+		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBonusRegion());
 		System.out.print(rv.getRegionCopy().getBonusRegion());
 
 		// TODO controllo nelle action quando ho tutti empori della stessa

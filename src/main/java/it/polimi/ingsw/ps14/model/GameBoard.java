@@ -43,10 +43,7 @@ public class GameBoard extends Observable implements Serializable {
 	private NobilityTrack nobilityTrack;
 	// Map to store how many councillors there are for each color
 	private Map<ColorCouncillor, Integer> availableCouncillors = new EnumMap<>(ColorCouncillor.class);
-	private int bonusGold;
-	private int bonusSilver;
-	private int bonusBronze;
-	private int bonusBlue;
+	private Map<ColorCity, Integer> colorBonuses;
 	private Queue<Integer> kingBonuses;
 	private PoliticDeck politicDeck;
 
@@ -70,10 +67,11 @@ public class GameBoard extends Observable implements Serializable {
 		king = new King(generateRandomBalcony(settings.councillorsEachBalcony), kingStartingCity);
 
 		// Get the victory point bonuses from settings
-		bonusGold = settings.buildingBonuses.get("bonusGold");
-		bonusSilver = settings.buildingBonuses.get("bonusSilver");
-		bonusBronze = settings.buildingBonuses.get("bonusBronze");
-		bonusBlue = settings.buildingBonuses.get("bonusBlue");
+		colorBonuses = new EnumMap<>(ColorCity.class);
+		colorBonuses.put(ColorCity.GOLD, settings.buildingBonuses.get("bonusGold"));
+		colorBonuses.put(ColorCity.SILVER, settings.buildingBonuses.get("bonusSilver"));
+		colorBonuses.put(ColorCity.BRONZE, settings.buildingBonuses.get("bonusBronze"));
+		colorBonuses.put(ColorCity.BLUE, settings.buildingBonuses.get("bonusBlue"));
 		kingBonuses = new LinkedList<>();
 		kingBonuses.add(settings.buildingBonuses.get("bonusKing1"));
 		kingBonuses.add(settings.buildingBonuses.get("bonusKing2"));
@@ -102,10 +100,9 @@ public class GameBoard extends Observable implements Serializable {
 		getRegion(RegionType.MOUNTAINS).setBusinessPermits(permitDeckMountains);
 
 		// Get bonuses for each region
-		BonusVictoryPoint bonusCoast = new BonusVictoryPoint(settings.buildingBonuses.get("bonusCoast").intValue());
-		BonusVictoryPoint bonusHills = new BonusVictoryPoint(settings.buildingBonuses.get("bonusHills").intValue());
-		BonusVictoryPoint bonusMountains = new BonusVictoryPoint(
-				settings.buildingBonuses.get("bonusMountains").intValue());
+		int bonusCoast = settings.buildingBonuses.get("bonusCoast").intValue();
+		int bonusHills = settings.buildingBonuses.get("bonusHills").intValue();
+		int bonusMountains = settings.buildingBonuses.get("bonusMountains").intValue();
 		getRegion(RegionType.COAST).setBonusRegion(bonusCoast);
 		getRegion(RegionType.HILLS).setBonusRegion(bonusHills);
 		getRegion(RegionType.MOUNTAINS).setBonusRegion(bonusMountains);
@@ -147,6 +144,7 @@ public class GameBoard extends Observable implements Serializable {
 		// Create connections between cities
 		for (String cityName : settings.map.keySet()) {
 			City city = getCityByName(cityName);
+			@SuppressWarnings("unchecked")
 			List<String> neighborsStringList = (ArrayList<String>) settings.map.get(cityName).get("neighbors");
 			List<City> neighborsList = new ArrayList<>();
 			for (String neighborName : neighborsStringList) {
@@ -281,6 +279,7 @@ public class GameBoard extends Observable implements Serializable {
 		List<BusinessPermit> permitList = new ArrayList<>();
 		for (Map<String, Object> settingsPermit : settingsDeck) {
 			BusinessPermit permit;
+			@SuppressWarnings("unchecked")
 			List<String> settingsCityList = (List<String>) settingsPermit.get("cities");
 			List<City> cityList = new ArrayList<>();
 
@@ -288,6 +287,7 @@ public class GameBoard extends Observable implements Serializable {
 				cityList.add(getCityByName(cityName));
 			}
 
+			@SuppressWarnings("unchecked")
 			Map<String, Integer> bonusMap = (Map<String, Integer>) settingsPermit.get("bonus");
 			Bonus bonusList = buildBonusFromMap(bonusMap);
 			permit = new BusinessPermit(cityList, bonusList);
@@ -464,6 +464,10 @@ public class GameBoard extends Observable implements Serializable {
 	public Queue<Integer> getKingBonuses() {
 		return kingBonuses;
 	}
+	
+	public boolean isKingBonusAvailable() {
+		return kingBonuses.peek() != null;
+	}
 
 	public int useKingBonus() {
 		int i = kingBonuses.poll();
@@ -473,55 +477,30 @@ public class GameBoard extends Observable implements Serializable {
 	}
 
 	/*
-	 * --------------------------- REGION BONUS -----------------------------
+	 * --------------------------- COLOR BONUS -----------------------------
 	 */
 
-	public int getBonusGold() {
-		return bonusGold;
+	public Map<ColorCity, Integer> getColorBonuses() {
+		return colorBonuses;
 	}
-
-	public int getBonusSilver() {
-		return bonusSilver;
+	
+	public Integer getColorBonus(ColorCity color) {
+		return colorBonuses.get(color);
 	}
-
-	public int getBonusBronze() {
-		return bonusBronze;
-	}
-
-	public int getBonusBlue() {
-		return bonusBlue;
-	}
-
-	public void useBonusGold() {
-		bonusGold = 0;
+	
+	public Integer useColorBonus(ColorCity color) {
+		Integer bonus = colorBonuses.get(color);
+		colorBonuses.put(color, 0);
 		setChanged();
 		notifyObservers();
-	}
-
-	public void useBonusSilver() {
-		bonusSilver = 0;
-		setChanged();
-		notifyObservers();
-	}
-
-	public void useBonusBronze() {
-		bonusBronze = 0;
-		setChanged();
-		notifyObservers();
-	}
-
-	public void useBonusBlue() {
-		bonusBlue = 0;
-		setChanged();
-		notifyObservers();
+		return bonus;
 	}
 
 	@Override
 	public String toString() {
 		return "GameBoard [random=" + random + ", regions=" + regions + ", king=" + king + ", cities=" + cities
 				+ ", availableAssistants=" + availableAssistants + ", nobilityTrack=" + nobilityTrack
-				+ ", availableCouncillors=" + availableCouncillors + ", bonusGold=" + bonusGold + ", bonusSilver="
-				+ bonusSilver + ", bonusBronze=" + bonusBronze + ", bonusBlue=" + bonusBlue + ", bonusesKing="
+				+ ", availableCouncillors=" + availableCouncillors + ", colorBonuses =" + colorBonuses + ", bonusesKing="
 				+ kingBonuses + ", politicDeck=" + politicDeck + "]";
 	}
 

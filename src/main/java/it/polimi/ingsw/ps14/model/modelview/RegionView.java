@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
+import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Region;
-import it.polimi.ingsw.ps14.model.State;
 
 /**
  * 

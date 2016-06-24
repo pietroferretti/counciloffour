@@ -88,9 +88,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 		kingBonusesView = new KingBonusesView(model.getGameBoard().getKingBonuses().peek());
 		model.getGameBoard().addObserver(kingBonusesView);
 
-		citiesColorBonusesView = new CitiesColorBonusesView(model.getGameBoard().getBonusGold(),
-				model.getGameBoard().getBonusSilver(), model.getGameBoard().getBonusBronze(),
-				model.getGameBoard().getBonusBlue());
+		citiesColorBonusesView = new CitiesColorBonusesView(model.getGameBoard().getColorBonuses());
 		model.getGameBoard().addObserver(citiesColorBonusesView);
 
 		marketView = new MarketView(model.getMarket());
@@ -201,10 +199,7 @@ public class ModelView extends Observable implements Observer, Serializable {
 			notifyObservers(new KingBonusesUpdatedMsg(((KingBonusesView) o).getShowableKingBonus()));
 		} else if (o instanceof CitiesColorBonusesView) {
 			setChanged();
-			notifyObservers(new CitiesColorBonusesUpdatedMsg(((CitiesColorBonusesView) o).getBonusGoldCopy(),
-					((CitiesColorBonusesView) o).getBonusSilverCopy(),
-					((CitiesColorBonusesView) o).getBonusBronzeCopy(),
-					((CitiesColorBonusesView) o).getBonusBlueCopy()));
+			notifyObservers(new CitiesColorBonusesUpdatedMsg(((CitiesColorBonusesView) o).getColorBonusesCopy()));
 		} else if (o instanceof MarketView) {
 			if (stateView.getStateCopy().getCurrentMarketState() == MarketState.BUYING) {
 				setChanged();
