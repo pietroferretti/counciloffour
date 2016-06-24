@@ -9,6 +9,7 @@ import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
@@ -82,128 +83,126 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 
 	@Override
 	public void drawCard(Integer playerID) {
-		System.out.println("i received a draw message");
-
-		TurnActionMsg action = new TurnActionMsg(new DrawCardAction(playerID));
-		sendToServerView(playerID, action);
-		System.out.println("i notified the observers");
+		TurnActionMsg message = new TurnActionMsg(new DrawCardAction(playerID));
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void electCouncillor(Integer playerID, ColorCouncillor cc,
 			String regionORking) {
-		TurnActionMsg action = new TurnActionMsg(new ElectCouncillorAction(
+		TurnActionMsg message = new TurnActionMsg(new ElectCouncillorAction(
 				playerID, cc, regionORking));
-		sendToServerView(playerID, action);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void acquireBusinessPermitTile(Integer playerID, RegionType rt,
 			Integer permID, List<PoliticCard> politics) {
-		TurnActionMsg action = new TurnActionMsg(
+		TurnActionMsg message = new TurnActionMsg(
 				new AcquireBusinessPermiteTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics)));
-		sendToServerView(playerID, action);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void buildWithKing(Integer playerID, String city,
 			List<PoliticCard> politics) {
-		TurnActionMsg action = new TurnActionMsg(
+		TurnActionMsg message = new TurnActionMsg(
 				new BuildEmporiumWithHelpOfKingAction(playerID, city, politics));
-		sendToServerView(playerID, action);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void buildWithPermit(Integer playerID, Integer permitID,
 			String cityname) {
-		TurnActionMsg action = new TurnActionMsg(
+		TurnActionMsg message = new TurnActionMsg(
 				new BuildEmporiumUsingPermitTileAction(playerID, permitID,
 						cityname));
-		sendToServerView(playerID, action);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void engage(Integer playerID) {
-		TurnActionMsg action = new TurnActionMsg(new EngageAssistantAction(
+		TurnActionMsg message = new TurnActionMsg(new EngageAssistantAction(
 				playerID));
-		sendToServerView(playerID, action);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void changeBusinessPermitTiles(Integer playerID, RegionType rt) {
-		TurnActionMsg action = new TurnActionMsg(
+		TurnActionMsg message = new TurnActionMsg(
 				new ChangeBusinessPermitTilesAction(playerID, rt));
-		sendToServerView(playerID, action);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void performAdditionalMainAction(Integer playerID) {
-		TurnActionMsg action = new TurnActionMsg(
+		TurnActionMsg message = new TurnActionMsg(
 				new PerformAdditionalMainActionAction(playerID));
-		sendToServerView(playerID, action);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void electWithAssistant(Integer playerID, RegionType rt,
 			ColorCouncillor cc) {
-		TurnActionMsg action = new TurnActionMsg(
+		TurnActionMsg message = new TurnActionMsg(
 				new SendAssistantToElectCouncillorAction(playerID, rt, cc));
-		sendToServerView(playerID, action);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void passTurn(Integer playerID) {
-		TurnActionMsg action = new TurnActionMsg(new EndTurnAction(playerID));
-		sendToServerView(playerID, action);
+		TurnActionMsg message = new TurnActionMsg(new EndTurnAction(playerID));
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void answerNobilityRequest(Integer playerID, List<String> chosenIDs) {
-		// TODO;
+		Message message = new NobilityRequestAnswerMsg(chosenIDs);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void showMyDetails(Integer playerID) {
-		Message action = new UpdateThisPlayerMsg(playerID);
-		sendToServerView(playerID, action);
+		Message message = new UpdateThisPlayerMsg(playerID);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void showDetails(Integer playerID) {
-		Message action = new UpdateOtherPlayersMsg(playerID);
-		sendToServerView(playerID, action);
+		Message message = new UpdateOtherPlayersMsg(playerID);
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void showGamebord(Integer playerID) {
-		Message action = new UpdateGameBoardMsg();
-		sendToServerView(playerID, action);
+		Message message = new UpdateGameBoardMsg();
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void sell(Integer playerID, List<ItemForSale> items) {
-		SellMsg action = new SellMsg(new SellAction(items));
-		sendToServerView(playerID, action);
+		SellMsg message = new SellMsg(new SellAction(items));
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void buy(Integer playerID, Integer objID, Integer quantity) {
-		Message action = new BuyMsg(new BuyAction(playerID, objID, quantity));
-		sendToServerView(playerID, action);
+		Message message = new BuyMsg(new BuyAction(playerID, objID, quantity));
+		sendToServerView(playerID, message);
 	}
 
 	@Override
 	public void sellNone(Integer playerID) throws RemoteException {
-		Message action = new SellNoneMsg();
-		sendToServerView(playerID, action);
+		Message message = new SellNoneMsg();
+		sendToServerView(playerID, message);
 
 	}
 
 	@Override
 	public void doneBuying(Integer playerID) throws RemoteException {
-		Message action = new DoneBuyingMsg();
-		sendToServerView(playerID, action);
+		Message message = new DoneBuyingMsg();
+		sendToServerView(playerID, message);
 
 	}
 
