@@ -144,7 +144,7 @@ public class SocketServerView extends ServerView implements Runnable {
 			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
 			for (RegionView rv : super.getModelView().getRegionsView()) {
 				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
-			 }
+			}
 
 		} else if (requestReceived instanceof UpdateThisPlayerMsg) {
 			sendPersonalUpdate();

@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
@@ -105,6 +106,7 @@ public class RMIServerView extends ServerView {
 					super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
 			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
+			sendMessage(new KingUpdatedMsg(super.getModelView().getKingView().getKingCopy()));
 			for (RegionView rv : super.getModelView().getRegionsView()) {
 				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
 			 }
