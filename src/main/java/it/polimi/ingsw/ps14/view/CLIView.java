@@ -43,13 +43,8 @@ public class CLIView extends ClientView implements Runnable {
 	private Interpreter interpreter;
 	private Scanner in;
 
-	private Player winner; // da settare quando arriva qualcosa come
-							// GameEndedMsg
-
-	// TODO magari un map per fare una classifica con i punti
-
-	public CLIView(Scanner scanner) {
-		// printer = new Printer(new PrintStream(System.out));
+	public CLIView(Scanner scanner, String name) {
+		super.setPlayerName(name);
 		myTurn = false;
 		interpreter = new Interpreter();
 		in = scanner;
@@ -270,8 +265,7 @@ public class CLIView extends ClientView implements Runnable {
 
 		} else if (gameState.getGamePhase() == GamePhase.END) {
 
-			print(String.format("The game has ended, %s has won!",
-					winner.getName()));
+			//TODO insieme a gameendedmsg
 
 		}
 
@@ -416,12 +410,14 @@ public class CLIView extends ClientView implements Runnable {
 
 	}
 	
-	@Override 
+	@Override
 	public void setGameStarted(boolean gameStarted) {
-		this.gameStarted = gameStarted;
+		super.setGameStarted(gameStarted);
+		
 		if (gameStarted) {
-			print("Game Started!");
+			interpreter.getCommunication().setPlayerName(super.playerID, super.name);
 		}
+		
 	}
 
 	@Override

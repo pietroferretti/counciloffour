@@ -46,9 +46,10 @@ public class Client {
 
 		System.out.println("Choose a name:");
 		String name = scanner.nextLine();
+		
 
 		// Un giorno, "CLI o GUI?"
-		ClientView clientView = new CLIView(scanner);
+		ClientView clientView = new CLIView(scanner, name);
 
 		String input;
 		do {

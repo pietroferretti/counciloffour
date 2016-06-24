@@ -33,12 +33,16 @@ public class Interpreter {
 	public void setCommunication(Communication communication) {
 		this.communication = communication;
 	}
+	
+	public Communication getCommunication() {
+		return communication;
+	}
 
 	Scanner scan = new Scanner(System.in);
 
 	// TODO ma perché non metterli tutti come toString()?
 
-	public String parseMsg(Message msg) {
+	public static String parseMsg(Message msg) {
 
 		if (msg instanceof AvailableAssistantsUpdatedMsg) {
 			return ((AvailableAssistantsUpdatedMsg) msg).toString();

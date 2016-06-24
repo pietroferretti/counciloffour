@@ -225,6 +225,7 @@ public class Controller implements Observer {
 
 			if (index == -1) {
 				LOGGER.warning("Something went wrong when comparing player IDs in the controller!!");
+				return;
 			}
 
 			// sets the final players as all the players except the one that

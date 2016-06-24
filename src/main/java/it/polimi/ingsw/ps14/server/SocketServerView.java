@@ -84,6 +84,8 @@ public class SocketServerView extends ServerView implements Runnable {
 					super.setPlayerName(((PlayerNameMsg) objectReceived).getPlayerName());
 					LOGGER.info(String.format("Set player name as '%s' for socketview %d", super.getPlayerName(),
 							super.getPlayerID()));
+					setChanged();
+					notifyObservers(objectReceived);
 
 				} else if (objectReceived instanceof UpdateRequestMsg) {
 
