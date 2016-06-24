@@ -11,10 +11,6 @@ public abstract class ServerView extends View {
 		super(id);
 	}
 	
-	public void setPlayerID(Integer id){
-		super.setPlayerID(id);
-	}
-
 	public ModelView getModelView() {
 		return modelView;
 	}
@@ -23,40 +19,4 @@ public abstract class ServerView extends View {
 		this.modelView = modelView;
 	}
 
-	// private Message message;
-	//
-	//
-	//
-	// private void setMessage(Message message) {
-	// this.message = message;
-	// setChanged();
-	// notifyObservers(message);
-	// }
-	//
-	// @Override
-	// public int getPlayerID() {
-	// return playerID;
-	// }
-	//
-	// @Override
-	// public void update(Observable o, Object arg) {
-	//
-	// if (!(o instanceof ModelView)) {
-	//
-	// throw new IllegalArgumentException();
-	//
-	// } else if (arg instanceof PlayerChangedPublicMsg)
-	// send(arg);
-	// else if (arg instanceof PlayerChangedPrivateMsg) {
-	// if (((PlayerChangedPrivateMsg) arg).getPlayerID() == playerID) {
-	// send(arg);
-	// } else {
-	// // TODO avvisare altri
-	// }
-	//
-	// } else if ("REGIONVIEW".equals((String) arg)) {
-	// showOtherPlayersDetails();
-	// }
-	//
-	// }
 }

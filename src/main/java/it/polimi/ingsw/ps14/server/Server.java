@@ -93,7 +93,7 @@ public class Server {
 		LOGGER.info("Connection added.");
 		if (waitingConnections.size() == PLAYERS_NUMBER) {
 			timer.cancel();
-			createServerViews();
+			createGame();
 		}
 		if (waitingConnections.size() == 2) {
 
@@ -105,7 +105,7 @@ public class Server {
 				@Override
 				public void run() {
 					if (waitingConnections.size() >= 2 && waitingConnections.size() < PLAYERS_NUMBER) {
-						createServerViews();
+						createGame();
 					}
 				}
 			};
@@ -180,7 +180,7 @@ public class Server {
 		server.startSocket();
 	}
 
-	private void createServerViews() {
+	private void createGame() {
 		try {
 			LOGGER.info(String.format("Creating game with %d player.", waitingConnections.size()));
 

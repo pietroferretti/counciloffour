@@ -50,6 +50,12 @@ public class Model extends Observable implements Serializable {
 		message = new MessageObservable();
 	}
 
+	/**
+	 * NON LO USIAMO MAI, non possiamo avere i player prima di avere creato il model
+	 * @param players
+	 * @throws IOException
+	 * @deprecated
+	 */
 	public Model(List<Player> players) throws IOException {
 		idGame = idCounter;
 		idCounter++;
@@ -58,7 +64,7 @@ public class Model extends Observable implements Serializable {
 		market = new Market();
 		state = new State();
 		bonusesToDo = new ArrayList<>();
-		state = new State();
+		
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);
