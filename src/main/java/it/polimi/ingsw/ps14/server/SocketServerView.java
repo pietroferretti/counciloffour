@@ -17,6 +17,7 @@ import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
@@ -134,7 +135,7 @@ public class SocketServerView extends ServerView implements Runnable {
 			sendMessage(new KingBonusesUpdatedMsg(super.getModelView().getKingBonusesView().getShowableKingBonus()));
 			sendMessage(
 					new NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
-			
+			sendMessage(new KingUpdatedMsg(super.getModelView().getKingView().getKingCopy()));
 			sendMessage(new CitiesColorBonusesUpdatedMsg(
 					super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
 					super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
