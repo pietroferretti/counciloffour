@@ -195,8 +195,9 @@ public class Interpreter {
 			return true;
 
 			// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
-			// // se rt ==null ->>> balcony del re
+			//  se rt ==null ->>> balcony del re
 		case "ELECT-WITH-ASSISTANT":
+			if(word.length!=3) return false;
 			rt = string2RegionType(word[1]);
 			if (rt == null && !word[1].matches("KING"))
 				return false;

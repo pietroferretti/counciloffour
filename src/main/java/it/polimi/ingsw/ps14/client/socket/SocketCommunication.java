@@ -115,7 +115,7 @@ public class SocketCommunication implements Communication {
 			Integer permID, List<PoliticCard> politics) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new AcquireBusinessPermiteTileAction(permID, rt, permID,
+				new AcquireBusinessPermiteTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics))));
 	}
 

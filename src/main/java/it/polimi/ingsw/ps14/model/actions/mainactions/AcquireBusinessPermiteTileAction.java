@@ -39,6 +39,7 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 		Player player = model.id2player(super.getPlayer());
 		System.out.println("ID: "+super.getPlayer());
 		Region region = model.getGameBoard().getRegion(regionType);
+		System.out.println("region:"+region.getType().name());
 		Balcony balcony = region.getBalcony();
 		BusinessPermit permitTile = model.id2permit(permitID, region);
 		System.out.println(permitTile.getId());
