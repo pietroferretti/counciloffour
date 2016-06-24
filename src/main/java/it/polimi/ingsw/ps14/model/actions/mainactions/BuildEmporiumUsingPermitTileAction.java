@@ -8,15 +8,13 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-import it.polimi.ingsw.ps14.server.Server;
 
 public class BuildEmporiumUsingPermitTileAction extends MainAction {
-	/**
-	 * 
-	 */
-	private static final Logger LOGGER = Logger.getLogger(Server.class
+	private static final Logger LOGGER = Logger.getLogger(BuildEmporiumUsingPermitTileAction.class
 			.getName());
+	
 	private static final long serialVersionUID = 833335630529544205L;
+	
 	private final Integer businessCardID;
 	private final String cityName;
 
@@ -29,11 +27,14 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 	@Override
 	public boolean isValid(Model model) {
 		Player player = model.id2player(super.getPlayer());
+		
 		if (player == null)
 			return false;
+		
 		BusinessPermit businessCard = model.id2permit(businessCardID, player);
 		if (businessCard == null) // if player doesn't have card return null
 			return false;
+		
 		City city = model.name2city(cityName);
 		if (city == null)
 			return false;
@@ -42,12 +43,12 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		if (!businessCard.contains(city))
 			return false;
 
-		// check if player has built in this city yet
+		// check if player has built in this city already
 		if (city.isEmporiumBuilt(player))
 			return false;
 
 		// check if player has money enough to pay players that have built in
-		// the city yet
+		// the city already
 		if (city.numEmporiumsBuilt() > player.getAssistants())
 			return false;
 

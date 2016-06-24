@@ -1,14 +1,5 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
-import it.polimi.ingsw.ps14.model.Balcony;
-import it.polimi.ingsw.ps14.model.City;
-import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.PoliticCard;
-import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
-import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-import it.polimi.ingsw.ps14.server.Server;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,12 +7,20 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.ps14.model.Balcony;
+import it.polimi.ingsw.ps14.model.City;
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
+import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 	/**
 	 * 
 	 */
-	private static final Logger LOGGER = Logger.getLogger(Server.class
+	private static final Logger LOGGER = Logger.getLogger(BuildEmporiumWithHelpOfKingAction.class
 			.getName());
 	private static final long serialVersionUID = 4780505443771942777L;
 	private String cityName;
