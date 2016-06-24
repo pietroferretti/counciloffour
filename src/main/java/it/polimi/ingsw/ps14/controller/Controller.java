@@ -34,10 +34,10 @@ import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.bonus.SpecialNobilityBonus;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
-import it.polimi.ingsw.ps14.view.View;
+import it.polimi.ingsw.ps14.server.ServerView;
 
 /**
- * Receives messages from the View and decides what to do. Decides if and how to
+ * Receives messages from the ServerView and decides what to do. Decides if and how to
  * modify the Model when it receives an action or a message. Updates the state
  * of the game after modifying the Model. This class is the only one that
  * modifies the Model.
@@ -78,14 +78,14 @@ public class Controller implements Observer {
 	 * updates its state if needed.
 	 * 
 	 * @param o
-	 *            - a View that notified the controller
+	 *            - a ServerView that notified the controller
 	 * @param arg
 	 *            - a Message
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
 
-		View serverView = (View) o;
+		ServerView serverView = (ServerView) o;
 
 		LOGGER.info(String.format("Received object %s", arg));
 
@@ -132,7 +132,7 @@ public class Controller implements Observer {
 	 * @param name
 	 *            the name of the player
 	 */
-	private void updatePlayerName(View playerView, String name) {
+	private void updatePlayerName(ServerView playerView, String name) {
 
 		model.id2player(playerView.getPlayerID()).setName(name);
 
@@ -146,7 +146,7 @@ public class Controller implements Observer {
 	 * @param action
 	 *            the action to be executed
 	 */
-	private void executeTurnAction(View playerView, TurnAction action) {
+	private void executeTurnAction(ServerView playerView, TurnAction action) {
 
 		switch (model.getGamePhase()) {
 		case TURNS:
@@ -188,7 +188,7 @@ public class Controller implements Observer {
 	 * @param action
 	 *            the action to be executed
 	 */
-	private void turnActionDuringTurns(View playerView, TurnAction action) {
+	private void turnActionDuringTurns(ServerView playerView, TurnAction action) {
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
@@ -278,7 +278,7 @@ public class Controller implements Observer {
 	 * @param action
 	 *            the action to be executed
 	 */
-	private void turnActionDuringFinalTurns(View playerView, TurnAction action) {
+	private void turnActionDuringFinalTurns(ServerView playerView, TurnAction action) {
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
@@ -334,7 +334,7 @@ public class Controller implements Observer {
 	 * @param action
 	 *            the action to be executed
 	 */
-	private void executeSellAction(View playerView, SellAction action) {
+	private void executeSellAction(ServerView playerView, SellAction action) {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
@@ -385,7 +385,7 @@ public class Controller implements Observer {
 	 * @param action
 	 *            the action to be executed
 	 */
-	private void executeBuyAction(View playerView, BuyAction action) {
+	private void executeBuyAction(ServerView playerView, BuyAction action) {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
@@ -423,7 +423,7 @@ public class Controller implements Observer {
 	 * @param playerView
 	 *            the view associated to the player
 	 */
-	private void doneBuying(View playerView) {
+	private void doneBuying(ServerView playerView) {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
@@ -456,7 +456,7 @@ public class Controller implements Observer {
 		}
 	}
 
-	private void sellNone(View playerView) {
+	private void sellNone(ServerView playerView) {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
@@ -499,7 +499,7 @@ public class Controller implements Observer {
 	 * @see it.polimi.ingsw.ps14.model.bonus.SpecialNobilityBonus
 	 *      SpecialNobilityBonus
 	 */
-	private void handleNobilityAnswer(View playerView, List<String> chosenIDs) {
+	private void handleNobilityAnswer(ServerView playerView, List<String> chosenIDs) {
 
 		if (model.getWaitingFor() == WaitingFor.NOTHING) {
 
@@ -588,7 +588,7 @@ public class Controller implements Observer {
 	 * @param chosenIDs
 	 *            the list of permit ids chosen
 	 */
-	private void handleTakePermit(View playerView, List<String> chosenIDs) {
+	private void handleTakePermit(ServerView playerView, List<String> chosenIDs) {
 
 		Player player = model.id2player(playerView.getPlayerID());
 
@@ -634,7 +634,7 @@ public class Controller implements Observer {
 	 * @param chosenIDs
 	 *            the list of permit ids chosen
 	 */
-	private void handleFromPermits(View playerView, List<String> permitIDs) {
+	private void handleFromPermits(ServerView playerView, List<String> permitIDs) {
 
 		Player player = model.id2player(playerView.getPlayerID());
 
@@ -669,7 +669,7 @@ public class Controller implements Observer {
 	 * @param chosenIDs
 	 *            the list of city ids chosen
 	 */
-	private void handleFromTokens(View playerView, List<String> cityNames) {
+	private void handleFromTokens(ServerView playerView, List<String> cityNames) {
 
 		Player player = model.id2player(playerView.getPlayerID());
 
@@ -733,7 +733,7 @@ public class Controller implements Observer {
 	 * @param errorMessage
 	 *            the message to send
 	 */
-	private void sendErrorMsg(View playerView, String errorMessage) {
+	private void sendErrorMsg(ServerView playerView, String errorMessage) {
 		model.setMessage(new ErrorMsg(playerView.getPlayerID(), errorMessage));
 	}
 

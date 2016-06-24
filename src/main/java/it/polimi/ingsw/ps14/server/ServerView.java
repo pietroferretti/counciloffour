@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ps14.server;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
@@ -17,16 +20,32 @@ import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
 import it.polimi.ingsw.ps14.model.modelview.PlayerView;
 import it.polimi.ingsw.ps14.model.modelview.RegionView;
-import it.polimi.ingsw.ps14.view.View;
 
-public abstract class ServerView extends View {
+public abstract class ServerView extends Observable implements Observer {
 
+	private Integer id;
+	private String name;
 	private ModelView modelView;
 
 	public ServerView(Integer id) {
-		super(id);
+		this.id = id;
 	}
 
+	public void setPlayerID(Integer id){
+		this.id=id;
+	}
+	
+	public int getPlayerID() {
+		return id;
+	}
+	
+	public String getPlayerName() {
+		return name;
+	}
+	
+	public void setPlayerName(String name) {
+		this.name = name;
+	}
 	public ModelView getModelView() {
 		return modelView;
 	}
@@ -34,6 +53,7 @@ public abstract class ServerView extends View {
 	public void setModelView(ModelView modelView) {
 		this.modelView = modelView;
 	}
+	
 	/**
 	 * It sends the requested updates to the client; it build messages with the
 	 * {@link ModelView} objects.
@@ -67,12 +87,12 @@ public abstract class ServerView extends View {
 	}
 
 	protected void sendPersonalUpdate() {
-		sendMessage(new PersonalUpdateMsg(modelView.getPlayerByID(super.getPlayerID())));
+		sendMessage(new PersonalUpdateMsg(modelView.getPlayerByID(this.id)));
 	}
 
 	protected void sendOthersUpdate() {
 		for (PlayerView pv : modelView.getPlayersView()) {
-			if (pv.getPlayerCopy().getId() != super.getPlayerID())
+			if (pv.getPlayerCopy().getId() != this.id)
 				sendMessage(new OtherPlayerUpdateMsg(pv.getPlayerCopy()));
 		}
 	}
