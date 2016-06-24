@@ -11,7 +11,7 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.Action;
-import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.ElectCouncillorAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;

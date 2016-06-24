@@ -26,7 +26,7 @@ import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
 import it.polimi.ingsw.ps14.model.actions.EndTurnAction;
-import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.ElectCouncillorAction;
@@ -120,7 +120,7 @@ public class SocketCommunication implements Communication {
 			Integer permID, List<PoliticCard> politics) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new AcquireBusinessPermiteTileAction(playerID, rt, permID,
+				new AcquireBusinessPermitTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics))));
 	}
 

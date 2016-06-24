@@ -14,9 +14,9 @@ import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
-public class AcquireBusinessPermiteTileAction extends MainAction {
+public class AcquireBusinessPermitTileAction extends MainAction {
 	
-	private static final Logger LOGGER = Logger.getLogger(AcquireBusinessPermiteTileAction.class
+	private static final Logger LOGGER = Logger.getLogger(AcquireBusinessPermitTileAction.class
 			.getName());
 
 	private static final long serialVersionUID = -385170414895517347L;
@@ -25,7 +25,7 @@ public class AcquireBusinessPermiteTileAction extends MainAction {
 	private Integer permitID;
 	private List<PoliticCard> cards;
 
-	public AcquireBusinessPermiteTileAction(Integer playerID,
+	public AcquireBusinessPermitTileAction(Integer playerID,
 			RegionType region, Integer permitID, List<PoliticCard> politicCards) {
 		super(playerID);
 		this.regionType = region;

@@ -23,7 +23,7 @@ import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
 import it.polimi.ingsw.ps14.model.actions.EndTurnAction;
-import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.ElectCouncillorAction;
@@ -99,7 +99,7 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 	public void acquireBusinessPermitTile(Integer playerID, RegionType rt,
 			Integer permID, List<PoliticCard> politics) {
 		TurnActionMsg message = new TurnActionMsg(
-				new AcquireBusinessPermiteTileAction(playerID, rt, permID,
+				new AcquireBusinessPermitTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics)));
 		sendToServerView(playerID, message);
 	}
