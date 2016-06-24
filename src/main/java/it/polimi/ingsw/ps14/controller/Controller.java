@@ -141,7 +141,6 @@ public class Controller implements Observer {
 	/**
 	 * Called if the action sent by the view is a TurnAction. Does checks and
 	 * executes the action, updates the state of the game phases and turns.
-	 * 
 	 * @param playerView
 	 *            the view associated to the player
 	 * @param action
