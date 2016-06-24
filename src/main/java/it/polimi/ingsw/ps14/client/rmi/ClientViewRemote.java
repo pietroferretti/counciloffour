@@ -12,6 +12,7 @@ import it.polimi.ingsw.ps14.model.State;
 import java.awt.Color;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
@@ -61,5 +62,7 @@ public interface ClientViewRemote extends Remote {
 	public void itemSold(ItemForSale item) throws RemoteException;
 
 	public void stateUpdate(State updatedState) throws RemoteException;
+	
+	public abstract void gameEnded(List<List<String>> endResults);
 
 }

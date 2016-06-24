@@ -175,7 +175,7 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 	}
 
 	@Override
-	public void showGamebord(Integer playerID) {
+	public void showGameboard(Integer playerID) {
 		Message message = new UpdateGameBoardMsg();
 		sendToServerView(playerID, message);
 	}

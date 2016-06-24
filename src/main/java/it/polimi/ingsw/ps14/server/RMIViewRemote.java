@@ -51,7 +51,7 @@ public interface RMIViewRemote extends Remote{
 
 	public void showDetails(Integer playerID)throws RemoteException;
 
-	public void showGamebord(Integer playerID)throws RemoteException;
+	public void showGameboard(Integer playerID)throws RemoteException;
 
 	public void sell(Integer playerID, List<ItemForSale> items)throws RemoteException;
 

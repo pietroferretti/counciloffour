@@ -16,6 +16,7 @@ import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
@@ -77,6 +78,10 @@ public class SocketCommunication implements Communication {
 				} else {
 					clientView.setMyTurn(false);
 				}
+				
+			} else if (message instanceof GameEndedMsg) {
+				
+				clientView.showEndGame(((GameEndedMsg) message).getEndResults());
 
 			} else {
 
@@ -196,7 +201,7 @@ public class SocketCommunication implements Communication {
 	}
 
 	@Override
-	public void showGamebord(Integer playerID) {
+	public void showGameboard(Integer playerID) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateGameBoardMsg());
 

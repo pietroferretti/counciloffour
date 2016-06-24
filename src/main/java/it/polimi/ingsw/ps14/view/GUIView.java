@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.view;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.Map;
 
 import it.polimi.ingsw.ps14.client.Communication;
@@ -128,6 +129,12 @@ public class GUIView extends ClientView implements Runnable {
 	@Override
 	public void showCitiesColorBonuses(int updatedBonusGold,
 			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showEndGame(List<List<String>> endResults) {
 		// TODO Auto-generated method stub
 		
 	}

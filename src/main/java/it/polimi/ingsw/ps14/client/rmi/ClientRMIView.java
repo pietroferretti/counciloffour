@@ -14,13 +14,13 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
 /**
- * this class define method callable on the client
+ * This class implements the methods callable on the client with RMI
  * 
- *
  */
 
 public class ClientRMIView extends UnicastRemoteObject implements
@@ -133,6 +133,12 @@ public class ClientRMIView extends UnicastRemoteObject implements
 			int assistants, int level, int points, int numEmporiums) {
 		cv.showOtherPlayer(id, name, color, coins, assistants, level, points,
 				numEmporiums);
+	}
+
+	@Override
+	public void gameEnded(List<List<String>> endResults) {
+		cv.showEndGame(endResults);
+		
 	}
 
 }

@@ -244,7 +244,7 @@ public class Interpreter {
 				return true;
 			}
 			if (word[1].compareTo("GAMEBOARD") == 0) {
-				communication.showGamebord(playerID);
+				communication.showGameboard(playerID);
 				return true;
 			}
 			return false;

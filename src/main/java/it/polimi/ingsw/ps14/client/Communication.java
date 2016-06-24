@@ -22,7 +22,7 @@ public interface Communication {
 	public void passTurn(Integer playerID);
 	public void showMyDetails(Integer playerID);
 	public void showDetails(Integer playerID);
-	public void showGamebord(Integer playerID);
+	public void showGameboard(Integer playerID);
 	public void sell(Integer playerID, List<ItemForSale> items);
 	public void buy(Integer playerID,Integer objID,Integer quantity);
 	public void answerNobilityRequest(Integer playerID, List<String> objectIDs);

@@ -746,26 +746,24 @@ public class Controller implements Observer {
 	 */
 	private void sendGameEndedMsg(List<Player> players) {
 
-		List<Integer> playerIDs = new ArrayList<>();
-		List<String> playerNames = new ArrayList<>();
-		List<Integer> numAssistants = new ArrayList<>();
-		List<Integer> numCards = new ArrayList<>();
-		List<Integer> numEmporiums = new ArrayList<>();
-		List<Integer> nobilityLevels = new ArrayList<>();
-		List<Integer> numCoins = new ArrayList<>();
-
-		for (Player player : players) {
-			playerIDs.add(player.getId());
-			playerNames.add(player.getName());
-			numAssistants.add(player.getAssistants());
-			numCards.add(player.getNumberOfCards());
-			numEmporiums.add(player.getNumEmporiums());
-			nobilityLevels.add(player.getLevel());
-			numCoins.add(player.getCoins());
+		List<List<String>> endResults = new ArrayList<>();
+		
+		for (Player player: players) {
+			List<String> playerResult = new ArrayList<>();
+			playerResult.add(String.valueOf(player.getId()));
+			playerResult.add(player.getName());
+			playerResult.add(String.valueOf(player.getPoints()));
+			playerResult.add(String.valueOf(player.getAssistants()));
+			playerResult.add(String.valueOf(player.getNumberOfCards()));
+			playerResult.add(String.valueOf(player.getNumEmporiums()));
+			playerResult.add(String.valueOf(player.getLevel()));
+			playerResult.add(String.valueOf(player.getNumberOfPermits()));
+			playerResult.add(String.valueOf(player.getCoins()));
+			
+			endResults.add(playerResult);
 		}
 
-		GameEndedMsg message = new GameEndedMsg(playerIDs, playerNames, numAssistants, numCards, numEmporiums,
-				nobilityLevels, numCoins);
+		GameEndedMsg message = new GameEndedMsg(endResults);
 		model.setMessage(message);
 	}
 
