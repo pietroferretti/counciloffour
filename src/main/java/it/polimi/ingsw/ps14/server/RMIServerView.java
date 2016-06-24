@@ -49,6 +49,8 @@ public class RMIServerView extends ServerView {
 			super.setPlayerName(((PlayerNameMsg) msg).getPlayerName());
 			LOGGER.info(String.format("Set player name as '%s' for rmiView %d", super.getPlayerName(),
 					super.getPlayerID()));
+			setChanged();
+			notifyObservers(msg);
 
 		} else if (msg instanceof UpdateRequestMsg) {
 
@@ -72,9 +74,9 @@ public class RMIServerView extends ServerView {
 				}
 			} else if (arg instanceof Message) {
 				serverRMIout.castMessage((Message) arg);
-			} else {
+			} else if (arg != null) {
 				LOGGER.warning(String.format("The server view with id '%d' received an object that is not a message. %n"
-						+ "Object received: %s", super.getPlayerID(), arg.toString()));
+						+ "Object received: %s", super.getPlayerID(), arg));
 			}
 
 		} else

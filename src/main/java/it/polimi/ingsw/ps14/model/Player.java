@@ -174,7 +174,6 @@ public class Player extends Observable implements Serializable {
 	}
 
 	public void setName(String name) {
-		// TODO check
 		this.name = name;
 		setChanged();
 		notifyObservers();

@@ -1,9 +1,15 @@
 package it.polimi.ingsw.ps14.server;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
@@ -26,11 +32,6 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
-
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
 
 /**
  * 
@@ -73,11 +74,10 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 
 	@Override
 	public void setPlayerName(Integer playerID, String name) {
-		System.out.println("da implementare");
-		// super.setPlayerName(((PlayerNameMsg)
-		// objectReceived).getPlayerName());
-		// LOGGER.info(String.format("Set player name as '%s' for rmi view %d",
-		// super.getPlayerName(), super.getPlayerID()));//FIXME
+
+		PlayerNameMsg message = new PlayerNameMsg(name);
+		sendToServerView(playerID, message);
+		
 	}
 
 	@Override

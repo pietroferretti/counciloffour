@@ -155,7 +155,7 @@ public class SocketServerView extends ServerView implements Runnable {
 			}
 		} else if (arg instanceof Message) {
 			sendMessage((Message) arg);
-		} else {
+		} else if (arg != null){
 			LOGGER.warning(String.format(
 					"The server view with id '%d' received an object that is not a message. %n" + "Object received: %s",
 					super.getPlayerID(), arg.toString()));
