@@ -286,17 +286,15 @@ public class Interpreter {
 				if (word[i].matches("POLITIC") && (i + 1) <= word.length) {
 					ColorPolitic color;
 					splitted = word[i + 1].split(",");
-
 					for (String s : splitted) {
 						stub = s.split("-");
+						System.out.println("ok:"+stub[0]+stub[1]);
 						if (stub.length != 2)
 							return false;
 						ColorPolitic[] colors = ColorPolitic.values();
 						for (ColorPolitic c : colors)
-							if (c.equals(stub[0])) {
-
+							if (c.name().matches(stub[0]) ){
 								color = ColorPolitic.valueOf(stub[0]);
-
 								try {
 									price = Integer.parseInt(stub[1]);
 								} catch (NumberFormatException e) {
@@ -314,6 +312,7 @@ public class Interpreter {
 				}
 			}
 			communication.sell(playerID, items);
+			System.out.println("ho inviato "+items);
 			return true;
 
 			// BUY ITEM_ID QUANTITY(optional)
