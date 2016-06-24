@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps14.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +18,7 @@ import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
+import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.GamePhase;
@@ -106,7 +108,7 @@ public class Controller implements Observer {
 		} else if (arg instanceof DoneBuyingMsg) {
 
 			doneBuying(serverView);
-			
+
 		} else if (arg instanceof SellNoneMsg) {
 
 			sellNone(serverView);
@@ -303,14 +305,15 @@ public class Controller implements Observer {
 				// the game has ended, awarding final points and finding the
 				// winner
 				model.setGamePhase(GamePhase.END);
+				
 				System.out.println("The game has ended.");
 
-				distributeEndGamePoints(model.getPlayers());
+				List<Player> playerList = model.getPlayers();
 
-				Player winner = findWinner(model.getPlayers());
+				distributeEndGamePoints(playerList);
 
-				System.out.println("*** " + winner.getName() + " is the winner! ***");
-				// TODO rifare come messaggio
+				List<Player> rankings = findWinners(playerList);
+				sendGameEndedMsg(rankings);
 
 			} else {
 
@@ -452,8 +455,7 @@ public class Controller implements Observer {
 
 		}
 	}
-	
-	
+
 	private void sellNone(View playerView) {
 
 		// checks if we're actually in the market phase
@@ -478,7 +480,6 @@ public class Controller implements Observer {
 
 		} else {
 
-			
 			model.setCurrentMarketState(MarketState.BUYING);
 			model.setPlayerOrder(marketPlayers);
 			model.setCurrentPlayer(model.getNextPlayer());
@@ -737,6 +738,38 @@ public class Controller implements Observer {
 	}
 
 	/**
+	 * Sends the final message at the end of the game, with every info about
+	 * the winner and the rankings.
+	 * 
+	 * @param players
+	 *            the list of players ordered by ranking
+	 */
+	private void sendGameEndedMsg(List<Player> players) {
+
+		List<Integer> playerIDs = new ArrayList<>();
+		List<String> playerNames = new ArrayList<>();
+		List<Integer> numAssistants = new ArrayList<>();
+		List<Integer> numCards = new ArrayList<>();
+		List<Integer> numEmporiums = new ArrayList<>();
+		List<Integer> nobilityLevels = new ArrayList<>();
+		List<Integer> numCoins = new ArrayList<>();
+
+		for (Player player : players) {
+			playerIDs.add(player.getId());
+			playerNames.add(player.getName());
+			numAssistants.add(player.getAssistants());
+			numCards.add(player.getNumberOfCards());
+			numEmporiums.add(player.getNumEmporiums());
+			nobilityLevels.add(player.getLevel());
+			numCoins.add(player.getCoins());
+		}
+
+		GameEndedMsg message = new GameEndedMsg(playerIDs, playerNames, numAssistants, numCards, numEmporiums,
+				nobilityLevels, numCoins);
+		model.setMessage(message);
+	}
+
+	/**
 	 * Distributes all the final bonus points, for being farther in the nobility
 	 * track and for owning the most business permits.
 	 * 
@@ -866,38 +899,67 @@ public class Controller implements Observer {
 		return mostPermits;
 	}
 
+	// /**
+	// * Finds the winner by comparing points (and assistants and cards if
+	// there's
+	// * a draw).
+	// *
+	// * @param players
+	// * the list of all the players
+	// * @return the winning player
+	// */
+	// private Player findWinner(List<Player> players) {
+	// Player winner;
+	//
+	// winner = players.get(0);
+	// for (int i = 1; i < players.size(); i++) {
+	// if (players.get(i).getPoints() > winner.getPoints()) {
+	// winner = players.get(i);
+	// } else if (players.get(i).getPoints() == winner.getPoints()) {
+	// if (players.get(i).getAssistants() > winner.getAssistants()) {
+	// winner = players.get(i);
+	// } else if (players.get(i).getAssistants() == winner.getAssistants()) {
+	// if (players.get(0).getNumberOfCards() > winner.getNumberOfCards()) {
+	// winner = players.get(i);
+	// }
+	// }
+	// }
+	// }
+	//
+	// return winner;
+	// }
+
 	/**
-	 * Finds the winner by comparing points (and assistants and cards if there's
-	 * a draw).
+	 * Ranks the players by comparing points, assistants and cards.
 	 * 
 	 * @param players
 	 *            the list of all the players
-	 * @return the winning player
+	 * @return the players ordered by ranking
 	 */
-	private Player findWinner(List<Player> players) {
-		Player winner;
+	private List<Player> findWinners(List<Player> players) {
 
-		winner = players.get(0);
-		for (int i = 1; i < players.size(); i++) {
-			if (players.get(i).getPoints() > winner.getPoints()) {
-				winner = players.get(i);
-			} else if (players.get(i).getPoints() == winner.getPoints()) {
-				if (players.get(i).getAssistants() > winner.getAssistants()) {
-					winner = players.get(i);
-				} else if (players.get(i).getAssistants() == winner.getAssistants()) {
-					if (players.get(0).getNumberOfCards() > winner.getNumberOfCards()) {
-						winner = players.get(i);
-					} else if (players.get(0).getNumberOfCards() == winner.getNumberOfCards()) {
-						// TODO: se proprio c'è parità assoluta bisogna
-						// riscriverlo in modo che ritorni una lista di
-						// vincitori, in alternativa ritorna il primo per
-						// default lol
-					}
+		class PlayerComparator implements Comparator<Player> {
+
+			@Override
+			public int compare(Player o1, Player o2) {
+
+				int result = o1.getPoints() - o2.getPoints();
+				if (result != 0) {
+					return result;
 				}
+
+				result = o1.getAssistants() - o2.getAssistants();
+				if (result != 0) {
+					return result;
+				}
+
+				return o1.getNumberOfCards() - o2.getNumberOfCards();
 			}
 		}
 
-		return winner;
+		List<Player> sortedList = new ArrayList<>(players);
+		sortedList.sort(new PlayerComparator());
+		return sortedList;
 	}
 
 }
