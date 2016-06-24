@@ -288,13 +288,13 @@ public class Controller implements Observer {
 
 		// checks if we are in the right state to execute this action (e.g. we
 		// can still perform a Main Action)
-		if (model.getCurrentTurnState().isActionLegal(action, null)) {
+		if (!model.getCurrentTurnState().isActionLegal(action, model)) {
 			sendErrorMsg(playerView, "You cannot do this action now!");
 			return;
 		}
 
 		// executes the action and updates the state
-		model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, null));
+		model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, model));
 
 		// if the action ended the player's turn
 		if (model.getCurrentTurnState() instanceof EndTurnState) {
