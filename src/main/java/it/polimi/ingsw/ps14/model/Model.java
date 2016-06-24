@@ -329,7 +329,7 @@ public class Model extends Observable implements Serializable {
 	public City name2city(String name) {
 		try {
 			for (City c : gameBoard.getCities())
-				if (c.getName().compareTo(name) == 0)
+				if (c.getName().equalsIgnoreCase(name))
 					return c;
 		} catch (NullPointerException e) {
 			e.printStackTrace();

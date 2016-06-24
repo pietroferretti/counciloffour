@@ -11,23 +11,10 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
-import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
-import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
-import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
-import it.polimi.ingsw.ps14.model.modelview.PlayerView;
-import it.polimi.ingsw.ps14.model.modelview.RegionView;
 
 public class SocketServerView extends ServerView implements Runnable {
 	private static final Logger LOGGER = Logger.getLogger(SocketServerView.class.getName());
@@ -109,50 +96,56 @@ public class SocketServerView extends ServerView implements Runnable {
 
 	}
 
-	private void sendOthersUpdate() {
-		for (PlayerView pv : super.getModelView().getPlayersView()) {
-			if (pv.getPlayerCopy().getId() != super.getPlayerID())
-				sendMessage(new OtherPlayerUpdateMsg(pv.getPlayerCopy()));
-		}
-	}
+	// private void sendOthersUpdate() {
+	// for (PlayerView pv : super.getModelView().getPlayersView()) {
+	// if (pv.getPlayerCopy().getId() != super.getPlayerID())
+	// sendMessage(new OtherPlayerUpdateMsg(pv.getPlayerCopy()));
+	// }
+	// }
 
-	private void sendPersonalUpdate() {
-		sendMessage(new PersonalUpdateMsg(super.getModelView().getPlayerByID(super.getPlayerID())));
-	}
+	// private void sendPersonalUpdate() {
+	// sendMessage(new
+	// PersonalUpdateMsg(super.getModelView().getPlayerByID(super.getPlayerID())));
+	// }
 
-	/**
-	 * It sends the requested updates to the client; it build messages with the
-	 * {@link ModelView} objects.
-	 * 
-	 * @param objectReceived
-	 *            - Request for updates.
-	 */
-	private void sendUpdates(UpdateRequestMsg requestReceived) {
-
-		if (requestReceived instanceof UpdateGameBoardMsg) {
-			sendMessage(new StateUpdatedMsg(super.getModelView().getStateView().getStateCopy()));
-			sendMessage(new AvailableAssistantsUpdatedMsg(
-					super.getModelView().getAvailableAssistantsView().getAvailableAssistantsCopy()));
-			sendMessage(new KingBonusesUpdatedMsg(super.getModelView().getKingBonusesView().getShowableKingBonus()));
-			sendMessage(
-					new NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
-			
-			sendMessage(new CitiesColorBonusesUpdatedMsg(
-					super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
-					super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
-					super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
-					super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
-			sendMessage(new RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
-			for (RegionView rv : super.getModelView().getRegionsView()) {
-				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
-			 }
-
-		} else if (requestReceived instanceof UpdateThisPlayerMsg) {
-			sendPersonalUpdate();
-		} else if (requestReceived instanceof UpdateOtherPlayersMsg) {
-			sendOthersUpdate();
-		}
-	}
+//	/**
+//	 * It sends the requested updates to the client; it build messages with the
+//	 * {@link ModelView} objects.
+//	 * 
+//	 * @param objectReceived
+//	 *            - Request for updates.
+//	 */
+	// private void sendUpdates(UpdateRequestMsg requestReceived) {
+	//
+	// if (requestReceived instanceof UpdateGameBoardMsg) {
+	// sendMessage(new
+	// StateUpdatedMsg(super.getModelView().getStateView().getStateCopy()));
+	// sendMessage(new AvailableAssistantsUpdatedMsg(
+	// super.getModelView().getAvailableAssistantsView().getAvailableAssistantsCopy()));
+	// sendMessage(new
+	// KingBonusesUpdatedMsg(super.getModelView().getKingBonusesView().getShowableKingBonus()));
+	// sendMessage(
+	// new
+	// NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
+	// sendMessage(new
+	// KingUpdatedMsg(super.getModelView().getKingView().getKingCopy()));
+	// sendMessage(new CitiesColorBonusesUpdatedMsg(
+	// super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
+	// super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
+	// super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
+	// super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
+	// sendMessage(new
+	// RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
+	// for (RegionView rv : super.getModelView().getRegionsView()) {
+	// sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
+	// }
+	//
+	// } else if (requestReceived instanceof UpdateThisPlayerMsg) {
+	// sendPersonalUpdate();
+	// } else if (requestReceived instanceof UpdateOtherPlayersMsg) {
+	// sendOthersUpdate();
+	// }
+	// }
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -169,7 +162,8 @@ public class SocketServerView extends ServerView implements Runnable {
 		}
 	}
 
-	public void sendMessage(Message msg) {
+	@Override
+	protected void sendMessage(Message msg) {
 		try {
 			socketOut.writeObject(msg);
 			socketOut.flush();
