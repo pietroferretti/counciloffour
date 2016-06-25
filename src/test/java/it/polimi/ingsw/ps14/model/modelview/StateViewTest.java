@@ -25,7 +25,6 @@ public class StateViewTest {
 	private StateView sv;
 	private Deque<Player> playerOrder1;
 
-	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 		model = new Model();

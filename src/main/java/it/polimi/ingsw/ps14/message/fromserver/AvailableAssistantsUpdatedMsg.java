@@ -24,7 +24,7 @@ public class AvailableAssistantsUpdatedMsg implements Message {
 	
 	@Override
 	public String toString() {
-		return "Assistant available now: "+updatedAvailableAssistants;
+		return "Assistant available in the game: "+updatedAvailableAssistants;
 	}
 
 }

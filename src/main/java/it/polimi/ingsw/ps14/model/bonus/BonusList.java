@@ -70,7 +70,7 @@ public class BonusList implements Bonus {
 	public String toString() {
 		String s = "";
 		for (Bonus bon : bonuses) {
-			s = s + bon.toString() + "\n";
+			s = s + bon.toString();
 		}
 		return s;
 	}

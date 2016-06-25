@@ -40,7 +40,7 @@ public class BonusVictoryPoint implements Bonus {
 
 	@Override
 	public String toString() {
-		return "+" + Integer.toString(points) + " victory points\n";
+		return "\n+" + Integer.toString(points) + " victory points";
 	}
 
 }

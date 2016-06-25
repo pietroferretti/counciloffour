@@ -72,7 +72,7 @@ public class King extends Observable implements Serializable {
 
 	@Override
 	public String toString() {
-		return "The king is in " + city.getName() + "\nKING'S COUNCIL:" + balcony.toString();
+		return "The KING is in " + city.getName().toUpperCase() + ".\n\nKING'S COUNCIL:" + balcony.toString();
 	}
 
 }

@@ -165,7 +165,7 @@ public class City implements Serializable {
 
 	private String toStringEmporiums() {
 		if (emporiums.isEmpty())
-			return "\nNo emporiums in this city yet";
+			return "\nNo emporiums in this city yet.";
 		String s = "\nThese players own an emporium in this city:\n";
 		for (Player player : emporiums) {
 			s = s + player.getName() + " ";
@@ -174,7 +174,7 @@ public class City implements Serializable {
 	}
 
 	private String toStringNeighborsName() {
-		String s = "\n";
+		String s = "";
 		for (String neigh : neighborsName) {
 			s = s + neigh + " ";
 		}

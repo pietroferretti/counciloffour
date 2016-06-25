@@ -42,7 +42,7 @@ public class RegionViewTest {
 	public void testRegionView() {
 		// TODO fare controllo pezzo a pezzo
 		System.out.println("\ntestRegionView\n");
-		
+
 		RegionView rvCOAST = new RegionView(model.getGameBoard().getRegion(RegionType.COAST));
 		assertNotSame(model.getGameBoard().getRegion(RegionType.COAST), rvCOAST.getRegionCopy());
 
@@ -90,17 +90,17 @@ public class RegionViewTest {
 		System.out.println("testUpdateBusinessPermits");
 
 		actionPermits = new ChangeBusinessPermitTilesAction(player.getId(), RegionType.COAST);
-
-		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().toString());
-		System.out.print(rv.getRegionCopy().getBusinessPermits());
+		// FIXME
+		// System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().toString());
+		// System.out.println(rv.getRegionCopy().getBusinessPermits());
 
 		assertNotSame(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits(),
 				rv.getRegionCopy().getBusinessPermits());
 
 		actionPermits.execute(new MainActionDoneTurnState(0), model);
-
-		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().toString());
-		System.out.print(rv.getRegionCopy().getBusinessPermits());
+		// FIXME
+		// System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().toString());
+		// System.out.print(rv.getRegionCopy().getBusinessPermits());
 
 		assertNotSame(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits(),
 				rv.getRegionCopy().getBusinessPermits());

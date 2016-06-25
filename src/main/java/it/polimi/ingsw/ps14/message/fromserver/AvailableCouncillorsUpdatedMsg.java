@@ -29,7 +29,7 @@ public class AvailableCouncillorsUpdatedMsg implements Message {
 	public Map<ColorCouncillor, Integer> getUpdatedAvailableCouncillors() {
 		return updatedAvailableCouncillors;
 	}
-	
+	@Override
 	public String toString() {
 		String str=null;
 		ColorCouncillor[] map= ColorCouncillor.values();

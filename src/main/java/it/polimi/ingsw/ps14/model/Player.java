@@ -329,7 +329,7 @@ public class Player extends Observable implements Serializable {
 		
 		String s = "\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
 				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
-				+ "\nVictory Points: " + Integer.toString(points) + "\nPolitic Cads: ";
+				+ "\nVictory Points: " + Integer.toString(points) + "\nPolitic Cards: ";
 		for (PoliticCard politicCard : hand) {
 			s = s + politicCard.toString();
 		}

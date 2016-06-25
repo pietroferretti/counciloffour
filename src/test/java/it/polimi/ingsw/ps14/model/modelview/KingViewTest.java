@@ -27,7 +27,7 @@ public class KingViewTest {
 		model.getPlayers().add(player);
 		model.setCurrentPlayer(player);
 		// System.out.println(model.getGameBoard().toString());
-		// System.out.println(model.getGameBoard().getKing().toString());
+		 System.out.println(model.getGameBoard().getKing().toString());
 		// System.out.println(model.getGameBoard().getKing().getBalcony().toString());
 		kingView = new KingView(model.getGameBoard().getKing());
 		action = new ElectCouncillorAction(player.getId(), ColorCouncillor.BLUE, "KING");

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.view;
+package it.polimi.ingsw.ps14.classiDaEliminare;
 
 import java.io.PrintStream;
 import java.util.List;

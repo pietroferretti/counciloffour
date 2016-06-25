@@ -45,7 +45,7 @@ public class PlayerViewTest {
 
 		assertNotSame(player, pv1.getPlayerCopy());
 		assertEquals(player.getAssistants(), pv1.getPlayerCopy().getAssistants());
-		
+
 		assertEquals(player.getBusinessHand().getNumberOfPermits(),
 				pv1.getPlayerCopy().getBusinessHand().getNumberOfPermits());
 		assertEquals(player.getBusinessHand().getUsedCards(), pv1.getPlayerCopy().getBusinessHand().getUsedCards());
@@ -88,12 +88,12 @@ public class PlayerViewTest {
 	public void testUpdateBusinessHand() {
 		System.out.println("\n---------testUpdateBusinessHand---------\n");
 		System.out.println(player3.toString());
+		// FIXME
+		// System.out.println(
+		// model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0]);
 
-		System.out.println(
-				model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0]);
-
-		player3.acquireBusinessPermit(
-				model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0]);
+//		player3.acquireBusinessPermit(
+//				model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0]);
 		System.out.println(player3.getBusinessHand().toString());
 		int index = 0;
 		for (BusinessPermit permit : player3.getBusinessHand().getUsedCards()) {
@@ -193,12 +193,13 @@ public class PlayerViewTest {
 		System.out.println(player3.toString());
 		System.out.println(playerView3.getPlayerCopy().toString());
 
-//		player3.levelUp(4);
-//
-//		assertNotSame(player3, playerView3.getPlayerCopy());
-//		assertEquals(player3.getLevel(), playerView3.getPlayerCopy().getLevel());
-//		System.out.println(player3.toString());
-//		System.out.println(playerView3.getPlayerCopy().toString());
+		// player3.levelUp(4);
+		//
+		// assertNotSame(player3, playerView3.getPlayerCopy());
+		// assertEquals(player3.getLevel(),
+		// playerView3.getPlayerCopy().getLevel());
+		// System.out.println(player3.toString());
+		// System.out.println(playerView3.getPlayerCopy().toString());
 	}
 
 	@Test

@@ -254,11 +254,11 @@ public class State extends Observable implements Serializable {
 	
 	@Override
 	public String toString() {
-		String s = "\nSTATE\n [gamePhase= " + gamePhase + ", currentTurnState= " + currentTurnState
-				+ ", currentMarketState= " + currentMarketState + ", playerOrder= ";
+		String s = "\nSTATE\ngamePhase: " + gamePhase + "\nCurrentTurnState: " + currentTurnState
+				+ "\ncurrentMarketState: " + currentMarketState + "\nplayerOrder: ";
 		for (Player player : playerOrder) {
 			s = s + player.getName() + " ";
 		}
-		return s + ", currentPlayer= " + currentPlayer.getName() + ", waitingFor=" + waitingFor;
+		return s + "\ncurrentPlayer: " + currentPlayer.getName() + "\nwaitingFor: " + waitingFor;
 	}
 }

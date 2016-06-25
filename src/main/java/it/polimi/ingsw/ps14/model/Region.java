@@ -129,15 +129,15 @@ public class Region extends Observable implements Serializable {
 	@Override
 	public String toString() {
 
-		String stype = "\nTYPE:\n" + type.toString() + "\n";
+		String stype = "\nTYPE: " + type.toString() + "\n";
 
-		String sbonus = "\nBONUS:\n" + String.valueOf(bonusRegion) + "\n";
+		String sbonus = "\nBONUS: +".concat(String.valueOf(bonusRegion)) + " victory points\n";
 
-		String scouncil = "\nCOUNCIL:\n" + balcony.toString() + "\n";
+		String scouncil = "\nCOUNCIL: " + balcony.toString() + "\n";
 
-		String spermits = "\nBUSINESS PERMITS:\n" + businessPermits.toString() + "\n";
+		String spermits = "\nBUSINESS PERMITS:" + businessPermits.toString() + "\n";
 
-		String scitiesName = "\nThis region contains " + Integer.toString(cities.size()) + "\nCITIES:\n";
+		String scitiesName = "\nThis region contains " + Integer.toString(cities.size()) + "cities.\n\nCITIES:\n";
 		for (City city : cities) {
 			scitiesName = scitiesName + city.getName() + " ";
 		}

@@ -20,7 +20,7 @@ public class AvailableAssistantsViewTest {
 		model = new Model();
 		aav2 = new AvailableAssistantsView(model.getGameBoard().getAvailableAssistants());
 		model.getGameBoard().addObserver(aav2);
-
+		System.out.println(aav2.getAvailableAssistantsCopy());
 	}
 
 	@Test
