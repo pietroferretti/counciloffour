@@ -5,7 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
-import it.polimi.ingsw.ps14.model.NobilityTrack;
+import it.polimi.ingsw.ps14.model.Model;
 
 /**
  * 
@@ -38,7 +38,11 @@ public class KingBonusesView extends Observable implements Observer, Serializabl
 		}
 
 		else {
-			showableKingBonus = ((GameBoard) o).getKingBonuses().peek();
+			if (((GameBoard) o).getKingBonuses().peek() == null) {
+				showableKingBonus = 0;
+			} else {
+				showableKingBonus = ((GameBoard) o).getKingBonuses().peek();
+			}
 			setChanged();
 			notifyObservers();
 		}

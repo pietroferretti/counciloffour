@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Queue;
 
-import it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint;
+import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTilesAction;
 
 public class Region extends Observable implements Serializable {
 
@@ -23,14 +23,13 @@ public class Region extends Observable implements Serializable {
 
 	private BusinessCardsRegion businessPermits; // unused + used
 
-	private BonusVictoryPoint bonusRegion;
+	private int bonusRegion;
 
 	public Region(Queue<ColorCouncillor> initialCouncillors, RegionType type) {
 		this.balcony = new Balcony(initialCouncillors);
 		this.type = type;
 		this.cities = new ArrayList<>();
 		businessPermits = new BusinessCardsRegion();
-		bonusRegion = null;
 	}
 
 	public Region(Region r) {
@@ -41,7 +40,7 @@ public class Region extends Observable implements Serializable {
 			this.cities.add(new City(city));
 		}
 		this.businessPermits = new BusinessCardsRegion(r.businessPermits);
-		this.bonusRegion = r.bonusRegion.makeCopy();
+		this.bonusRegion = r.bonusRegion;
 	}
 
 	public RegionType getType() {
@@ -107,16 +106,22 @@ public class Region extends Observable implements Serializable {
 		return businessPermits;
 	}
 
-	protected void setBonusRegion(BonusVictoryPoint bonusRegion) {
+	protected void setBonusRegion(int bonusRegion) {
 		this.bonusRegion = bonusRegion;
 		setChanged();
 		notifyObservers();
 	}
 
-	public BonusVictoryPoint getBonusRegion() {
+	public int getBonusRegion() {
 		return bonusRegion;
 	}
 
+	public void consumeBonusRegion() {
+		bonusRegion = 0;
+		setChanged();
+		notifyObservers();
+	}
+	
 	public BusinessPermit[] getAvailablePermits() {
 		return businessPermits.getAvailablePermits();
 	}
@@ -126,7 +131,7 @@ public class Region extends Observable implements Serializable {
 
 		String stype = "\nTYPE:\n" + type.toString() + "\n";
 
-		String sbonus = "\nBONUS:\n" + bonusRegion.toString() + "\n";
+		String sbonus = "\nBONUS:\n" + String.valueOf(bonusRegion) + "\n";
 
 		String scouncil = "\nCOUNCIL:\n" + balcony.toString() + "\n";
 

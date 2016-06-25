@@ -178,9 +178,9 @@ public class RMICommunication implements Communication {
 	}
 
 	@Override
-	public void showGamebord(Integer playerID) {
+	public void showGameboard(Integer playerID) {
 			try {
-				serverStub.showGamebord(playerID);
+				serverStub.showGameboard(playerID);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

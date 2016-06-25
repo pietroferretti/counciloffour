@@ -14,6 +14,7 @@ import org.junit.Test;
 import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
+import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
@@ -40,7 +41,7 @@ public class ModelViewTest {
 		players.add(player3);// id 2
 
 		model = new Model(players);
-		Controller controller = new Controller(model);
+		new Controller(model);
 		// model.setPlayerOrder(players);
 		// model.loadNextPlayer();
 		mv = new ModelView(model);
@@ -60,10 +61,7 @@ public class ModelViewTest {
 		assertNotSame(model.getGameBoard().getAvailableCouncillors(),
 				mv1.getAvailableCouncillorsView().getAvailableCouncillorsCopy());
 
-		assertEquals(model.getGameBoard().getBonusBlue(), mv1.getCitiesColorBonusesView().getBonusBlueCopy());
-		assertEquals(model.getGameBoard().getBonusBronze(), mv1.getCitiesColorBonusesView().getBonusBronzeCopy());
-		assertEquals(model.getGameBoard().getBonusGold(), mv1.getCitiesColorBonusesView().getBonusGoldCopy());
-		assertEquals(model.getGameBoard().getBonusSilver(), mv1.getCitiesColorBonusesView().getBonusSilverCopy());
+		assertEquals(model.getGameBoard().getColorBonuses(), mv1.getCitiesColorBonusesView().getColorBonusesCopy());
 
 		assertNotSame(model.getGameBoard().getNobilityTrack(), mv1.getNobilityTrackView().getNobilityTrackCopy());
 		assertEquals(model.getGameBoard().getNobilityTrack().toString(),
@@ -114,7 +112,7 @@ public class ModelViewTest {
 
 	@Test
 	public void testUpdateCitiesColorBonusesView() {
-		model.getGameBoard().useBonusBlue();
+		model.getGameBoard().useColorBonus(ColorCity.BLUE);
 		assertFalse(mv.hasChanged());
 	}
 

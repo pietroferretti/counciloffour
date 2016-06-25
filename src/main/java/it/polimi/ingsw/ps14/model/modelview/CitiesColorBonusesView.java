@@ -1,11 +1,14 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
 import java.io.Serializable;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.GameBoard;
-import it.polimi.ingsw.ps14.model.NobilityTrack;
+import it.polimi.ingsw.ps14.model.Model;
 
 /**
  * 
@@ -21,33 +24,15 @@ public class CitiesColorBonusesView extends Observable implements Observer, Seri
 	 * 
 	 */
 	private static final long serialVersionUID = -7564102966362129716L;
-	private int bonusGoldCopy;
-	private int bonusSilverCopy;
-	private int bonusBronzeCopy;
-	private int bonusBlueCopy;
+	private Map<ColorCity, Integer> colorBonusesCopy;
 
-	public CitiesColorBonusesView(int bonusGoldCopy, int bonusSilverCopy, int bonusBronzeCopy, int bonusBlueCopy) {
-		this.bonusGoldCopy = bonusGoldCopy;
-		this.bonusSilverCopy = bonusSilverCopy;
-		this.bonusBronzeCopy = bonusBronzeCopy;
-		this.bonusBlueCopy = bonusBlueCopy;
+	public CitiesColorBonusesView(Map<ColorCity, Integer> colorBonusesCopy) {
+		this.colorBonusesCopy = colorBonusesCopy;
 	}
-
-	public int getBonusGoldCopy() {
-		return bonusGoldCopy;
-	}
-
-	public int getBonusSilverCopy() {
-		return bonusSilverCopy;
-	}
-
-	public int getBonusBronzeCopy() {
-		return bonusBronzeCopy;
-	}
-
-	public int getBonusBlueCopy() {
-		return bonusBlueCopy;
-	}
+	
+	public Map<ColorCity, Integer> getColorBonusesCopy() {
+		return colorBonusesCopy;
+	};
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -56,10 +41,7 @@ public class CitiesColorBonusesView extends Observable implements Observer, Seri
 		}
 
 		else {
-			bonusBlueCopy = ((GameBoard) o).getBonusBlue();
-			bonusBronzeCopy = ((GameBoard) o).getBonusBronze();
-			bonusSilverCopy = ((GameBoard) o).getBonusSilver();
-			bonusGoldCopy = ((GameBoard) o).getBonusGold();
+			colorBonusesCopy = new EnumMap<>(((GameBoard) o).getColorBonuses());
 			setChanged();
 			notifyObservers();
 		}
@@ -67,8 +49,7 @@ public class CitiesColorBonusesView extends Observable implements Observer, Seri
 
 	@Override
 	public String toString() {
-		return "CitiesColorBonusesView [bonusGoldCopy=" + bonusGoldCopy + ", bonusSilverCopy=" + bonusSilverCopy
-				+ ", bonusBronzeCopy=" + bonusBronzeCopy + ", bonusBlueCopy=" + bonusBlueCopy + "]";
+		return "CitiesColorBonusesView [colorBonuses=" + colorBonusesCopy + "]";
 	}
 
 }

@@ -1,9 +1,5 @@
 package it.polimi.ingsw.ps14.client.socket;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
@@ -16,6 +12,7 @@ import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
@@ -25,7 +22,7 @@ import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
 import it.polimi.ingsw.ps14.model.actions.EndTurnAction;
-import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermiteTileAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.ElectCouncillorAction;
@@ -38,10 +35,21 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCounc
 import it.polimi.ingsw.ps14.view.CLIView;
 import it.polimi.ingsw.ps14.view.ClientView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Logger;
+
 public class SocketCommunication implements Communication {
 
 	private static final Logger LOGGER = Logger.getLogger(CLIView.class
 			.getName());
+
+	private Timer timer;
+	private TimerTask timerTask;
+	private boolean alreadyCalled=false;
+
 	private SocketMessageHandlerOut msgHandlerOut;
 	private ClientView clientView;
 
@@ -64,12 +72,15 @@ public class SocketCommunication implements Communication {
 				clientView.showGameStart();
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
+				clientView.showAvailableCommands();
 			} else if (message instanceof StateUpdatedMsg) {
 
 				clientView.setGameState(((StateUpdatedMsg) message)
 						.getUpdatedState());
-				LOGGER.info(String.format("Game state updated.")); // dettagli è
-																	// meglio
+				LOGGER.info(String.format("Game state updated."
+						+ clientView.getGameState().getGamePhase().toString())); // dettagli
+																					// è
+				// meglio
 
 				if (clientView.getGameState().getCurrentPlayer().getId() == clientView
 						.getPlayerID()) {
@@ -77,9 +88,19 @@ public class SocketCommunication implements Communication {
 				} else {
 					clientView.setMyTurn(false);
 				}
+				if (!alreadyCalled){
+					timer = new Timer();
+					alreadyCalled=true;
+					task(); 
+				}
+				
+
+			} else if (message instanceof GameEndedMsg) {
+
+				clientView
+						.showEndGame(((GameEndedMsg) message).getEndResults());
 
 			} else {
-
 				clientView.readMessage(message);
 
 			}
@@ -115,7 +136,7 @@ public class SocketCommunication implements Communication {
 			Integer permID, List<PoliticCard> politics) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new AcquireBusinessPermiteTileAction(playerID, rt, permID,
+				new AcquireBusinessPermitTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics))));
 	}
 
@@ -196,7 +217,7 @@ public class SocketCommunication implements Communication {
 	}
 
 	@Override
-	public void showGamebord(Integer playerID) {
+	public void showGameboard(Integer playerID) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateGameBoardMsg());
 
@@ -230,6 +251,19 @@ public class SocketCommunication implements Communication {
 	@Override
 	public void doneFinishBuying(Integer playerID) {
 		msgHandlerOut.sendMessage(new DoneBuyingMsg());
+	}
+	
+	private void task(){
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				clientView.showAvailableCommands();
+				alreadyCalled=false;
+				}
+		};
+		timer.schedule(timerTask, 200);
+		
 	}
 
 }

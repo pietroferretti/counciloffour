@@ -11,7 +11,7 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 import it.polimi.ingsw.ps14.server.Server;
 
 public class ChangeBusinessPermitTilesAction extends QuickAction {
-	private static final Logger LOGGER = Logger.getLogger(Server.class
+	private static final Logger LOGGER = Logger.getLogger(ChangeBusinessPermitTilesAction.class
 			.getName());
 	/**
 	 * 

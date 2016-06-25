@@ -1,10 +1,5 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.util.Map;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -26,7 +21,11 @@ import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.logging.Logger;
+
 /*
  * --------------------------Command Line Interface-----------------------
  * It acquires infos from player and show the game state each time something
@@ -37,19 +36,13 @@ import java.util.Map;
 //TODO metodo per tutti i miei dettagli?
 //TODO implementare richiesta per stampa di tutto
 public class CLIView extends ClientView implements Runnable {
-	private static final Logger LOGGER = Logger.getLogger(CLIView.class
-			.getName());
+	private static final Logger LOGGER = Logger.getLogger(CLIView.class.getName());
 
 	private Interpreter interpreter;
 	private Scanner in;
 
-	private Player winner; // da settare quando arriva qualcosa come
-							// GameEndedMsg
-
-	// TODO magari un map per fare una classifica con i punti
-
-	public CLIView(Scanner scanner) {
-		// printer = new Printer(new PrintStream(System.out));
+	public CLIView(Scanner scanner, String name) {
+		super.setPlayerName(name);
 		myTurn = false;
 		interpreter = new Interpreter();
 		in = scanner;
@@ -64,20 +57,16 @@ public class CLIView extends ClientView implements Runnable {
 		System.out.println("Assistant available now: " + update);
 	}
 
-	public void showAvailableCouncillor(
-			Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
+	public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
 		ColorCouncillor[] map = ColorCouncillor.values();
 		for (ColorCouncillor m : map)
-			System.out.println(m.toString() + " -> "
-					+ updatedAvailableCouncillors.get(m).toString() + "\n");
+			System.out.println(m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString() + "\n");
 	}
 
-	public void showCitiesColorBonuses(int updatedBonusGold,
-			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) {
-		System.out.println("CitiesColorBonuses now: BonusGold="
-				+ updatedBonusGold + ", BonusSilver=" + updatedBonusSilver
-				+ ", BonusBronze=" + updatedBonusBronze + ", BonusBlue="
-				+ updatedBonusBlue);
+	public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
+			int updatedBonusBlue) {
+		System.out.println("CitiesColorBonuses now: BonusGold=" + updatedBonusGold + ", BonusSilver="
+				+ updatedBonusSilver + ", BonusBronze=" + updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue);
 	}
 
 	public void showError(String text) {
@@ -89,8 +78,7 @@ public class CLIView extends ClientView implements Runnable {
 	}
 
 	public void showKingBonus(int updatedShowableKingBonus) {
-		System.out.println("KingBonusesUpdatedMsg [updatedShowableKingBonus="
-				+ updatedShowableKingBonus + "]");
+		System.out.println("KingBonusesUpdatedMsg [updatedShowableKingBonus=" + updatedShowableKingBonus + "]");
 	}
 
 	public void showKingUpdate(King updatedKing) {
@@ -129,13 +117,11 @@ public class CLIView extends ClientView implements Runnable {
 		print(item.toString());
 	}
 
-	public void showOtherPlayer(int id, String name, Color color, int coins,
-			int assistants, int level, int points, int numEmporiums) {
-		System.out.println("\nName: " + name + "\nColor: " + color.toString()
-				+ "\nCoins: " + Integer.toString(coins) + "\nAssistants: "
-				+ Integer.toString(assistants) + "\nNobility level: "
-				+ Integer.toString(level) + "\nVictory Points: "
-				+ Integer.toString(points));
+	public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
+			int numEmporiums) {
+		System.out.println("\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
+				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
+				+ "\nVictory Points: " + Integer.toString(points));
 	}
 
 	/**
@@ -189,20 +175,19 @@ public class CLIView extends ClientView implements Runnable {
 
 		while (true) {
 
-			print("");
-			showAvailableCommands();
+//			print("");
+//			showAvailableCommands();
 
-			print("Enter command:");
+		//	print("Enter command:");
 			String input = in.nextLine();
 
-			if (input.toUpperCase().matches("INSTRUCTIONS")
-					|| input.toUpperCase().matches("HELP")) {
-
+			if (input.toUpperCase().matches("INSTRUCTIONS") || input.toUpperCase().matches("HELP")) {
 				showInstructions();
 
 			} else if (!isGameStarted()) {
 				print("The game hasn't started yet!!!!");
-				// TODO il giocatore può fare qualcosa quando il gioco non è ancora iniziato?
+				// TODO il giocatore può fare qualcosa quando il gioco non è
+				// ancora iniziato?
 
 				// } else if (!myTurn) {
 				//
@@ -215,13 +200,13 @@ public class CLIView extends ClientView implements Runnable {
 
 				if (!interpreter.parseString(input.toUpperCase(), getPlayerID())) {
 					print("Command not recognized! Retry:");
-				} 
+				}
 			}
 		}
 	}
 
 	private void showInstructions() {
-		System.out.println("Player ID: "+playerID);
+		System.out.println("Player ID: " + playerID);
 		print("*** Commands:");
 		print("DRAW - draw a politic card");
 		print("main action:");
@@ -253,7 +238,7 @@ public class CLIView extends ClientView implements Runnable {
 
 		if (gameState == null) {
 
-			print("The game hasn't started yet.");
+			print("The game hasn't started yet. You can do 'instructions' request");
 
 		} else if (gameState.getGamePhase() == GamePhase.TURNS) {
 
@@ -270,8 +255,7 @@ public class CLIView extends ClientView implements Runnable {
 
 		} else if (gameState.getGamePhase() == GamePhase.END) {
 
-			print(String.format("The game has ended, %s has won!",
-					winner.getName()));
+			// TODO insieme a gameendedmsg
 
 		}
 
@@ -283,12 +267,11 @@ public class CLIView extends ClientView implements Runnable {
 
 		if (gameState.getCurrentPlayer().getId() != playerID) {
 
-			print(String.format("It's player %d's turn.", gameState
-					.getCurrentPlayer().getId()));
+			print(String.format("It's player %d's turn.", gameState.getCurrentPlayer().getId()));
 
 		} else {
 
-			print("It's your turn.");
+			print("It's your turn. Enter a command:");
 
 			if (gameState.getWaitingFor() == WaitingFor.NOTHING) {
 
@@ -298,11 +281,11 @@ public class CLIView extends ClientView implements Runnable {
 
 				print("You got a bonus by moving forward in the nobility track!");
 				print(String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
-			
+
 				for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
 					print(String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
 				}
-				
+
 				print("Choose with 'choose id1 [id2 ...]'");
 
 			} else if (gameState.getWaitingFor() == WaitingFor.FROMPERMITS) {
@@ -314,7 +297,7 @@ public class CLIView extends ClientView implements Runnable {
 				for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
 					print(String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
 				}
-				
+
 				print("Choose with 'choose id1 [id2 ...]'");
 
 			} else if (gameState.getWaitingFor() == WaitingFor.FROMTOKENS) {
@@ -326,7 +309,7 @@ public class CLIView extends ClientView implements Runnable {
 				for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
 					print(String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
 				}
-				
+
 				print("Choose with 'choose id1 [id2 ...]'");
 
 			}
@@ -340,29 +323,27 @@ public class CLIView extends ClientView implements Runnable {
 		TurnState currTurnState = gameState.getCurrentTurnState();
 		if (currTurnState instanceof InitialTurnState) {
 
-			print("Draw a card.");
+			print("Draw a card. Enter 'draw':");
 
 		} else if ((currTurnState instanceof CardDrawnState)
-				|| (currTurnState instanceof MainActionDoneTurnState && gameState
-						.getAdditionalMainsToDo() > 0)) {
+				|| (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() > 0)) {
 
-			print("You can do a main or a quick action.");
+			print("You can do a main or a quick action. Enter a command:");
 
 		} else if ((currTurnState instanceof QuickActionDoneTurnState)
-				|| (currTurnState instanceof MainAndQuickActionDoneTurnState && gameState
-						.getAdditionalMainsToDo() > 0)) {
+				|| (currTurnState instanceof MainAndQuickActionDoneTurnState
+						&& gameState.getAdditionalMainsToDo() > 0)) {
 
-			print("You can do a main action.");
+			print("You can do a main action. Enter a command:");
 
-		} else if (currTurnState instanceof MainActionDoneTurnState
-				&& gameState.getAdditionalMainsToDo() == 0) {
+		} else if (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() == 0) {
 
-			print("You can do a quick action or pass the turn.");
+			print("You can do a quick action or pass the turn. Enter a command:");
 
 		} else if (currTurnState instanceof MainAndQuickActionDoneTurnState
 				&& gameState.getAdditionalMainsToDo() == 0) {
 
-			print("You have already done your main and quick action. You have to pass the turn.");
+			print("You have already done your main and quick action. You have to pass the turn. Enter 'pass':");
 
 		} else if (currTurnState instanceof EndTurnState) {
 
@@ -383,8 +364,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			if (gameState.getCurrentPlayer().getId() != playerID) {
 
-				print(String.format("It's player %d's turn to sell.", gameState
-						.getCurrentPlayer().getId()));
+				print(String.format("It's player %d's turn to sell.", gameState.getCurrentPlayer().getId()));
 
 			} else {
 
@@ -398,8 +378,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			if (gameState.getCurrentPlayer().getId() != playerID) {
 
-				print(String.format("It's player %d's turn to buy.", gameState
-						.getCurrentPlayer().getId()));
+				print(String.format("It's player %d's turn to buy.", gameState.getCurrentPlayer().getId()));
 
 			} else {
 
@@ -415,18 +394,56 @@ public class CLIView extends ClientView implements Runnable {
 		}
 
 	}
-	
-	@Override 
+
+	@Override
 	public void setGameStarted(boolean gameStarted) {
-		this.gameStarted = gameStarted;
+		super.setGameStarted(gameStarted);
+
 		if (gameStarted) {
-			print("Game Started!");
+			interpreter.getCommunication().setPlayerName(super.playerID, super.name);
 		}
+
 	}
 
 	@Override
 	public void readMessage(Message message) {
 		print(message.toString());
 	}
+
+	@Override
+	public void showEndGame(List<List<String>> endResults) {
+		// 0 - id
+		// 1 - name
+		// 2 - points
+		// 3 - assistants
+		// 4 - cards
+		// 5 - emporiums
+		// 6 - nobility
+		// 7 - permits
+		// 8 - coins
+
+		// TODO null checks?
+
+		print("*** THE GAME HAS ENDED ***");
+		print(String.format("The winner is %s, with %s points!", endResults.get(0).get(1), endResults.get(0).get(2)));
+
+		if (this.getPlayerID().equals(Integer.valueOf(endResults.get(0).get(0)))) {
+			print("Congratulations! You won!");
+		}
+
+		print("");
+		print("Complete rankings:");
+
+		for (int i = 0; i < endResults.size(); i++) {
+			List<String> plrRes = endResults.get(i);
+
+			print(String.format("%s) %s with %s points, %s assistants and %s cards.", plrRes.get(0), plrRes.get(1),
+					plrRes.get(2), plrRes.get(3), plrRes.get(4)));
+			print(String.format("  emporiums -> %s,  nobility -> %s,  permits -> %s,  coins -> %s", plrRes.get(5),
+					plrRes.get(6), plrRes.get(7), plrRes.get(8)));
+		}
+
+	}
+
 
 }

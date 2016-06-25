@@ -31,21 +31,21 @@ public class RegionTest {
 		Region r = new Region(councillors, RegionType.COAST);
 		assertEquals(councillors, r.getBalcony().readBalcony());
 		assertEquals(RegionType.COAST, r.getType());
-		assertEquals(null, r.getBonusRegion());
+		assertEquals(0, r.getBonusRegion());
 		assertTrue(r.getBusinessPermits() instanceof BusinessCardsRegion);
 		assertTrue(r.getCities() instanceof ArrayList<?>);
 
 		Region r1 = new Region(councillors, RegionType.HILLS);
 		assertEquals(councillors, r1.getBalcony().readBalcony());
 		assertEquals(RegionType.HILLS, r1.getType());
-		assertEquals(null, r1.getBonusRegion());
+		assertEquals(0, r1.getBonusRegion());
 		assertTrue(r1.getBusinessPermits() instanceof BusinessCardsRegion);
 		assertTrue(r1.getCities() instanceof ArrayList<?>);
 
 		Region r2 = new Region(councillors, RegionType.MOUNTAINS);
 		assertEquals(councillors, r2.getBalcony().readBalcony());
 		assertEquals(RegionType.MOUNTAINS, r2.getType());
-		assertEquals(null, r2.getBonusRegion());
+		assertEquals(0, r2.getBonusRegion());
 		assertTrue(r2.getBusinessPermits() instanceof BusinessCardsRegion);
 		assertTrue(r2.getCities() instanceof ArrayList<?>);
 	}
@@ -69,8 +69,7 @@ public class RegionTest {
 		// r1.getBusinessPermits().toString());
 		// System.out.println(r3.getBusinessPermits());
 		// System.out.println(r1.getBusinessPermits());
-		assertEquals(r3.getBonusRegion().toString(), r1.getBonusRegion().toString());
-		assertNotSame(r3.getBonusRegion(), r1.getBonusRegion());
+		assertEquals(r3.getBonusRegion(), r1.getBonusRegion());
 	}
 
 	// Esti Dorful Arkon Burgen Castrum

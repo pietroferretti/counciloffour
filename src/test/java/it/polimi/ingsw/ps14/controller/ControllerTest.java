@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -40,8 +39,8 @@ import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
+import it.polimi.ingsw.ps14.server.ServerView;
 import it.polimi.ingsw.ps14.server.SocketServerView;
-import it.polimi.ingsw.ps14.view.View;
 
 /**
  * A set of tests for the {@link it.polimi.ingsw.ps14.controller.Controller
@@ -51,9 +50,9 @@ public class ControllerTest {
 
 	private static Model model;
 	private static Controller controller;
-	private static View mockView1;
-	private static View mockView2;
-	private static View mockView3;
+	private static ServerView mockView1;
+	private static ServerView mockView2;
+	private static ServerView mockView3;
 
 	/**
 	 * @throws java.lang.Exception
@@ -81,17 +80,8 @@ public class ControllerTest {
 	}
 
 	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		//
-	}
-
-	/**
 	 * Test method for the Controller constructor. The constructor sets the
-	 * player order in the model, nothing else can be tested because the
-	 * controller hides all its fields.
+	 * player order in the model.
 	 */
 	@Test
 	public void testControllerConstructor() throws IOException {
@@ -112,9 +102,7 @@ public class ControllerTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.polimi.ingsw.ps14.controller.Controller#update(java.util.Observable, java.lang.Object)}
-	 * .
+	 * Tests if setting the name of a player works.
 	 */
 	@Test
 	public void testUpdatePlayerNameMsg() {

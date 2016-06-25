@@ -1,5 +1,9 @@
 package it.polimi.ingsw.ps14.view;
 
+import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -10,9 +14,6 @@ import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.State;
-
-import java.awt.Color;
-import java.util.Map;
 
 public abstract class ClientView implements Runnable {
 
@@ -104,4 +105,8 @@ public abstract class ClientView implements Runnable {
 	public abstract void run();
 
 	public abstract void setCommunication(Communication communication); 
+	
+	public abstract void showEndGame(List<List<String>> endResults);
+	
+	public abstract void showAvailableCommands();
 }
