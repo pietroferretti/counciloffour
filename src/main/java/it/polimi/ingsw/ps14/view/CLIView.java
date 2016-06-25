@@ -1,11 +1,5 @@
 package it.polimi.ingsw.ps14.view;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -27,7 +21,10 @@ import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.logging.Logger;
 
 /*
  * --------------------------Command Line Interface-----------------------
@@ -178,14 +175,13 @@ public class CLIView extends ClientView implements Runnable {
 
 		while (true) {
 
-			print("");
-			showAvailableCommands();
+//			print("");
+//			showAvailableCommands();
 
-			print("Enter command:");
+		//	print("Enter command:");
 			String input = in.nextLine();
 
 			if (input.toUpperCase().matches("INSTRUCTIONS") || input.toUpperCase().matches("HELP")) {
-
 				showInstructions();
 
 			} else if (!isGameStarted()) {
@@ -242,7 +238,7 @@ public class CLIView extends ClientView implements Runnable {
 
 		if (gameState == null) {
 
-			print("The game hasn't started yet.");
+			print("The game hasn't started yet. You can do 'instructions' request");
 
 		} else if (gameState.getGamePhase() == GamePhase.TURNS) {
 
@@ -275,7 +271,7 @@ public class CLIView extends ClientView implements Runnable {
 
 		} else {
 
-			print("It's your turn.");
+			print("It's your turn. Enter a command:");
 
 			if (gameState.getWaitingFor() == WaitingFor.NOTHING) {
 
@@ -327,27 +323,27 @@ public class CLIView extends ClientView implements Runnable {
 		TurnState currTurnState = gameState.getCurrentTurnState();
 		if (currTurnState instanceof InitialTurnState) {
 
-			print("Draw a card.");
+			print("Draw a card. Enter 'draw':");
 
 		} else if ((currTurnState instanceof CardDrawnState)
 				|| (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() > 0)) {
 
-			print("You can do a main or a quick action.");
+			print("You can do a main or a quick action. Enter a command:");
 
 		} else if ((currTurnState instanceof QuickActionDoneTurnState)
 				|| (currTurnState instanceof MainAndQuickActionDoneTurnState
 						&& gameState.getAdditionalMainsToDo() > 0)) {
 
-			print("You can do a main action.");
+			print("You can do a main action. Enter a command:");
 
 		} else if (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() == 0) {
 
-			print("You can do a quick action or pass the turn.");
+			print("You can do a quick action or pass the turn. Enter a command:");
 
 		} else if (currTurnState instanceof MainAndQuickActionDoneTurnState
 				&& gameState.getAdditionalMainsToDo() == 0) {
 
-			print("You have already done your main and quick action. You have to pass the turn.");
+			print("You have already done your main and quick action. You have to pass the turn. Enter 'pass':");
 
 		} else if (currTurnState instanceof EndTurnState) {
 
@@ -448,5 +444,6 @@ public class CLIView extends ClientView implements Runnable {
 		}
 
 	}
+
 
 }

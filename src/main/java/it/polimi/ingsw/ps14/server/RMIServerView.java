@@ -1,29 +1,15 @@
 package it.polimi.ingsw.ps14.server;
 
-import java.util.Observable;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
-import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
-import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
-import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
-import it.polimi.ingsw.ps14.model.modelview.PlayerView;
-import it.polimi.ingsw.ps14.model.modelview.RegionView;
+
+import java.util.Observable;
+import java.util.logging.Logger;
 
 /**
  * 

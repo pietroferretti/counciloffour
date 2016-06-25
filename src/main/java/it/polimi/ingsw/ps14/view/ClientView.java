@@ -107,4 +107,6 @@ public abstract class ClientView implements Runnable {
 	public abstract void setCommunication(Communication communication); 
 	
 	public abstract void showEndGame(List<List<String>> endResults);
+	
+	public abstract void showAvailableCommands();
 }

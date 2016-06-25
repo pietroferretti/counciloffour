@@ -1,9 +1,5 @@
 package it.polimi.ingsw.ps14.client.socket;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
@@ -39,10 +35,21 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCounc
 import it.polimi.ingsw.ps14.view.CLIView;
 import it.polimi.ingsw.ps14.view.ClientView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Logger;
+
 public class SocketCommunication implements Communication {
 
 	private static final Logger LOGGER = Logger.getLogger(CLIView.class
 			.getName());
+
+	private Timer timer;
+	private TimerTask timerTask;
+	private boolean alreadyCalled=false;
+
 	private SocketMessageHandlerOut msgHandlerOut;
 	private ClientView clientView;
 
@@ -65,12 +72,15 @@ public class SocketCommunication implements Communication {
 				clientView.showGameStart();
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
+				clientView.showAvailableCommands();
 			} else if (message instanceof StateUpdatedMsg) {
 
 				clientView.setGameState(((StateUpdatedMsg) message)
 						.getUpdatedState());
-				LOGGER.info(String.format("Game state updated.")); // dettagli è
-																	// meglio
+				LOGGER.info(String.format("Game state updated."
+						+ clientView.getGameState().getGamePhase().toString())); // dettagli
+																					// è
+				// meglio
 
 				if (clientView.getGameState().getCurrentPlayer().getId() == clientView
 						.getPlayerID()) {
@@ -78,13 +88,19 @@ public class SocketCommunication implements Communication {
 				} else {
 					clientView.setMyTurn(false);
 				}
+				if (!alreadyCalled){
+					timer = new Timer();
+					alreadyCalled=true;
+					task(); 
+				}
 				
+
 			} else if (message instanceof GameEndedMsg) {
-				
-				clientView.showEndGame(((GameEndedMsg) message).getEndResults());
+
+				clientView
+						.showEndGame(((GameEndedMsg) message).getEndResults());
 
 			} else {
-
 				clientView.readMessage(message);
 
 			}
@@ -235,6 +251,19 @@ public class SocketCommunication implements Communication {
 	@Override
 	public void doneFinishBuying(Integer playerID) {
 		msgHandlerOut.sendMessage(new DoneBuyingMsg());
+	}
+	
+	private void task(){
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				clientView.showAvailableCommands();
+				alreadyCalled=false;
+				}
+		};
+		timer.schedule(timerTask, 200);
+		
 	}
 
 }

@@ -139,6 +139,12 @@ public class GUIView extends ClientView implements Runnable {
 		
 	}
 
+	@Override
+	public void showAvailableCommands() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

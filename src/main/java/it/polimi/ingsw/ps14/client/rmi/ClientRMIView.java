@@ -17,6 +17,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * This class implements the methods callable on the client with RMI
@@ -25,6 +27,10 @@ import java.util.Observable;
 
 public class ClientRMIView extends UnicastRemoteObject implements
 		ClientViewRemote, Serializable {
+
+	private Timer timer;
+	private TimerTask timerTask;
+	private boolean alreadyCalled = false;
 
 	private ClientView cv;
 
@@ -69,8 +75,9 @@ public class ClientRMIView extends UnicastRemoteObject implements
 	@Override
 	public void setGameStart(State initialGameState) {
 		cv.setGameStarted(true);
-		cv.setGameState(initialGameState); 
+		cv.setGameState(initialGameState);
 		cv.showGameStart();
+		cv.showAvailableCommands();
 	}
 
 	@Override
@@ -126,6 +133,11 @@ public class ClientRMIView extends UnicastRemoteObject implements
 	@Override
 	public void stateUpdate(State updatedState) {
 		cv.setGameState(updatedState);
+		if (!alreadyCalled) {
+			timer = new Timer();
+			alreadyCalled = true;
+			task();
+		}
 	}
 
 	@Override
@@ -138,7 +150,19 @@ public class ClientRMIView extends UnicastRemoteObject implements
 	@Override
 	public void gameEnded(List<List<String>> endResults) {
 		cv.showEndGame(endResults);
-		
+
 	}
 
+	private void task() {
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				cv.showAvailableCommands();
+				alreadyCalled = false;
+			}
+		};
+		timer.schedule(timerTask, 200);
+
+	}
 }
