@@ -1,12 +1,13 @@
 package it.polimi.ingsw.ps14.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class ItemForSaleTest {
 	private static Model model;
 	private static Player player1, player2;
 	private static BusinessPermit b;
-	private static ItemForSale assistants, business, politic, p1, p1copy;
+	private static ItemForSale assistants, business, p1, p1copy;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -31,25 +32,11 @@ public class ItemForSaleTest {
 		players.add(player2);
 		model.setPlayers(players);
 
-		assistants = new ItemForSale(Type.ASSISTANT, 2, 4, 1);
-		business = new ItemForSale(Type.BUSINESS, b.getId(), 6, 2);
-		politic = new ItemForSale(Type.POLITIC, 5, 4, 1);
-		p1 = new ItemForSale(ColorPolitic.BLUE, 5, 1);
+		assistants = new ItemForSale(Type.ASSISTANT, 2, 4, player1.getId());
+		business = new ItemForSale(Type.BUSINESS, b.getId(), 6, player2.getId());
+		p1 = new ItemForSale(ColorPolitic.BLUE, 5, player1.getId());
 		p1copy = new ItemForSale(p1);
 	}
-
-	//Li ho tolti dopo aver modificato itemForSale, ora il barCode viene assegnato quando vengono messi nel mercato
-//	@Test
-//	public void testItemForSaleTypeIntIntInteger() {
-//		assertTrue(assistants.getBarCode() == 1);
-//		assertTrue(business.getBarCode() == 2);
-//		assertTrue(politic.getBarCode() == 3);
-//	}
-//
-//	@Test
-//	public void testItemForSaleColorPoliticIntInteger() {
-//		assertTrue(p1.getBarCode() == 4);
-//	}
 
 	@Test
 	public void testItemForSaleItemForSale() {
@@ -82,7 +69,6 @@ public class ItemForSaleTest {
 		assertFalse(p11.isValid(model));
 		ItemForSale p12 = new ItemForSale(ColorPolitic.ORANGE, 3, player.getId());
 		assertFalse(p12.isValid(model));
-
 	}
 
 	@Test

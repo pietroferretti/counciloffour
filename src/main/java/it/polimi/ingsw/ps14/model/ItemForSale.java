@@ -131,7 +131,7 @@ public class ItemForSale implements Serializable {
 
 	@Override
 	public String toString() {
-		String sbarcode = "\n BAR_CODE= ";
+		String sbarcode = "\nBAR_CODE= ";
 		String sprice = ", price= ";
 		String sowner = ", ownerID= ";
 		if (type.name().matches("BUSINESS") || type.name().matches("ASSISTANT")) {

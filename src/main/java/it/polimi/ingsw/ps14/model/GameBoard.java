@@ -344,8 +344,6 @@ public class GameBoard extends Observable implements Serializable {
 
 	public void addDiscardedCouncillor(ColorCouncillor color) {
 		availableCouncillors.put(color, availableCouncillors.get(color) + 1);
-//		setChanged();
-//		notifyObservers();
 	}
 
 	public ColorCouncillor getRandomAvailableCouncillor() {

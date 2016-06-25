@@ -51,7 +51,9 @@ public class Model extends Observable implements Serializable {
 	}
 
 	/**
-	 * NON LO USIAMO MAI, non possiamo avere i player prima di avere creato il model
+	 * NON LO USIAMO MAI, non possiamo avere i player prima di avere creato il
+	 * model
+	 * 
 	 * @param players
 	 * @throws IOException
 	 * @deprecated
@@ -64,7 +66,7 @@ public class Model extends Observable implements Serializable {
 		market = new Market();
 		state = new State();
 		bonusesToDo = new ArrayList<>();
-		
+
 		setGamePhase(GamePhase.TURNS);
 		setCurrentTurnState(new InitialTurnState());
 		setCurrentMarketState(MarketState.END);
@@ -298,6 +300,7 @@ public class Model extends Observable implements Serializable {
 	 * @return {@link BusinessPermit}
 	 */
 	public BusinessPermit id2permit(int permitID, Player player) {
+		if(player==null)return null;
 		try {
 			for (BusinessPermit bp : player.getBusinessHand().getValidCards())
 				if (bp.getId() == permitID)

@@ -39,10 +39,6 @@ public class AvailableCouncillorsViewTest {
 		assertEquals(model.getGameBoard().getAvailableCouncillors(), acv2.getAvailableCouncillorsCopy());
 		System.out.println(acv2.getAvailableCouncillorsCopy().toString());
 
-		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.BLACK);
-		assertEquals(model.getGameBoard().getAvailableCouncillors(), acv2.getAvailableCouncillorsCopy());
-		System.out.println(acv2.getAvailableCouncillorsCopy().toString());
-
 		player.addCoins(4);
 	}
 
