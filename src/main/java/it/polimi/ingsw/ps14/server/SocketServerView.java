@@ -6,14 +6,18 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.ps14.message.JumpTurnMsg;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
+import it.polimi.ingsw.ps14.message.fromserver.TimeOutMsg;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
 
 public class SocketServerView extends ServerView implements Runnable {
@@ -23,17 +27,22 @@ public class SocketServerView extends ServerView implements Runnable {
 	private ObjectInputStream socketIn;
 	private ObjectOutputStream socketOut;
 	private Server server;
+	
+//	private int timeOut;
+//	private TimerTask timerTask;
+//	private Timer timer;
 
 	private boolean active = true;
 
-	public SocketServerView(Socket socket, Server server, int idPlayer) throws IOException {
-		super(idPlayer);
+	public SocketServerView(Socket socket, Server server, int idPlayer,int timeOut) throws IOException {
+		super(idPlayer,timeOut);
 		this.socket = socket;
 		this.server = server;
 		this.socketIn = new ObjectInputStream(socket.getInputStream());
 		this.socketOut = new ObjectOutputStream(socket.getOutputStream());
 		socketOut.writeObject(new PlayerIDMsg(idPlayer));
 		LOGGER.info(String.format("Sent id to player %d", super.getPlayerID()));
+//		this.timeOut=timeOut;
 	}
 
 	private synchronized boolean isActive() {
@@ -51,6 +60,7 @@ public class SocketServerView extends ServerView implements Runnable {
 
 		LOGGER.info(String.format("Deregistering socket with id '%d'", super.getPlayerID()));
 		server.deregisterConnection(this);
+		
 	}
 
 	@Override

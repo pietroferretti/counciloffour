@@ -11,6 +11,7 @@ public class SocketMessageHandlerOut {
 	private static final Logger LOGGER = Logger.getLogger(SocketMessageHandlerOut.class.getName());
 
 	private ObjectOutputStream socketOut;
+
 	
 	public SocketMessageHandlerOut(ObjectOutputStream socketOut) {
 		this.socketOut = socketOut;
@@ -28,6 +29,5 @@ public class SocketMessageHandlerOut {
 			LOGGER.log(Level.SEVERE, "Error writing on socket", e);
 		}
 	}
-
 
 }

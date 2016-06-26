@@ -30,8 +30,10 @@ public class Server {
 	private static final int PLAYERS_NUMBER = 4;
 
 	private static final int PORT = 19999;
+	
+	private static final int TIMEOUT = 120*1000;//2min
 
-	private static final int COUNTDOWN = 1;
+	private static final int COUNTDOWN = 15;
 
 	private static final int RMI_PORT = 52365;
 	private static final String NAME = "council4";
@@ -66,7 +68,7 @@ public class Server {
 	 */
 	public synchronized void registerWaitingConnectionRMI(
 			ClientViewRemote clientStub, RMIServerIn rmiServerIn) {
-		RMIServerView connection = new RMIServerView(idCounter, clientStub);
+		RMIServerView connection = new RMIServerView(idCounter, clientStub,TIMEOUT);
 		idCounter++;
 		
 		rmiServerIn.addServerView(connection);
@@ -83,6 +85,7 @@ public class Server {
 		if (waitingConnections.contains(c)) {
 			waitingConnections.remove(c);
 		}
+		
 	}
 
 	/*
@@ -147,7 +150,7 @@ public class Server {
 		while (!exit) {
 			try {
 				Socket newSocket = serverSocket.accept();
-				SocketServerView connection = new SocketServerView(newSocket, this, idCounter);
+				SocketServerView connection = new SocketServerView(newSocket, this, idCounter,TIMEOUT);
 				idCounter++;
 				registerConnection(connection);
 				waitingConnections.add(connection);

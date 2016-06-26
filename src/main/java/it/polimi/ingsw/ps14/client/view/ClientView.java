@@ -1,9 +1,5 @@
 package it.polimi.ingsw.ps14.client.view;
 
-import java.awt.Color;
-import java.util.List;
-import java.util.Map;
-
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -15,6 +11,12 @@ import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.State;
 
+import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public abstract class ClientView implements Runnable {
 
 	protected Integer playerID;
@@ -22,6 +24,8 @@ public abstract class ClientView implements Runnable {
 	protected boolean gameStarted;
 	protected State gameState;
 	protected boolean myTurn;
+	private Timer timer;
+	private TimerTask timerTask;
 
 	public void setPlayerID(Integer playerID) {
 		this.playerID = playerID;
@@ -109,4 +113,5 @@ public abstract class ClientView implements Runnable {
 	public abstract void showEndGame(List<List<String>> endResults);
 	
 	public abstract void showAvailableCommands();
+
 }
