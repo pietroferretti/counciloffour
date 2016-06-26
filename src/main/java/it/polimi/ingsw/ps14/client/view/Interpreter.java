@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.view;
+package it.polimi.ingsw.ps14.client.view;
 
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;

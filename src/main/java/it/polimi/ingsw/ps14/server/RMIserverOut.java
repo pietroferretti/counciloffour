@@ -117,6 +117,7 @@ public class RMIserverOut {
 				
 		} catch (RemoteException e) {
 			LOGGER.log(Level.SEVERE, "Error on the RMI outbound server", e);
+			
 		}
 	}
 	

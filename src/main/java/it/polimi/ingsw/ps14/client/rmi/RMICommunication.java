@@ -4,12 +4,12 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.client.view.ClientView;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.server.RMIViewRemote;
-import it.polimi.ingsw.ps14.view.ClientView;
 
 public class RMICommunication implements Communication {
 

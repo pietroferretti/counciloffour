@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.view;
+package it.polimi.ingsw.ps14.client.view;
 
 import java.awt.Color;
 import java.util.List;

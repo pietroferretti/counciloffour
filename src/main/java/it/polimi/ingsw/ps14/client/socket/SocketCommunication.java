@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps14.client.socket;
 
 import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.client.view.CLIView;
+import it.polimi.ingsw.ps14.client.view.ClientView;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
@@ -32,8 +34,6 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
-import it.polimi.ingsw.ps14.view.CLIView;
-import it.polimi.ingsw.ps14.view.ClientView;
 
 import java.util.ArrayList;
 import java.util.List;

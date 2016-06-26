@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.client.rmi;
 
+import it.polimi.ingsw.ps14.client.view.ClientView;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.King;
@@ -8,7 +9,6 @@ import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.State;
-import it.polimi.ingsw.ps14.view.ClientView;
 
 import java.awt.Color;
 import java.io.Serializable;
