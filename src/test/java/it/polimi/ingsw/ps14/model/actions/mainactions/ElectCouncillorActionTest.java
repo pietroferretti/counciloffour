@@ -1,3 +1,4 @@
+package it.polimi.ingsw.ps14.model.actions.mainactions;
 //package it.polimi.ingsw.ps14.controller.actions.mainactions;
 //
 //import static org.junit.Assert.assertEquals;

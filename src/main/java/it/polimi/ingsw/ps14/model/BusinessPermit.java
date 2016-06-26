@@ -25,6 +25,11 @@ public class BusinessPermit implements Serializable {
 		idCounter++;
 		this.cities = cities;
 		this.bonus = bonus;
+		
+		this.citiesName=new ArrayList<>();
+		for (City city : cities) {
+			this.citiesName.add(new String(city.getName()));
+		}
 	}
 
 	public BusinessPermit(BusinessPermit bp) {

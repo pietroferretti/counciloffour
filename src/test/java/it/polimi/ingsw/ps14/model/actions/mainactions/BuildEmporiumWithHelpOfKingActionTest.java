@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.controller.actions.mainactions;
+package it.polimi.ingsw.ps14.model.actions.mainactions;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,7 +20,7 @@ import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 public class BuildEmporiumWithHelpOfKingActionTest {
 
 	@Test
-	public void test() throws IOException {
+	public void isValidTest() throws IOException {
 		Settings settingsInstance = null;
 		try {
 			settingsInstance = new Settings("settings.json");
@@ -48,7 +48,38 @@ public class BuildEmporiumWithHelpOfKingActionTest {
 		
 		
 		assertEquals(action.isValid(model),true);
-		action.execute(null,model);
+		
+		
+	}
+	
+	@Test
+	public void executeTest() throws IOException {
+		Settings settingsInstance = null;
+		try {
+			settingsInstance = new Settings("settings.json");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		Model model = new Model();
+
+		List<Player> pls = new ArrayList<>();
+		
+		
+		List<PoliticCard> cards=new ArrayList<>();
+//		cards.add(new PoliticCard(ColorPolitic.BLACK));
+		cards.add(new PoliticCard(ColorPolitic.JOLLY));
+//		cards.add(new PoliticCard(ColorPolitic.PINK));
+		Player player=new Player("ubaldo",Color.DARK_GRAY,20,12,model.getGameBoard().getPoliticDeck(),6);
+		pls.add(player);
+		model.setPlayers(pls);
+		
+		
+		MainAction action = new BuildEmporiumWithHelpOfKingAction(player.getId(), model.getGameBoard().getCities().get(2).getName(), cards);
+		
+		System.out.println("Balcony : "+ model.getGameBoard().getKing().getBalcony().toString());
+		
+
 		
 		
 	}

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14.controller.actions.quickAction;
+package it.polimi.ingsw.ps14.model.actions.quickAction;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,10 +12,10 @@ import org.junit.Test;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.RegionType;
-import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
+import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction;
 
-public class EngageAssistantActionTest {
+public class PerformAdditionalMainActionActionTest {
 
 	@Test
 	public void test() throws IOException {
@@ -27,7 +27,7 @@ public class EngageAssistantActionTest {
 		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].toString());
 		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[1].toString());
 
-		QuickAction action = new EngageAssistantAction(player.getId());
+		QuickAction action = new PerformAdditionalMainActionAction(player.getId());
 		assertEquals(action.isValid(model),true);
 		action.execute(null, model);
 	}

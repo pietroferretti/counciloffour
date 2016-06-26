@@ -40,6 +40,7 @@ public class BusinessCardsPlayer implements Serializable {
 			return true;
 		return false;
 	}
+	
 
 	/**
 	 * add business permit to valid card
@@ -84,27 +85,29 @@ public class BusinessCardsPlayer implements Serializable {
 	}
 
 	public List<BusinessPermit> getUsedCards() {
-		return usedCards;
+		if (usedCards != null)
+			return usedCards;
+		else return null;
 	}
 
 	public void setUsedCards(List<BusinessPermit> usedCards) {
 		this.usedCards = usedCards;
 	}
-	
+
 	public BusinessPermit id2permit(Integer id) {
-		
+
 		for (BusinessPermit permit : validCards) {
 			if (permit.getId() == id) {
 				return permit;
 			}
 		}
-		
+
 		for (BusinessPermit permit : usedCards) {
 			if (permit.getId() == id) {
 				return permit;
 			}
 		}
-		
+
 		return null;
 	}
 
