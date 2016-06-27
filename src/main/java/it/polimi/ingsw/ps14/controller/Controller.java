@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.DisconnectionMsg;
@@ -50,10 +52,14 @@ import it.polimi.ingsw.ps14.server.ServerView;
  */
 public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
-
+	
+	private static final long TURNCOUNTDOWN = (long) 30 * 1000;   // 15 seconds 
+	
 	private Model model;
 	private List<Player> players;
 	private List<Player> marketPlayers;
+	
+	private Timer turnTimer;
 
 	/**
 	 * Build the controller with model. Saves a reference to the model, and a
@@ -71,6 +77,8 @@ public class Controller implements Observer {
 
 		model.setPlayerOrder(players);
 		model.loadNextPlayer();
+		
+		resetTimer();
 
 	}
 
@@ -96,26 +104,32 @@ public class Controller implements Observer {
 
 		} else if (arg instanceof TurnActionMsg) {
 
+			resetTimer();
 			executeTurnAction(serverView, ((TurnActionMsg) arg).getAction());
 
 		} else if (arg instanceof SellMsg) {
 
+			resetTimer();
 			executeSellAction(serverView, ((SellMsg) arg).getAction());
 
 		} else if (arg instanceof BuyMsg) {
-
+			
+			resetTimer();
 			executeBuyAction(serverView, ((BuyMsg) arg).getAction());
 
 		} else if (arg instanceof DoneBuyingMsg) {
 
+			resetTimer();
 			doneBuying(serverView);
 
 		} else if (arg instanceof SellNoneMsg) {
-
+			
+			resetTimer();
 			sellNone(serverView);
 
 		} else if (arg instanceof NobilityRequestAnswerMsg) {
 
+			resetTimer();
 			handleNobilityAnswer(serverView, ((NobilityRequestAnswerMsg) arg).getIDs());
 
 		} else if (arg instanceof DisconnectionMsg) {
@@ -990,6 +1004,11 @@ public class Controller implements Observer {
 		}
 		
 		// load next player (and phase)
+		nextTurn();
+		
+	}
+
+	private void nextTurn() {
 		if (model.getGamePhase() == GamePhase.TURNS) {
 			
 			// if no more players have to play their turn in this phase
@@ -1077,6 +1096,25 @@ public class Controller implements Observer {
 			
 		}
 		
+		resetTimer();
 	}
-
+	
+	private void resetTimer() {
+		if(turnTimer != null) {
+			turnTimer.cancel();
+		}
+		
+		turnTimer = new Timer();
+		TimerTask task = new TimerTask() {
+			
+			@Override
+			public void run() {
+				//TimerScaduto Msg message = new TimerScadutoMsg("tempo scaduto");
+				//model.setMessage(message);
+				nextTurn();
+			}
+		};
+		turnTimer.schedule(task, TURNCOUNTDOWN);
+	}
+	
 }
