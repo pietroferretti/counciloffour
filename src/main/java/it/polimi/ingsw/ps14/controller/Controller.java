@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.ps14.message.DisconnectionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
@@ -93,8 +94,6 @@ public class Controller implements Observer {
 
 			updatePlayerName(serverView, ((PlayerNameMsg) arg).getPlayerName());
 
-			// } else if (arg instanceof JumpTurnMsg) {
-			// //fai qualcosa FIXME
 		} else if (arg instanceof TurnActionMsg) {
 
 			executeTurnAction(serverView, ((TurnActionMsg) arg).getAction());

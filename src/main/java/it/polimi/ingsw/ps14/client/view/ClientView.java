@@ -1,5 +1,11 @@
 package it.polimi.ingsw.ps14.client.view;
 
+import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -10,12 +16,6 @@ import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.State;
-
-import java.awt.Color;
-import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public abstract class ClientView implements Runnable {
 

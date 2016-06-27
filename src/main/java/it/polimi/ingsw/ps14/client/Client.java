@@ -1,15 +1,5 @@
 package it.polimi.ingsw.ps14.client;
 
-import it.polimi.ingsw.ps14.client.rmi.ClientRMIView;
-import it.polimi.ingsw.ps14.client.rmi.Life;
-import it.polimi.ingsw.ps14.client.rmi.RMICommunication;
-import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
-import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
-import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
-import it.polimi.ingsw.ps14.client.view.CLIView;
-import it.polimi.ingsw.ps14.client.view.ClientView;
-import it.polimi.ingsw.ps14.server.RMIViewRemote;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -23,6 +13,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps14.client.rmi.ClientRMIView;
+import it.polimi.ingsw.ps14.client.rmi.Life;
+import it.polimi.ingsw.ps14.client.rmi.RMICommunication;
+import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
+import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
+import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
+import it.polimi.ingsw.ps14.client.view.CLIView;
+import it.polimi.ingsw.ps14.client.view.ClientView;
+import it.polimi.ingsw.ps14.server.RMIViewRemote;
 
 public class Client {
 

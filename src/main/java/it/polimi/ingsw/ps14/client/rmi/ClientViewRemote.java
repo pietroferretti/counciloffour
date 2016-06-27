@@ -1,5 +1,12 @@
 package it.polimi.ingsw.ps14.client.rmi;
 
+import java.awt.Color;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.King;
@@ -8,13 +15,6 @@ import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.State;
-
-import java.awt.Color;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
 
 /**
  * interface of client stub that server will have

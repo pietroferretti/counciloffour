@@ -1,5 +1,11 @@
 package it.polimi.ingsw.ps14.client.view;
 
+import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -19,12 +25,6 @@ import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-
-import java.awt.Color;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.logging.Logger;
 
 /*
  * --------------------------Command Line Interface-----------------------

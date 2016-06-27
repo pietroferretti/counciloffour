@@ -2,7 +2,6 @@ package it.polimi.ingsw.ps14.model.modelview;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;

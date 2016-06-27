@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.GameBoard;
+import it.polimi.ingsw.ps14.model.Model;
 
 /**
  * 

@@ -6,20 +6,15 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Observable;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.DisconnectionMsg;
-import it.polimi.ingsw.ps14.message.JumpTurnMsg;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
-import it.polimi.ingsw.ps14.message.fromserver.TimeOutMsg;
-import it.polimi.ingsw.ps14.model.modelview.ModelView;
 
 public class SocketServerView extends ServerView implements Runnable {
 	private static final Logger LOGGER = Logger

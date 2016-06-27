@@ -8,7 +8,6 @@ import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.model.MessageObservable;
 import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.State;
 
 /**
  * 

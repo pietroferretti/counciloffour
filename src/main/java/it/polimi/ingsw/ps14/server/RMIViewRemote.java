@@ -1,14 +1,14 @@
 package it.polimi.ingsw.ps14.server;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.List;
+
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
-
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.util.List;
 
 /**
  * 

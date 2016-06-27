@@ -6,7 +6,6 @@ import static org.junit.Assert.assertFalse;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 

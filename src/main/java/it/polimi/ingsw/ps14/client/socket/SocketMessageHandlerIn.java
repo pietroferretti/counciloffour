@@ -1,12 +1,11 @@
 package it.polimi.ingsw.ps14.client.socket;
 
-import it.polimi.ingsw.ps14.message.Message;
-
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps14.message.Message;
 
 public class SocketMessageHandlerIn implements Runnable {
 	private static final Logger LOGGER = Logger.getLogger(SocketMessageHandlerIn.class.getName());

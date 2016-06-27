@@ -1,5 +1,9 @@
 package it.polimi.ingsw.ps14.client.view;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
@@ -21,10 +25,6 @@ import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Interpreter {
 

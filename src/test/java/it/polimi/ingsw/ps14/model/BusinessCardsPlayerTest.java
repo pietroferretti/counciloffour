@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Color;
 import java.io.IOException;

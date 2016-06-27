@@ -2,8 +2,6 @@ package it.polimi.ingsw.ps14.message.fromserver;
 
 import java.util.Map;
 
-
-
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 

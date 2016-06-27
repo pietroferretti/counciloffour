@@ -1,13 +1,13 @@
 package it.polimi.ingsw.ps14.model.actions.market;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
-
-import java.io.Serializable;
 
 public class BuyAction implements Serializable {
 

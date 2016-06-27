@@ -1,11 +1,11 @@
 package it.polimi.ingsw.ps14.client;
 
+import java.util.List;
+
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
-
-import java.util.List;
 
 public interface Communication {
 	

@@ -14,8 +14,6 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Settings;
-import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction;
-import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 
 public class BuildEmporiumWithHelpOfKingActionTest {
 

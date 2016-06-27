@@ -1,9 +1,14 @@
 package it.polimi.ingsw.ps14.client.socket;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.client.view.CLIView;
 import it.polimi.ingsw.ps14.client.view.ClientView;
-import it.polimi.ingsw.ps14.message.JumpTurnMsg;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
@@ -36,12 +41,6 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Logger;
 
 public class SocketCommunication implements Communication {
 

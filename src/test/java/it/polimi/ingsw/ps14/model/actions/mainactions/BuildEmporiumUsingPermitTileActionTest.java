@@ -10,15 +10,12 @@ import java.util.List;
 import org.junit.Test;
 
 import it.polimi.ingsw.ps14.model.BusinessPermit;
-import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.Settings;
-import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
-import it.polimi.ingsw.ps14.model.actions.mainactions.MainAction;
 
 public class BuildEmporiumUsingPermitTileActionTest {
 

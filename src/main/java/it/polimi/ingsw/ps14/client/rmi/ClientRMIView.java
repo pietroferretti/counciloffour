@@ -1,15 +1,5 @@
 package it.polimi.ingsw.ps14.client.rmi;
 
-import it.polimi.ingsw.ps14.client.view.ClientView;
-import it.polimi.ingsw.ps14.model.ColorCouncillor;
-import it.polimi.ingsw.ps14.model.ItemForSale;
-import it.polimi.ingsw.ps14.model.King;
-import it.polimi.ingsw.ps14.model.Market;
-import it.polimi.ingsw.ps14.model.NobilityTrack;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.Region;
-import it.polimi.ingsw.ps14.model.State;
-
 import java.awt.Color;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -19,6 +9,16 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import it.polimi.ingsw.ps14.client.view.ClientView;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.ItemForSale;
+import it.polimi.ingsw.ps14.model.King;
+import it.polimi.ingsw.ps14.model.Market;
+import it.polimi.ingsw.ps14.model.NobilityTrack;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.State;
 
 /**
  * This class implements the methods callable ON the client with RMI
