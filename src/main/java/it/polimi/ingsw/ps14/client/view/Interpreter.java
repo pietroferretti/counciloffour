@@ -2,24 +2,8 @@ package it.polimi.ingsw.ps14.client.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
-import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
-import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
-import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg;
-import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg;
-import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
-import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -29,76 +13,18 @@ import it.polimi.ingsw.ps14.model.RegionType;
 public class Interpreter {
 
 	private Communication communication;
+	private CLIView cliView;
 
+	public Interpreter(CLIView cliView) {
+		this.cliView = cliView;
+	}
+	
 	public void setCommunication(Communication communication) {
 		this.communication = communication;
 	}
 	
 	public Communication getCommunication() {
 		return communication;
-	}
-
-	Scanner scan = new Scanner(System.in);
-
-	// TODO ma perché non metterli tutti come toString()?
-
-	public static String parseMsg(Message msg) {
-
-		if (msg instanceof AvailableAssistantsUpdatedMsg) {
-			return ((AvailableAssistantsUpdatedMsg) msg).toString();
-		}
-		if (msg instanceof AvailableCouncillorsUpdatedMsg) {
-			return ((AvailableCouncillorsUpdatedMsg) msg).toString();
-
-		}
-		if (msg instanceof ErrorMsg) {
-			return ((ErrorMsg) msg).toString();
-
-		}
-
-		if (msg instanceof KingBonusesUpdatedMsg) {
-			return ((KingBonusesUpdatedMsg) msg).toString();
-
-		}
-		if (msg instanceof KingUpdatedMsg) {
-			return ((KingUpdatedMsg) msg).toString();
-
-		}
-
-		if (msg instanceof NobilityTrackUpdatedMsg) {
-			return ((NobilityTrackUpdatedMsg) msg).toString();
-
-		}
-		if (msg instanceof PlayerChangedPrivateMsg) {
-			return ((PlayerChangedPrivateMsg) msg).toString();
-
-		}
-		if (msg instanceof PlayerChangedPublicMsg) {
-			return ((PlayerChangedPublicMsg) msg).getNotice().toString();
-
-		}
-
-		if (msg instanceof CitiesColorBonusesUpdatedMsg) {
-			return ((CitiesColorBonusesUpdatedMsg) msg).toString();
-
-		}
-		if (msg instanceof RegionUpdatedMsg) {
-			return ((RegionUpdatedMsg) msg).getUpdatedRegion().toString();
-
-		}
-		if (msg instanceof SoldItemMsg) {
-			return ((SoldItemMsg) msg).getItemSold().toString();
-
-		}
-		if (msg instanceof StateUpdatedMsg) {
-			return ((StateUpdatedMsg) msg).toString();
-		}
-		// TODO
-		if (msg instanceof PersonalUpdateMsg)
-			return ((PersonalUpdateMsg) msg).toString();
-		if (msg instanceof OtherPlayerUpdateMsg)
-			return ((OtherPlayerUpdateMsg) msg).toString();
-		return null;
 	}
 
 	public boolean parseString(String input, Integer playerID) {
@@ -343,6 +269,9 @@ public class Interpreter {
 			
 			communication.buy(playerID, objID, quantity);
 			return true;
+		
+		case "RESULTS":
+			cliView.showEndGame();
 
 		default:
 			return false;
