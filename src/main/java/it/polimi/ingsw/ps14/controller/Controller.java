@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps14.message.DisconnectionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
@@ -51,7 +52,8 @@ import it.polimi.ingsw.ps14.server.ServerView;
  * @see it.polimi.ingsw.ps14.model.State State
  */
 public class Controller implements Observer {
-	private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Controller.class
+			.getName());
 
 	private static final long TURNCOUNTDOWN = (long) 30 * 1000; // 30 seconds
 
@@ -130,7 +132,8 @@ public class Controller implements Observer {
 		} else if (arg instanceof NobilityRequestAnswerMsg) {
 
 			resetTimer();
-			handleNobilityAnswer(serverView, ((NobilityRequestAnswerMsg) arg).getIDs());
+			handleNobilityAnswer(serverView,
+					((NobilityRequestAnswerMsg) arg).getIDs());
 
 		} else if (arg instanceof DisconnectionMsg) {
 
@@ -177,7 +180,8 @@ public class Controller implements Observer {
 		case MARKET:
 
 			// players cannot perform TurnActions during the market phase
-			sendErrorMsg(playerView, "You cannot do that action during the Market phase");
+			sendErrorMsg(playerView,
+					"You cannot do that action during the Market phase");
 			break;
 
 		case FINALTURNS:
@@ -187,7 +191,8 @@ public class Controller implements Observer {
 
 		case END:
 
-			sendErrorMsg(playerView, "The game has ended, you cannot perform this action.");
+			sendErrorMsg(playerView,
+					"The game has ended, you cannot perform this action.");
 			break;
 
 		default:
@@ -212,7 +217,8 @@ public class Controller implements Observer {
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			sendErrorMsg(playerView, "It's not your turn! Current player: "
+					+ model.getCurrentPlayer().getName());
 			return;
 		}
 
@@ -224,7 +230,8 @@ public class Controller implements Observer {
 		}
 
 		// executes the action and updates the state
-		model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, model));
+		model.setCurrentTurnState(model.getCurrentTurnState().executeAction(
+				action, model));
 
 		// checks if a player has built all 10 emporiums
 		if (model.getCurrentPlayer().getNumEmporiums() >= 10) {
@@ -299,11 +306,13 @@ public class Controller implements Observer {
 	 * @param action
 	 *            the action to be executed
 	 */
-	private void turnActionDuringFinalTurns(ServerView playerView, TurnAction action) {
+	private void turnActionDuringFinalTurns(ServerView playerView,
+			TurnAction action) {
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			sendErrorMsg(playerView, "It's not your turn! Current player: "
+					+ model.getCurrentPlayer().getName());
 			return;
 		}
 
@@ -315,7 +324,8 @@ public class Controller implements Observer {
 		}
 
 		// executes the action and updates the state
-		model.setCurrentTurnState(model.getCurrentTurnState().executeAction(action, model));
+		model.setCurrentTurnState(model.getCurrentTurnState().executeAction(
+				action, model));
 
 		// if the action ended the player's turn
 		if (model.getCurrentTurnState() instanceof EndTurnState) {
@@ -360,7 +370,8 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView, "You can only do this during the Market phase.");
+			sendErrorMsg(playerView,
+					"You can only do this during the Market phase.");
 			return;
 		}
 
@@ -372,7 +383,8 @@ public class Controller implements Observer {
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			sendErrorMsg(playerView, "It's not your turn! Current player: "
+					+ model.getCurrentPlayer().getName());
 			return;
 		}
 
@@ -411,7 +423,8 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView, "You can only do this during the Market phase.");
+			sendErrorMsg(playerView,
+					"You can only do this during the Market phase.");
 			return;
 		}
 
@@ -421,7 +434,8 @@ public class Controller implements Observer {
 		}
 
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			sendErrorMsg(playerView, "It's not your turn! Current player: "
+					+ model.getCurrentPlayer().getName());
 			return;
 		}
 
@@ -449,7 +463,8 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView, "You can only do this during the Market phase.");
+			sendErrorMsg(playerView,
+					"You can only do this during the Market phase.");
 			return;
 		}
 
@@ -459,7 +474,8 @@ public class Controller implements Observer {
 		}
 
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			sendErrorMsg(playerView, "It's not your turn! Current player: "
+					+ model.getCurrentPlayer().getName());
 			return;
 		}
 
@@ -482,7 +498,8 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView, "You can only do this during the Market phase.");
+			sendErrorMsg(playerView,
+					"You can only do this during the Market phase.");
 			return;
 		}
 
@@ -492,7 +509,8 @@ public class Controller implements Observer {
 		}
 
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: " + model.getCurrentPlayer().getName());
+			sendErrorMsg(playerView, "It's not your turn! Current player: "
+					+ model.getCurrentPlayer().getName());
 			return;
 		}
 
@@ -521,11 +539,13 @@ public class Controller implements Observer {
 	 * @see it.polimi.ingsw.ps14.model.bonus.SpecialNobilityBonus
 	 *      SpecialNobilityBonus
 	 */
-	private void handleNobilityAnswer(ServerView playerView, List<String> chosenIDs) {
+	private void handleNobilityAnswer(ServerView playerView,
+			List<String> chosenIDs) {
 
 		if (model.getWaitingFor() == WaitingFor.NOTHING) {
 
-			sendErrorMsg(playerView, "You cannot answer a nobility bonus request if there isn't one.");
+			sendErrorMsg(playerView,
+					"You cannot answer a nobility bonus request if there isn't one.");
 
 		} else {
 
@@ -533,8 +553,9 @@ public class Controller implements Observer {
 
 				sendErrorMsg(playerView, "You didn't choose anything!");
 
-			} else if (!(idsInAvailableChoices(chosenIDs) && allIDsAreDifferent(chosenIDs)
-					&& (chosenIDs.size() <= model.getWaitingForHowMany()))) {
+			} else if (!(idsInAvailableChoices(chosenIDs)
+					&& allIDsAreDifferent(chosenIDs) && (chosenIDs.size() <= model
+					.getWaitingForHowMany()))) {
 
 				sendErrorMsg(playerView, "Invalid choices.");
 
@@ -664,7 +685,8 @@ public class Controller implements Observer {
 		Bonus bonus;
 		for (String permitID : permitIDs) {
 
-			permit = player.getBusinessHand().id2permit(Integer.valueOf(permitID));
+			permit = player.getBusinessHand().id2permit(
+					Integer.valueOf(permitID));
 
 			if (permit != null) {
 				bonus = permit.getBonusList();
@@ -860,12 +882,15 @@ public class Controller implements Observer {
 			if (players.get(i).getLevel() > firstHighNobility.get(0).getLevel()) {
 				firstHighNobility.clear();
 				firstHighNobility.add(players.get(i));
-			} else if (players.get(i).getLevel() == firstHighNobility.get(0).getLevel()) {
+			} else if (players.get(i).getLevel() == firstHighNobility.get(0)
+					.getLevel()) {
 				firstHighNobility.add(players.get(i));
-			} else if (players.get(i).getLevel() > secondHighNobility.get(0).getLevel()) {
+			} else if (players.get(i).getLevel() > secondHighNobility.get(0)
+					.getLevel()) {
 				secondHighNobility.clear();
 				secondHighNobility.add(players.get(i));
-			} else if (players.get(i).getLevel() == secondHighNobility.get(0).getLevel()) {
+			} else if (players.get(i).getLevel() == secondHighNobility.get(0)
+					.getLevel()) {
 				secondHighNobility.add(players.get(i));
 			}
 		}
@@ -883,7 +908,8 @@ public class Controller implements Observer {
 	 * @param secondHighNobility
 	 *            a list of the players placed second
 	 */
-	private void awardPointsNobility(List<Player> firstHighNobility, List<Player> secondHighNobility) {
+	private void awardPointsNobility(List<Player> firstHighNobility,
+			List<Player> secondHighNobility) {
 		if (firstHighNobility.size() == 1) {
 			firstHighNobility.get(0).addPoints(5);
 			for (Player secondHighNoble : secondHighNobility) {
@@ -907,11 +933,12 @@ public class Controller implements Observer {
 
 		mostPermits.add(players.get(0));
 		for (int i = 1; i < players.size(); i++) {
-			if (players.get(i).getBusinessHand().getNumberOfPermits() > mostPermits.get(0).getBusinessHand()
-					.getNumberOfPermits()) {
+			if (players.get(i).getBusinessHand().getNumberOfPermits() > mostPermits
+					.get(0).getBusinessHand().getNumberOfPermits()) {
 				mostPermits.clear();
 				mostPermits.add(players.get(i));
-			} else if (players.get(i).getLevel() == mostPermits.get(0).getLevel()) {
+			} else if (players.get(i).getLevel() == mostPermits.get(0)
+					.getLevel()) {
 				mostPermits.add(players.get(i));
 			}
 		}
@@ -975,7 +1002,7 @@ public class Controller implements Observer {
 			model.getPlayerOrder().remove(player);
 		}
 
-		// load next player (and phase) if it's the turn 
+		// load next player (and phase) if it's the turn
 		// of the player that disconnected
 		if (model.getCurrentPlayer().getId() == player.getId()) {
 			nextTurn();

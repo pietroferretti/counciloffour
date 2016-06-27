@@ -6,6 +6,7 @@ import it.polimi.ingsw.ps14.client.view.ClientView;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
@@ -50,12 +51,6 @@ public class SocketCommunication implements Communication {
 	private TimerTask timerTask;
 	private boolean alreadyCalled = false;
 
-	private boolean imAlive=true;
-	private boolean timerStarted=false;
-	private TimerTask timerTurnTask;
-	private Timer timerTurn;
-	private int timeOut;
-
 	private SocketMessageHandlerOut msgHandlerOut;
 	private ClientView clientView;
 
@@ -74,7 +69,6 @@ public class SocketCommunication implements Communication {
 				LOGGER.info(String.format("Player id set as %d",
 						clientView.getPlayerID()));
 
-
 			} else if (message instanceof GameStartedMsg) {
 				clientView.showGameStart();
 				clientView.setGameStarted(true);
@@ -85,14 +79,13 @@ public class SocketCommunication implements Communication {
 				clientView.setGameState(((StateUpdatedMsg) message)
 						.getUpdatedState());
 				LOGGER.info(String.format("Game state updated."
-						+ clientView.getGameState().getGamePhase().toString())); // dettagli è meglio
-				
+						+ clientView.getGameState().getGamePhase().toString())); // dettagli
+																					// è
+																					// meglio
+
 				if (clientView.getGameState().getCurrentPlayer().getId() == clientView
 						.getPlayerID()) {
 					clientView.setMyTurn(true);
-					imAlive = false;
-//					if(!timerStarted)
-//						startTimer();
 				} else {
 					clientView.setMyTurn(false);
 				}
@@ -122,17 +115,13 @@ public class SocketCommunication implements Communication {
 	@Override
 	public void setPlayerName(Integer playerID, String name) {
 		msgHandlerOut.sendMessage(new PlayerNameMsg(name));
-		imAlive = true;
-		timerStarted=false;
+
 	}
 
 	@Override
 	public void drawCard(Integer playerID) {
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new DrawCardAction(playerID)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -142,9 +131,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(new ElectCouncillorAction(
 				playerID, cc, regionORking)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -155,9 +141,6 @@ public class SocketCommunication implements Communication {
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new AcquireBusinessPermitTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics))));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -169,9 +152,6 @@ public class SocketCommunication implements Communication {
 				.sendMessage(new TurnActionMsg(
 						new BuildEmporiumWithHelpOfKingAction(playerID, city,
 								politics)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -182,9 +162,6 @@ public class SocketCommunication implements Communication {
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new BuildEmporiumUsingPermitTileAction(playerID, permitID,
 						cityname)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -193,9 +170,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(new EngageAssistantAction(
 				playerID)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -204,9 +178,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new ChangeBusinessPermitTilesAction(playerID, rt)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -215,9 +186,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new PerformAdditionalMainActionAction(playerID)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -227,9 +195,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new SendAssistantToElectCouncillorAction(playerID, rt, cc)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -238,9 +203,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut
 				.sendMessage(new TurnActionMsg(new EndTurnAction(playerID)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -248,9 +210,6 @@ public class SocketCommunication implements Communication {
 	public void showMyDetails(Integer playerID) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateThisPlayerMsg(playerID));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -258,9 +217,6 @@ public class SocketCommunication implements Communication {
 	public void showDetails(Integer playerID) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateOtherPlayersMsg(playerID));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -268,9 +224,6 @@ public class SocketCommunication implements Communication {
 	public void showGameboard(Integer playerID) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateGameBoardMsg());
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -278,9 +231,6 @@ public class SocketCommunication implements Communication {
 	public void sell(Integer playerID, List<ItemForSale> items) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new SellMsg(new SellAction(items)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -289,35 +239,22 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new BuyMsg(new BuyAction(playerID, objID,
 				quantity)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
 	@Override
 	public void answerNobilityRequest(Integer playerID, List<String> objectIDs) {
 		msgHandlerOut.sendMessage(new NobilityRequestAnswerMsg(objectIDs));
-		imAlive = true;
-		timerStarted=false;
-
-
 	}
 
 	@Override
 	public void sellNone(Integer playerID) {
 		msgHandlerOut.sendMessage(new SellNoneMsg());
-		imAlive = true;
-		timerStarted=false;
-
-
 	}
 
 	@Override
 	public void doneFinishBuying(Integer playerID) {
 		msgHandlerOut.sendMessage(new DoneBuyingMsg());
-		imAlive = true;
-		timerStarted=false;
 
 
 	}
@@ -335,20 +272,25 @@ public class SocketCommunication implements Communication {
 
 	}
 
-//
-//	private void startTimer() {
-//		timerTurn=new Timer();
-//		timerStarted=true;
-//		timerTurnTask = new TimerTask() {
-//
-//			@Override
-//			public void run() {
-//				if (clientView.isMyTurn() && !imAlive)
-//					msgHandlerOut.sendMessage(new JumpTurnMsg());
-//				timerStarted=false;
-//			}
-//		};
-//		timerTurn.schedule(timerTurnTask, timeOut);
-//
-//	}
+	@Override
+	public void chat(Integer playerID, String chat) {
+		msgHandlerOut.sendMessage(new MyChatMsg(chat, playerID));
+	}
+
+	//
+	// private void startTimer() {
+	// timerTurn=new Timer();
+	// timerStarted=true;
+	// timerTurnTask = new TimerTask() {
+	//
+	// @Override
+	// public void run() {
+	// if (clientView.isMyTurn() && !imAlive)
+	// msgHandlerOut.sendMessage(new JumpTurnMsg());
+	// timerStarted=false;
+	// }
+	// };
+	// timerTurn.schedule(timerTurnTask, timeOut);
+	//
+	// }
 }

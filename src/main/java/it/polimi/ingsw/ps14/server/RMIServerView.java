@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps14.server;
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.DisconnectionMsg;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
@@ -46,6 +47,10 @@ public class RMIServerView extends ServerView {
 					super.getPlayerName(), super.getPlayerID()));
 			setChanged();
 			notifyObservers(msg);
+			
+		}else if(msg instanceof MyChatMsg){
+			
+			super.chat.sendChat(((MyChatMsg)msg).getText(),super.getPlayerName());
 
 		} else if (msg instanceof UpdateRequestMsg) {
 
@@ -147,4 +152,6 @@ public class RMIServerView extends ServerView {
 		};
 		timer.schedule(task, TIMEOUT);
 	}
+
+
 }

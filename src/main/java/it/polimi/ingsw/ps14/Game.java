@@ -1,15 +1,16 @@
 package it.polimi.ingsw.ps14;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
+import it.polimi.ingsw.ps14.server.Chat;
 import it.polimi.ingsw.ps14.server.ServerView;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class Game {
 	private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
@@ -40,9 +41,11 @@ public class Game {
 		
 		LOGGER.info("Creating ModelView.");
 		modelView = new ModelView(model);
+		
+		Chat chat=new Chat(views);
 	
 		for (ServerView view : views) {
-			
+			view.setChat(chat);
 			view.addObserver(controller);
 			modelView.addObserver(view);
 			view.setModelView(modelView);

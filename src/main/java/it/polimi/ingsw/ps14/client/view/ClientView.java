@@ -114,4 +114,6 @@ public abstract class ClientView implements Runnable {
 	
 	public abstract void showAvailableCommands();
 
+	public abstract void showChatMsg(String author, String text);
+
 }

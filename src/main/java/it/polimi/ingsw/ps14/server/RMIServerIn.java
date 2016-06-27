@@ -4,6 +4,7 @@ import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
@@ -215,6 +216,12 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 			}
 		}
 		
+	}
+
+	@Override
+	public void chat(Integer playerID, String chat) throws RemoteException {
+		Message message = new MyChatMsg(chat,playerID);
+		sendToServerView(playerID, message);
 	}
 
 }
