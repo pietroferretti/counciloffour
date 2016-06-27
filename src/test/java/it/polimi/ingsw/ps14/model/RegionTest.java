@@ -23,7 +23,8 @@ public class RegionTest {
 			councillors.add(ColorCouncillor.getRandomCouncillor());
 		}
 		r3 = model.getGameBoard().getRegion(RegionType.COAST);
-		System.out.println(r3);
+//		FIXME
+//		System.out.println(r3.toString());
 	}
 
 	@Test

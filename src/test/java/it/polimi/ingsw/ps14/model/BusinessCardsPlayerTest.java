@@ -24,27 +24,23 @@ public class BusinessCardsPlayerTest {
 
 		GameBoard gameboard = new GameBoard(settingsInstance);
 
-		busCard = model.getGameBoard().getRegion(RegionType.COAST)
-				.getBusinessPermits().getAvailablePermits()[0];
-		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model
-				.getGameBoard().getPoliticDeck(), 6);
-		busCard = model.getGameBoard().getRegion(RegionType.COAST)
-				.getBusinessPermits().getAvailablePermits()[0];
+		busCard = model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0];
+		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
+		busCard = model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0];
 	}
 
 	@Test
 	public void testUsePermit() throws IOException {
 		create();
-		System.out.println(busCard);
+		// FIXME
+		// System.out.println(busCard);
 
 		player.acquireBusinessPermit(busCard);
 
 		busCard = player.getBusinessHand().getValidCards().get(0);
 		player.getBusinessHand().usePermit(busCard);
-		assertEquals(player.getBusinessHand().checkBusinessPermit(busCard),
-				false);
+		assertEquals(player.getBusinessHand().checkBusinessPermit(busCard), false);
 
 	}
-	
 
 }
