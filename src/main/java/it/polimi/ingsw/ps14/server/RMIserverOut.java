@@ -1,14 +1,10 @@
 package it.polimi.ingsw.ps14.server;
 
-import java.rmi.RemoteException;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.ChatMsg;
 import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
@@ -26,6 +22,11 @@ import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCity;
+
+import java.rmi.RemoteException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RMIserverOut {
 
@@ -142,6 +143,12 @@ public class RMIserverOut {
 				if (arg instanceof StateUpdatedMsg) {
 					clientView.stateUpdate(((StateUpdatedMsg) arg)
 							.getUpdatedState());
+				}
+				
+				if(arg instanceof ChatMsg){
+					String author=((ChatMsg)arg).getAuthor();
+					String text=((ChatMsg)arg).getText();
+					clientView.showChatMsg(author, text);
 				}
 			}
 

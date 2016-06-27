@@ -22,7 +22,7 @@ public class Interpreter {
 	public void setCommunication(Communication communication) {
 		this.communication = communication;
 	}
-	
+
 	public Communication getCommunication() {
 		return communication;
 	}
@@ -54,7 +54,7 @@ public class Interpreter {
 				return false;
 			if (st == null)
 				return false;
-			communication.electCouncillor(playerID, cc, st);
+			communication.electCouncillor(playerID, cc, st.toUpperCase());
 			return true;
 			// ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
 		case "ACQUIRE":
@@ -125,9 +125,10 @@ public class Interpreter {
 			return true;
 
 			// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
-			//  se rt ==null ->>> balcony del re
+			// se rt ==null ->>> balcony del re
 		case "ELECT-WITH-ASSISTANT":
-			if(word.length!=3) return false;
+			if (word.length != 3)
+				return false;
 			rt = string2RegionType(word[1]);
 			if (rt == null && !word[1].matches("KING"))
 				return false;
@@ -161,15 +162,15 @@ public class Interpreter {
 			if (word.length != 2)
 				return false;
 
-			if (word[1].compareTo("MYDETAILS") == 0) {
+			if (word[1].equalsIgnoreCase("MYDETAILS")) {
 				communication.showMyDetails(playerID);
 				return true;
 			}
-			if (word[1].compareTo("DETAILS") == 0) {
+			if (word[1].equalsIgnoreCase("DETAILS")) {
 				communication.showDetails(playerID);
 				return true;
 			}
-			if (word[1].compareTo("GAMEBOARD") == 0) {
+			if (word[1].equalsIgnoreCase("GAMEBOARD")) {
 				communication.showGameboard(playerID);
 				return true;
 			}
@@ -185,7 +186,8 @@ public class Interpreter {
 			if (word.length < 2)
 				return false;
 			for (int i = 1; i < word.length; i++) {
-				if (word[i].matches("BUSINESS") && (i + 1) <= word.length) {
+				if (word[i].equalsIgnoreCase("BUSINESS")
+						&& (i + 1) <= word.length) {
 					splitted = word[i + 1].split(",");
 
 					for (String s : splitted) {
@@ -202,7 +204,7 @@ public class Interpreter {
 								id, price, playerID));
 					}
 				}
-				if (word[i].compareTo("ASSISTANTS") == 0
+				if (word[i].equalsIgnoreCase("ASSISTANTS")
 						&& (i + 1) <= word.length) {
 					splitted = word[i + 1].split("-");
 					try {
@@ -214,18 +216,18 @@ public class Interpreter {
 					items.add(new ItemForSale(ItemForSale.Type.ASSISTANT, id,
 							price, playerID));
 				}
-				if (word[i].matches("POLITIC") && (i + 1) <= word.length) {
+				if (word[i].equalsIgnoreCase("POLITIC") && (i + 1) <= word.length) {
 					ColorPolitic color;
 					splitted = word[i + 1].split(",");
 					for (String s : splitted) {
 						stub = s.split("-");
-						System.out.println("ok:"+stub[0]+stub[1]);
+						System.out.println("ok:" + stub[0] + stub[1]);
 						if (stub.length != 2)
 							return false;
 						ColorPolitic[] colors = ColorPolitic.values();
 						for (ColorPolitic c : colors)
-							if (c.name().matches(stub[0]) ){
-								color = ColorPolitic.valueOf(stub[0]);
+							if (c.name().matches(stub[0])) {
+								color = ColorPolitic.valueOf(stub[0].toUpperCase());
 								try {
 									price = Integer.parseInt(stub[1]);
 								} catch (NumberFormatException e) {
@@ -237,13 +239,13 @@ public class Interpreter {
 					}
 
 				}
-				if (word[i].matches("NONE")) {
+				if (word[i].equalsIgnoreCase("NONE")) {
 					communication.sellNone(playerID);
 					return true;
 				}
 			}
 			communication.sell(playerID, items);
-			System.out.println("ho inviato "+items);
+			System.out.println("ho inviato " + items);
 			return true;
 
 			// BUY ITEM_ID QUANTITY(optional)
@@ -252,7 +254,7 @@ public class Interpreter {
 			Integer objID = null;
 			if (word.length < 2 || word.length > 3)
 				return false;
-			if (word[1].matches("FINISH")) {
+			if (word[1].equalsIgnoreCase("FINISH")) {
 				communication.doneFinishBuying(playerID);
 				return true;
 			}
@@ -266,8 +268,12 @@ public class Interpreter {
 			} catch (NumberFormatException e) {
 				return false;
 			}
-			
+
 			communication.buy(playerID, objID, quantity);
+			return true;
+
+		case "CHAT":
+			communication.chat(playerID, input.substring(4));
 			return true;
 		
 		case "RESULTS":
@@ -293,7 +299,7 @@ public class Interpreter {
 
 		if (string2RegionType(string) != null)
 			return string;
-		if (string.compareTo("KING") == 0)
+		if (string.equalsIgnoreCase("KING"))
 			return string;
 		return null;
 	}
@@ -303,8 +309,8 @@ public class Interpreter {
 		ColorCouncillor[] colorValue = ColorCouncillor.values();
 
 		for (ColorCouncillor color : colorValue) {
-			if (color.name().compareTo(word) == 0)
-				return ColorCouncillor.valueOf(word);
+			if (color.name().equalsIgnoreCase(word))
+				return ColorCouncillor.valueOf(word.toUpperCase());
 		}
 		return null;
 	}
@@ -313,7 +319,7 @@ public class Interpreter {
 		RegionType[] regions = RegionType.values();
 
 		for (RegionType reg : regions) {
-			if (reg.name().compareTo(input) == 0)
+			if (reg.name().equalsIgnoreCase(input))
 				return reg;
 		}
 		return null;
@@ -323,8 +329,8 @@ public class Interpreter {
 		ColorPolitic[] colors = ColorPolitic.values();
 
 		for (ColorPolitic cp : colors)
-			if (string.compareTo(cp.name()) == 0)
-				return new PoliticCard(ColorPolitic.valueOf(string));
+			if (string.equalsIgnoreCase(cp.name()))
+				return new PoliticCard(ColorPolitic.valueOf(string.toUpperCase()));
 		return null;
 	}
 

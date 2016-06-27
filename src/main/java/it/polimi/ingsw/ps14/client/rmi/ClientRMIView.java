@@ -171,4 +171,9 @@ public class ClientRMIView extends UnicastRemoteObject implements
 		timer.schedule(timerTask, 200);
 
 	}
+
+	@Override
+	public void showChatMsg(String author, String text) throws RemoteException {
+		cv.showChatMsg(author, text);
+	}
 }

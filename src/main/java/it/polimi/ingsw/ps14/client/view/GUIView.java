@@ -145,6 +145,12 @@ public class GUIView extends ClientView implements Runnable {
 		
 	}
 
+	@Override
+	public void showChatMsg(String author, String text) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

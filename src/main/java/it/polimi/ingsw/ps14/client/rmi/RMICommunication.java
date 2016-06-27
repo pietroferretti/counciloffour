@@ -253,4 +253,17 @@ public class RMICommunication implements Communication {
 		}
 	}
 
+
+
+	@Override
+	public void chat(Integer playerID, String chat) {
+		try{
+			serverStub.chat(playerID,chat);
+		}catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
+
+		}
+		
+	}
+
 }

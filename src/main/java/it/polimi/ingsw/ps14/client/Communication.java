@@ -28,4 +28,5 @@ public interface Communication {
 	public void answerNobilityRequest(Integer playerID, List<String> objectIDs);
 	public void sellNone(Integer playerID);
 	public void doneFinishBuying(Integer playerID);
+	public void chat(Integer playerID,String chat);
 }

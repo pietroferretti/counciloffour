@@ -64,4 +64,6 @@ public interface RMIViewRemote extends Remote{
 	public void doneBuying(Integer playerID) throws RemoteException;
 	
 	public void clientAlive(Integer playerID) throws RemoteException;
+
+	public void chat(Integer playerID, String chat) throws RemoteException;
 }

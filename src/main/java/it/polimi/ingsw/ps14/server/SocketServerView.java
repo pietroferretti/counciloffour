@@ -1,5 +1,13 @@
 package it.polimi.ingsw.ps14.server;
 
+import it.polimi.ingsw.ps14.message.DisconnectionMsg;
+import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
+import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
+import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -8,13 +16,6 @@ import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import it.polimi.ingsw.ps14.message.DisconnectionMsg;
-import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
-import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
-import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
-import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
 
 public class SocketServerView extends ServerView implements Runnable {
 	private static final Logger LOGGER = Logger
@@ -31,7 +32,8 @@ public class SocketServerView extends ServerView implements Runnable {
 
 	private boolean active = true;
 
-	public SocketServerView(Socket socket, Server server, int idPlayer) throws IOException {
+	public SocketServerView(Socket socket, Server server, int idPlayer)
+			throws IOException {
 		super(idPlayer);
 		this.socket = socket;
 		this.server = server;
@@ -90,6 +92,12 @@ public class SocketServerView extends ServerView implements Runnable {
 
 					sendUpdates((UpdateRequestMsg) objectReceived);
 
+				} else if (objectReceived instanceof MyChatMsg) {
+					
+					super.chat.sendChat(((MyChatMsg)objectReceived).getText(),super.getPlayerName());
+					
+					
+
 				} else if (objectReceived instanceof Message) {
 
 					setChanged();
@@ -103,8 +111,11 @@ public class SocketServerView extends ServerView implements Runnable {
 				}
 			}
 		} catch (IOException | NoSuchElementException | ClassNotFoundException e) {
-			LOGGER.log(Level.SEVERE,String.format("CLIENT DISCONNESSO id '%d'",super.getPlayerID()));
-			Message disconnect=new DisconnectionMsg(getPlayerID());
+			LOGGER.log(
+					Level.SEVERE,
+					String.format("CLIENT DISCONNESSO id '%d'",
+							super.getPlayerID()));
+			Message disconnect = new DisconnectionMsg(getPlayerID());
 			setChanged();
 			notifyObservers(disconnect);
 			this.active = false;
@@ -187,11 +198,11 @@ public class SocketServerView extends ServerView implements Runnable {
 	@Override
 	protected void sendMessage(Message msg) {
 		try {
-			if(isActive()){
-			socketOut.writeObject(msg);
-			socketOut.flush();
-			LOGGER.info(String.format("Writing message %s on socket %d",
-					msg.getClass(), super.getPlayerID()));
+			if (isActive()) {
+				socketOut.writeObject(msg);
+				socketOut.flush();
+				LOGGER.info(String.format("Writing message %s on socket %d",
+						msg.getClass(), super.getPlayerID()));
 			}
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, String.format(
@@ -199,5 +210,6 @@ public class SocketServerView extends ServerView implements Runnable {
 					super.getPlayerID()), e);
 		}
 	}
+
 
 }

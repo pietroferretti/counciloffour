@@ -6,6 +6,7 @@ import it.polimi.ingsw.ps14.client.view.ClientView;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
@@ -14,9 +15,24 @@ import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
+import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.ChatMsg;
+import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg;
+import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
+import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -50,12 +66,6 @@ public class SocketCommunication implements Communication {
 	private TimerTask timerTask;
 	private boolean alreadyCalled = false;
 
-	private boolean imAlive=true;
-	private boolean timerStarted=false;
-	private TimerTask timerTurnTask;
-	private Timer timerTurn;
-	private int timeOut;
-
 	private SocketMessageHandlerOut msgHandlerOut;
 	private ClientView clientView;
 
@@ -74,7 +84,6 @@ public class SocketCommunication implements Communication {
 				LOGGER.info(String.format("Player id set as %d",
 						clientView.getPlayerID()));
 
-
 			} else if (message instanceof GameStartedMsg) {
 				clientView.showGameStart();
 				clientView.setGameStarted(true);
@@ -85,14 +94,13 @@ public class SocketCommunication implements Communication {
 				clientView.setGameState(((StateUpdatedMsg) message)
 						.getUpdatedState());
 				LOGGER.info(String.format("Game state updated."
-						+ clientView.getGameState().getGamePhase().toString())); // dettagli è meglio
-				
+						+ clientView.getGameState().getGamePhase().toString())); // dettagli
+																					// è
+																					// meglio
+
 				if (clientView.getGameState().getCurrentPlayer().getId() == clientView
 						.getPlayerID()) {
 					clientView.setMyTurn(true);
-					imAlive = false;
-//					if(!timerStarted)
-//						startTimer();
 				} else {
 					clientView.setMyTurn(false);
 				}
@@ -107,10 +115,74 @@ public class SocketCommunication implements Communication {
 				clientView
 						.showEndGame(((GameEndedMsg) message).getEndResults());
 
-			} else {
+			} else if (message instanceof AvailableAssistantsUpdatedMsg) {
+				clientView
+						.showAvailableAssistant(((AvailableAssistantsUpdatedMsg) message)
+								.getUpdatedAvailableAssistants());
+
+			} else if (message instanceof AvailableCouncillorsUpdatedMsg) {
+				clientView
+						.showAvailableCouncillor(((AvailableCouncillorsUpdatedMsg) message)
+								.getUpdatedAvailableCouncillors());
+
+			} else if (message instanceof CitiesColorBonusesUpdatedMsg) {
+				clientView
+						.showCitiesColorBonuses(
+								((CitiesColorBonusesUpdatedMsg) message)
+										.getBonusGold(),
+								((CitiesColorBonusesUpdatedMsg) message)
+										.getBonusSilver(),
+								((CitiesColorBonusesUpdatedMsg) message)
+										.getBonusBronze(),
+								((CitiesColorBonusesUpdatedMsg) message)
+										.getBonusBlue());
+
+			} else if (message instanceof ErrorMsg) {
+				clientView.showError(message.toString());
+			} else if (message instanceof KingBonusesUpdatedMsg) {
+				clientView.showKingBonus(((KingBonusesUpdatedMsg) message)
+						.getUpdatedShowableKingBonus());
+			} else if (message instanceof KingUpdatedMsg) {
+				clientView.showKingUpdate(((KingUpdatedMsg) message)
+						.getUpdatedKing());
+			} else if (message instanceof MarketUpdatedMsg) {
+				clientView.showMarket(((MarketUpdatedMsg) message)
+						.getUpdatedMarket());
+			} else if (message instanceof NobilityTrackUpdatedMsg) {
+				clientView
+						.showNobilityTrack(((NobilityTrackUpdatedMsg) message)
+								.getUpdatedNobilityTrack());
+			} else if (message instanceof OtherPlayerUpdateMsg) {
+				clientView.showOtherPlayer(
+						((OtherPlayerUpdateMsg) message).getId(),
+						((OtherPlayerUpdateMsg) message).getName(),
+						((OtherPlayerUpdateMsg) message).getColor(),
+						((OtherPlayerUpdateMsg) message).getCoins(),
+						((OtherPlayerUpdateMsg) message).getAssistants(),
+						((OtherPlayerUpdateMsg) message).getLevel(),
+						((OtherPlayerUpdateMsg) message).getPoints(),
+						((OtherPlayerUpdateMsg) message).getNumEmporiums());
+			} else if (message instanceof PersonalUpdateMsg) {
+				clientView.showPersonalDetails(((PersonalUpdateMsg) message)
+						.getPlayer());
+			} else if (message instanceof PlayerChangedPrivateMsg) {
+				clientView.showPlayerChangesPrivate(message.toString());
+			} else if (message instanceof PlayerChangedPublicMsg) {
+				clientView
+						.showPlayerChangesPublic(((PlayerChangedPublicMsg) message)
+								.getNotice());
+			} else if (message instanceof RegionUpdatedMsg) {
+				clientView.showRegion(((RegionUpdatedMsg) message)
+						.getUpdatedRegion());
+			} else if (message instanceof SoldItemMsg) {
+				clientView.showItemSold(((SoldItemMsg) message).getItemSold());
+			} else if (message instanceof ChatMsg) {
+				clientView.showChatMsg(((ChatMsg) message).getAuthor(),
+						((ChatMsg) message).getText());
+
+			} else
 				clientView.readMessage(message);
 
-			}
 		} else
 			LOGGER.info(String.format("Couldn't interpret message."));
 
@@ -122,17 +194,13 @@ public class SocketCommunication implements Communication {
 	@Override
 	public void setPlayerName(Integer playerID, String name) {
 		msgHandlerOut.sendMessage(new PlayerNameMsg(name));
-		imAlive = true;
-		timerStarted=false;
+
 	}
 
 	@Override
 	public void drawCard(Integer playerID) {
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new DrawCardAction(playerID)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -142,9 +210,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(new ElectCouncillorAction(
 				playerID, cc, regionORking)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -155,9 +220,6 @@ public class SocketCommunication implements Communication {
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new AcquireBusinessPermitTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics))));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -169,9 +231,6 @@ public class SocketCommunication implements Communication {
 				.sendMessage(new TurnActionMsg(
 						new BuildEmporiumWithHelpOfKingAction(playerID, city,
 								politics)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -182,9 +241,6 @@ public class SocketCommunication implements Communication {
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new BuildEmporiumUsingPermitTileAction(playerID, permitID,
 						cityname)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -193,9 +249,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(new EngageAssistantAction(
 				playerID)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -204,9 +257,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new ChangeBusinessPermitTilesAction(playerID, rt)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -215,9 +265,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new PerformAdditionalMainActionAction(playerID)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -227,9 +274,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new SendAssistantToElectCouncillorAction(playerID, rt, cc)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -238,9 +282,6 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut
 				.sendMessage(new TurnActionMsg(new EndTurnAction(playerID)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -248,9 +289,6 @@ public class SocketCommunication implements Communication {
 	public void showMyDetails(Integer playerID) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateThisPlayerMsg(playerID));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -258,9 +296,6 @@ public class SocketCommunication implements Communication {
 	public void showDetails(Integer playerID) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateOtherPlayersMsg(playerID));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -268,9 +303,6 @@ public class SocketCommunication implements Communication {
 	public void showGameboard(Integer playerID) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateGameBoardMsg());
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -278,9 +310,6 @@ public class SocketCommunication implements Communication {
 	public void sell(Integer playerID, List<ItemForSale> items) {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new SellMsg(new SellAction(items)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -289,36 +318,22 @@ public class SocketCommunication implements Communication {
 		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new BuyMsg(new BuyAction(playerID, objID,
 				quantity)));
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
 	@Override
 	public void answerNobilityRequest(Integer playerID, List<String> objectIDs) {
 		msgHandlerOut.sendMessage(new NobilityRequestAnswerMsg(objectIDs));
-		imAlive = true;
-		timerStarted=false;
-
-
 	}
 
 	@Override
 	public void sellNone(Integer playerID) {
 		msgHandlerOut.sendMessage(new SellNoneMsg());
-		imAlive = true;
-		timerStarted=false;
-
-
 	}
 
 	@Override
 	public void doneFinishBuying(Integer playerID) {
 		msgHandlerOut.sendMessage(new DoneBuyingMsg());
-		imAlive = true;
-		timerStarted=false;
-
 
 	}
 
@@ -335,20 +350,25 @@ public class SocketCommunication implements Communication {
 
 	}
 
-//
-//	private void startTimer() {
-//		timerTurn=new Timer();
-//		timerStarted=true;
-//		timerTurnTask = new TimerTask() {
-//
-//			@Override
-//			public void run() {
-//				if (clientView.isMyTurn() && !imAlive)
-//					msgHandlerOut.sendMessage(new JumpTurnMsg());
-//				timerStarted=false;
-//			}
-//		};
-//		timerTurn.schedule(timerTurnTask, timeOut);
-//
-//	}
+	@Override
+	public void chat(Integer playerID, String chat) {
+		msgHandlerOut.sendMessage(new MyChatMsg(chat, playerID));
+	}
+
+	//
+	// private void startTimer() {
+	// timerTurn=new Timer();
+	// timerStarted=true;
+	// timerTurnTask = new TimerTask() {
+	//
+	// @Override
+	// public void run() {
+	// if (clientView.isMyTurn() && !imAlive)
+	// msgHandlerOut.sendMessage(new JumpTurnMsg());
+	// timerStarted=false;
+	// }
+	// };
+	// timerTurn.schedule(timerTurnTask, timeOut);
+	//
+	// }
 }

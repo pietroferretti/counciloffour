@@ -140,7 +140,7 @@ public class CLIView extends ClientView implements Runnable {
 		//	print("Enter command:");
 			String input = in.nextLine();
 
-			if (input.toUpperCase().matches("INSTRUCTIONS") || input.toUpperCase().matches("HELP")) {
+			if (input.equalsIgnoreCase("INSTRUCTIONS") || input.toUpperCase().equalsIgnoreCase("HELP")) {
 				showInstructions();
 
 			} else if (!isGameStarted()) {
@@ -149,7 +149,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			} else {
 
-				if (!interpreter.parseString(input.toUpperCase(), getPlayerID())) {
+				if (!interpreter.parseString(input, getPlayerID())) {
 					print("Command not recognized! Retry:");
 				}
 			}
@@ -397,6 +397,11 @@ public class CLIView extends ClientView implements Runnable {
 					plrRes.get(6), plrRes.get(7), plrRes.get(8)));
 		}
 
+	}
+
+	@Override
+	public void showChatMsg(String author, String text) {
+		System.out.println(author+"@CHAT: "+text);
 	}
 
 

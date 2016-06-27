@@ -63,6 +63,8 @@ public interface ClientViewRemote extends Remote {
 
 	public void stateUpdate(State updatedState) throws RemoteException;
 	
+	public void showChatMsg(String author, String text) throws RemoteException;
+	
 	public void gameEnded(List<List<String>> endResults) throws RemoteException;
 
 }
