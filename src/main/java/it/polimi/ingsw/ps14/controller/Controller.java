@@ -952,6 +952,7 @@ public class Controller implements Observer {
 
 		List<Player> sortedList = new ArrayList<>(players);
 		sortedList.sort(new PlayerComparator());
+		Collections.reverse(sortedList);
 		return sortedList;
 	}
 
