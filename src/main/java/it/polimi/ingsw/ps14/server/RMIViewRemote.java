@@ -62,4 +62,6 @@ public interface RMIViewRemote extends Remote{
 	public void sellNone(Integer playerID) throws RemoteException;
 	
 	public void doneBuying(Integer playerID) throws RemoteException;
+	
+	public void clientAlive(Integer playerID) throws RemoteException;
 }

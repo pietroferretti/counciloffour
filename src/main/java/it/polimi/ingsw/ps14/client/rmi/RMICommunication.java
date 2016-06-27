@@ -243,5 +243,14 @@ public class RMICommunication implements Communication {
 
 		}		
 	}
+	
+	public void clientAlive(Integer playerID){
+		try{
+			serverStub.clientAlive(playerID);
+		}catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
+
+		}
+	}
 
 }

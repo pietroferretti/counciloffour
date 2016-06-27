@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.client;
 
 import it.polimi.ingsw.ps14.client.rmi.ClientRMIView;
+import it.polimi.ingsw.ps14.client.rmi.Life;
 import it.polimi.ingsw.ps14.client.rmi.RMICommunication;
 import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
@@ -110,6 +111,9 @@ public class Client {
 			RMICommunication communication=new RMICommunication(serverStub, clientView);
 			clientView.setCommunication(communication);
 			clientView.run();
+			
+			Life life=new Life(communication);
+			rmiView.setLife(life);
 
 		} else {
 			scanner.close();

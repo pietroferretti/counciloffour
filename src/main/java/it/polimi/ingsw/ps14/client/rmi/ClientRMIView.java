@@ -21,7 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * This class implements the methods callable on the client with RMI
+ * This class implements the methods callable ON the client with RMI
  * 
  */
 
@@ -31,6 +31,8 @@ public class ClientRMIView extends UnicastRemoteObject implements
 	private Timer timer;
 	private TimerTask timerTask;
 	private boolean alreadyCalled = false;
+
+	private Life life;
 
 	private ClientView cv;
 
@@ -118,6 +120,9 @@ public class ClientRMIView extends UnicastRemoteObject implements
 	@Override
 	public void setPlayerID(int playerID) {
 		cv.setPlayerID(playerID);
+		life.setPlayerID(playerID);
+		Thread thread = new Thread(life);
+		thread.start();
 	}
 
 	@Override
@@ -164,5 +169,9 @@ public class ClientRMIView extends UnicastRemoteObject implements
 		};
 		timer.schedule(timerTask, 200);
 
+	}
+
+	public void setLife(Life life) {
+		this.life = life;
 	}
 }
