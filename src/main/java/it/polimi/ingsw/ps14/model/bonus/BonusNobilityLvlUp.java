@@ -34,6 +34,7 @@ public class BonusNobilityLvlUp implements Bonus {
 			if (nobilityTrack.bonusExistsAtLevel(level)) {
 				bonusesToApply.add(nobilityTrack.getBonus(level));
 			}
+			player.levelUp();
 		}
 		
 		Bonus bonus;
