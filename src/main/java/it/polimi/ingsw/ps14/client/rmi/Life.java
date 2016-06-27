@@ -22,11 +22,12 @@ public class Life implements Runnable {
 					Thread.sleep(TIMEPING);
 					comm.clientAlive(playerID);
 				}
+				else Thread.sleep(200);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			
 		}
 
 	}
