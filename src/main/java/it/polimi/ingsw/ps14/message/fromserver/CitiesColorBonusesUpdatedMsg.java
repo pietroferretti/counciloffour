@@ -22,6 +22,22 @@ public class CitiesColorBonusesUpdatedMsg implements Message {
 	public Map<ColorCity, Integer> getUpdatedColorBonuses() {
 		return updatedColorBonuses;
 	};
+	
+	public int getBonusGold(){
+		return updatedColorBonuses.get(ColorCity.GOLD);
+	}
+	
+	public int getBonusSilver(){
+		return updatedColorBonuses.get(ColorCity.SILVER);
+	}
+	
+	public int getBonusBronze(){
+		return updatedColorBonuses.get(ColorCity.BRONZE);
+	}
+	
+	public int getBonusBlue(){
+		return updatedColorBonuses.get(ColorCity.BLUE);
+	}
 
 	@Override
 	public String toString() {
