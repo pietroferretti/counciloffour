@@ -234,6 +234,7 @@ public class Controller implements Observer {
 			System.out.println("Final turns!");
 
 			model.setGamePhase(GamePhase.FINALTURNS);
+			model.setCurrentTurnState(new InitialTurnState());
 
 			// find this player's position in the players list
 			int index = -1;
@@ -973,8 +974,11 @@ public class Controller implements Observer {
 			model.getPlayerOrder().remove(player);
 		}
 
-		// load next player (and phase)
-		nextTurn();
+		// load next player (and phase) if it's the turn 
+		// of the player that disconnected
+		if (model.getCurrentPlayer().getId() == player.getId()) {
+			nextTurn();
+		}
 
 	}
 
