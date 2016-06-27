@@ -92,7 +92,7 @@ public class AcquireBusinessPermitTileAction extends MainAction {
 		model.getGameBoard().getPoliticDeck().discardCards(cards);
 
 		// acquire permit
-		player.getBusinessHand().acquireBusinessPermit(permitTile);
+		player.acquireBusinessPermit(permitTile);
 
 		// change face up card in region
 		region.getBusinessPermits().substituteCard(permitTile);
@@ -101,6 +101,8 @@ public class AcquireBusinessPermitTileAction extends MainAction {
 		region.setBusinessPermits();
 
 		permitTile.getBonusList().useBonus(player, model);
+		
+	
 
 		return nextState(previousState, model);
 	}

@@ -29,7 +29,7 @@ public class BusinessCardsPlayer implements Serializable {
 	}
 
 	/**
-	 * check if there is caard in unused businessPermitCard
+	 * check if there is card in unused businessPermitCard
 	 * 
 	 * @param card
 	 *            card to check
