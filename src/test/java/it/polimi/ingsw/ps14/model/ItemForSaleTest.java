@@ -24,7 +24,7 @@ public class ItemForSaleTest {
 		model = new Model();
 		player1 = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
 		player2 = new Player("sdds", Color.cyan, 20, 12, model.getGameBoard().getPoliticDeck(), 4);
-		b = new BusinessPermit(null, null);
+		b = new BusinessPermit(new ArrayList<>(), null);
 		player1.addPolitic(new PoliticCard(ColorPolitic.BLUE));
 		player2.getBusinessHand().getValidCards().add(b);
 		List<Player> players = new ArrayList<>(2);
