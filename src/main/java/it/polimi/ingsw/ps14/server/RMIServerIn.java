@@ -1,14 +1,6 @@
 package it.polimi.ingsw.ps14.server;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
-import it.polimi.ingsw.ps14.message.DisconnectionMsg;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
@@ -37,6 +29,11 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+
 /**
  * 
  * RMIServer implements all methods callable from the client, it create message
@@ -48,8 +45,6 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 
 	private Server server;
 
-	private Timer timer;
-	private TimerTask task;
 
 	private List<RMIServerView> serverViews;
 
@@ -214,14 +209,12 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 
 	@Override
 	public void clientAlive(Integer playerID) throws RemoteException {
-		timer = new Timer();
-		task = new TimerTask() {
-			@Override
-			public void run() {
-				Message message=new DisconnectionMsg(playerID);
-				sendToServerView(playerID,message);
+		for (RMIServerView serverView : serverViews) {
+			if (serverView.getPlayerID() == playerID) {
+				serverView.timerPlayer();
 			}
-		};
+		}
+		
 	}
 
 }

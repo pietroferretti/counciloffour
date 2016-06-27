@@ -1,11 +1,5 @@
 package it.polimi.ingsw.ps14.client.socket;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.client.view.CLIView;
 import it.polimi.ingsw.ps14.client.view.ClientView;
@@ -24,7 +18,6 @@ import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.TimeOutMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
@@ -41,6 +34,12 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Logger;
 
 public class SocketCommunication implements Communication {
 
@@ -75,8 +74,6 @@ public class SocketCommunication implements Communication {
 				LOGGER.info(String.format("Player id set as %d",
 						clientView.getPlayerID()));
 
-			} else if (message instanceof TimeOutMsg) {
-				this.timeOut = (((TimeOutMsg) message).getTimeOut());
 
 			} else if (message instanceof GameStartedMsg) {
 				clientView.showGameStart();

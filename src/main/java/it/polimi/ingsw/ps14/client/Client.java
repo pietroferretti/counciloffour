@@ -105,16 +105,17 @@ public class Client {
 			Registry registry = LocateRegistry.getRegistry(HOST, RMI_PORT);
 			RMIViewRemote serverStub = (RMIViewRemote) registry.lookup(NAME);
 
-			ClientRMIView rmiView = new ClientRMIView(clientView);
+			Life life=new Life();
+			ClientRMIView rmiView = new ClientRMIView(clientView,life);
 
 			serverStub.registerClient(rmiView);
 			RMICommunication communication=new RMICommunication(serverStub, clientView);
+			
+			life.setCommmunication(communication);
+			
 			clientView.setCommunication(communication);
 			clientView.run();
 			
-			Life life=new Life(communication);
-			rmiView.setLife(life);
-
 		} else {
 			scanner.close();
 			throw new IllegalArgumentException(

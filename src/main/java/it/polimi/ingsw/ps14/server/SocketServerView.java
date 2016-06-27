@@ -31,9 +31,8 @@ public class SocketServerView extends ServerView implements Runnable {
 
 	private boolean active = true;
 
-	public SocketServerView(Socket socket, Server server, int idPlayer,
-			int timeOut) throws IOException {
-		super(idPlayer, timeOut);
+	public SocketServerView(Socket socket, Server server, int idPlayer) throws IOException {
+		super(idPlayer);
 		this.socket = socket;
 		this.server = server;
 		this.socketIn = new ObjectInputStream(socket.getInputStream());
@@ -43,7 +42,7 @@ public class SocketServerView extends ServerView implements Runnable {
 		// this.timeOut=timeOut;
 	}
 
-	private synchronized boolean isActive() {
+	private boolean isActive() {
 		return active;
 	}
 
@@ -104,7 +103,7 @@ public class SocketServerView extends ServerView implements Runnable {
 				}
 			}
 		} catch (IOException | NoSuchElementException | ClassNotFoundException e) {
-			LOGGER.log(Level.SEVERE,String.format("Error in socket view with id '%d'",super.getPlayerID()), e);
+			LOGGER.log(Level.SEVERE,String.format("CLIENT DISCONNESSO id '%d'",super.getPlayerID()));
 			Message disconnect=new DisconnectionMsg(getPlayerID());
 			setChanged();
 			notifyObservers(disconnect);
@@ -188,10 +187,12 @@ public class SocketServerView extends ServerView implements Runnable {
 	@Override
 	protected void sendMessage(Message msg) {
 		try {
+			if(isActive()){
 			socketOut.writeObject(msg);
 			socketOut.flush();
 			LOGGER.info(String.format("Writing message %s on socket %d",
 					msg.getClass(), super.getPlayerID()));
+			}
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, String.format(
 					"Error while writing on socket with id '%d'",

@@ -26,11 +26,9 @@ public abstract class ServerView extends Observable implements Observer {
 	private Integer id;
 	private String name;
 	private ModelView modelView;
-	private final int timeOut;
 
-	public ServerView(Integer id, int timeOut) {
+	public ServerView(Integer id) {
 		this.id = id;
-		this.timeOut=timeOut;
 	}
 
 	public void setPlayerID(Integer id){

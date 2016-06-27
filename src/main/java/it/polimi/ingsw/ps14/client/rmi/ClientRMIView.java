@@ -36,9 +36,10 @@ public class ClientRMIView extends UnicastRemoteObject implements
 
 	private ClientView cv;
 
-	public ClientRMIView(ClientView cv) throws RemoteException {
+	public ClientRMIView(ClientView cv,Life life) throws RemoteException {
 		super();
 		this.cv = cv;
+		this.life=life;
 	}
 
 	/**
@@ -169,9 +170,5 @@ public class ClientRMIView extends UnicastRemoteObject implements
 		};
 		timer.schedule(timerTask, 200);
 
-	}
-
-	public void setLife(Life life) {
-		this.life = life;
 	}
 }

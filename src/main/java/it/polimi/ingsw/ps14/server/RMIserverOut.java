@@ -28,97 +28,127 @@ import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCity;
 
 public class RMIserverOut {
-	
-	private static final Logger LOGGER = Logger.getLogger(RMIserverOut.class.getName());
-	
+
+	private static final Logger LOGGER = Logger.getLogger(RMIserverOut.class
+			.getName());
+
 	ClientViewRemote clientView;
-	
-	public RMIserverOut(ClientViewRemote clientView)  {
-		this.clientView = clientView; 
+	private boolean active;
+
+	public RMIserverOut(ClientViewRemote clientView) {
+		this.clientView = clientView;
+		active = true;
 	}
 
 	public void castMessage(Message arg) {
 		try {
-			
-			if(arg instanceof AvailableAssistantsUpdatedMsg){
-				clientView.availableAssistantUpdate(((AvailableAssistantsUpdatedMsg)arg).getUpdatedAvailableAssistants());			
+			if (active) {
+
+				if (arg instanceof AvailableAssistantsUpdatedMsg) {
+					clientView
+							.availableAssistantUpdate(((AvailableAssistantsUpdatedMsg) arg)
+									.getUpdatedAvailableAssistants());
+				}
+
+				if (arg instanceof AvailableCouncillorsUpdatedMsg) {
+					clientView
+							.availableCouncillorsUpdate(((AvailableCouncillorsUpdatedMsg) arg)
+									.getUpdatedAvailableCouncillors());
+				}
+
+				if (arg instanceof CitiesColorBonusesUpdatedMsg) {
+					CitiesColorBonusesUpdatedMsg msg = (CitiesColorBonusesUpdatedMsg) arg;
+					Map<ColorCity, Integer> colorBonuses = msg
+							.getUpdatedColorBonuses();
+					clientView.citiesColorBonusesUpdate(
+							colorBonuses.get(ColorCity.GOLD),
+							colorBonuses.get(ColorCity.SILVER),
+							colorBonuses.get(ColorCity.BRONZE),
+							colorBonuses.get(ColorCity.BLUE));
+				}
+
+				if (arg instanceof ErrorMsg) {
+					clientView.error(((ErrorMsg) arg).getPlayerID(),
+							((ErrorMsg) arg).getInfo());
+				}
+
+				if (arg instanceof GameStartedMsg) {
+					clientView.setGameStart(((GameStartedMsg) arg).getState());
+				}
+
+				if (arg instanceof GameEndedMsg) {
+					clientView.gameEnded(((GameEndedMsg) arg).getEndResults());
+				}
+
+				if (arg instanceof KingBonusesUpdatedMsg) {
+					clientView.kingBonusUpdate(((KingBonusesUpdatedMsg) arg)
+							.getUpdatedShowableKingBonus());
+				}
+
+				if (arg instanceof KingUpdatedMsg) {
+					clientView.kingUpdate(((KingUpdatedMsg) arg)
+							.getUpdatedKing());
+				}
+
+				if (arg instanceof MarketUpdatedMsg) {
+					clientView.marketUpdate(((MarketUpdatedMsg) arg)
+							.getUpdatedMarket());
+				}
+
+				if (arg instanceof NobilityTrackUpdatedMsg) {
+					clientView
+							.nobilityTrackUpdate(((NobilityTrackUpdatedMsg) arg)
+									.getUpdatedNobilityTrack());
+				}
+
+				if (arg instanceof OtherPlayerUpdateMsg) {
+					OtherPlayerUpdateMsg msg = (OtherPlayerUpdateMsg) arg;
+					clientView.otherPlayerUpdate(msg.getId(), msg.getName(),
+							msg.getColor(), msg.getCoins(),
+							msg.getAssistants(), msg.getLevel(),
+							msg.getPoints(), msg.getNumEmporiums());
+				}
+
+				if (arg instanceof PersonalUpdateMsg) {
+					clientView.personalUpdate(((PersonalUpdateMsg) arg)
+							.getPlayer());
+				}
+
+				if (arg instanceof PlayerChangedPrivateMsg) {
+					clientView.playerChangePrivate(
+							((PlayerChangedPrivateMsg) arg).getPlayerID(),
+							((PlayerChangedPrivateMsg) arg).toString());
+				}
+
+				if (arg instanceof PlayerChangedPublicMsg) {
+					clientView.playerChangePublic(
+							((PlayerChangedPublicMsg) arg).getPlayerID(),
+							((PlayerChangedPublicMsg) arg).toString());
+				}
+
+				if (arg instanceof PlayerIDMsg) {
+					clientView.setPlayerID(((PlayerIDMsg) arg).getPlayerID());
+				}
+
+				if (arg instanceof RegionUpdatedMsg) {
+					clientView.regionUpdate(((RegionUpdatedMsg) arg)
+							.getUpdatedRegion());
+				}
+
+				if (arg instanceof SoldItemMsg) {
+					clientView.itemSold(((SoldItemMsg) arg).getItemSold());
+				}
+
+				if (arg instanceof StateUpdatedMsg) {
+					clientView.stateUpdate(((StateUpdatedMsg) arg)
+							.getUpdatedState());
+				}
 			}
-			
-			if(arg instanceof AvailableCouncillorsUpdatedMsg){
-				clientView.availableCouncillorsUpdate(((AvailableCouncillorsUpdatedMsg)arg).getUpdatedAvailableCouncillors());			
-			}
-			
-			if(arg instanceof CitiesColorBonusesUpdatedMsg){
-				CitiesColorBonusesUpdatedMsg msg=(CitiesColorBonusesUpdatedMsg) arg;
-				Map<ColorCity, Integer> colorBonuses = msg.getUpdatedColorBonuses();
-				clientView.citiesColorBonusesUpdate(colorBonuses.get(ColorCity.GOLD), colorBonuses.get(ColorCity.SILVER), colorBonuses.get(ColorCity.BRONZE), colorBonuses.get(ColorCity.BLUE));	
-			}
-			
-			if(arg instanceof ErrorMsg){
-				clientView.error(((ErrorMsg)arg).getPlayerID(),((ErrorMsg)arg).getInfo());			
-			}
-			
-			if(arg instanceof GameStartedMsg){
-				clientView.setGameStart(((GameStartedMsg)arg).getState());			
-			}
-			
-			if(arg instanceof GameEndedMsg) {
-				clientView.gameEnded(((GameEndedMsg) arg).getEndResults());
-			}
-			
-			if(arg instanceof KingBonusesUpdatedMsg){
-				clientView.kingBonusUpdate(((KingBonusesUpdatedMsg)arg).getUpdatedShowableKingBonus());			
-			}
-			
-			if(arg instanceof KingUpdatedMsg){
-				clientView.kingUpdate(((KingUpdatedMsg)arg).getUpdatedKing());			
-			}
-			
-			if(arg instanceof MarketUpdatedMsg){
-				clientView.marketUpdate(((MarketUpdatedMsg)arg).getUpdatedMarket());			
-			}
-			
-			if(arg instanceof NobilityTrackUpdatedMsg){
-				clientView.nobilityTrackUpdate(((NobilityTrackUpdatedMsg)arg).getUpdatedNobilityTrack());			
-			}
-			
-			if(arg instanceof OtherPlayerUpdateMsg){
-				OtherPlayerUpdateMsg msg=(OtherPlayerUpdateMsg)arg;
-				clientView.otherPlayerUpdate(msg.getId(), msg.getName(), msg.getColor(), msg.getCoins(), msg.getAssistants(), msg.getLevel(), msg.getPoints(), msg.getNumEmporiums()); 	
-			}
-			
-			if(arg instanceof PersonalUpdateMsg){
-				clientView.personalUpdate(((PersonalUpdateMsg)arg).getPlayer());			
-			}
-			
-			if(arg instanceof PlayerChangedPrivateMsg){
-				clientView.playerChangePrivate(((PlayerChangedPrivateMsg)arg).getPlayerID(), ((PlayerChangedPrivateMsg)arg).toString());			
-			}
-			
-			if(arg instanceof PlayerChangedPublicMsg){
-				clientView.playerChangePublic(((PlayerChangedPublicMsg)arg).getPlayerID(), ((PlayerChangedPublicMsg)arg).toString());			
-			}
-			
-			if(arg instanceof PlayerIDMsg){
-					clientView.setPlayerID(((PlayerIDMsg)arg).getPlayerID());			
-			}
-			
-			if(arg instanceof RegionUpdatedMsg){
-				clientView.regionUpdate(((RegionUpdatedMsg)arg).getUpdatedRegion());			
-			}
-			
-			if(arg instanceof SoldItemMsg){
-				clientView.itemSold(((SoldItemMsg)arg).getItemSold());			
-			}
-			
-			if(arg instanceof StateUpdatedMsg){
-				clientView.stateUpdate(((StateUpdatedMsg)arg).getUpdatedState());			
-			}
-				
+
 		} catch (RemoteException e) {
-			LOGGER.log(Level.SEVERE, "Error on the RMI outbound server", e);
-			
+			LOGGER.log(Level.SEVERE, "Error on the RMI outbound server");
+			active=false;
 		}
 	}
-	
+
 }

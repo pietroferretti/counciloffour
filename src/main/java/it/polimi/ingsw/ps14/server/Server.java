@@ -31,9 +31,7 @@ public class Server {
 
 	private static final int PORT = 19999;
 	
-	private static final int TIMEOUT = 120*1000;//2min
-
-	private static final int COUNTDOWN = 15;
+	private static final int COUNTDOWN = 5;
 
 	private static final int RMI_PORT = 52365;
 	private static final String NAME = "council4";
@@ -68,7 +66,7 @@ public class Server {
 	 */
 	public synchronized void registerWaitingConnectionRMI(
 			ClientViewRemote clientStub, RMIServerIn rmiServerIn) {
-		RMIServerView connection = new RMIServerView(idCounter, clientStub,TIMEOUT);
+		RMIServerView connection = new RMIServerView(idCounter, clientStub);
 		idCounter++;
 		
 		rmiServerIn.addServerView(connection);
@@ -150,7 +148,7 @@ public class Server {
 		while (!exit) {
 			try {
 				Socket newSocket = serverSocket.accept();
-				SocketServerView connection = new SocketServerView(newSocket, this, idCounter,TIMEOUT);
+				SocketServerView connection = new SocketServerView(newSocket, this, idCounter);
 				idCounter++;
 				registerConnection(connection);
 				waitingConnections.add(connection);
