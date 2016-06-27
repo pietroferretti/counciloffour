@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.DisconnectionMsg;
@@ -51,9 +53,13 @@ import it.polimi.ingsw.ps14.server.ServerView;
 public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
+	private static final long TURNCOUNTDOWN = (long) 30 * 1000; // 30 seconds
+
 	private Model model;
 	private List<Player> players;
 	private List<Player> marketPlayers;
+
+	private Timer turnTimer;
 
 	/**
 	 * Build the controller with model. Saves a reference to the model, and a
@@ -71,6 +77,8 @@ public class Controller implements Observer {
 
 		model.setPlayerOrder(players);
 		model.loadNextPlayer();
+
+		resetTimer();
 
 	}
 
@@ -96,26 +104,32 @@ public class Controller implements Observer {
 
 		} else if (arg instanceof TurnActionMsg) {
 
+			resetTimer();
 			executeTurnAction(serverView, ((TurnActionMsg) arg).getAction());
 
 		} else if (arg instanceof SellMsg) {
 
+			resetTimer();
 			executeSellAction(serverView, ((SellMsg) arg).getAction());
 
 		} else if (arg instanceof BuyMsg) {
 
+			resetTimer();
 			executeBuyAction(serverView, ((BuyMsg) arg).getAction());
 
 		} else if (arg instanceof DoneBuyingMsg) {
 
+			resetTimer();
 			doneBuying(serverView);
 
 		} else if (arg instanceof SellNoneMsg) {
 
+			resetTimer();
 			sellNone(serverView);
 
 		} else if (arg instanceof NobilityRequestAnswerMsg) {
 
+			resetTimer();
 			handleNobilityAnswer(serverView, ((NobilityRequestAnswerMsg) arg).getIDs());
 
 		} else if (arg instanceof DisconnectionMsg) {
@@ -220,6 +234,7 @@ public class Controller implements Observer {
 			System.out.println("Final turns!");
 
 			model.setGamePhase(GamePhase.FINALTURNS);
+			model.setCurrentTurnState(new InitialTurnState());
 
 			// find this player's position in the players list
 			int index = -1;
@@ -313,9 +328,9 @@ public class Controller implements Observer {
 				model.setGamePhase(GamePhase.END);
 
 				System.out.println("The game has ended.");
-				
+
 				// get all the players, including those that disconnected
-				List<Player> playerList = model.getPlayers();	
+				List<Player> playerList = model.getPlayers();
 
 				distributeEndGamePoints(playerList);
 
@@ -904,36 +919,6 @@ public class Controller implements Observer {
 		return mostPermits;
 	}
 
-	// /**
-	// * Finds the winner by comparing points (and assistants and cards if
-	// there's
-	// * a draw).
-	// *
-	// * @param players
-	// * the list of all the players
-	// * @return the winning player
-	// */
-	// private Player findWinner(List<Player> players) {
-	// Player winner;
-	//
-	// winner = players.get(0);
-	// for (int i = 1; i < players.size(); i++) {
-	// if (players.get(i).getPoints() > winner.getPoints()) {
-	// winner = players.get(i);
-	// } else if (players.get(i).getPoints() == winner.getPoints()) {
-	// if (players.get(i).getAssistants() > winner.getAssistants()) {
-	// winner = players.get(i);
-	// } else if (players.get(i).getAssistants() == winner.getAssistants()) {
-	// if (players.get(0).getNumberOfCards() > winner.getNumberOfCards()) {
-	// winner = players.get(i);
-	// }
-	// }
-	// }
-	// }
-	//
-	// return winner;
-	// }
-
 	/**
 	 * Ranks the players by comparing points, assistants and cards.
 	 * 
@@ -967,6 +952,7 @@ public class Controller implements Observer {
 
 		List<Player> sortedList = new ArrayList<>(players);
 		sortedList.sort(new PlayerComparator());
+		Collections.reverse(sortedList);
 		return sortedList;
 	}
 
@@ -978,20 +964,40 @@ public class Controller implements Observer {
 	 * @param serverView
 	 */
 	private void removeFromActivePlayers(ServerView serverView) {
-		
+
 		Player player = model.id2player(serverView.getPlayerID());
-		
+
 		// remove the player from the list of active players
 		players.remove(player);
-		
+
 		// remove the player from the next players
 		if (model.getPlayerOrder().contains(player)) {
 			model.getPlayerOrder().remove(player);
 		}
-		
-		// load next player (and phase)
+
+		// load next player (and phase) if it's the turn 
+		// of the player that disconnected
+		if (model.getCurrentPlayer().getId() == player.getId()) {
+			nextTurn();
+		}
+
+	}
+
+	/**
+	 * Loads the next player, and switches to the next phase if needed
+	 */
+	private void nextTurn() {
+
+		// when the game switches to the next turn because the timer expired,
+		// all the pending bonuses and requests are forgotten
+		if (model.getWaitingFor() != WaitingFor.NOTHING) {
+			model.setWaitingFor(WaitingFor.NOTHING);
+			model.setWaitingForHowMany(0);
+			model.setAvailableChoices(null);
+		}
+
 		if (model.getGamePhase() == GamePhase.TURNS) {
-			
+
 			// if no more players have to play their turn in this phase
 			if (model.getPlayerOrder().isEmpty()) {
 
@@ -1013,11 +1019,11 @@ public class Controller implements Observer {
 				model.loadNextPlayer();
 
 			}
-			
+
 		} else if (model.getGamePhase() == GamePhase.MARKET) {
-			
+
 			if (model.getCurrentMarketState() == MarketState.SELLING) {
-			
+
 				if (!model.getPlayerOrder().isEmpty()) {
 
 					model.loadNextPlayer();
@@ -1028,11 +1034,11 @@ public class Controller implements Observer {
 					model.setPlayerOrder(marketPlayers);
 					model.setCurrentPlayer(model.getNextPlayer());
 					model.getPlayerOrder().removeFirst();
-				
+
 				}
-			
+
 			} else if (model.getCurrentMarketState() == MarketState.BUYING) {
-				
+
 				if (!model.getPlayerOrder().isEmpty()) {
 
 					model.loadNextPlayer();
@@ -1046,11 +1052,11 @@ public class Controller implements Observer {
 					model.loadNextPlayer();
 
 				}
-				
+
 			}
-		
+
 		} else if (model.getGamePhase() == GamePhase.FINALTURNS) {
-			
+
 			// if no more players have to play their turn
 			if (model.getPlayerOrder().isEmpty()) {
 
@@ -1059,9 +1065,9 @@ public class Controller implements Observer {
 				model.setGamePhase(GamePhase.END);
 
 				System.out.println("The game has ended.");
-				
+
 				// get all the players, including those that disconnected
-				List<Player> playerList = model.getPlayers();	
+				List<Player> playerList = model.getPlayers();
 
 				distributeEndGamePoints(playerList);
 
@@ -1074,9 +1080,32 @@ public class Controller implements Observer {
 				model.loadNextPlayer();
 				model.setCurrentTurnState(new InitialTurnState());
 			}
-			
+
 		}
-		
+
+		resetTimer();
+	}
+
+	/**
+	 * Resets the turn timer back to TURNCOUNTDOWN
+	 */
+	private void resetTimer() {
+		if (turnTimer != null) {
+			turnTimer.cancel();
+		}
+
+		turnTimer = new Timer();
+		TimerTask task = new TimerTask() {
+
+			@Override
+			public void run() {
+				// TimerScaduto Msg message = new TimerScadutoMsg("tempo
+				// scaduto");
+				// model.setMessage(message);
+				nextTurn();
+			}
+		};
+		turnTimer.schedule(task, TURNCOUNTDOWN);
 	}
 
 }

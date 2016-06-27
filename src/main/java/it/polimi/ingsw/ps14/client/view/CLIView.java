@@ -219,18 +219,11 @@ public class CLIView extends ClientView implements Runnable {
 		print("CHANGE coast|hills|mountains - change faceup business permits in the region specified");
 		print("MAIN - perform another main action");
 		print("ELECT-WITH-ASSISTANT coast|hills|mountains|king color - elect a councillor in the chosen balcony with help of an assistant");
-		print("USED-CARD permit_id - choose used card to recycle"); // TODO in
-																	// che senso
-																	// riciclare
-																	// un
-																	// business
-																	// permit
-																	// usato?
-		print("FINISH - pass the turn");
+		print("FINISH or PASS - pass the turn");
 		print("SHOW MYDETAILS/DETAILS/GAMEBOARD - show whatever you want");
 		print("SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... \n\tASSISTANTS NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE... - sell!sell!sell!");
 		print("SELL NONE - don't sell anything :(");
-		print("BUY ITEM_ID QUANTITY(optional) - buy! insert quantity\n\t only if buy some assistant of the item and not the whole item");
+		print("BUY ITEM_ID QUANTITY(optional) - buy! insert quantity if you want to buy some of the assistants in a bundle");
 		print("BUY FINISH - terminate your buying phase");
 	}
 
@@ -437,9 +430,9 @@ public class CLIView extends ClientView implements Runnable {
 		for (int i = 0; i < endResults.size(); i++) {
 			List<String> plrRes = endResults.get(i);
 
-			print(String.format("%s) %s with %s points, %s assistants and %s cards.", plrRes.get(0), plrRes.get(1),
+			print(String.format("%d) %s with %s points, %s assistants and %s cards.", i, plrRes.get(1),
 					plrRes.get(2), plrRes.get(3), plrRes.get(4)));
-			print(String.format("  emporiums -> %s,  nobility -> %s,  permits -> %s,  coins -> %s", plrRes.get(5),
+			print(String.format("  %s emporiums,  %s nobility,  %s permits,  %s coins", plrRes.get(5),
 					plrRes.get(6), plrRes.get(7), plrRes.get(8)));
 		}
 
