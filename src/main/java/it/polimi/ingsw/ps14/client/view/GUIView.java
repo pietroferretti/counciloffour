@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 
 import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.client.view.gui.GUI;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -16,150 +17,164 @@ import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.view.MainWindow;
+import java.awt.Dialog;
 
 public class GUIView extends ClientView implements Runnable {
 
-	private MainWindow mainWindow;
-	private Communication communication;
+    private GUI mainWindow;
+    private Communication communication;
 
-	@Override
-	public void run() {
-		mainWindow.setVisible(true);
+    public GUIView() {
+        super.setPlayerName(name);
+        playerID = null;
 
-	}
+    }
 
-	@Override
-	public void readMessage(Message message) {
-		// TODO Auto-generated method stub
+    @Override
+    public void run() {
+        mainWindow = new GUI(super.playerID);
+        mainWindow.setPlayerName(name);
+        mainWindow.setCommunication(communication);
 
-	}
+        GUI.start();
+//		mainWindow.setVisible(true);
 
-	@Override
-	public void setCommunication(Communication communication) {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public void readMessage(Message message) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void showInfo(String text) {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public void setCommunication(Communication communication) {
+        this.communication = communication;
 
-	@Override
-	public void showGameStart() {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public void showInfo(String text) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void showKingBonus(int updatedShowableKingBonus) {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public void showGameStart() {
+        // TODO Auto-generated method stub
+        GameStartedDialog d;
+        d = new GameStartedDialog(mainWindow,true);
+        d.setVisible(true);
+        
+    }
 
-	@Override
-	public void showKingUpdate(King updatedKing) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showKingBonus(int updatedShowableKingBonus) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showMarket(Market updatedMarket) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showKingUpdate(King updatedKing) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showMarket(Market updatedMarket) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showPersonalDetails(Player p) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showPlayerChangesPrivate(String message) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showPersonalDetails(Player p) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showPlayerChangesPublic(String notice) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showPlayerChangesPrivate(String message) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showPrivateMsg(String text) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showPlayerChangesPublic(String notice) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showRegion(Region updatedRegion) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showPrivateMsg(String text) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showItemSold(ItemForSale item) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showRegion(Region updatedRegion) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
-			int numEmporiums) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showItemSold(ItemForSale item) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showAvailableAssistant(int update) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
+            int numEmporiums) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showAvailableAssistant(int update) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
-			int updatedBonusBlue) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showEndGame(List<List<String>> endResults) {
-		// TODO Auto-generated method stub
+    @Override
+    public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
+            int updatedBonusBlue) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showAvailableCommands() {
-		// TODO Auto-generated method stub
+    @Override
+    public void showEndGame(List<List<String>> endResults) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void showChatMsg(String author, String text) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void showAvailableCommands() {
+        // TODO Auto-generated method stub
 
+    }
 
-	public Integer getPlayerID() {
-		// TODO Auto-generated method stub
-		return super.getPlayerID();
-	}
+    @Override
+    public void showChatMsg(String author, String text) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public Integer getPlayerID() {
+        // TODO Auto-generated method stub
+        return super.getPlayerID();
+    }
 
 }

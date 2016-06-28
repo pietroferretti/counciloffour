@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
+import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -18,13 +20,15 @@ import javax.swing.ButtonGroup;
 public class ElectCouncillorDialog extends javax.swing.JDialog {
     
 private static int playerID;
+private static Communication communication;
     /**
      * Creates new form ElectCouncillorDialog
      */
-    public ElectCouncillorDialog(java.awt.Frame parent, boolean modal, int playerID) {
+    public ElectCouncillorDialog(java.awt.Frame parent, boolean modal, int playerID,Communication communication) {
         
         super(parent, modal);
         this.playerID=playerID;
+        this.communication=communication;
         initComponents();
     }
 
@@ -222,7 +226,8 @@ private static int playerID;
         System.out.println("it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog.jButton2MouseClicked()");
         System.out.println(getSelectedButtonText(colorChooser));
         System.out.println(getSelectedButtonText(balconyChooser));
-        
+//        dispose();
+        communication.electCouncillor(playerID, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)), getSelectedButtonText(balconyChooser));
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
@@ -255,7 +260,7 @@ private static int playerID;
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ElectCouncillorDialog dialog = new ElectCouncillorDialog(new javax.swing.JFrame(), true, playerID);
+                ElectCouncillorDialog dialog = new ElectCouncillorDialog(new javax.swing.JFrame(), true, playerID,communication);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

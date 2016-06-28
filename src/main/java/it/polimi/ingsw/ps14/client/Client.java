@@ -20,6 +20,7 @@ import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
 import it.polimi.ingsw.ps14.client.view.CLIView;
 import it.polimi.ingsw.ps14.client.view.ClientView;
+import it.polimi.ingsw.ps14.client.view.GUIView;
 import it.polimi.ingsw.ps14.server.ServerViewRemote;
 
 public class Client {
@@ -59,10 +60,10 @@ public class Client {
 		
 		} else if (view.toUpperCase().matches("^(GUI)$")) {
 			
-//			ClientView clientView = new GUIView()
+			clientView = new GUIView();
 			System.out.println("GUI not yet implemented");
-			scanner.close();
-			throw new UnsupportedOperationException();
+//			scanner.close();
+//			throw new UnsupportedOperationException();
 			
 		} else {
 			scanner.close();
