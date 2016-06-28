@@ -28,15 +28,15 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RMIserverOut {
+public class RMIServerOut {
 
-	private static final Logger LOGGER = Logger.getLogger(RMIserverOut.class
+	private static final Logger LOGGER = Logger.getLogger(RMIServerOut.class
 			.getName());
 
 	ClientViewRemote clientView;
 	private boolean active;
 
-	public RMIserverOut(ClientViewRemote clientView) {
+	public RMIServerOut(ClientViewRemote clientView) {
 		this.clientView = clientView;
 		active = true;
 	}

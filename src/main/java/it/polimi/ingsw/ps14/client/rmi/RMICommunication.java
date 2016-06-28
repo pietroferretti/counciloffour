@@ -9,14 +9,14 @@ import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
-import it.polimi.ingsw.ps14.server.RMIViewRemote;
+import it.polimi.ingsw.ps14.server.ServerViewRemote;
 
 public class RMICommunication implements Communication {
 
-	private RMIViewRemote serverStub;
+	private ServerViewRemote serverStub;
 	private ClientView clientView;
 
-	public RMICommunication(RMIViewRemote serverStub, ClientView clientView) throws RemoteException {
+	public RMICommunication(ServerViewRemote serverStub, ClientView clientView) throws RemoteException {
 		this.serverStub = serverStub;
 		this.clientView = clientView;
 	}

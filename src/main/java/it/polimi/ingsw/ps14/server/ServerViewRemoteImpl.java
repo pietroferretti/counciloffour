@@ -42,14 +42,14 @@ import java.util.Observable;
  *
  */
 
-public class RMIServerIn extends Observable implements RMIViewRemote {
+public class ServerViewRemoteImpl extends Observable implements ServerViewRemote {
 
 	private Server server;
 
 
 	private List<RMIServerView> serverViews;
 
-	public RMIServerIn(Server server) {
+	public ServerViewRemoteImpl(Server server) {
 		this.server = server;
 		serverViews = new ArrayList<>();
 	}

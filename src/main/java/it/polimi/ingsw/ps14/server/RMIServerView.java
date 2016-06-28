@@ -26,7 +26,7 @@ public class RMIServerView extends ServerView {
 			.getName());
 
 	private static final int TIMEOUT = 3000;
-	private RMIserverOut serverRMIout;
+	private RMIServerOut serverRMIout;
 	protected boolean active;
 
 	private Timer timer;
@@ -34,7 +34,7 @@ public class RMIServerView extends ServerView {
 
 	public RMIServerView(int id, ClientViewRemote client) {
 		super(id);
-		serverRMIout = new RMIserverOut(client);
+		serverRMIout = new RMIServerOut(client);
 		serverRMIout.castMessage(new PlayerIDMsg(id));
 		LOGGER.info(String.format("Sent id to player %d", super.getPlayerID()));
 	}

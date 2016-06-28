@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps14.message.DisconnectionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
-import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
@@ -55,7 +54,7 @@ public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class
 			.getName());
 
-	private static final long TURNCOUNTDOWN = (long) 30 * 1000; // 30 seconds
+	private static final long TURNCOUNTDOWN = 30; 	// 30 seconds
 
 	private Model model;
 	private List<Player> players;
@@ -1125,13 +1124,13 @@ public class Controller implements Observer {
 
 			@Override
 			public void run() {
-				// TimerScaduto Msg message = new TimerScadutoMsg("tempo
+				//TODO TimerScaduto Msg message = new TimerScadutoMsg("tempo
 				// scaduto");
 				// model.setMessage(message);
 				nextTurn();
 			}
 		};
-		turnTimer.schedule(task, TURNCOUNTDOWN);
+		turnTimer.schedule(task, TURNCOUNTDOWN * 1000);
 	}
 
 }
