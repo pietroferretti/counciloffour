@@ -94,7 +94,9 @@ public class Server {
 		LOGGER.info("Connection added.");
 		if (waitingConnections.size() == PLAYERS_NUMBER) {
 			timer.cancel();
-			createGame();
+			List<ServerView> viewsReady = new ArrayList<>(waitingConnections);
+			waitingConnections.clear();
+			createGame(viewsReady);
 		}
 		if (waitingConnections.size() == 2) {
 
@@ -106,7 +108,9 @@ public class Server {
 				@Override
 				public void run() {
 					if (waitingConnections.size() >= 2 && waitingConnections.size() < PLAYERS_NUMBER) {
-						createGame();
+						List<ServerView> viewsReady = new ArrayList<>(waitingConnections);
+						waitingConnections.clear();
+						createGame(viewsReady);
 					}
 				}
 			};
@@ -127,7 +131,7 @@ public class Server {
 		// rmiView.registerObserver(this.controller);
 		// this.gioco.registerObserver(rmiView);
 
-		ServerViewRemote viewRemote = (ServerViewRemote) UnicastRemoteObject.exportObject(rmiView, 0);
+		UnicastRemoteObject.exportObject(rmiView, 0);
 
 		System.out.println("Binding the server implementation to the registry");
 
@@ -136,17 +140,13 @@ public class Server {
 	public void startSocket() {
 		executor = Executors.newFixedThreadPool(128);
 
-		try {
-			serverSocket = new ServerSocket(PORT);
+		try (ServerSocket serverSocketResource = new ServerSocket(PORT)) {
+			serverSocket = serverSocketResource;
+			
 			LOGGER.info("SERVER SOCKET READY ON PORT " + PORT);
-		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE, "SERVER SOCKET ERROR", e);
-			return;
-		}
-
-		boolean exit = false;
-		while (!exit) {
-			try {
+		
+			while (true) {
+			
 				Socket newSocket = serverSocket.accept();
 				SocketServerView connection = new SocketServerView(newSocket, this, idCounter);
 				idCounter++;
@@ -155,19 +155,12 @@ public class Server {
 				meeting();
 
 				executor.submit(connection);
-
-			} catch (IOException e) {
-				LOGGER.log(Level.SEVERE, "Socket connection error!", e);
-				exit = true;
 			}
-		}
 
-		if (serverSocket != null && !serverSocket.isClosed()) {
-			try {
-				serverSocket.close();
-			} catch (IOException e) {
-				LOGGER.log(Level.SEVERE, "Error when closing server socket.", e);
-			}
+		} catch (IOException e) {
+			
+			LOGGER.log(Level.SEVERE, "Socket connection error!", e);
+		
 		}
 	}
 
@@ -181,17 +174,14 @@ public class Server {
 		server.startSocket();
 	}
 
-	private void createGame() {
+	private void createGame(List<ServerView> viewsReady) {
 		try {
-			LOGGER.info(String.format("Creating game with %d player.", waitingConnections.size()));
+			Thread.sleep(500);			
+			LOGGER.info(String.format("Creating game with %d player.", viewsReady.size()));
 
-			List<ServerView> views = new ArrayList<>(waitingConnections);
+			activeGames.add(new Game(viewsReady));
 
-			activeGames.add(new Game(views));
-
-			waitingConnections.clear();
-
-		} catch (Exception e) {
+		} catch (IOException | InterruptedException e) {
 			LOGGER.log(Level.SEVERE, "Unexpected exception while creating a new game.", e);
 		}
 	}

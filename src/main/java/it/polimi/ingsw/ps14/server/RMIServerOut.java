@@ -1,14 +1,20 @@
 package it.polimi.ingsw.ps14.server;
 
+import java.rmi.RemoteException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ChatMsg;
 import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg;
@@ -22,11 +28,6 @@ import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCity;
-
-import java.rmi.RemoteException;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class RMIServerOut {
 
@@ -68,17 +69,20 @@ public class RMIServerOut {
 							colorBonuses.get(ColorCity.BLUE));
 				}
 
-				if (arg instanceof ErrorMsg) {
-					clientView.error(((ErrorMsg) arg).getPlayerID(),
-							((ErrorMsg) arg).getInfo());
-				}
-
 				if (arg instanceof GameStartedMsg) {
 					clientView.setGameStart(((GameStartedMsg) arg).getState());
 				}
 
 				if (arg instanceof GameEndedMsg) {
 					clientView.gameEnded(((GameEndedMsg) arg).getEndResults());
+				}
+				
+				if (arg instanceof InfoPrivateMsg) {
+					clientView.info(((InfoPrivateMsg) arg).getInfo());
+				}
+				
+				if (arg instanceof InfoPublicMsg) {
+					clientView.info(((InfoPublicMsg) arg).getInfo());
 				}
 
 				if (arg instanceof KingBonusesUpdatedMsg) {

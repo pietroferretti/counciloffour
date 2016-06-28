@@ -20,8 +20,9 @@ import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
-import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.GamePhase;
@@ -171,7 +172,7 @@ public class Controller implements Observer {
 		case MARKET:
 
 			// players cannot perform TurnActions during the market phase
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You cannot do that action during the Market phase");
 			break;
 
@@ -182,7 +183,7 @@ public class Controller implements Observer {
 
 		case END:
 
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"The game has ended, you cannot perform this action.");
 			break;
 
@@ -208,7 +209,7 @@ public class Controller implements Observer {
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -216,7 +217,7 @@ public class Controller implements Observer {
 		// checks if we are in the right state to execute this action (e.g. we
 		// can still perform a Main Action)
 		if (!model.getCurrentTurnState().isActionLegal(action, model)) {
-			sendErrorMsg(playerView, "You cannot do this action now!");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!");
 			return;
 		}
 
@@ -302,7 +303,7 @@ public class Controller implements Observer {
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -310,7 +311,7 @@ public class Controller implements Observer {
 		// checks if we are in the right state to execute this action (e.g. we
 		// can still perform a Main Action)
 		if (!model.getCurrentTurnState().isActionLegal(action, model)) {
-			sendErrorMsg(playerView, "You cannot do this action now!");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!");
 			return;
 		}
 
@@ -361,26 +362,26 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You can only do this during the Market phase.");
 			return;
 		}
 
 		// checks if we are in the market selling phase
 		if (model.getCurrentMarketState() != MarketState.SELLING) {
-			sendErrorMsg(playerView, "You cannot sell now.");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot sell now.");
 			return;
 		}
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
 
 		if (!action.isValid(model)) {
-			sendErrorMsg(playerView, "You cannot do this action now!"); // details
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!"); // details
 			return;
 		}
 
@@ -394,8 +395,6 @@ public class Controller implements Observer {
 			Collections.shuffle(marketPlayers);
 			model.setPlayerOrder(marketPlayers);
 			model.loadNextPlayer();
-//			model.setCurrentPlayer(model.getNextPlayer());
-//			model.getPlayerOrder().removeFirst();
 
 		} else {
 
@@ -417,18 +416,18 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You can only do this during the Market phase.");
 			return;
 		}
 
 		if (model.getCurrentMarketState() != MarketState.BUYING) {
-			sendErrorMsg(playerView, "You cannot buy now.");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot buy now.");
 			return;
 		}
 
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -440,7 +439,7 @@ public class Controller implements Observer {
 
 		} else {
 
-			sendErrorMsg(playerView, "You cannot do this action now!");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!");
 
 		}
 	}
@@ -457,18 +456,18 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You can only do this during the Market phase.");
 			return;
 		}
 
 		if (model.getCurrentMarketState() != MarketState.BUYING) {
-			sendErrorMsg(playerView, "You cannot do this now.");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this now.");
 			return;
 		}
 
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -492,18 +491,18 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You can only do this during the Market phase.");
 			return;
 		}
 
 		if (model.getCurrentMarketState() != MarketState.SELLING) {
-			sendErrorMsg(playerView, "You cannot do this now.");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this now.");
 			return;
 		}
 
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -537,20 +536,20 @@ public class Controller implements Observer {
 
 		if (model.getWaitingFor() == WaitingFor.NOTHING) {
 
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You cannot answer a nobility bonus request if there isn't one.");
 
 		} else {
 
 			if (chosenIDs == null || chosenIDs.isEmpty()) {
 
-				sendErrorMsg(playerView, "You didn't choose anything!");
+				sendPrivateMsg(playerView.getPlayerID(), "You didn't choose anything!");
 
 			} else if (!(idsInAvailableChoices(chosenIDs)
 					&& allIDsAreDifferent(chosenIDs) && (chosenIDs.size() <= model
 					.getWaitingForHowMany()))) {
 
-				sendErrorMsg(playerView, "Invalid choices.");
+				sendPrivateMsg(playerView.getPlayerID(), "Invalid choices.");
 
 			} else {
 
@@ -655,7 +654,7 @@ public class Controller implements Observer {
 			} else {
 
 				LOGGER.warning("Something went wrong when interpreting the answer to a nobility request!");
-				sendErrorMsg(playerView, "Invalid answer!");
+				sendPrivateMsg(playerView.getPlayerID(), "Invalid answer!");
 
 			}
 		}
@@ -691,7 +690,7 @@ public class Controller implements Observer {
 			} else {
 
 				LOGGER.warning("Something went wrong when interpreting the answer to a nobility request!");
-				sendErrorMsg(playerView, "Invalid answer!");
+				sendPrivateMsg(playerView.getPlayerID(), "Invalid answer!");
 
 			}
 		}
@@ -726,7 +725,7 @@ public class Controller implements Observer {
 			} else {
 
 				LOGGER.warning("Something went wrong when interpreting the answer to a nobility request!");
-				sendErrorMsg(playerView, "Invalid answer!");
+				sendPrivateMsg(playerView.getPlayerID(), "Invalid answer!");
 
 			}
 		}
@@ -761,19 +760,31 @@ public class Controller implements Observer {
 	}
 
 	/**
-	 * "Sends" an error message by putting the message in the {@code message}
+	 * "Sends" a private message to a serverview by putting the message in the {@code message}
 	 * field in Model. The Model will notify ModelView, that will in turn send
-	 * the message to the right view.
+	 * the message to the correct player.
 	 * 
-	 * @param playerView
-	 *            the view associated to the player
-	 * @param errorMessage
+	 * @param playerID
+	 *            the id associated to the player
+	 * @param privateMessage
 	 *            the message to send
 	 */
-	private void sendErrorMsg(ServerView playerView, String errorMessage) {
-		model.setMessage(new ErrorMsg(playerView.getPlayerID(), errorMessage));
+	private void sendPrivateMsg(Integer playerID, String privateMessage) {
+		model.setMessage(new InfoPrivateMsg(playerID, privateMessage));
 	}
 
+	/**
+	 * "Sends" a public message to all the serverviews by putting the message in the {@code message}
+	 * field in Model. The Model will notify ModelView, that will in turn send
+	 * the message to all the players
+	 * 
+	 * @param publicMessage
+	 *            the message to send
+	 */
+	private void sendPublicMsg(String publicMessage) {
+		model.setMessage(new InfoPublicMsg(publicMessage));
+	}
+	
 	/**
 	 * Sends the final message at the end of the game, with every info about the
 	 * winner and the rankings.
@@ -1000,6 +1011,8 @@ public class Controller implements Observer {
 		if (model.getCurrentPlayer().getId() == player.getId()) {
 			nextTurn();
 		}
+		
+		sendPublicMsg(String.format("%s disconnected from the game!", player.getName()));
 
 	}
 
@@ -1117,9 +1130,8 @@ public class Controller implements Observer {
 
 			@Override
 			public void run() {
-				//TODO TimerScaduto Msg message = new TimerScadutoMsg("tempo
-				// scaduto");
-				// model.setMessage(message);
+				sendPrivateMsg(model.getCurrentPlayer().getId(), "Time's out!");
+				sendPublicMsg(String.format("%s's time ran out!", model.getCurrentPlayer().getName()));
 				nextTurn();
 			}
 		};

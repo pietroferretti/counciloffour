@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
 import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.MarketState;
@@ -27,20 +27,21 @@ public class ModelViewTest {
 	private Player player, player2, player3;
 	private ModelView mv;
 
-	@SuppressWarnings("deprecation")
+
 	@Before
 	public void setUp() throws Exception {
-		Model model1 = new Model();
+		model = new Model();
 
-		player = new Player("efrt", Color.red, 20, 12, model1.getGameBoard().getPoliticDeck(), 6);
-		player3 = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model1.getGameBoard().getPoliticDeck(), 6);
-		player2 = new Player("sdds", Color.cyan, 20, 12, model1.getGameBoard().getPoliticDeck(), 4);
+		player = new Player("efrt", Color.red, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
+		player3 = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
+		player2 = new Player("sdds", Color.cyan, 20, 12, model.getGameBoard().getPoliticDeck(), 4);
 		List<Player> players = new ArrayList<>(3);
 		players.add(player);// id 1
 		players.add(player2);// id 3
 		players.add(player3);// id 2
 
-		model = new Model(players);
+		model.setPlayers(players);
+		
 		new Controller(model);
 		// model.setPlayerOrder(players);
 		// model.loadNextPlayer();
@@ -118,7 +119,7 @@ public class ModelViewTest {
 
 	@Test
 	public void testUpdateMessageView() {
-		Message m = new ErrorMsg(player.getId(), "prova");
+		Message m = new InfoPrivateMsg(player.getId(), "prova");
 		model.setMessage(m);
 		assertFalse(mv.hasChanged());
 	}

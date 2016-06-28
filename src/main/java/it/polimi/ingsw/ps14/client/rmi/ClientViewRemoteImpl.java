@@ -71,8 +71,8 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void error(Integer playerID, String text) {
-		cv.showError(text);
+	public void info(String text) {
+		cv.showInfo(text);
 	}
 
 	@Override

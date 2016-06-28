@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.client.view.ClientView;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
@@ -14,14 +13,11 @@ import it.polimi.ingsw.ps14.server.ServerViewRemote;
 public class RMICommunication implements Communication {
 
 	private ServerViewRemote serverStub;
-	private ClientView clientView;
 
-	public RMICommunication(ServerViewRemote serverStub, ClientView clientView) throws RemoteException {
+	public RMICommunication(ServerViewRemote serverStub) throws RemoteException {
 		this.serverStub = serverStub;
-		this.clientView = clientView;
 	}
 
-	
 	
 	@Override
 	public void setPlayerName(Integer playerID, String name) {
@@ -40,7 +36,6 @@ public class RMICommunication implements Communication {
 		
 			try {
 				serverStub.drawCard(playerID);
-				System.out.println("calling drawcard method");
 
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

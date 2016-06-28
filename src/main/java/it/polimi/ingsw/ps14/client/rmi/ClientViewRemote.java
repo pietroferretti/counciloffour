@@ -35,7 +35,7 @@ public interface ClientViewRemote extends Remote {
 	public void citiesColorBonusesUpdate(int updatedBonusGold,
 			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) throws RemoteException;
 
-	public void error(Integer playerID, String text) throws RemoteException;
+	public void info(String text) throws RemoteException;
 
 	public void setGameStart(State initialGameState) throws RemoteException;
 
