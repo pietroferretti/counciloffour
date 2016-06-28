@@ -27,7 +27,7 @@ public abstract class ServerView extends Observable implements Observer {
 	private Integer id;
 	private String name;
 	private ModelView modelView;
-	protected Chat chat;
+	protected ServerChat chat;
 
 	public ServerView(Integer id) {
 		this.id = id;
@@ -105,7 +105,7 @@ public abstract class ServerView extends Observable implements Observer {
 
 	protected abstract void sendMessage(Message msg);
 
-	public void setChat(Chat chat) {
+	public void setChat(ServerChat chat) {
 		this.chat = chat;
 	}
 

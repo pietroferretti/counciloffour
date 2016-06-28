@@ -2,10 +2,10 @@ package it.polimi.ingsw.ps14.server;
 
 import java.util.List;
 
-public class Chat {
+public class ServerChat {
 	private List<ServerView> serverView;
 	
-	public Chat(List<ServerView> views){
+	public ServerChat(List<ServerView> views){
 		this.serverView=views;
 		}
 	
