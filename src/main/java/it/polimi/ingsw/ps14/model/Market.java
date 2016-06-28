@@ -84,6 +84,10 @@ public class Market extends Observable implements Serializable {
 		notifyObservers("The item " + item.getType() + "with ID: " + Integer.toString(item.getBarCode()) + " of player "
 				+ Integer.toString(item.getOwnerID()) + " has been sold!");
 	}
+	
+	public boolean isEmpty() {
+		return objectsForSale.isEmpty();
+	}
 
 	public void clear() {
 		objectsForSale = new ArrayList<>();
@@ -91,7 +95,7 @@ public class Market extends Observable implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Market [objectsForSale=" + objectsForSale + "]";
+		return "Market:\n" + objectsForSale + "\n";
 	}
 
 }
