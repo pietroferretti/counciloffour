@@ -31,7 +31,7 @@ public class Server {
 
 	private static final int PORT = 19999;
 	
-	private static final int COUNTDOWN = 5;
+	private static final int COUNTDOWN = 20;	// TODO ricordare di settare a 20 per la consegna
 
 	private static final int RMI_PORT = 52365;
 	private static final String NAME = "council4";
