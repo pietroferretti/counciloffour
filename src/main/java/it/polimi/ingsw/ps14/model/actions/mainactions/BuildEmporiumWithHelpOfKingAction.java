@@ -19,6 +19,12 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.logging.Logger;
 
+/**
+ * 
+ * Build an emporium corrupting king's conucillors . The player must specified
+ * city where to build and politic cards to corrupt king's council
+ *
+ */
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 	/**
@@ -140,11 +146,9 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		// remove coins to buy concillor
 		player.useCoins(balcony.councillorCost(cards));
 
-
 		// remove politic cards used
 		for (PoliticCard pc : cards)
 			player.removeColor(pc.getColor());
-
 
 		// add politic cards used to gameboard
 		model.getGameBoard().getPoliticDeck().discardCards(cards);
@@ -179,10 +183,9 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 			giveBonusKing(player, gameboard);
 		}
-		
 
 		// apply city token
-		if(city.getToken()!=null)
+		if (city.getToken() != null)
 			city.getToken().useBonus(player, model);
 
 		// check bonus neighbors

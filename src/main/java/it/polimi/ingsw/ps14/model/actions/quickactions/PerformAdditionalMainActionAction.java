@@ -7,7 +7,7 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 public class PerformAdditionalMainActionAction extends QuickAction {
 
 	/**
-	 * 
+	 * the player pay 3 assistant and can do one more main action
 	 */
 	private static final long serialVersionUID = 4902881250620758906L;
 

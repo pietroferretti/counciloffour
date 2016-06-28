@@ -10,7 +10,7 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 public class SendAssistantToElectCouncillorAction extends QuickAction {
 
 	/**
-	 * 
+	 * use an assistant to elect a councillor
 	 */
 	private static final long serialVersionUID = -3938339418005763618L;
 	private final ColorCouncillor color;

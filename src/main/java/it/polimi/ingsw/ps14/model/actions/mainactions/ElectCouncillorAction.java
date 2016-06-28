@@ -12,34 +12,37 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 public class ElectCouncillorAction extends MainAction {
 
 	/**
-	 * 
+	 * Elect councillor in a region or king's balcony NB: if regionType is null,
+	 * player trying to elect in king's balcony
 	 */
-	private static final Logger LOGGER = Logger.getLogger(ElectCouncillorAction.class
-			.getName());
+	private static final Logger LOGGER = Logger
+			.getLogger(ElectCouncillorAction.class.getName());
 	private static final long serialVersionUID = 7653027906566733276L;
 	private final ColorCouncillor councillor;
 	private final RegionType regionType;
 
 	// chi chiama questo metodo deve ricavare il balcone dalla region o dal king
-	public ElectCouncillorAction(Integer playerID, ColorCouncillor councillor,String regionTypeOrKing) {
+	public ElectCouncillorAction(Integer playerID, ColorCouncillor councillor,
+			String regionTypeOrKing) {
 		super(playerID);
 		this.councillor = councillor;
-		if(!regionTypeOrKing.equalsIgnoreCase("KING"))
-			this.regionType = RegionType.valueOf(regionTypeOrKing.toUpperCase());
-		else 
-			regionType=null;
+		if (!regionTypeOrKing.equalsIgnoreCase("KING"))
+			this.regionType = RegionType
+					.valueOf(regionTypeOrKing.toUpperCase());
+		else
+			regionType = null;
 	}
 
 	@Override
 	public boolean isValid(Model model) {
-		
+
 		Player player = model.id2player(super.getPlayer());
-		Balcony balcony ;
-		if(regionType!=null)
-			balcony=model.getGameBoard().getRegion(regionType).getBalcony();
+		Balcony balcony;
+		if (regionType != null)
+			balcony = model.getGameBoard().getRegion(regionType).getBalcony();
 		else
-			balcony=model.getGameBoard().getKing().getBalcony();
-		if (player == null  || balcony==null){
+			balcony = model.getGameBoard().getKing().getBalcony();
+		if (player == null || balcony == null) {
 			LOGGER.info(String.format("isValid conversion error"));
 			return false;
 		}
@@ -47,27 +50,27 @@ public class ElectCouncillorAction extends MainAction {
 	}
 
 	@Override
-	public TurnState execute(TurnState previousState,Model model) {
+	public TurnState execute(TurnState previousState, Model model) {
 		Player player = model.id2player(super.getPlayer());
-		Balcony balcony ;
-		if(regionType!=null)
-			balcony=model.getGameBoard().getRegion(regionType).getBalcony();
+		Balcony balcony;
+		if (regionType != null)
+			balcony = model.getGameBoard().getRegion(regionType).getBalcony();
 		else
-			balcony=model.getGameBoard().getKing().getBalcony();
-		
-		if (player == null  || balcony==null){
+			balcony = model.getGameBoard().getKing().getBalcony();
+
+		if (player == null || balcony == null) {
 			LOGGER.info(String.format("execute conversion error"));
 			return null;
 		}
 		int electCouncillorPrize = 4;
-		
+
 		// electCouncillor return discarded councillor, discarded councillor is
 		// added to availableCouncillors in gameboard
 		model.getGameBoard().addDiscardedCouncillor(
 				balcony.electCouncillor(councillor));
 		model.getGameBoard().useCouncillor(councillor);
-		
-		if(regionType!=null)
+
+		if (regionType != null)
 			model.getGameBoard().getRegion(regionType).setBalcony();
 		else
 			model.getGameBoard().getKing().setBalcony();

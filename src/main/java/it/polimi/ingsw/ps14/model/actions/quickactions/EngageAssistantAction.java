@@ -7,7 +7,7 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 public class EngageAssistantAction extends QuickAction {
 
 	/**
-	 * 
+	 * engage an assistant: the player pay 3 coins to get an assistant from the gameboard
 	 */
 	private static final long serialVersionUID = 8330396498177010120L;
 
