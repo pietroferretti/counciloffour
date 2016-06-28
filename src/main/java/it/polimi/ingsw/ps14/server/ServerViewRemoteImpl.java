@@ -56,7 +56,6 @@ public class ServerViewRemoteImpl extends Observable implements ServerViewRemote
 
 	public void registerClient(ClientViewRemote clientStub)
 			throws RemoteException {
-		System.out.println("CLIENT REGISTRATO");
 		server.registerWaitingConnectionRMI(clientStub, this);
 		server.meeting();
 	}

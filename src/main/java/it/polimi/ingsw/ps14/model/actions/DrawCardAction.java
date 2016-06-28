@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.model.actions;
 
+import it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
@@ -27,7 +28,10 @@ public class DrawCardAction extends TurnAction {
 		Player player = model.id2player(super.getPlayer());
 
 		player.addPolitic(model.getGameBoard().getPoliticDeck().drawCard());
-		model.setAdditionalMainsToDo(0); 
+		
+		model.setMessage(new InfoPublicMsg(String.format("%s has drawn a card.", player.getName())));
+		
+		model.setAdditionalMainsToDo(0); 		
 		return new CardDrawnState();
 	}
 
