@@ -35,6 +35,7 @@ public class Game {
 		for (ServerView view : views) {
 			Player player = new Player(view.getPlayerID(), 10 + playerNum, 1 + playerNum, model.getGameBoard().getPoliticDeck(), 6);
 			playerList.add(player);
+			playerNum++;
 		}
 		
 		model.setPlayers(playerList);

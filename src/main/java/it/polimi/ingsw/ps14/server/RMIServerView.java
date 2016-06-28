@@ -137,10 +137,11 @@ public class RMIServerView extends ServerView {
 
 	public void timerPlayer() {
 		int id = super.getPlayerID();
+		
 		if (timer != null)
 			timer.cancel();
+		
 		timer = new Timer();
-		System.out.println("ping ricevuto da " + id);
 		task = new TimerTask() {
 			@Override
 			public void run() {
