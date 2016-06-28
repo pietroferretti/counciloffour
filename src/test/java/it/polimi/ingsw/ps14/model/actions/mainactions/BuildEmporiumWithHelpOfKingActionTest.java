@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.Model;
@@ -48,10 +48,11 @@ public class BuildEmporiumWithHelpOfKingActionTest {
 		cards.add(new PoliticCard(ColorPolitic.WHITE));
 		player.addPolitic(new PoliticCard(ColorPolitic.WHITE));
 
-		cards.add(new PoliticCard(ColorPolitic.ORANGE));
-		player.addPolitic(new PoliticCard(ColorPolitic.ORANGE));
+//		cards.add(new PoliticCard(ColorPolitic.ORANGE));
+//		player.addPolitic(new PoliticCard(ColorPolitic.ORANGE));
 
-		
+		cards.add(new PoliticCard(ColorPolitic.BLACK));
+		player.addPolitic(new PoliticCard(ColorPolitic.BLACK));
 		
 		model.getGameBoard().getKing().getBalcony().electCouncillor(ColorCouncillor.BLACK);
 		model.getGameBoard().getKing().getBalcony().electCouncillor(ColorCouncillor.WHITE);
@@ -83,7 +84,10 @@ public class BuildEmporiumWithHelpOfKingActionTest {
 		action.execute(null, model);
 
 		assertEquals(model.getGameBoard().getCities().get(2).getEmporiums().get(0),player);
-//		assertEquals(player.getHand().size()+cards.size(),oldPolitic.size()); non conta le carte dei bonus
+//		assertEquals(player.getHand().size()+cards.size(),oldPolitic.size());  //Se bonus è politic card non funziona
+		assertTrue(model.getGameBoard().getPoliticDeck().getDiscardedCards().containsAll(cards));
+		assertEquals(model.getGameBoard().getKing().getCity(),model.getGameBoard().getCities().get(2));
+		
 		
 	}
 

@@ -140,20 +140,11 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		// remove coins to buy concillor
 		player.useCoins(balcony.councillorCost(cards));
 
-//		List<PoliticCard> cardsToRemove = new ArrayList<>();
-//		for (PoliticCard pc : cards)
-//			for (PoliticCard p : player.getHand()) {
-//				if (p.getColor().equals(pc.getColor())) {
-//					cardsToRemove.add(p);
-//					System.out.println("rimuovo " + p);
-//					break;
-//				}
-//			}
-//		player.getHand().removeAll(cardsToRemove);
-//		// System.out.println(player.toString());
 
-		 //remove cards politic used
-		 player.getHand().removeAll(cards);
+		// remove politic cards used
+		for (PoliticCard pc : cards)
+			player.removeColor(pc.getColor());
+
 
 		// add politic cards used to gameboard
 		model.getGameBoard().getPoliticDeck().discardCards(cards);
@@ -188,9 +179,11 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 			giveBonusKing(player, gameboard);
 		}
+		
 
 		// apply city token
-		city.getToken().useBonus(player, model);
+		if(city.getToken()!=null)
+			city.getToken().useBonus(player, model);
 
 		// check bonus neighbors
 		useBonusNeighbors(city, player, model);
@@ -232,5 +225,4 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 			player.addPoints(gameboard.useKingBonus());
 		}
 	}
-
 }

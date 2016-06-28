@@ -24,8 +24,8 @@ public class ElectCouncillorAction extends MainAction {
 	public ElectCouncillorAction(Integer playerID, ColorCouncillor councillor,String regionTypeOrKing) {
 		super(playerID);
 		this.councillor = councillor;
-		if(regionTypeOrKing.compareTo("KING")!=0)
-			this.regionType = RegionType.valueOf(regionTypeOrKing);
+		if(!regionTypeOrKing.equalsIgnoreCase("KING"))
+			this.regionType = RegionType.valueOf(regionTypeOrKing.toUpperCase());
 		else 
 			regionType=null;
 	}
