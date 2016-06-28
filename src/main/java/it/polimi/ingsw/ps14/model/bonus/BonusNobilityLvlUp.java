@@ -30,9 +30,9 @@ public class BonusNobilityLvlUp implements Bonus {
 		Integer currentLevel = player.getLevel();
 		
 		List<Bonus> bonusesToApply = new ArrayList<>();
-		for (int level = currentLevel; level < currentLevel+quantity; level++) {
-			if (nobilityTrack.bonusExistsAtLevel(level)) {
-				bonusesToApply.add(nobilityTrack.getBonus(level));
+		for (int level = currentLevel; level < currentLevel + quantity; level++) {
+			if (nobilityTrack.bonusExistsAtLevel(level + 1)) {
+				bonusesToApply.add(nobilityTrack.getBonus(level + 1));
 			}
 			player.levelUp();
 		}
@@ -63,6 +63,6 @@ public class BonusNobilityLvlUp implements Bonus {
 	
 	@Override
 	public String toString() {
-		return "\n+" + Integer.toString(quantity) + " nobility points";
+		return "\n+" + Integer.toString(quantity) + " nobility";
 	}
 }

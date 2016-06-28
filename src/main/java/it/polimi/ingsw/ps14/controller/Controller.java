@@ -149,6 +149,7 @@ public class Controller implements Observer {
 	private void updatePlayerName(ServerView playerView, String name) {
 
 		model.id2player(playerView.getPlayerID()).setName(name);
+		model.setCurrentPlayer(model.getCurrentPlayer());; 	// notifies modelview
 
 	}
 
@@ -211,6 +212,11 @@ public class Controller implements Observer {
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
 			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
+			return;
+		}
+		
+		if (model.getWaitingFor() != WaitingFor.NOTHING) {
+			sendPrivateMsg(playerView.getPlayerID(), "You have to choose your bonuses before doing more actions!");
 			return;
 		}
 
@@ -305,6 +311,11 @@ public class Controller implements Observer {
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
 			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
+			return;
+		}
+		
+		if (model.getWaitingFor() != WaitingFor.NOTHING) {
+			sendPrivateMsg(playerView.getPlayerID(), "You have to choose your bonuses before doing more actions!");
 			return;
 		}
 
