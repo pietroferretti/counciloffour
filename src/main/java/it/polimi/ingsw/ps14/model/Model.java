@@ -22,6 +22,8 @@ public class Model extends Observable implements Serializable {
 
 	private static final long serialVersionUID = -4787221737865002835L;
 
+	private static final String SETTINGS_FILENAME = "src/main/resources/settings.json";
+	
 	private static int idCounter = 1;
 	private final int idGame;
 
@@ -37,7 +39,7 @@ public class Model extends Observable implements Serializable {
 	public Model() throws IOException {
 		idGame = idCounter;
 		idCounter++;
-		gameBoard = new GameBoard(new Settings("settings.json"));
+		gameBoard = new GameBoard(new Settings(SETTINGS_FILENAME));
 		players = new ArrayList<>();
 		market = new Market();
 		state = new State();
@@ -50,29 +52,6 @@ public class Model extends Observable implements Serializable {
 		message = new MessageObservable();
 	}
 
-	/**
-	 * NON LO USIAMO MAI, non possiamo avere i player prima di avere creato il
-	 * model
-	 * 
-	 * @param players
-	 * @throws IOException
-	 * @deprecated
-	 */
-	public Model(List<Player> players) throws IOException {
-		idGame = idCounter;
-		idCounter++;
-		gameBoard = new GameBoard(new Settings("settings.json"));
-		this.players = players;
-		market = new Market();
-		state = new State();
-		bonusesToDo = new ArrayList<>();
-
-		setGamePhase(GamePhase.TURNS);
-		setCurrentTurnState(new InitialTurnState());
-		setCurrentMarketState(MarketState.END);
-
-		message = new MessageObservable();
-	}
 
 	public void startGame() {
 		setMessage(new GameStartedMsg(getState()));

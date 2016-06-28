@@ -89,7 +89,7 @@ public class SocketCommunication implements Communication {
 				clientView.showGameStart();
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
-				clientView.showAvailableCommands();
+//				clientView.showAvailableCommands();
 			} else if (message instanceof StateUpdatedMsg) {
 
 				clientView.setGameState(((StateUpdatedMsg) message)

@@ -80,7 +80,7 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 		cv.setGameStarted(true);
 		cv.setGameState(initialGameState);
 		cv.showGameStart();
-		cv.showAvailableCommands();
+//		cv.showAvailableCommands();
 	}
 
 	@Override

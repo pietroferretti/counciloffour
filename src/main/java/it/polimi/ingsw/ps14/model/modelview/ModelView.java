@@ -205,7 +205,6 @@ public class ModelView extends Observable implements Observer, Serializable {
 				notifyObservers(new MarketUpdatedMsg(((MarketView) o).getMarketCopy(),(String) message));
 			}
 		} else if (o instanceof MessageView) {
-			// TODO controllare
 			if (((MessageView) o).getMessageCopy() != null) {
 				setChanged();
 				notifyObservers(((MessageView) o).getMessageCopy());
