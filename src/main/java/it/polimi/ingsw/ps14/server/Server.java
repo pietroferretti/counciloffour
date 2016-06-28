@@ -31,7 +31,7 @@ public class Server {
 
 	private static final int PORT = 19999;
 	
-	private static final int COUNTDOWN = 5;
+	private static final int COUNTDOWN = 20;	// TODO ricordare di settare a 20 per la consegna
 
 	private static final int RMI_PORT = 52365;
 	private static final String NAME = "council4";
@@ -65,7 +65,7 @@ public class Server {
 	 * Registro una connessione attiva in rmi
 	 */
 	public synchronized void registerWaitingConnectionRMI(
-			ClientViewRemote clientStub, RMIServerIn rmiServerIn) {
+			ClientViewRemote clientStub, ServerViewRemoteImpl rmiServerIn) {
 		RMIServerView connection = new RMIServerView(idCounter, clientStub);
 		idCounter++;
 		
@@ -121,13 +121,13 @@ public class Server {
 
 		registry = LocateRegistry.createRegistry(RMI_PORT);
 		System.out.println("Constructing the RMI registry");
-		RMIServerIn rmiView = new RMIServerIn(this);
+		ServerViewRemoteImpl rmiView = new ServerViewRemoteImpl(this);
 		registry.bind(NAME, rmiView);
 
 		// rmiView.registerObserver(this.controller);
 		// this.gioco.registerObserver(rmiView);
 
-		RMIViewRemote viewRemote = (RMIViewRemote) UnicastRemoteObject.exportObject(rmiView, 0);
+		ServerViewRemote viewRemote = (ServerViewRemote) UnicastRemoteObject.exportObject(rmiView, 0);
 
 		System.out.println("Binding the server implementation to the registry");
 

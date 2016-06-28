@@ -9,6 +9,7 @@ import it.polimi.ingsw.ps14.server.ServerView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -25,12 +26,14 @@ public class Game {
 		
 		LOGGER.info("Creating Model.");
 		model = new Model();
-		
-		// TODO different amount of coins and assistants
 
+
+		Collections.shuffle(viewList);	// randomizes the viewList to choose the player order
+		
 		List<Player> playerList = new ArrayList<>();
+		int playerNum = 0;
 		for (ServerView view : views) {
-			Player player = new Player(view.getPlayerID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6);
+			Player player = new Player(view.getPlayerID(), 10 + playerNum, 1 + playerNum, model.getGameBoard().getPoliticDeck(), 6);
 			playerList.add(player);
 		}
 		

@@ -15,7 +15,7 @@ import it.polimi.ingsw.ps14.model.RegionType;
  * interface that specifies methods callable from the client
  *
  */
-public interface RMIViewRemote extends Remote{
+public interface ServerViewRemote extends Remote{
 
 	public void registerClient(ClientViewRemote clientStub)
 			throws RemoteException;

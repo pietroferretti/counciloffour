@@ -126,7 +126,7 @@ public class CLIView extends ClientView implements Runnable {
 
 
 	public void print(String string) {
-		print(string);
+		System.out.println(string);
 	}
 
 	@Override

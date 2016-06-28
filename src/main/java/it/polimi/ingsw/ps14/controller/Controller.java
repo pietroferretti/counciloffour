@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps14.message.DisconnectionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
-import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
@@ -55,19 +54,16 @@ public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class
 			.getName());
 
-	private static final long TURNCOUNTDOWN = (long) 30 * 1000; // 30 seconds
+	private static final long TURNCOUNTDOWN = 30; 	// 30 seconds
 
 	private Model model;
 	private List<Player> players;
-	private List<Player> marketPlayers;
 
 	private Timer turnTimer;
 
 	/**
 	 * Build the controller with model. Saves a reference to the model, and a
-	 * list of all the players. The list is randomized, and represents the order
-	 * of the player turns. The controller sets the order of the players in the
-	 * model.
+	 * list of all the players. Starts the turn timer.
 	 * 
 	 * @param model
 	 *            the model of the game
@@ -75,13 +71,8 @@ public class Controller implements Observer {
 	public Controller(Model model) {
 		this.model = model;
 		this.players = model.getPlayers();
-		Collections.shuffle(players);
 
-		model.setPlayerOrder(players);
-		model.loadNextPlayer();
-
-		resetTimer();
-
+		resetTimer();	// start the turn timer
 	}
 
 	/**
@@ -279,11 +270,11 @@ public class Controller implements Observer {
 					model.setCurrentMarketState(MarketState.SELLING);
 					model.getMarket().clear();
 
-					marketPlayers = new ArrayList<>(players);
-					Collections.shuffle(marketPlayers);
-					model.setPlayerOrder(marketPlayers);
-					model.setCurrentPlayer(model.getNextPlayer());
-					model.getPlayerOrder().removeFirst();
+//					marketPlayers = new ArrayList<>(players);
+//					Collections.shuffle(marketPlayers);
+//					model.setPlayerOrder(marketPlayers);
+					model.setPlayerOrder(players);
+					model.loadNextPlayer();
 
 				} else {
 
@@ -399,9 +390,12 @@ public class Controller implements Observer {
 		if (model.getPlayerOrder().isEmpty()) {
 
 			model.setCurrentMarketState(MarketState.BUYING);
+			List<Player> marketPlayers = new ArrayList<>(players);
+			Collections.shuffle(marketPlayers);
 			model.setPlayerOrder(marketPlayers);
-			model.setCurrentPlayer(model.getNextPlayer());
-			model.getPlayerOrder().removeFirst();
+			model.loadNextPlayer();
+//			model.setCurrentPlayer(model.getNextPlayer());
+//			model.getPlayerOrder().removeFirst();
 
 		} else {
 
@@ -521,9 +515,8 @@ public class Controller implements Observer {
 		} else {
 
 			model.setCurrentMarketState(MarketState.BUYING);
-			model.setPlayerOrder(marketPlayers);
-			model.setCurrentPlayer(model.getNextPlayer());
-			model.getPlayerOrder().removeFirst();
+			model.setPlayerOrder(players);
+			model.loadNextPlayer();
 		}
 	}
 
@@ -1033,11 +1026,8 @@ public class Controller implements Observer {
 				model.setCurrentMarketState(MarketState.SELLING);
 				model.getMarket().clear();
 
-				marketPlayers = new ArrayList<>(players);
-				Collections.shuffle(marketPlayers);
-				model.setPlayerOrder(marketPlayers);
-				model.setCurrentPlayer(model.getNextPlayer());
-				model.getPlayerOrder().removeFirst();
+				model.setPlayerOrder(players);
+				model.loadNextPlayer();
 
 			} else {
 
@@ -1058,9 +1048,10 @@ public class Controller implements Observer {
 				} else {
 
 					model.setCurrentMarketState(MarketState.BUYING);
+					List<Player> marketPlayers = new ArrayList<>(players);
+					Collections.shuffle(marketPlayers);
 					model.setPlayerOrder(marketPlayers);
-					model.setCurrentPlayer(model.getNextPlayer());
-					model.getPlayerOrder().removeFirst();
+					model.loadNextPlayer();
 
 				}
 
@@ -1126,13 +1117,13 @@ public class Controller implements Observer {
 
 			@Override
 			public void run() {
-				// TimerScaduto Msg message = new TimerScadutoMsg("tempo
+				//TODO TimerScaduto Msg message = new TimerScadutoMsg("tempo
 				// scaduto");
 				// model.setMessage(message);
 				nextTurn();
 			}
 		};
-		turnTimer.schedule(task, TURNCOUNTDOWN);
+		turnTimer.schedule(task, TURNCOUNTDOWN * 1000);
 	}
 
 }

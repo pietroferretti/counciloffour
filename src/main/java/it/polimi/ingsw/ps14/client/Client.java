@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps14.client.rmi.ClientRMIView;
+import it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl;
 import it.polimi.ingsw.ps14.client.rmi.Life;
 import it.polimi.ingsw.ps14.client.rmi.RMICommunication;
 import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
@@ -22,7 +22,7 @@ import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
 import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
 import it.polimi.ingsw.ps14.client.view.CLIView;
 import it.polimi.ingsw.ps14.client.view.ClientView;
-import it.polimi.ingsw.ps14.server.RMIViewRemote;
+import it.polimi.ingsw.ps14.server.ServerViewRemote;
 
 public class Client {
 
@@ -103,10 +103,10 @@ public class Client {
 		} else if (input.toUpperCase().matches("^(RMI)$")) {
 
 			Registry registry = LocateRegistry.getRegistry(HOST, RMI_PORT);
-			RMIViewRemote serverStub = (RMIViewRemote) registry.lookup(NAME);
+			ServerViewRemote serverStub = (ServerViewRemote) registry.lookup(NAME);
 
 			Life life=new Life();
-			ClientRMIView rmiView = new ClientRMIView(clientView,life);
+			ClientViewRemoteImpl rmiView = new ClientViewRemoteImpl(clientView,life);
 
 			serverStub.registerClient(rmiView);
 			RMICommunication communication=new RMICommunication(serverStub, clientView);

@@ -25,7 +25,7 @@ import it.polimi.ingsw.ps14.model.State;
  * 
  */
 
-public class ClientRMIView extends UnicastRemoteObject implements
+public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 		ClientViewRemote, Serializable {
 
 	private Timer timer;
@@ -36,7 +36,7 @@ public class ClientRMIView extends UnicastRemoteObject implements
 
 	private ClientView cv;
 
-	public ClientRMIView(ClientView cv,Life life) throws RemoteException {
+	public ClientViewRemoteImpl(ClientView cv,Life life) throws RemoteException {
 		super();
 		this.cv = cv;
 		this.life=life;
