@@ -1,11 +1,13 @@
 package it.polimi.ingsw.ps14.gui;
 
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JDialog;
+
+import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,12 +21,16 @@ import javax.swing.JDialog;
  */
 public class ElectCouncillorDialog extends JDialog {
 
-	private List<String> choice;
+	private static Communication comm;
+	private static int playerID;
+
 	/**
 	 * Creates new form ElectCouncillorDialog
 	 */
-	public ElectCouncillorDialog(java.awt.Frame parent, boolean modal) {
+	public ElectCouncillorDialog(java.awt.Frame parent, boolean modal, Communication comm, int playerID) {
 		super(parent, modal);
+		ElectCouncillorDialog.comm = comm;
+		ElectCouncillorDialog.playerID = playerID;
 		initComponents();
 	}
 
@@ -65,7 +71,7 @@ public class ElectCouncillorDialog extends JDialog {
 
 		jLabelBalcony.setText("Choose balcony:");
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
 		jLayeredPane3.setLayout(new java.awt.BorderLayout());
 
@@ -218,14 +224,23 @@ public class ElectCouncillorDialog extends JDialog {
 	}
 
 	private void jButton2MouseClicked() {
-		for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
-			AbstractButton button = buttons.nextElement();
-			if (button.isSelected()) {
-				choice.add(button.getText());
-			}
-		}
-		
-	
+//		ColorCouncillor cc = null;
+//		String s = null;
+//		for (Enumeration<AbstractButton> buttons = buttonGroup2.getElements(); buttons.hasMoreElements();) {
+//			AbstractButton button = buttons.nextElement();
+//			if (button.isSelected()) {
+//				cc = ColorCouncillor.valueOf(button.getText());
+//			}
+//		}
+//		for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
+//			AbstractButton button = buttons.nextElement();
+//			if (button.isSelected()) {
+//				s = button.getText();
+//			}
+//		}
+		System.out.println("cfghbn nmk");
+//		comm.electCouncillor(playerID, cc, s);
+
 	}
 
 	/**
@@ -267,10 +282,11 @@ public class ElectCouncillorDialog extends JDialog {
 		/* Create and display the dialog */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				ElectCouncillorDialog dialog = new ElectCouncillorDialog(new javax.swing.JFrame(), true);
+				ElectCouncillorDialog dialog = new ElectCouncillorDialog(new javax.swing.JFrame(), true, comm, playerID);
 				dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 					@Override
 					public void windowClosing(java.awt.event.WindowEvent e) {
+				
 						System.exit(0);
 					}
 				});
@@ -301,8 +317,4 @@ public class ElectCouncillorDialog extends JDialog {
 	private javax.swing.JRadioButton jRadioButton8;
 	private javax.swing.JRadioButton jRadioButton9;
 	// End of variables declaration
-	
-	public List<String> getChoice() {
-		return choice;
-	}
 }
