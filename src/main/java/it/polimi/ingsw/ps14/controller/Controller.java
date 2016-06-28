@@ -63,9 +63,7 @@ public class Controller implements Observer {
 
 	/**
 	 * Build the controller with model. Saves a reference to the model, and a
-	 * list of all the players. The list is randomized, and represents the order
-	 * of the player turns. The controller sets the order of the players in the
-	 * model.
+	 * list of all the players. Starts the turn timer.
 	 * 
 	 * @param model
 	 *            the model of the game
@@ -73,13 +71,8 @@ public class Controller implements Observer {
 	public Controller(Model model) {
 		this.model = model;
 		this.players = model.getPlayers();
-		Collections.shuffle(players);
 
-		model.setPlayerOrder(players);
-		model.loadNextPlayer();
-
-		resetTimer();
-
+		resetTimer();	// start the turn timer
 	}
 
 	/**

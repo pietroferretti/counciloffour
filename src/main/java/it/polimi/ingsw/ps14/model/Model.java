@@ -86,6 +86,8 @@ public class Model extends Observable implements Serializable {
 
 	public void setPlayers(List<Player> players) {
 		this.players = players;
+		setPlayerOrder(players);
+		loadNextPlayer();
 	}
 
 	public GameBoard getGameBoard() {

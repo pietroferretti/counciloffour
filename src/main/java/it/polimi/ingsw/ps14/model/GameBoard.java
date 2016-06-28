@@ -347,12 +347,14 @@ public class GameBoard extends Observable implements Serializable {
 	}
 
 	public ColorCouncillor getRandomAvailableCouncillor() {
+		
 		ColorCouncillor color;
-
+		
 		do {
 			color = ColorCouncillor.getRandomCouncillor();
 		} while (!councillorIsAvailable(color));
 
+		useCouncillor(color);	
 		return color;
 	}
 
