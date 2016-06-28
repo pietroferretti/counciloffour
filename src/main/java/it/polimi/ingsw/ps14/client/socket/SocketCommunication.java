@@ -98,12 +98,6 @@ public class SocketCommunication implements Communication {
 																					// è
 																					// meglio
 
-				if (clientView.getGameState().getCurrentPlayer().getId() == clientView
-						.getPlayerID()) {
-					clientView.setMyTurn(true);
-				} else {
-					clientView.setMyTurn(false);
-				}
 				if (!alreadyCalled) {
 					timer = new Timer();
 					alreadyCalled = true;
@@ -184,7 +178,7 @@ public class SocketCommunication implements Communication {
 				clientView.readMessage(message);
 
 		} else
-			LOGGER.info(String.format("Couldn't interpret message."));
+			LOGGER.info("Couldn't interpret message.");
 
 	}
 

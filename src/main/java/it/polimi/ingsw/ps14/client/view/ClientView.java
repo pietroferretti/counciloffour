@@ -3,8 +3,6 @@ package it.polimi.ingsw.ps14.client.view;
 import java.awt.Color;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
@@ -24,8 +22,6 @@ public abstract class ClientView implements Runnable {
 	protected boolean gameStarted;
 	protected State gameState;
 	protected boolean myTurn;
-	private Timer timer;
-	private TimerTask timerTask;
 
 	public void setPlayerID(Integer playerID) {
 		this.playerID = playerID;

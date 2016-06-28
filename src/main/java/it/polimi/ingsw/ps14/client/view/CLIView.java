@@ -43,7 +43,6 @@ public class CLIView extends ClientView implements Runnable {
 
 	public CLIView(Scanner scanner, String name) {
 		super.setPlayerName(name);
-		myTurn = false;
 		interpreter = new Interpreter(this);
 		in = scanner;
 		playerID = null;
@@ -178,11 +177,14 @@ public class CLIView extends ClientView implements Runnable {
 		print("BUY finish - terminate your buying phase");
 	}
 
+	@Override
 	public void showAvailableCommands() {
 
+		print("");
+		
 		if (gameState == null) {
 
-			print("The game hasn't started yet. You can do 'instructions' request");
+			print("The game hasn't started yet. You can see the available commands with 'instructions'");
 
 		} else if (gameState.getGamePhase() == GamePhase.TURNS) {
 
@@ -211,7 +213,7 @@ public class CLIView extends ClientView implements Runnable {
 
 		if (gameState.getCurrentPlayer().getId() != playerID) {
 
-			print(String.format("It's player %d's turn.", gameState.getCurrentPlayer().getId()));
+			print(String.format("It's %s's turn.", gameState.getCurrentPlayer().getName()));
 
 		} else {
 
@@ -308,7 +310,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			if (gameState.getCurrentPlayer().getId() != playerID) {
 
-				print(String.format("It's player %d's turn to sell.", gameState.getCurrentPlayer().getId()));
+				print(String.format("It's %s's turn to sell.", gameState.getCurrentPlayer().getName()));
 
 			} else {
 
@@ -322,7 +324,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			if (gameState.getCurrentPlayer().getId() != playerID) {
 
-				print(String.format("It's player %d's turn to buy.", gameState.getCurrentPlayer().getId()));
+				print(String.format("It's %s's turn to buy.", gameState.getCurrentPlayer().getName()));
 
 			} else {
 
