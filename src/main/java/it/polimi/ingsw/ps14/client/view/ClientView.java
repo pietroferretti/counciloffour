@@ -72,7 +72,7 @@ public abstract class ClientView implements Runnable {
 	public abstract void showCitiesColorBonuses(int updatedBonusGold,
 			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) ;
 
-	public abstract void showError(String text) ;
+	public abstract void showInfo(String text) ;
 
 	public abstract void showGameStart() ;
 

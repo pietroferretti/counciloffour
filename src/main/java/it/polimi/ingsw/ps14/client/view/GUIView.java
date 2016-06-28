@@ -35,7 +35,7 @@ public class GUIView extends ClientView implements Runnable {
 	}
 
 	@Override
-	public void showError(String text) {
+	public void showInfo(String text) {
 		// TODO Auto-generated method stub
 		
 	}

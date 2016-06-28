@@ -22,7 +22,8 @@ public class RegionUpdatedMsg implements Message {
 
 	@Override
 	public String toString() {
-		return "RegionUpdatedMsg [updatedRegion=" + updatedRegion + "]";
+//		return "RegionUpdatedMsg [updatedRegion=" + updatedRegion + "]";
+		return updatedRegion.toString();
 	}
 
 }

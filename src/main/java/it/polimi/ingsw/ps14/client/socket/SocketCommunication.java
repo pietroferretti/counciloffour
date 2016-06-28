@@ -1,5 +1,11 @@
 package it.polimi.ingsw.ps14.client.socket;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.client.view.CLIView;
 import it.polimi.ingsw.ps14.client.view.ClientView;
@@ -19,9 +25,10 @@ import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ChatMsg;
 import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg;
@@ -50,12 +57,6 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Logger;
 
 public class SocketCommunication implements Communication {
 
@@ -131,8 +132,8 @@ public class SocketCommunication implements Communication {
 								((CitiesColorBonusesUpdatedMsg) message)
 										.getBonusBlue());
 
-			} else if (message instanceof ErrorMsg) {
-				clientView.showError(message.toString());
+			} else if (message instanceof InfoPrivateMsg || message instanceof InfoPublicMsg) {
+				clientView.showInfo(message.toString());
 			} else if (message instanceof KingBonusesUpdatedMsg) {
 				clientView.showKingBonus(((KingBonusesUpdatedMsg) message)
 						.getUpdatedShowableKingBonus());

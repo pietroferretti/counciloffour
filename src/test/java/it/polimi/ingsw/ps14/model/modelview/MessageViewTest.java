@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
@@ -22,7 +22,7 @@ public class MessageViewTest {
 		model = new Model();
 		player = new Player();
 		mv = new MessageView(model.getMessageObservable());
-		m = new ErrorMsg(player.getId(), "prova");
+		m = new InfoPrivateMsg(player.getId(), "prova");
 		model.getMessageObservable().addObserver(mv);
 	}
 

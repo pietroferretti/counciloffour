@@ -17,7 +17,8 @@ public class SoldItemMsg {
 
 	@Override
 	public String toString() {
-		return "SoldItemMsg [item=" + item + "]";
+//		return "SoldItemMsg [item=" + item + "]";
+		return item.toString();
 	}
 
 	

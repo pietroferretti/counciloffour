@@ -48,74 +48,91 @@ public class CLIView extends ClientView implements Runnable {
 		playerID = null;
 	}
 
+	@Override
 	public void setCommunication(Communication communication) {
 		interpreter.setCommunication(communication);
 	}
 
+	@Override
 	public void showAvailableAssistant(int update) {
 		print("Assistant available now: " + update);
 	}
 
+	@Override
 	public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
 		ColorCouncillor[] map = ColorCouncillor.values();
 		for (ColorCouncillor m : map)
 			print(m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString() + "\n");
 	}
 
+	@Override
 	public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
 			int updatedBonusBlue) {
 		print("CitiesColorBonuses now: BonusGold=" + updatedBonusGold + ", BonusSilver="
 				+ updatedBonusSilver + ", BonusBronze=" + updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue);
 	}
 
-	public void showError(String text) {
+	@Override
+	public void showInfo(String text) {
 		print(text);
 	}
 
+	@Override
 	public void showGameStart() {
 		print("Game Started! Good Luck :)");
 	}
 
+	@Override
 	public void showKingBonus(int updatedShowableKingBonus) {
 		print("KingBonusesUpdatedMsg [updatedShowableKingBonus=" + updatedShowableKingBonus + "]");
 	}
 
+	@Override
 	public void showKingUpdate(King updatedKing) {
 		print("KingUpdatedMsg [updatedKing=" + updatedKing + "]");
 	}
 
+	@Override
 	public void showMarket(Market updatedMarket) {
 		print(updatedMarket.toString());
 	}
 
+	@Override
 	public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
 		print(updatedNobilityTrack.toString());
 	}
 
+	@Override
 	public void showPersonalDetails(Player p) {
 		print(p.toString());
 	}
 
+	@Override
 	public void showPlayerChangesPrivate(String message) {
 		print(message);
 	}
 
+	@Override
 	public void showPlayerChangesPublic(String notice) {
 		print(notice);
 	}
 
+	@Override
 	public void showPrivateMsg(String text) {
 		print(text);
 	}
 
+	@Override
 	public void showRegion(Region updatedRegion) {
 		print(updatedRegion.toString());
 	}
 
+	@Override
 	public void showItemSold(ItemForSale item) {
 		print(item.toString());
 	}
 
+	@Override
 	public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
 			int numEmporiums) {
 		print("\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)

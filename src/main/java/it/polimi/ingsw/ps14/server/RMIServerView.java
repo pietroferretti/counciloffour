@@ -59,7 +59,7 @@ public class RMIServerView extends ServerView {
 		} else if (msg instanceof Message) {
 
 			setChanged();
-			notifyObservers(msg); // inoltro al controller
+			notifyObservers(msg); 	// forward message to controller
 		}
 	}
 

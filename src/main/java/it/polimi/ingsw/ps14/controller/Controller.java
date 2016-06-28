@@ -20,7 +20,7 @@ import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
-import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.City;
@@ -771,7 +771,7 @@ public class Controller implements Observer {
 	 *            the message to send
 	 */
 	private void sendErrorMsg(ServerView playerView, String errorMessage) {
-		model.setMessage(new ErrorMsg(playerView.getPlayerID(), errorMessage));
+		model.setMessage(new InfoPrivateMsg(playerView.getPlayerID(), errorMessage));
 	}
 
 	/**

@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
 import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.MarketState;
@@ -119,7 +119,7 @@ public class ModelViewTest {
 
 	@Test
 	public void testUpdateMessageView() {
-		Message m = new ErrorMsg(player.getId(), "prova");
+		Message m = new InfoPrivateMsg(player.getId(), "prova");
 		model.setMessage(m);
 		assertFalse(mv.hasChanged());
 	}
