@@ -22,13 +22,13 @@ public class Game {
 	private final Controller controller;
 	
 	public Game(List<ServerView> viewList) throws IOException {
-		views = viewList;
+		views = new ArrayList<>(viewList);
 		
 		LOGGER.info("Creating Model.");
 		model = new Model();
 
 
-		Collections.shuffle(viewList);	// randomizes the viewList to choose the player order
+		Collections.shuffle(views);	// randomizes the viewList to choose the player order
 		
 		List<Player> playerList = new ArrayList<>();
 		int playerNum = 0;

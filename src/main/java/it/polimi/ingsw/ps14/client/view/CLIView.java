@@ -145,7 +145,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			} else if (!isGameStarted()) {
 				
-				print("The game hasn't started yet!!!!");
+				print("The game hasn't started yet.");
 
 			} else {
 
