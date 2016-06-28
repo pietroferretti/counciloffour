@@ -4,7 +4,7 @@ import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
-import it.polimi.ingsw.ps14.server.Chat;
+import it.polimi.ingsw.ps14.server.ServerChat;
 import it.polimi.ingsw.ps14.server.ServerView;
 
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class Game {
 		LOGGER.info("Creating ModelView.");
 		modelView = new ModelView(model);
 		
-		Chat chat=new Chat(views);
+		ServerChat chat=new ServerChat(views);
 	
 		for (ServerView view : views) {
 			view.setChat(chat);
