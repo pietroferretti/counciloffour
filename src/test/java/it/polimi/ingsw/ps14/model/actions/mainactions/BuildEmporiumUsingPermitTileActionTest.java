@@ -121,9 +121,9 @@ public class BuildEmporiumUsingPermitTileActionTest {
 
 		MainAction action = new BuildEmporiumUsingPermitTileAction(
 				player.getId(), busCard.getId(),cityName);		
-		
+
 		action.execute(null, model);
-		
+
 		boolean ok=false;
 		for(Player p:model.getGameBoard().getCityByName(cityName).getEmporiums())
 			if(p.getId()==player.getId())

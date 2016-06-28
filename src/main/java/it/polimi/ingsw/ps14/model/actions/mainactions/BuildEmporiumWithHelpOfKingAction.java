@@ -1,12 +1,5 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.ColorCity;
@@ -18,13 +11,21 @@ import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.logging.Logger;
+
 public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 
 	/**
 	 * 
 	 */
-	private static final Logger LOGGER = Logger.getLogger(BuildEmporiumWithHelpOfKingAction.class
-			.getName());
+	private static final Logger LOGGER = Logger
+			.getLogger(BuildEmporiumWithHelpOfKingAction.class.getName());
 	private static final long serialVersionUID = 4780505443771942777L;
 	private String cityName;
 	private List<PoliticCard> cards;
@@ -37,7 +38,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 	}
 
 	public boolean isValid(Model model) {
-		
+
 		Player player = model.id2player(super.getPlayer());
 		City city = model.name2city(cityName);
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
@@ -46,11 +47,11 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 			LOGGER.info(String.format("isValid conversion error"));
 			return false;
 		}
-		
+
 		if (!balcony.cardsMatch(cards))
 			return false;
 		// TODO: send error: ERROR in color choice
-		
+
 		if (player.getCoins() < balcony.councillorCost(cards))
 			return false;
 		// TODO: send ERROR: not enough coins
@@ -130,16 +131,29 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
 		City cityKing = model.getGameBoard().getKing().getCity();
 
-		if (player == null || city == null || balcony==null || cityKing==null){
+		if (player == null || city == null || balcony == null
+				|| cityKing == null) {
 			LOGGER.info(String.format("execute conversion error"));
 			return null;
 		}
-		
+
 		// remove coins to buy concillor
 		player.useCoins(balcony.councillorCost(cards));
 
-		// remove cards politic used
-		player.getHand().removeAll(cards);
+//		List<PoliticCard> cardsToRemove = new ArrayList<>();
+//		for (PoliticCard pc : cards)
+//			for (PoliticCard p : player.getHand()) {
+//				if (p.getColor().equals(pc.getColor())) {
+//					cardsToRemove.add(p);
+//					System.out.println("rimuovo " + p);
+//					break;
+//				}
+//			}
+//		player.getHand().removeAll(cardsToRemove);
+//		// System.out.println(player.toString());
+
+		 //remove cards politic used
+		 player.getHand().removeAll(cards);
 
 		// add politic cards used to gameboard
 		model.getGameBoard().getPoliticDeck().discardCards(cards);
@@ -157,26 +171,29 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		city.buildEmporium(player);
 
 		Region region = city.getRegion();
-		if ((region.getBonusRegion() != 0) && builtAllCitiesInRegion(player, region)) {
+		if ((region.getBonusRegion() != 0)
+				&& builtAllCitiesInRegion(player, region)) {
 			player.addPoints(region.getBonusRegion());
 			region.consumeBonusRegion();
 
 			giveBonusKing(player, model.getGameBoard());
 		}
-		
+
 		GameBoard gameboard = model.getGameBoard();
 		ColorCity cityColor = city.getColor();
-		if ((cityColor != ColorCity.PURPLE) && (gameboard.getColorBonus(cityColor) != 0) && builtAllCitiesWithColor(player, gameboard, cityColor)) {
+		if ((cityColor != ColorCity.PURPLE)
+				&& (gameboard.getColorBonus(cityColor) != 0)
+				&& builtAllCitiesWithColor(player, gameboard, cityColor)) {
 			player.addPoints(gameboard.useColorBonus(cityColor));
-			
+
 			giveBonusKing(player, gameboard);
 		}
-		
+
 		// apply city token
 		city.getToken().useBonus(player, model);
 
 		// check bonus neighbors
-		useBonusNeighbors(city,player,model);
+		useBonusNeighbors(city, player, model);
 
 		if (player.getNumEmporiums() == 10) {
 			player.addPoints(3);
@@ -197,10 +214,12 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		return allBuilt;
 	}
 
-	private boolean builtAllCitiesWithColor(Player player, GameBoard gameboard, ColorCity color) {
+	private boolean builtAllCitiesWithColor(Player player, GameBoard gameboard,
+			ColorCity color) {
 		boolean allBuilt = true;
 		for (City cityInGameboard : gameboard.getCities()) {
-			if (color.equals(cityInGameboard.getColor()) && !cityInGameboard.getEmporiums().contains(player)) {
+			if (color.equals(cityInGameboard.getColor())
+					&& !cityInGameboard.getEmporiums().contains(player)) {
 				allBuilt = false;
 			}
 		}
@@ -214,5 +233,4 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		}
 	}
 
-	
 }

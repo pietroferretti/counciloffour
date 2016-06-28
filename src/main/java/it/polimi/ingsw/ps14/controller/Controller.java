@@ -54,7 +54,7 @@ public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class
 			.getName());
 
-	private static final long TURNCOUNTDOWN = 30; 	// 30 seconds
+	private static final long TURNCOUNTDOWN = 60; 	// 30 seconds
 
 	private Model model;
 	private List<Player> players;
