@@ -5,8 +5,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps14.model.King;
-import it.polimi.ingsw.ps14.model.Market;
-import it.polimi.ingsw.ps14.model.NobilityTrack;
 
 /**
  * 

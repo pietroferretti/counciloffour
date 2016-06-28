@@ -1,15 +1,5 @@
 package it.polimi.ingsw.ps14.client.rmi;
 
-import it.polimi.ingsw.ps14.client.view.ClientView;
-import it.polimi.ingsw.ps14.model.ColorCouncillor;
-import it.polimi.ingsw.ps14.model.ItemForSale;
-import it.polimi.ingsw.ps14.model.King;
-import it.polimi.ingsw.ps14.model.Market;
-import it.polimi.ingsw.ps14.model.NobilityTrack;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.Region;
-import it.polimi.ingsw.ps14.model.State;
-
 import java.awt.Color;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -20,23 +10,36 @@ import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import it.polimi.ingsw.ps14.client.view.ClientView;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.ItemForSale;
+import it.polimi.ingsw.ps14.model.King;
+import it.polimi.ingsw.ps14.model.Market;
+import it.polimi.ingsw.ps14.model.NobilityTrack;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.State;
+
 /**
- * This class implements the methods callable on the client with RMI
+ * This class implements the methods callable ON the client with RMI
  * 
  */
 
-public class ClientRMIView extends UnicastRemoteObject implements
+public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 		ClientViewRemote, Serializable {
 
 	private Timer timer;
 	private TimerTask timerTask;
 	private boolean alreadyCalled = false;
 
+	private Life life;
+
 	private ClientView cv;
 
-	public ClientRMIView(ClientView cv) throws RemoteException {
+	public ClientViewRemoteImpl(ClientView cv,Life life) throws RemoteException {
 		super();
 		this.cv = cv;
+		this.life=life;
 	}
 
 	/**
@@ -68,8 +71,8 @@ public class ClientRMIView extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void error(Integer playerID, String text) {
-		cv.showError(text);
+	public void info(String text) {
+		cv.showInfo(text);
 	}
 
 	@Override
@@ -118,6 +121,9 @@ public class ClientRMIView extends UnicastRemoteObject implements
 	@Override
 	public void setPlayerID(int playerID) {
 		cv.setPlayerID(playerID);
+		life.setPlayerID(playerID);
+		Thread thread = new Thread(life);
+		thread.start();
 	}
 
 	@Override
@@ -164,5 +170,10 @@ public class ClientRMIView extends UnicastRemoteObject implements
 		};
 		timer.schedule(timerTask, 200);
 
+	}
+
+	@Override
+	public void showChatMsg(String author, String text) throws RemoteException {
+		cv.showChatMsg(author, text);
 	}
 }

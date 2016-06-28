@@ -1,14 +1,5 @@
 package it.polimi.ingsw.ps14.client;
 
-import it.polimi.ingsw.ps14.client.rmi.ClientRMIView;
-import it.polimi.ingsw.ps14.client.rmi.RMICommunication;
-import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
-import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
-import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
-import it.polimi.ingsw.ps14.client.view.CLIView;
-import it.polimi.ingsw.ps14.client.view.ClientView;
-import it.polimi.ingsw.ps14.server.RMIViewRemote;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,10 +9,18 @@ import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl;
+import it.polimi.ingsw.ps14.client.rmi.Life;
+import it.polimi.ingsw.ps14.client.rmi.RMICommunication;
+import it.polimi.ingsw.ps14.client.socket.SocketCommunication;
+import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn;
+import it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut;
+import it.polimi.ingsw.ps14.client.view.CLIView;
+import it.polimi.ingsw.ps14.client.view.ClientView;
+import it.polimi.ingsw.ps14.server.ServerViewRemote;
 
 public class Client {
 
@@ -47,9 +46,30 @@ public class Client {
 		System.out.println("Choose a name:");
 		String name = scanner.nextLine();
 		
+		String view;
+		ClientView clientView;
+		do {
+			System.out.println("CLI or GUI?");
+			view = scanner.nextLine();
+		} while (!view.toUpperCase().matches("^(CLI|GUI)$"));
+		
+		if (view.toUpperCase().matches("^(CLI)$")) {
+			
+			clientView = new CLIView(scanner, name);
+		
+		} else if (view.toUpperCase().matches("^(GUI)$")) {
+			
+//			ClientView clientView = new GUIView()
+			System.out.println("GUI not yet implemented");
+			scanner.close();
+			throw new UnsupportedOperationException();
+			
+		} else {
+			scanner.close();
+			throw new IllegalArgumentException(
+					"Something went wrong while parsing the interface type");
+		}
 
-		// Un giorno, "CLI o GUI?"
-		ClientView clientView = new CLIView(scanner, name);
 
 		String input;
 		do {
@@ -64,7 +84,7 @@ public class Client {
 				try {
 
 					socket = new Socket(HOST, PORT);
-					System.out.println("Connection created");
+					System.out.println("Connection created.");
 
 				} catch (IOException e) {
 
@@ -84,13 +104,12 @@ public class Client {
 				
 				SocketMessageHandlerIn msgHandlerIn = new SocketMessageHandlerIn(socketCommunication, new ObjectInputStream(
 								socket.getInputStream()));
-
-				// FIXME send the player name to the server
-//				socketCommunication.setPlayerName(name);
 				
-				ExecutorService executor = Executors.newFixedThreadPool(3);
-				executor.submit(clientView);
-				executor.submit(msgHandlerIn);
+				Thread inThread = new Thread(msgHandlerIn);
+				inThread.start();
+				
+				clientView.run();
+				
 
 			} catch (IOException e) {
 
@@ -102,22 +121,30 @@ public class Client {
 		} else if (input.toUpperCase().matches("^(RMI)$")) {
 
 			Registry registry = LocateRegistry.getRegistry(HOST, RMI_PORT);
-			RMIViewRemote serverStub = (RMIViewRemote) registry.lookup(NAME);
+			ServerViewRemote serverStub = (ServerViewRemote) registry.lookup(NAME);
 
-			ClientRMIView rmiView = new ClientRMIView(clientView);
+			Life life=new Life();
+			ClientViewRemoteImpl rmiView = new ClientViewRemoteImpl(clientView,life);
 
-			serverStub.registerClient(rmiView);
-			RMICommunication communication=new RMICommunication(serverStub, clientView);
+			RMICommunication communication = new RMICommunication(serverStub);
+			
+			life.setCommmunication(communication);
 			clientView.setCommunication(communication);
-			clientView.run();
+			
+			serverStub.registerClient(rmiView);
+			
+			System.out.println("Connection created.");
 
+			clientView.run();
+			
+			
+			
 		} else {
 			scanner.close();
 			throw new IllegalArgumentException(
 					"Something went wrong while parsing the connection type");
 		}
 
-		// ?
 	}
 
 }

@@ -1,5 +1,11 @@
 package it.polimi.ingsw.ps14.client.view;
 
+import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -20,12 +26,6 @@ import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
-import java.awt.Color;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.logging.Logger;
-
 /*
  * --------------------------Command Line Interface-----------------------
  * It acquires infos from player and show the game state each time something
@@ -33,138 +33,113 @@ import java.util.logging.Logger;
  * 
  */
 //TODO faccio stampare solo i dettagli del giocatori che ha finito il turno
-//TODO metodo per tutti i miei dettagli?
-//TODO implementare richiesta per stampa di tutto
 public class CLIView extends ClientView implements Runnable {
 	private static final Logger LOGGER = Logger.getLogger(CLIView.class.getName());
 
 	private Interpreter interpreter;
 	private Scanner in;
+	
+	private List<List<String>> endResults;
 
 	public CLIView(Scanner scanner, String name) {
 		super.setPlayerName(name);
-		myTurn = false;
-		interpreter = new Interpreter();
+		interpreter = new Interpreter(this);
 		in = scanner;
 		playerID = null;
 	}
 
+	@Override
 	public void setCommunication(Communication communication) {
 		interpreter.setCommunication(communication);
 	}
 
+	@Override
 	public void showAvailableAssistant(int update) {
-		System.out.println("Assistant available now: " + update);
+		print("Assistant available now: " + update);
 	}
 
+	@Override
 	public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
 		ColorCouncillor[] map = ColorCouncillor.values();
 		for (ColorCouncillor m : map)
-			System.out.println(m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString() + "\n");
+			print(m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString() + "\n");
 	}
 
+	@Override
 	public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
 			int updatedBonusBlue) {
-		System.out.println("CitiesColorBonuses now: BonusGold=" + updatedBonusGold + ", BonusSilver="
+		print("CitiesColorBonuses now: BonusGold=" + updatedBonusGold + ", BonusSilver="
 				+ updatedBonusSilver + ", BonusBronze=" + updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue);
 	}
 
-	public void showError(String text) {
+	@Override
+	public void showInfo(String text) {
 		print(text);
 	}
 
+	@Override
 	public void showGameStart() {
 		print("Game Started! Good Luck :)");
 	}
 
+	@Override
 	public void showKingBonus(int updatedShowableKingBonus) {
-		System.out.println("KingBonusesUpdatedMsg [updatedShowableKingBonus=" + updatedShowableKingBonus + "]");
+		print("KingBonusesUpdatedMsg [updatedShowableKingBonus=" + updatedShowableKingBonus + "]");
 	}
 
+	@Override
 	public void showKingUpdate(King updatedKing) {
-		System.out.println("KingUpdatedMsg [updatedKing=" + updatedKing + "]");
+		print("KingUpdatedMsg [updatedKing=" + updatedKing + "]");
 	}
 
+	@Override
 	public void showMarket(Market updatedMarket) {
-		System.out.println(updatedMarket.toString());
+		print(updatedMarket.toString());
 	}
 
+	@Override
 	public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
-		System.out.println(updatedNobilityTrack.toString());
+		print(updatedNobilityTrack.toString());
 	}
 
+	@Override
 	public void showPersonalDetails(Player p) {
-		System.out.println(p.toString());
+		print(p.toString());
 	}
 
+	@Override
 	public void showPlayerChangesPrivate(String message) {
 		print(message);
 	}
 
+	@Override
 	public void showPlayerChangesPublic(String notice) {
 		print(notice);
 	}
 
+	@Override
 	public void showPrivateMsg(String text) {
 		print(text);
 	}
 
+	@Override
 	public void showRegion(Region updatedRegion) {
 		print(updatedRegion.toString());
 	}
 
+	@Override
 	public void showItemSold(ItemForSale item) {
 		print(item.toString());
 	}
 
+	@Override
 	public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
 			int numEmporiums) {
-		System.out.println("\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
+		print("\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
 				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
 				+ "\nVictory Points: " + Integer.toString(points));
 	}
 
-	/**
-	 * It prints infos about regions, king, nobility track and victory points.
-	 */
-
-	// public void showGameboard(GameBoard gameBoard) {
-	// print("-----REGIONS LIST-----");
-	// print("");
-	// // for (RegionView regionView : mv.getRegionsView()) {
-	// // printer.printRegions(regionView.getRegionCopy());
-	// // }
-	// // printer.printKing(mv.getKingView().getKingCopy());
-	// //
-	// printer.printNobilityTrack(mv.getNobilityTrackView().getNobilityTrackCopy(),
-	// // getPlayers());
-	// // printer.printVictoryPoints(getPlayers());
-	// }
-
-	/**
-	 * It prints this player private details
-	 */
-	// TODO change this in all player details
-
-	// public void showThisPlayerDetails(Player player) {
-	// printer.printPlayerPublicDetails(player);
-	// printer.printPlayerPrivateDetails(player);
-	// }
-	//
-	// public void showMainActions() {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// public void showQuickActions() {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// public String getPlayerName() {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
 
 	public void print(String string) {
 		System.out.println(string);
@@ -181,24 +156,16 @@ public class CLIView extends ClientView implements Runnable {
 		//	print("Enter command:");
 			String input = in.nextLine();
 
-			if (input.toUpperCase().matches("INSTRUCTIONS") || input.toUpperCase().matches("HELP")) {
+			if (input.equalsIgnoreCase("INSTRUCTIONS") || input.toUpperCase().equalsIgnoreCase("HELP")) {
 				showInstructions();
 
 			} else if (!isGameStarted()) {
-				print("The game hasn't started yet!!!!");
-				// TODO il giocatore può fare qualcosa quando il gioco non è
-				// ancora iniziato?
-
-				// } else if (!myTurn) {
-				//
-				// print("Wait for your turn!");
-
-				// TODO lasciare al giocatore la possibilità di fare 'show' e
-				// 'help'
+				
+				print("The game hasn't started yet.");
 
 			} else {
 
-				if (!interpreter.parseString(input.toUpperCase(), getPlayerID())) {
+				if (!interpreter.parseString(input, getPlayerID())) {
 					print("Command not recognized! Retry:");
 				}
 			}
@@ -206,7 +173,7 @@ public class CLIView extends ClientView implements Runnable {
 	}
 
 	private void showInstructions() {
-		System.out.println("Player ID: " + playerID);
+		print("Player ID: " + playerID);
 		print("*** Commands:");
 		print("DRAW - draw a politic card");
 		print("main action:");
@@ -219,26 +186,22 @@ public class CLIView extends ClientView implements Runnable {
 		print("CHANGE coast|hills|mountains - change faceup business permits in the region specified");
 		print("MAIN - perform another main action");
 		print("ELECT-WITH-ASSISTANT coast|hills|mountains|king color - elect a councillor in the chosen balcony with help of an assistant");
-		print("USED-CARD permit_id - choose used card to recycle"); // TODO in
-																	// che senso
-																	// riciclare
-																	// un
-																	// business
-																	// permit
-																	// usato?
-		print("FINISH - pass the turn");
-		print("SHOW MYDETAILS/DETAILS/GAMEBOARD - show whatever you want");
-		print("SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... \n\tASSISTANTS NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE... - sell!sell!sell!");
-		print("SELL NONE - don't sell anything :(");
-		print("BUY ITEM_ID QUANTITY(optional) - buy! insert quantity\n\t only if buy some assistant of the item and not the whole item");
-		print("BUY FINISH - terminate your buying phase");
+		print("FINISH or PASS - pass the turn");
+		print("SHOW mydetails|details|gameboard - show whatever you want");
+		print("SELL [business id1-price [id2-price ...]] [assistants num-price [num-price ...]] [politic color1-price [color2-price]] - sell! sell! sell!");
+		print("SELL none - don't sell anything :(");
+		print("BUY item_id [quantity] - buy! insert quantity if you want to buy some of the assistants in a bundle");
+		print("BUY finish - terminate your buying phase");
 	}
 
+	@Override
 	public void showAvailableCommands() {
 
+		print("");
+		
 		if (gameState == null) {
 
-			print("The game hasn't started yet. You can do 'instructions' request");
+			print("The game hasn't started yet. You can see the available commands with 'instructions'");
 
 		} else if (gameState.getGamePhase() == GamePhase.TURNS) {
 
@@ -255,7 +218,7 @@ public class CLIView extends ClientView implements Runnable {
 
 		} else if (gameState.getGamePhase() == GamePhase.END) {
 
-			// TODO insieme a gameendedmsg
+			print("The game has ended. Enter 'results' to see the rankings.");
 
 		}
 
@@ -267,7 +230,7 @@ public class CLIView extends ClientView implements Runnable {
 
 		if (gameState.getCurrentPlayer().getId() != playerID) {
 
-			print(String.format("It's player %d's turn.", gameState.getCurrentPlayer().getId()));
+			print(String.format("It's %s's turn.", gameState.getCurrentPlayer().getName()));
 
 		} else {
 
@@ -364,7 +327,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			if (gameState.getCurrentPlayer().getId() != playerID) {
 
-				print(String.format("It's player %d's turn to sell.", gameState.getCurrentPlayer().getId()));
+				print(String.format("It's %s's turn to sell.", gameState.getCurrentPlayer().getName()));
 
 			} else {
 
@@ -378,7 +341,7 @@ public class CLIView extends ClientView implements Runnable {
 
 			if (gameState.getCurrentPlayer().getId() != playerID) {
 
-				print(String.format("It's player %d's turn to buy.", gameState.getCurrentPlayer().getId()));
+				print(String.format("It's %s's turn to buy.", gameState.getCurrentPlayer().getName()));
 
 			} else {
 
@@ -412,6 +375,17 @@ public class CLIView extends ClientView implements Runnable {
 
 	@Override
 	public void showEndGame(List<List<String>> endResults) {
+		this.endResults = endResults;
+		showEndGame();
+	}
+	
+	public void showEndGame() {
+		
+		if (endResults == null) {
+			print("The game hasn't ended yet.");
+			return;
+		}
+		
 		// 0 - id
 		// 1 - name
 		// 2 - points
@@ -422,8 +396,7 @@ public class CLIView extends ClientView implements Runnable {
 		// 7 - permits
 		// 8 - coins
 
-		// TODO null checks?
-
+		print("");
 		print("*** THE GAME HAS ENDED ***");
 		print(String.format("The winner is %s, with %s points!", endResults.get(0).get(1), endResults.get(0).get(2)));
 
@@ -437,12 +410,17 @@ public class CLIView extends ClientView implements Runnable {
 		for (int i = 0; i < endResults.size(); i++) {
 			List<String> plrRes = endResults.get(i);
 
-			print(String.format("%s) %s with %s points, %s assistants and %s cards.", plrRes.get(0), plrRes.get(1),
+			print(String.format("%d) %s with %s points, %s assistants and %s cards.", i, plrRes.get(1),
 					plrRes.get(2), plrRes.get(3), plrRes.get(4)));
-			print(String.format("  emporiums -> %s,  nobility -> %s,  permits -> %s,  coins -> %s", plrRes.get(5),
+			print(String.format("  %s emporiums,  %s nobility,  %s permits,  %s coins", plrRes.get(5),
 					plrRes.get(6), plrRes.get(7), plrRes.get(8)));
 		}
 
+	}
+
+	@Override
+	public void showChatMsg(String author, String text) {
+		System.out.println(author+"@CHAT: "+text);
 	}
 
 

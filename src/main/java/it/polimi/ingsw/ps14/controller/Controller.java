@@ -1,6 +1,18 @@
 package it.polimi.ingsw.ps14.controller;
 
-import it.polimi.ingsw.ps14.message.JumpTurnMsg;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps14.message.DisconnectionMsg;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
@@ -8,8 +20,9 @@ import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
-import it.polimi.ingsw.ps14.message.fromserver.ErrorMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
+import it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.GamePhase;
@@ -27,16 +40,6 @@ import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
 import it.polimi.ingsw.ps14.server.ServerView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.logging.Logger;
-
 /**
  * Receives messages from the ServerView and decides what to do. Decides if and
  * how to modify the Model when it receives an action or a message. Updates the
@@ -52,15 +55,16 @@ public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class
 			.getName());
 
+	private static final long TURNCOUNTDOWN = 30; 	// 30 seconds
+
 	private Model model;
 	private List<Player> players;
-	private List<Player> marketPlayers;
+
+	private Timer turnTimer;
 
 	/**
 	 * Build the controller with model. Saves a reference to the model, and a
-	 * list of all the players. The list is randomized, and represents the order
-	 * of the player turns. The controller sets the order of the players in the
-	 * model.
+	 * list of all the players. Starts the turn timer.
 	 * 
 	 * @param model
 	 *            the model of the game
@@ -68,11 +72,8 @@ public class Controller implements Observer {
 	public Controller(Model model) {
 		this.model = model;
 		this.players = model.getPlayers();
-		Collections.shuffle(players);
 
-		model.setPlayerOrder(players);
-		model.loadNextPlayer();
-
+		resetTimer();	// start the turn timer
 	}
 
 	/**
@@ -95,32 +96,40 @@ public class Controller implements Observer {
 
 			updatePlayerName(serverView, ((PlayerNameMsg) arg).getPlayerName());
 
-//		} else if (arg instanceof JumpTurnMsg) {
-//			//fai qualcosa FIXME
 		} else if (arg instanceof TurnActionMsg) {
 
+			resetTimer();
 			executeTurnAction(serverView, ((TurnActionMsg) arg).getAction());
 
 		} else if (arg instanceof SellMsg) {
 
+			resetTimer();
 			executeSellAction(serverView, ((SellMsg) arg).getAction());
 
 		} else if (arg instanceof BuyMsg) {
 
+			resetTimer();
 			executeBuyAction(serverView, ((BuyMsg) arg).getAction());
 
 		} else if (arg instanceof DoneBuyingMsg) {
 
+			resetTimer();
 			doneBuying(serverView);
 
 		} else if (arg instanceof SellNoneMsg) {
 
+			resetTimer();
 			sellNone(serverView);
 
 		} else if (arg instanceof NobilityRequestAnswerMsg) {
 
+			resetTimer();
 			handleNobilityAnswer(serverView,
 					((NobilityRequestAnswerMsg) arg).getIDs());
+
+		} else if (arg instanceof DisconnectionMsg) {
+
+			removeFromActivePlayers(serverView);
 
 		} else {
 
@@ -163,7 +172,7 @@ public class Controller implements Observer {
 		case MARKET:
 
 			// players cannot perform TurnActions during the market phase
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You cannot do that action during the Market phase");
 			break;
 
@@ -174,7 +183,7 @@ public class Controller implements Observer {
 
 		case END:
 
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"The game has ended, you cannot perform this action.");
 			break;
 
@@ -200,7 +209,7 @@ public class Controller implements Observer {
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -208,7 +217,7 @@ public class Controller implements Observer {
 		// checks if we are in the right state to execute this action (e.g. we
 		// can still perform a Main Action)
 		if (!model.getCurrentTurnState().isActionLegal(action, model)) {
-			sendErrorMsg(playerView, "You cannot do this action now!");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!");
 			return;
 		}
 
@@ -224,6 +233,7 @@ public class Controller implements Observer {
 			System.out.println("Final turns!");
 
 			model.setGamePhase(GamePhase.FINALTURNS);
+			model.setCurrentTurnState(new InitialTurnState());
 
 			// find this player's position in the players list
 			int index = -1;
@@ -261,11 +271,11 @@ public class Controller implements Observer {
 					model.setCurrentMarketState(MarketState.SELLING);
 					model.getMarket().clear();
 
-					marketPlayers = new ArrayList<>(players);
-					Collections.shuffle(marketPlayers);
-					model.setPlayerOrder(marketPlayers);
-					model.setCurrentPlayer(model.getNextPlayer());
-					model.getPlayerOrder().removeFirst();
+//					marketPlayers = new ArrayList<>(players);
+//					Collections.shuffle(marketPlayers);
+//					model.setPlayerOrder(marketPlayers);
+					model.setPlayerOrder(players);
+					model.loadNextPlayer();
 
 				} else {
 
@@ -293,7 +303,7 @@ public class Controller implements Observer {
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -301,7 +311,7 @@ public class Controller implements Observer {
 		// checks if we are in the right state to execute this action (e.g. we
 		// can still perform a Main Action)
 		if (!model.getCurrentTurnState().isActionLegal(action, model)) {
-			sendErrorMsg(playerView, "You cannot do this action now!");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!");
 			return;
 		}
 
@@ -321,6 +331,7 @@ public class Controller implements Observer {
 
 				System.out.println("The game has ended.");
 
+				// get all the players, including those that disconnected
 				List<Player> playerList = model.getPlayers();
 
 				distributeEndGamePoints(playerList);
@@ -351,26 +362,26 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You can only do this during the Market phase.");
 			return;
 		}
 
 		// checks if we are in the market selling phase
 		if (model.getCurrentMarketState() != MarketState.SELLING) {
-			sendErrorMsg(playerView, "You cannot sell now.");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot sell now.");
 			return;
 		}
 
 		// checks if it's the turn of the player that sent the action
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
 
 		if (!action.isValid(model)) {
-			sendErrorMsg(playerView, "You cannot do this action now!"); // details
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!"); // details
 			return;
 		}
 
@@ -380,9 +391,10 @@ public class Controller implements Observer {
 		if (model.getPlayerOrder().isEmpty()) {
 
 			model.setCurrentMarketState(MarketState.BUYING);
+			List<Player> marketPlayers = new ArrayList<>(players);
+			Collections.shuffle(marketPlayers);
 			model.setPlayerOrder(marketPlayers);
-			model.setCurrentPlayer(model.getNextPlayer());
-			model.getPlayerOrder().removeFirst();
+			model.loadNextPlayer();
 
 		} else {
 
@@ -404,18 +416,18 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You can only do this during the Market phase.");
 			return;
 		}
 
 		if (model.getCurrentMarketState() != MarketState.BUYING) {
-			sendErrorMsg(playerView, "You cannot buy now.");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot buy now.");
 			return;
 		}
 
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -427,7 +439,7 @@ public class Controller implements Observer {
 
 		} else {
 
-			sendErrorMsg(playerView, "You cannot do this action now!");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!");
 
 		}
 	}
@@ -444,18 +456,18 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You can only do this during the Market phase.");
 			return;
 		}
 
 		if (model.getCurrentMarketState() != MarketState.BUYING) {
-			sendErrorMsg(playerView, "You cannot do this now.");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this now.");
 			return;
 		}
 
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -479,18 +491,18 @@ public class Controller implements Observer {
 
 		// checks if we're actually in the market phase
 		if (model.getGamePhase() != GamePhase.MARKET) {
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You can only do this during the Market phase.");
 			return;
 		}
 
 		if (model.getCurrentMarketState() != MarketState.SELLING) {
-			sendErrorMsg(playerView, "You cannot do this now.");
+			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this now.");
 			return;
 		}
 
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
-			sendErrorMsg(playerView, "It's not your turn! Current player: "
+			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
@@ -502,9 +514,8 @@ public class Controller implements Observer {
 		} else {
 
 			model.setCurrentMarketState(MarketState.BUYING);
-			model.setPlayerOrder(marketPlayers);
-			model.setCurrentPlayer(model.getNextPlayer());
-			model.getPlayerOrder().removeFirst();
+			model.setPlayerOrder(players);
+			model.loadNextPlayer();
 		}
 	}
 
@@ -525,20 +536,20 @@ public class Controller implements Observer {
 
 		if (model.getWaitingFor() == WaitingFor.NOTHING) {
 
-			sendErrorMsg(playerView,
+			sendPrivateMsg(playerView.getPlayerID(),
 					"You cannot answer a nobility bonus request if there isn't one.");
 
 		} else {
 
 			if (chosenIDs == null || chosenIDs.isEmpty()) {
 
-				sendErrorMsg(playerView, "You didn't choose anything!");
+				sendPrivateMsg(playerView.getPlayerID(), "You didn't choose anything!");
 
 			} else if (!(idsInAvailableChoices(chosenIDs)
 					&& allIDsAreDifferent(chosenIDs) && (chosenIDs.size() <= model
 					.getWaitingForHowMany()))) {
 
-				sendErrorMsg(playerView, "Invalid choices.");
+				sendPrivateMsg(playerView.getPlayerID(), "Invalid choices.");
 
 			} else {
 
@@ -643,7 +654,7 @@ public class Controller implements Observer {
 			} else {
 
 				LOGGER.warning("Something went wrong when interpreting the answer to a nobility request!");
-				sendErrorMsg(playerView, "Invalid answer!");
+				sendPrivateMsg(playerView.getPlayerID(), "Invalid answer!");
 
 			}
 		}
@@ -679,7 +690,7 @@ public class Controller implements Observer {
 			} else {
 
 				LOGGER.warning("Something went wrong when interpreting the answer to a nobility request!");
-				sendErrorMsg(playerView, "Invalid answer!");
+				sendPrivateMsg(playerView.getPlayerID(), "Invalid answer!");
 
 			}
 		}
@@ -714,7 +725,7 @@ public class Controller implements Observer {
 			} else {
 
 				LOGGER.warning("Something went wrong when interpreting the answer to a nobility request!");
-				sendErrorMsg(playerView, "Invalid answer!");
+				sendPrivateMsg(playerView.getPlayerID(), "Invalid answer!");
 
 			}
 		}
@@ -749,19 +760,31 @@ public class Controller implements Observer {
 	}
 
 	/**
-	 * "Sends" an error message by putting the message in the {@code message}
+	 * "Sends" a private message to a serverview by putting the message in the {@code message}
 	 * field in Model. The Model will notify ModelView, that will in turn send
-	 * the message to the right view.
+	 * the message to the correct player.
 	 * 
-	 * @param playerView
-	 *            the view associated to the player
-	 * @param errorMessage
+	 * @param playerID
+	 *            the id associated to the player
+	 * @param privateMessage
 	 *            the message to send
 	 */
-	private void sendErrorMsg(ServerView playerView, String errorMessage) {
-		model.setMessage(new ErrorMsg(playerView.getPlayerID(), errorMessage));
+	private void sendPrivateMsg(Integer playerID, String privateMessage) {
+		model.setMessage(new InfoPrivateMsg(playerID, privateMessage));
 	}
 
+	/**
+	 * "Sends" a public message to all the serverviews by putting the message in the {@code message}
+	 * field in Model. The Model will notify ModelView, that will in turn send
+	 * the message to all the players
+	 * 
+	 * @param publicMessage
+	 *            the message to send
+	 */
+	private void sendPublicMsg(String publicMessage) {
+		model.setMessage(new InfoPublicMsg(publicMessage));
+	}
+	
 	/**
 	 * Sends the final message at the end of the game, with every info about the
 	 * winner and the rankings.
@@ -927,36 +950,6 @@ public class Controller implements Observer {
 		return mostPermits;
 	}
 
-	// /**
-	// * Finds the winner by comparing points (and assistants and cards if
-	// there's
-	// * a draw).
-	// *
-	// * @param players
-	// * the list of all the players
-	// * @return the winning player
-	// */
-	// private Player findWinner(List<Player> players) {
-	// Player winner;
-	//
-	// winner = players.get(0);
-	// for (int i = 1; i < players.size(); i++) {
-	// if (players.get(i).getPoints() > winner.getPoints()) {
-	// winner = players.get(i);
-	// } else if (players.get(i).getPoints() == winner.getPoints()) {
-	// if (players.get(i).getAssistants() > winner.getAssistants()) {
-	// winner = players.get(i);
-	// } else if (players.get(i).getAssistants() == winner.getAssistants()) {
-	// if (players.get(0).getNumberOfCards() > winner.getNumberOfCards()) {
-	// winner = players.get(i);
-	// }
-	// }
-	// }
-	// }
-	//
-	// return winner;
-	// }
-
 	/**
 	 * Ranks the players by comparing points, assistants and cards.
 	 * 
@@ -966,6 +959,9 @@ public class Controller implements Observer {
 	 */
 	private List<Player> findWinners(List<Player> players) {
 
+		/**
+		 * Compares players by points, then cards, then assistants
+		 */
 		class PlayerComparator implements Comparator<Player> {
 
 			@Override
@@ -987,7 +983,159 @@ public class Controller implements Observer {
 
 		List<Player> sortedList = new ArrayList<>(players);
 		sortedList.sort(new PlayerComparator());
+		Collections.reverse(sortedList);
 		return sortedList;
+	}
+
+	/**
+	 * Removes the player associated to the serverview from the list of those
+	 * still playing the game. If it's currently the player's turn, the turn
+	 * switches to the next player, and to the next phase if needed.
+	 * 
+	 * @param serverView
+	 */
+	private void removeFromActivePlayers(ServerView serverView) {
+
+		Player player = model.id2player(serverView.getPlayerID());
+
+		// remove the player from the list of active players
+		players.remove(player);
+
+		// remove the player from the next players
+		if (model.getPlayerOrder().contains(player)) {
+			model.getPlayerOrder().remove(player);
+		}
+
+		// load next player (and phase) if it's the turn
+		// of the player that disconnected
+		if (model.getCurrentPlayer().getId() == player.getId()) {
+			nextTurn();
+		}
+		
+		sendPublicMsg(String.format("%s disconnected from the game!", player.getName()));
+
+	}
+
+	/**
+	 * Loads the next player, and switches to the next phase if needed
+	 */
+	private void nextTurn() {
+
+		// when the game switches to the next turn because the timer expired,
+		// all the pending bonuses and requests are forgotten
+		if (model.getWaitingFor() != WaitingFor.NOTHING) {
+			model.setWaitingFor(WaitingFor.NOTHING);
+			model.setWaitingForHowMany(0);
+			model.setAvailableChoices(null);
+		}
+
+		if (model.getGamePhase() == GamePhase.TURNS) {
+
+			// if no more players have to play their turn in this phase
+			if (model.getPlayerOrder().isEmpty()) {
+
+				// the turns phase has ended, the market phase starts
+				model.setGamePhase(GamePhase.MARKET);
+				model.setCurrentMarketState(MarketState.SELLING);
+				model.getMarket().clear();
+
+				model.setPlayerOrder(players);
+				model.loadNextPlayer();
+
+			} else {
+
+				// it's the next player's turn
+				model.setCurrentTurnState(new InitialTurnState());
+				model.loadNextPlayer();
+
+			}
+
+		} else if (model.getGamePhase() == GamePhase.MARKET) {
+
+			if (model.getCurrentMarketState() == MarketState.SELLING) {
+
+				if (!model.getPlayerOrder().isEmpty()) {
+
+					model.loadNextPlayer();
+
+				} else {
+
+					model.setCurrentMarketState(MarketState.BUYING);
+					List<Player> marketPlayers = new ArrayList<>(players);
+					Collections.shuffle(marketPlayers);
+					model.setPlayerOrder(marketPlayers);
+					model.loadNextPlayer();
+
+				}
+
+			} else if (model.getCurrentMarketState() == MarketState.BUYING) {
+
+				if (!model.getPlayerOrder().isEmpty()) {
+
+					model.loadNextPlayer();
+
+				} else {
+
+					model.getMarket().clear();
+					model.setGamePhase(GamePhase.TURNS);
+					model.setCurrentTurnState(new InitialTurnState());
+					model.setPlayerOrder(players);
+					model.loadNextPlayer();
+
+				}
+
+			}
+
+		} else if (model.getGamePhase() == GamePhase.FINALTURNS) {
+
+			// if no more players have to play their turn
+			if (model.getPlayerOrder().isEmpty()) {
+
+				// the game has ended, awarding final points and finding the
+				// winner
+				model.setGamePhase(GamePhase.END);
+
+				System.out.println("The game has ended.");
+
+				// get all the players, including those that disconnected
+				List<Player> playerList = model.getPlayers();
+
+				distributeEndGamePoints(playerList);
+
+				List<Player> rankings = findWinners(playerList);
+				sendGameEndedMsg(rankings);
+
+			} else {
+
+				// it's the next player's turn
+				model.loadNextPlayer();
+				model.setCurrentTurnState(new InitialTurnState());
+			}
+
+		}
+
+		resetTimer();
+	}
+
+	/**
+	 * Resets the turn timer back to TURNCOUNTDOWN
+	 */
+	private void resetTimer() {
+		if (turnTimer != null) {
+			turnTimer.cancel();
+		}
+
+		turnTimer = new Timer();
+		TimerTask task = new TimerTask() {
+
+			@Override
+			public void run() {
+				sendPrivateMsg(model.getCurrentPlayer().getId(), "Time's out!");
+				sendPublicMsg(String.format("%s's time ran out!", model.getCurrentPlayer().getName()));
+				nextTurn();
+			}
+		};
+		turnTimer.schedule(task, TURNCOUNTDOWN * 1000);
 	}
 
 }

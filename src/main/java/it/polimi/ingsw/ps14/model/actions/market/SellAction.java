@@ -1,11 +1,11 @@
 package it.polimi.ingsw.ps14.model.actions.market;
 
+import java.io.Serializable;
+import java.util.List;
+
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.Model;
-
-import java.io.Serializable;
-import java.util.List;
 
 public class SellAction implements Serializable {
 

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
-import java.text.Format;
 import java.util.List;
 import java.util.Observable;
 import java.util.Queue;

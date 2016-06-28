@@ -4,24 +4,20 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.client.view.ClientView;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
-import it.polimi.ingsw.ps14.server.RMIViewRemote;
+import it.polimi.ingsw.ps14.server.ServerViewRemote;
 
 public class RMICommunication implements Communication {
 
-	private RMIViewRemote serverStub;
-	private ClientView clientView;
+	private ServerViewRemote serverStub;
 
-	public RMICommunication(RMIViewRemote serverStub, ClientView clientView) throws RemoteException {
+	public RMICommunication(ServerViewRemote serverStub) throws RemoteException {
 		this.serverStub = serverStub;
-		this.clientView = clientView;
 	}
 
-	
 	
 	@Override
 	public void setPlayerName(Integer playerID, String name) {
@@ -40,7 +36,6 @@ public class RMICommunication implements Communication {
 		
 			try {
 				serverStub.drawCard(playerID);
-				System.out.println("calling drawcard method");
 
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -242,6 +237,28 @@ public class RMICommunication implements Communication {
 			System.err.println("Errore nell'invocazione del metodo");
 
 		}		
+	}
+	
+	public void clientAlive(Integer playerID){
+		try{
+			serverStub.clientAlive(playerID);
+		}catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
+
+		}
+	}
+
+
+
+	@Override
+	public void chat(Integer playerID, String chat) {
+		try{
+			serverStub.chat(playerID,chat);
+		}catch (RemoteException e) {
+			System.err.println("Errore nell'invocazione del metodo");
+
+		}
+		
 	}
 
 }

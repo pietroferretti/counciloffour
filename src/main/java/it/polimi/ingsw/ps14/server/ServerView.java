@@ -9,6 +9,7 @@ import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.ChatMsg;
 import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg;
@@ -26,28 +27,28 @@ public abstract class ServerView extends Observable implements Observer {
 	private Integer id;
 	private String name;
 	private ModelView modelView;
-	private final int timeOut;
+	protected ServerChat chat;
 
-	public ServerView(Integer id, int timeOut) {
+	public ServerView(Integer id) {
 		this.id = id;
-		this.timeOut=timeOut;
 	}
 
-	public void setPlayerID(Integer id){
-		this.id=id;
+	public void setPlayerID(Integer id) {
+		this.id = id;
 	}
-	
+
 	public int getPlayerID() {
 		return id;
 	}
-	
+
 	public String getPlayerName() {
 		return name;
 	}
-	
+
 	public void setPlayerName(String name) {
 		this.name = name;
 	}
+
 	public ModelView getModelView() {
 		return modelView;
 	}
@@ -55,7 +56,7 @@ public abstract class ServerView extends Observable implements Observer {
 	public void setModelView(ModelView modelView) {
 		this.modelView = modelView;
 	}
-	
+
 	/**
 	 * It sends the requested updates to the client; it build messages with the
 	 * {@link ModelView} objects.
@@ -66,14 +67,20 @@ public abstract class ServerView extends Observable implements Observer {
 	protected void sendUpdates(UpdateRequestMsg requestReceived) {
 
 		if (requestReceived instanceof UpdateGameBoardMsg) {
-			sendMessage(new StateUpdatedMsg(modelView.getStateView().getStateCopy()));
-			sendMessage(new AvailableAssistantsUpdatedMsg(
-					modelView.getAvailableAssistantsView().getAvailableAssistantsCopy()));
-			sendMessage(new KingBonusesUpdatedMsg(modelView.getKingBonusesView().getShowableKingBonus()));
-			sendMessage(new NobilityTrackUpdatedMsg(modelView.getNobilityTrackView().getNobilityTrackCopy()));
-			sendMessage(new KingUpdatedMsg(modelView.getKingView().getKingCopy()));
-			sendMessage(new CitiesColorBonusesUpdatedMsg(modelView.getCitiesColorBonusesView().getColorBonusesCopy()));
-			sendMessage(new RegionUpdatedMsg(modelView.getRegionsView().get(0).getRegionCopy()));
+			sendMessage(new StateUpdatedMsg(modelView.getStateView()
+					.getStateCopy()));
+			sendMessage(new AvailableAssistantsUpdatedMsg(modelView
+					.getAvailableAssistantsView().getAvailableAssistantsCopy()));
+			sendMessage(new KingBonusesUpdatedMsg(modelView
+					.getKingBonusesView().getShowableKingBonus()));
+			sendMessage(new NobilityTrackUpdatedMsg(modelView
+					.getNobilityTrackView().getNobilityTrackCopy()));
+			sendMessage(new KingUpdatedMsg(modelView.getKingView()
+					.getKingCopy()));
+			sendMessage(new CitiesColorBonusesUpdatedMsg(modelView
+					.getCitiesColorBonusesView().getColorBonusesCopy()));
+			sendMessage(new RegionUpdatedMsg(modelView.getRegionsView().get(0)
+					.getRegionCopy()));
 			for (RegionView rv : modelView.getRegionsView()) {
 				sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
 			}
@@ -96,6 +103,14 @@ public abstract class ServerView extends Observable implements Observer {
 		}
 	}
 
-	protected void sendMessage(Message msg) {
+	protected abstract void sendMessage(Message msg);
+
+	public void setChat(ServerChat chat) {
+		this.chat = chat;
+	}
+
+	protected void forwardChat(String author, String text) {
+		Message msg = new ChatMsg(text, author);
+		sendMessage(msg);
 	}
 }

@@ -1,5 +1,12 @@
 package it.polimi.ingsw.ps14.client.rmi;
 
+import java.awt.Color;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.King;
@@ -8,13 +15,6 @@ import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.State;
-
-import java.awt.Color;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
 
 /**
  * interface of client stub that server will have
@@ -35,7 +35,7 @@ public interface ClientViewRemote extends Remote {
 	public void citiesColorBonusesUpdate(int updatedBonusGold,
 			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) throws RemoteException;
 
-	public void error(Integer playerID, String text) throws RemoteException;
+	public void info(String text) throws RemoteException;
 
 	public void setGameStart(State initialGameState) throws RemoteException;
 
@@ -62,6 +62,8 @@ public interface ClientViewRemote extends Remote {
 	public void itemSold(ItemForSale item) throws RemoteException;
 
 	public void stateUpdate(State updatedState) throws RemoteException;
+	
+	public void showChatMsg(String author, String text) throws RemoteException;
 	
 	public void gameEnded(List<List<String>> endResults) throws RemoteException;
 

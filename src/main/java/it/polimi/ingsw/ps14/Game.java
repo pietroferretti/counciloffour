@@ -1,15 +1,17 @@
 package it.polimi.ingsw.ps14;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.controller.Controller;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
+import it.polimi.ingsw.ps14.server.ServerChat;
 import it.polimi.ingsw.ps14.server.ServerView;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class Game {
 	private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
@@ -20,17 +22,20 @@ public class Game {
 	private final Controller controller;
 	
 	public Game(List<ServerView> viewList) throws IOException {
-		views = viewList;
+		views = new ArrayList<>(viewList);
 		
 		LOGGER.info("Creating Model.");
 		model = new Model();
-		
-		// TODO different amount of coins and assistants
 
+
+		Collections.shuffle(views);	// randomizes the viewList to choose the player order
+		
 		List<Player> playerList = new ArrayList<>();
+		int playerNum = 0;
 		for (ServerView view : views) {
-			Player player = new Player(view.getPlayerID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6);
+			Player player = new Player(view.getPlayerID(), 10 + playerNum, 1 + playerNum, model.getGameBoard().getPoliticDeck(), 6);
 			playerList.add(player);
+			playerNum++;
 		}
 		
 		model.setPlayers(playerList);
@@ -40,9 +45,11 @@ public class Game {
 		
 		LOGGER.info("Creating ModelView.");
 		modelView = new ModelView(model);
+		
+		ServerChat chat=new ServerChat(views);
 	
 		for (ServerView view : views) {
-			
+			view.setChat(chat);
 			view.addObserver(controller);
 			modelView.addObserver(view);
 			view.setModelView(modelView);

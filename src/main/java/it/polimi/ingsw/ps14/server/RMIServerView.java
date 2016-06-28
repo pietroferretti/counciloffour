@@ -1,7 +1,9 @@
 package it.polimi.ingsw.ps14.server;
 
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
+import it.polimi.ingsw.ps14.message.DisconnectionMsg;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
@@ -9,6 +11,8 @@ import it.polimi.ingsw.ps14.message.fromserver.PrivateMessage;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
 
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 /**
@@ -18,13 +22,19 @@ import java.util.logging.Logger;
  *
  */
 public class RMIServerView extends ServerView {
-	private static final Logger LOGGER = Logger.getLogger(RMIServerView.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(RMIServerView.class
+			.getName());
 
-	private RMIserverOut serverRMIout;
+	private static final int TIMEOUT = 3000;
+	private RMIServerOut serverRMIout;
+	protected boolean active;
 
-	public RMIServerView(int id, ClientViewRemote client,int timeOut) {
-		super(id,timeOut);
-		serverRMIout = new RMIserverOut(client);
+	private Timer timer;
+	private TimerTask task;
+
+	public RMIServerView(int id, ClientViewRemote client) {
+		super(id);
+		serverRMIout = new RMIServerOut(client);
 		serverRMIout.castMessage(new PlayerIDMsg(id));
 		LOGGER.info(String.format("Sent id to player %d", super.getPlayerID()));
 	}
@@ -33,10 +43,14 @@ public class RMIServerView extends ServerView {
 		if (msg instanceof PlayerNameMsg) {
 
 			super.setPlayerName(((PlayerNameMsg) msg).getPlayerName());
-			LOGGER.info(String.format("Set player name as '%s' for rmiView %d", super.getPlayerName(),
-					super.getPlayerID()));
+			LOGGER.info(String.format("Set player name as '%s' for rmiView %d",
+					super.getPlayerName(), super.getPlayerID()));
 			setChanged();
 			notifyObservers(msg);
+			
+		}else if(msg instanceof MyChatMsg){
+			
+			super.chat.sendChat(((MyChatMsg)msg).getText(),super.getPlayerName());
 
 		} else if (msg instanceof UpdateRequestMsg) {
 
@@ -45,7 +59,7 @@ public class RMIServerView extends ServerView {
 		} else if (msg instanceof Message) {
 
 			setChanged();
-			notifyObservers(msg); // inoltro al controller
+			notifyObservers(msg); 	// forward message to controller
 		}
 	}
 
@@ -61,8 +75,10 @@ public class RMIServerView extends ServerView {
 			} else if (arg instanceof Message) {
 				serverRMIout.castMessage((Message) arg);
 			} else if (arg != null) {
-				LOGGER.warning(String.format("The server view with id '%d' received an object that is not a message. %n"
-						+ "Object received: %s", super.getPlayerID(), arg));
+				LOGGER.warning(String.format(
+						"The server view with id '%d' received an object that is not a message. %n"
+								+ "Object received: %s", super.getPlayerID(),
+						arg));
 			}
 
 		} else
@@ -114,8 +130,29 @@ public class RMIServerView extends ServerView {
 	public void sendMessage(Message msg) {
 
 		serverRMIout.castMessage(msg);
-		LOGGER.info(String.format("callind method %s on rmi %d", msg, super.getPlayerID()));
+		LOGGER.info(String.format("callind method %s on rmi %d", msg,
+				super.getPlayerID()));
 
 	}
+
+	public void timerPlayer() {
+		int id = super.getPlayerID();
+		
+		if (timer != null)
+			timer.cancel();
+		
+		timer = new Timer();
+		task = new TimerTask() {
+			@Override
+			public void run() {
+				Message message = new DisconnectionMsg(id);
+				forwardMessage(message);
+				System.out.println("CLIENT DISCONNESSO");
+			}
+
+		};
+		timer.schedule(task, TIMEOUT);
+	}
+
 
 }

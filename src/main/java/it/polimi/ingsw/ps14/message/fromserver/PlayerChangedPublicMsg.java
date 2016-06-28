@@ -27,7 +27,8 @@ public class PlayerChangedPublicMsg implements Message {
 
 	@Override
 	public String toString() {
-		return "\nPlayer: " + Integer.toString(playerID) + notice;
+//		return "\nPlayer: " + Integer.toString(playerID) + notice;
+		return notice;
 	}
 
 }

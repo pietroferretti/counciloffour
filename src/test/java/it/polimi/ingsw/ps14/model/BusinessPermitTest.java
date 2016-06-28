@@ -42,10 +42,8 @@ public class BusinessPermitTest {
 		
 		BusinessPermit businessPermitCopy = new BusinessPermit(businessPermit);
 		assertEquals(businessPermitCopy.getBonusList().getClass(), businessPermit.getBonusList().getClass());
-		assertEquals(businessPermitCopy.getCities().get(0).getName(), businessPermit.getCities().get(0).getName());
-		assertEquals(businessPermitCopy.getCities().get(0).getColor(), businessPermit.getCities().get(0).getColor());
-		assertEquals(businessPermitCopy.getCities().get(1).getName(), businessPermit.getCities().get(1).getName());
-		assertEquals(businessPermitCopy.getCities().get(1).getColor(), businessPermit.getCities().get(1).getColor());
+		assertEquals(businessPermitCopy.getCityNames().get(0), businessPermit.getCities().get(0).getName());
+		assertEquals(businessPermitCopy.getCityNames().get(1), businessPermit.getCities().get(1).getName());
 		
 	}
 

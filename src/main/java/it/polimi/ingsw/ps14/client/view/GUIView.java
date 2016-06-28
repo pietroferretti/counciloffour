@@ -41,7 +41,7 @@ public class GUIView extends ClientView implements Runnable {
 	}
 
 	@Override
-	public void showError(String text) {
+	public void showInfo(String text) {
 		// TODO Auto-generated method stub
 
 	}
@@ -151,6 +151,12 @@ public class GUIView extends ClientView implements Runnable {
 	}
 
 	@Override
+	public void showChatMsg(String author, String text) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	public Integer getPlayerID() {
 		// TODO Auto-generated method stub
 		return super.getPlayerID();

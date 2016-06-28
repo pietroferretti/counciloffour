@@ -18,8 +18,10 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
+import it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg;
 import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -152,21 +154,25 @@ public class ControllerTest {
 		assertEquals(mockView1.getPlayerID(), model.getCurrentPlayer().getId());
 	}
 
+
 	/**
-	 * Tests the transition CardDrawnState -> MainActionDoneTurnState with
-	 * additional main actions
+	 * Tests the transition QuickActionDoneTurnState -> MainAndQuickActionDoneTurnState
 	 */
 	@Test
 	public void testUpdateTurnActionMsgMainAction2() {
-		fail("Not yet implemented"); // TODO
-	}
+		State testState = new State();
+		testState.setGamePhase(GamePhase.TURNS);
+		testState.setCurrentTurnState(new QuickActionDoneTurnState(0));
+		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
 
-	/**
-	 * Tests the transition Card
-	 */
-	@Test
-	public void testUpdateTurnActionMsgMainAction3() {
-		fail("Not yet implemented"); // TODO
+		model.setState(testState);
+
+		controller.update(mockView1,
+				new TurnActionMsg(new ElectCouncillorAction(mockView1.getPlayerID(), ColorCouncillor.ORANGE, "COAST")));
+
+		assertEquals(GamePhase.TURNS, model.getGamePhase());
+		assertEquals(MainAndQuickActionDoneTurnState.class, model.getCurrentTurnState().getClass());
+		assertEquals(mockView1.getPlayerID(), model.getCurrentPlayer().getId());
 	}
 
 	/**
@@ -282,21 +288,38 @@ public class ControllerTest {
 		// TODO
 		// ho bisogno di fare una transizione da turns a market per settare marketorder, e passare da selling a buying
 	}
-
+	
 	/**
-	 * Test method for
-	 * {@link it.polimi.ingsw.ps14.controller.Controller#update(java.util.Observable, java.lang.Object)}
-	 * .
+	 * Tests transition SellNoneMsg -> next player
 	 */
 	@Test
-	public void testUpdateSellNoneMsg() {
+	public void testUpdateSellNoneMsgToNextPlayer() {
+		State testState = new State();
+		testState.setGamePhase(GamePhase.MARKET);
+		testState.setCurrentMarketState(MarketState.SELLING);
+		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
+		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
+
+		model.setState(testState);
+
+		controller.update(mockView1, new SellNoneMsg());
+
+		assertEquals(GamePhase.MARKET, model.getGamePhase());
+		assertEquals(MarketState.SELLING, model.getCurrentMarketState());
+		assertEquals(mockView2.getPlayerID(), model.getCurrentPlayer().getId());
+		assertTrue(model.getPlayerOrder().isEmpty());
+	}
+
+	/**
+	 * Tests transition SellNoneMsg -> buying phase
+	 */
+	@Test
+	public void testUpdateSellNoneMsgToBuying() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.polimi.ingsw.ps14.controller.Controller#update(java.util.Observable, java.lang.Object)}
-	 * .
+	 * BuyMsg -> next player
 	 */
 	@Test
 	public void testUpdateBuyMsg() {
@@ -304,12 +327,31 @@ public class ControllerTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.polimi.ingsw.ps14.controller.Controller#update(java.util.Observable, java.lang.Object)}
-	 * .
+	 * DoneBuyingMsg -> next player
 	 */
 	@Test
 	public void testUpdateDoneBuyingMsg() {
+		State testState = new State();
+		testState.setGamePhase(GamePhase.MARKET);
+		testState.setCurrentMarketState(MarketState.BUYING);
+		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
+		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
+
+		model.setState(testState);
+
+		controller.update(mockView1, new DoneBuyingMsg());
+
+		assertEquals(GamePhase.MARKET, model.getGamePhase());
+		assertEquals(MarketState.BUYING, model.getCurrentMarketState());
+		assertEquals(mockView2.getPlayerID(), model.getCurrentPlayer().getId());
+		assertTrue(model.getPlayerOrder().isEmpty());
+	}
+
+	/**
+	 * DoneBuyingMsg -> turns phase
+	 */
+	@Test
+	public void testUpdateDoneBuyingMsgToTurns() {
 		fail("Not yet implemented"); // TODO
 	}
 
@@ -334,19 +376,28 @@ public class ControllerTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.polimi.ingsw.ps14.controller.Controller#update(java.util.Observable, java.lang.Object)}
-	 * .
+	 * Tests switching to the next player while in the final turns
 	 */
 	@Test
 	public void testUpdateFinalTurnsNextPlayer() {
-		fail("Not yet implemented"); // TODO
+		State testState = new State();
+		testState.setGamePhase(GamePhase.FINALTURNS);
+		testState.setCurrentTurnState(new MainActionDoneTurnState(0));
+		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
+		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
+
+		model.setState(testState);
+
+		controller.update(mockView1, new TurnActionMsg(new EndTurnAction(mockView1.getPlayerID())));
+
+		assertEquals(GamePhase.FINALTURNS, model.getGamePhase());
+		assertEquals(InitialTurnState.class, model.getCurrentTurnState().getClass());
+		assertEquals(mockView2.getPlayerID(), model.getCurrentPlayer().getId());
+		assertTrue(model.getPlayerOrder().isEmpty());
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.polimi.ingsw.ps14.controller.Controller#update(java.util.Observable, java.lang.Object)}
-	 * .
+	 * Tests the end game
 	 */
 	@Test
 	public void testUpdateFinalTurnsEndGame() {		
@@ -367,31 +418,13 @@ public class ControllerTest {
 		assertTrue(model.getPlayerOrder().isEmpty());
 		
 		assertEquals(GameEndedMsg.class, model.getMessage().getClass());
-		// aggiungere check su cosa c'é dentro gameendedmsg
+		assertEquals(String.valueOf(mockView1.getPlayerID()), ((GameEndedMsg)model.getMessage()).getEndResults().get(0).get(0));
+		assertEquals("ubaldo", ((GameEndedMsg) model.getMessage()).getEndResults().get(0).get(1));
+		
+		// TODO settare punti, nobiltà e permessi dei player
+		// in modo da testare se il calcolo finale è corretto
 	}
-	// Tests to do
 
-
-	// main action (quickactiondone -> mainandquickactiondone)
-	// main action (mainactiondone && additionalmainstodo -> mainactiondone)
-	// main action (quickactiondone && additionalmainstodo -> quickactiondone)
-	// main action (mainandquickactiondone && additionalmainstodo ->
-	// mainandquickactiondone)
-
-	// additionalmainaction (mainactiondone -> mainandquickactiondone &&
-	// additionalmainstodo)
-
-
-	// sell (-> nextplayer)
-	// sell (-> buying)
-
-	// buy (-> nextplayer)
-	// donebuying (-> nextplayer)
-	// donebuying (-> turns)
-
-	// main action (-> finalturns)
-
-	// final turns, pass (-> nextplayer)
-
-
+	// TODO quickactiondone con additional main actions
+	// TODO mainactiondone con additional main actions
 }

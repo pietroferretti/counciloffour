@@ -1,21 +1,21 @@
 package it.polimi.ingsw.ps14.server;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.List;
+
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.util.List;
-
 /**
  * 
  * interface that specifies methods callable from the client
  *
  */
-public interface RMIViewRemote extends Remote{
+public interface ServerViewRemote extends Remote{
 
 	public void registerClient(ClientViewRemote clientStub)
 			throws RemoteException;
@@ -62,4 +62,8 @@ public interface RMIViewRemote extends Remote{
 	public void sellNone(Integer playerID) throws RemoteException;
 	
 	public void doneBuying(Integer playerID) throws RemoteException;
+	
+	public void clientAlive(Integer playerID) throws RemoteException;
+
+	public void chat(Integer playerID, String chat) throws RemoteException;
 }

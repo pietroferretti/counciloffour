@@ -1,11 +1,11 @@
 package it.polimi.ingsw.ps14.client.socket;
 
-import it.polimi.ingsw.ps14.message.Message;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps14.message.Message;
 
 public class SocketMessageHandlerOut {
 	private static final Logger LOGGER = Logger.getLogger(SocketMessageHandlerOut.class.getName());

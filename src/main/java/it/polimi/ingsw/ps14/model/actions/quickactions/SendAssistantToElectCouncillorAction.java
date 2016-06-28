@@ -47,9 +47,16 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 			balcony = model.getGameBoard().getKing().getBalcony();
 
 		player.useAssistants(1);
+		
 		model.getGameBoard().addAssistants(1);
 		model.getGameBoard().addDiscardedCouncillor(
 				balcony.electCouncillor(color));
+		model.getGameBoard().useCouncillor(color);
+
+		if(regType!=null)
+			model.getGameBoard().getRegion(regType).setBalcony();
+		else
+			model.getGameBoard().getKing().setBalcony();
 
 		return nextState(previousState, model);
 	}

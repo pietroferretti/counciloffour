@@ -1,13 +1,13 @@
 package it.polimi.ingsw.ps14.model.actions.market;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
-
-import java.io.Serializable;
 
 public class BuyAction implements Serializable {
 
@@ -109,9 +109,7 @@ public class BuyAction implements Serializable {
 					buyer.getBusinessHand().acquireBusinessPermit(busPer);
 				}
 				if (item.getType().equals(ItemForSale.Type.ASSISTANT)) {
-					buyer.useCoins(item.getPrice() * item.getIdORquantity());
 					buyer.addAssistants(item.getIdORquantity());
-					owner.addCoins(item.getPrice() * item.getIdORquantity());
 					owner.useAssistants(item.getIdORquantity());
 				}
 
@@ -127,10 +125,13 @@ public class BuyAction implements Serializable {
 			if (item.getType().equals(ItemForSale.Type.ASSISTANT)) {
 				buyer.useCoins(item.getPrice() * assistantToBuy);
 				buyer.addAssistants(assistantToBuy);
+				
 				owner.addCoins(item.getPrice() * assistantToBuy);
 				owner.useAssistants(assistantToBuy);
+				
 				item.removeAssistant(assistantToBuy);
 				market.someAssistantsSold(item, assistantToBuy);
+				
 				if (item.getIdORquantity() == 0)
 					market.removeItem(item);
 			}

@@ -15,7 +15,7 @@ public class BusinessPermit implements Serializable {
 	private static final long serialVersionUID = 1807264304675939603L;
 
 	static int idCounter = 0;
-	private List<String> citiesName; // for modelView copy only
+	private List<String> cityNames; // for modelView copy only
 	private final Integer id;
 	private List<City> cities;
 	private final Bonus bonus;
@@ -26,16 +26,16 @@ public class BusinessPermit implements Serializable {
 		this.cities = cities;
 		this.bonus = bonus;
 		
-		this.citiesName=new ArrayList<>();
+		this.cityNames=new ArrayList<>();
 		for (City city : cities) {
-			this.citiesName.add(new String(city.getName()));
+			this.cityNames.add(new String(city.getName()));
 		}
 	}
 
 	public BusinessPermit(BusinessPermit bp) {
-		this.citiesName=new ArrayList<>();
+		this.cityNames=new ArrayList<>();
 		for (City city : bp.cities) {
-			this.citiesName.add(new String(city.getName()));
+			this.cityNames.add(new String(city.getName()));
 		}
 		this.bonus = new BonusList(bp.bonus);
 		this.id = new Integer(bp.getId());
@@ -43,6 +43,10 @@ public class BusinessPermit implements Serializable {
 
 	public List<City> getCities() {
 		return cities;
+	}
+	
+	public List<String> getCityNames() {
+		return cityNames;
 	}
 
 	public Bonus getBonusList() {
@@ -80,7 +84,7 @@ public class BusinessPermit implements Serializable {
 	public String toString() {
 		String s = "\nPermit ID: " + Integer.toString(id)
 				+ "\nPermit to build in: ";
-		for (String city : citiesName) {
+		for (String city : cityNames) {
 			s = s + city + " ";
 		}
 		return s + "\nBonus: " + bonus.toString();

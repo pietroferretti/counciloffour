@@ -1,14 +1,10 @@
 package it.polimi.ingsw.ps14.server;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
 import it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg;
+import it.polimi.ingsw.ps14.message.fromclient.MyChatMsg;
 import it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg;
 import it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg;
 import it.polimi.ingsw.ps14.message.fromclient.SellMsg;
@@ -34,6 +30,11 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+
 /**
  * 
  * RMIServer implements all methods callable from the client, it create message
@@ -41,13 +42,14 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCounc
  *
  */
 
-public class RMIServerIn extends Observable implements RMIViewRemote {
+public class ServerViewRemoteImpl extends Observable implements ServerViewRemote {
 
 	private Server server;
 
+
 	private List<RMIServerView> serverViews;
 
-	public RMIServerIn(Server server) {
+	public ServerViewRemoteImpl(Server server) {
 		this.server = server;
 		serverViews = new ArrayList<>();
 	}
@@ -78,7 +80,7 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 
 		PlayerNameMsg message = new PlayerNameMsg(name);
 		sendToServerView(playerID, message);
-		
+
 	}
 
 	@Override
@@ -204,6 +206,22 @@ public class RMIServerIn extends Observable implements RMIViewRemote {
 		Message message = new DoneBuyingMsg();
 		sendToServerView(playerID, message);
 
+	}
+
+	@Override
+	public void clientAlive(Integer playerID) throws RemoteException {
+		for (RMIServerView serverView : serverViews) {
+			if (serverView.getPlayerID() == playerID) {
+				serverView.timerPlayer();
+			}
+		}
+		
+	}
+
+	@Override
+	public void chat(Integer playerID, String chat) throws RemoteException {
+		Message message = new MyChatMsg(chat,playerID);
+		sendToServerView(playerID, message);
 	}
 
 }
