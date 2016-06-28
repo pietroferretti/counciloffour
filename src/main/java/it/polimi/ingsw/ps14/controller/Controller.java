@@ -59,7 +59,6 @@ public class Controller implements Observer {
 
 	private Model model;
 	private List<Player> players;
-	private List<Player> marketPlayers;
 
 	private Timer turnTimer;
 
@@ -279,11 +278,11 @@ public class Controller implements Observer {
 					model.setCurrentMarketState(MarketState.SELLING);
 					model.getMarket().clear();
 
-					marketPlayers = new ArrayList<>(players);
-					Collections.shuffle(marketPlayers);
-					model.setPlayerOrder(marketPlayers);
-					model.setCurrentPlayer(model.getNextPlayer());
-					model.getPlayerOrder().removeFirst();
+//					marketPlayers = new ArrayList<>(players);
+//					Collections.shuffle(marketPlayers);
+//					model.setPlayerOrder(marketPlayers);
+					model.setPlayerOrder(players);
+					model.loadNextPlayer();
 
 				} else {
 
@@ -399,9 +398,12 @@ public class Controller implements Observer {
 		if (model.getPlayerOrder().isEmpty()) {
 
 			model.setCurrentMarketState(MarketState.BUYING);
+			List<Player> marketPlayers = new ArrayList<>(players);
+			Collections.shuffle(marketPlayers);
 			model.setPlayerOrder(marketPlayers);
-			model.setCurrentPlayer(model.getNextPlayer());
-			model.getPlayerOrder().removeFirst();
+			model.loadNextPlayer();
+//			model.setCurrentPlayer(model.getNextPlayer());
+//			model.getPlayerOrder().removeFirst();
 
 		} else {
 
@@ -521,9 +523,8 @@ public class Controller implements Observer {
 		} else {
 
 			model.setCurrentMarketState(MarketState.BUYING);
-			model.setPlayerOrder(marketPlayers);
-			model.setCurrentPlayer(model.getNextPlayer());
-			model.getPlayerOrder().removeFirst();
+			model.setPlayerOrder(players);
+			model.loadNextPlayer();
 		}
 	}
 
@@ -1033,11 +1034,8 @@ public class Controller implements Observer {
 				model.setCurrentMarketState(MarketState.SELLING);
 				model.getMarket().clear();
 
-				marketPlayers = new ArrayList<>(players);
-				Collections.shuffle(marketPlayers);
-				model.setPlayerOrder(marketPlayers);
-				model.setCurrentPlayer(model.getNextPlayer());
-				model.getPlayerOrder().removeFirst();
+				model.setPlayerOrder(players);
+				model.loadNextPlayer();
 
 			} else {
 
@@ -1058,9 +1056,10 @@ public class Controller implements Observer {
 				} else {
 
 					model.setCurrentMarketState(MarketState.BUYING);
+					List<Player> marketPlayers = new ArrayList<>(players);
+					Collections.shuffle(marketPlayers);
 					model.setPlayerOrder(marketPlayers);
-					model.setCurrentPlayer(model.getNextPlayer());
-					model.getPlayerOrder().removeFirst();
+					model.loadNextPlayer();
 
 				}
 
