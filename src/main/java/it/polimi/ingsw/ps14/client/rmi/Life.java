@@ -1,5 +1,9 @@
 package it.polimi.ingsw.ps14.client.rmi;
-
+/**
+ * Class that run in a separeted thread to send "ping" to server each TIMEPING ms.
+ * In that way server can know when client is disconnected.
+ *
+ */
 public class Life implements Runnable {
 
 	private volatile RMICommunication comm = null;

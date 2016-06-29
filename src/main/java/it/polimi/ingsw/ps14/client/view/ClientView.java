@@ -15,6 +15,14 @@ import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.State;
 
+/**
+ * this public abstract class is unique for cli and gui, the back end call these
+ * methods and this class use method of cliView or GuiView according to type
+ * chosen.
+ * 
+ * @author federico
+ *
+ */
 public abstract class ClientView implements Runnable {
 
 	protected Integer playerID;
@@ -25,18 +33,18 @@ public abstract class ClientView implements Runnable {
 
 	public void setPlayerID(Integer playerID) {
 		this.playerID = playerID;
-		gameStarted=false;
+		gameStarted = false;
 	}
 
 	public Integer getPlayerID() {
 		return playerID;
 	}
-	
+
 	public void setPlayerName(String name) {
 		this.name = name;
 	}
-	
-	public String getPlayerName(){
+
+	public String getPlayerName() {
 		return name;
 	}
 
@@ -63,51 +71,51 @@ public abstract class ClientView implements Runnable {
 	public void setGameStarted(boolean gameStarted) {
 		this.gameStarted = gameStarted;
 	}
-	
+
 	public abstract void showAvailableAssistant(int update);
 
 	public abstract void showAvailableCouncillor(
 			Map<ColorCouncillor, Integer> updatedAvailableCouncillors);
 
 	public abstract void showCitiesColorBonuses(int updatedBonusGold,
-			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) ;
+			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue);
 
-	public abstract void showInfo(String text) ;
+	public abstract void showInfo(String text);
 
-	public abstract void showGameStart() ;
+	public abstract void showGameStart();
 
 	public abstract void showKingBonus(int updatedShowableKingBonus);
-	
-	public abstract void showKingUpdate(King updatedKing) ;
+
+	public abstract void showKingUpdate(King updatedKing);
 
 	public abstract void showMarket(Market updatedMarket);
 
 	public abstract void showNobilityTrack(NobilityTrack updatedNobilityTrack);
 
-	public abstract void showPersonalDetails(Player p) ;
+	public abstract void showPersonalDetails(Player p);
 
-	public abstract void showPlayerChangesPrivate(String message) ;
+	public abstract void showPlayerChangesPrivate(String message);
 
-	public abstract void showPlayerChangesPublic(String notice) ;
+	public abstract void showPlayerChangesPublic(String notice);
 
-	public abstract void showPrivateMsg(String text) ;
+	public abstract void showPrivateMsg(String text);
 
-	public abstract void showRegion(Region updatedRegion) ;
+	public abstract void showRegion(Region updatedRegion);
 
-	public abstract void showItemSold(ItemForSale item) ;
+	public abstract void showItemSold(ItemForSale item);
 
-	public abstract void showOtherPlayer(int id, String name, Color color, int coins,
-			int assistants, int level, int points, int numEmporiums) ;
+	public abstract void showOtherPlayer(int id, String name, Color color,
+			int coins, int assistants, int level, int points, int numEmporiums);
 
 	public abstract void readMessage(Message message);
 
 	@Override
 	public abstract void run();
 
-	public abstract void setCommunication(Communication communication); 
-	
+	public abstract void setCommunication(Communication communication);
+
 	public abstract void showEndGame(List<List<String>> endResults);
-	
+
 	public abstract void showAvailableCommands();
 
 	public abstract void showChatMsg(String author, String text);

@@ -9,7 +9,11 @@ import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.server.ServerViewRemote;
-
+/**
+ * This contains methods that client can call to the server
+ * @author federico
+ *
+ */
 public class RMICommunication implements Communication {
 
 	private ServerViewRemote serverStub;
