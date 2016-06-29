@@ -14,17 +14,7 @@ public class BusinessCardsRegionTest {
 	Model model;		
 
 	public void create() throws IOException {
- model = new Model();
-		Settings settingsInstance = null;
-		try {
-			settingsInstance = new Settings("settings.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		GameBoard gameboard = new GameBoard(settingsInstance);
-		
-		
+		model = new Model();		
 
 		busCard = model.getGameBoard().getRegion(RegionType.COAST)
 				.getBusinessPermits().getAvailablePermits()[0];
