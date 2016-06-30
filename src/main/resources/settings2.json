@@ -22,7 +22,7 @@
         "Arkon" : {
             "region" : "coast",
             "color" : "gold",
-            "neighbors" : ["Castrum"],
+            "neighbors" : ["Castrum"]
         },
         "Burgen" : {
             "region" : "coast",
