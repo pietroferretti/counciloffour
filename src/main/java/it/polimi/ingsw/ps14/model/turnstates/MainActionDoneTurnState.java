@@ -8,6 +8,8 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction;
 
 public class MainActionDoneTurnState extends TurnState {
 
+	private static final long serialVersionUID = 8037639966267227577L;
+
 	public MainActionDoneTurnState(int additionalMains) {
 		super(additionalMains);
 	}

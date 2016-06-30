@@ -6,6 +6,8 @@ import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
 
 public class InitialTurnState extends TurnState {
 
+	private static final long serialVersionUID = -960567983621694181L;
+
 	public InitialTurnState() {
 		super(0); // There can't be any additional main actions at the start of
 					// the turn

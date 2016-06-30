@@ -1,13 +1,7 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
-import static org.junit.Assert.*;
-import it.polimi.ingsw.ps14.model.Balcony;
-import it.polimi.ingsw.ps14.model.ColorCouncillor;
-import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.Region;
-import it.polimi.ingsw.ps14.model.RegionType;
-import it.polimi.ingsw.ps14.model.Settings;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -17,6 +11,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.ps14.model.Balcony;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.RegionType;
+
 
 public class ElectCouncillorActionTest {
 
@@ -24,13 +25,6 @@ public class ElectCouncillorActionTest {
 	Player player;
 	@Before
 	public void create() throws IOException{
-		Settings settingsInstance = null;
-		try {
-			settingsInstance = new Settings("settings.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		 model = new Model();
 
 		List<Player> pls = new ArrayList<>();

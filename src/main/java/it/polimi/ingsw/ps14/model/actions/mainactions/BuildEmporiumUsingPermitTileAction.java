@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
-import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.ColorCity;
@@ -19,8 +17,6 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
  *
  */
 public class BuildEmporiumUsingPermitTileAction extends MainAction {
-	private static final Logger LOGGER = Logger
-			.getLogger(BuildEmporiumUsingPermitTileAction.class.getName());
 
 	private static final long serialVersionUID = 833335630529544205L;
 

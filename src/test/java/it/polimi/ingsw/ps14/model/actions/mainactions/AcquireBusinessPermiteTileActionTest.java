@@ -18,7 +18,6 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
-import it.polimi.ingsw.ps14.model.Settings;
 
 public class AcquireBusinessPermiteTileActionTest {
 
@@ -30,13 +29,7 @@ public class AcquireBusinessPermiteTileActionTest {
 	@Before
 	public void create() throws IOException {
 
-		Settings settingsInstance = null;
-		try {
-			settingsInstance = new Settings("settings.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		 model = new Model();
+		model = new Model();
 
 		List<Player> pls = new ArrayList<>();
 		cards = new ArrayList<>();

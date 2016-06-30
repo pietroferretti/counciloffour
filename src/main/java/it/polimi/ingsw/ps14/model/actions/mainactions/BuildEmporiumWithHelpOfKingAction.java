@@ -1,5 +1,12 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.ColorCity;
@@ -10,14 +17,6 @@ import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.logging.Logger;
 
 /**
  * 

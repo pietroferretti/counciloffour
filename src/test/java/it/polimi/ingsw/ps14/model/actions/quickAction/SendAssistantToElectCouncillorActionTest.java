@@ -2,14 +2,6 @@ package it.polimi.ingsw.ps14.model.actions.quickAction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import it.polimi.ingsw.ps14.model.Balcony;
-import it.polimi.ingsw.ps14.model.ColorCouncillor;
-import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.RegionType;
-import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
-import it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction;
-import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -17,6 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import it.polimi.ingsw.ps14.model.Balcony;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.RegionType;
+import it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction;
+import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
 
 public class SendAssistantToElectCouncillorActionTest {
 

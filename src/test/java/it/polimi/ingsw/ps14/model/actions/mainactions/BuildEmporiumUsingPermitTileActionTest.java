@@ -15,19 +15,11 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
-import it.polimi.ingsw.ps14.model.Settings;
 
 public class BuildEmporiumUsingPermitTileActionTest {
 
 	@Test
 	public void isValidTest() throws IOException {
-		Settings settingsInstance = null;
-		try {
-			settingsInstance = new Settings("settings.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		Model model = new Model();
 
 		List<Player> pls = new ArrayList<>();
@@ -57,12 +49,6 @@ public class BuildEmporiumUsingPermitTileActionTest {
 	
 	@Test
 	public void isValidTest2() throws IOException {
-		Settings settingsInstance = null;
-		try {
-			settingsInstance = new Settings("settings.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		Model model = new Model();
 
@@ -93,12 +79,6 @@ public class BuildEmporiumUsingPermitTileActionTest {
 
 	@Test
 	public void executeTest() throws IOException{
-		Settings settingsInstance = null;
-		try {
-			settingsInstance = new Settings("settings.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		Model model = new Model();
 

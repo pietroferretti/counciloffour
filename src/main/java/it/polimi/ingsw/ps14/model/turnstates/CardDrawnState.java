@@ -7,10 +7,12 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction;
 
 public class CardDrawnState extends TurnState {
 
+	private static final long serialVersionUID = -1990794271096293430L;
+
 	public CardDrawnState() {
 		super(0); // There can't be any additional main actions at the start of
 					// the turn
-	}
+	} 
 
 	@Override
 	public TurnState makeCopy() {

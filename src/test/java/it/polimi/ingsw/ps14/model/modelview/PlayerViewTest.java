@@ -22,7 +22,6 @@ public class PlayerViewTest {
 	private Player player, player2, player3;
 	private PlayerView playerView2, playerView3;
 
-	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 		model = new Model();

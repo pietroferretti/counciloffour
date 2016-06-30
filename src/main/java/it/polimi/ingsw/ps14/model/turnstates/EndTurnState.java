@@ -5,6 +5,8 @@ import it.polimi.ingsw.ps14.model.actions.Action;
 
 public class EndTurnState extends TurnState {
 
+	private static final long serialVersionUID = -2744833026941244675L;
+
 	public EndTurnState() {
 		super(0); // There can't be any more main actions
 	}
