@@ -41,7 +41,7 @@ public class ChangeDialog extends javax.swing.JDialog {
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Coast");
 
-        jLabel1.setText("Change");
+        jLabel1.setText("Change Permits");
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Hills");
@@ -56,23 +56,21 @@ public class ChangeDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(168, 168, 168)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jRadioButton1)
-                .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 16, Short.MAX_VALUE)
-                        .addComponent(jRadioButton2)
-                        .addGap(53, 53, 53)
-                        .addComponent(jRadioButton3)
-                        .addGap(67, 67, 67))))
+                .addGap(0, 68, Short.MAX_VALUE)
+                .addComponent(jRadioButton2)
+                .addGap(53, 53, 53)
+                .addComponent(jRadioButton3)
+                .addGap(67, 67, 67))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(163, 163, 163)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(183, 183, 183)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
