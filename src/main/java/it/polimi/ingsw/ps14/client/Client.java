@@ -61,10 +61,9 @@ public class Client {
 		
 		} else if (view.toUpperCase().matches("^(GUI)$")) {
 			
-			clientView = new GUIView();
+			clientView = new GUIView(name);
 			System.out.println("GUI not yet implemented");
 //			scanner.close();
-//			throw new UnsupportedOperationException();
 			
 		} else {
 			scanner.close();

@@ -36,16 +36,15 @@ public class GUIView extends ClientView implements Runnable {
     private Communication communication;
 	private List<List<String>> endResults;
 
-    public GUIView() {
+    public GUIView(String name) {
         super.setPlayerName(name);
-        playerID = null;
-
     }
 
     @Override
     public void run() {
         int player = playerID;
         SwingUtilities.invokeLater(new Runnable() {
+        	@Override
             public void run() {
                 mainWindow = new GUI(player, communication);
                 mainWindow.setPlayerName(name);
@@ -378,11 +377,6 @@ mainWindow.getChatArea().append("\n"+"CitiesColorBonuses now: BonusGold=" + upda
     public void showChatMsg(String author, String text) {
 mainWindow.getChatArea().append("\n"+author+": "+text);
 
-    }
-
-    public Integer getPlayerID() {
-        // TODO Auto-generated method stub
-        return super.getPlayerID();
     }
 
 }

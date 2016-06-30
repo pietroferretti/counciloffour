@@ -11,8 +11,8 @@ import javax.swing.OverlayLayout;
  */
 public class GUI extends javax.swing.JFrame {
 
-    private static int playerID;
-    private static Communication communication;
+    private int playerID;
+    private Communication communication;
     private String name = "Player";
 
     public GUI(int playerID, Communication communication) {

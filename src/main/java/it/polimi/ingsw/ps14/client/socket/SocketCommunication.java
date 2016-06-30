@@ -180,9 +180,10 @@ public class SocketCommunication implements Communication {
 				clientView.showChatMsg(((ChatMsg) message).getAuthor(),
 						((ChatMsg) message).getText());
 
-			} else
+			} else {
 				clientView.readMessage(message);
-
+				// TODO LOGGER.warning("message not recognized);
+			}
 		} else
 			LOGGER.info("Couldn't interpret message.");
 

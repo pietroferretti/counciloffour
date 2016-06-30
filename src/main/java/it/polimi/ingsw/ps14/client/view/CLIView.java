@@ -26,13 +26,12 @@ import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
-/*
+/**
  * --------------------------Command Line Interface-----------------------
  * It acquires infos from player and show the game state each time something
  * has changed
  * 
  */
-//TODO faccio stampare solo i dettagli del giocatori che ha finito il turno
 public class CLIView extends ClientView implements Runnable {
 	private static final Logger LOGGER = Logger.getLogger(CLIView.class.getName());
 
@@ -45,7 +44,6 @@ public class CLIView extends ClientView implements Runnable {
 		super.setPlayerName(name);
 		interpreter = new Interpreter(this);
 		in = scanner;
-		playerID = null;
 	}
 
 	@Override

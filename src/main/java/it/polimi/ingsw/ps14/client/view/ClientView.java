@@ -33,7 +33,7 @@ public abstract class ClientView implements Runnable {
 
 	public void setPlayerID(Integer playerID) {
 		this.playerID = playerID;
-		gameStarted = false;
+//		gameStarted = false;	TODO tenere?
 	}
 
 	public Integer getPlayerID() {
