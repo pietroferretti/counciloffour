@@ -13,7 +13,7 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 	private static final Logger LOGGER = Logger.getLogger(ChangeBusinessPermitTilesAction.class
 			.getName());
 	/**
-	 * 
+	 * Change available permit tiles in the region chosen by the player
 	 */
 	private static final long serialVersionUID = 7772522018552870637L;
 	private final RegionType regType;

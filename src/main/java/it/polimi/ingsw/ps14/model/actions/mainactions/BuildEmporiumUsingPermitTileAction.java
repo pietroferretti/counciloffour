@@ -12,15 +12,23 @@ import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
+/**
+ * The player can build emporium using his unused business permit in a city
+ * written in the business permit.
+ * 
+ *
+ */
 public class BuildEmporiumUsingPermitTileAction extends MainAction {
-	private static final Logger LOGGER = Logger.getLogger(BuildEmporiumUsingPermitTileAction.class.getName());
+	private static final Logger LOGGER = Logger
+			.getLogger(BuildEmporiumUsingPermitTileAction.class.getName());
 
 	private static final long serialVersionUID = 833335630529544205L;
 
 	private final Integer businessCardID;
 	private final String cityName;
 
-	public BuildEmporiumUsingPermitTileAction(Integer playerID, Integer cardID, String city) {
+	public BuildEmporiumUsingPermitTileAction(Integer playerID, Integer cardID,
+			String city) {
 		super(playerID);
 		this.businessCardID = cardID;
 		this.cityName = city;
@@ -77,18 +85,21 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		city.buildEmporium(player);
 
 		Region region = city.getRegion();
-		if ((region.getBonusRegion() != 0) && builtAllCitiesInRegion(player, region)) {
+		if ((region.getBonusRegion() != 0)
+				&& builtAllCitiesInRegion(player, region)) {
 			player.addPoints(region.getBonusRegion());
 			region.consumeBonusRegion();
 
 			giveBonusKing(player, model.getGameBoard());
 		}
-		
+
 		GameBoard gameboard = model.getGameBoard();
 		ColorCity cityColor = city.getColor();
-		if ((cityColor != ColorCity.PURPLE) && (gameboard.getColorBonus(cityColor) != 0) && builtAllCitiesWithColor(player, gameboard, cityColor)) {
+		if ((cityColor != ColorCity.PURPLE)
+				&& (gameboard.getColorBonus(cityColor) != 0)
+				&& builtAllCitiesWithColor(player, gameboard, cityColor)) {
 			player.addPoints(gameboard.useColorBonus(cityColor));
-			
+
 			giveBonusKing(player, gameboard);
 		}
 
@@ -117,10 +128,12 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		return allBuilt;
 	}
 
-	private boolean builtAllCitiesWithColor(Player player, GameBoard gameboard, ColorCity color) {
+	private boolean builtAllCitiesWithColor(Player player, GameBoard gameboard,
+			ColorCity color) {
 		boolean allBuilt = true;
 		for (City cityInGameboard : gameboard.getCities()) {
-			if (color.equals(cityInGameboard.getColor()) && !cityInGameboard.getEmporiums().contains(player)) {
+			if (color.equals(cityInGameboard.getColor())
+					&& !cityInGameboard.getEmporiums().contains(player)) {
 				allBuilt = false;
 			}
 		}

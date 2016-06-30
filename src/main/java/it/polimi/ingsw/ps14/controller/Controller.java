@@ -55,7 +55,7 @@ public class Controller implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class
 			.getName());
 
-	private static final long TURNCOUNTDOWN = 30; 	// 30 seconds
+	private static final long TURNCOUNTDOWN = 60; 	// 30 seconds
 
 	private Model model;
 	private List<Player> players;
@@ -149,6 +149,7 @@ public class Controller implements Observer {
 	private void updatePlayerName(ServerView playerView, String name) {
 
 		model.id2player(playerView.getPlayerID()).setName(name);
+		model.setCurrentPlayer(model.getCurrentPlayer());; 	// notifies modelview
 
 	}
 
@@ -213,6 +214,11 @@ public class Controller implements Observer {
 					+ model.getCurrentPlayer().getName());
 			return;
 		}
+		
+		if (model.getWaitingFor() != WaitingFor.NOTHING) {
+			sendPrivateMsg(playerView.getPlayerID(), "You have to choose your bonuses before doing more actions!");
+			return;
+		}
 
 		// checks if we are in the right state to execute this action (e.g. we
 		// can still perform a Main Action)
@@ -271,9 +277,6 @@ public class Controller implements Observer {
 					model.setCurrentMarketState(MarketState.SELLING);
 					model.getMarket().clear();
 
-//					marketPlayers = new ArrayList<>(players);
-//					Collections.shuffle(marketPlayers);
-//					model.setPlayerOrder(marketPlayers);
 					model.setPlayerOrder(players);
 					model.loadNextPlayer();
 
@@ -305,6 +308,11 @@ public class Controller implements Observer {
 		if (playerView.getPlayerID() != model.getCurrentPlayer().getId()) {
 			sendPrivateMsg(playerView.getPlayerID(), "It's not your turn! Current player: "
 					+ model.getCurrentPlayer().getName());
+			return;
+		}
+		
+		if (model.getWaitingFor() != WaitingFor.NOTHING) {
+			sendPrivateMsg(playerView.getPlayerID(), "You have to choose your bonuses before doing more actions!");
 			return;
 		}
 
@@ -387,19 +395,34 @@ public class Controller implements Observer {
 
 		action.execute(model.getMarket());
 
-		// if no more players have to play their turn
-		if (model.getPlayerOrder().isEmpty()) {
 
-			model.setCurrentMarketState(MarketState.BUYING);
-			List<Player> marketPlayers = new ArrayList<>(players);
-			Collections.shuffle(marketPlayers);
-			model.setPlayerOrder(marketPlayers);
-			model.loadNextPlayer();
-
-		} else {
+		if (!model.getPlayerOrder().isEmpty()) {
 
 			// it's the next player's turn
 			model.loadNextPlayer();
+
+		} else {
+			// if no more players have to play their turn
+			
+			if (model.getMarket().isEmpty() ) {
+				// skip the market phase if the market is empty
+				
+				model.setMessage(new InfoPublicMsg("No one wanted to sell anything, skipping the market phase."));
+				
+				model.getMarket().clear();
+				model.setGamePhase(GamePhase.TURNS);
+				model.setCurrentTurnState(new InitialTurnState());
+				model.setPlayerOrder(players);
+				model.loadNextPlayer();
+				
+			} else {
+				
+				model.setCurrentMarketState(MarketState.BUYING);
+				List<Player> marketPlayers = new ArrayList<>(players);
+				Collections.shuffle(marketPlayers);
+				model.setPlayerOrder(marketPlayers);
+				model.loadNextPlayer();
+			}
 		}
 	}
 
@@ -513,9 +536,28 @@ public class Controller implements Observer {
 
 		} else {
 
-			model.setCurrentMarketState(MarketState.BUYING);
-			model.setPlayerOrder(players);
-			model.loadNextPlayer();
+			// if no more players have to play their turn
+			
+			if (model.getMarket().isEmpty() ) {
+				// skip the market phase if the market is empty
+				
+				model.setMessage(new InfoPublicMsg("No one wanted to sell anything, skipping the market phase."));
+				
+				model.getMarket().clear();
+				model.setGamePhase(GamePhase.TURNS);
+				model.setCurrentTurnState(new InitialTurnState());
+				model.setPlayerOrder(players);
+				model.loadNextPlayer();
+				
+			} else {
+				
+				model.setCurrentMarketState(MarketState.BUYING);
+				List<Player> marketPlayers = new ArrayList<>(players);
+				Collections.shuffle(marketPlayers);
+				model.setPlayerOrder(marketPlayers);
+				model.loadNextPlayer();
+			}
+			
 		}
 	}
 
@@ -1056,16 +1098,31 @@ public class Controller implements Observer {
 
 				if (!model.getPlayerOrder().isEmpty()) {
 
+					// it's the next player's turn
 					model.loadNextPlayer();
 
 				} else {
-
-					model.setCurrentMarketState(MarketState.BUYING);
-					List<Player> marketPlayers = new ArrayList<>(players);
-					Collections.shuffle(marketPlayers);
-					model.setPlayerOrder(marketPlayers);
-					model.loadNextPlayer();
-
+					// if no more players have to play their turn
+					
+					if (model.getMarket().isEmpty() ) {
+						// skip the market phase if the market is empty
+						
+						model.setMessage(new InfoPublicMsg("No one wanted to sell anything, skipping the market phase."));
+						
+						model.getMarket().clear();
+						model.setGamePhase(GamePhase.TURNS);
+						model.setCurrentTurnState(new InitialTurnState());
+						model.setPlayerOrder(players);
+						model.loadNextPlayer();
+						
+					} else {
+						
+						model.setCurrentMarketState(MarketState.BUYING);
+						List<Player> marketPlayers = new ArrayList<>(players);
+						Collections.shuffle(marketPlayers);
+						model.setPlayerOrder(marketPlayers);
+						model.loadNextPlayer();
+					}
 				}
 
 			} else if (model.getCurrentMarketState() == MarketState.BUYING) {

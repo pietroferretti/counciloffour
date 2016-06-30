@@ -55,21 +55,45 @@ public class CLIView extends ClientView implements Runnable {
 
 	@Override
 	public void showAvailableAssistant(int update) {
+		print("");
 		print("Assistant available now: " + update);
 	}
 
 	@Override
 	public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
 		ColorCouncillor[] map = ColorCouncillor.values();
+		print("");
+		print("Councillors available on the gameboard:");
 		for (ColorCouncillor m : map)
-			print(m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString() + "\n");
+			print(m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString());
 	}
 
 	@Override
 	public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
 			int updatedBonusBlue) {
-		print("CitiesColorBonuses now: BonusGold=" + updatedBonusGold + ", BonusSilver="
-				+ updatedBonusSilver + ", BonusBronze=" + updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue);
+		
+		print("");
+		print("Available city color bonuses:");
+		
+		if (updatedBonusGold != 0) {
+			print(String.format("Gold cities: %d victory points", updatedBonusGold));
+		}
+		
+		if (updatedBonusSilver != 0) {
+			print(String.format("Silver cities: %d victory points", updatedBonusSilver));
+		}
+		
+		if (updatedBonusBronze != 0) {
+			print(String.format("Bronze cities: %d victory points", updatedBonusBronze));
+		}
+		
+		if (updatedBonusBlue != 0) {
+			print(String.format("Blue cities: %d victory points", updatedBonusBlue));
+		}
+
+		if (updatedBonusGold == 0 && updatedBonusSilver == 0 && updatedBonusBronze == 0 && updatedBonusBlue == 0) {
+			print("All the city color construction bonuses have been used already!");
+		}
 	}
 
 	@Override
@@ -84,12 +108,12 @@ public class CLIView extends ClientView implements Runnable {
 
 	@Override
 	public void showKingBonus(int updatedShowableKingBonus) {
-		print("KingBonusesUpdatedMsg [updatedShowableKingBonus=" + updatedShowableKingBonus + "]");
+		print(String.format("Next King bonus: %d victory points", updatedShowableKingBonus));
 	}
 
 	@Override
 	public void showKingUpdate(King updatedKing) {
-		print("KingUpdatedMsg [updatedKing=" + updatedKing + "]");
+		print(updatedKing.toString());
 	}
 
 	@Override
@@ -136,7 +160,7 @@ public class CLIView extends ClientView implements Runnable {
 	public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
 			int numEmporiums) {
 		print("\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
-				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
+				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility: " + Integer.toString(level)
 				+ "\nVictory Points: " + Integer.toString(points));
 	}
 
@@ -188,7 +212,7 @@ public class CLIView extends ClientView implements Runnable {
 		print("ELECT-WITH-ASSISTANT coast|hills|mountains|king color - elect a councillor in the chosen balcony with help of an assistant");
 		print("FINISH or PASS - pass the turn");
 		print("SHOW mydetails|details|gameboard - show whatever you want");
-		print("SELL [business id1-price [id2-price ...]] [assistants num-price [num-price ...]] [politic color1-price [color2-price]] - sell! sell! sell!");
+		print("SELL [business id1-price,id2-price,...]] [assistants num-price [num-price ...]] [politic color1-price,color2-price,...] - sell! sell! sell!");
 		print("SELL none - don't sell anything :(");
 		print("BUY item_id [quantity] - buy! insert quantity if you want to buy some of the assistants in a bundle");
 		print("BUY finish - terminate your buying phase");

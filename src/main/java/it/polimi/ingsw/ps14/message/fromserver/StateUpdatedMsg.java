@@ -5,10 +5,8 @@ import it.polimi.ingsw.ps14.model.State;
 
 public class StateUpdatedMsg implements Message {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2745254141113563674L;
+
+	private static final long serialVersionUID = 5148749654155846861L;
 
 	private State updatedState;
 

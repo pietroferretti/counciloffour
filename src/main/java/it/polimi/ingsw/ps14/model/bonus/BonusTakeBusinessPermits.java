@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
@@ -36,22 +37,27 @@ public class BonusTakeBusinessPermits implements SpecialNobilityBonus {
 	 */
 	@Override
 	public void useBonus(Player player, Model model) {
-		
+
 		Map<String, String> availableChoices = new HashMap<>();
-		
+
 		List<BusinessPermit> tempList;
 		for (Region region : model.getGameBoard().getRegions()) {
-			
+
 			tempList = Arrays.asList(region.getAvailablePermits());
-			for (BusinessPermit permit: tempList) {
+			for (BusinessPermit permit : tempList) {
 				availableChoices.put(permit.getId().toString(), permit.toString());
 			}
-			
+
 		}
 
-		model.setAvailableChoices(availableChoices);
-		model.setWaitingForHowMany(quantity);
-		model.setWaitingFor(WaitingFor.TAKEPERMIT);
+		if (availableChoices.isEmpty()) {
+			model.setMessage(new InfoPrivateMsg(player.getId(),
+					"You could have got a free permit, but there aren't any permits left to get..."));
+		} else {
+			model.setAvailableChoices(availableChoices);
+			model.setWaitingForHowMany(quantity);
+			model.setWaitingFor(WaitingFor.TAKEPERMIT);
+		}
 	}
 
 	@Override
@@ -61,6 +67,10 @@ public class BonusTakeBusinessPermits implements SpecialNobilityBonus {
 
 	@Override
 	public String toString() {
-		return "\n+" + Integer.toString(quantity) + " business permits!";
+		if (quantity == 1) {
+			return "\nA free business permit!";
+		} else {
+			return "\n+" + Integer.toString(quantity) + " free business permits!";
+		}
 	}
 }

@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps14.model.bonus;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
@@ -52,9 +53,14 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 			
 		}
 		
-		model.setAvailableChoices(availableChoices);
-		model.setWaitingForHowMany(quantity);
-		model.setWaitingFor(WaitingFor.TAKEPERMIT);
+		if (availableChoices.isEmpty()) {
+			model.setMessage(new InfoPrivateMsg(player.getId(),
+					"You could have got a bonus from the cities you built in, but you haven't built any emporium yet..."));
+		} else {
+			model.setAvailableChoices(availableChoices);
+			model.setWaitingForHowMany(quantity);
+			model.setWaitingFor(WaitingFor.TAKEPERMIT);
+		}
 	}
 	
 	@Override
@@ -64,6 +70,10 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 	
 	@Override
 	public String toString() {
-		return "\nChoose a bonus from the cities in which you own an emporium!";
+		if (quantity == 1) {
+			return "\nChoose a bonus from the cities in which you own an emporium!"; 
+		} else {
+			return String.format("\nChoose %d bonuses from the cities in which you own an emporium!", quantity);
+		}
 	}
 }

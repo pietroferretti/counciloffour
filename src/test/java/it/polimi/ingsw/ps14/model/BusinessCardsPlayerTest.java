@@ -15,18 +15,12 @@ public class BusinessCardsPlayerTest {
 	public void create() throws IOException {
 		Model model = new Model();
 
-		Settings settingsInstance = null;
-		try {
-			settingsInstance = new Settings("settings.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		GameBoard gameboard = new GameBoard(settingsInstance);
-
-		busCard = model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0];
-		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
-		busCard = model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0];
+		busCard = model.getGameBoard().getRegion(RegionType.COAST)
+				.getBusinessPermits().getAvailablePermits()[0];
+		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model
+				.getGameBoard().getPoliticDeck(), 6);
+		busCard = model.getGameBoard().getRegion(RegionType.COAST)
+				.getBusinessPermits().getAvailablePermits()[0];
 	}
 
 	@Test

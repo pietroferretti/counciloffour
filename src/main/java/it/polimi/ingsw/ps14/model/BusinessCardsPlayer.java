@@ -87,7 +87,7 @@ public class BusinessCardsPlayer implements Serializable {
 	public List<BusinessPermit> getUsedCards() {
 		if (usedCards != null)
 			return usedCards;
-		else return null;
+		else return new ArrayList<>();
 	}
 
 	public void setUsedCards(List<BusinessPermit> usedCards) {
@@ -113,12 +113,12 @@ public class BusinessCardsPlayer implements Serializable {
 
 	@Override
 	public String toString() {
-		String s = "\nBUSINESS CARDS\nValid Cards: ";
+		String s = "BUSINESS CARDS\nValid Cards: ";
 		if (validCards.isEmpty())
 			s = s + "\nNo valid cards yet.\n";
 		else {
 			for (BusinessPermit businessPermit : validCards) {
-				s = s + businessPermit.toString();
+				s = s + businessPermit.toString() + "\n";
 			}
 		}
 		s = s + "Used Cards: ";

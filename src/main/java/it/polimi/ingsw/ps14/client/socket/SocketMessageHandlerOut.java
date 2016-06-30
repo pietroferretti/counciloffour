@@ -6,7 +6,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.Message;
-
+/**
+ * write object in dedicated server IN socket
+ * @author federico
+ *
+ */
 public class SocketMessageHandlerOut {
 	private static final Logger LOGGER = Logger.getLogger(SocketMessageHandlerOut.class.getName());
 
@@ -14,7 +18,7 @@ public class SocketMessageHandlerOut {
 
 	
 	public SocketMessageHandlerOut(ObjectOutputStream socketOut) {
-		this.socketOut = socketOut;
+		this.socketOut = socketOut;                   
 	}
 
 	public void sendMessage(Message message) {

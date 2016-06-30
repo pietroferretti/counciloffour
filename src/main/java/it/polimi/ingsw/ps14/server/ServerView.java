@@ -9,6 +9,7 @@ import it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg;
 import it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg;
 import it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg;
+import it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.ChatMsg;
 import it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg;
 import it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg;
@@ -71,6 +72,8 @@ public abstract class ServerView extends Observable implements Observer {
 					.getStateCopy()));
 			sendMessage(new AvailableAssistantsUpdatedMsg(modelView
 					.getAvailableAssistantsView().getAvailableAssistantsCopy()));
+			sendMessage(new AvailableCouncillorsUpdatedMsg(modelView
+					.getAvailableCouncillorsView().getAvailableCouncillorsCopy()));
 			sendMessage(new KingBonusesUpdatedMsg(modelView
 					.getKingBonusesView().getShowableKingBonus()));
 			sendMessage(new NobilityTrackUpdatedMsg(modelView

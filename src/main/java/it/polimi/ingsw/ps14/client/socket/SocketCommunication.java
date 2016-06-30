@@ -57,7 +57,12 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
-
+/**
+ * this class handle method that client call in the server and 
+ * methods that server call on the client
+ * @author federico
+ *
+ */
 public class SocketCommunication implements Communication {
 
 	private static final Logger LOGGER = Logger.getLogger(CLIView.class
@@ -89,7 +94,7 @@ public class SocketCommunication implements Communication {
 				clientView.showGameStart();
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
-				clientView.showAvailableCommands();
+//				clientView.showAvailableCommands();
 			} else if (message instanceof StateUpdatedMsg) {
 
 				clientView.setGameState(((StateUpdatedMsg) message)
