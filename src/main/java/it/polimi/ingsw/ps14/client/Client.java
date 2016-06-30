@@ -33,6 +33,7 @@ public class Client {
 
 	private static final Logger LOGGER = Logger.getLogger(Client.class
 			.getName());
+                              
 
 	private Client() {
 	};
@@ -83,7 +84,6 @@ public class Client {
 			try {
 
 				try {
-
 					socket = new Socket(HOST, PORT);
 					System.out.println("Connection created.");
 

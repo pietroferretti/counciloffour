@@ -224,22 +224,22 @@ public class ElectCouncillorDialog extends JDialog {
 	}
 
 	private void jButton2MouseClicked() {
-//		ColorCouncillor cc = null;
-//		String s = null;
-//		for (Enumeration<AbstractButton> buttons = buttonGroup2.getElements(); buttons.hasMoreElements();) {
-//			AbstractButton button = buttons.nextElement();
-//			if (button.isSelected()) {
-//				cc = ColorCouncillor.valueOf(button.getText());
-//			}
-//		}
-//		for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
-//			AbstractButton button = buttons.nextElement();
-//			if (button.isSelected()) {
-//				s = button.getText();
-//			}
-//		}
+		ColorCouncillor cc = null;
+		String s = null;
+		for (Enumeration<AbstractButton> buttons = buttonGroup2.getElements(); buttons.hasMoreElements();) {
+			AbstractButton button = buttons.nextElement();
+			if (button.isSelected()) {
+				cc = ColorCouncillor.valueOf(button.getText());
+			}
+		}
+		for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
+			AbstractButton button = buttons.nextElement();
+			if (button.isSelected()) {
+				s = button.getText();
+			}
+		}
 		System.out.println("cfghbn nmk");
-//		comm.electCouncillor(playerID, cc, s);
+		comm.electCouncillor(playerID, cc, s);
 
 	}
 
