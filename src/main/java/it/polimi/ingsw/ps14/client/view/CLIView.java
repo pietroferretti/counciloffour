@@ -46,9 +46,55 @@ public class CLIView extends ClientView implements Runnable {
 		in = scanner;
 	}
 
+	public void print(String string) {
+		System.out.println(string);
+	}
+
+	@Override
+	public void readMessage(Message message) {
+		print(message.toString());
+	}
+
+	@Override
+	public void run() {
+
+		while (true) {
+
+//			print("");
+//			showAvailableCommands();
+
+		//	print("Enter command:");
+			String input = in.nextLine();
+
+			if (input.equalsIgnoreCase("INSTRUCTIONS") || input.toUpperCase().equalsIgnoreCase("HELP")) {
+				showInstructions();
+
+			} else if (!isGameStarted()) {
+				
+				print("The game hasn't started yet.");
+
+			} else {
+
+				if (!interpreter.parseString(input, getPlayerID())) {
+					print("Command not recognized! Retry:");
+				}
+			}
+		}
+	}
+
 	@Override
 	public void setCommunication(Communication communication) {
 		interpreter.setCommunication(communication);
+	}
+
+	@Override
+	public void setGameStarted(boolean gameStarted) {
+		super.setGameStarted(gameStarted);
+
+		if (gameStarted) {
+			interpreter.getCommunication().setPlayerName(super.playerID, super.name);
+		}
+
 	}
 
 	@Override
@@ -58,12 +104,47 @@ public class CLIView extends ClientView implements Runnable {
 	}
 
 	@Override
+	public void showAvailableCommands() {
+
+		print("");
+		
+		if (gameState == null) {
+
+			print("The game hasn't started yet. You can see the available commands with 'instructions'");
+
+		} else if (gameState.getGamePhase() == GamePhase.TURNS) {
+
+			showCommandsTurns();
+
+		} else if (gameState.getGamePhase() == GamePhase.FINALTURNS) {
+
+			print("Final turns!");
+			showCommandsTurns();
+
+		} else if (gameState.getGamePhase() == GamePhase.MARKET) {
+
+			showCommandsMarket();
+
+		} else if (gameState.getGamePhase() == GamePhase.END) {
+
+			print("The game has ended. Enter 'results' to see the rankings.");
+
+		}
+
+	}
+
+	@Override
 	public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
 		ColorCouncillor[] map = ColorCouncillor.values();
 		print("");
 		print("Councillors available on the gameboard:");
 		for (ColorCouncillor m : map)
 			print(m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString());
+	}
+
+	@Override
+	public void showChatMsg(String author, String text) {
+		System.out.println(author+"@CHAT: "+text);
 	}
 
 	@Override
@@ -94,153 +175,42 @@ public class CLIView extends ClientView implements Runnable {
 		}
 	}
 
-	@Override
-	public void showInfo(String text) {
-		print(text);
-	}
+	private void showCommandsMarket() {
 
-	@Override
-	public void showGameStart() {
-		print("Game Started! Good Luck :)");
-	}
+		print("* Market Phase *");
 
-	@Override
-	public void showKingBonus(int updatedShowableKingBonus) {
-		print(String.format("Next King bonus: %d victory points", updatedShowableKingBonus));
-	}
+		if (gameState.getCurrentMarketState() == MarketState.SELLING) {
 
-	@Override
-	public void showKingUpdate(King updatedKing) {
-		print(updatedKing.toString());
-	}
+			print("Currently selling.");
 
-	@Override
-	public void showMarket(Market updatedMarket) {
-		print(updatedMarket.toString());
-	}
+			if (gameState.getCurrentPlayer().getId() != playerID) {
 
-	@Override
-	public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
-		print(updatedNobilityTrack.toString());
-	}
-
-	@Override
-	public void showPersonalDetails(Player p) {
-		print(p.toString());
-	}
-
-	@Override
-	public void showPlayerChangesPrivate(String message) {
-		print(message);
-	}
-
-	@Override
-	public void showPlayerChangesPublic(String notice) {
-		print(notice);
-	}
-
-	@Override
-	public void showPrivateMsg(String text) {
-		print(text);
-	}
-
-	@Override
-	public void showRegion(Region updatedRegion) {
-		print(updatedRegion.toString());
-	}
-
-	@Override
-	public void showItemSold(ItemForSale item) {
-		print(item.toString());
-	}
-
-	@Override
-	public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
-			int numEmporiums) {
-		print("\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
-				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility: " + Integer.toString(level)
-				+ "\nVictory Points: " + Integer.toString(points));
-	}
-
-
-	public void print(String string) {
-		System.out.println(string);
-	}
-
-	@Override
-	public void run() {
-
-		while (true) {
-
-//			print("");
-//			showAvailableCommands();
-
-		//	print("Enter command:");
-			String input = in.nextLine();
-
-			if (input.equalsIgnoreCase("INSTRUCTIONS") || input.toUpperCase().equalsIgnoreCase("HELP")) {
-				showInstructions();
-
-			} else if (!isGameStarted()) {
-				
-				print("The game hasn't started yet.");
+				print(String.format("It's %s's turn to sell.", gameState.getCurrentPlayer().getName()));
 
 			} else {
 
-				if (!interpreter.parseString(input, getPlayerID())) {
-					print("Command not recognized! Retry:");
-				}
+				print("It's your turn to sell.");
+
 			}
-		}
-	}
 
-	private void showInstructions() {
-		print("Player ID: " + playerID);
-		print("*** Commands:");
-		print("DRAW - draw a politic card");
-		print("main action:");
-		print("ELECT color coast|hills|mountains|king - elect a councillor in the chosen balcony");
-		print("ACQUIRE coast|hills|mountains permit_id card_color [card_color ...] - acquire the permit with id 'permit_id' from the chosen region using the cards specified");
-		print("BUILD-WITH-KING city_name card_color [card_color ...] - build an emporium in the city 'city_name' with the help of the king using the cards specified");
-		print("BUILD-WITH-PERMIT city_name permit_id - build an emporium in the city 'city_name' using the permit specified");
-		print("quick action:");
-		print("ENGAGE - engage an assistant");
-		print("CHANGE coast|hills|mountains - change faceup business permits in the region specified");
-		print("MAIN - perform another main action");
-		print("ELECT-WITH-ASSISTANT coast|hills|mountains|king color - elect a councillor in the chosen balcony with help of an assistant");
-		print("FINISH or PASS - pass the turn");
-		print("SHOW mydetails|details|gameboard - show whatever you want");
-		print("SELL [business id1-price,id2-price,...]] [assistants num-price [num-price ...]] [politic color1-price,color2-price,...] - sell! sell! sell!");
-		print("SELL none - don't sell anything :(");
-		print("BUY item_id [quantity] - buy! insert quantity if you want to buy some of the assistants in a bundle");
-		print("BUY finish - terminate your buying phase");
-	}
+		} else if (gameState.getCurrentMarketState() == MarketState.BUYING) {
 
-	@Override
-	public void showAvailableCommands() {
+			print("Currently buying.");
 
-		print("");
-		
-		if (gameState == null) {
+			if (gameState.getCurrentPlayer().getId() != playerID) {
 
-			print("The game hasn't started yet. You can see the available commands with 'instructions'");
+				print(String.format("It's %s's turn to buy.", gameState.getCurrentPlayer().getName()));
 
-		} else if (gameState.getGamePhase() == GamePhase.TURNS) {
+			} else {
 
-			showCommandsTurns();
+				print("It's your turn to buy. You can buy something or pass the turn.");
 
-		} else if (gameState.getGamePhase() == GamePhase.FINALTURNS) {
+			}
 
-			print("Final turns!");
-			showCommandsTurns();
+		} else if (gameState.getCurrentMarketState() == MarketState.END) {
 
-		} else if (gameState.getGamePhase() == GamePhase.MARKET) {
-
-			showCommandsMarket();
-
-		} else if (gameState.getGamePhase() == GamePhase.END) {
-
-			print("The game has ended. Enter 'results' to see the rankings.");
+			print("The market has ended, you shouldn't be here.");
+			LOGGER.warning("Something went wrong, the game is still in the market phase even after it ended!!");
 
 		}
 
@@ -339,68 +309,6 @@ public class CLIView extends ClientView implements Runnable {
 
 	}
 
-	private void showCommandsMarket() {
-
-		print("* Market Phase *");
-
-		if (gameState.getCurrentMarketState() == MarketState.SELLING) {
-
-			print("Currently selling.");
-
-			if (gameState.getCurrentPlayer().getId() != playerID) {
-
-				print(String.format("It's %s's turn to sell.", gameState.getCurrentPlayer().getName()));
-
-			} else {
-
-				print("It's your turn to sell.");
-
-			}
-
-		} else if (gameState.getCurrentMarketState() == MarketState.BUYING) {
-
-			print("Currently buying.");
-
-			if (gameState.getCurrentPlayer().getId() != playerID) {
-
-				print(String.format("It's %s's turn to buy.", gameState.getCurrentPlayer().getName()));
-
-			} else {
-
-				print("It's your turn to buy. You can buy something or pass the turn.");
-
-			}
-
-		} else if (gameState.getCurrentMarketState() == MarketState.END) {
-
-			print("The market has ended, you shouldn't be here.");
-			LOGGER.warning("Something went wrong, the game is still in the market phase even after it ended!!");
-
-		}
-
-	}
-
-	@Override
-	public void setGameStarted(boolean gameStarted) {
-		super.setGameStarted(gameStarted);
-
-		if (gameStarted) {
-			interpreter.getCommunication().setPlayerName(super.playerID, super.name);
-		}
-
-	}
-
-	@Override
-	public void readMessage(Message message) {
-		print(message.toString());
-	}
-
-	@Override
-	public void showEndGame(List<List<String>> endResults) {
-		this.endResults = endResults;
-		showEndGame();
-	}
-	
 	public void showEndGame() {
 		
 		if (endResults == null) {
@@ -441,8 +349,100 @@ public class CLIView extends ClientView implements Runnable {
 	}
 
 	@Override
-	public void showChatMsg(String author, String text) {
-		System.out.println(author+"@CHAT: "+text);
+	public void showEndGame(List<List<String>> endResults) {
+		this.endResults = endResults;
+		showEndGame();
+	}
+
+	@Override
+	public void showGameStart() {
+		print("Game Started! Good Luck :)");
+	}
+
+	@Override
+	public void showInfo(String text) {
+		print(text);
+	}
+
+
+	private void showInstructions() {
+		print("Player ID: " + playerID);
+		print("*** Commands:");
+		print("DRAW - draw a politic card");
+		print("main action:");
+		print("ELECT color coast|hills|mountains|king - elect a councillor in the chosen balcony");
+		print("ACQUIRE coast|hills|mountains permit_id card_color [card_color ...] - acquire the permit with id 'permit_id' from the chosen region using the cards specified");
+		print("BUILD-WITH-KING city_name card_color [card_color ...] - build an emporium in the city 'city_name' with the help of the king using the cards specified");
+		print("BUILD-WITH-PERMIT city_name permit_id - build an emporium in the city 'city_name' using the permit specified");
+		print("quick action:");
+		print("ENGAGE - engage an assistant");
+		print("CHANGE coast|hills|mountains - change faceup business permits in the region specified");
+		print("MAIN - perform another main action");
+		print("ELECT-WITH-ASSISTANT coast|hills|mountains|king color - elect a councillor in the chosen balcony with help of an assistant");
+		print("FINISH or PASS - pass the turn");
+		print("SHOW mydetails|details|gameboard - show whatever you want");
+		print("SELL [business id1-price,id2-price,...]] [assistants num-price [num-price ...]] [politic color1-price,color2-price,...] - sell! sell! sell!");
+		print("SELL none - don't sell anything :(");
+		print("BUY item_id [quantity] - buy! insert quantity if you want to buy some of the assistants in a bundle");
+		print("BUY finish - terminate your buying phase");
+	}
+
+	@Override
+	public void showItemSold(ItemForSale item) {
+		print(item.toString());
+	}
+
+	@Override
+	public void showKingBonus(int updatedShowableKingBonus) {
+		print(String.format("Next King bonus: %d victory points", updatedShowableKingBonus));
+	}
+
+	@Override
+	public void showKingUpdate(King updatedKing) {
+		print(updatedKing.toString());
+	}
+
+	@Override
+	public void showMarket(Market updatedMarket) {
+		print(updatedMarket.toString());
+	}
+
+	@Override
+	public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
+		print(updatedNobilityTrack.toString());
+	}
+
+	@Override
+	public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
+			int numEmporiums) {
+		print("\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
+				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility: " + Integer.toString(level)
+				+ "\nVictory Points: " + Integer.toString(points));
+	}
+
+	@Override
+	public void showPersonalDetails(Player p) {
+		print(p.toString());
+	}
+
+	@Override
+	public void showPlayerChangesPrivate(String message) {
+		print(message);
+	}
+
+	@Override
+	public void showPlayerChangesPublic(String notice) {
+		print(notice);
+	}
+	
+	@Override
+	public void showPrivateMsg(String text) {
+		print(text);
+	}
+
+	@Override
+	public void showRegion(Region updatedRegion) {
+		print(updatedRegion.toString());
 	}
 
 

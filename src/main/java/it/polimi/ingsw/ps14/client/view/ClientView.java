@@ -72,17 +72,30 @@ public abstract class ClientView implements Runnable {
 		this.gameStarted = gameStarted;
 	}
 
+
+	public abstract void readMessage(Message message);
+
+	public abstract void setCommunication(Communication communication);
+
 	public abstract void showAvailableAssistant(int update);
+
+	public abstract void showAvailableCommands();
 
 	public abstract void showAvailableCouncillor(
 			Map<ColorCouncillor, Integer> updatedAvailableCouncillors);
 
+	public abstract void showChatMsg(String author, String text);
+
 	public abstract void showCitiesColorBonuses(int updatedBonusGold,
 			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue);
 
-	public abstract void showInfo(String text);
+	public abstract void showEndGame(List<List<String>> endResults);
 
 	public abstract void showGameStart();
+
+	public abstract void showInfo(String text);
+
+	public abstract void showItemSold(ItemForSale item);
 
 	public abstract void showKingBonus(int updatedShowableKingBonus);
 
@@ -91,6 +104,11 @@ public abstract class ClientView implements Runnable {
 	public abstract void showMarket(Market updatedMarket);
 
 	public abstract void showNobilityTrack(NobilityTrack updatedNobilityTrack);
+
+	// doesn't take Player as a parameter to keep other players' info safe
+	// TODO solo le carte sono segrete in teoria
+	public abstract void showOtherPlayer(int id, String name, Color color,
+			int coins, int assistants, int level, int points, int numEmporiums);
 
 	public abstract void showPersonalDetails(Player p);
 
@@ -101,22 +119,5 @@ public abstract class ClientView implements Runnable {
 	public abstract void showPrivateMsg(String text);
 
 	public abstract void showRegion(Region updatedRegion);
-
-	public abstract void showItemSold(ItemForSale item);
-
-	// doesn't take Player as a parameter to keep other players' info safe
-	// TODO solo le carte sono segrete in teoria
-	public abstract void showOtherPlayer(int id, String name, Color color,
-			int coins, int assistants, int level, int points, int numEmporiums);
-
-	public abstract void readMessage(Message message);
-
-	public abstract void setCommunication(Communication communication);
-
-	public abstract void showEndGame(List<List<String>> endResults);
-
-	public abstract void showAvailableCommands();
-
-	public abstract void showChatMsg(String author, String text);
 
 }

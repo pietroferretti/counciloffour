@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.client.view.gui.GUI;
@@ -26,9 +26,6 @@ import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-import it.polimi.ingsw.ps14.view.MainWindow;
-import java.awt.Dialog;
-import javax.swing.SwingUtilities;
 
 public class GUIView extends ClientView implements Runnable {
 
@@ -38,6 +35,12 @@ public class GUIView extends ClientView implements Runnable {
 
     public GUIView(String name) {
         super.setPlayerName(name);
+    }
+
+    @Override
+    public void readMessage(Message message) {
+        // TODO Auto-generated method stub
+    	mainWindow.getChatArea().append(String.format("%n %s", message.toString()));
     }
 
     @Override
@@ -56,159 +59,23 @@ public class GUIView extends ClientView implements Runnable {
     }
 
     @Override
-    public void readMessage(Message message) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void setCommunication(Communication communication) {
         this.communication = communication;
-
     }
+    
+	@Override
+	public void setGameStarted(boolean gameStarted) {
+		super.setGameStarted(gameStarted);
 
-    @Override
-    public void showInfo(String text) {
-        // TODO Auto-generated method stub
-mainWindow.getInfoArea().append("\n"+text);
-    }
+		if (gameStarted) {
+			communication.setPlayerName(super.playerID, super.name);
+		}
 
-    @Override
-    public void showGameStart() {
-        // TODO Auto-generated method stub
-        GameStartedDialog d;
-        d = new GameStartedDialog(mainWindow, true);
-        d.setVisible(true);
-
-    }
-
-    @Override
-    public void showKingBonus(int updatedShowableKingBonus) {
-        		mainWindow.getCLIarea().append("\n"+"KingBonusesUpdatedMsg [updatedShowableKingBonus=" + updatedShowableKingBonus + "]");
-
-    }
-
-    @Override
-    public void showKingUpdate(King updatedKing) {
-		mainWindow.getCLIarea().append("\n"+"KingUpdatedMsg [updatedKing=" + updatedKing + "]");
-
-    }
-
-    @Override
-    public void showMarket(Market updatedMarket) {
-		mainWindow.getCLIarea().append("\n"+updatedMarket.toString());
-
-    }
-
-    @Override
-    public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
-mainWindow.getCLIarea().append("\n"+updatedNobilityTrack.toString());
-    }
-
-    @Override
-    public void showPersonalDetails(Player p) {
-mainWindow.getCLIarea().append("\n"+p.toString());
-    }
-
-    @Override
-    public void showPlayerChangesPrivate(String message) {
-        // TODO Auto-generated method stub
-        System.out.println("it.polimi.ingsw.ps14.client.view.GUIView.showPlayerChangesPrivate()");
-        System.out.println(message);
-        mainWindow.getCLIarea().append(message);
-
-    }
-
-    @Override
-    public void showPlayerChangesPublic(String notice) {
-		mainWindow.getCLIarea().append("\n"+notice);
-
-    }
-
-    @Override
-    public void showPrivateMsg(String text) {
-        // TODO Auto-generated method stub
-        mainWindow.getCLIarea().append(text);
-
-    }
-
-    @Override
-    public void showRegion(Region updatedRegion) {
-		mainWindow.getChatArea().append("\n"+updatedRegion.toString());
-
-    }
-
-    @Override
-    public void showItemSold(ItemForSale item) {
-		mainWindow.getChatArea().append("\n"+item.toString());
-
-    }
-
-    @Override
-    public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
-            int numEmporiums) {
-	mainWindow.getChatArea().append("\n"+"\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
-				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
-				+ "\nVictory Points: " + Integer.toString(points));
-    }
+	}
 
     @Override
     public void showAvailableAssistant(int update) {
 		mainWindow.getChatArea().append("\n"+"Assistant available now: " + update);
-
-    }
-
-    @Override
-    public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
-ColorCouncillor[] map = ColorCouncillor.values();
-		for (ColorCouncillor m : map)
-			mainWindow.getChatArea().append("\n"+m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString() + "\n");
-    }
-
-    @Override
-    public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
-            int updatedBonusBlue) {
-mainWindow.getChatArea().append("\n"+"CitiesColorBonuses now: BonusGold=" + updatedBonusGold + ", BonusSilver="
-				+ updatedBonusSilver + ", BonusBronze=" + updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue);
-	
-    }
-
-    @Override
-    public void showEndGame(List<List<String>> endResults) {
-		this.endResults = endResults;
-		if (endResults == null) {
-			mainWindow.getChatArea().append("\n"+"The game hasn't ended yet.");
-			return;
-		}
-		
-		// 0 - id
-		// 1 - name
-		// 2 - points
-		// 3 - assistants
-		// 4 - cards
-		// 5 - emporiums
-		// 6 - nobility
-		// 7 - permits
-		// 8 - coins
-
-		
-		mainWindow.getChatArea().append("\n"+"*** THE GAME HAS ENDED ***");
-		mainWindow.getChatArea().append("\n"+String.format("The winner is %s, with %s points!", endResults.get(0).get(1), endResults.get(0).get(2)));
-
-		if (this.getPlayerID().equals(Integer.valueOf(endResults.get(0).get(0)))) {
-			mainWindow.getChatArea().append("\n"+"Congratulations! You won!");
-		}
-
-		mainWindow.getChatArea().append("\n"+"Complete rankings:");
-
-		for (int i = 0; i < endResults.size(); i++) {
-			List<String> plrRes = endResults.get(i);
-
-			mainWindow.getChatArea().append("\n"+String.format("%d) %s with %s points, %s assistants and %s cards.", i, plrRes.get(1),
-					plrRes.get(2), plrRes.get(3), plrRes.get(4)));
-			mainWindow.getChatArea().append("\n"+String.format("  %s emporiums,  %s nobility,  %s permits,  %s coins", plrRes.get(5),
-					plrRes.get(6), plrRes.get(7), plrRes.get(8)));
-		}
 
     }
 
@@ -240,6 +107,67 @@ mainWindow.getChatArea().append("\n"+"CitiesColorBonuses now: BonusGold=" + upda
 		}
 
     }
+
+    @Override
+    public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
+ColorCouncillor[] map = ColorCouncillor.values();
+		for (ColorCouncillor m : map)
+			mainWindow.getChatArea().append("\n"+m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString() + "\n");
+    }
+
+    @Override
+    public void showChatMsg(String author, String text) {
+mainWindow.getChatArea().append("\n"+author+": "+text);
+
+    }
+
+    @Override
+    public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
+            int updatedBonusBlue) {
+mainWindow.getChatArea().append("\n"+"CitiesColorBonuses now: BonusGold=" + updatedBonusGold + ", BonusSilver="
+				+ updatedBonusSilver + ", BonusBronze=" + updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue);
+	
+    }
+
+    private void showCommandsMarket() {
+
+		mainWindow.getChatArea().append("\n"+"* Market Phase *");
+
+		if (gameState.getCurrentMarketState() == MarketState.SELLING) {
+
+			mainWindow.getChatArea().append("\n"+"Currently selling.");
+
+			if (gameState.getCurrentPlayer().getId() != playerID) {
+
+				mainWindow.getChatArea().append("\n"+String.format("It's %s's turn to sell.", gameState.getCurrentPlayer().getName()));
+
+			} else {
+
+				mainWindow.getChatArea().append("\n"+"It's your turn to sell.");
+
+			}
+
+		} else if (gameState.getCurrentMarketState() == MarketState.BUYING) {
+
+			mainWindow.getChatArea().append("\n"+"Currently buying.");
+
+			if (gameState.getCurrentPlayer().getId() != playerID) {
+
+				mainWindow.getChatArea().append("\n"+String.format("It's %s's turn to buy.", gameState.getCurrentPlayer().getName()));
+
+			} else {
+
+				mainWindow.getChatArea().append("\n"+"It's your turn to buy. You can buy something or pass the turn.");
+
+			}
+
+		} else if (gameState.getCurrentMarketState() == MarketState.END) {
+
+			mainWindow.getChatArea().append("\n"+"The market has ended, you shouldn't be here.");
+
+		}
+
+	}
 
     private void showCommandsTurns() {
 
@@ -333,49 +261,127 @@ mainWindow.getChatArea().append("\n"+"CitiesColorBonuses now: BonusGold=" + upda
 
 	}
 
-    private void showCommandsMarket() {
+    @Override
+    public void showEndGame(List<List<String>> endResults) {
+		this.endResults = endResults;
+		if (endResults == null) {
+			mainWindow.getChatArea().append("\n"+"The game hasn't ended yet.");
+			return;
+		}
+		
+		// 0 - id
+		// 1 - name
+		// 2 - points
+		// 3 - assistants
+		// 4 - cards
+		// 5 - emporiums
+		// 6 - nobility
+		// 7 - permits
+		// 8 - coins
 
-		mainWindow.getChatArea().append("\n"+"* Market Phase *");
+		
+		mainWindow.getChatArea().append("\n"+"*** THE GAME HAS ENDED ***");
+		mainWindow.getChatArea().append("\n"+String.format("The winner is %s, with %s points!", endResults.get(0).get(1), endResults.get(0).get(2)));
 
-		if (gameState.getCurrentMarketState() == MarketState.SELLING) {
-
-			mainWindow.getChatArea().append("\n"+"Currently selling.");
-
-			if (gameState.getCurrentPlayer().getId() != playerID) {
-
-				mainWindow.getChatArea().append("\n"+String.format("It's %s's turn to sell.", gameState.getCurrentPlayer().getName()));
-
-			} else {
-
-				mainWindow.getChatArea().append("\n"+"It's your turn to sell.");
-
-			}
-
-		} else if (gameState.getCurrentMarketState() == MarketState.BUYING) {
-
-			mainWindow.getChatArea().append("\n"+"Currently buying.");
-
-			if (gameState.getCurrentPlayer().getId() != playerID) {
-
-				mainWindow.getChatArea().append("\n"+String.format("It's %s's turn to buy.", gameState.getCurrentPlayer().getName()));
-
-			} else {
-
-				mainWindow.getChatArea().append("\n"+"It's your turn to buy. You can buy something or pass the turn.");
-
-			}
-
-		} else if (gameState.getCurrentMarketState() == MarketState.END) {
-
-			mainWindow.getChatArea().append("\n"+"The market has ended, you shouldn't be here.");
-
+		if (this.getPlayerID().equals(Integer.valueOf(endResults.get(0).get(0)))) {
+			mainWindow.getChatArea().append("\n"+"Congratulations! You won!");
 		}
 
-	}
+		mainWindow.getChatArea().append("\n"+"Complete rankings:");
+
+		for (int i = 0; i < endResults.size(); i++) {
+			List<String> plrRes = endResults.get(i);
+
+			mainWindow.getChatArea().append("\n"+String.format("%d) %s with %s points, %s assistants and %s cards.", i, plrRes.get(1),
+					plrRes.get(2), plrRes.get(3), plrRes.get(4)));
+			mainWindow.getChatArea().append("\n"+String.format("  %s emporiums,  %s nobility,  %s permits,  %s coins", plrRes.get(5),
+					plrRes.get(6), plrRes.get(7), plrRes.get(8)));
+		}
+
+    }
 
     @Override
-    public void showChatMsg(String author, String text) {
-mainWindow.getChatArea().append("\n"+author+": "+text);
+    public void showGameStart() {
+        // TODO Auto-generated method stub
+        GameStartedDialog d;
+        d = new GameStartedDialog(mainWindow, true);
+        d.setVisible(true);
+
+    }
+
+    @Override
+    public void showInfo(String text) {
+        // TODO Auto-generated method stub
+    	mainWindow.getInfoArea().append("\n"+text);
+    }
+
+    @Override
+    public void showItemSold(ItemForSale item) {
+		mainWindow.getChatArea().append("\n"+item.toString());
+
+    }
+
+    @Override
+    public void showKingBonus(int updatedShowableKingBonus) {
+        		mainWindow.getCLIarea().append("\n"+"KingBonusesUpdatedMsg [updatedShowableKingBonus=" + updatedShowableKingBonus + "]");
+
+    }
+
+    @Override
+    public void showKingUpdate(King updatedKing) {
+		mainWindow.getCLIarea().append("\n"+"KingUpdatedMsg [updatedKing=" + updatedKing + "]");
+
+    }
+
+    @Override
+    public void showMarket(Market updatedMarket) {
+		mainWindow.getCLIarea().append("\n"+updatedMarket.toString());
+
+    }
+
+    @Override
+    public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
+mainWindow.getCLIarea().append("\n"+updatedNobilityTrack.toString());
+    }
+
+    @Override
+    public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
+            int numEmporiums) {
+	mainWindow.getChatArea().append("\n"+"\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
+				+ "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
+				+ "\nVictory Points: " + Integer.toString(points));
+    }
+
+    @Override
+    public void showPersonalDetails(Player p) {
+mainWindow.getCLIarea().append("\n"+p.toString());
+    }
+
+    @Override
+    public void showPlayerChangesPrivate(String message) {
+        // TODO Auto-generated method stub
+        System.out.println("it.polimi.ingsw.ps14.client.view.GUIView.showPlayerChangesPrivate()");
+        System.out.println(message);
+        mainWindow.getCLIarea().append(message);
+
+    }
+
+    @Override
+    public void showPlayerChangesPublic(String notice) {
+		mainWindow.getCLIarea().append("\n"+notice);
+
+    }
+
+    @Override
+    public void showPrivateMsg(String text) {
+        // TODO Auto-generated method stub
+        mainWindow.getCLIarea().append(text);
+
+    }
+
+    @Override
+    public void showRegion(Region updatedRegion) {
+		mainWindow.getChatArea().append("\n"+updatedRegion.toString());
 
     }
 
