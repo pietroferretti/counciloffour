@@ -14,12 +14,12 @@ public class GUI extends javax.swing.JFrame {
 
     private Integer playerID;
     private Communication communication;
-    private String name = "Player";
+    private String name;
 
-    public GUI(Integer playerID, Communication communication) {
-
+    public GUI(Integer playerID, String name, Communication communication) {
         initComponents();
         this.playerID = playerID;
+        this.name = name;
         this.communication = communication;
     }
 
@@ -384,17 +384,17 @@ public class GUI extends javax.swing.JFrame {
 
     private void electCouncillorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_electCouncillorButtonMouseClicked
 
-        ElectCouncillorDialog electCouncillorDialog = new ElectCouncillorDialog(this, true, playerID, communication);
+//        ElectCouncillorDialog electCouncillorDialog = new ElectCouncillorDialog(this, true, playerID, communication);
+        ElectCouncillorDialog electCouncillorDialog = new ElectCouncillorDialog(this, true);
+        electCouncillorDialog.setPlayerID(playerID);
+        electCouncillorDialog.setCommunication(communication);
         electCouncillorDialog.setVisible(true);
         electCouncillorDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_electCouncillorButtonMouseClicked
 
     private void drawButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawButtonMouseClicked
         communication.drawCard(playerID);
-//       CLIarea.setText("sdfgbn");
-CLIarea.append("inviato comando draw con id "+playerID);
-       
-//        System.out.println("it.polimi.ingsw.ps14.client.view.gui.GUI.drawButtonMouseClicked()");
+        CLIarea.append(String.format("%ninviato comando draw con id %d",playerID));
 
     }//GEN-LAST:event_drawButtonMouseClicked
 

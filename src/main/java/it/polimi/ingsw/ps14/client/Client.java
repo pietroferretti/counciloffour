@@ -108,8 +108,8 @@ public class Client {
 				inThread.start();
 				
 				// prima di fare partire la guiview bisogna aspettare di avere l'id (?)
-//				waitForIdThenRun(clientView);
-				clientView.run();
+				waitForIdThenRun(clientView);
+//				clientView.run();
 
 			} catch (IOException e) {
 
@@ -135,8 +135,8 @@ public class Client {
 			
 			System.out.println("Connection created.");
 
-//			waitForIdThenRun(clientView);
-			clientView.run();
+			waitForIdThenRun(clientView);
+//			clientView.run();
 			
 			
 			
@@ -157,7 +157,7 @@ public class Client {
 		
 			System.out.println("Waiting for an ID from the server...");
 			int checks = 0;
-			while (clientView.getPlayerID() != null && checks<30) {
+			while (clientView.getPlayerID() == null && checks<30) {
 				try {
 					Thread.sleep(100);
 					checks++;
@@ -166,10 +166,10 @@ public class Client {
 				}
 			}
 			
-			if (clientView.getPlayerID() == null) {
-				System.out.println("No ID received from server, closing...");
-			} else {
+			if (clientView.getPlayerID() != null) {
 				clientView.run();
+			} else {
+				System.out.println("No ID received from server, closing...");
 			}
 		}		
 	}

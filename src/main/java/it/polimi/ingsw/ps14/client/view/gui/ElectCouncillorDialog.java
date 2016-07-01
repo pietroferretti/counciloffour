@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
 import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
@@ -19,16 +18,16 @@ import javax.swing.ButtonGroup;
  */
 public class ElectCouncillorDialog extends javax.swing.JDialog {
     
-private static int playerID;
-private static Communication communication;
+private Integer playerID;
+private Communication communication;
     /**
      * Creates new form ElectCouncillorDialog
      */
-    public ElectCouncillorDialog(java.awt.Frame parent, boolean modal, int playerID,Communication communication) {
+    public ElectCouncillorDialog(java.awt.Frame parent, boolean modal) {
         
         super(parent, modal);
-        this.playerID=playerID;
-        this.communication=communication;
+//        this.playerID=playerID;
+//        this.communication=communication;
         initComponents();
     }
 
@@ -116,7 +115,6 @@ private static Communication communication;
         jLayeredPane2.add(jRadioButton10);
 
         colorChooser.add(jRadioButton7);
-        jRadioButton7.setSelected(true);
         jRadioButton7.setText("PINK");
         jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +158,6 @@ private static Communication communication;
         jLayeredPane1.add(jRadioButton1);
 
         balconyChooser.add(jRadioButton2);
-        jRadioButton2.setSelected(true);
         jRadioButton2.setText("COAST");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,11 +220,11 @@ private static Communication communication;
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        System.out.println("it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog.jButton2MouseClicked()");
-        System.out.println(getSelectedButtonText(colorChooser));
-        System.out.println(getSelectedButtonText(balconyChooser));
-//        dispose();
+//        System.out.println("it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog.jButton2MouseClicked()");
+//        System.out.println(getSelectedButtonText(colorChooser));
+//        System.out.println(getSelectedButtonText(balconyChooser));
         communication.electCouncillor(playerID, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)), getSelectedButtonText(balconyChooser));
+        dispose();
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
@@ -260,7 +257,8 @@ private static Communication communication;
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ElectCouncillorDialog dialog = new ElectCouncillorDialog(new javax.swing.JFrame(), true, playerID,communication);
+//                ElectCouncillorDialog dialog = new ElectCouncillorDialog(new javax.swing.JFrame(), true, playerID, communication);
+                ElectCouncillorDialog dialog = new ElectCouncillorDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -283,6 +281,14 @@ private static Communication communication;
         }
 
         return null;
+    }
+    
+    public void setCommunication(Communication communication) {
+    	this.communication = communication;
+    }
+    
+    public void setPlayerID(Integer playerID) {
+    	this.playerID = playerID;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

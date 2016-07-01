@@ -49,7 +49,7 @@ public class GUIView extends ClientView implements Runnable {
         SwingUtilities.invokeLater(new Runnable() {
         	@Override
             public void run() {
-                mainWindow = new GUI(id, communication);
+                mainWindow = new GUI(id, name, communication);
                 mainWindow.setPlayerName(name);
                 mainWindow.setVisible(true);
             }
