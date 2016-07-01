@@ -133,89 +133,6 @@ public class CLIView extends ClientView implements Runnable {
 
 	}
 
-	@Override
-	public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
-		ColorCouncillor[] map = ColorCouncillor.values();
-		print("");
-		print("Councillors available on the gameboard:");
-		for (ColorCouncillor m : map)
-			print(m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString());
-	}
-
-	@Override
-	public void showChatMsg(String author, String text) {
-		System.out.println(author+"@CHAT: "+text);
-	}
-
-	@Override
-	public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
-			int updatedBonusBlue) {
-		
-		print("");
-		print("Available city color bonuses:");
-		
-		if (updatedBonusGold != 0) {
-			print(String.format("Gold cities: %d victory points", updatedBonusGold));
-		}
-		
-		if (updatedBonusSilver != 0) {
-			print(String.format("Silver cities: %d victory points", updatedBonusSilver));
-		}
-		
-		if (updatedBonusBronze != 0) {
-			print(String.format("Bronze cities: %d victory points", updatedBonusBronze));
-		}
-		
-		if (updatedBonusBlue != 0) {
-			print(String.format("Blue cities: %d victory points", updatedBonusBlue));
-		}
-
-		if (updatedBonusGold == 0 && updatedBonusSilver == 0 && updatedBonusBronze == 0 && updatedBonusBlue == 0) {
-			print("All the city color construction bonuses have been used already!");
-		}
-	}
-
-	private void showCommandsMarket() {
-
-		print("* Market Phase *");
-
-		if (gameState.getCurrentMarketState() == MarketState.SELLING) {
-
-			print("Currently selling.");
-
-			if (gameState.getCurrentPlayer().getId() != playerID) {
-
-				print(String.format("It's %s's turn to sell.", gameState.getCurrentPlayer().getName()));
-
-			} else {
-
-				print("It's your turn to sell.");
-
-			}
-
-		} else if (gameState.getCurrentMarketState() == MarketState.BUYING) {
-
-			print("Currently buying.");
-
-			if (gameState.getCurrentPlayer().getId() != playerID) {
-
-				print(String.format("It's %s's turn to buy.", gameState.getCurrentPlayer().getName()));
-
-			} else {
-
-				print("It's your turn to buy. You can buy something or pass the turn.");
-
-			}
-
-		} else if (gameState.getCurrentMarketState() == MarketState.END) {
-
-			print("The market has ended, you shouldn't be here.");
-			LOGGER.warning("Something went wrong, the game is still in the market phase even after it ended!!");
-
-		}
-
-	}
-
 	private void showCommandsTurns() {
 
 		print("* Turns Phase *");
@@ -308,6 +225,90 @@ public class CLIView extends ClientView implements Runnable {
 		}
 
 	}
+	
+	private void showCommandsMarket() {
+
+		print("* Market Phase *");
+
+		if (gameState.getCurrentMarketState() == MarketState.SELLING) {
+
+			print("Currently selling.");
+
+			if (gameState.getCurrentPlayer().getId() != playerID) {
+
+				print(String.format("It's %s's turn to sell.", gameState.getCurrentPlayer().getName()));
+
+			} else {
+
+				print("It's your turn to sell.");
+
+			}
+
+		} else if (gameState.getCurrentMarketState() == MarketState.BUYING) {
+
+			print("Currently buying.");
+
+			if (gameState.getCurrentPlayer().getId() != playerID) {
+
+				print(String.format("It's %s's turn to buy.", gameState.getCurrentPlayer().getName()));
+
+			} else {
+
+				print("It's your turn to buy. You can buy something or pass the turn.");
+
+			}
+
+		} else if (gameState.getCurrentMarketState() == MarketState.END) {
+
+			print("The market has ended, you shouldn't be here.");
+			LOGGER.warning("Something went wrong, the game is still in the market phase even after it ended!!");
+
+		}
+
+	}
+
+	@Override
+	public void showAvailableCouncillor(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
+		ColorCouncillor[] map = ColorCouncillor.values();
+		print("");
+		print("Councillors available on the gameboard:");
+		for (ColorCouncillor m : map)
+			print(m.toString() + " -> " + updatedAvailableCouncillors.get(m).toString());
+	}
+
+	@Override
+	public void showChatMsg(String author, String text) {
+		System.out.println(author+"@CHAT: "+text);
+	}
+
+	@Override
+	public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
+			int updatedBonusBlue) {
+		
+		print("");
+		print("Available city color bonuses:");
+		
+		if (updatedBonusGold != 0) {
+			print(String.format("Gold cities: %d victory points", updatedBonusGold));
+		}
+		
+		if (updatedBonusSilver != 0) {
+			print(String.format("Silver cities: %d victory points", updatedBonusSilver));
+		}
+		
+		if (updatedBonusBronze != 0) {
+			print(String.format("Bronze cities: %d victory points", updatedBonusBronze));
+		}
+		
+		if (updatedBonusBlue != 0) {
+			print(String.format("Blue cities: %d victory points", updatedBonusBlue));
+		}
+
+		if (updatedBonusGold == 0 && updatedBonusSilver == 0 && updatedBonusBronze == 0 && updatedBonusBlue == 0) {
+			print("All the city color construction bonuses have been used already!");
+		}
+	}
+
 
 	public void showEndGame() {
 		
