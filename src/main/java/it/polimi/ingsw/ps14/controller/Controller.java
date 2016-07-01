@@ -58,7 +58,7 @@ public class Controller implements Observer {
 	private static final long TURNCOUNTDOWN = 60; 	// 30 seconds
 
 	private Model model;
-	private List<Player> players;
+	private List<Player> activePlayers;
 
 	private Timer turnTimer;
 
@@ -71,7 +71,7 @@ public class Controller implements Observer {
 	 */
 	public Controller(Model model) {
 		this.model = model;
-		this.players = model.getPlayers();
+		this.activePlayers = model.getPlayers();
 
 		resetTimer();	// start the turn timer
 	}
@@ -243,9 +243,9 @@ public class Controller implements Observer {
 
 			// find this player's position in the players list
 			int index = -1;
-			for (Player player : players) {
+			for (Player player : activePlayers) {
 				if (playerView.getPlayerID() == player.getId()) {
-					index = players.indexOf(player);
+					index = activePlayers.indexOf(player);
 				}
 			}
 
@@ -258,8 +258,8 @@ public class Controller implements Observer {
 			// built 10 emporiums
 			// the turns are in the usual order, starting from the next player
 			List<Player> finalPlayers = new ArrayList<>();
-			finalPlayers.addAll(players.subList(index + 1, players.size()));
-			finalPlayers.addAll(players.subList(0, index));
+			finalPlayers.addAll(activePlayers.subList(index + 1, activePlayers.size()));
+			finalPlayers.addAll(activePlayers.subList(0, index));
 			model.setPlayerOrder(finalPlayers);
 			model.loadNextPlayer();
 
@@ -277,7 +277,7 @@ public class Controller implements Observer {
 					model.setCurrentMarketState(MarketState.SELLING);
 					model.getMarket().clear();
 
-					model.setPlayerOrder(players);
+					model.setPlayerOrder(activePlayers);
 					model.loadNextPlayer();
 
 				} else {
@@ -412,13 +412,13 @@ public class Controller implements Observer {
 				model.getMarket().clear();
 				model.setGamePhase(GamePhase.TURNS);
 				model.setCurrentTurnState(new InitialTurnState());
-				model.setPlayerOrder(players);
+				model.setPlayerOrder(activePlayers);
 				model.loadNextPlayer();
 				
 			} else {
 				
 				model.setCurrentMarketState(MarketState.BUYING);
-				List<Player> marketPlayers = new ArrayList<>(players);
+				List<Player> marketPlayers = new ArrayList<>(activePlayers);
 				Collections.shuffle(marketPlayers);
 				model.setPlayerOrder(marketPlayers);
 				model.loadNextPlayer();
@@ -504,7 +504,7 @@ public class Controller implements Observer {
 			model.getMarket().clear();
 			model.setGamePhase(GamePhase.TURNS);
 			model.setCurrentTurnState(new InitialTurnState());
-			model.setPlayerOrder(players);
+			model.setPlayerOrder(activePlayers);
 			model.loadNextPlayer();
 
 		}
@@ -546,13 +546,13 @@ public class Controller implements Observer {
 				model.getMarket().clear();
 				model.setGamePhase(GamePhase.TURNS);
 				model.setCurrentTurnState(new InitialTurnState());
-				model.setPlayerOrder(players);
+				model.setPlayerOrder(activePlayers);
 				model.loadNextPlayer();
 				
 			} else {
 				
 				model.setCurrentMarketState(MarketState.BUYING);
-				List<Player> marketPlayers = new ArrayList<>(players);
+				List<Player> marketPlayers = new ArrayList<>(activePlayers);
 				Collections.shuffle(marketPlayers);
 				model.setPlayerOrder(marketPlayers);
 				model.loadNextPlayer();
@@ -1041,7 +1041,7 @@ public class Controller implements Observer {
 		Player player = model.id2player(serverView.getPlayerID());
 
 		// remove the player from the list of active players
-		players.remove(player);
+		activePlayers.remove(player);
 
 		// remove the player from the next players
 		if (model.getPlayerOrder().contains(player)) {
@@ -1081,7 +1081,7 @@ public class Controller implements Observer {
 				model.setCurrentMarketState(MarketState.SELLING);
 				model.getMarket().clear();
 
-				model.setPlayerOrder(players);
+				model.setPlayerOrder(activePlayers);
 				model.loadNextPlayer();
 
 			} else {
@@ -1112,13 +1112,13 @@ public class Controller implements Observer {
 						model.getMarket().clear();
 						model.setGamePhase(GamePhase.TURNS);
 						model.setCurrentTurnState(new InitialTurnState());
-						model.setPlayerOrder(players);
+						model.setPlayerOrder(activePlayers);
 						model.loadNextPlayer();
 						
 					} else {
 						
 						model.setCurrentMarketState(MarketState.BUYING);
-						List<Player> marketPlayers = new ArrayList<>(players);
+						List<Player> marketPlayers = new ArrayList<>(activePlayers);
 						Collections.shuffle(marketPlayers);
 						model.setPlayerOrder(marketPlayers);
 						model.loadNextPlayer();
@@ -1136,7 +1136,7 @@ public class Controller implements Observer {
 					model.getMarket().clear();
 					model.setGamePhase(GamePhase.TURNS);
 					model.setCurrentTurnState(new InitialTurnState());
-					model.setPlayerOrder(players);
+					model.setPlayerOrder(activePlayers);
 					model.loadNextPlayer();
 
 				}
@@ -1187,9 +1187,11 @@ public class Controller implements Observer {
 
 			@Override
 			public void run() {
-				sendPrivateMsg(model.getCurrentPlayer().getId(), "Time's out!");
-				sendPublicMsg(String.format("%s's time ran out!", model.getCurrentPlayer().getName()));
-				nextTurn();
+				if(model.getCurrentPlayer() != null) {
+					sendPrivateMsg(model.getCurrentPlayer().getId(), "Time's out!");
+					sendPublicMsg(String.format("%s's time ran out!", model.getCurrentPlayer().getName()));
+					nextTurn();
+				}
 			}
 		};
 		turnTimer.schedule(task, TURNCOUNTDOWN * 1000);

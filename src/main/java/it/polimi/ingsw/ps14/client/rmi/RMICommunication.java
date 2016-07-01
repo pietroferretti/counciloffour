@@ -2,6 +2,8 @@ package it.polimi.ingsw.ps14.client.rmi;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -15,6 +17,8 @@ import it.polimi.ingsw.ps14.server.ServerViewRemote;
  *
  */
 public class RMICommunication implements Communication {
+	private static final Logger LOGGER = Logger.getLogger(RMICommunication.class
+			.getName());
 
 	private ServerViewRemote serverStub;
 
@@ -29,8 +33,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.setPlayerName(playerID, name);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -42,8 +46,8 @@ public class RMICommunication implements Communication {
 				serverStub.drawCard(playerID);
 
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -55,8 +59,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.electCouncillor(playerID, cc, regionORking);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -68,8 +72,8 @@ public class RMICommunication implements Communication {
 				serverStub
 						.acquireBusinessPermitTile(playerID, rt, permID, politics);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -80,8 +84,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.buildWithKing(playerID, city, politics);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -92,8 +96,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.buildWithPermit(playerID, permitID, cityname);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -103,8 +107,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.engage(playerID);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -114,8 +118,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.changeBusinessPermitTiles(playerID, rt);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -125,8 +129,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.performAdditionalMainAction(playerID);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -137,8 +141,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.electWithAssistant(playerID, rt, cc);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -148,8 +152,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.passTurn(playerID);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -159,8 +163,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.showMyDetails(playerID);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -170,8 +174,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.showDetails(playerID);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -181,8 +185,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.showGameboard(playerID);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -192,8 +196,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.sell(playerID, items);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -203,8 +207,8 @@ public class RMICommunication implements Communication {
 			try {
 				serverStub.buy(playerID, objID, quantity);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
+
 			}
 		
 	}
@@ -214,7 +218,7 @@ public class RMICommunication implements Communication {
 		try {
 			serverStub.answerNobilityRequest(playerID, objectIDs);
 		} catch (RemoteException e) {
-			System.err.println("Errore nell'invocazione del metodo");
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
 
 		}
 	}
@@ -226,7 +230,7 @@ public class RMICommunication implements Communication {
 		try {
 			serverStub.sellNone(playerID);
 		} catch (RemoteException e) {
-			System.err.println("Errore nell'invocazione del metodo");
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
 
 		}		
 	}
@@ -238,7 +242,7 @@ public class RMICommunication implements Communication {
 		try {
 			serverStub.doneBuying(playerID);
 		} catch (RemoteException e) {
-			System.err.println("Errore nell'invocazione del metodo");
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
 
 		}		
 	}
@@ -247,7 +251,7 @@ public class RMICommunication implements Communication {
 		try{
 			serverStub.clientAlive(playerID);
 		}catch (RemoteException e) {
-			System.err.println("Errore nell'invocazione del metodo");
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
 
 		}
 	}
@@ -259,7 +263,7 @@ public class RMICommunication implements Communication {
 		try{
 			serverStub.chat(playerID,chat);
 		}catch (RemoteException e) {
-			System.err.println("Errore nell'invocazione del metodo");
+			LOGGER.log(Level.SEVERE, "Error trying to invoke a RMI method", e);
 
 		}
 		

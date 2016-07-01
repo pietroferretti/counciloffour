@@ -42,11 +42,11 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void run() {
-        int player = playerID;
+        Integer id = playerID;
         SwingUtilities.invokeLater(new Runnable() {
         	@Override
             public void run() {
-                mainWindow = new GUI(player, communication);
+                mainWindow = new GUI(id, communication);
                 mainWindow.setPlayerName(name);
                 mainWindow.setVisible(true);
             }

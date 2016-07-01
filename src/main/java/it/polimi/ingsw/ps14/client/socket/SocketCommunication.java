@@ -7,7 +7,6 @@ import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.client.view.CLIView;
 import it.polimi.ingsw.ps14.client.view.ClientView;
 import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.message.fromclient.BuyMsg;
@@ -65,7 +64,7 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCounc
  */
 public class SocketCommunication implements Communication {
 
-	private static final Logger LOGGER = Logger.getLogger(CLIView.class
+	private static final Logger LOGGER = Logger.getLogger(SocketCommunication.class
 			.getName());
 
 	private Timer timer;
@@ -356,20 +355,4 @@ public class SocketCommunication implements Communication {
 		msgHandlerOut.sendMessage(new MyChatMsg(chat, playerID));
 	}
 
-	//
-	// private void startTimer() {
-	// timerTurn=new Timer();
-	// timerStarted=true;
-	// timerTurnTask = new TimerTask() {
-	//
-	// @Override
-	// public void run() {
-	// if (clientView.isMyTurn() && !imAlive)
-	// msgHandlerOut.sendMessage(new JumpTurnMsg());
-	// timerStarted=false;
-	// }
-	// };
-	// timerTurn.schedule(timerTurnTask, timeOut);
-	//
-	// }
 }

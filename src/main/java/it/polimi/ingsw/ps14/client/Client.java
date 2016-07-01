@@ -63,7 +63,6 @@ public class Client {
 			
 			clientView = new GUIView(name);
 			System.out.println("GUI not yet implemented");
-//			scanner.close();
 			
 		} else {
 			scanner.close();
@@ -108,8 +107,9 @@ public class Client {
 				Thread inThread = new Thread(msgHandlerIn);
 				inThread.start();
 				
+				// prima di fare partire la guiview bisogna aspettare di avere l'id (?)
+//				waitForIdThenRun(clientView);
 				clientView.run();
-				
 
 			} catch (IOException e) {
 
@@ -135,6 +135,7 @@ public class Client {
 			
 			System.out.println("Connection created.");
 
+//			waitForIdThenRun(clientView);
 			clientView.run();
 			
 			
@@ -145,6 +146,32 @@ public class Client {
 					"Something went wrong while parsing the connection type");
 		}
 
+	}
+	
+	private static void waitForIdThenRun(ClientView clientView){
+		if (clientView.getPlayerID() != null) {
+			
+			clientView.run(); 
+		
+		} else {
+		
+			System.out.println("Waiting for an ID from the server...");
+			int checks = 0;
+			while (clientView.getPlayerID() != null && checks<30) {
+				try {
+					Thread.sleep(100);
+					checks++;
+				} catch (InterruptedException e) {
+					LOGGER.log(Level.SEVERE, "Error while waiting for an ID.", e);
+				}
+			}
+			
+			if (clientView.getPlayerID() == null) {
+				System.out.println("No ID received from server, closing...");
+			} else {
+				clientView.run();
+			}
+		}		
 	}
 
 }
