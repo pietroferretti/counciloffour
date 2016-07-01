@@ -29,7 +29,7 @@ public abstract class ClientView implements Runnable {
 	protected String name;
 	protected boolean gameStarted;
 	protected State gameState;
-	protected boolean myTurn;
+//	protected boolean myTurn;
 
 	public void setPlayerID(Integer playerID) {
 		this.playerID = playerID;
@@ -48,13 +48,13 @@ public abstract class ClientView implements Runnable {
 		return name;
 	}
 
-	public boolean isMyTurn() {
-		return myTurn;
-	}
-
-	public void setMyTurn(boolean myTurn) {
-		this.myTurn = myTurn;
-	}
+//	public boolean isMyTurn() {
+//		return myTurn;
+//	}
+//
+//	public void setMyTurn(boolean myTurn) {
+//		this.myTurn = myTurn;
+//	}
 
 	public State getGameState() {
 		return gameState;
@@ -104,13 +104,12 @@ public abstract class ClientView implements Runnable {
 
 	public abstract void showItemSold(ItemForSale item);
 
+	// doesn't take Player as a parameter to keep other players' info safe
+	// TODO solo le carte sono segrete in teoria
 	public abstract void showOtherPlayer(int id, String name, Color color,
 			int coins, int assistants, int level, int points, int numEmporiums);
 
 	public abstract void readMessage(Message message);
-
-	@Override
-	public abstract void run();
 
 	public abstract void setCommunication(Communication communication);
 

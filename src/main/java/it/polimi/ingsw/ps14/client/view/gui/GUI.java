@@ -392,7 +392,7 @@ public class GUI extends javax.swing.JFrame {
     private void drawButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawButtonMouseClicked
         communication.drawCard(playerID);
 //       CLIarea.setText("sdfgbn");
-CLIarea.append("inviato comando draw"+playerID);
+CLIarea.append("inviato comando draw con id "+playerID);
        
 //        System.out.println("it.polimi.ingsw.ps14.client.view.gui.GUI.drawButtonMouseClicked()");
 
