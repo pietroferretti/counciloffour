@@ -30,20 +30,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="236" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jRadioButton11" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton10" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="157" max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
@@ -62,6 +51,7 @@
                           <Component id="jRadioButton5" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButton6" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButton7" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButton10" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -104,9 +94,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jRadioButton10" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jRadioButton11" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -197,14 +185,6 @@
           <ComponentRef name="buttonGroup2"/>
         </Property>
         <Property name="text" type="java.lang.String" value="BLACK"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton11">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="buttonGroup2"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="JOLLY"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">

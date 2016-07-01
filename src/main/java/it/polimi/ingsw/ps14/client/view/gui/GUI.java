@@ -42,7 +42,7 @@ public class GUI extends javax.swing.JFrame {
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jDialog1 = new javax.swing.JDialog();
         changePermitTilesButton = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        electWithAssistantButton = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
@@ -99,10 +99,15 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setText("Elect Councillor with Assistant");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        electWithAssistantButton.setText("Elect Councillor with Assistant");
+        electWithAssistantButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                electWithAssistantButtonMouseClicked(evt);
+            }
+        });
+        electWithAssistantButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                electWithAssistantButtonActionPerformed(evt);
             }
         });
 
@@ -290,7 +295,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(electCouncillorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(buildEmporiumWithKingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton7)
+                    .addComponent(electWithAssistantButton)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -326,7 +331,7 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(changePermitTilesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(electWithAssistantButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -354,9 +359,9 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_changePermitTilesButtonActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void electWithAssistantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_electWithAssistantButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_electWithAssistantButtonActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
@@ -412,6 +417,14 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseClicked
 
+    private void electWithAssistantButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_electWithAssistantButtonMouseClicked
+        ElectWithAssistantDialog electWithAssistantDialog = new ElectWithAssistantDialog(this, true);
+        electWithAssistantDialog.setPlayerID(playerID);
+        electWithAssistantDialog.setCommunication(communication);
+        electWithAssistantDialog.setVisible(true);
+        electWithAssistantDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_electWithAssistantButtonMouseClicked
+
     public static void start() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -453,12 +466,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextArea chatArea;
     private javax.swing.JButton drawButton;
     private javax.swing.JButton electCouncillorButton;
+    private javax.swing.JButton electWithAssistantButton;
     private javax.swing.JTextArea infoArea;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JDialog jDialog1;

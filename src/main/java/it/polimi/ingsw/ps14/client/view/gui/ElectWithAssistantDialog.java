@@ -1,10 +1,13 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
-import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import java.util.Enumeration;
+
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+
+import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.RegionType;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,16 +19,16 @@ import javax.swing.ButtonGroup;
  *
  * @author nicol
  */
-public class ElectCouncillorDialog extends javax.swing.JDialog {
+public class ElectWithAssistantDialog extends javax.swing.JDialog {
     
 private Integer playerID;
 private Communication communication;
     /**
      * Creates new form ElectCouncillorDialog
      */
-    public ElectCouncillorDialog(java.awt.Frame parent, boolean modal) {
+    public ElectWithAssistantDialog(java.awt.Frame parent, boolean modal) {
         
-        super(parent, "Elect a Councillor", modal);
+        super(parent, "Elect a Councillor with an Assistant", modal);
 //        this.playerID=playerID;
 //        this.communication=communication;
         initComponents();
@@ -189,10 +192,6 @@ private Communication communication;
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
     private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton5ActionPerformed
@@ -222,9 +221,18 @@ private Communication communication;
 //        System.out.println("it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog.jButton2MouseClicked()");
 //        System.out.println(getSelectedButtonText(colorChooser));
 //        System.out.println(getSelectedButtonText(balconyChooser));
-        communication.electCouncillor(playerID, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)), getSelectedButtonText(balconyChooser));
+    	RegionType rt = null;
+    	if (getSelectedButtonText(balconyChooser) != "KING") {
+    		rt = RegionType.valueOf(getSelectedButtonText(balconyChooser));
+    	}
+    	communication.electWithAssistant(playerID, rt, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)));
+//        communication.electCouncillor(playerID, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)), getSelectedButtonText(balconyChooser));
         dispose();
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,21 +251,22 @@ private Communication communication;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ElectCouncillorDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElectWithAssistantDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ElectCouncillorDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElectWithAssistantDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ElectCouncillorDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElectWithAssistantDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ElectCouncillorDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElectWithAssistantDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 //                ElectCouncillorDialog dialog = new ElectCouncillorDialog(new javax.swing.JFrame(), true, playerID, communication);
-                ElectCouncillorDialog dialog = new ElectCouncillorDialog(new javax.swing.JFrame(), true);
+                ElectWithAssistantDialog dialog = new ElectWithAssistantDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -112,7 +112,7 @@
                       <Component id="buildEmporiumWithKingButton" alignment="2" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="jButton5" alignment="2" min="-2" pref="193" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButton7" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="electWithAssistantButton" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton8" min="-2" pref="193" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -148,7 +148,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="changePermitTilesButton" min="-2" pref="22" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton7" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="electWithAssistantButton" min="-2" pref="22" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton8" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
@@ -187,12 +187,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changePermitTilesButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton7">
+    <Component class="javax.swing.JButton" name="electWithAssistantButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Elect Councillor with Assistant"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="electWithAssistantButtonMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="electWithAssistantButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton8">
