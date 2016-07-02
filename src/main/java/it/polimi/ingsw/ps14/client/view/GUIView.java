@@ -387,13 +387,14 @@ public class GUIView extends ClientView implements Runnable {
                 for (PoliticCard pc : p.getHand()) {
                     mainWindow.showPoliticCard(pc.getColor());
                 }
+				mainWindow.revalidate();
                 //TODO my permit
     }
 
     @Override
     public void showPlayerChangesPrivate(Player p, String message) {
         // TODO Auto-generated method stub
-//        System.out.println("it.polimi.ingsw.ps14.client.view.GUIView.showPlayerChangesPrivate()");	//FIXME ?
+//        System.out.println("it.polimi.ingsw.ps14.client.view.GUIView.showPlayerChangesPrivate()");	
 //        System.out.println(message);
         mainWindow.getInfoArea().append("\n" + message);
         showPersonalDetails(p);
@@ -401,8 +402,7 @@ public class GUIView extends ClientView implements Runnable {
     }
 
     @Override
-    public void showPlayerChangesPublic(String notice
-    ) {
+    public void showPlayerChangesPublic(String notice) {
         mainWindow.getInfoArea().append("\n" + notice);
 
     }
@@ -416,7 +416,7 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showRegion(Region updatedRegion) {
-                mainWindow.getInfoArea().append("\n" + updatedRegion.toString());
-                mainWindow.showCouncillor(updatedRegion.getBalcony(), updatedRegion.getType());
+        mainWindow.getInfoArea().append("\n" + updatedRegion.toString());
+        mainWindow.showCouncillor(updatedRegion.getBalcony(), updatedRegion.getType());
     }
 }

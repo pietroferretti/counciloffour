@@ -836,6 +836,7 @@ public class GUI extends javax.swing.JFrame {
 
         }
         userProfile.add(politic);
+		userProfile.revalidate();
             }});}
     
 
@@ -889,6 +890,7 @@ public class GUI extends javax.swing.JFrame {
                     }
                     if (balc != null) {
                         balc.add(coun);
+						balc.revalidate();
                     }
 
                 }
