@@ -27,8 +27,6 @@ private Communication communication;
     public ElectCouncillorDialog(java.awt.Frame parent, boolean modal) {
         
         super(parent, "Elect a Councillor", modal);
-//        this.playerID=playerID;
-//        this.communication=communication;
         initComponents();
     }
 

@@ -30,7 +30,7 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
      * Creates new form AcquireBusinessPermitDialog
      */
     public AcquireBusinessPermitDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        super(parent, "Acquire a business permit", modal);
         initComponents();
     }
 
@@ -289,7 +289,7 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
 		}
 		
 		communication.acquireBusinessPermitTile(playerID, regionType, permitID, cards);
-		
+		dispose();
     }//GEN-LAST:event_jButtonAcquireMouseClicked
 
 	private List<PoliticCard> getCardsFromSpinners() {
