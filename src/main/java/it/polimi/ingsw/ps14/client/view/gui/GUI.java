@@ -1,6 +1,18 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
 import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.ColorPolitic;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.OverlayLayout;
 
@@ -16,11 +28,42 @@ public class GUI extends javax.swing.JFrame {
     private Communication communication;
     private String name;
 
+    private final Map<ColorPolitic, Image> politicCard;
+    private final Map<ColorCouncillor,Image> councillor;
+
+//    private final Image politicPink;
+//    private final Image politicWhite;
+//    private final Image politicPurple;
+//    private final Image politicJolly;
+//    private final Image politicOrange;
+//    private final Image politicBlue;
+//    private final Image politicBlack;
     public GUI(Integer playerID, String name, Communication communication) {
         initComponents();
         this.playerID = playerID;
         this.name = name;
         this.communication = communication;
+
+        politicCard = new HashMap<>();
+        politicCard.put(ColorPolitic.PINK, new ImageIcon("/resource/image/politics/pink.png").getImage());
+        politicCard.put(ColorPolitic.PURPLE, new ImageIcon("/resource/image/politics/purple.png").getImage());
+        politicCard.put(ColorPolitic.BLUE, new ImageIcon("/resource/image/politics/blue.png").getImage());
+        politicCard.put(ColorPolitic.ORANGE, new ImageIcon("/resource/image/politics/orange.png").getImage());
+        politicCard.put(ColorPolitic.WHITE, new ImageIcon("/resource/image/politics/white.png").getImage());
+        politicCard.put(ColorPolitic.BLACK, new ImageIcon("/resource/image/politics/black.png").getImage());
+        politicCard.put(ColorPolitic.JOLLY, new ImageIcon("/resource/image/politics/jolly.png").getImage());
+        
+        councillor = new HashMap<>();
+        councillor.put(ColorCouncillor.PINK, new ImageIcon("/resource/image/councillors/pink.png").getImage());
+        councillor.put(ColorCouncillor.PURPLE, new ImageIcon("/resource/image/councillors/purple.png").getImage());
+        councillor.put(ColorCouncillor.BLUE, new ImageIcon("/resource/image/councillors/blue.png").getImage());
+        councillor.put(ColorCouncillor.ORANGE, new ImageIcon("/resource/image/councillors/orange.png").getImage());
+        councillor.put(ColorCouncillor.WHITE, new ImageIcon("/resource/image/councillors/white.png").getImage());
+        councillor.put(ColorCouncillor.BLACK, new ImageIcon("/resource/image/councillors/black.png").getImage());
+        
+//        politicPink new ImageIcon("/resource/image/politicscard.png").getImage();
+//        politicImage = new BufferedImage(img.getWidth(null), img.getHeight(null),
+//                BufferedImage.TYPE_INT_RGB);
     }
 
     public void setCommunication(Communication communication) {
@@ -41,38 +84,73 @@ public class GUI extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jDialog1 = new javax.swing.JDialog();
-        changePermitTilesButton = new javax.swing.JButton();
-        electWithAssistantButton = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
-        buildEmporiumWithKingButton = new javax.swing.JButton();
-        acquirePermitButton = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        electCouncillorButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        CLIarea = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         overlay = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        drawButton = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         chatArea = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         infoArea = new javax.swing.JTextArea();
-        jPanel2 = new javax.swing.JPanel();
+        coastBalcony = new javax.swing.JPanel();
+        coastC1 = new javax.swing.JLabel();
+        coastC2 = new javax.swing.JLabel();
+        coastC3 = new javax.swing.JLabel();
+        coastC4 = new javax.swing.JLabel();
+        hillsBalcony = new javax.swing.JPanel();
+        hillsC1 = new javax.swing.JLabel();
+        hillsC2 = new javax.swing.JLabel();
+        hillsC3 = new javax.swing.JLabel();
+        hillsC4 = new javax.swing.JLabel();
+        mountBalcony = new javax.swing.JPanel();
+        mountC1 = new javax.swing.JLabel();
+        mountC4 = new javax.swing.JLabel();
+        mountC2 = new javax.swing.JLabel();
+        mountC3 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        userProfile = new javax.swing.JLayeredPane();
+        assistants = new javax.swing.JLabel();
+        coins = new javax.swing.JLabel();
+        victoryPoints = new javax.swing.JLabel();
+        nobility = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        acquirePermitButton = new javax.swing.JButton();
+        buildEmporiumWithKingButton = new javax.swing.JButton();
+        electCouncillorButton = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        changePermitTilesButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        electWithAssistantButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        drawButton = new javax.swing.JButton();
+        showPermit = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        coastPer1 = new javax.swing.JLabel();
+        coastPer2 = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        kingBalcony = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -92,109 +170,6 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        changePermitTilesButton.setText("Change Permit Tiles");
-        changePermitTilesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changePermitTilesButtonActionPerformed(evt);
-            }
-        });
-
-        electWithAssistantButton.setText("Elect Councillor with Assistant");
-        electWithAssistantButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                electWithAssistantButtonMouseClicked(evt);
-            }
-        });
-        electWithAssistantButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                electWithAssistantButtonActionPerformed(evt);
-            }
-        });
-
-        jButton8.setText("Additional Main Action");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Engage Assistant");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        buildEmporiumWithKingButton.setText("Build Emporium With King");
-        buildEmporiumWithKingButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buildEmporiumWithKingButtonActionPerformed(evt);
-            }
-        });
-
-        acquirePermitButton.setText("Acquire Permit");
-        acquirePermitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acquirePermitButtonActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Build Emporium With Permit");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        electCouncillorButton.setText("Elect Councillor ");
-        electCouncillorButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        electCouncillorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                electCouncillorButtonMouseClicked(evt);
-            }
-        });
-        electCouncillorButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                electCouncillorButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
-        jLabel2.setText("MAIN ACTIONS");
-
-        jLabel3.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
-        jLabel3.setText("QUICK ACTIONS");
-
-        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-        jLayeredPane1.setLayout(new java.awt.GridLayout(2, 2));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/coins.png"))); // NOI18N
-        jLabel5.setText("jLabel5");
-        jLayeredPane1.add(jLabel5);
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/assistants.png"))); // NOI18N
-        jLabel6.setText("jLabel5");
-        jLayeredPane1.add(jLabel6);
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/victorypoints.png"))); // NOI18N
-        jLabel4.setText("jLabel4");
-        jLayeredPane1.add(jLabel4);
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/nobilitypoints.png"))); // NOI18N
-        jLabel8.setText("jLabel8");
-        jLayeredPane1.add(jLabel8);
-
-        CLIarea.setColumns(20);
-        CLIarea.setRows(5);
-        CLIarea.setText("Council of Four!\n");
-        CLIarea.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                CLIareaPropertyChange(evt);
-            }
-        });
-        jScrollPane2.setViewportView(CLIarea);
-        CLIarea.setEditable(false);
-
         overlay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         overlay.setMaximumSize(new java.awt.Dimension(1000, 1000));
         overlay.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -212,26 +187,12 @@ public class GUI extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Map/mappa monte a.png"))); // NOI18N
         jPanel1.add(jLabel1);
 
-        drawButton.setText("DRAW");
-        drawButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                drawButtonMouseClicked(evt);
-            }
-        });
-
         jTextField1.setText("jTextField1");
 
         jButton1.setText("Send");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Pass");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
             }
         });
 
@@ -245,111 +206,492 @@ public class GUI extends javax.swing.JFrame {
         infoArea.setRows(5);
         jScrollPane3.setViewportView(infoArea);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        coastC1.setText("C1");
+
+        coastC2.setText("C2");
+
+        coastC3.setText("C3");
+
+        coastC4.setText("C4");
+
+        javax.swing.GroupLayout coastBalconyLayout = new javax.swing.GroupLayout(coastBalcony);
+        coastBalcony.setLayout(coastBalconyLayout);
+        coastBalconyLayout.setHorizontalGroup(
+            coastBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(coastBalconyLayout.createSequentialGroup()
+                .addComponent(coastC1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coastC2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coastC3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coastC4)
+                .addContainerGap(91, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        coastBalconyLayout.setVerticalGroup(
+            coastBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, coastBalconyLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(coastBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(coastC1)
+                    .addComponent(coastC2)
+                    .addComponent(coastC3)
+                    .addComponent(coastC4))
+                .addContainerGap())
         );
+
+        hillsC1.setText("C1");
+
+        hillsC2.setText("C2");
+
+        hillsC3.setText("C3");
+
+        hillsC4.setText("C4");
+
+        javax.swing.GroupLayout hillsBalconyLayout = new javax.swing.GroupLayout(hillsBalcony);
+        hillsBalcony.setLayout(hillsBalconyLayout);
+        hillsBalconyLayout.setHorizontalGroup(
+            hillsBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(hillsBalconyLayout.createSequentialGroup()
+                .addComponent(hillsC1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(hillsC2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(hillsC3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(hillsC4)
+                .addGap(0, 132, Short.MAX_VALUE))
+        );
+        hillsBalconyLayout.setVerticalGroup(
+            hillsBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(hillsBalconyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(hillsBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hillsC1)
+                    .addComponent(hillsC2)
+                    .addComponent(hillsC3)
+                    .addComponent(hillsC4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        mountC1.setText("C1");
+
+        mountC4.setText("C4");
+
+        mountC2.setText("C2");
+
+        mountC3.setText("C3");
+
+        javax.swing.GroupLayout mountBalconyLayout = new javax.swing.GroupLayout(mountBalcony);
+        mountBalcony.setLayout(mountBalconyLayout);
+        mountBalconyLayout.setHorizontalGroup(
+            mountBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mountBalconyLayout.createSequentialGroup()
+                .addComponent(mountC1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mountC2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mountC3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mountC4)
+                .addContainerGap(98, Short.MAX_VALUE))
+        );
+        mountBalconyLayout.setVerticalGroup(
+            mountBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mountBalconyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mountBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mountC1)
+                    .addComponent(mountC4)
+                    .addComponent(mountC2)
+                    .addComponent(mountC3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        userProfile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        userProfile.setLayout(new java.awt.FlowLayout());
+
+        assistants.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/assistants.png"))); // NOI18N
+        assistants.setText("jLabel5");
+        userProfile.add(assistants);
+
+        coins.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/coins.png"))); // NOI18N
+        coins.setText("jLabel5");
+        userProfile.add(coins);
+
+        victoryPoints.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/victorypoints.png"))); // NOI18N
+        victoryPoints.setText("jLabel4");
+        userProfile.add(victoryPoints);
+
+        nobility.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/nobilitypoints.png"))); // NOI18N
+        nobility.setText("jLabel8");
+        userProfile.add(nobility);
+
+        jLabel2.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
+        jLabel2.setText("MAIN ACTIONS");
+
+        acquirePermitButton.setText("Acquire Permit");
+        acquirePermitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acquirePermitButtonActionPerformed(evt);
+            }
+        });
+
+        buildEmporiumWithKingButton.setText("Build Emporium With King");
+        buildEmporiumWithKingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buildEmporiumWithKingButtonActionPerformed(evt);
+            }
+        });
+
+        electCouncillorButton.setText("Elect Councillor ");
+        electCouncillorButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        electCouncillorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                electCouncillorButtonMouseClicked(evt);
+            }
+        });
+        electCouncillorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                electCouncillorButtonActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Build Emporium With Permit");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(acquirePermitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(electCouncillorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buildEmporiumWithKingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(acquirePermitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(electCouncillorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buildEmporiumWithKingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        changePermitTilesButton.setText("Change Permit Tiles");
+        changePermitTilesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changePermitTilesButtonActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Engage Assistant");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Additional Main Action");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        electWithAssistantButton.setText("Elect Councillor with Assistant");
+        electWithAssistantButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                electWithAssistantButtonMouseClicked(evt);
+            }
+        });
+        electWithAssistantButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                electWithAssistantButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
+        jLabel3.setText("QUICK ACTIONS");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(changePermitTilesButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(electWithAssistantButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(changePermitTilesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(electWithAssistantButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jButton3.setText("Pass");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
+        drawButton.setText("DRAW");
+        drawButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                drawButtonMouseClicked(evt);
+            }
+        });
+
+        showPermit.setText("Show my permit");
+        showPermit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showPermitMouseClicked(evt);
+            }
+        });
+        showPermit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPermitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(drawButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(showPermit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(showPermit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(drawButton)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 49, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel10.setText("nobility track");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel10))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(jLabel10)
+                .addGap(0, 502, Short.MAX_VALUE))
+        );
+
+        jLabel11.setText("P1");
+        jPanel13.add(jLabel11);
+
+        jLabel12.setText("P2");
+        jPanel13.add(jLabel12);
+
+        coastPer1.setText("P1");
+        jPanel11.add(coastPer1);
+
+        coastPer2.setText("P2");
+        jPanel11.add(coastPer2);
+
+        jLabel13.setText("P1");
+        jPanel14.add(jLabel13);
+
+        jLabel14.setText("P2");
+        jPanel14.add(jLabel14);
+
+        jLabel4.setText("jLabel4");
+        kingBalcony.add(jLabel4);
+
+        jLabel8.setText("jLabel8");
+        kingBalcony.add(jLabel8);
+
+        jLabel6.setText("jLabel6");
+        kingBalcony.add(jLabel6);
+
+        jLabel5.setText("jLabel5");
+        kingBalcony.add(jLabel5);
+
+        jLabel15.setText("KING");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton1)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(coastBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(hillsBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(mountBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(27, 27, 27))
-                        .addComponent(drawButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)
-                        .addComponent(changePermitTilesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(acquirePermitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(electCouncillorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buildEmporiumWithKingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(electWithAssistantButton)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addGap(20, 20, 20)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {drawButton, electCouncillorButton});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(103, 103, 103)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(drawButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(acquirePermitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(electCouncillorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buildEmporiumWithKingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(changePermitTilesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(electWithAssistantButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(coastBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(hillsBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(mountBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1)))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))))
-                .addContainerGap())
+                                    .addComponent(jButton1))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane3)
+                                .addContainerGap())))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -399,15 +741,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void drawButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawButtonMouseClicked
         communication.drawCard(playerID);
-        CLIarea.append(String.format("%ninviato comando draw con id %d",playerID));
-
     }//GEN-LAST:event_drawButtonMouseClicked
-
-    private void CLIareaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_CLIareaPropertyChange
-        // TODO add your handling code here:
-         
-      
-    }//GEN-LAST:event_CLIareaPropertyChange
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -424,6 +758,14 @@ public class GUI extends javax.swing.JFrame {
         electWithAssistantDialog.setVisible(true);
         electWithAssistantDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_electWithAssistantButtonMouseClicked
+
+    private void showPermitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPermitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showPermitActionPerformed
+
+    private void showPermitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPermitMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showPermitMouseClicked
 
     public static void start() {
         /* Set the Nimbus look and feel */
@@ -458,15 +800,28 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea CLIarea;
     private javax.swing.JButton acquirePermitButton;
+    private javax.swing.JLabel assistants;
     private javax.swing.JButton buildEmporiumWithKingButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton changePermitTilesButton;
     private javax.swing.JTextArea chatArea;
+    private javax.swing.JPanel coastBalcony;
+    private javax.swing.JLabel coastC1;
+    private javax.swing.JLabel coastC2;
+    private javax.swing.JLabel coastC3;
+    private javax.swing.JLabel coastC4;
+    private javax.swing.JLabel coastPer1;
+    private javax.swing.JLabel coastPer2;
+    private javax.swing.JLabel coins;
     private javax.swing.JButton drawButton;
     private javax.swing.JButton electCouncillorButton;
     private javax.swing.JButton electWithAssistantButton;
+    private javax.swing.JPanel hillsBalcony;
+    private javax.swing.JLabel hillsC1;
+    private javax.swing.JLabel hillsC2;
+    private javax.swing.JLabel hillsC3;
+    private javax.swing.JLabel hillsC4;
     private javax.swing.JTextArea infoArea;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -476,6 +831,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -484,36 +845,157 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel kingBalcony;
+    private javax.swing.JPanel mountBalcony;
+    private javax.swing.JLabel mountC1;
+    private javax.swing.JLabel mountC2;
+    private javax.swing.JLabel mountC3;
+    private javax.swing.JLabel mountC4;
+    private javax.swing.JLabel nobility;
     private javax.swing.JPanel overlay;
+    private javax.swing.JButton showPermit;
+    private javax.swing.JLayeredPane userProfile;
+    private javax.swing.JLabel victoryPoints;
     // End of variables declaration//GEN-END:variables
 
     public void setPlayerName(String name) {
         this.name = name;
-         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-        
+        userProfile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+
     }
 
-    public JTextArea getCLIarea() {
-        return CLIarea;
-    }
-    
-    
     public JTextArea getChatArea() {
         return chatArea;
     }
-    
-     public JTextArea getInfoArea() {
+
+    public JTextArea getInfoArea() {
         return infoArea;
     }
+
+    public JLabel getAssistants() {
+        return assistants;
+    }
+
+    public JLabel getNobility() {
+        return nobility;
+    }
+
+    public JLabel getCoins() {
+        return coins;
+    }
+
+    public JLabel getVictoryPoints() {
+        return victoryPoints;
+    }
+
+    public JLayeredPane getUserProfile() {
+        return userProfile;
+    }
+
+    public void showPoliticCard(ColorPolitic c) {
+        JLabel politic = (new javax.swing.JLabel());
+        // colorare le carte
+        if (c == ColorPolitic.BLACK) {
+            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.BLACK)));
+        }
+        if (c == ColorPolitic.ORANGE) {
+            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.ORANGE)));
+        }
+        if (c == ColorPolitic.BLUE) {
+            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.BLUE)));
+        }
+        if (c == ColorPolitic.JOLLY) {
+            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.JOLLY)));
+        }
+        if (c == ColorPolitic.PINK) {
+            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.PINK)));
+        }
+        if (c == ColorPolitic.PURPLE) {
+            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.PURPLE)));
+        }
+        if (c == ColorPolitic.WHITE) {
+            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.WHITE)));
+        }
+
+//        if (c != ColorPolitic.JOLLY) {
+//            for (int y = 0; y < politicImage.getHeight(); y++) {
+//       for (int x = 0; x < politicImage.getWidth(); x++) {
+//
+//                    Color pixelColor = new Color(politicImage.getRGB(x, y));
+//
+//                    float[] hsbVals = new float[3];
+//                    Color.RGBtoHSB(pixelColor.getRed(), pixelColor.getGreen(), pixelColor.getBlue(), hsbVals);
+//                    Color newColor = new Color(Color.HSBtoRGB((float) c.getNumVal() / 360f, hsbVals[1], hsbVals[2]));
+//                    politicImage.setRGB(x, y, newColor.getRGB());
+//
+//                }
+//            }
+//            politic.setIcon(new ImageIcon(politicImage));
+//
+//        } else {
+//            politic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/jolly.png")));
+//
+//        }
+        userProfile.add(politic);
+
+    }
+
+     public void showCouncillor(ColorCouncillor c, JPanel balcony) {
+        JLabel coun = (new javax.swing.JLabel());
+        // colorare le carte
+        if (c == ColorCouncillor.BLACK) {
+            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.BLACK)));
+        }
+        if (c == ColorCouncillor.ORANGE) {
+            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.ORANGE)));
+        }
+        if (c == ColorCouncillor.BLUE) {
+            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.BLUE)));
+        }
+        if (c == ColorCouncillor.PINK) {
+            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.PINK)));
+        }
+        if (c == ColorCouncillor.PURPLE) {
+            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.PURPLE)));
+        }
+        if (c == ColorCouncillor.WHITE) {
+            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.WHITE)));
+        }
+        balcony.add(coun);
+
+    }
+     
+    public JPanel getCoastBalcony(){
+        return coastBalcony;
+    }
+    
+    public JPanel getHillsBalcony(){
+        return hillsBalcony;
+    }
+    
+    public JPanel getMountBalcony(){
+        return mountBalcony;
+    }
+    
+    public JPanel getKingBalcony(){
+        return kingBalcony;
+    }
+    
 }
