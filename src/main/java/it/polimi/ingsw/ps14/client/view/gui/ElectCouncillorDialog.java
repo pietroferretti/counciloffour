@@ -5,6 +5,7 @@ import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,8 +27,6 @@ private Communication communication;
     public ElectCouncillorDialog(java.awt.Frame parent, boolean modal) {
         
         super(parent, "Elect a Councillor", modal);
-//        this.playerID=playerID;
-//        this.communication=communication;
         initComponents();
     }
 
@@ -222,8 +221,12 @@ private Communication communication;
 //        System.out.println("it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog.jButton2MouseClicked()");
 //        System.out.println(getSelectedButtonText(colorChooser));
 //        System.out.println(getSelectedButtonText(balconyChooser));
-        communication.electCouncillor(playerID, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)), getSelectedButtonText(balconyChooser));
-        dispose();
+        if (getSelectedButtonText(colorChooser) != null && getSelectedButtonText(balconyChooser) != null) {
+           communication.electCouncillor(playerID, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)), getSelectedButtonText(balconyChooser));
+           dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "You need to select a balcony and a color", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
@@ -269,7 +272,7 @@ private Communication communication;
         });
     }
     
-    public String getSelectedButtonText(ButtonGroup buttonGroup) {
+    private String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements();
                 buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();

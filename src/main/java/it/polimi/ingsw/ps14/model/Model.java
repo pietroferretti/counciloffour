@@ -291,29 +291,28 @@ public class Model extends Observable implements Serializable {
 		}
 
 		return null;
-		
+
 	}
 
 	public BusinessPermit id2permit(int permitID, Region region) {
 
-
-		
 		for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits()) {
-			if (bp!= null && bp.getId().equals(Integer.valueOf(permitID))) {
+			if (bp != null && bp.getId().equals(Integer.valueOf(permitID))) {
 				return bp;
 			}
 		}
-		
+
 		return null;
 	}
 
 	public City name2city(String name) {
 		for (City c : gameBoard.getCities()) {
-			if (c.getName().equals(name)) {
-					return c;
+
+			if (c.getName().equalsIgnoreCase(name)) {
+				return c;
 			}
 		}
-		
+
 		return null;
 	}
 }

@@ -478,7 +478,7 @@ public class ControllerTest {
 	}
 
 	/**
-	 * Tests the "take permit" nobility request and answer
+	 * Tests the "take a free permit" nobility request and answer
 	 */
 	@Test
 	public void testHandleNobilityAnswerTakePermit() {
@@ -525,94 +525,95 @@ public class ControllerTest {
 	}
 
 	/**
-	 * Tests the "from permits" nobility request and answer
+	 * Tests the "bonus from permits" nobility request and answer
 	 */
 	@Test
 	public void testHandleNobilityAnswerFromPermits() {
-		State testState = new State();
-		testState.setGamePhase(GamePhase.TURNS);
-		testState.setCurrentTurnState(new MainActionDoneTurnState(0));
-		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
-		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
-		testState.setWaitingFor(WaitingFor.TAKEPERMIT);
-		testState.setWaitingForHowMany(1);
-		Map<String, String> availableChoices = new HashMap<>();
-		
-		String permitID1 = String.valueOf(model.getGameBoard().getRegion(RegionType.COAST).getAvailablePermits()[1].getId());
-		String permitID2 = String.valueOf(model.getGameBoard().getRegion(RegionType.HILLS).getAvailablePermits()[0].getId());		
-		availableChoices.put(permitID1, "Permit 1");
-		availableChoices.put(permitID2, "Permit 2");
-		testState.setAvailableChoices(availableChoices);
-		
-		model.setState(testState);
-	
-		controller.update(mockView1, new NobilityRequestAnswerMsg(new ArrayList<>(Arrays.asList(permitID2))));
-		
-		List<BusinessPermit> playerPermits = model.id2player(mockView1.getPlayerID()).getAllPermits();
-		
-		assertTrue(!playerPermits.isEmpty());
-		
-		boolean playerHasPermit = false;
-		for (BusinessPermit permit : playerPermits) {
-			if(permit.getId().equals(Integer.valueOf(permitID2))) {
-				playerHasPermit = true;
-			}
-		}
-		assertTrue(playerHasPermit);
-		
-		assertEquals(WaitingFor.NOTHING, model.getWaitingFor());
-		assertEquals(new Integer(0), model.getWaitingForHowMany());
-		assertTrue(model.getAvailableChoices().isEmpty());
-		assertEquals(GamePhase.TURNS, model.getGamePhase());
-		assertEquals(MainActionDoneTurnState.class, model.getCurrentTurnState().getClass());
-		assertEquals(mockView1.getPlayerID(), model.getCurrentPlayer().getId());
-		assertEquals(mockView2.getPlayerID(), model.getPlayerOrder().peek().getId());
-		
+//		State testState = new State();
+//		testState.setGamePhase(GamePhase.TURNS);
+//		testState.setCurrentTurnState(new MainActionDoneTurnState(0));
+//		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
+//		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
+//		testState.setWaitingFor(WaitingFor.FROMPERMITS);
+//		testState.setWaitingForHowMany(1);
+//		Map<String, String> availableChoices = new HashMap<>();
+//		
+//		String permitID1 = String.valueOf(model.getGameBoard().getRegion(RegionType.COAST).getAvailablePermits()[1].getId());
+//		String permitID2 = String.valueOf(model.getGameBoard().getRegion(RegionType.HILLS).getAvailablePermits()[0].getId());		
+//		availableChoices.put(permitID1, "Permit 1");
+//		availableChoices.put(permitID2, "Permit 2");
+//		testState.setAvailableChoices(availableChoices);
+//		
+//		model.setState(testState);
+//	
+//		controller.update(mockView1, new NobilityRequestAnswerMsg(new ArrayList<>(Arrays.asList(permitID2))));
+//		
+//		List<BusinessPermit> playerPermits = model.id2player(mockView1.getPlayerID()).getAllPermits();
+//		
+//		assertTrue(!playerPermits.isEmpty());
+//		
+//		boolean playerHasPermit = false;
+//		for (BusinessPermit permit : playerPermits) {
+//			if(permit.getId().equals(Integer.valueOf(permitID2))) {
+//				playerHasPermit = true;
+//			}
+//		}
+//		assertTrue(playerHasPermit);
+//		
+//		assertEquals(WaitingFor.NOTHING, model.getWaitingFor());
+//		assertEquals(new Integer(0), model.getWaitingForHowMany());
+//		assertTrue(model.getAvailableChoices().isEmpty());
+//		assertEquals(GamePhase.TURNS, model.getGamePhase());
+//		assertEquals(MainActionDoneTurnState.class, model.getCurrentTurnState().getClass());
+//		assertEquals(mockView1.getPlayerID(), model.getCurrentPlayer().getId());
+//		assertEquals(mockView2.getPlayerID(), model.getPlayerOrder().peek().getId());
+		// TODO
 	}
 
 	/**
-	 * Tests the "from tokens" nobility request and answer
+	 * Tests the "bonus from tokens" nobility request and answer
 	 */
 	@Test
 	public void testHandleNobilityAnswerFromTokens() {
-		State testState = new State();
-		testState.setGamePhase(GamePhase.TURNS);
-		testState.setCurrentTurnState(new MainActionDoneTurnState(0));
-		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
-		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
-		testState.setWaitingFor(WaitingFor.TAKEPERMIT);
-		testState.setWaitingForHowMany(1);
-		Map<String, String> availableChoices = new HashMap<>();
-		
-		String permitID1 = String.valueOf(model.getGameBoard().getRegion(RegionType.COAST).getAvailablePermits()[1].getId());
-		String permitID2 = String.valueOf(model.getGameBoard().getRegion(RegionType.HILLS).getAvailablePermits()[0].getId());		
-		availableChoices.put(permitID1, "Permit 1");
-		availableChoices.put(permitID2, "Permit 2");
-		testState.setAvailableChoices(availableChoices);
-		
-		model.setState(testState);
-	
-		controller.update(mockView1, new NobilityRequestAnswerMsg(new ArrayList<>(Arrays.asList(permitID2))));
-		
-		List<BusinessPermit> playerPermits = model.id2player(mockView1.getPlayerID()).getAllPermits();
-		
-		assertTrue(!playerPermits.isEmpty());
-		
-		boolean playerHasPermit = false;
-		for (BusinessPermit permit : playerPermits) {
-			if(permit.getId().equals(Integer.valueOf(permitID2))) {
-				playerHasPermit = true;
-			}
-		}
-		assertTrue(playerHasPermit);
-		
-		assertEquals(WaitingFor.NOTHING, model.getWaitingFor());
-		assertEquals(new Integer(0), model.getWaitingForHowMany());
-		assertTrue(model.getAvailableChoices().isEmpty());
-		assertEquals(GamePhase.TURNS, model.getGamePhase());
-		assertEquals(MainActionDoneTurnState.class, model.getCurrentTurnState().getClass());
-		assertEquals(mockView1.getPlayerID(), model.getCurrentPlayer().getId());
-		assertEquals(mockView2.getPlayerID(), model.getPlayerOrder().peek().getId());
+//		State testState = new State();
+//		testState.setGamePhase(GamePhase.TURNS);
+//		testState.setCurrentTurnState(new MainActionDoneTurnState(0));
+//		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
+//		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
+//		testState.setWaitingFor(WaitingFor.TAKEPERMIT);
+//		testState.setWaitingForHowMany(1);
+//		Map<String, String> availableChoices = new HashMap<>();
+//		
+//		String permitID1 = String.valueOf(model.getGameBoard().getRegion(RegionType.COAST).getAvailablePermits()[1].getId());
+//		String permitID2 = String.valueOf(model.getGameBoard().getRegion(RegionType.HILLS).getAvailablePermits()[0].getId());		
+//		availableChoices.put(permitID1, "Permit 1");
+//		availableChoices.put(permitID2, "Permit 2");
+//		testState.setAvailableChoices(availableChoices);
+//		
+//		model.setState(testState);
+//	
+//		controller.update(mockView1, new NobilityRequestAnswerMsg(new ArrayList<>(Arrays.asList(permitID2))));
+//		
+//		List<BusinessPermit> playerPermits = model.id2player(mockView1.getPlayerID()).getAllPermits();
+//		
+//		assertTrue(!playerPermits.isEmpty());
+//		
+//		boolean playerHasPermit = false;
+//		for (BusinessPermit permit : playerPermits) {
+//			if(permit.getId().equals(Integer.valueOf(permitID2))) {
+//				playerHasPermit = true;
+//			}
+//		}
+//		assertTrue(playerHasPermit);
+//		
+//		assertEquals(WaitingFor.NOTHING, model.getWaitingFor());
+//		assertEquals(new Integer(0), model.getWaitingForHowMany());
+//		assertTrue(model.getAvailableChoices().isEmpty());
+//		assertEquals(GamePhase.TURNS, model.getGamePhase());
+//		assertEquals(MainActionDoneTurnState.class, model.getCurrentTurnState().getClass());
+//		assertEquals(mockView1.getPlayerID(), model.getCurrentPlayer().getId());
+//		assertEquals(mockView2.getPlayerID(), model.getPlayerOrder().peek().getId());
+		// TODO
 		
 	}
 
