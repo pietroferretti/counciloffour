@@ -32,7 +32,7 @@ public class GameBoard extends Observable implements Serializable {
 	 */
 	private static final long serialVersionUID = -8154193006137131849L;
 
-	private static final Logger LOGGER = Logger.getLogger(Settings.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(GameBoard.class.getName());
 
 	Random random = new Random();
 
@@ -347,14 +347,14 @@ public class GameBoard extends Observable implements Serializable {
 	}
 
 	public ColorCouncillor getRandomAvailableCouncillor() {
-		
+
 		ColorCouncillor color;
-		
+
 		do {
 			color = ColorCouncillor.getRandomCouncillor();
 		} while (!councillorIsAvailable(color));
 
-		useCouncillor(color);	
+		useCouncillor(color);
 		return color;
 	}
 
@@ -464,16 +464,22 @@ public class GameBoard extends Observable implements Serializable {
 	public Queue<Integer> getKingBonuses() {
 		return kingBonuses;
 	}
-	
+
 	public boolean isKingBonusAvailable() {
 		return kingBonuses.peek() != null;
 	}
 
 	public int useKingBonus() {
-		int i = kingBonuses.poll();
+		if (!kingBonuses.isEmpty()) {
+			int i = kingBonuses.poll();
+			setChanged();
+			notifyObservers();
+			return i;
+		}
 		setChanged();
 		notifyObservers();
-		return i;
+		return 0;
+
 	}
 
 	/*
@@ -483,11 +489,11 @@ public class GameBoard extends Observable implements Serializable {
 	public Map<ColorCity, Integer> getColorBonuses() {
 		return colorBonuses;
 	}
-	
+
 	public Integer getColorBonus(ColorCity color) {
 		return colorBonuses.get(color);
 	}
-	
+
 	public Integer useColorBonus(ColorCity color) {
 		Integer bonus = colorBonuses.get(color);
 		colorBonuses.put(color, 0);
@@ -500,8 +506,8 @@ public class GameBoard extends Observable implements Serializable {
 	public String toString() {
 		return "GameBoard [random=" + random + ", regions=" + regions + ", king=" + king + ", cities=" + cities
 				+ ", availableAssistants=" + availableAssistants + ", nobilityTrack=" + nobilityTrack
-				+ ", availableCouncillors=" + availableCouncillors + ", colorBonuses =" + colorBonuses + ", bonusesKing="
-				+ kingBonuses + ", politicDeck=" + politicDeck + "]";
+				+ ", availableCouncillors=" + availableCouncillors + ", colorBonuses =" + colorBonuses
+				+ ", bonusesKing=" + kingBonuses + ", politicDeck=" + politicDeck + "]";
 	}
 
 }

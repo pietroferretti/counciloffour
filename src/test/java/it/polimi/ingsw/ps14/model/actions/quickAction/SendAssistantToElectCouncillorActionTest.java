@@ -27,9 +27,8 @@ public class SendAssistantToElectCouncillorActionTest {
 		Player player=new Player("ubaldo",Color.DARK_GRAY,20,12,model.getGameBoard().getPoliticDeck(),6);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
-//		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].toString());
-//		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[1].toString());
 
+		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.PURPLE);
 		QuickAction action = new SendAssistantToElectCouncillorAction(player.getId(), null, ColorCouncillor.PURPLE);
 		assertEquals(action.isValid(model),true);
 		action.execute(null, model);
@@ -42,9 +41,8 @@ public class SendAssistantToElectCouncillorActionTest {
 		Player player=new Player("ubaldo",Color.DARK_GRAY,20,12,model.getGameBoard().getPoliticDeck(),6);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
-//		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].toString());
-//		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[1].toString());
 
+		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.PURPLE);
 		QuickAction action = new SendAssistantToElectCouncillorAction(player.getId(), RegionType.COAST, ColorCouncillor.PURPLE);
 		assertEquals(action.isValid(model),true);
 		action.execute(null, model);
@@ -57,9 +55,8 @@ public class SendAssistantToElectCouncillorActionTest {
 		Player player=new Player("ubaldo",Color.DARK_GRAY,20,12,model.getGameBoard().getPoliticDeck(),6);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
-//		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].toString());
-//		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[1].toString());
 
+		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.PURPLE);
 		QuickAction action = new SendAssistantToElectCouncillorAction(player.getId(), null, ColorCouncillor.PURPLE);
 		
 		Balcony b=new Balcony(model.getGameBoard().getKing().getBalcony());

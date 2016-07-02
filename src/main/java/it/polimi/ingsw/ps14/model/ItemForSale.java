@@ -2,21 +2,22 @@ package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
 
+/**
+ * This class represents one item for sale. It can be a card (business or
+ * politic) or a set of assistants. If it is a card, assistants is null. If
+ * it is a set of assistants, item is null.
+ * 
+ * IF ITEM AND ASSISTANTS ARE null, THE ITEM HAS BEEN SOLD!
+ * 
+ * 
+ */
 public class ItemForSale implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6925492154183921807L;
-	/**
-	 * This class represents one item for sale. It can be a card (business or
-	 * politic) or a set of assistants. If it is a card, assistants is null. If
-	 * it is a set of assistants, item is null.
-	 * 
-	 * IF ITEM AND ASSISTANTS ARE null, THE ITEM HAS BEEN SOLD!
-	 * 
-	 * 
-	 */
+
 
 	private Integer idORquantity;
 	private ColorPolitic color;
@@ -24,7 +25,6 @@ public class ItemForSale implements Serializable {
 	private Integer ownerID;
 	private Type type;
 	private int barCode;
-
 
 	public enum Type {
 		BUSINESS, POLITIC, ASSISTANT;
@@ -52,13 +52,13 @@ public class ItemForSale implements Serializable {
 		this.price = i.price;
 		this.ownerID = i.ownerID;
 		this.type = i.type;
-		this.barCode=i.barCode;
+		this.barCode = i.barCode;
 	}
 
-	protected void setBarCode(int code){
-		this.barCode=code;
+	protected void setBarCode(int code) {
+		this.barCode = code;
 	}
-	
+
 	public int getPrice() {
 		return price;
 	}
@@ -121,9 +121,8 @@ public class ItemForSale implements Serializable {
 	 *         if assistants, false otherwise.
 	 */
 	public boolean removeAssistant(int howMany) {
-		if (type==Type.ASSISTANT && idORquantity != null && howMany <= idORquantity) {
+		if (type == Type.ASSISTANT && idORquantity != null && howMany <= idORquantity) {
 			idORquantity = idORquantity - howMany;
-			
 			return true;
 		}
 		return false;

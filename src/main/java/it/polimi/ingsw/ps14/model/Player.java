@@ -308,7 +308,7 @@ public class Player extends Observable implements Serializable {
 
 	public List<BusinessPermit> getAllPermits() {
 		List<BusinessPermit> allPermits = new ArrayList<>();
-		allPermits.addAll(businessHand.getUsedCards());
+		allPermits.addAll(businessHand.getValidCards());
 		allPermits.addAll(businessHand.getUsedCards());
 		return allPermits;
 	}

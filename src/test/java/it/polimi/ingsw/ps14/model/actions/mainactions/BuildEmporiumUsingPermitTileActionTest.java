@@ -1,8 +1,7 @@
 package it.polimi.ingsw.ps14.model.actions.mainactions;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +28,15 @@ public class BuildEmporiumUsingPermitTileActionTest {
 		cards.add(new PoliticCard(ColorPolitic.JOLLY));
 		// cards.add(new PoliticCard(ColorPolitic.PINK));
 		
-		Player player = new Player("ubaldo", Color.DARK_GRAY, 20, 12,
+		Player player = new Player(1, 20, 12,
 				model.getGameBoard().getPoliticDeck(), 6);
 		pls.add(player);
 		model.setPlayers(pls);
 	
 		BusinessPermit busCard = model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0];
 
+		System.out.println(busCard);
+		
 		player.acquireBusinessPermit(busCard);
 
 		MainAction action = new BuildEmporiumUsingPermitTileAction(
@@ -59,7 +60,7 @@ public class BuildEmporiumUsingPermitTileActionTest {
 		cards.add(new PoliticCard(ColorPolitic.JOLLY));
 		// cards.add(new PoliticCard(ColorPolitic.PINK));
 		
-		Player player = new Player("ubaldo", Color.DARK_GRAY, 20, 12,
+		Player player = new Player(1, 20, 12,
 				model.getGameBoard().getPoliticDeck(), 6);
 		pls.add(player);
 		model.setPlayers(pls);
@@ -89,7 +90,7 @@ public class BuildEmporiumUsingPermitTileActionTest {
 		cards.add(new PoliticCard(ColorPolitic.JOLLY));
 		// cards.add(new PoliticCard(ColorPolitic.PINK));
 		
-		Player player = new Player("ubaldo", Color.DARK_GRAY, 20, 12,
+		Player player = new Player(1, 20, 12,
 				model.getGameBoard().getPoliticDeck(), 6);
 		pls.add(player);
 		model.setPlayers(pls);
@@ -102,6 +103,8 @@ public class BuildEmporiumUsingPermitTileActionTest {
 		MainAction action = new BuildEmporiumUsingPermitTileAction(
 				player.getId(), busCard.getId(),cityName);		
 
+		assertTrue(action.isValid(model));
+		
 		action.execute(null, model);
 
 		boolean ok=false;
@@ -110,6 +113,7 @@ public class BuildEmporiumUsingPermitTileActionTest {
 				ok=true;
 		
 		assertEquals(ok,true);
+		assertTrue(player.getBusinessHand().getUsedCards() != null);
 		assertEquals(player.getBusinessHand().getUsedCards().get(0).equals(busCard),true);
 		
 		
