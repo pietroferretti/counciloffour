@@ -33,30 +33,36 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 	@Override
 	public boolean isValid(Model model) {
 		Player player = model.id2player(super.getPlayer());
+		System.out.println(player);
 
 		if (player == null)
 			return false;
-
+		System.out.println("shit1");
 		BusinessPermit businessCard = model.id2permit(businessCardID, player);
 		if (businessCard == null) // if player doesn't have card return null
 			return false;
+		System.out.println(businessCard);
 
 		City city = model.name2city(cityName);
 		if (city == null)
 			return false;
+		System.out.println(city);
 
 		// city is in the list of business permit selected
 		if (!businessCard.contains(city))
 			return false;
+		System.out.println("shit2");
 
 		// check if player has built in this city already
 		if (city.isEmporiumBuilt(player))
 			return false;
+		System.out.println("shit");
 
 		// check if player has money enough to pay players that have built in
 		// the city already
 		if (city.numEmporiumsBuilt() > player.getAssistants())
 			return false;
+		System.out.println("shit");
 
 		return true;
 	}

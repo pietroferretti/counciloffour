@@ -23,7 +23,7 @@ public class Model extends Observable implements Serializable {
 	private static final long serialVersionUID = -4787221737865002835L;
 
 	private static final String SETTINGS_FILENAME = "src/main/resources/settings.json";
-	
+
 	private static int idCounter = 1;
 	private final int idGame;
 
@@ -51,7 +51,6 @@ public class Model extends Observable implements Serializable {
 
 		message = new MessageObservable();
 	}
-
 
 	public void startGame() {
 		setMessage(new GameStartedMsg(getState()));
@@ -281,12 +280,12 @@ public class Model extends Observable implements Serializable {
 	 * @return {@link BusinessPermit}
 	 */
 	public BusinessPermit id2permit(int permitID, Player player) {
-		if(player==null) {
+		if (player == null) {
 			return null;
 		}
 
 		for (BusinessPermit bp : player.getBusinessHand().getValidCards()) {
-			if (bp.getId() == Integer.valueOf(permitID)) {
+			if (bp.getId().equals(Integer.valueOf(permitID))) {
 				return bp;
 			}
 		}
@@ -297,10 +296,12 @@ public class Model extends Observable implements Serializable {
 
 	public BusinessPermit id2permit(int permitID, Region region) {
 
+
+		
 		for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits()) {
-				if (bp.getId() == Integer.valueOf(permitID)) {
-					return bp;
-				}
+			if (bp!= null && bp.getId().equals(Integer.valueOf(permitID))) {
+				return bp;
+			}
 		}
 		
 		return null;
@@ -308,7 +309,7 @@ public class Model extends Observable implements Serializable {
 
 	public City name2city(String name) {
 		for (City c : gameBoard.getCities()) {
-			if (name.equalsIgnoreCase(c.getName())) {
+			if (c.getName().equals(name)) {
 					return c;
 			}
 		}

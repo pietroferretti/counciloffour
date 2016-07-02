@@ -34,11 +34,16 @@ public class AvailableCouncillorsViewTest {
 		assertEquals(model.getGameBoard().getAvailableCouncillors(), acv.getAvailableCouncillorsCopy());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testUpdate() {
-
+		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.PINK);
 		assertTrue(model.getGameBoard().useCouncillor(ColorCouncillor.PINK));
 		assertEquals(model.getGameBoard().getAvailableCouncillors(), acv2.getAvailableCouncillorsCopy());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateException() {
+
 		System.out.println(acv2.getAvailableCouncillorsCopy().toString());
 
 		player.addCoins(4);
