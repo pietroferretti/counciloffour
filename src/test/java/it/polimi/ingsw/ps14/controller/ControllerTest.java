@@ -157,6 +157,8 @@ public class ControllerTest {
 		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
 
 		model.setState(testState);
+		
+		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.ORANGE);
 
 		controller.update(mockView1,
 				new TurnActionMsg(new ElectCouncillorAction(mockView1.getPlayerID(), ColorCouncillor.ORANGE, "COAST")));
@@ -178,6 +180,8 @@ public class ControllerTest {
 		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
 
 		model.setState(testState);
+
+		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.ORANGE);
 		
 		controller.update(mockView1,
 				new TurnActionMsg(new ElectCouncillorAction(mockView1.getPlayerID(), ColorCouncillor.ORANGE, "COAST")));

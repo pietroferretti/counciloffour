@@ -43,6 +43,7 @@ public class ElectCouncillorActionTest {
 			System.out.println(reg.toString());
 		System.out.println(player.toString());
 
+		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.ORANGE);
 		ElectCouncillorAction action = new ElectCouncillorAction(player.getId(),
 				ColorCouncillor.ORANGE, "COAST");
 		assertEquals(action.isValid(model), true);
@@ -61,6 +62,7 @@ public class ElectCouncillorActionTest {
 	
 	@Test
 	public void testExecute2() {
+		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.ORANGE);
 		ElectCouncillorAction action = new ElectCouncillorAction(player.getId(),
 				ColorCouncillor.ORANGE, "king");
 		Balcony b=new Balcony(model.getGameBoard().getKing().getBalcony());
