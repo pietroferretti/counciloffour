@@ -2,21 +2,22 @@ package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
 
+/**
+ * This class represents one item for sale. It can be a card (business or
+ * politic) or a set of assistants. If it is a card, assistants is null. If
+ * it is a set of assistants, item is null.
+ * 
+ * IF ITEM AND ASSISTANTS ARE null, THE ITEM HAS BEEN SOLD!
+ * 
+ * 
+ */
 public class ItemForSale implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6925492154183921807L;
-	/**
-	 * This class represents one item for sale. It can be a card (business or
-	 * politic) or a set of assistants. If it is a card, assistants is null. If
-	 * it is a set of assistants, item is null.
-	 * 
-	 * IF ITEM AND ASSISTANTS ARE null, THE ITEM HAS BEEN SOLD!
-	 * 
-	 * 
-	 */
+
 
 	private Integer idORquantity;
 	private ColorPolitic color;
