@@ -23,8 +23,7 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 	private final Integer businessCardID;
 	private final String cityName;
 
-	public BuildEmporiumUsingPermitTileAction(Integer playerID, Integer cardID,
-			String city) {
+	public BuildEmporiumUsingPermitTileAction(Integer playerID, Integer cardID, String city) {
 		super(playerID);
 		this.businessCardID = cardID;
 		this.cityName = city;
@@ -32,27 +31,29 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 
 	@Override
 	public boolean isValid(Model model) {
+
 		Player player = model.id2player(super.getPlayer());
-
+		System.out.println(1);
 		if (player == null)
-			return false;
 
+			return false;
+		System.out.println(2);
 		BusinessPermit businessCard = model.id2permit(businessCardID, player);
 		if (businessCard == null) // if player doesn't have card return null
 			return false;
-
+		System.out.println(3);
 		City city = model.name2city(cityName);
 		if (city == null)
 			return false;
-
+		System.out.println(4);
 		// city is in the list of business permit selected
 		if (!businessCard.contains(city))
 			return false;
-
+		System.out.println(5);
 		// check if player has built in this city already
 		if (city.isEmporiumBuilt(player))
 			return false;
-
+		System.out.println(6);
 		// check if player has money enough to pay players that have built in
 		// the city already
 		if (city.numEmporiumsBuilt() > player.getAssistants())
@@ -81,8 +82,7 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		city.buildEmporium(player);
 
 		Region region = city.getRegion();
-		if ((region.getBonusRegion() != 0)
-				&& builtAllCitiesInRegion(player, region)) {
+		if ((region.getBonusRegion() != 0) && builtAllCitiesInRegion(player, region)) {
 			player.addPoints(region.getBonusRegion());
 			region.consumeBonusRegion();
 
@@ -91,8 +91,7 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 
 		GameBoard gameboard = model.getGameBoard();
 		ColorCity cityColor = city.getColor();
-		if ((cityColor != ColorCity.PURPLE)
-				&& (gameboard.getColorBonus(cityColor) != 0)
+		if ((cityColor != ColorCity.PURPLE) && (gameboard.getColorBonus(cityColor) != 0)
 				&& builtAllCitiesWithColor(player, gameboard, cityColor)) {
 			player.addPoints(gameboard.useColorBonus(cityColor));
 
@@ -124,12 +123,10 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		return allBuilt;
 	}
 
-	private boolean builtAllCitiesWithColor(Player player, GameBoard gameboard,
-			ColorCity color) {
+	private boolean builtAllCitiesWithColor(Player player, GameBoard gameboard, ColorCity color) {
 		boolean allBuilt = true;
 		for (City cityInGameboard : gameboard.getCities()) {
-			if (color.equals(cityInGameboard.getColor())
-					&& !cityInGameboard.getEmporiums().contains(player)) {
+			if (color.equals(cityInGameboard.getColor()) && !cityInGameboard.getEmporiums().contains(player)) {
 				allBuilt = false;
 			}
 		}

@@ -27,8 +27,6 @@ private Communication communication;
     public ElectCouncillorDialog(java.awt.Frame parent, boolean modal) {
         
         super(parent, "Elect a Councillor", modal);
-//        this.playerID=playerID;
-//        this.communication=communication;
         initComponents();
     }
 
@@ -274,7 +272,7 @@ private Communication communication;
         });
     }
     
-    public String getSelectedButtonText(ButtonGroup buttonGroup) {
+    private String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements();
                 buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
