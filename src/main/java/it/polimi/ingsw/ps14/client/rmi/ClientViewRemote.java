@@ -51,7 +51,7 @@ public interface ClientViewRemote extends Remote {
 
 	public void personalUpdate(Player p) throws RemoteException;
 
-	public void playerChangePrivate(int playerID, String message) throws RemoteException;
+	public void playerChangePrivate(int playerID,Player player, String message) throws RemoteException;
 
 	public void playerChangePublic(int playerID, String notice) throws RemoteException;
 

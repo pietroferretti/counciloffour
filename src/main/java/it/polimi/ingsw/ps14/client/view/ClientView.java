@@ -112,7 +112,7 @@ public abstract class ClientView implements Runnable {
 
 	public abstract void showPersonalDetails(Player p);
 
-	public abstract void showPlayerChangesPrivate(String message);
+	public abstract void showPlayerChangesPrivate(Player player,String message);
 
 	public abstract void showPlayerChangesPublic(String notice);
 

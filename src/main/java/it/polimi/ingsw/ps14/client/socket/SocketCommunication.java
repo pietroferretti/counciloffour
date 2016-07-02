@@ -165,7 +165,7 @@ public class SocketCommunication implements Communication {
 				clientView.showPersonalDetails(((PersonalUpdateMsg) message)
 						.getPlayer());
 			} else if (message instanceof PlayerChangedPrivateMsg) {
-				clientView.showPlayerChangesPrivate(message.toString());
+				clientView.showPlayerChangesPrivate(((PlayerChangedPrivateMsg) message).getPlayer(),message.toString());
 			} else if (message instanceof PlayerChangedPublicMsg) {
 				clientView
 						.showPlayerChangesPublic(((PlayerChangedPublicMsg) message)

@@ -222,7 +222,7 @@ public class Player extends Observable implements Serializable {
 	public void addPolitic(PoliticCard card) {
 		hand.add(card);
 		setChanged();
-		notifyObservers(new PlayerChangedPrivateMsg(id, "You gain " + card.toString()));
+		notifyObservers(new PlayerChangedPrivateMsg(id,this, "You gain " + card.toString()));
 	}
 
 	public int getId() {

@@ -427,7 +427,7 @@ public class CLIView extends ClientView implements Runnable {
 	}
 
 	@Override
-	public void showPlayerChangesPrivate(String message) {
+	public void showPlayerChangesPrivate(Player p,String message) {
 		print(message);
 	}
 

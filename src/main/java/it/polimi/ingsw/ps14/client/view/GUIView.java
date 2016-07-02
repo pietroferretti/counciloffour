@@ -77,7 +77,6 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showAvailableAssistant(int update) {
-        mainWindow.getAssistants().setText(Integer.toString(update));
         mainWindow.getInfoArea().append("\n" + "Assistant available now: " + update);
 
     }
@@ -327,7 +326,8 @@ public class GUIView extends ClientView implements Runnable {
         GameStartedDialog d;
         d = new GameStartedDialog(mainWindow, true);
         d.setVisible(true);
-
+        communication.showMyDetails(playerID);
+        communication.showGameboard(playerID);
     }
 
     @Override
@@ -345,7 +345,7 @@ public class GUIView extends ClientView implements Runnable {
     @Override
     public void showKingBonus(int updatedShowableKingBonus) {
 //        mainWindow.getCLIarea().append("\n"+"KingBonusesUpdatedMsg [updatedShowableKingBonus=" + updatedShowableKingBonus + "]");
-        mainWindow.getInfoArea().append(String.format("%nNext King bonus: %d victory points", updatedShowableKingBonus));
+        mainWindow.getkingBonus().setText(String.format("%nNext King bonus: %d victory points", updatedShowableKingBonus));
 
     }
 
@@ -353,6 +353,7 @@ public class GUIView extends ClientView implements Runnable {
     public void showKingUpdate(King updatedKing) {
 //		mainWindow.getCLIarea().append("\n"+"KingUpdatedMsg [updatedKing=" + updatedKing + "]");
         mainWindow.getInfoArea().append("\n" + updatedKing.toString());
+        mainWindow.showCouncillor(updatedKing.getBalcony(), null);
 
     }
 
@@ -364,7 +365,8 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
-        mainWindow.getInfoArea().append("\n" + updatedNobilityTrack.toString());
+        mainWindow.getnobilityTrack().setText( updatedNobilityTrack.toString());
+
     }
 
     @Override
@@ -377,23 +379,24 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showPersonalDetails(Player p) {
-        mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
-        mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
-        mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
-        mainWindow.getNobility().setText(Integer.toString(p.getLevel()));
-        for (PoliticCard pc : p.getHand()) {
-            mainWindow.showPoliticCard(pc.getColor());
-
-        }
-        //TODO business permit!!!
+                mainWindow.getUserProfile().removeAll();
+                mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
+                mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
+                mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
+                mainWindow.getNobility().setText(Integer.toString(p.getLevel()));
+                for (PoliticCard pc : p.getHand()) {
+                    mainWindow.showPoliticCard(pc.getColor());
+                }
+                //TODO my permit
     }
 
     @Override
-    public void showPlayerChangesPrivate(String message) {
+    public void showPlayerChangesPrivate(Player p, String message) {
         // TODO Auto-generated method stub
 //        System.out.println("it.polimi.ingsw.ps14.client.view.GUIView.showPlayerChangesPrivate()");	//FIXME ?
 //        System.out.println(message);
         mainWindow.getInfoArea().append("\n" + message);
+        showPersonalDetails(p);
 
     }
 
@@ -413,19 +416,7 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showRegion(Region updatedRegion) {
-        
-        mainWindow.getChatArea().append("\n" + updatedRegion.toString());
-        for(ColorCouncillor cc : updatedRegion.getBalcony().readBalcony()){
-            if(updatedRegion.getType()==RegionType.COAST){
-                            mainWindow.showCouncillor(cc,mainWindow.getCoastBalcony() );
-            }
-            if(updatedRegion.getType()==RegionType.HILLS){
-                            mainWindow.showCouncillor(cc,mainWindow.getHillsBalcony());
-            }
-            if(updatedRegion.getType()==RegionType.COAST){
-                            mainWindow.showCouncillor(cc,mainWindow.getMountBalcony() );
-            }
-        }
-    
-            }
+                mainWindow.getInfoArea().append("\n" + updatedRegion.toString());
+                mainWindow.showCouncillor(updatedRegion.getBalcony(), updatedRegion.getType());
+    }
 }

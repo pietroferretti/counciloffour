@@ -109,8 +109,8 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void playerChangePrivate(int playerID, String message) {
-		cv.showPlayerChangesPrivate(message);
+	public void playerChangePrivate(int playerID,Player player, String message) {
+		cv.showPlayerChangesPrivate(player,message);
 	}
 
 	@Override

@@ -1,8 +1,10 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
 import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
+import it.polimi.ingsw.ps14.model.RegionType;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -15,6 +17,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.OverlayLayout;
+import javax.swing.SwingUtilities;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,8 +31,8 @@ public class GUI extends javax.swing.JFrame {
     private Communication communication;
     private String name;
 
-    private final Map<ColorPolitic, Image> politicCard;
-    private final Map<ColorCouncillor,Image> councillor;
+    private final Map<ColorPolitic, ImageIcon> politicCard;
+    private final Map<ColorCouncillor, ImageIcon> councillor;
 
 //    private final Image politicPink;
 //    private final Image politicWhite;
@@ -45,25 +48,22 @@ public class GUI extends javax.swing.JFrame {
         this.communication = communication;
 
         politicCard = new HashMap<>();
-        politicCard.put(ColorPolitic.PINK, new ImageIcon("/resource/image/politics/pink.png").getImage());
-        politicCard.put(ColorPolitic.PURPLE, new ImageIcon("/resource/image/politics/purple.png").getImage());
-        politicCard.put(ColorPolitic.BLUE, new ImageIcon("/resource/image/politics/blue.png").getImage());
-        politicCard.put(ColorPolitic.ORANGE, new ImageIcon("/resource/image/politics/orange.png").getImage());
-        politicCard.put(ColorPolitic.WHITE, new ImageIcon("/resource/image/politics/white.png").getImage());
-        politicCard.put(ColorPolitic.BLACK, new ImageIcon("/resource/image/politics/black.png").getImage());
-        politicCard.put(ColorPolitic.JOLLY, new ImageIcon("/resource/image/politics/jolly.png").getImage());
-        
+        politicCard.put(ColorPolitic.PINK, new javax.swing.ImageIcon(getClass().getResource("/resource/image/politics/pink.png")));
+        politicCard.put(ColorPolitic.PURPLE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/politics/purple.png")));
+        politicCard.put(ColorPolitic.BLUE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/politics/blue.png")));
+        politicCard.put(ColorPolitic.ORANGE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/politics/orange.png")));
+        politicCard.put(ColorPolitic.WHITE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/politics/white.png")));
+        politicCard.put(ColorPolitic.BLACK, new javax.swing.ImageIcon(getClass().getResource("/resource/image/politics/black.png")));
+        politicCard.put(ColorPolitic.JOLLY, new javax.swing.ImageIcon(getClass().getResource("/resource/image/politics/jolly.png")));
+
         councillor = new HashMap<>();
-        councillor.put(ColorCouncillor.PINK, new ImageIcon("/resource/image/councillors/pink.png").getImage());
-        councillor.put(ColorCouncillor.PURPLE, new ImageIcon("/resource/image/councillors/purple.png").getImage());
-        councillor.put(ColorCouncillor.BLUE, new ImageIcon("/resource/image/councillors/blue.png").getImage());
-        councillor.put(ColorCouncillor.ORANGE, new ImageIcon("/resource/image/councillors/orange.png").getImage());
-        councillor.put(ColorCouncillor.WHITE, new ImageIcon("/resource/image/councillors/white.png").getImage());
-        councillor.put(ColorCouncillor.BLACK, new ImageIcon("/resource/image/councillors/black.png").getImage());
-        
-//        politicPink new ImageIcon("/resource/image/politicscard.png").getImage();
-//        politicImage = new BufferedImage(img.getWidth(null), img.getHeight(null),
-//                BufferedImage.TYPE_INT_RGB);
+        councillor.put(ColorCouncillor.PINK, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/pink.png")));
+        councillor.put(ColorCouncillor.PURPLE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/purple.png")));
+        councillor.put(ColorCouncillor.BLUE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/blue.png")));
+        councillor.put(ColorCouncillor.ORANGE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/orange.png")));
+        councillor.put(ColorCouncillor.WHITE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/white.png")));
+        councillor.put(ColorCouncillor.BLACK, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/black.png")));
+
     }
 
     public void setCommunication(Communication communication) {
@@ -89,29 +89,16 @@ public class GUI extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         chatArea = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         infoArea = new javax.swing.JTextArea();
         coastBalcony = new javax.swing.JPanel();
-        coastC1 = new javax.swing.JLabel();
-        coastC2 = new javax.swing.JLabel();
-        coastC3 = new javax.swing.JLabel();
-        coastC4 = new javax.swing.JLabel();
         hillsBalcony = new javax.swing.JPanel();
-        hillsC1 = new javax.swing.JLabel();
-        hillsC2 = new javax.swing.JLabel();
-        hillsC3 = new javax.swing.JLabel();
-        hillsC4 = new javax.swing.JLabel();
         mountBalcony = new javax.swing.JPanel();
-        mountC1 = new javax.swing.JLabel();
         mountC4 = new javax.swing.JLabel();
-        mountC2 = new javax.swing.JLabel();
-        mountC3 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        userProfile = new javax.swing.JLayeredPane();
+        profile = new javax.swing.JLayeredPane();
         assistants = new javax.swing.JLabel();
         coins = new javax.swing.JLabel();
         victoryPoints = new javax.swing.JLabel();
@@ -134,8 +121,7 @@ public class GUI extends javax.swing.JFrame {
         drawButton = new javax.swing.JButton();
         showPermit = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        userProfile = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -146,11 +132,14 @@ public class GUI extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         kingBalcony = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        nobilityTrack = new javax.swing.JTextArea();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        kingBonus = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -187,145 +176,43 @@ public class GUI extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Map/mappa monte a.png"))); // NOI18N
         jPanel1.add(jLabel1);
 
-        jTextField1.setText("jTextField1");
-
-        jButton1.setText("Send");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("CHAT"));
 
+        chatArea.setEditable(false);
         chatArea.setColumns(20);
         chatArea.setRows(5);
         jScrollPane1.setViewportView(chatArea);
 
+        infoArea.setEditable(false);
         infoArea.setColumns(20);
         infoArea.setRows(5);
         jScrollPane3.setViewportView(infoArea);
 
-        coastC1.setText("C1");
+        coastBalcony.setBackground(new java.awt.Color(184, 204, 246));
 
-        coastC2.setText("C2");
+        hillsBalcony.setBackground(new java.awt.Color(171, 253, 112));
 
-        coastC3.setText("C3");
+        mountBalcony.setBackground(new java.awt.Color(200, 184, 179));
+        mountBalcony.add(mountC4);
 
-        coastC4.setText("C4");
-
-        javax.swing.GroupLayout coastBalconyLayout = new javax.swing.GroupLayout(coastBalcony);
-        coastBalcony.setLayout(coastBalconyLayout);
-        coastBalconyLayout.setHorizontalGroup(
-            coastBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(coastBalconyLayout.createSequentialGroup()
-                .addComponent(coastC1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(coastC2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(coastC3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(coastC4)
-                .addContainerGap(91, Short.MAX_VALUE))
-        );
-        coastBalconyLayout.setVerticalGroup(
-            coastBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, coastBalconyLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(coastBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(coastC1)
-                    .addComponent(coastC2)
-                    .addComponent(coastC3)
-                    .addComponent(coastC4))
-                .addContainerGap())
-        );
-
-        hillsC1.setText("C1");
-
-        hillsC2.setText("C2");
-
-        hillsC3.setText("C3");
-
-        hillsC4.setText("C4");
-
-        javax.swing.GroupLayout hillsBalconyLayout = new javax.swing.GroupLayout(hillsBalcony);
-        hillsBalcony.setLayout(hillsBalconyLayout);
-        hillsBalconyLayout.setHorizontalGroup(
-            hillsBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(hillsBalconyLayout.createSequentialGroup()
-                .addComponent(hillsC1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hillsC2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hillsC3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hillsC4)
-                .addGap(0, 132, Short.MAX_VALUE))
-        );
-        hillsBalconyLayout.setVerticalGroup(
-            hillsBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(hillsBalconyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(hillsBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hillsC1)
-                    .addComponent(hillsC2)
-                    .addComponent(hillsC3)
-                    .addComponent(hillsC4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        mountC1.setText("C1");
-
-        mountC4.setText("C4");
-
-        mountC2.setText("C2");
-
-        mountC3.setText("C3");
-
-        javax.swing.GroupLayout mountBalconyLayout = new javax.swing.GroupLayout(mountBalcony);
-        mountBalcony.setLayout(mountBalconyLayout);
-        mountBalconyLayout.setHorizontalGroup(
-            mountBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mountBalconyLayout.createSequentialGroup()
-                .addComponent(mountC1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mountC2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mountC3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mountC4)
-                .addContainerGap(98, Short.MAX_VALUE))
-        );
-        mountBalconyLayout.setVerticalGroup(
-            mountBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mountBalconyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(mountBalconyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mountC1)
-                    .addComponent(mountC4)
-                    .addComponent(mountC2)
-                    .addComponent(mountC3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        userProfile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-        userProfile.setLayout(new java.awt.FlowLayout());
+        profile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        profile.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
 
         assistants.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/assistants.png"))); // NOI18N
-        assistants.setText("jLabel5");
-        userProfile.add(assistants);
+        assistants.setText("0");
+        profile.add(assistants);
 
         coins.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/coins.png"))); // NOI18N
-        coins.setText("jLabel5");
-        userProfile.add(coins);
+        coins.setText("0");
+        profile.add(coins);
 
         victoryPoints.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/victorypoints.png"))); // NOI18N
-        victoryPoints.setText("jLabel4");
-        userProfile.add(victoryPoints);
+        victoryPoints.setText("0");
+        profile.add(victoryPoints);
 
         nobility.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/nobilitypoints.png"))); // NOI18N
-        nobility.setText("jLabel8");
-        userProfile.add(nobility);
+        nobility.setText("0");
+        profile.add(nobility);
 
         jLabel2.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
         jLabel2.setText("MAIN ACTIONS");
@@ -541,6 +428,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        userProfile.setAutoscrolls(true);
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -548,35 +437,22 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(userProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(profile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel10.setText("nobility track");
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(jLabel10))
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addComponent(jLabel10)
-                .addGap(0, 502, Short.MAX_VALUE))
         );
 
         jLabel11.setText("P1");
@@ -597,101 +473,135 @@ public class GUI extends javax.swing.JFrame {
         jLabel14.setText("P2");
         jPanel14.add(jLabel14);
 
-        jLabel4.setText("jLabel4");
-        kingBalcony.add(jLabel4);
-
-        jLabel8.setText("jLabel8");
-        kingBalcony.add(jLabel8);
-
-        jLabel6.setText("jLabel6");
-        kingBalcony.add(jLabel6);
-
-        jLabel5.setText("jLabel5");
-        kingBalcony.add(jLabel5);
+        kingBalcony.setBackground(new java.awt.Color(254, 224, 103));
 
         jLabel15.setText("KING");
+
+        nobilityTrack.setEditable(false);
+        nobilityTrack.setColumns(20);
+        nobilityTrack.setRows(5);
+        nobilityTrack.setFocusable(false);
+        jScrollPane2.setViewportView(nobilityTrack);
+
+        jLabel10.setText("nobility track");
+
+        jButton1.setText("Send");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap())
+        );
+
+        kingBonus.setFont(new java.awt.Font("SFNS Display", 0, 11)); // NOI18N
+        kingBonus.setText("King bonus:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(coastBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(hillsBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(mountBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(coastBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(hillsBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(30, 30, 30)
+                                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(16, 16, 16)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(mountBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addGap(20, 20, 20)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel15)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kingBonus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(coastBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(hillsBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(mountBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(hillsBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(coastBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(mountBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane3)
-                                .addContainerGap())))
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(7, 7, 7)
+                        .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(kingBonus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -807,10 +717,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton changePermitTilesButton;
     private javax.swing.JTextArea chatArea;
     private javax.swing.JPanel coastBalcony;
-    private javax.swing.JLabel coastC1;
-    private javax.swing.JLabel coastC2;
-    private javax.swing.JLabel coastC3;
-    private javax.swing.JLabel coastC4;
     private javax.swing.JLabel coastPer1;
     private javax.swing.JLabel coastPer2;
     private javax.swing.JLabel coins;
@@ -818,10 +724,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton electCouncillorButton;
     private javax.swing.JButton electWithAssistantButton;
     private javax.swing.JPanel hillsBalcony;
-    private javax.swing.JLabel hillsC1;
-    private javax.swing.JLabel hillsC2;
-    private javax.swing.JLabel hillsC3;
-    private javax.swing.JLabel hillsC4;
     private javax.swing.JTextArea infoArea;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -839,19 +741,15 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -859,25 +757,26 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel kingBalcony;
+    private javax.swing.JLabel kingBonus;
     private javax.swing.JPanel mountBalcony;
-    private javax.swing.JLabel mountC1;
-    private javax.swing.JLabel mountC2;
-    private javax.swing.JLabel mountC3;
     private javax.swing.JLabel mountC4;
     private javax.swing.JLabel nobility;
+    private javax.swing.JTextArea nobilityTrack;
     private javax.swing.JPanel overlay;
+    private javax.swing.JLayeredPane profile;
     private javax.swing.JButton showPermit;
-    private javax.swing.JLayeredPane userProfile;
+    private javax.swing.JPanel userProfile;
     private javax.swing.JLabel victoryPoints;
     // End of variables declaration//GEN-END:variables
 
     public void setPlayerName(String name) {
         this.name = name;
-        userProfile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        profile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
     }
 
@@ -905,97 +804,118 @@ public class GUI extends javax.swing.JFrame {
         return victoryPoints;
     }
 
-    public JLayeredPane getUserProfile() {
+    public JPanel getUserProfile() {
         return userProfile;
     }
 
     public void showPoliticCard(ColorPolitic c) {
         JLabel politic = (new javax.swing.JLabel());
-        // colorare le carte
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         if (c == ColorPolitic.BLACK) {
-            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.BLACK)));
+            politic.setIcon(politicCard.get(ColorPolitic.BLACK));
         }
         if (c == ColorPolitic.ORANGE) {
-            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.ORANGE)));
+            politic.setIcon(politicCard.get(ColorPolitic.ORANGE));
         }
         if (c == ColorPolitic.BLUE) {
-            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.BLUE)));
+            politic.setIcon(politicCard.get(ColorPolitic.BLUE));
         }
         if (c == ColorPolitic.JOLLY) {
-            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.JOLLY)));
+            politic.setIcon(politicCard.get(ColorPolitic.JOLLY));
         }
         if (c == ColorPolitic.PINK) {
-            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.PINK)));
+            politic.setIcon(politicCard.get(ColorPolitic.PINK));
         }
         if (c == ColorPolitic.PURPLE) {
-            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.PURPLE)));
+            politic.setIcon(politicCard.get(ColorPolitic.PURPLE));
         }
         if (c == ColorPolitic.WHITE) {
-            politic.setIcon(new javax.swing.ImageIcon(politicCard.get(ColorPolitic.WHITE)));
-        }
+            politic.setIcon(politicCard.get(ColorPolitic.WHITE));
 
-//        if (c != ColorPolitic.JOLLY) {
-//            for (int y = 0; y < politicImage.getHeight(); y++) {
-//       for (int x = 0; x < politicImage.getWidth(); x++) {
-//
-//                    Color pixelColor = new Color(politicImage.getRGB(x, y));
-//
-//                    float[] hsbVals = new float[3];
-//                    Color.RGBtoHSB(pixelColor.getRed(), pixelColor.getGreen(), pixelColor.getBlue(), hsbVals);
-//                    Color newColor = new Color(Color.HSBtoRGB((float) c.getNumVal() / 360f, hsbVals[1], hsbVals[2]));
-//                    politicImage.setRGB(x, y, newColor.getRGB());
-//
-//                }
-//            }
-//            politic.setIcon(new ImageIcon(politicImage));
-//
-//        } else {
-//            politic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/jolly.png")));
-//
-//        }
+        }
         userProfile.add(politic);
+            }});}
+    
 
-    }
+    public void showCouncillor(Balcony b, RegionType rt) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JLabel coun;
+                JPanel balc = null;
+                if (rt == RegionType.COAST) {
+                    coastBalcony.removeAll();
+                    balc = coastBalcony;
 
-     public void showCouncillor(ColorCouncillor c, JPanel balcony) {
-        JLabel coun = (new javax.swing.JLabel());
-        // colorare le carte
-        if (c == ColorCouncillor.BLACK) {
-            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.BLACK)));
-        }
-        if (c == ColorCouncillor.ORANGE) {
-            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.ORANGE)));
-        }
-        if (c == ColorCouncillor.BLUE) {
-            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.BLUE)));
-        }
-        if (c == ColorCouncillor.PINK) {
-            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.PINK)));
-        }
-        if (c == ColorCouncillor.PURPLE) {
-            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.PURPLE)));
-        }
-        if (c == ColorCouncillor.WHITE) {
-            coun.setIcon(new javax.swing.ImageIcon(councillor.get(ColorPolitic.WHITE)));
-        }
-        balcony.add(coun);
+                }
+                if (rt == RegionType.HILLS) {
+                    hillsBalcony.removeAll();
+                    balc = hillsBalcony;
 
-    }
-     
-    public JPanel getCoastBalcony(){
-        return coastBalcony;
-    }
-    
-    public JPanel getHillsBalcony(){
-        return hillsBalcony;
-    }
-    
-    public JPanel getMountBalcony(){
-        return mountBalcony;
-    }
-    
-    public JPanel getKingBalcony(){
-        return kingBalcony;
-    }
-    
-}
+                }
+                if (rt == RegionType.MOUNTAINS) {
+                    mountBalcony.removeAll();
+                    balc = mountBalcony;
+
+                }
+                if (rt == null) {
+                    kingBalcony.removeAll();
+                    balc = kingBalcony;
+
+                }
+                // colorare le carte
+
+                for (ColorCouncillor c : b.readBalcony()) {
+                    coun = new javax.swing.JLabel();
+                    if (c == ColorCouncillor.BLACK) {
+                        coun.setIcon(councillor.get(ColorCouncillor.BLACK));
+                    }
+                    if (c == ColorCouncillor.ORANGE) {
+                        coun.setIcon(councillor.get(ColorCouncillor.ORANGE));
+                    }
+                    if (c == ColorCouncillor.BLUE) {
+                        coun.setIcon(councillor.get(ColorCouncillor.BLUE));
+                    }
+                    if (c == ColorCouncillor.PINK) {
+                        coun.setIcon(councillor.get(ColorCouncillor.PINK));
+                    }
+                    if (c == ColorCouncillor.PURPLE) {
+                        coun.setIcon(councillor.get(ColorCouncillor.PURPLE));
+                    }
+                    if (c == ColorCouncillor.WHITE) {
+                        coun.setIcon(councillor.get(ColorCouncillor.WHITE));
+                    }
+                    if (balc != null) {
+                        balc.add(coun);
+                    }
+
+                }
+
+            }});}
+
+            public JPanel getCoastBalcony() {
+                return coastBalcony;
+            }
+
+            public JPanel getHillsBalcony() {
+                return hillsBalcony;
+            }
+
+            public JPanel getMountBalcony() {
+                return mountBalcony;
+            }
+
+            public JPanel getKingBalcony() {
+                return kingBalcony;
+            }
+
+            public JLabel getkingBonus() {
+                return kingBonus;
+            }
+
+            public JTextArea getnobilityTrack() {
+                return nobilityTrack;
+            }
+        }
