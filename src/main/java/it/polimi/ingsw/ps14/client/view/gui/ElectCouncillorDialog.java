@@ -221,8 +221,8 @@ private Communication communication;
 //        System.out.println("it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog.jButton2MouseClicked()");
 //        System.out.println(getSelectedButtonText(colorChooser));
 //        System.out.println(getSelectedButtonText(balconyChooser));
-        if (getSelectedButtonText(colorChooser) != null && getSelectedButtonText(balconyChooser) != null) {
-           communication.electCouncillor(playerID, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)), getSelectedButtonText(balconyChooser));
+        if (GroupButtonUtils.getSelectedButtonText(colorChooser) != null && GroupButtonUtils.getSelectedButtonText(balconyChooser) != null) {
+           communication.electCouncillor(playerID, ColorCouncillor.valueOf(GroupButtonUtils.getSelectedButtonText(colorChooser)), GroupButtonUtils.getSelectedButtonText(balconyChooser));
            dispose();
         } else {
             JOptionPane.showMessageDialog(null, "You need to select a balcony and a color", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -270,19 +270,6 @@ private Communication communication;
                 dialog.setVisible(true);
             }
         });
-    }
-    
-    private String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-                buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                return button.getText();
-            }
-        }
-
-        return null;
     }
     
     public void setCommunication(Communication communication) {

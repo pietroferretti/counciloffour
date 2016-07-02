@@ -264,12 +264,12 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
 
     private void jButtonAcquireMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAcquireMouseClicked
 		
-		String regionString = getSelectedButtonText(buttonGroup2);
+		String regionString = GroupButtonUtils.getSelectedButtonText(buttonGroup2);
 		if (regionString == null) {
 			JOptionPane.showMessageDialog(null, "You have to select a region", "Warning", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		RegionType regionType = RegionType.valueOf(getSelectedButtonText(buttonGroup2).toUpperCase());
+		RegionType regionType = RegionType.valueOf(regionString.toUpperCase());
 		
 		Integer permitID;
 		try {
@@ -316,19 +316,6 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
 
 		return cards;
  	}
-	
-	private String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-                buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                return button.getText();
-            }
-        }
-
-        return null;
-    }
 	
     /**
      * @param args the command line arguments

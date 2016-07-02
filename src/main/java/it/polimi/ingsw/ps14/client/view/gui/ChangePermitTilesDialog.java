@@ -106,12 +106,12 @@ public class ChangePermitTilesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonChangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonChangeMouseClicked
-		String regionString = getSelectedButtonText(buttonGroup1);
+		String regionString = GroupButtonUtils.getSelectedButtonText(buttonGroup1);
 		if (regionString == null) {
 			JOptionPane.showMessageDialog(null, "You have to select a region", "Warning", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		RegionType regionType = RegionType.valueOf(getSelectedButtonText(buttonGroup1).toUpperCase());
+		RegionType regionType = RegionType.valueOf(regionString.toUpperCase());
 		
 		communication.changeBusinessPermitTiles(playerID, regionType);
 		dispose();
@@ -158,19 +158,6 @@ public class ChangePermitTilesDialog extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
-    }
-	
-	private String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-                buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                return button.getText();
-            }
-        }
-
-        return null;
     }
 	
     public void setCommunication(Communication communication) {

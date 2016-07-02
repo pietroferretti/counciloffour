@@ -7,7 +7,7 @@ import javax.swing.ButtonGroup;
 public class GroupButtonUtils
 {
 
-    public String getSelectedButtonText(ButtonGroup buttonGroup) {
+    public static String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 
