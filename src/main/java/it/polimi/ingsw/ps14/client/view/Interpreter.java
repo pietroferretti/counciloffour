@@ -265,6 +265,11 @@ public class Interpreter {
 					return true;
 				}
 			}
+			
+			if (items.isEmpty()) {
+				return false;
+			}
+			
 			communication.sell(playerID, items);
 			System.out.println("ho inviato " + items);
 			return true;
