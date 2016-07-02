@@ -608,13 +608,6 @@ public class Controller implements Observer {
 
 				}
 
-				model.setAvailableChoices(new HashMap<>());
-				model.setWaitingForHowMany(0);
-				model.setWaitingFor(WaitingFor.NOTHING);
-
-				Player player = model.id2player(playerView.getPlayerID());
-				applyBonusesToDo(player);
-
 			}
 
 		}
@@ -674,7 +667,7 @@ public class Controller implements Observer {
 
 		for (String idString : chosenIDs) {
 			for (Region r : model.getGameBoard().getRegions()) {
-				tempPermit = model.id2permit(Integer.valueOf(idString), region);
+				tempPermit = model.id2permit(Integer.valueOf(idString), r);
 				if (tempPermit != null) {
 					permit = tempPermit;
 					region = r;
@@ -691,6 +684,12 @@ public class Controller implements Observer {
 				region.setBusinessPermits();
 
 				permit.getBonusList().useBonus(player, model);
+				
+				model.setAvailableChoices(new HashMap<>());
+				model.setWaitingForHowMany(0);
+				model.setWaitingFor(WaitingFor.NOTHING);
+
+				applyBonusesToDo(player);
 
 			} else {
 
@@ -727,6 +726,12 @@ public class Controller implements Observer {
 				if (bonus != null) {
 					bonus.useBonus(player, model);
 				}
+				
+				model.setAvailableChoices(new HashMap<>());
+				model.setWaitingForHowMany(0);
+				model.setWaitingFor(WaitingFor.NOTHING);
+
+				applyBonusesToDo(player);
 
 			} else {
 
@@ -762,6 +767,12 @@ public class Controller implements Observer {
 				if (bonus != null) {
 					bonus.useBonus(player, model);
 				}
+				
+				model.setAvailableChoices(new HashMap<>());
+				model.setWaitingForHowMany(0);
+				model.setWaitingFor(WaitingFor.NOTHING);
+
+				applyBonusesToDo(player);
 
 			} else {
 

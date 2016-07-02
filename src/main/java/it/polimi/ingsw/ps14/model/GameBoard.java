@@ -32,7 +32,7 @@ public class GameBoard extends Observable implements Serializable {
 	 */
 	private static final long serialVersionUID = -8154193006137131849L;
 
-	private static final Logger LOGGER = Logger.getLogger(Settings.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(GameBoard.class.getName());
 
 	Random random = new Random();
 

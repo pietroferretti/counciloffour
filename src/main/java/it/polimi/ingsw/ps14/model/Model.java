@@ -281,44 +281,38 @@ public class Model extends Observable implements Serializable {
 	 * @return {@link BusinessPermit}
 	 */
 	public BusinessPermit id2permit(int permitID, Player player) {
-		if(player==null)return null;
-		try {
-			for (BusinessPermit bp : player.getBusinessHand().getValidCards())
-				if (bp.getId() == permitID)
-					return bp;
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+		if(player==null) {
 			return null;
 		}
+
+		for (BusinessPermit bp : player.getBusinessHand().getValidCards()) {
+			if (bp.getId() == Integer.valueOf(permitID)) {
+				return bp;
+			}
+		}
+
 		return null;
 		
 	}
 
 	public BusinessPermit id2permit(int permitID, Region region) {
-		try {
-			for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits()) {
-				System.out.println(permitID + "==" + bp.getId());
-				if (bp.getId() == permitID) {
-					System.out.println("bp trovato");
+
+		for (BusinessPermit bp : region.getBusinessPermits().getAvailablePermits()) {
+				if (bp.getId() == Integer.valueOf(permitID)) {
 					return bp;
 				}
-			}
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
 		}
+		
 		return null;
 	}
 
 	public City name2city(String name) {
-		try {
-			for (City c : gameBoard.getCities())
-				if (c.getName().equalsIgnoreCase(name))
+		for (City c : gameBoard.getCities()) {
+			if (name.equalsIgnoreCase(c.getName())) {
 					return c;
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
+			}
 		}
+		
 		return null;
 	}
 }
