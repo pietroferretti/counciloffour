@@ -91,8 +91,14 @@ public class Interpreter {
 
 			String city = word[1];
 
-			for (int i = 3; i < word.length; i++)
-				politics.add(string2politicCard(word[i]));
+			for (int i = 3; i < word.length; i++) {
+                            PoliticCard card = string2politicCard(word[i]);
+                            if (card == null) {
+                                return false;
+                            } else {
+                                politics.add(card);
+                            }
+                        }
 
 			communication.buildWithKing(playerID, city, politics);
 			return true;
@@ -115,19 +121,24 @@ public class Interpreter {
 			if (word.length != 1)
 				return false;
 			communication.engage(playerID);
-			return true;
+                            return true;
 			// CHANGE REGIONTYPE
 		case "CHANGE":
 			if (word.length != 2)
 				return false;
 			rt = string2RegionType(word[1]);
+                        
+                        if (rt == null) {
+                            return false;
+                        }
+                        
 			communication.changeBusinessPermitTiles(playerID, rt);
 			return true;
 
 			// MAIN
 		case "MAIN":
 			if (word.length != 1)
-				return false;
+                            return false;
 			communication.performAdditionalMainAction(playerID);
 			return true;
 
@@ -135,11 +146,14 @@ public class Interpreter {
 			// se rt ==null ->>> balcony del re
 		case "ELECT-WITH-ASSISTANT":
 			if (word.length != 3)
-				return false;
+                            return false;
 			rt = string2RegionType(word[1]);
 			if (rt == null && !word[1].matches("KING"))
-				return false;
+                            return false;
 			cc = string2colorCouncillor(word[2]);
+                        
+                        if (cc == null)
+                            return false;
 
 			communication.electWithAssistant(playerID, rt, cc);
 			return true;
@@ -258,7 +272,7 @@ public class Interpreter {
 			// BUY ITEM_ID QUANTITY(optional)
 		case "BUY":
 			Integer quantity = null;
-			Integer objID = null;
+			Integer objID;
 			if (word.length < 2 || word.length > 3)
 				return false;
 			if (word[1].equalsIgnoreCase("FINISH")) {
