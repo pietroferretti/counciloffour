@@ -8,6 +8,7 @@ import javax.swing.ButtonGroup;
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.RegionType;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -221,13 +222,17 @@ private Communication communication;
 //        System.out.println("it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog.jButton2MouseClicked()");
 //        System.out.println(getSelectedButtonText(colorChooser));
 //        System.out.println(getSelectedButtonText(balconyChooser));
-    	RegionType rt = null;
-    	if (getSelectedButtonText(balconyChooser) != "KING") {
+
+        if (getSelectedButtonText(colorChooser) != null && getSelectedButtonText(balconyChooser) != null) {
+            RegionType rt = null;
+            if (getSelectedButtonText(balconyChooser) != "KING") {
     		rt = RegionType.valueOf(getSelectedButtonText(balconyChooser));
-    	}
-    	communication.electWithAssistant(playerID, rt, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)));
-//        communication.electCouncillor(playerID, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)), getSelectedButtonText(balconyChooser));
-        dispose();
+            }
+            communication.electWithAssistant(playerID, rt, ColorCouncillor.valueOf(getSelectedButtonText(colorChooser)));
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "You need to select a balcony and a color", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
