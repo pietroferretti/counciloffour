@@ -69,13 +69,20 @@ public class Interpreter {
 			if (permID == null)
 				return false;
 
-			for (int i = 3; i < word.length; i++)
-				politics.add(string2politicCard(word[i]));
+			for (int i = 3; i < word.length; i++) {
+                            PoliticCard card = string2politicCard(word[i]);
+                            if (card == null) {
+                                return false;
+                            } else {
+                                politics.add(card);
+                            }
+                        }
 
 			communication.acquireBusinessPermitTile(playerID, rt, permID,
 					politics);
-			System.out.println("ID player: " + playerID);
+                        
 			return true;
+                        
 			// BUILD-WITH-KING CITYname CARDS
 		case "BUILD-WITH-KING":
 
