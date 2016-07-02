@@ -309,7 +309,7 @@ public class Model extends Observable implements Serializable {
 
 	public City name2city(String name) {
 		for (City c : gameBoard.getCities()) {
-			if (c.getName().equals(name)) {
+			if (c.getName().equals(name)) {		//FIXME aggiungere ignorecase!!
 					return c;
 			}
 		}
