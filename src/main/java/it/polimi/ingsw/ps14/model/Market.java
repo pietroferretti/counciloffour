@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import it.polimi.ingsw.ps14.model.modelview.MarketView;
+
 public class Market extends Observable implements Serializable {
 
 	/**
@@ -12,7 +14,7 @@ public class Market extends Observable implements Serializable {
 	 */
 	private static final long serialVersionUID = -6466607003340777967L;
 	private List<ItemForSale> objectsForSale;
-	private static int idCounter=0;
+	private static int idCounter = 0;
 
 	public Market() {
 		objectsForSale = new ArrayList<>();
@@ -29,23 +31,26 @@ public class Market extends Observable implements Serializable {
 		return objectsForSale;
 	}
 
-	public ItemForSale getObject(ItemForSale item) {
-		for (ItemForSale prod : objectsForSale)
-			if (item.equals(prod))
-				return prod;
-		return null;
-	}
-	
-	public void someAssistantsSold(ItemForSale item,int howMany){
+	/**
+	 * It only notifies to the {@link MarketView} that some assistants have been
+	 * sold.
+	 * 
+	 * @param item
+	 *            - object for sale({@link ItemForSale})
+	 * @param howMany
+	 *            - number of assistants sold (int)
+	 */
+	public void someAssistantsSold(ItemForSale item, int howMany) {
 		setChanged();
-		notifyObservers("Player" + Integer.toString(item.getOwnerID()) + " sold "+howMany+" assistants!");
+		notifyObservers("Player" + Integer.toString(item.getOwnerID()) + " sold " + howMany + " assistants!");
 	}
 
 	/**
-	 * is it an object on sale?
+	 * It finds an {@link ItemForSale} object in the {@link Market}.
 	 * 
 	 * @param item
-	 * @return object on sale
+	 *            - searched {@link ItemForSale} object
+	 * @return The searched item or null.
 	 */
 	public ItemForSale findObject(ItemForSale item) {
 		for (ItemForSale object : objectsForSale)
@@ -54,6 +59,14 @@ public class Market extends Observable implements Serializable {
 		return null;
 	}
 
+	/**
+	 * It finds an {@link ItemForSale} object in the {@link Market} given its
+	 * ID.
+	 * 
+	 * @param item
+	 *            - searched {@link ItemForSale} object
+	 * @return The searched item or null.
+	 */
 	public ItemForSale id2itemForSale(int itemID) {
 		for (ItemForSale object : objectsForSale)
 			if (itemID == object.getBarCode())
@@ -62,11 +75,10 @@ public class Market extends Observable implements Serializable {
 	}
 
 	/**
-	 * add item to market
+	 * It adds an item to market and notifies the {@link MarketView }.
 	 * 
 	 * @param item
-	 *            item to sell
-	 * @return true if the action is valid, return false if not
+	 *            - item for sale {@link ItemForSale}
 	 */
 	public void addItem(ItemForSale item) {
 		item.setBarCode(idCounter);
@@ -76,6 +88,12 @@ public class Market extends Observable implements Serializable {
 		notifyObservers();
 	}
 
+	/**
+	 * It removes an item from the market and notifies the {@link MarketView }.
+	 * 
+	 * @param item
+	 *            - item for sale {@link ItemForSale}
+	 */
 	public void removeItem(ItemForSale item) {
 		ItemForSale itemToRemove = findObject(item);
 		if (itemToRemove != null)
@@ -84,7 +102,7 @@ public class Market extends Observable implements Serializable {
 		notifyObservers("The item " + item.getType() + "with ID: " + Integer.toString(item.getBarCode()) + " of player "
 				+ Integer.toString(item.getOwnerID()) + " has been sold!");
 	}
-	
+
 	public boolean isEmpty() {
 		return objectsForSale.isEmpty();
 	}

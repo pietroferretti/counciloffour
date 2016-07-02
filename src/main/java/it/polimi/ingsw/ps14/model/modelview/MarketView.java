@@ -12,7 +12,6 @@ import it.polimi.ingsw.ps14.model.Market;
  * {@link Market}, updates itself and notifies the {@link ModelView}.
  *
  */
-// TODO
 public class MarketView extends Observable implements Observer, Serializable {
 
 	/**
