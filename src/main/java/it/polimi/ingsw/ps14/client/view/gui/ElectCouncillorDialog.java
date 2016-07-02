@@ -274,7 +274,7 @@ private Communication communication;
         });
     }
     
-    public String getSelectedButtonText(ButtonGroup buttonGroup) {
+    private String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements();
                 buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
