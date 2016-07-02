@@ -1,10 +1,11 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 
@@ -41,6 +42,14 @@ public class KingBonusesViewTest {
 		System.out.println(model.getGameBoard().getKingBonuses().toString());
 		System.out.println(Integer.toString(kbv.getShowableKingBonus()));
 
+		KingBonusesView kbv1 = new KingBonusesView(model.getGameBoard().getKingBonuses().peek());
+		model.getGameBoard().addObserver(kbv1);	
+		
+		model.getGameBoard().getKingBonuses().clear();
+		model.getGameBoard().useKingBonus();
+		System.out.println(kbv1.getShowableKingBonus());
+		
+		assertTrue(kbv.getShowableKingBonus()==0);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

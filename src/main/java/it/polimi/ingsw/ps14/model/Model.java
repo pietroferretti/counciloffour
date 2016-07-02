@@ -23,7 +23,7 @@ public class Model extends Observable implements Serializable {
 	private static final long serialVersionUID = -4787221737865002835L;
 
 	private static final String SETTINGS_FILENAME = "src/main/resources/settings.json";
-	
+
 	private static int idCounter = 1;
 	private final int idGame;
 
@@ -51,7 +51,6 @@ public class Model extends Observable implements Serializable {
 
 		message = new MessageObservable();
 	}
-
 
 	public void startGame() {
 		setMessage(new GameStartedMsg(getState()));
@@ -281,7 +280,8 @@ public class Model extends Observable implements Serializable {
 	 * @return {@link BusinessPermit}
 	 */
 	public BusinessPermit id2permit(int permitID, Player player) {
-		if(player==null)return null;
+		if (player == null)
+			return null;
 		try {
 			for (BusinessPermit bp : player.getBusinessHand().getValidCards())
 				if (bp.getId() == permitID)
@@ -291,7 +291,7 @@ public class Model extends Observable implements Serializable {
 			return null;
 		}
 		return null;
-		
+
 	}
 
 	public BusinessPermit id2permit(int permitID, Region region) {
