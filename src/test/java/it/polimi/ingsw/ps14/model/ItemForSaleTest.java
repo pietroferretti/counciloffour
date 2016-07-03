@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.polimi.ingsw.ps14.model.ItemForSale.Type;
+import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
 
 public class ItemForSaleTest {
 	private static Model model;
@@ -32,8 +32,8 @@ public class ItemForSaleTest {
 		players.add(player2);
 		model.setPlayers(players);
 
-		assistants = new ItemForSale(Type.ASSISTANT, 2, 4, player1.getId());
-		business = new ItemForSale(Type.BUSINESS, b.getId(), 6, player2.getId());
+		assistants = new ItemForSale(ItemForSaleType.ASSISTANT, 2, 4, player1.getId());
+		business = new ItemForSale(ItemForSaleType.BUSINESS, b.getId(), 6, player2.getId());
 		p1 = new ItemForSale(ColorPolitic.BLUE, 5, player1.getId());
 		p1copy = new ItemForSale(p1);
 	}
@@ -50,16 +50,16 @@ public class ItemForSaleTest {
 
 	@Test
 	public void testIsValid() {
-		ItemForSale assistants1 = new ItemForSale(Type.ASSISTANT, 80, 8, 1);
-		ItemForSale assistants2 = new ItemForSale(Type.ASSISTANT, 1, 6, 89);
+		ItemForSale assistants1 = new ItemForSale(ItemForSaleType.ASSISTANT, 80, 8, 1);
+		ItemForSale assistants2 = new ItemForSale(ItemForSaleType.ASSISTANT, 1, 6, 89);
 		assertTrue(assistants.isValid(model));
 		assertFalse(assistants1.isValid(model));
 		assertFalse(assistants2.isValid(model));
 
 		assertTrue(business.isValid(model));
-		ItemForSale business1 = new ItemForSale(Type.BUSINESS, 6000, 7, 1);
+		ItemForSale business1 = new ItemForSale(ItemForSaleType.BUSINESS, 6000, 7, 1);
 		assertFalse(business1.isValid(model));
-		ItemForSale business2 = new ItemForSale(Type.BUSINESS, b.getId(), 5, 89);
+		ItemForSale business2 = new ItemForSale(ItemForSaleType.BUSINESS, b.getId(), 5, 89);
 		assertFalse(business2.isValid(model));
 
 		Player player = new Player();

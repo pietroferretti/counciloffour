@@ -32,7 +32,7 @@ import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.ItemForSale;
-import it.polimi.ingsw.ps14.model.ItemForSale.Type;
+import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
 import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
@@ -59,6 +59,7 @@ import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.server.ServerView;
 import it.polimi.ingsw.ps14.server.SocketServerView;
+import static org.mockito.Mockito.mock;
 
 /**
  * A set of tests for the {@link it.polimi.ingsw.ps14.controller.Controller
@@ -315,7 +316,7 @@ public class ControllerTest {
 		
 		model.id2player(mockView1.getPlayerID()).addAssistants(1);
 		
-		ItemForSale item = new ItemForSale(Type.ASSISTANT, 1, 2, mockView1.getPlayerID());
+		ItemForSale item = new ItemForSale(ItemForSaleType.ASSISTANT, 1, 2, mockView1.getPlayerID());
 		List<ItemForSale> itemList = new ArrayList<>();
 		itemList.add(item);
 		controller.update(mockView1, new SellMsg(new SellAction(itemList)));
@@ -379,7 +380,7 @@ public class ControllerTest {
 		model.setState(testState);
 
 		Market market = new Market();
-		market.addItem(new ItemForSale(Type.ASSISTANT, 1, 2, mockView1.getPlayerID()));
+		market.addItem(new ItemForSale(ItemForSaleType.ASSISTANT, 1, 2, mockView1.getPlayerID()));
 		model.setMarket(market);
 		
 		controller.update(mockView2, new SellNoneMsg());
@@ -429,7 +430,7 @@ public class ControllerTest {
 		model.id2player(mockView1.getPlayerID()).addCoins(2);
 		
 		Market market = new Market();
-		market.addItem(new ItemForSale(Type.ASSISTANT, 1, 2, mockView2.getPlayerID()));
+		market.addItem(new ItemForSale(ItemForSaleType.ASSISTANT, 1, 2, mockView2.getPlayerID()));
 		model.setMarket(market);
 		
 		controller.update(mockView1, new BuyMsg(new BuyAction(mockView1.getPlayerID(), 0, 1)));

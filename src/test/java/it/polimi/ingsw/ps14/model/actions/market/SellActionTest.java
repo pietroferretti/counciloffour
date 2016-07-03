@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps14.model.actions.market;
 import static org.junit.Assert.*;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.ItemForSale;
-import it.polimi.ingsw.ps14.model.ItemForSale.Type;
+import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
 import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
@@ -46,11 +46,11 @@ public class SellActionTest {
 	@Test
 	public void testIsValid1() {
 		lista.add(new ItemForSale(ColorPolitic.BLACK, 20, player.getId()));
-		lista.add(new ItemForSale(Type.ASSISTANT, 10, 2, player.getId()));
-		lista.add(new ItemForSale(Type.BUSINESS, model.getGameBoard()
+		lista.add(new ItemForSale(ItemForSaleType.ASSISTANT, 10, 2, player.getId()));
+		lista.add(new ItemForSale(ItemForSaleType.BUSINESS, model.getGameBoard()
 				.getRegion(RegionType.COAST).getAvailablePermits()[0].getId(),
 				20, player.getId()));
-		lista.add(new ItemForSale(Type.POLITIC, 11, 2, player.getId()));
+		lista.add(new ItemForSale(ItemForSaleType.POLITIC, 11, 2, player.getId()));
 		SellAction action = new SellAction(lista);
 		assertTrue(!action.isValid(model));
 
@@ -59,8 +59,8 @@ public class SellActionTest {
 	@Test
 	public void testIsValid2() {
 		lista.add(new ItemForSale(ColorPolitic.BLACK, 20, player.getId()));
-		lista.add(new ItemForSale(Type.ASSISTANT, 10, 2, player.getId()));
-		lista.add(new ItemForSale(Type.BUSINESS, model.getGameBoard()
+		lista.add(new ItemForSale(ItemForSaleType.ASSISTANT, 10, 2, player.getId()));
+		lista.add(new ItemForSale(ItemForSaleType.BUSINESS, model.getGameBoard()
 				.getRegion(RegionType.COAST).getAvailablePermits()[0].getId(),
 				20, player.getId()));
 		SellAction action = new SellAction(lista);
@@ -69,8 +69,8 @@ public class SellActionTest {
 
 	@Test
 	public void testIsValid3() {
-		lista.add(new ItemForSale(Type.ASSISTANT, 40, 2, player.getId()));
-		lista.add(new ItemForSale(Type.BUSINESS, model.getGameBoard()
+		lista.add(new ItemForSale(ItemForSaleType.ASSISTANT, 40, 2, player.getId()));
+		lista.add(new ItemForSale(ItemForSaleType.BUSINESS, model.getGameBoard()
 				.getRegion(RegionType.COAST).getAvailablePermits()[0].getId(),
 				20, player.getId()));
 		SellAction action = new SellAction(lista);
@@ -81,8 +81,8 @@ public class SellActionTest {
 	@Test
 	public void testExecute1() {
 		lista.add(new ItemForSale(ColorPolitic.BLACK, 20, player.getId()));
-		lista.add(new ItemForSale(Type.ASSISTANT, 10, 2, player.getId()));
-		lista.add(new ItemForSale(Type.BUSINESS, model.getGameBoard()
+		lista.add(new ItemForSale(ItemForSaleType.ASSISTANT, 10, 2, player.getId()));
+		lista.add(new ItemForSale(ItemForSaleType.BUSINESS, model.getGameBoard()
 				.getRegion(RegionType.COAST).getAvailablePermits()[0].getId(),
 				20, player.getId()));
 		SellAction action = new SellAction(lista);

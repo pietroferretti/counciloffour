@@ -23,14 +23,14 @@ public class ItemForSale implements Serializable {
 	private ColorPolitic color;
 	private int price;
 	private Integer ownerID;
-	private Type type;
+	private ItemForSaleType type;
 	private int barCode;
 
-	public enum Type {
+	public enum ItemForSaleType {
 		BUSINESS, POLITIC, ASSISTANT;
 	}
 
-	public ItemForSale(Type type, int idORquantity, int price, Integer ownerID) {
+	public ItemForSale(ItemForSaleType type, int idORquantity, int price, Integer ownerID) {
 		this.type = type;
 		this.idORquantity = idORquantity;
 		this.price = price;
@@ -39,7 +39,7 @@ public class ItemForSale implements Serializable {
 	}
 
 	public ItemForSale(ColorPolitic color, int price, Integer ownerID) {
-		this.type = Type.POLITIC;
+		this.type = ItemForSaleType.POLITIC;
 		this.idORquantity = null;
 		this.price = price;
 		this.ownerID = ownerID;
@@ -63,7 +63,7 @@ public class ItemForSale implements Serializable {
 		return price;
 	}
 
-	public Type getType() {
+	public ItemForSaleType getType() {
 		return type;
 	}
 
@@ -121,7 +121,7 @@ public class ItemForSale implements Serializable {
 	 *         if assistants, false otherwise.
 	 */
 	public boolean removeAssistant(int howMany) {
-		if (type == Type.ASSISTANT && idORquantity != null && howMany <= idORquantity) {
+		if (type == ItemForSaleType.ASSISTANT && idORquantity != null && howMany <= idORquantity) {
 			idORquantity = idORquantity - howMany;
 			return true;
 		}

@@ -71,11 +71,6 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButtonAcquire.setText("ACQUIRE");
-        jButtonAcquire.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAcquireMouseClicked(evt);
-            }
-        });
         jButtonAcquire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAcquireActionPerformed(evt);
@@ -284,11 +279,6 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
     private void jRadioButtonHillsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHillsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonHillsActionPerformed
-
-    private void jButtonAcquireMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAcquireMouseClicked
-		
-
-    }//GEN-LAST:event_jButtonAcquireMouseClicked
 
 	private List<PoliticCard> getCardsFromSpinners() {
 		List<PoliticCard> cards = new ArrayList<>();

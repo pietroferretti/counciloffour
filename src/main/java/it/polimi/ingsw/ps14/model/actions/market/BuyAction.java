@@ -42,21 +42,21 @@ public class BuyAction implements Serializable {
 		if (assistantToBuy == null) {
 			// im buying whole item
 
-			if (obj.getType().equals(ItemForSale.Type.BUSINESS)) {
+			if (obj.getType().equals(ItemForSale.ItemForSaleType.BUSINESS)) {
 				if (obj.getIdORquantity() == null)
 					return false;
 				if (buyer.getCoins() < obj.getPrice())
 					return false;
 			}
 
-			if (obj.getType().equals(ItemForSale.Type.ASSISTANT)) {
+			if (obj.getType().equals(ItemForSale.ItemForSaleType.ASSISTANT)) {
 				if (obj.getIdORquantity() == null)
 					return false;
 				if (buyer.getCoins() < obj.getPrice() * obj.getIdORquantity())
 					return false;
 			}
 
-			if (obj.getType().equals(ItemForSale.Type.POLITIC)) {
+			if (obj.getType().equals(ItemForSale.ItemForSaleType.POLITIC)) {
 				if (obj.getColor() == null)
 					return false;
 				if (buyer.getCoins() < obj.getPrice())
@@ -66,7 +66,7 @@ public class BuyAction implements Serializable {
 		} else {
 			// im buying SOME assistants of the item
 
-			if (!obj.getType().equals(ItemForSale.Type.ASSISTANT))
+			if (!obj.getType().equals(ItemForSale.ItemForSaleType.ASSISTANT))
 				return false;
 
 			if (obj.getIdORquantity() == null)
@@ -102,18 +102,18 @@ public class BuyAction implements Serializable {
 				buyer.useCoins(item.getPrice());
 				owner.addCoins(item.getPrice());
 
-				if (item.getType().equals(ItemForSale.Type.BUSINESS)) {
+				if (item.getType().equals(ItemForSale.ItemForSaleType.BUSINESS)) {
 					BusinessPermit busPer = model.id2permit(
 							item.getIdORquantity(), owner);
 					owner.getBusinessHand().sellPermits(busPer);
 					buyer.getBusinessHand().acquireBusinessPermit(busPer);
 				}
-				if (item.getType().equals(ItemForSale.Type.ASSISTANT)) {
+				if (item.getType().equals(ItemForSale.ItemForSaleType.ASSISTANT)) {
 					buyer.addAssistants(item.getIdORquantity());
 					owner.useAssistants(item.getIdORquantity());
 				}
 
-				if (item.getType().equals(ItemForSale.Type.POLITIC)) {
+				if (item.getType().equals(ItemForSale.ItemForSaleType.POLITIC)) {
 					owner.removeColor(item.getColor());
 					buyer.addPolitic(new PoliticCard(item.getColor()));
 				}
@@ -122,7 +122,7 @@ public class BuyAction implements Serializable {
 			}
 		 else {
 			// im buying SOME assistants of the item
-			if (item.getType().equals(ItemForSale.Type.ASSISTANT)) {
+			if (item.getType().equals(ItemForSale.ItemForSaleType.ASSISTANT)) {
 				buyer.useCoins(item.getPrice() * assistantToBuy);
 				buyer.addAssistants(assistantToBuy);
 				

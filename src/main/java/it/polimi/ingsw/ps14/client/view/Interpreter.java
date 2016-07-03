@@ -221,7 +221,7 @@ public class Interpreter {
 						} catch (NumberFormatException e) {
 							return false;
 						}
-						items.add(new ItemForSale(ItemForSale.Type.BUSINESS,
+						items.add(new ItemForSale(ItemForSale.ItemForSaleType.BUSINESS,
 								id, price, playerID));
 					}
 				}
@@ -234,7 +234,7 @@ public class Interpreter {
 					} catch (NumberFormatException e) {
 						return false;
 					}
-					items.add(new ItemForSale(ItemForSale.Type.ASSISTANT, id,
+					items.add(new ItemForSale(ItemForSale.ItemForSaleType.ASSISTANT, id,
 							price, playerID));
 				}
 				if (word[i].equalsIgnoreCase("POLITIC") && (i + 1) <= word.length) {

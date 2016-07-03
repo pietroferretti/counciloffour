@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.ItemForSale;
-import it.polimi.ingsw.ps14.model.ItemForSale.Type;
+import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
 import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
@@ -45,8 +45,8 @@ public class BuyActionTest {
 		player.addAssistants(10);
 	
 		lista.add(new ItemForSale(ColorPolitic.BLACK, 20, player.getId()));
-		lista.add(new ItemForSale(Type.ASSISTANT, 10, 2, player.getId()));
-		lista.add(new ItemForSale(Type.BUSINESS, model.getGameBoard()
+		lista.add(new ItemForSale(ItemForSaleType.ASSISTANT, 10, 2, player.getId()));
+		lista.add(new ItemForSale(ItemForSaleType.BUSINESS, model.getGameBoard()
 				.getRegion(RegionType.COAST).getAvailablePermits()[0].getId(),
 				20, player.getId()));
 		Market market = new Market();

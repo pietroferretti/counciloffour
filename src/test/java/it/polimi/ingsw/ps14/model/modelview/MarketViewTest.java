@@ -17,7 +17,7 @@ import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
-import it.polimi.ingsw.ps14.model.ItemForSale.Type;
+import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
 
 public class MarketViewTest {
 
@@ -35,8 +35,8 @@ public class MarketViewTest {
 		player2 = new Player("sdds", Color.cyan, 20, 12, model.getGameBoard().getPoliticDeck(), 4);
 		b = new BusinessPermit(new ArrayList<>(), null);
 		market = model.getMarket();
-		assistants = new ItemForSale(Type.ASSISTANT, 2, 4, player1.getId());
-		business = new ItemForSale(Type.BUSINESS, b.getId(), 6, player2.getId());
+		assistants = new ItemForSale(ItemForSaleType.ASSISTANT, 2, 4, player1.getId());
+		business = new ItemForSale(ItemForSaleType.BUSINESS, b.getId(), 6, player2.getId());
 		market.getObjectsForSale().add(assistants);
 		market.getObjectsForSale().add(business);
 		mv = new MarketView(market);
