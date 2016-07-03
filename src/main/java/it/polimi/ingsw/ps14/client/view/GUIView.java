@@ -264,23 +264,23 @@ public class GUIView extends ClientView implements Runnable {
         mainWindow.getInfoArea().append("Available city color bonuses:");
 
         if (updatedBonusGold != 0) {
-            mainWindow.getInfoArea().append(String.format("Gold cities: %d victory points", updatedBonusGold));
+            mainWindow.getInfoArea().append(String.format("%nGold cities: %d victory points", updatedBonusGold));
         }
 
         if (updatedBonusSilver != 0) {
-            mainWindow.getInfoArea().append(String.format("Silver cities: %d victory points", updatedBonusSilver));
+            mainWindow.getInfoArea().append(String.format("%nSilver cities: %d victory points", updatedBonusSilver));
         }
 
         if (updatedBonusBronze != 0) {
-            mainWindow.getInfoArea().append(String.format("Bronze cities: %d victory points", updatedBonusBronze));
+            mainWindow.getInfoArea().append(String.format("%nBronze cities: %d victory points", updatedBonusBronze));
         }
 
         if (updatedBonusBlue != 0) {
-            mainWindow.getInfoArea().append(String.format("Blue cities: %d victory points", updatedBonusBlue));
+            mainWindow.getInfoArea().append(String.format("%nBlue cities: %d victory points", updatedBonusBlue));
         }
 
         if (updatedBonusGold == 0 && updatedBonusSilver == 0 && updatedBonusBronze == 0 && updatedBonusBlue == 0) {
-            mainWindow.getInfoArea().append("All the city color construction bonuses have been used already!");
+            mainWindow.getInfoArea().append("%nAll the city color construction bonuses have been used already!");
         }
 
     }

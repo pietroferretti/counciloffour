@@ -1,17 +1,8 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
-import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.model.Balcony;
-import it.polimi.ingsw.ps14.model.BusinessPermit;
-import it.polimi.ingsw.ps14.model.ColorCouncillor;
-import it.polimi.ingsw.ps14.model.ColorPolitic;
-import it.polimi.ingsw.ps14.model.RegionType;
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -21,6 +12,13 @@ import javax.swing.OverlayLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultCaret;
 
+import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.model.Balcony;
+import it.polimi.ingsw.ps14.model.BusinessPermit;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.ColorPolitic;
+import it.polimi.ingsw.ps14.model.RegionType;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -29,12 +27,12 @@ import javax.swing.text.DefaultCaret;
 @SuppressWarnings("serial")
 public class GUI extends javax.swing.JFrame {
 
-    private Integer playerID;
-    private Communication communication;
-    private String name;
+    private transient Integer playerID;
+    private transient Communication communication;
+    private transient String name;
 
-    private final Map<ColorPolitic, ImageIcon> politicCard;
-    private final Map<ColorCouncillor, ImageIcon> councillor;
+    private final transient Map<ColorPolitic, ImageIcon> politicCard;
+    private final transient Map<ColorCouncillor, ImageIcon> councillor;
 
 //    private final Image politicPink;
 //    private final Image politicWhite;

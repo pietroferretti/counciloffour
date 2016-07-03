@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,60 +36,47 @@ public class Settings {
 	public Settings(String filename) throws IOException {
 
 		// Open the settings file
-		BufferedReader settingsFile;
-		try {
-			settingsFile = new BufferedReader(new FileReader(filename));
-		} catch (FileNotFoundException e) {
-			LOGGER.info("Couldn't open settings file on path '" + filename + "'");
-			throw e;
-		}
-
-		// Create some useful JSON parsers
-		JSONTokener jsonFile = new JSONTokener(settingsFile);
-		JSONObject jsonSettings = (JSONObject) jsonFile.nextValue();
-
-		// Extract the first variables
-		councillorsEachBalcony = jsonSettings.getInt("balconyCouncillors");
-		availableCouncillorsEachColor = jsonSettings.getInt("availableCouncillors");
-		availableAssistants = jsonSettings.getInt("assistants");
-		numColoredCards = jsonSettings.getInt("numColoredCards");
-		numJollyCards = jsonSettings.getInt("numJollyCards");
-
-		// Load the bonuses
-		JSONObject jsonBonuses = jsonSettings.getJSONObject("bonuses");
-		buildingBonuses = loadBonuses(jsonBonuses);
-
-		// Load the game map in a Map
-		JSONObject jsonMap = jsonSettings.getJSONObject("map");
-		map = loadMap(jsonMap);
-
-		// Find the starting king city, raise exception if not found
-		kingStartingCityString = findStartingKingCity(map);
-
-		// Load tokens
-		JSONArray jsonTokens = jsonSettings.getJSONArray("tokens");
-		tokens = loadTokens(jsonTokens);
-
-		// Load nobility track
-		JSONObject jsonNobilityTrack = jsonSettings.getJSONObject("nobilitytrack");
-		nobilityTrack = loadNobilityTrack(jsonNobilityTrack);
-
-		// Load business permits decks
-		JSONArray jsonPermitDeckCoast = jsonSettings.getJSONArray("permitDeckCoast");
-		permitDeckCoast = loadPermitDeck(jsonPermitDeckCoast);
-
-		JSONArray jsonPermitDeckHills = jsonSettings.getJSONArray("permitDeckHills");
-		permitDeckHills = loadPermitDeck(jsonPermitDeckHills);
-
-		JSONArray jsonPermitDeckMountains = jsonSettings.getJSONArray("permitDeckMountains");
-		permitDeckMountains = loadPermitDeck(jsonPermitDeckMountains);
-
-		// Close the settings file
-		try {
-			settingsFile.close();
-		} catch (IOException e) {
-			LOGGER.info("Couldn't close settings file");
-			throw e;
+		try (BufferedReader settingsFile = new BufferedReader(new FileReader(filename))){
+			
+			// Create some useful JSON parsers
+			JSONTokener jsonFile = new JSONTokener(settingsFile);
+			JSONObject jsonSettings = (JSONObject) jsonFile.nextValue();
+	
+			// Extract the first variables
+			councillorsEachBalcony = jsonSettings.getInt("balconyCouncillors");
+			availableCouncillorsEachColor = jsonSettings.getInt("availableCouncillors");
+			availableAssistants = jsonSettings.getInt("assistants");
+			numColoredCards = jsonSettings.getInt("numColoredCards");
+			numJollyCards = jsonSettings.getInt("numJollyCards");
+	
+			// Load the bonuses
+			JSONObject jsonBonuses = jsonSettings.getJSONObject("bonuses");
+			buildingBonuses = loadBonuses(jsonBonuses);
+	
+			// Load the game map in a Map
+			JSONObject jsonMap = jsonSettings.getJSONObject("map");
+			map = loadMap(jsonMap);
+	
+			// Find the starting king city, raise exception if not found
+			kingStartingCityString = findStartingKingCity(map);
+	
+			// Load tokens
+			JSONArray jsonTokens = jsonSettings.getJSONArray("tokens");
+			tokens = loadTokens(jsonTokens);
+	
+			// Load nobility track
+			JSONObject jsonNobilityTrack = jsonSettings.getJSONObject("nobilitytrack");
+			nobilityTrack = loadNobilityTrack(jsonNobilityTrack);
+	
+			// Load business permits decks
+			JSONArray jsonPermitDeckCoast = jsonSettings.getJSONArray("permitDeckCoast");
+			permitDeckCoast = loadPermitDeck(jsonPermitDeckCoast);
+	
+			JSONArray jsonPermitDeckHills = jsonSettings.getJSONArray("permitDeckHills");
+			permitDeckHills = loadPermitDeck(jsonPermitDeckHills);
+	
+			JSONArray jsonPermitDeckMountains = jsonSettings.getJSONArray("permitDeckMountains");
+			permitDeckMountains = loadPermitDeck(jsonPermitDeckMountains);
 		}
 	}
 

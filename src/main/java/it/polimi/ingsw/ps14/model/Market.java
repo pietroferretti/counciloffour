@@ -14,7 +14,7 @@ public class Market extends Observable implements Serializable {
 	 */
 	private static final long serialVersionUID = -6466607003340777967L;
 	private List<ItemForSale> objectsForSale;
-	private static int idCounter = 0;
+	private int idCounter = 0;
 
 	public Market() {
 		objectsForSale = new ArrayList<>();

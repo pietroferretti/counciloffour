@@ -65,8 +65,12 @@ public class CLIView extends ClientView implements Runnable {
 
 		//	print("Enter command:");
 			String input = in.nextLine();
-
-			if (input.equalsIgnoreCase("INSTRUCTIONS") || input.toUpperCase().equalsIgnoreCase("HELP")) {
+			
+			if (input.equalsIgnoreCase("EXIT")) {
+				
+				break;
+			
+			} else if (input.equalsIgnoreCase("INSTRUCTIONS") || input.toUpperCase().equalsIgnoreCase("HELP")) {
 				showInstructions();
 
 			} else if (!isGameStarted()) {

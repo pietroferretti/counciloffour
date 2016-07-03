@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class BuildEmporiumWithPermitDialog extends javax.swing.JDialog {
 
-	private Integer playerID;
-	private Communication communication;
+	private transient Integer playerID;
+	private transient Communication communication;
 	
 	
     /**
