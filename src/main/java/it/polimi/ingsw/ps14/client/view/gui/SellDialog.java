@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
+import it.polimi.ingsw.ps14.client.Communication;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,12 +13,17 @@ package it.polimi.ingsw.ps14.client.view.gui;
  * @author nicol
  */
 public class SellDialog extends javax.swing.JDialog {
+	
+	private final transient Integer playerID;
+	private final transient Communication communication;
 
     /**
      * Creates new form SellDialog
      */
-    public SellDialog(java.awt.Frame parent, boolean modal) {
+    public SellDialog(java.awt.Frame parent, boolean modal, Integer playerID, Communication communication) {
         super(parent, modal);
+		this.playerID = playerID;
+		this.communication = communication;
         initComponents();
     }
 
@@ -253,7 +260,7 @@ public class SellDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                SellDialog dialog = new SellDialog(new javax.swing.JFrame(), true);
+                SellDialog dialog = new SellDialog(new javax.swing.JFrame(), true, 0, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
