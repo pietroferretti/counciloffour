@@ -89,13 +89,12 @@ public class GUI extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jDialog1 = new javax.swing.JDialog();
+        kingBonus = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         overlay = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        chatArea = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         infoArea = new javax.swing.JTextArea();
         coastBalcony = new javax.swing.JPanel();
@@ -139,12 +138,14 @@ public class GUI extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         kingBalcony = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        nobilityTrack = new javax.swing.JLayeredPane();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         chatTextField = new javax.swing.JTextField();
         chatSendButton = new javax.swing.JButton();
-        kingBonus = new javax.swing.JLabel();
-        nobilityTrack = new javax.swing.JLayeredPane();
-        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        chatArea = new javax.swing.JTextArea();
 
         jMenu1.setText("jMenu1");
 
@@ -164,6 +165,9 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        kingBonus.setFont(new java.awt.Font("SFNS Display", 0, 11)); // NOI18N
+        kingBonus.setText("King bonus:");
+
         overlay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         overlay.setMaximumSize(new java.awt.Dimension(1000, 1000));
         overlay.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -180,16 +184,6 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Map/mappa monte a.png"))); // NOI18N
         jPanel1.add(jLabel1);
-
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("CHAT"));
-
-        chatArea.setEditable(false);
-        DefaultCaret caret = (DefaultCaret)infoArea.getCaret();
-        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        chatArea.setColumns(20);
-        chatArea.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        chatArea.setRows(5);
-        jScrollPane1.setViewportView(chatArea);
 
         DefaultCaret caretInfo = (DefaultCaret)infoArea.getCaret();
         caretInfo.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
@@ -486,7 +480,22 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel15.setText("KING");
 
+        nobilityTrack.setLayout(new java.awt.GridLayout(12, 1, 0, 2));
+
+        jLabel5.setText("nobility track");
+        nobilityTrack.add(jLabel5);
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+
         chatTextField.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        chatTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chatTextFieldActionPerformed(evt);
+            }
+        });
+        jPanel2.add(chatTextField);
 
         chatSendButton.setText("Send");
         chatSendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -494,35 +503,21 @@ public class GUI extends javax.swing.JFrame {
                 chatSendButtonActionPerformed(evt);
             }
         });
+        jPanel2.add(chatSendButton);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(chatTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chatSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(chatTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(chatSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 145, 300, -1));
 
-        kingBonus.setFont(new java.awt.Font("SFNS Display", 0, 11)); // NOI18N
-        kingBonus.setText("King bonus:");
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("CHAT"));
 
-        nobilityTrack.setLayout(new java.awt.GridLayout(12, 1, 0, 2));
+        chatArea.setEditable(false);
+        DefaultCaret caret = (DefaultCaret)infoArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        chatArea.setColumns(20);
+        chatArea.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        chatArea.setRows(5);
+        jScrollPane1.setViewportView(chatArea);
 
-        jLabel5.setText("nobility track");
-        nobilityTrack.add(jLabel5);
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, -1, 300, 140));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -532,12 +527,9 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGap(0, 18, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
@@ -561,7 +553,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(kingBonus, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                     .addComponent(nobilityTrack))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -589,12 +581,9 @@ public class GUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(permitCoast, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane3)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addGap(7, 7, 7)
@@ -669,11 +658,6 @@ public class GUI extends javax.swing.JFrame {
         electCouncillorDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_electCouncillorButtonActionPerformed
 
-    private void chatSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSendButtonActionPerformed
-		String chatMessage = chatTextField.getText();
-		communication.chat(playerID, chatMessage);
-    }//GEN-LAST:event_chatSendButtonActionPerformed
-
     private void showPermitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPermitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_showPermitActionPerformed
@@ -699,6 +683,15 @@ public class GUI extends javax.swing.JFrame {
     private void drawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawButtonActionPerformed
         communication.drawCard(playerID);
     }//GEN-LAST:event_drawButtonActionPerformed
+
+    private void chatSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSendButtonActionPerformed
+        String chatMessage = chatTextField.getText();
+        communication.chat(playerID, chatMessage);
+    }//GEN-LAST:event_chatSendButtonActionPerformed
+
+    private void chatTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chatTextFieldActionPerformed
 
     public static void start() {
         /* Set the Nimbus look and feel */
@@ -771,6 +764,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
