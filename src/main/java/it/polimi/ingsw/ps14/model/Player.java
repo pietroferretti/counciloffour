@@ -91,18 +91,18 @@ public class Player extends Observable implements Serializable {
 		businessHand = new BusinessCardsPlayer();
 	}
 
-	public Player(String name, Color color) {
-		this.id = idCounter;
-		idCounter++;
-		this.name = name;
-		this.color = color;
-		coins = 0;
-		assistants = 0;
-		level = 0;
-		points = 0;
-		hand = new ArrayList<>();
-		businessHand = new BusinessCardsPlayer();
-	}
+//	public Player(String name, Color color) {
+//		this.id = idCounter;
+//		idCounter++;
+//		this.name = name;
+//		this.color = color;
+//		coins = 0;
+//		assistants = 0;
+//		level = 0;
+//		points = 0;
+//		hand = new ArrayList<>();
+//		businessHand = new BusinessCardsPlayer();
+//	}
 
 	public Player(Player player) {
 		id = player.id;
