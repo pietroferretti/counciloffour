@@ -18,100 +18,103 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
  * This class represents the action "acquire business permit". The player can
  * acquire permit tile specifying id, region and politic cards to use to corrupt
  * councillors
- * 
+ *
  *
  */
 public class AcquireBusinessPermitTileAction extends MainAction {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(AcquireBusinessPermitTileAction.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(AcquireBusinessPermitTileAction.class.getName());
 
-	private static final long serialVersionUID = -385170414895517347L;
+    private static final long serialVersionUID = -385170414895517347L;
 
-	private RegionType regionType;
-	private Integer permitID;
-	private List<PoliticCard> cards;
+    private RegionType regionType;
+    private Integer permitID;
+    private List<PoliticCard> cards;
 
-	public AcquireBusinessPermitTileAction(Integer playerID, RegionType region,
-			Integer permitID, List<PoliticCard> politicCards) {
-		super(playerID);
-		this.regionType = region;
-		this.permitID = permitID;
-		this.cards = politicCards;
-	}
+    public AcquireBusinessPermitTileAction(Integer playerID, RegionType region,
+            Integer permitID, List<PoliticCard> politicCards) {
+        super(playerID);
+        this.regionType = region;
+        this.permitID = permitID;
+        this.cards = politicCards;
+    }
 
-	@Override
-	public boolean isValid(Model model) {
-		Player player = model.id2player(super.getPlayer());
-		Region region = model.getGameBoard().getRegion(regionType);
-		Balcony balcony = region.getBalcony();
-		BusinessPermit permitTile = model.id2permit(permitID, region);
+    @Override
+    public boolean isValid(Model model) {
+        Player player = model.id2player(super.getPlayer());
+        Region region = model.getGameBoard().getRegion(regionType);
+        Balcony balcony = region.getBalcony();
+        BusinessPermit permitTile = model.id2permit(permitID, region);
 
-		if (player == null || region == null || balcony == null
-				|| permitTile == null) {
-			LOGGER.info("isValid conversion error");
-			return false;
-		}
+        if (player == null || region == null || balcony == null
+                || permitTile == null) {
+            LOGGER.info("isValid conversion error");
+            return false;
+        }
 
-		List<ColorPolitic> colors = new ArrayList<>();
-		for (PoliticCard p : cards) {
-			colors.add(p.getColor());
-		}
+        List<ColorPolitic> colors = new ArrayList<>();
+        for (PoliticCard p : cards) {
+            colors.add(p.getColor());
+        }
 
-		if (!player.hasPoliticCard(colors))
-			return false;
+        if (!player.hasPoliticCard(colors)) {
+            return false;
+        }
+            LOGGER.info("color in player hand ok");
 
-		if (!balcony.cardsMatch(cards))
-			return false;
-		// TODO: send error: ERROR in color choice
+        if (!balcony.cardsMatch(cards)) {
+            return false;
+        }
+        LOGGER.info(String.format("color ok"));
+        if (player.getCoins() < balcony.councillorCost(cards)) {
+            return false;
+        }
+        LOGGER.info(String.format("coins ok"));
+        if (!region.getBusinessPermits().cardIsFaceUp(permitTile)) {
+            return false;
+        }
+        LOGGER.info(String.format("permit ok"));
+        return true;
+    }
 
-		if (player.getCoins() < balcony.councillorCost(cards))
-			return false;
-		// TODO: send ERROR: not enough coins
+    @Override
+    public TurnState execute(TurnState previousState, Model model) {
 
-		if (!region.getBusinessPermits().cardIsFaceUp(permitTile))
-			return false;
-		// TODO: send ERROR: permitTile is not face up
+        Player player = model.id2player(super.getPlayer());
+        Region region = model.getGameBoard().getRegion(regionType);
+        BusinessPermit permitTile = model.id2permit(permitID, region);
+        Balcony balcony = region.getBalcony();
 
-		return true;
-	}
+        if (player == null || region == null || balcony == null
+                || permitTile == null) {
+            LOGGER.info(String.format("execute conversion error"));
+            return null;
+        }
 
-	@Override
-	public TurnState execute(TurnState previousState, Model model) {
+        // pay councillors
+        player.useCoins(balcony.councillorCost(cards));
 
-		Player player = model.id2player(super.getPlayer());
-		Region region = model.getGameBoard().getRegion(regionType);
-		BusinessPermit permitTile = model.id2permit(permitID, region);
-		Balcony balcony = region.getBalcony();
+        // remove politic cards used
+        for (PoliticCard pc : cards) {
+            player.removeColor(pc.getColor());
+        }
 
-		if (player == null || region == null || balcony == null
-				|| permitTile == null) {
-			LOGGER.info(String.format("execute conversion error"));
-			return null;
-		}
+        // add politic cards used to gameboard
+        model.getGameBoard().getPoliticDeck().discardCards(cards);
 
-		// pay councillors
-		player.useCoins(balcony.councillorCost(cards));
+        // acquire permit
+        player.acquireBusinessPermit(permitTile);
 
-		// remove politic cards used
-		for (PoliticCard pc : cards)
-			player.removeColor(pc.getColor());
+        // change face up card in region
+        region.getBusinessPermits().substituteCard(permitTile);
 
-		// add politic cards used to gameboard
-		model.getGameBoard().getPoliticDeck().discardCards(cards);
+        // notifies changes in business deck
+        region.setBusinessPermits();
 
-		// acquire permit
-		player.acquireBusinessPermit(permitTile);
+        permitTile.getBonusList().useBonus(player, model);
 
-		// change face up card in region
-		region.getBusinessPermits().substituteCard(permitTile);
-
-		// notifies changes in business deck
-		region.setBusinessPermits();
-
-		permitTile.getBonusList().useBonus(player, model);
-
-		return nextState(previousState, model);
-	}
+        return nextState(previousState, model);
+    }
 
 }
