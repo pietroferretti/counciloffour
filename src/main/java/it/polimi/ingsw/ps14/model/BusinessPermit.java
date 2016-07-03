@@ -84,10 +84,21 @@ public class BusinessPermit implements Serializable {
 	public String toString() {
 		String s = "\nPermit ID: " + Integer.toString(id)
 				+ "\nPermit to build in: ";
-		for (String city : cityNames) {
-			s = s + city + " ";
+		if (cityNames != null) {
+			for (String city : cityNames) {
+				s = s + city + " ";
+			}
+		} else {
+			s = s + "no cities.";
 		}
-		return s + "\nBonus: " + bonus.toString();
+		
+		if (bonus != null) {
+			s = s + "\nBonus: " + bonus.toString();
+		} else {
+			s = s + "\nBonus: none.";
+		}
+		
+		return s;
 	}
 
 }

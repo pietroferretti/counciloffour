@@ -42,6 +42,7 @@ import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
 import it.polimi.ingsw.ps14.model.actions.DrawCardAction;
 import it.polimi.ingsw.ps14.model.actions.EndTurnAction;
+import it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction;
 import it.polimi.ingsw.ps14.model.actions.mainactions.ElectCouncillorAction;
 import it.polimi.ingsw.ps14.model.actions.market.BuyAction;
 import it.polimi.ingsw.ps14.model.actions.market.SellAction;
@@ -646,7 +647,54 @@ public class ControllerTest {
 		assertEquals(mockView2.getPlayerID(), model.getCurrentPlayer().getId());
 		assertTrue(model.getPlayerOrder().isEmpty());
 	}
+	
+	/**
+	 * Tests the transition from turns to finalturns
+	 */
+	@Test
+	public void testUpdateTenEmporiums() throws IOException {
+		ServerView mockView4 = mock(SocketServerView.class);
+		when(mockView4.getPlayerID()).thenReturn(4);
+		ServerView mockView5 = mock(SocketServerView.class);
+		when(mockView5.getPlayerID()).thenReturn(5);
+		ServerView mockView6 = mock(SocketServerView.class);
+		when(mockView6.getPlayerID()).thenReturn(6);
 
+		Model model2 = new Model();
+
+		List<Player> playerList = new ArrayList<>();
+		playerList.add(new Player(mockView4.getPlayerID(), 10, 2, model2.getGameBoard().getPoliticDeck(), 6));
+		playerList.add(new Player(mockView5.getPlayerID(), 10, 2, model2.getGameBoard().getPoliticDeck(), 6));
+		playerList.add(new Player(mockView6.getPlayerID(), 10, 2, model2.getGameBoard().getPoliticDeck(), 6));
+		model2.setPlayers(playerList);
+
+		Controller controller2 = new Controller(model2);
+		
+		State testState = new State();
+		testState.setGamePhase(GamePhase.TURNS);
+		testState.setCurrentTurnState(new CardDrawnState());
+		testState.setCurrentPlayer(model2.id2player(mockView5.getPlayerID()));
+		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model2.id2player(mockView6.getPlayerID()))));
+
+		model2.setState(testState);
+		
+		int numEmporiumsBuilt = model2.id2player(mockView4.getPlayerID()).getNumEmporiums();
+		for (int i=0; i< (9-numEmporiumsBuilt); i++) {
+			model2.id2player(mockView5.getPlayerID()).incrementNumEmporiums();
+		}
+		
+		BusinessPermit permit = new BusinessPermit(model2.getGameBoard().getCities(), null);
+		model2.id2player(mockView5.getPlayerID()).acquireBusinessPermit(permit);
+		
+		controller2.update(mockView5, new TurnActionMsg(new BuildEmporiumUsingPermitTileAction(mockView5.getPlayerID(), permit.getId(), "Hellar")));
+
+		assertEquals(GamePhase.FINALTURNS, model2.getGamePhase());
+		assertEquals(InitialTurnState.class, model2.getCurrentTurnState().getClass());
+		assertEquals(mockView6.getPlayerID(), model2.getCurrentPlayer().getId());
+		assertTrue(model2.getPlayerOrder().size() == 1);
+		assertEquals(mockView4.getPlayerID(), model2.getPlayerOrder().peek().getId());
+	}
+	
 	/**
 	 * Tests the end game
 	 */
@@ -692,9 +740,9 @@ public class ControllerTest {
 		Model model2 = new Model();
 
 		List<Player> playerList = new ArrayList<>();
-		playerList.add(new Player(mockView4.getPlayerID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6));
-		playerList.add(new Player(mockView5.getPlayerID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6));
-		playerList.add(new Player(mockView6.getPlayerID(), 10, 2, model.getGameBoard().getPoliticDeck(), 6));
+		playerList.add(new Player(mockView4.getPlayerID(), 10, 2, model2.getGameBoard().getPoliticDeck(), 6));
+		playerList.add(new Player(mockView5.getPlayerID(), 10, 2, model2.getGameBoard().getPoliticDeck(), 6));
+		playerList.add(new Player(mockView6.getPlayerID(), 10, 2, model2.getGameBoard().getPoliticDeck(), 6));
 		model2.setPlayers(playerList);
 
 		Controller controller2 = new Controller(model2);
