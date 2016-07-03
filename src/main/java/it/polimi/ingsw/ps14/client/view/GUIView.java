@@ -21,6 +21,7 @@ import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.WaitingFor;
+import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.InitialTurnState;
@@ -28,6 +29,7 @@ import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import javax.swing.JLabel;
 
 public class GUIView extends ClientView implements Runnable {
 
@@ -365,30 +367,37 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
-        mainWindow.getnobilityTrack().setText( updatedNobilityTrack.toString());
+        JLabel lv;
+        mainWindow.getnobilityTrack().removeAll();
+        for (Map.Entry<Integer, Bonus> entry : updatedNobilityTrack.getBonusesByLevel().entrySet()) {
+            lv = new javax.swing.JLabel("<html>" + Integer.toString(entry.getKey()) + ")<br><div WIDTH=200px>" + entry.getValue() + "</div></html><br>");
+            lv.setFont(new java.awt.Font("Arial", 0, 11));
+            lv.setVisible(true);
+            mainWindow.getnobilityTrack().add(lv);
+        }
 
     }
 
     @Override
     public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
             int numEmporiums) {
-        mainWindow.getChatArea().append("\n" + "\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
+        mainWindow.getInfoArea().append("\n" + "\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
                 + "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
                 + "\nVictory Points: " + Integer.toString(points));
     }
 
     @Override
     public void showPersonalDetails(Player p) {
-                mainWindow.getUserProfile().removeAll();
-                mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
-                mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
-                mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
-                mainWindow.getNobility().setText(Integer.toString(p.getLevel()));
-                for (PoliticCard pc : p.getHand()) {
-                    mainWindow.showPoliticCard(pc.getColor());
-                }
-				mainWindow.revalidate();
-                //TODO my permit
+        mainWindow.getUserProfile().removeAll();
+        mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
+        mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
+        mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
+        mainWindow.getNobility().setText(Integer.toString(p.getLevel()));
+        for (PoliticCard pc : p.getHand()) {
+            mainWindow.showPoliticCard(pc.getColor());
+        }
+        mainWindow.revalidate();
+        //TODO my permit
     }
 
     @Override
@@ -418,5 +427,6 @@ public class GUIView extends ClientView implements Runnable {
     public void showRegion(Region updatedRegion) {
         mainWindow.getInfoArea().append("\n" + updatedRegion.toString());
         mainWindow.showCouncillor(updatedRegion.getBalcony(), updatedRegion.getType());
+        mainWindow.showPermit(updatedRegion.getAvailablePermits(), updatedRegion.getType());
     }
 }
