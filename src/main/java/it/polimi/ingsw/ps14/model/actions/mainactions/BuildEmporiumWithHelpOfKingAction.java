@@ -48,10 +48,20 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
 		City city = model.name2city(cityName);
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
 
-		if (player == null || city == null || balcony == null) {
-			LOGGER.info(String.format("isValid conversion error"));
+		if (player == null){ 
+			LOGGER.info(String.format("isValid conversion error player"));
 			return false;
 		}
+                if (city == null){ 
+			LOGGER.info(String.format("isValid conversion error city"));
+			return false;
+		}
+
+                if (balcony == null){ 
+			LOGGER.info(String.format("isValid conversion error balcony"));
+			return false;
+		}
+
 
 		if (!balcony.cardsMatch(cards))
 			return false;

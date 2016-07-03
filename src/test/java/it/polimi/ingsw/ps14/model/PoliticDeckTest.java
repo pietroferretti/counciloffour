@@ -1,5 +1,11 @@
 package it.polimi.ingsw.ps14.model;
 
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.PoliticDeck;
+import it.polimi.ingsw.ps14.model.RegionType;
 import static org.junit.Assert.*;
 import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
 

@@ -55,7 +55,7 @@ public class GUIView extends ClientView implements Runnable {
             @Override
             public void run() {
                 mainWindow = new GUI(id, name, communication);
-				mainWindow.setState(gameState);
+                mainWindow.setState(gameState);
                 mainWindow.setVisible(true);
             }
         });
@@ -67,14 +67,14 @@ public class GUIView extends ClientView implements Runnable {
     public void setCommunication(Communication communication) {
         this.communication = communication;
     }
-	
-	@Override
-	public void setGameState(State gameState) {
-		super.setGameState(gameState);
-		if (mainWindow != null) {
-			mainWindow.setState(gameState);
-		}
-	}
+
+    @Override
+    public void setGameState(State gameState) {
+        super.setGameState(gameState);
+        if (mainWindow != null) {
+            mainWindow.setState(gameState);
+        }
+    }
 
     @Override
     public void setGameStarted(boolean gameStarted) {
@@ -88,92 +88,105 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showAvailableAssistant(int update) {
-        mainWindow.getInfoArea().append("\n" + "Assistant available now: " + update);
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                mainWindow.getInfoArea().append("\n" + "Assistant available now: " + update);
+            }
+        });
     }
 
     @Override
     public void showAvailableCommands() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (gameState == null) {
 
-        if (gameState == null) {
+                    mainWindow.getInfoArea().append("\n" + "The game hasn't started yet.");
 
-            mainWindow.getInfoArea().append("\n" + "The game hasn't started yet. You can see the available commands with 'instructions'");
+                } else if (gameState.getGamePhase() == GamePhase.TURNS) {
 
-        } else if (gameState.getGamePhase() == GamePhase.TURNS) {
+                    showCommandsTurns();
 
-            showCommandsTurns();
+                } else if (gameState.getGamePhase() == GamePhase.FINALTURNS) {
 
-        } else if (gameState.getGamePhase() == GamePhase.FINALTURNS) {
+                    mainWindow.getInfoArea().append("\n" + "Final turns!");
+                    showCommandsTurns();
 
-            mainWindow.getInfoArea().append("\n" + "Final turns!");
-            showCommandsTurns();
+                } else if (gameState.getGamePhase() == GamePhase.MARKET) {
 
-        } else if (gameState.getGamePhase() == GamePhase.MARKET) {
+                    showCommandsMarket();
 
-            showCommandsMarket();
+                } else if (gameState.getGamePhase() == GamePhase.END) {
 
-        } else if (gameState.getGamePhase() == GamePhase.END) {
+                    mainWindow.getInfoArea().append("\n" + "The game has ended.");
 
-            mainWindow.getInfoArea().append("\n" + "The game has ended. Enter 'results' to see the rankings.");
-
-        }
+                }
+            }
+        });
     }
 
     private void showCommandsTurns() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
 
-        mainWindow.getInfoArea().append("\n" + "* Turns Phase *");
+                mainWindow.getInfoArea().append("\n" + "* Turns Phase *");
 
-        if (gameState.getCurrentPlayer().getId() != playerID) {
+                if (gameState.getCurrentPlayer().getId() != playerID) {
 
-            mainWindow.getInfoArea().append("\n" + String.format("It's %s's turn.", gameState.getCurrentPlayer().getName()));
+                    mainWindow.getInfoArea().append("\n" + String.format("It's %s's turn.", gameState.getCurrentPlayer().getName()));
 
-        } else {
+                } else {
 
-            mainWindow.getInfoArea().append("\n" + "It's your turn. Enter a command:");
+                    mainWindow.getInfoArea().append("\n" + "It's your turn.");
 
-            if (gameState.getWaitingFor() == WaitingFor.NOTHING) {
+                    if (gameState.getWaitingFor() == WaitingFor.NOTHING) {
 
-                showCommandsTurnStates();
+                        showCommandsTurnStates();
 
-            } else if (gameState.getWaitingFor() == WaitingFor.TAKEPERMIT) {
+                    } else if (gameState.getWaitingFor() == WaitingFor.TAKEPERMIT) {
 
-                mainWindow.getInfoArea().append("\n" + "You got a bonus by moving forward in the nobility track!");
-                mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
+                        mainWindow.getInfoArea().append("\n" + "You got a bonus by moving forward in the nobility track!");
+                        mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
 
-                for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
-                    mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+                        for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
+                            mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+                        }
+
+                        mainWindow.getChatArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
+
+                    } else if (gameState.getWaitingFor() == WaitingFor.FROMPERMITS) {
+
+                        mainWindow.getInfoArea().append("\n" + "You got a bonus by moving forward in the nobility track!");
+                        mainWindow.getInfoArea().append("\n" + "You can get the benefits of one of the business permits you own for the second time.");
+                        mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
+
+                        for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
+                            mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+                        }
+
+                        mainWindow.getInfoArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
+
+                    } else if (gameState.getWaitingFor() == WaitingFor.FROMTOKENS) {
+
+                        mainWindow.getInfoArea().append("\n" + "You got a bonus by moving forward in the nobility track!");
+                        mainWindow.getInfoArea().append("\n" + "You can get a bonus from one of the cities where you built an emporium");
+                        mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
+
+                        for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
+                            mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+                        }
+
+                        mainWindow.getInfoArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
+
+                    }
+
                 }
-
-                mainWindow.getChatArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
-
-            } else if (gameState.getWaitingFor() == WaitingFor.FROMPERMITS) {
-
-                mainWindow.getInfoArea().append("\n" + "You got a bonus by moving forward in the nobility track!");
-                mainWindow.getInfoArea().append("\n" + "You can get the benefits of one of the business permits you own for the second time.");
-                mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
-
-                for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
-                    mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
-                }
-
-                mainWindow.getInfoArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
-
-            } else if (gameState.getWaitingFor() == WaitingFor.FROMTOKENS) {
-
-                mainWindow.getInfoArea().append("\n" + "You got a bonus by moving forward in the nobility track!");
-                mainWindow.getInfoArea().append("\n" + "You can get a bonus from one of the cities where you built an emporium");
-                mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
-
-                for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
-                    mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
-                }
-
-                mainWindow.getInfoArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
 
             }
-
-        }
-
+        });
     }
 
     private void showCommandsTurnStates() {
@@ -181,27 +194,27 @@ public class GUIView extends ClientView implements Runnable {
         TurnState currTurnState = gameState.getCurrentTurnState();
         if (currTurnState instanceof InitialTurnState) {
 
-            mainWindow.getInfoArea().append("\n" + "Draw a card. Enter 'draw':");
+            mainWindow.getInfoArea().append("\n" + "Draw a card.");
 
         } else if ((currTurnState instanceof CardDrawnState)
                 || (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() > 0)) {
 
-            mainWindow.getInfoArea().append("\n" + "You can do a main or a quick action. Enter a command:");
+            mainWindow.getInfoArea().append("\n" + "You can do a main or a quick action.");
 
         } else if ((currTurnState instanceof QuickActionDoneTurnState)
                 || (currTurnState instanceof MainAndQuickActionDoneTurnState
                 && gameState.getAdditionalMainsToDo() > 0)) {
 
-            mainWindow.getInfoArea().append("\n" + "You can do a main action. Enter a command:");
+            mainWindow.getInfoArea().append("\n" + "You can do a main action.");
 
         } else if (currTurnState instanceof MainActionDoneTurnState && gameState.getAdditionalMainsToDo() == 0) {
 
-            mainWindow.getInfoArea().append("\n" + "You can do a quick action or pass the turn. Enter a command:");
+            mainWindow.getInfoArea().append("\n" + "You can do a quick action or pass the turn.");
 
         } else if (currTurnState instanceof MainAndQuickActionDoneTurnState
                 && gameState.getAdditionalMainsToDo() == 0) {
 
-            mainWindow.getInfoArea().append("\n" + "You have already done your main and quick action. You have to pass the turn. Enter 'pass':");
+            mainWindow.getInfoArea().append("\n" + "You have already done your main and quick action. You have to pass the turn.");
 
         } else if (currTurnState instanceof EndTurnState) {
 
@@ -267,31 +280,43 @@ public class GUIView extends ClientView implements Runnable {
     @Override
     public void showCitiesColorBonuses(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
             int updatedBonusBlue) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
 //    	mainWindow.getChatArea().append("\n"+"CitiesColorBonuses now: BonusGold=" + updatedBonusGold + ", BonusSilver="
 //				+ updatedBonusSilver + ", BonusBronze=" + updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue);
-        mainWindow.getInfoArea().append("");
-        mainWindow.getInfoArea().append("Available city color bonuses:");
+                mainWindow.getInfoArea().append("");
+                mainWindow.getInfoArea().append("Available city color bonuses:");
 
-        if (updatedBonusGold != 0) {
-            mainWindow.getInfoArea().append(String.format("%nGold cities: %d victory points", updatedBonusGold));
-        }
 
-        if (updatedBonusSilver != 0) {
-            mainWindow.getInfoArea().append(String.format("%nSilver cities: %d victory points", updatedBonusSilver));
-        }
+                    mainWindow.getInfoArea().append(String.format("%nGold cities: %d victory points", updatedBonusGold));
+                    mainWindow.getGoldCity().removeAll();
+                    mainWindow.getGoldCity().add(new JLabel(Integer.toString(updatedBonusGold)));
+                    mainWindow.getGoldCity().revalidate();
 
-        if (updatedBonusBronze != 0) {
-            mainWindow.getInfoArea().append(String.format("%nBronze cities: %d victory points", updatedBonusBronze));
-        }
+                
 
-        if (updatedBonusBlue != 0) {
-            mainWindow.getInfoArea().append(String.format("%nBlue cities: %d victory points", updatedBonusBlue));
-        }
+                    mainWindow.getInfoArea().append(String.format("%nSilver cities: %d victory points", updatedBonusSilver));
+                    mainWindow.getSilverCity().removeAll();
+                    mainWindow.getSilverCity().add(new JLabel(Integer.toString(updatedBonusSilver)));
+                    mainWindow.getSilverCity().revalidate();
 
-        if (updatedBonusGold == 0 && updatedBonusSilver == 0 && updatedBonusBronze == 0 && updatedBonusBlue == 0) {
-            mainWindow.getInfoArea().append("%nAll the city color construction bonuses have been used already!");
-        }
+                
 
+                    mainWindow.getInfoArea().append(String.format("%nBronze cities: %d victory points", updatedBonusBronze));
+                    mainWindow.getBronzeCity().removeAll();
+                    mainWindow.getBronzeCity().add(new JLabel(Integer.toString(updatedBonusBronze)));
+                    mainWindow.getBronzeCity().revalidate();
+
+
+                    mainWindow.getInfoArea().append(String.format("%nBlue cities: %d victory points", updatedBonusBlue));
+                    mainWindow.getBlueCity().removeAll();
+                    mainWindow.getBlueCity().add(new JLabel(Integer.toString(updatedBonusBlue) ));
+                    mainWindow.getBlueCity().revalidate();
+
+                
+            }
+        });
     }
 
     @Override
@@ -364,6 +389,7 @@ public class GUIView extends ClientView implements Runnable {
     public void showKingUpdate(King updatedKing) {
 //		mainWindow.getCLIarea().append("\n"+"KingUpdatedMsg [updatedKing=" + updatedKing + "]");
         mainWindow.getInfoArea().append("\n" + updatedKing.toString());
+        mainWindow.getKingCity().setText(updatedKing.getCity().getName());
         mainWindow.showCouncillor(updatedKing.getBalcony(), null);
 
     }
@@ -378,12 +404,16 @@ public class GUIView extends ClientView implements Runnable {
     public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
         JLabel lv;
         mainWindow.getnobilityTrack().removeAll();
+//        JLabellv=new javax.swing.JLabel("<html><div WIDTH=200px>"+updatedNobilityTrack.toString()+"</div></html><br>");
+//        lv.setFont(new java.awt.Font("Arial", 1, 11));
+//        mainWindow.getnobilityTrack().add(lv);
         for (Map.Entry<Integer, Bonus> entry : updatedNobilityTrack.getBonusesByLevel().entrySet()) {
             lv = new javax.swing.JLabel("<html>" + Integer.toString(entry.getKey()) + ")<br><div WIDTH=200px>" + entry.getValue() + "</div></html><br>");
             lv.setFont(new java.awt.Font("Arial", 0, 11));
             lv.setVisible(true);
             mainWindow.getnobilityTrack().add(lv);
         }
+        mainWindow.getnobilityTrack().revalidate();
 
     }
 
@@ -397,7 +427,11 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showPersonalDetails(Player p) {
+         SwingUtilities.invokeLater(new Runnable() {
+            @Override 
+            public void run() {
         mainWindow.getUserProfile().removeAll();
+        mainWindow.getUserProfile().revalidate();
         mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
         mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
         mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
@@ -405,9 +439,9 @@ public class GUIView extends ClientView implements Runnable {
         for (PoliticCard pc : p.getHand()) {
             mainWindow.showPoliticCard(pc.getColor());
         }
-        mainWindow.revalidate();
+        mainWindow.getUserProfile().revalidate();
         //TODO my permit
-    }
+    }});}
 
     @Override
     public void showPlayerChangesPrivate(Player p, String message) {
@@ -422,7 +456,7 @@ public class GUIView extends ClientView implements Runnable {
     @Override
     public void showPlayerChangesPublic(String notice) {
         mainWindow.getInfoArea().append("\n" + notice);
-
+        communication.showMyDetails(playerID);
     }
 
     @Override
