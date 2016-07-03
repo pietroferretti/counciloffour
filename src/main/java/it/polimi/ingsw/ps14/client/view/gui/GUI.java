@@ -17,7 +17,11 @@ import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
+import it.polimi.ingsw.ps14.model.GamePhase;
+import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.RegionType;
+import it.polimi.ingsw.ps14.model.State;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,6 +34,7 @@ public class GUI extends javax.swing.JFrame {
     private transient Integer playerID;
     private transient Communication communication;
     private transient String name;
+	private transient State state;
 
     private final transient Map<ColorPolitic, ImageIcon> politicCard;
     private final transient Map<ColorCouncillor, ImageIcon> councillor;
@@ -678,8 +683,17 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_showPermitMouseClicked
 
     private void passButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passButtonActionPerformed
-		communication.passTurn(playerID); //  TODO market? 
-											// TODO greyout?
+		if (state.getGamePhase() == GamePhase.TURNS || state.getGamePhase() == GamePhase.FINALTURNS) {
+			communication.passTurn(playerID);
+		} else if (state.getGamePhase() == GamePhase.MARKET) {
+			if (state.getCurrentMarketState() == MarketState.SELLING) {
+				communication.sellNone(playerID);
+			} else if (state.getCurrentMarketState() == MarketState.BUYING) {
+				communication.doneFinishBuying(playerID);
+			}
+		} else if (state.getGamePhase() == GamePhase.END) {
+			JOptionPane.showMessageDialog(null, "The game is over, you cannot pass the turn.", "Warning", JOptionPane.WARNING_MESSAGE);
+		}
     }//GEN-LAST:event_passButtonActionPerformed
 
     private void drawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawButtonActionPerformed
@@ -816,6 +830,10 @@ public class GUI extends javax.swing.JFrame {
     public JLayeredPane getUserProfile() {
         return userProfile;
     }
+	
+	public void setState(State gameState) {
+		this.state = gameState;
+	}
 
     public void showPoliticCard(ColorPolitic c) {
         JLabel politic = (new javax.swing.JLabel());

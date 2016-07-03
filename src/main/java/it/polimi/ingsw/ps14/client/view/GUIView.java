@@ -20,6 +20,7 @@ import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.RegionType;
+import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
@@ -54,7 +55,7 @@ public class GUIView extends ClientView implements Runnable {
             @Override
             public void run() {
                 mainWindow = new GUI(id, name, communication);
-                mainWindow.setPlayerName(name);
+				mainWindow.setState(gameState);
                 mainWindow.setVisible(true);
             }
         });
@@ -66,6 +67,14 @@ public class GUIView extends ClientView implements Runnable {
     public void setCommunication(Communication communication) {
         this.communication = communication;
     }
+	
+	@Override
+	public void setGameState(State gameState) {
+		super.setGameState(gameState);
+		if (mainWindow != null) {
+			mainWindow.setState(gameState);
+		}
+	}
 
     @Override
     public void setGameStarted(boolean gameStarted) {
