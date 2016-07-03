@@ -88,7 +88,7 @@ public class ItemForSale implements Serializable {
 				return false;
 		}
 		if (type.name().matches("POLITIC")) {
-			if (player == null)
+			if (player == null || color==null)
 				return false;
 			if (!player.hasCardInHand(color))
 				return false;

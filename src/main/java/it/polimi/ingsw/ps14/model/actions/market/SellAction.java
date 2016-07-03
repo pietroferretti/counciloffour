@@ -29,7 +29,6 @@ public class SellAction implements Serializable {
 	public void execute(Market market) {
 		for (ItemForSale item : items){
 			market.addItem(item);
-			System.out.println("aggiungo "+item.toString());
 		}	
 	}
 
