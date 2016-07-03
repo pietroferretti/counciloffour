@@ -83,6 +83,7 @@ public class Market extends Observable implements Serializable {
 	public void addItem(ItemForSale item) {
 		item.setBarCode(idCounter);
 		idCounter++;
+		System.out.println("aggiungo "+item.toString());
 		objectsForSale.add(item);
 		setChanged();
 		notifyObservers();
