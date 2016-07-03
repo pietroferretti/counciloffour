@@ -82,72 +82,34 @@ public class RMIServerView extends ServerView {
 			}
 
 		} else
-			System.err.println("osservatore sbagliato" + o);
+			LOGGER.warning(String.format("Object observed not of type ModelView, but %s", o.getClass()));
 	}
-
-	// private void sendUpdates(UpdateRequestMsg requestReceived) {
-	//
-	// if (requestReceived instanceof UpdateGameBoardMsg) {
-	// sendMessage(new
-	// StateUpdatedMsg(super.getModelView().getStateView().getStateCopy()));
-	// sendMessage(new AvailableAssistantsUpdatedMsg(
-	// super.getModelView().getAvailableAssistantsView().getAvailableAssistantsCopy()));
-	// sendMessage(new
-	// KingBonusesUpdatedMsg(super.getModelView().getKingBonusesView().getShowableKingBonus()));
-	// sendMessage(
-	// new
-	// NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
-	// sendMessage(new CitiesColorBonusesUpdatedMsg(
-	// super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
-	// super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
-	// super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
-	// super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
-	// sendMessage(new
-	// KingUpdatedMsg(super.getModelView().getKingView().getKingCopy()));
-	// for (RegionView rv : super.getModelView().getRegionsView()) {
-	// sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
-	// }
-	// } else if (requestReceived instanceof UpdateThisPlayerMsg) {
-	// sendPersonalUpdate();
-	// } else if (requestReceived instanceof UpdateOtherPlayersMsg) {
-	// sendOthersUpdate();
-	// }
-	// }
-
-	// private void sendOthersUpdate() {
-	// for (PlayerView pv : super.getModelView().getPlayersView()) {
-	// if (pv.getPlayerCopy().getId() != super.getPlayerID())
-	// sendMessage(new OtherPlayerUpdateMsg(pv.getPlayerCopy()));
-	// }
-	// }
-	//
-	// private void sendPersonalUpdate() {
-	// sendMessage(new
-	// PersonalUpdateMsg(super.getModelView().getPlayerByID(super.getPlayerID())));
-	// }
 
 	@Override
 	public void sendMessage(Message msg) {
 
 		serverRMIout.castMessage(msg);
-		LOGGER.info(String.format("callind method %s on rmi %d", msg,
+		LOGGER.info(String.format("calling method %s on rmi %d", msg,
 				super.getPlayerID()));
 
 	}
 
 	public void timerPlayer() {
-		int id = super.getPlayerID();
+		int playerID = super.getPlayerID();
 		
 		if (timer != null)
 			timer.cancel();
 		
 		timer = new Timer();
 		task = new TimerTask() {
+
+			private int id = playerID;
+			
 			@Override
 			public void run() {
 				Message message = new DisconnectionMsg(id);
 				forwardMessage(message);
-				System.out.println("CLIENT DISCONNESSO");
+				System.out.println(String.format("RMI client %d disconnected!", id));
 			}
 
 		};

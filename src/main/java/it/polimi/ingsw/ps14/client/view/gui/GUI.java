@@ -108,18 +108,18 @@ public class GUI extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        acquirePermitButton = new javax.swing.JButton();
         buildEmporiumWithKingButton = new javax.swing.JButton();
+        acquirePermitButton = new javax.swing.JButton();
         electCouncillorButton = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        buildEmporiumWithPermitButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         changePermitTilesButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        engageAssistantButton = new javax.swing.JButton();
+        additionalMainButton = new javax.swing.JButton();
         electWithAssistantButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        passButton = new javax.swing.JButton();
         drawButton = new javax.swing.JButton();
         showPermit = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -137,8 +137,8 @@ public class GUI extends javax.swing.JFrame {
         kingBalcony = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        chatTextField = new javax.swing.JTextField();
+        chatSendButton = new javax.swing.JButton();
         kingBonus = new javax.swing.JLabel();
         nobilityTrack = new javax.swing.JLayeredPane();
         jLabel5 = new javax.swing.JLabel();
@@ -225,13 +225,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
         jLabel2.setText("MAIN ACTIONS");
 
-        acquirePermitButton.setText("Acquire Permit");
-        acquirePermitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acquirePermitButtonActionPerformed(evt);
-            }
-        });
-
         buildEmporiumWithKingButton.setText("Build Emporium With King");
         buildEmporiumWithKingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,23 +232,25 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        electCouncillorButton.setText("Elect Councillor ");
-        electCouncillorButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        electCouncillorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                electCouncillorButtonMouseClicked(evt);
+        acquirePermitButton.setText("Acquire Permit");
+        acquirePermitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acquirePermitButtonActionPerformed(evt);
             }
         });
+
+        electCouncillorButton.setText("Elect Councillor ");
+        electCouncillorButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         electCouncillorButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 electCouncillorButtonActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Build Emporium With Permit");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        buildEmporiumWithPermitButton.setText("Build Emporium With Permit");
+        buildEmporiumWithPermitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                buildEmporiumWithPermitButtonActionPerformed(evt);
             }
         });
 
@@ -271,7 +266,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(electCouncillorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buildEmporiumWithPermitButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buildEmporiumWithKingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
@@ -286,7 +281,7 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buildEmporiumWithKingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(buildEmporiumWithPermitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -297,26 +292,21 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Engage Assistant");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        engageAssistantButton.setText("Engage Assistant");
+        engageAssistantButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                engageAssistantButtonActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Additional Main Action");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        additionalMainButton.setText("Additional Main Action");
+        additionalMainButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                additionalMainButtonActionPerformed(evt);
             }
         });
 
         electWithAssistantButton.setText("Elect Councillor with Assistant");
-        electWithAssistantButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                electWithAssistantButtonMouseClicked(evt);
-            }
-        });
         electWithAssistantButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 electWithAssistantButtonActionPerformed(evt);
@@ -333,13 +323,13 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(engageAssistantButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(changePermitTilesButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(electWithAssistantButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(additionalMainButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -348,31 +338,31 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(engageAssistantButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(changePermitTilesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(electWithAssistantButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(additionalMainButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jButton3.setText("Pass");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+        passButton.setText("Pass");
+        passButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passButtonActionPerformed(evt);
             }
         });
 
         drawButton.setText("DRAW");
-        drawButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                drawButtonMouseClicked(evt);
+        drawButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drawButtonActionPerformed(evt);
             }
         });
 
-        showPermit.setText("Show my permit");
+        showPermit.setText("Show my permits");
         showPermit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 showPermitMouseClicked(evt);
@@ -391,7 +381,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(passButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(drawButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(showPermit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -401,7 +391,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(showPermit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(passButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(drawButton)
                 .addContainerGap())
@@ -464,7 +454,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        permitHills.setLayout(new java.awt.GridLayout());
+        permitHills.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel11.setText("P1");
         permitHills.add(jLabel11);
@@ -473,7 +463,7 @@ public class GUI extends javax.swing.JFrame {
         permitHills.add(jLabel12);
 
         permitCoast.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        permitCoast.setLayout(new java.awt.GridLayout());
+        permitCoast.setLayout(new java.awt.GridLayout(1, 0));
 
         coastPer1.setText("P1");
         permitCoast.add(coastPer1);
@@ -481,7 +471,7 @@ public class GUI extends javax.swing.JFrame {
         coastPer2.setText("P2");
         permitCoast.add(coastPer2);
 
-        permitMount.setLayout(new java.awt.GridLayout());
+        permitMount.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel13.setText("P1");
         permitMount.add(jLabel13);
@@ -493,12 +483,12 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel15.setText("KING");
 
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        chatTextField.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
 
-        jButton1.setText("Send");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        chatSendButton.setText("Send");
+        chatSendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                chatSendButtonActionPerformed(evt);
             }
         });
 
@@ -507,20 +497,20 @@ public class GUI extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1)
+                .addGap(6, 6, 6)
+                .addComponent(chatTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addComponent(chatSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(chatTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(chatSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         kingBonus.setFont(new java.awt.Font("SFNS Display", 0, 11)); // NOI18N
@@ -621,66 +611,65 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void changePermitTilesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePermitTilesButtonActionPerformed
-        // TODO add your handling code here:
+        ChangePermitTilesDialog changePermitsDialog = new ChangePermitTilesDialog(this, true);
+        changePermitsDialog.setPlayerID(playerID);
+        changePermitsDialog.setCommunication(communication);
+        changePermitsDialog.setVisible(true);
+        changePermitsDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_changePermitTilesButtonActionPerformed
 
     private void electWithAssistantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_electWithAssistantButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_electWithAssistantButtonActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void buildEmporiumWithKingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildEmporiumWithKingButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buildEmporiumWithKingButtonActionPerformed
-
-    private void acquirePermitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acquirePermitButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_acquirePermitButtonActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void electCouncillorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_electCouncillorButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_electCouncillorButtonActionPerformed
-
-    private void electCouncillorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_electCouncillorButtonMouseClicked
-
-//        ElectCouncillorDialog electCouncillorDialog = new ElectCouncillorDialog(this, true, playerID, communication);
-        ElectCouncillorDialog electCouncillorDialog = new ElectCouncillorDialog(this, true);
-        electCouncillorDialog.setPlayerID(playerID);
-        electCouncillorDialog.setCommunication(communication);
-        electCouncillorDialog.setVisible(true);
-        electCouncillorDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
-    }//GEN-LAST:event_electCouncillorButtonMouseClicked
-
-    private void drawButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawButtonMouseClicked
-        communication.drawCard(playerID);
-    }//GEN-LAST:event_drawButtonMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3MouseClicked
-
-    private void electWithAssistantButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_electWithAssistantButtonMouseClicked
         ElectWithAssistantDialog electWithAssistantDialog = new ElectWithAssistantDialog(this, true);
         electWithAssistantDialog.setPlayerID(playerID);
         electWithAssistantDialog.setCommunication(communication);
         electWithAssistantDialog.setVisible(true);
         electWithAssistantDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
-    }//GEN-LAST:event_electWithAssistantButtonMouseClicked
+    }//GEN-LAST:event_electWithAssistantButtonActionPerformed
+
+    private void additionalMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_additionalMainButtonActionPerformed
+		communication.performAdditionalMainAction(playerID);
+    }//GEN-LAST:event_additionalMainButtonActionPerformed
+
+    private void engageAssistantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_engageAssistantButtonActionPerformed
+		communication.engage(playerID);
+    }//GEN-LAST:event_engageAssistantButtonActionPerformed
+
+    private void buildEmporiumWithKingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildEmporiumWithKingButtonActionPerformed
+        BuildEmporiumWithKingDialog buildWithKingDialog = new BuildEmporiumWithKingDialog(this, true);
+        buildWithKingDialog.setPlayerID(playerID);
+        buildWithKingDialog.setCommunication(communication);
+        buildWithKingDialog.setVisible(true);
+        buildWithKingDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_buildEmporiumWithKingButtonActionPerformed
+
+    private void acquirePermitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acquirePermitButtonActionPerformed
+        AcquireBusinessPermitDialog acquirePermitDialog = new AcquireBusinessPermitDialog(this, true);
+        acquirePermitDialog.setPlayerID(playerID);
+        acquirePermitDialog.setCommunication(communication);
+        acquirePermitDialog.setVisible(true);
+        acquirePermitDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_acquirePermitButtonActionPerformed
+
+    private void buildEmporiumWithPermitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildEmporiumWithPermitButtonActionPerformed
+        BuildEmporiumWithPermitDialog buildWithPermitDialog = new BuildEmporiumWithPermitDialog(this, true);
+        buildWithPermitDialog.setPlayerID(playerID);
+        buildWithPermitDialog.setCommunication(communication);
+        buildWithPermitDialog.setVisible(true);
+        buildWithPermitDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_buildEmporiumWithPermitButtonActionPerformed
+
+    private void electCouncillorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_electCouncillorButtonActionPerformed
+        ElectCouncillorDialog electCouncillorDialog = new ElectCouncillorDialog(this, true);
+        electCouncillorDialog.setPlayerID(playerID);
+        electCouncillorDialog.setCommunication(communication);
+        electCouncillorDialog.setVisible(true);
+        electCouncillorDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_electCouncillorButtonActionPerformed
+
+    private void chatSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSendButtonActionPerformed
+		String chatMessage = chatTextField.getText();
+		communication.chat(playerID, chatMessage);
+    }//GEN-LAST:event_chatSendButtonActionPerformed
 
     private void showPermitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPermitActionPerformed
         // TODO add your handling code here:
@@ -689,6 +678,15 @@ public class GUI extends javax.swing.JFrame {
     private void showPermitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPermitMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_showPermitMouseClicked
+
+    private void passButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passButtonActionPerformed
+		communication.passTurn(playerID); //  TODO market? 
+											// TODO greyout?
+    }//GEN-LAST:event_passButtonActionPerformed
+
+    private void drawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawButtonActionPerformed
+        communication.drawCard(playerID);
+    }//GEN-LAST:event_drawButtonActionPerformed
 
     public static void start() {
         /* Set the Nimbus look and feel */
@@ -724,11 +722,15 @@ public class GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton acquirePermitButton;
+    private javax.swing.JButton additionalMainButton;
     private javax.swing.JLabel assistants;
     private javax.swing.JButton buildEmporiumWithKingButton;
+    private javax.swing.JButton buildEmporiumWithPermitButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton changePermitTilesButton;
     private javax.swing.JTextArea chatArea;
+    private javax.swing.JButton chatSendButton;
+    private javax.swing.JTextField chatTextField;
     private javax.swing.JPanel coastBalcony;
     private javax.swing.JLabel coastPer1;
     private javax.swing.JLabel coastPer2;
@@ -736,13 +738,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton drawButton;
     private javax.swing.JButton electCouncillorButton;
     private javax.swing.JButton electWithAssistantButton;
+    private javax.swing.JButton engageAssistantButton;
     private javax.swing.JPanel hillsBalcony;
     private javax.swing.JTextArea infoArea;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton8;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
@@ -770,7 +768,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel kingBalcony;
     private javax.swing.JLabel kingBonus;
     private javax.swing.JPanel mountBalcony;
@@ -778,6 +775,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel nobility;
     private javax.swing.JLayeredPane nobilityTrack;
     private javax.swing.JPanel overlay;
+    private javax.swing.JButton passButton;
     private javax.swing.JPanel permitCoast;
     private javax.swing.JPanel permitHills;
     private javax.swing.JPanel permitMount;
