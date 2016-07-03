@@ -1,17 +1,19 @@
 package it.polimi.ingsw.ps14;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps14.controller.Controller;
+import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
 import it.polimi.ingsw.ps14.server.ServerChat;
 import it.polimi.ingsw.ps14.server.ServerView;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Logger;
 
 public class Game {
 	private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
@@ -39,6 +41,27 @@ public class Game {
 		}
 		
 		model.setPlayers(playerList);
+		
+		if (playerList.size() == 2) {
+			// special rules for a 2 player game
+			// adds pre-built emporiums to random cities
+			
+			LOGGER.info("Building a game with 2 players!");
+			
+			Player fakePlayer = new Player(-1, 0, 0, null, 0, "Ubaldo");
+			List<City> cities = new ArrayList<>(model.getGameBoard().getCities());
+			
+			Random random = new Random();
+			int emporiums = 3 + random.nextInt(7);    // 3 to 9 emporiums
+			
+			for (int i=0; i<emporiums; i++) {
+				int cityIndex = random.nextInt(cities.size());
+				if(!cities.get(cityIndex).isEmporiumBuilt(fakePlayer)) {		// just to be sure 
+					cities.get(cityIndex).buildEmporium(fakePlayer);
+				}
+				cities.remove(cityIndex);
+			}
+		}
 		
 		LOGGER.info("Creating Controller.");
 		controller = new Controller(model);

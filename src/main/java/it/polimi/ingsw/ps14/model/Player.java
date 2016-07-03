@@ -18,7 +18,7 @@ public class Player extends Observable implements Serializable {
 	private static final long serialVersionUID = 479024623935337422L;
 
 	private static Random rand = new Random();
-	private static int idCounter = 1;
+	private static int idCounter = 1;	// FIXME se possibile eliminare e passare l'id al costruttore!!
 	private final int id;
 	private String name;
 	private Color color;
@@ -50,6 +50,9 @@ public class Player extends Observable implements Serializable {
 	 *            number of politic cards to drawn
 	 * @param id
 	 */
+	//FIXME non va mai usato nel gioco vero e proprio, 
+	//      crea casini perché l'id non viene caricato dalla serverView!!!
+	//		se possibile sostituire nei test con l'altro costruttore
 	public Player(String name, Color color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
 		this.id = idCounter;
 		idCounter++;
@@ -69,7 +72,30 @@ public class Player extends Observable implements Serializable {
 		this.assistants = assistants;
 		level = 0;
 		points = 0;
-		this.hand = deck.drawMultipleCards(numberOfCards);
+		if (deck != null) {
+			this.hand = deck.drawMultipleCards(numberOfCards);
+		} else {
+			this.hand = new ArrayList<>();
+		}
+		businessHand = new BusinessCardsPlayer();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		color = new Color(r, g, b);
+	}
+	
+	public Player(int id, int coins, int assistants, PoliticDeck deck, int numberOfCards, String name) {
+		this.name = name;
+		this.id = id;
+		this.coins = coins;
+		this.assistants = assistants;
+		level = 0;
+		points = 0;
+		if (deck != null) {
+			this.hand = deck.drawMultipleCards(numberOfCards);
+		} else {
+			this.hand = new ArrayList<>();
+		}
 		businessHand = new BusinessCardsPlayer();
 		float r = rand.nextFloat();
 		float g = rand.nextFloat();
@@ -80,6 +106,9 @@ public class Player extends Observable implements Serializable {
 	/**
 	 * No argument constructor for Player
 	 */
+	//FIXME non va mai usato nel gioco vero e proprio, 
+	//      crea casini perché l'id non viene caricato dalla serverView!!!
+	//		se possibile sostituire nei test con l'altro costruttore
 	public Player() {
 		this.id = idCounter;
 		idCounter++;
