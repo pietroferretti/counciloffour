@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -18,9 +17,7 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 /**
  * The model, contains the data and the state of the game
  */
-public class Model extends Observable implements Serializable {
-
-	private static final long serialVersionUID = -4787221737865002835L;
+public class Model extends Observable{
 
 	private static final String SETTINGS_FILENAME = "src/main/resources/settings.json";
 

@@ -26,16 +26,6 @@ public abstract class MainAction extends TurnAction {
 		super(playerID);
 	}
 
-	@Override
-	public boolean isValid(Model model) {
-		return false;
-	}
-
-	@Override
-	public TurnState execute(TurnState previousState, Model model) {
-		return null;
-	}
-
 	public void useBonusNeighbors(City city, Player player, Model model) {
 		List<City> cityVisited = new ArrayList<>();
 		Queue<City> cityToken = new LinkedList<>();

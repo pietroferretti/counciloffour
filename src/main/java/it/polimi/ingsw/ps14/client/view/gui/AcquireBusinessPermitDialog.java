@@ -23,8 +23,8 @@ import javax.swing.JOptionPane;
  */
 public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
 
-	private Integer playerID;
-	private Communication communication;
+	private transient Integer playerID;
+	private transient Communication communication;
 	
     /**
      * Creates new form AcquireBusinessPermitDialog
@@ -95,8 +95,6 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
 
         buttonGroup2.add(jRadioButtonMountains);
         jRadioButtonMountains.setText("Mountains");
-
-        jTextFieldPermitID.setText("permit id");
 
         jLabel1.setText("Business Permit ID");
 
@@ -255,15 +253,6 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAcquireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcquireActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonAcquireActionPerformed
-
-    private void jRadioButtonHillsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHillsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonHillsActionPerformed
-
-    private void jButtonAcquireMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAcquireMouseClicked
-		
 		String regionString = GroupButtonUtils.getSelectedButtonText(buttonGroup2);
 		if (regionString == null) {
 			JOptionPane.showMessageDialog(null, "You have to select a region", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -290,6 +279,15 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
 		
 		communication.acquireBusinessPermitTile(playerID, regionType, permitID, cards);
 		dispose();
+    }//GEN-LAST:event_jButtonAcquireActionPerformed
+
+    private void jRadioButtonHillsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHillsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonHillsActionPerformed
+
+    private void jButtonAcquireMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAcquireMouseClicked
+		
+
     }//GEN-LAST:event_jButtonAcquireMouseClicked
 
 	private List<PoliticCard> getCardsFromSpinners() {

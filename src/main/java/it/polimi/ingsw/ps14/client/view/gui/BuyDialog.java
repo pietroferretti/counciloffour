@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
+import it.polimi.ingsw.ps14.client.Communication;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,11 +15,16 @@ package it.polimi.ingsw.ps14.client.view.gui;
  */
 public class BuyDialog extends javax.swing.JDialog {
 
+	private final transient Integer playerID;
+	private final transient Communication communication;
+	
     /**
      * Creates new form BuyDialog
      */
-    public BuyDialog(java.awt.Frame parent, boolean modal) {
+    public BuyDialog(java.awt.Frame parent, boolean modal, Integer playerID, Communication communication) {
         super(parent, modal);
+		this.playerID = playerID;
+		this.communication = communication;
         initComponents();
     }
 
@@ -30,51 +38,51 @@ public class BuyDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        buyButton = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        barCodeTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Buy");
+        jLabel1.setText("Buy an object");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
-        jLabel2.setText("BarCode item you want to buy");
+        buyButton.setText("Buy");
+        buyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buyButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
 
-        jButton1.setText("Buy");
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel1)))
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel2.setText("BarCode of the item you want to buy");
+        jPanel2.add(jLabel2);
+        jPanel2.add(filler1);
+        jPanel2.add(barCodeTextField);
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 44, 300, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
+		Integer barCode;
+		try {
+			barCode = Integer.valueOf(barCodeTextField.getText());
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "You must enter an id in the barcode field", "Warning", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		Integer quantity = 0;	//TODO
+		
+		communication.buy(playerID, barCode, quantity);	//FIXME
+    }//GEN-LAST:event_buyButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -106,7 +114,7 @@ public class BuyDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                BuyDialog dialog = new BuyDialog(new javax.swing.JFrame(), true);
+                BuyDialog dialog = new BuyDialog(new javax.swing.JFrame(), true, 0, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -119,9 +127,11 @@ public class BuyDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField barCodeTextField;
+    private javax.swing.JButton buyButton;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

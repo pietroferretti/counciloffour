@@ -123,9 +123,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldPermitID">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="permit id"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.client.rmi;
 
 import java.awt.Color;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -26,7 +25,7 @@ import it.polimi.ingsw.ps14.model.State;
  */
 
 public class ClientViewRemoteImpl extends UnicastRemoteObject implements
-		ClientViewRemote, Serializable {
+		ClientViewRemote {
 
 	private Timer timer;
 	private TimerTask timerTask;

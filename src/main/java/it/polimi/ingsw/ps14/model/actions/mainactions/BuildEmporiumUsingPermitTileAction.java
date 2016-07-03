@@ -99,8 +99,9 @@ public class BuildEmporiumUsingPermitTileAction extends MainAction {
 		}
 
 		// apply city token
-		city.getToken().useBonus(player, model);
-
+		if (city.getToken() != null)
+			city.getToken().useBonus(player, model);
+		
 		// check bonus neighbors
 		useBonusNeighbors(city, player, model);
 

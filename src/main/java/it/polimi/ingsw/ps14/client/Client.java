@@ -39,7 +39,7 @@ public class Client {
 	};
 
 	public static void main(String[] args) throws IOException,
-			NotBoundException, AlreadyBoundException {
+			NotBoundException, AlreadyBoundException, InterruptedException {
 
 		Scanner scanner = new Scanner(System.in);
 
@@ -107,9 +107,7 @@ public class Client {
 				Thread inThread = new Thread(msgHandlerIn);
 				inThread.start();
 				
-				// prima di fare partire la guiview bisogna aspettare di avere l'id (?)
 				waitForIdThenRun(clientView);
-//				clientView.run();
 
 			} catch (IOException e) {
 
@@ -136,9 +134,6 @@ public class Client {
 			System.out.println("Connection created.");
 
 			waitForIdThenRun(clientView);
-//			clientView.run();
-			
-			
 			
 		} else {
 			scanner.close();
@@ -148,26 +143,24 @@ public class Client {
 
 	}
 	
-	private static void waitForIdThenRun(ClientView clientView){
+	private static void waitForIdThenRun(ClientView clientView) throws InterruptedException {
 		if (clientView.getPlayerID() != null) {
 			
-			clientView.run(); 
+			Thread clientViewThread = new Thread(clientView);
+			clientViewThread.start();
 		
 		} else {
 		
 			System.out.println("Waiting for an ID from the server...");
 			int checks = 0;
 			while (clientView.getPlayerID() == null && checks<30) {
-				try {
-					Thread.sleep(100);
-					checks++;
-				} catch (InterruptedException e) {
-					LOGGER.log(Level.SEVERE, "Error while waiting for an ID.", e);
-				}
+				Thread.sleep(100);
+				checks++;
 			}
 			
 			if (clientView.getPlayerID() != null) {
-				clientView.run();
+				Thread clientViewThread = new Thread(clientView);
+				clientViewThread.start();
 			} else {
 				System.out.println("No ID received from server, closing...");
 			}

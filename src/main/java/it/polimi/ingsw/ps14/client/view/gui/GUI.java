@@ -1,17 +1,8 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
-import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.model.Balcony;
-import it.polimi.ingsw.ps14.model.BusinessPermit;
-import it.polimi.ingsw.ps14.model.ColorCouncillor;
-import it.polimi.ingsw.ps14.model.ColorPolitic;
-import it.polimi.ingsw.ps14.model.RegionType;
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -21,6 +12,17 @@ import javax.swing.OverlayLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultCaret;
 
+import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.model.Balcony;
+import it.polimi.ingsw.ps14.model.BusinessPermit;
+import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.ColorPolitic;
+import it.polimi.ingsw.ps14.model.GamePhase;
+import it.polimi.ingsw.ps14.model.MarketState;
+import it.polimi.ingsw.ps14.model.RegionType;
+import it.polimi.ingsw.ps14.model.State;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -29,12 +31,13 @@ import javax.swing.text.DefaultCaret;
 @SuppressWarnings("serial")
 public class GUI extends javax.swing.JFrame {
 
-    private Integer playerID;
-    private Communication communication;
-    private String name;
+    private transient Integer playerID;
+    private transient Communication communication;
+    private transient String name;
+	private transient State state;
 
-    private final Map<ColorPolitic, ImageIcon> politicCard;
-    private final Map<ColorCouncillor, ImageIcon> councillor;
+    private final transient Map<ColorPolitic, ImageIcon> politicCard;
+    private final transient Map<ColorCouncillor, ImageIcon> councillor;
 
 //    private final Image politicPink;
 //    private final Image politicWhite;
@@ -86,13 +89,12 @@ public class GUI extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jDialog1 = new javax.swing.JDialog();
+        kingBonus = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         overlay = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        chatArea = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         infoArea = new javax.swing.JTextArea();
         coastBalcony = new javax.swing.JPanel();
@@ -123,6 +125,10 @@ public class GUI extends javax.swing.JFrame {
         drawButton = new javax.swing.JButton();
         showPermit = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel11 = new javax.swing.JPanel();
+        buyButton = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        sellButton = new javax.swing.JButton();
         userProfile = new javax.swing.JLayeredPane();
         jLabel4 = new javax.swing.JLabel();
         permitHills = new javax.swing.JPanel();
@@ -136,12 +142,14 @@ public class GUI extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         kingBalcony = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        nobilityTrack = new javax.swing.JLayeredPane();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         chatTextField = new javax.swing.JTextField();
         chatSendButton = new javax.swing.JButton();
-        kingBonus = new javax.swing.JLabel();
-        nobilityTrack = new javax.swing.JLayeredPane();
-        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        chatArea = new javax.swing.JTextArea();
 
         jMenu1.setText("jMenu1");
 
@@ -161,6 +169,9 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        kingBonus.setFont(new java.awt.Font("SFNS Display", 0, 11)); // NOI18N
+        kingBonus.setText("King bonus:");
+
         overlay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         overlay.setMaximumSize(new java.awt.Dimension(1000, 1000));
         overlay.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -177,16 +188,6 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Map/mappa monte a.png"))); // NOI18N
         jPanel1.add(jLabel1);
-
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("CHAT"));
-
-        chatArea.setEditable(false);
-        DefaultCaret caret = (DefaultCaret)infoArea.getCaret();
-        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        chatArea.setColumns(20);
-        chatArea.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        chatArea.setRows(5);
-        jScrollPane1.setViewportView(chatArea);
 
         DefaultCaret caretInfo = (DefaultCaret)infoArea.getCaret();
         caretInfo.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
@@ -281,7 +282,7 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buildEmporiumWithKingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buildEmporiumWithPermitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(buildEmporiumWithPermitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -328,14 +329,14 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(changePermitTilesButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(electWithAssistantButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(electWithAssistantButton, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                     .addComponent(additionalMainButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(engageAssistantButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,7 +346,7 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(electWithAssistantButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(additionalMainButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(133, 133, 133))
         );
 
         passButton.setText("Pass");
@@ -397,20 +398,66 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        buyButton.setText("Buy");
+        buyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buyButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
+        jLabel6.setText("MARKET");
+
+        sellButton.setText("Sell");
+        sellButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sellButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sellButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 182, Short.MAX_VALUE))
+                    .addComponent(buyButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 49, Short.MAX_VALUE))
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,8 +469,9 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         userProfile.setBackground(new java.awt.Color(223, 32, 32));
@@ -436,12 +484,13 @@ public class GUI extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,8 +499,7 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         permitHills.setLayout(new java.awt.GridLayout(1, 0));
@@ -483,7 +531,22 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel15.setText("KING");
 
+        nobilityTrack.setLayout(new java.awt.GridLayout(12, 1, 0, 2));
+
+        jLabel5.setText("nobility track");
+        nobilityTrack.add(jLabel5);
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+
         chatTextField.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        chatTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chatTextFieldActionPerformed(evt);
+            }
+        });
+        jPanel2.add(chatTextField);
 
         chatSendButton.setText("Send");
         chatSendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -491,35 +554,21 @@ public class GUI extends javax.swing.JFrame {
                 chatSendButtonActionPerformed(evt);
             }
         });
+        jPanel2.add(chatSendButton);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(chatTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chatSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(chatTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(chatSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 145, 300, -1));
 
-        kingBonus.setFont(new java.awt.Font("SFNS Display", 0, 11)); // NOI18N
-        kingBonus.setText("King bonus:");
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("CHAT"));
 
-        nobilityTrack.setLayout(new java.awt.GridLayout(12, 1, 0, 2));
+        chatArea.setEditable(false);
+        DefaultCaret caret = (DefaultCaret)infoArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        chatArea.setColumns(20);
+        chatArea.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        chatArea.setRows(5);
+        jScrollPane1.setViewportView(chatArea);
 
-        jLabel5.setText("nobility track");
-        nobilityTrack.add(jLabel5);
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, -1, 300, 140));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -529,12 +578,9 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGap(0, 13, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
@@ -558,7 +604,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(kingBonus, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                     .addComponent(nobilityTrack))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -586,12 +632,9 @@ public class GUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(permitCoast, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane3)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addGap(7, 7, 7)
@@ -599,12 +642,10 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(kingBonus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nobilityTrack, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(nobilityTrack, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -666,11 +707,6 @@ public class GUI extends javax.swing.JFrame {
         electCouncillorDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_electCouncillorButtonActionPerformed
 
-    private void chatSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSendButtonActionPerformed
-		String chatMessage = chatTextField.getText();
-		communication.chat(playerID, chatMessage);
-    }//GEN-LAST:event_chatSendButtonActionPerformed
-
     private void showPermitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPermitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_showPermitActionPerformed
@@ -680,13 +716,43 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_showPermitMouseClicked
 
     private void passButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passButtonActionPerformed
-		communication.passTurn(playerID); //  TODO market? 
-											// TODO greyout?
+		if (state.getGamePhase() == GamePhase.TURNS || state.getGamePhase() == GamePhase.FINALTURNS) {
+			communication.passTurn(playerID);
+		} else if (state.getGamePhase() == GamePhase.MARKET) {
+			if (state.getCurrentMarketState() == MarketState.SELLING) {
+				communication.sellNone(playerID);
+			} else if (state.getCurrentMarketState() == MarketState.BUYING) {
+				communication.doneFinishBuying(playerID);
+			}
+		} else if (state.getGamePhase() == GamePhase.END) {
+			JOptionPane.showMessageDialog(null, "The game is over, you cannot pass the turn.", "Warning", JOptionPane.WARNING_MESSAGE);
+		}
     }//GEN-LAST:event_passButtonActionPerformed
 
     private void drawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawButtonActionPerformed
         communication.drawCard(playerID);
     }//GEN-LAST:event_drawButtonActionPerformed
+
+    private void chatSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSendButtonActionPerformed
+        String chatMessage = chatTextField.getText();
+        communication.chat(playerID, chatMessage);
+    }//GEN-LAST:event_chatSendButtonActionPerformed
+
+    private void chatTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chatTextFieldActionPerformed
+
+    private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
+        BuyDialog buyDialog = new BuyDialog(this, true, playerID, communication);
+        buyDialog.setVisible(true);
+        buyDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_buyButtonActionPerformed
+
+    private void sellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellButtonActionPerformed
+        SellDialog sellDialog = new SellDialog(this, true, playerID, communication);
+        sellDialog.setVisible(true);
+        sellDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_sellButtonActionPerformed
 
     public static void start() {
         /* Set the Nimbus look and feel */
@@ -727,6 +793,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton buildEmporiumWithKingButton;
     private javax.swing.JButton buildEmporiumWithPermitButton;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton buyButton;
     private javax.swing.JButton changePermitTilesButton;
     private javax.swing.JTextArea chatArea;
     private javax.swing.JButton chatSendButton;
@@ -753,12 +820,15 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -780,6 +850,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel permitHills;
     private javax.swing.JPanel permitMount;
     private javax.swing.JLayeredPane profile;
+    private javax.swing.JButton sellButton;
     private javax.swing.JButton showPermit;
     private javax.swing.JLayeredPane userProfile;
     private javax.swing.JLabel victoryPoints;
@@ -818,6 +889,10 @@ public class GUI extends javax.swing.JFrame {
     public JLayeredPane getUserProfile() {
         return userProfile;
     }
+	
+	public void setState(State gameState) {
+		this.state = gameState;
+	}
 
     public void showPoliticCard(ColorPolitic c) {
         JLabel politic = (new javax.swing.JLabel());
@@ -963,4 +1038,47 @@ public class GUI extends javax.swing.JFrame {
 
         });
     }
+	
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                GUI guiWindow = new GUI(0, "ubaldo", null);
+                guiWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                guiWindow.setVisible(true);
+            }
+        });
+    }
+
 }

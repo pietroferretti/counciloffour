@@ -56,7 +56,7 @@ public class RMIServerView extends ServerView {
 
 			sendUpdates((UpdateRequestMsg) msg);
 
-		} else if (msg instanceof Message) {
+		} else {
 
 			setChanged();
 			notifyObservers(msg); 	// forward message to controller

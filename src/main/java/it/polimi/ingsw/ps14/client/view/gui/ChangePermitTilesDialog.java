@@ -19,8 +19,8 @@ import javax.swing.JOptionPane;
  */
 public class ChangePermitTilesDialog extends javax.swing.JDialog {
 
-	private Integer playerID;
-	private Communication communication;
+	private transient Integer playerID;
+	private transient Communication communication;
 	
     /**
      * Creates new form ChangeDialog

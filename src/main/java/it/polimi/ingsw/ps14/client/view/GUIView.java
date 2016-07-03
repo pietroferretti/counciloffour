@@ -20,6 +20,7 @@ import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.RegionType;
+import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
 import it.polimi.ingsw.ps14.model.turnstates.CardDrawnState;
@@ -54,7 +55,7 @@ public class GUIView extends ClientView implements Runnable {
             @Override
             public void run() {
                 mainWindow = new GUI(id, name, communication);
-                mainWindow.setPlayerName(name);
+				mainWindow.setState(gameState);
                 mainWindow.setVisible(true);
             }
         });
@@ -66,6 +67,14 @@ public class GUIView extends ClientView implements Runnable {
     public void setCommunication(Communication communication) {
         this.communication = communication;
     }
+	
+	@Override
+	public void setGameState(State gameState) {
+		super.setGameState(gameState);
+		if (mainWindow != null) {
+			mainWindow.setState(gameState);
+		}
+	}
 
     @Override
     public void setGameStarted(boolean gameStarted) {
@@ -264,23 +273,23 @@ public class GUIView extends ClientView implements Runnable {
         mainWindow.getInfoArea().append("Available city color bonuses:");
 
         if (updatedBonusGold != 0) {
-            mainWindow.getInfoArea().append(String.format("Gold cities: %d victory points", updatedBonusGold));
+            mainWindow.getInfoArea().append(String.format("%nGold cities: %d victory points", updatedBonusGold));
         }
 
         if (updatedBonusSilver != 0) {
-            mainWindow.getInfoArea().append(String.format("Silver cities: %d victory points", updatedBonusSilver));
+            mainWindow.getInfoArea().append(String.format("%nSilver cities: %d victory points", updatedBonusSilver));
         }
 
         if (updatedBonusBronze != 0) {
-            mainWindow.getInfoArea().append(String.format("Bronze cities: %d victory points", updatedBonusBronze));
+            mainWindow.getInfoArea().append(String.format("%nBronze cities: %d victory points", updatedBonusBronze));
         }
 
         if (updatedBonusBlue != 0) {
-            mainWindow.getInfoArea().append(String.format("Blue cities: %d victory points", updatedBonusBlue));
+            mainWindow.getInfoArea().append(String.format("%nBlue cities: %d victory points", updatedBonusBlue));
         }
 
         if (updatedBonusGold == 0 && updatedBonusSilver == 0 && updatedBonusBronze == 0 && updatedBonusBlue == 0) {
-            mainWindow.getInfoArea().append("All the city color construction bonuses have been used already!");
+            mainWindow.getInfoArea().append("%nAll the city color construction bonuses have been used already!");
         }
 
     }
