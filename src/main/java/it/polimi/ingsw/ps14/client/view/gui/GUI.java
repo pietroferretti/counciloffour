@@ -103,7 +103,6 @@ public class GUI extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         kingBonus = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        overlay = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -199,16 +198,8 @@ public class GUI extends javax.swing.JFrame {
         kingBonus.setFont(new java.awt.Font("SFNS Display", 0, 11)); // NOI18N
         kingBonus.setText("King bonus:");
 
-        overlay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        overlay.setMaximumSize(new java.awt.Dimension(1000, 1000));
-        overlay.setMinimumSize(new java.awt.Dimension(100, 100));
-        overlay.setLayout(new javax.swing.OverlayLayout(overlay));
-
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Map/mappa coste a.png"))); // NOI18N
-        overlay.add(jLabel7);
-
-        jPanel1.add(overlay);
-        overlay.setLayout(new OverlayLayout(overlay));
+        jPanel1.add(jLabel7);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Map/mappa colline b.png"))); // NOI18N
         jPanel1.add(jLabel9);
@@ -769,7 +760,7 @@ public class GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 666, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -791,9 +782,9 @@ public class GUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(kingBonus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel18)
                                             .addComponent(kingCity, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1069,7 +1060,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel mountC4;
     private javax.swing.JLabel nobility;
     private javax.swing.JLayeredPane nobilityTrack;
-    private javax.swing.JPanel overlay;
     private javax.swing.JButton passButton;
     private javax.swing.JPanel permitCoast;
     private javax.swing.JPanel permitHills;
@@ -1343,8 +1333,12 @@ public class GUI extends javax.swing.JFrame {
         cityColor.put("allah akbar", ColorCity.BLUE);
     }
 
-    public Map<Point, String> getMapCoordinates() {
-        return mapCoordinates;
+    public Map<String, String> getCityDesc() {
+        return cityDesc;
+    }
+    
+     public Map<String, ColorCity> getCityColor() {
+        return cityColor;
     }
 
     public void showToolTips(int x, int y) {
@@ -1358,9 +1352,9 @@ public class GUI extends javax.swing.JFrame {
                         infoCityPanel.removeAll();
                         infoCityPanel.add(infoCity);
                         infoCityPanel.setBackground(Color.decode(ColorCity.getColorCity(cityColor.get(cityCoord.getValue()))));
-                        infoCityPanel.revalidate(); 
+                        infoCityPanel.revalidate();
                         infoCityPanel.repaint();
-                    } 
+                    }
                 }
             }
         });
@@ -1371,6 +1365,22 @@ public class GUI extends javax.swing.JFrame {
             return true;
         }
         return false;
+    }
+
+    public void buildMap(String coastFilename, String hillsFilename, String mountainsFilename, Map<Point, String> positions) {
+        // carica immagini dai filename
+        // disegna la mappa
+        // setta la variabile positions
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource(coastFilename))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource(hillsFilename))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource(mountainsFilename))); // NOI18N
+        mapCoordinates= new HashMap<>(positions);
+        cityDesc = new HashMap<>();
+
+        
+
+
+        //FIXME ricordarsi di togliere il disegnare la mappa dal main (va tenuto solo qua)
     }
 
 }
