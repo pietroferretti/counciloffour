@@ -28,18 +28,18 @@ public class BusinessCardsPlayer implements Serializable {
 		}
 	}
 
-	/**
-	 * check if there is card in unused businessPermitCard
-	 * 
-	 * @param card
-	 *            card to check
-	 * @return
-	 */
-	public boolean checkBusinessPermit(BusinessPermit card) {
-		if (validCards.contains(card))
-			return true;
-		return false;
-	}
+//	/**
+//	 * check if there is card in unused businessPermitCard
+//	 * 
+//	 * @param card
+//	 *            card to check
+//	 * @return
+//	 */
+//	public boolean checkBusinessPermit(BusinessPermit card) {
+//		if (validCards.contains(card))
+//			return true;
+//		return false;
+//	}
 	
 
 	/**

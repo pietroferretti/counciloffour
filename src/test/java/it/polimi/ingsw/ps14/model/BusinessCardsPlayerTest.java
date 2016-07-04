@@ -33,8 +33,8 @@ public class BusinessCardsPlayerTest {
 
 		busCard = player.getBusinessHand().getValidCards().get(0);
 		player.getBusinessHand().usePermit(busCard);
-		assertEquals(player.getBusinessHand().checkBusinessPermit(busCard), false);
-
+		assertEquals(player.getBusinessHand().getValidCards().contains(busCard), false);
+System.out.println(player.getBusinessHand().toString());
 	}
 
 }
