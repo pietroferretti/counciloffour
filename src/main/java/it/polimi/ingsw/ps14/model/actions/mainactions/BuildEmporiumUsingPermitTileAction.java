@@ -107,7 +107,7 @@ private static final Logger LOGGER = Logger.getLogger(Server.class
 			city.getToken().useBonus(player, model);
 		
 		// check bonus neighbors
-		useBonusNeighbors(city, player, model);
+		useNeighborsBonus(city, player, model);
 
 		if (player.getNumEmporiums() == 10) {
 			player.addPoints(3);

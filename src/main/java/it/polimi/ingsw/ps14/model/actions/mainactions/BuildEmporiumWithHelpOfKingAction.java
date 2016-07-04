@@ -201,7 +201,7 @@ public class BuildEmporiumWithHelpOfKingAction extends MainAction {
         }
 
         // check bonus neighbors
-        useBonusNeighbors(city, player, model);
+        useNeighborsBonus(city, player, model);
         
         if (player.getNumEmporiums() == 10) {
             player.addPoints(3);

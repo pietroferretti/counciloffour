@@ -26,7 +26,7 @@ public abstract class MainAction extends TurnAction {
 		super(playerID);
 	}
 
-	public void useBonusNeighbors(City city, Player player, Model model) {
+	public void useNeighborsBonus(City city, Player player, Model model) {
 		List<City> cityVisited = new ArrayList<>();
 		Queue<City> cityToken = new LinkedList<>();
 		cityToken.add(city);
