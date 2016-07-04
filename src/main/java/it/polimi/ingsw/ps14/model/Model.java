@@ -19,8 +19,6 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
  */
 public class Model extends Observable{
 
-	private static final String SETTINGS_FILENAME = "src/main/resources/settings.json";
-
 	private static int idCounter = 1;
 	private final int idGame;
 
@@ -36,7 +34,7 @@ public class Model extends Observable{
 	public Model() throws IOException {
 		idGame = idCounter;
 		idCounter++;
-		gameBoard = new GameBoard(new Settings(SETTINGS_FILENAME));
+		gameBoard = new GameBoard(new Settings());
 		players = new ArrayList<>();
 		market = new Market();
 		state = new State();
