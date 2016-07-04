@@ -341,25 +341,33 @@ public class GUIView extends ClientView implements Runnable {
 
                 mainWindow.getInfoArea().append(String.format("%nGold cities: %d victory points", updatedBonusGold));
                 mainWindow.getGoldCity().removeAll();
-                mainWindow.getGoldCity().add(new JLabel(Integer.toString(updatedBonusGold)));
+                JLabel gold=new JLabel(Integer.toString(updatedBonusGold));
+                gold.setFont(new java.awt.Font("Arial", 0, 11));
+                mainWindow.getGoldCity().add(gold);
                 mainWindow.getGoldCity().revalidate();
                 mainWindow.getGoldCity().repaint();
 
                 mainWindow.getInfoArea().append(String.format("%nSilver cities: %d victory points", updatedBonusSilver));
                 mainWindow.getSilverCity().removeAll();
-                mainWindow.getSilverCity().add(new JLabel(Integer.toString(updatedBonusSilver)));
+                JLabel silver=new JLabel(Integer.toString(updatedBonusSilver));
+                silver.setFont(new java.awt.Font("Arial", 0, 11));
+                mainWindow.getSilverCity().add(silver);
                 mainWindow.getSilverCity().revalidate();
                 mainWindow.getSilverCity().repaint();
 
                 mainWindow.getInfoArea().append(String.format("%nBronze cities: %d victory points", updatedBonusBronze));
                 mainWindow.getBronzeCity().removeAll();
-                mainWindow.getBronzeCity().add(new JLabel(Integer.toString(updatedBonusBronze)));
+                JLabel bronze=new JLabel(Integer.toString(updatedBonusBronze));
+                bronze.setFont(new java.awt.Font("Arial", 0, 11));
+                mainWindow.getBronzeCity().add(bronze);
                 mainWindow.getBronzeCity().revalidate();
                 mainWindow.getBronzeCity().repaint();
 
                 mainWindow.getInfoArea().append(String.format("%nBlue cities: %d victory points", updatedBonusBlue));
                 mainWindow.getBlueCity().removeAll();
-                mainWindow.getBlueCity().add(new JLabel(Integer.toString(updatedBonusBlue)));
+                JLabel blue=new JLabel(Integer.toString(updatedBonusBlue));
+                blue.setFont(new java.awt.Font("Arial", 0, 11));
+                mainWindow.getBlueCity().add(blue);
                 mainWindow.getBlueCity().revalidate();
                 mainWindow.getBlueCity().repaint();
 
@@ -456,7 +464,7 @@ public class GUIView extends ClientView implements Runnable {
         for (Map.Entry<Integer, Bonus> entry : updatedNobilityTrack.getBonusesByLevel().entrySet()) {
             s = s + "<br>" + Integer.toString(entry.getKey()) + ")<br>" + entry.getValue().toString();
         }
-        lv = new javax.swing.JLabel("<html><div WIDTH=200px>" +s+ "</div></html><br>");
+        lv = new javax.swing.JLabel("<html><div WIDTH=190px>" +s+ "</div></html><br>");
         lv.setFont(new java.awt.Font("Arial", 0, 11));
         mainWindow.getnobilityTrack().add(lv);
         mainWindow.getnobilityTrack().revalidate();
@@ -520,8 +528,7 @@ public class GUIView extends ClientView implements Runnable {
         mainWindow.showCouncillor(updatedRegion.getBalcony(), updatedRegion.getType());
         mainWindow.showPermit(updatedRegion.getAvailablePermits(), updatedRegion.getType());
         for(City c: updatedRegion.getCities()){
-            mainWindow.getCityDesc().put(c.getName(), new String(c.getName()+"<br>"+c.getEmporiums().toString()+"<br>"+c.getToken().toString()));
-            mainWindow.getCityColor().put(c.getName(), c.getColor());
+            mainWindow.getCityDesc().put(c.getName(), c.toStringGUI().replaceAll("\n", "<br>"));
         }
     }
 }
