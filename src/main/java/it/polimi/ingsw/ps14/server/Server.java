@@ -27,8 +27,6 @@ public class Server {
 
 	private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
-
-
 	private static final int SOCKET_PORT = 19999;
 	private static final int RMI_PORT = 52365;
 	

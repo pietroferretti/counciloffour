@@ -394,8 +394,9 @@ public class CLIView extends ClientView implements Runnable {
 		print("SHOW mydetails|details|gameboard - show whatever you want");
 		print("SELL [business id1-price,id2-price,...]] [assistants num-price [num-price ...]] [politic color1-price,color2-price,...] - sell! sell! sell!");
 		print("SELL none - don't sell anything :(");
-		print("BUY item_id [quantity] - buy! insert quantity if you want to buy some of the assistants in a bundle");
+		print("BUY item_id [quantity] - buy! If you want to buy some of the assistants in a bundle insert the quantity");
 		print("BUY finish - terminate your buying phase");
+		print("RESULTS - show the end results (after a game is over)");
 	}
 
 	@Override
