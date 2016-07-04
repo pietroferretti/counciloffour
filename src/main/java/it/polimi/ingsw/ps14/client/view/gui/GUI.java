@@ -1336,12 +1336,13 @@ public class GUI extends javax.swing.JFrame {
     public Map<String, String> getCityDesc() {
         return cityDesc;
     }
-    
-     public Map<String, ColorCity> getCityColor() {
+
+    public Map<String, ColorCity> getCityColor() {
         return cityColor;
     }
 
     public void showToolTips(int x, int y) {
+        if(mapCoordinates!=null){
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Point userMouse = new Point(x, y);
@@ -1358,7 +1359,7 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
         });
-    }
+    }}
 
     private boolean isNear(Point user, Point city) {
         if (user.distance(city) < 20) {
@@ -1371,14 +1372,16 @@ public class GUI extends javax.swing.JFrame {
         // carica immagini dai filename
         // disegna la mappa
         // setta la variabile positions
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource(coastFilename))); // NOI18N
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource(hillsFilename))); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource(mountainsFilename))); // NOI18N
-        mapCoordinates= new HashMap<>(positions);
-        cityDesc = new HashMap<>();
-
-        
-
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource(coastFilename))); // NOI18N
+                jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource(hillsFilename))); // NOI18N
+                jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource(mountainsFilename))); // NOI18N
+                jPanel1.revalidate();
+                mapCoordinates = new HashMap<>(positions);
+                cityDesc = new HashMap<>();
+            }
+        });
 
         //FIXME ricordarsi di togliere il disegnare la mappa dal main (va tenuto solo qua)
     }

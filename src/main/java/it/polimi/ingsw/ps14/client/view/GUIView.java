@@ -21,6 +21,8 @@ import org.json.JSONTokener;
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.client.view.gui.GUI;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.model.City;
+import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -516,5 +518,9 @@ public class GUIView extends ClientView implements Runnable {
         mainWindow.getInfoArea().append("\n" + updatedRegion.toString());
         mainWindow.showCouncillor(updatedRegion.getBalcony(), updatedRegion.getType());
         mainWindow.showPermit(updatedRegion.getAvailablePermits(), updatedRegion.getType());
+        for(City c: updatedRegion.getCities()){
+            mainWindow.getCityDesc().put(c.getName(), new String(c.getName()+"<br>"+c.getEmporiums().toString()+"<br>"+c.getToken().toString()));
+            mainWindow.getCityColor().put(c.getName(), c.getColor());
+        }
     }
 }
