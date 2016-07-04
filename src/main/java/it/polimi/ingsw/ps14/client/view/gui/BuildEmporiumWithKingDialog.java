@@ -316,8 +316,11 @@ public class BuildEmporiumWithKingDialog extends javax.swing.JDialog {
 		for (int i=0; i<(Integer)jSpinnerWhite.getValue(); i++) {
 			cards.add(new PoliticCard(ColorPolitic.WHITE));
 		}
+		for (int i=0; i<(Integer)jSpinnerBlue.getValue(); i++) {
+			cards.add(new PoliticCard(ColorPolitic.BLUE));
+		}
 		for (int i=0; i<(Integer)jSpinnerBlack.getValue(); i++) {
-			cards.add(new PoliticCard(ColorPolitic.PURPLE));
+			cards.add(new PoliticCard(ColorPolitic.BLACK));
 		}
 		for (int i=0; i<(Integer)jSpinnerJolly.getValue(); i++) {
 			cards.add(new PoliticCard(ColorPolitic.JOLLY));
