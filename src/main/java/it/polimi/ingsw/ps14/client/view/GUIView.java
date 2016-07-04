@@ -135,6 +135,40 @@ public class GUIView extends ClientView implements Runnable {
     }
     
     @Override
+    public void loadMap(String mapName) throws IOException {
+    	// costruisci filename
+    	String mapFileName = MAPS_DIRECTORY + mapName + ".json";
+		try (BufferedReader mapFile = new BufferedReader(new FileReader(mapFileName))){
+			
+			JSONTokener jsonMapFile = new JSONTokener(mapFile);
+			JSONObject jsonMapFileObject = (JSONObject) jsonMapFile.nextValue();
+
+			String coastFilename = MAPS_DIRECTORY + jsonMapFileObject.getString("coastimage");
+			String hillsFilename = MAPS_DIRECTORY + jsonMapFileObject.getString("hillsimage");
+			String mountainsFilename = MAPS_DIRECTORY + jsonMapFileObject.getString("mountainsimage");
+
+			Map<Point, String> positions = new HashMap<>();
+			
+			JSONObject jsonPositions = jsonMapFileObject.getJSONObject("coordinates");
+			Iterator<?> positionsKeys = jsonPositions.keys();
+			while (positionsKeys.hasNext()) {
+				String cityName = (String) positionsKeys.next();
+				JSONArray coordinates = jsonPositions.getJSONArray(cityName);
+				Point point = new Point(coordinates.getInt(0), coordinates.getInt(1));
+				positions.put(point, cityName);
+			}
+			
+			mainWindow.buildMap(coastFilename, hillsFilename, mountainsFilename, positions);
+
+    	// la gui disegna le immagini
+    	// la gui costruisce i label e i panel
+		} catch (IOException e) {
+			LOGGER.warning(String.format("Couldn't load map '%s'. Check if you have the files you need.", mapName));
+			throw e;
+		}
+    }
+    
+    @Override
     public void showAvailableAssistant(int update) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
