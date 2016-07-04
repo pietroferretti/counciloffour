@@ -25,11 +25,9 @@ import it.polimi.ingsw.ps14.server.ServerViewRemote;
 
 public class Client {
 
+	private static final int SOCKET_PORT = 19999;
 	private static final int RMI_PORT = 52365;
 	private static final String NAME = "council4";
-	private static final String HOST = "127.0.0.1";// 192.168.43.212
-	private static final int PORT = 19999;
-
 
 	private static final Logger LOGGER = Logger.getLogger(Client.class
 			.getName());
@@ -69,26 +67,35 @@ public class Client {
 					"Something went wrong while parsing the interface type");
 		}
 
+		String host;
+		do {
+			System.out.println("What's the IP address of the server? (Leave empty if local)");
+			host = scanner.nextLine();
+		} while (!(host.isEmpty() || isValidIP(host)));
+		
+		if (host.isEmpty()) {
+			host = "127.0.0.1";
+		}
 
-		String input;
+		String connType;
 		do {
 			System.out.println("Socket or RMI?");
-			input = scanner.nextLine();
-		} while (!input.toUpperCase().matches("^(SOCKET|RMI)$"));
+			connType = scanner.nextLine();
+		} while (!connType.toUpperCase().matches("^(SOCKET|RMI)$"));
 
-		if (input.toUpperCase().matches("^(SOCKET)$")) {
+		if (connType.toUpperCase().matches("^(SOCKET)$")) {
 			Socket socket;
 			try {
 
 				try {
-					socket = new Socket(HOST, PORT);
+					socket = new Socket(host, SOCKET_PORT);
 					System.out.println("Connection created.");
 
 				} catch (IOException e) {
 
 					LOGGER.warning(String.format(
 							"Couldn't create socket at IP '%s' on port '%d'",
-							HOST, PORT));
+							host, SOCKET_PORT));
 					throw e;
 
 				}
@@ -115,9 +122,9 @@ public class Client {
 
 			}
 
-		} else if (input.toUpperCase().matches("^(RMI)$")) {
+		} else if (connType.toUpperCase().matches("^(RMI)$")) {
 
-			Registry registry = LocateRegistry.getRegistry(HOST, RMI_PORT);
+			Registry registry = LocateRegistry.getRegistry(host, RMI_PORT);
 			ServerViewRemote serverStub = (ServerViewRemote) registry.lookup(NAME);
 
 			Life life=new Life();
@@ -164,6 +171,34 @@ public class Client {
 				System.out.println("No ID received from server, closing...");
 			}
 		}		
+	}
+	
+	private static boolean isValidIP(String ip) {
+	    try {
+	        if (ip == null || ip.isEmpty()) {
+	            return false;
+	        }
+
+	        String[] parts = ip.split("\\.");
+	        if (parts.length != 4) {
+	            return false;
+	        }
+
+	        for (String s : parts) {
+	            int i = Integer.parseInt(s);
+	            if ((i < 0) || (i > 255)) {
+	                return false;
+	            }
+	        }
+	        
+	        if (ip.endsWith(".")) {
+	            return false;
+	        }
+	        
+	        return true;
+	    } catch (NumberFormatException e) {
+	        return false;
+	    }
 	}
 
 }
