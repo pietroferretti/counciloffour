@@ -48,7 +48,8 @@ public class GUIView extends ClientView implements Runnable {
 
 	private static final Logger LOGGER = Logger.getLogger(GUIView.class.getName());
 
-	private static final String MAPS_DIRECTORY = "/maps/";
+	private static final String MAPS_DIRECTORY = "src/main/resources/maps/";
+	private static final String MAPS_RES_DIRECTORY = "/maps/";
 	
     private GUI mainWindow;
     private Communication communication;
@@ -111,9 +112,9 @@ public class GUIView extends ClientView implements Runnable {
 			JSONTokener jsonMapFile = new JSONTokener(mapFile);
 			JSONObject jsonMapFileObject = (JSONObject) jsonMapFile.nextValue();
 
-			String coastFilename = MAPS_DIRECTORY + jsonMapFileObject.getString("coastimage");
-			String hillsFilename = MAPS_DIRECTORY + jsonMapFileObject.getString("hillsimage");
-			String mountainsFilename = MAPS_DIRECTORY + jsonMapFileObject.getString("mountainsimage");
+			String coastFilename = MAPS_RES_DIRECTORY + jsonMapFileObject.getString("coastimage");
+			String hillsFilename = MAPS_RES_DIRECTORY + jsonMapFileObject.getString("hillsimage");
+			String mountainsFilename = MAPS_RES_DIRECTORY + jsonMapFileObject.getString("mountainsimage");
 
 			Map<Point, String> positions = new HashMap<>();
 			
