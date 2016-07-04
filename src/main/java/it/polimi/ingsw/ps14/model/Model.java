@@ -21,6 +21,8 @@ public class Model extends Observable{
 
 	private static int idCounter = 1;
 	private final int idGame;
+	
+	private final Settings settings;
 
 	private List<Player> players;
 	private GameBoard gameBoard;
@@ -34,7 +36,8 @@ public class Model extends Observable{
 	public Model() throws IOException {
 		idGame = idCounter;
 		idCounter++;
-		gameBoard = new GameBoard(new Settings());
+		settings = new Settings();
+		gameBoard = new GameBoard(settings);
 		players = new ArrayList<>();
 		market = new Market();
 		state = new State();
@@ -48,7 +51,7 @@ public class Model extends Observable{
 	}
 
 	public void startGame() {
-		setMessage(new GameStartedMsg(getState()));
+		setMessage(new GameStartedMsg(getState(), settings.mapName));
 		setChanged();
 		notifyObservers();
 	}
@@ -69,21 +72,6 @@ public class Model extends Observable{
 
 	public List<Player> getPlayers() {
 		return players;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 *            - the id of the player we're looking for
-	 * @return The player with that id, null if no player in this game has that
-	 *         id
-	 */
-	public Player getIDPlayer(int id) {
-		for (Player player : players) {
-			if (player.getId() == id)
-				return player;
-		}
-		return null;
 	}
 
 	public int getIdGame() {

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.client.rmi;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -37,7 +38,7 @@ public interface ClientViewRemote extends Remote {
 
 	public void info(String text) throws RemoteException;
 
-	public void setGameStart(State initialGameState) throws RemoteException;
+	public void setGameStart(State initialGameState, String mapName) throws IOException;
 
 	public void kingBonusUpdate(int updatedShowableKingBonus) throws RemoteException;
 

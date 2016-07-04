@@ -30,13 +30,15 @@ public class Settings {
 	public final int numColoredCards;
 	public final int numJollyCards;
 	public final Map<String, Integer> buildingBonuses;
-	public final Map<String, Map<String, Object>> map;
-	public final String kingStartingCityString;
 	public final List<Map<String, Integer>> tokens;
 	public final Map<Integer, Map<String, Integer>> nobilityTrack;
+	public final Map<String, Map<String, Object>> map;
+	public final String kingStartingCityString;
 	public final List<Map<String, Object>> permitDeckCoast;
 	public final List<Map<String, Object>> permitDeckHills;
 	public final List<Map<String, Object>> permitDeckMountains;
+	
+	public final String mapName;
 
 	public Settings() throws IOException {
 
@@ -67,7 +69,7 @@ public class Settings {
 			nobilityTrack = loadNobilityTrack(jsonNobilityTrack);
 	
 			// Load the game map in a Map
-			String mapName = jsonSettings.getString("mapname");
+			mapName = jsonSettings.getString("mapname");
 			String mapFileName = MAPS_DIRECTORY + mapName + ".json";
 			
 			try (BufferedReader mapFile = new BufferedReader(new FileReader(mapFileName))){

@@ -100,6 +100,12 @@ public class CLIView extends ClientView implements Runnable {
 		}
 
 	}
+	
+	@Override
+	public void loadMap(String mapName) {
+		// we don't need to do anything on the CLI
+		// TODO stampare il nome?
+	}
 
 	@Override
 	public void showAvailableAssistant(int update) {

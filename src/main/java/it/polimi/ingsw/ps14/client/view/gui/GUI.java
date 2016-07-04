@@ -1,11 +1,13 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.OverlayLayout;
@@ -21,7 +23,6 @@ import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.State;
-import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -1244,5 +1245,13 @@ public class GUI extends javax.swing.JFrame {
 
     public JPanel getBlueCity() {
         return blueCity;
+    }
+    
+    public void buildMap(String coastFilename, String hillsFilename, String mountainsFilename, Map<Point, String> positions) {
+    	// carica immagini dai filename
+    	// disegna la mappa
+    	// setta la variabile positions
+    	
+    	//FIXME ricordarsi di togliere il disegnare la mappa dal main (va tenuto solo qua)
     }
 }

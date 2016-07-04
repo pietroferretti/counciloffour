@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.client.rmi;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -75,9 +76,10 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void setGameStart(State initialGameState) {
+	public void setGameStart (State initialGameState, String mapName) throws IOException{
 		cv.setGameStarted(true);
 		cv.setGameState(initialGameState);
+		cv.loadMap(mapName);
 		cv.showGameStart();
 //		cv.showAvailableCommands();
 	}
