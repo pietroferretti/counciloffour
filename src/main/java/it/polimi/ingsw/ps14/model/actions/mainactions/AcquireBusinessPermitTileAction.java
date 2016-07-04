@@ -71,7 +71,7 @@ public class AcquireBusinessPermitTileAction extends MainAction {
         if (player.getCoins() < balcony.councillorCost(cards)) {
             return false;
         }
-        LOGGER.info(String.format("coins ok"));
+        LOGGER.info(String.format("coins ok "+balcony.councillorCost(cards)));
         if (!region.getBusinessPermits().cardIsFaceUp(permitTile)) {
             return false;
         }
