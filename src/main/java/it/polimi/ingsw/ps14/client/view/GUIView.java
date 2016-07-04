@@ -524,7 +524,7 @@ public class GUIView extends ClientView implements Runnable {
                 //TODO my permit
             }
         });
-        mainWindow.setMyPermits(new BusinessCardsPlayer(p.getBusinessHand()));
+        mainWindow.setMyPermits(p.getBusinessHand());
     }
 
     @Override

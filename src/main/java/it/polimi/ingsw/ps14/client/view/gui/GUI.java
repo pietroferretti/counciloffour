@@ -114,7 +114,6 @@ private BusinessCardsPlayer myPermit;
         hillsBalcony = new javax.swing.JPanel();
         mountBalcony = new javax.swing.JPanel();
         mountC4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         profile = new javax.swing.JLayeredPane();
         assistants = new javax.swing.JLabel();
@@ -221,9 +220,6 @@ private BusinessCardsPlayer myPermit;
 
         mountBalcony.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mountains", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
         mountBalcony.add(mountC4);
-
-        jLabel8.setText("jLabel8");
-        mountBalcony.add(jLabel8);
 
         profile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         profile.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
@@ -860,8 +856,8 @@ private BusinessCardsPlayer myPermit;
     }//GEN-LAST:event_electCouncillorButtonActionPerformed
 
     private void showPermitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPermitActionPerformed
-        MyPermitDialog myPermitDialog = new MyPermitDialog(this, true, playerID, myPermit);
-         myPermitDialog.setVisible(true);
+        MyPermitDialog myPermitDialog = new MyPermitDialog(this, true, myPermit);
+        myPermitDialog.setVisible(true);
         myPermitDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_showPermitActionPerformed
 
@@ -912,6 +908,7 @@ private BusinessCardsPlayer myPermit;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String chatMessage = chatTextField.getText();
             communication.chat(playerID, chatMessage);
+            chatTextField.removeAll();
     }//GEN-LAST:event_chatTextFieldKeyPressed
     }
     
@@ -990,7 +987,6 @@ private BusinessCardsPlayer myPermit;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
