@@ -21,6 +21,8 @@ import org.json.JSONTokener;
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.client.view.gui.GUI;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.model.City;
+import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -46,7 +48,7 @@ public class GUIView extends ClientView implements Runnable {
 
 	private static final Logger LOGGER = Logger.getLogger(GUIView.class.getName());
 
-	private static final String MAPS_DIRECTORY = "src/main/resources/maps/";
+	private static final String MAPS_DIRECTORY = "/maps/";
 	
     private GUI mainWindow;
     private Communication communication;
@@ -124,7 +126,7 @@ public class GUIView extends ClientView implements Runnable {
 				positions.put(point, cityName);
 			}
 			
-			mainWindow.buildMap(coastFilename, hillsFilename, mountainsFilename, positions);
+		 	 mainWindow.buildMap(coastFilename, hillsFilename, mountainsFilename, positions);
 
     	// la gui disegna le immagini
     	// la gui costruisce i label e i panel
@@ -334,35 +336,32 @@ public class GUIView extends ClientView implements Runnable {
 //    	mainWindow.getChatArea().append("\n"+"CitiesColorBonuses now: BonusGold=" + updatedBonusGold + ", BonusSilver="
 //				+ updatedBonusSilver + ", BonusBronze=" + updatedBonusBronze + ", BonusBlue=" + updatedBonusBlue);
                 mainWindow.getInfoArea().append("");
-                mainWindow.getInfoArea().append("Available city color bonuses:");
+                mainWindow.getInfoArea().append("\nAvailable city color bonuses:");
 
+                mainWindow.getInfoArea().append(String.format("%nGold cities: %d victory points", updatedBonusGold));
+                mainWindow.getGoldCity().removeAll();
+                mainWindow.getGoldCity().add(new JLabel(Integer.toString(updatedBonusGold)));
+                mainWindow.getGoldCity().revalidate();
+                mainWindow.getGoldCity().repaint();
 
-                    mainWindow.getInfoArea().append(String.format("%nGold cities: %d victory points", updatedBonusGold));
-                    mainWindow.getGoldCity().removeAll();
-                    mainWindow.getGoldCity().add(new JLabel(Integer.toString(updatedBonusGold)));
-                    mainWindow.getGoldCity().revalidate();
+                mainWindow.getInfoArea().append(String.format("%nSilver cities: %d victory points", updatedBonusSilver));
+                mainWindow.getSilverCity().removeAll();
+                mainWindow.getSilverCity().add(new JLabel(Integer.toString(updatedBonusSilver)));
+                mainWindow.getSilverCity().revalidate();
+                mainWindow.getSilverCity().repaint();
 
-                
+                mainWindow.getInfoArea().append(String.format("%nBronze cities: %d victory points", updatedBonusBronze));
+                mainWindow.getBronzeCity().removeAll();
+                mainWindow.getBronzeCity().add(new JLabel(Integer.toString(updatedBonusBronze)));
+                mainWindow.getBronzeCity().revalidate();
+                mainWindow.getBronzeCity().repaint();
 
-                    mainWindow.getInfoArea().append(String.format("%nSilver cities: %d victory points", updatedBonusSilver));
-                    mainWindow.getSilverCity().removeAll();
-                    mainWindow.getSilverCity().add(new JLabel(Integer.toString(updatedBonusSilver)));
-                    mainWindow.getSilverCity().revalidate();
+                mainWindow.getInfoArea().append(String.format("%nBlue cities: %d victory points", updatedBonusBlue));
+                mainWindow.getBlueCity().removeAll();
+                mainWindow.getBlueCity().add(new JLabel(Integer.toString(updatedBonusBlue)));
+                mainWindow.getBlueCity().revalidate();
+                mainWindow.getBlueCity().repaint();
 
-                
-
-                    mainWindow.getInfoArea().append(String.format("%nBronze cities: %d victory points", updatedBonusBronze));
-                    mainWindow.getBronzeCity().removeAll();
-                    mainWindow.getBronzeCity().add(new JLabel(Integer.toString(updatedBonusBronze)));
-                    mainWindow.getBronzeCity().revalidate();
-
-
-                    mainWindow.getInfoArea().append(String.format("%nBlue cities: %d victory points", updatedBonusBlue));
-                    mainWindow.getBlueCity().removeAll();
-                    mainWindow.getBlueCity().add(new JLabel(Integer.toString(updatedBonusBlue) ));
-                    mainWindow.getBlueCity().revalidate();
-
-                
             }
         });
     }
@@ -452,15 +451,13 @@ public class GUIView extends ClientView implements Runnable {
     public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
         JLabel lv;
         mainWindow.getnobilityTrack().removeAll();
-//        JLabellv=new javax.swing.JLabel("<html><div WIDTH=200px>"+updatedNobilityTrack.toString()+"</div></html><br>");
-//        lv.setFont(new java.awt.Font("Arial", 1, 11));
-//        mainWindow.getnobilityTrack().add(lv);
+        String s="";
         for (Map.Entry<Integer, Bonus> entry : updatedNobilityTrack.getBonusesByLevel().entrySet()) {
-            lv = new javax.swing.JLabel("<html>" + Integer.toString(entry.getKey()) + ")<br><div WIDTH=200px>" + entry.getValue() + "</div></html><br>");
-            lv.setFont(new java.awt.Font("Arial", 0, 11));
-            lv.setVisible(true);
-            mainWindow.getnobilityTrack().add(lv);
+            s = s + "<br>" + Integer.toString(entry.getKey()) + ")<br>" + entry.getValue().toString();
         }
+        lv = new javax.swing.JLabel("<html><div WIDTH=200px>" +s+ "</div></html><br>");
+        lv.setFont(new java.awt.Font("Arial", 0, 11));
+        mainWindow.getnobilityTrack().add(lv);
         mainWindow.getnobilityTrack().revalidate();
 
     }
@@ -475,21 +472,23 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showPersonalDetails(Player p) {
-         SwingUtilities.invokeLater(new Runnable() {
-            @Override 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-        mainWindow.getUserProfile().removeAll();
-        mainWindow.getUserProfile().revalidate();
-        mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
-        mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
-        mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
-        mainWindow.getNobility().setText(Integer.toString(p.getLevel()));
-        for (PoliticCard pc : p.getHand()) {
-            mainWindow.showPoliticCard(pc.getColor());
-        }
-        mainWindow.getUserProfile().revalidate();
-        //TODO my permit
-    }});}
+                mainWindow.getUserProfile().removeAll();
+                mainWindow.getUserProfile().revalidate();
+                mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
+                mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
+                mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
+                mainWindow.getNobility().setText(Integer.toString(p.getLevel()));
+                for (PoliticCard pc : p.getHand()) {
+                    mainWindow.showPoliticCard(pc.getColor());
+                }
+                mainWindow.getUserProfile().revalidate();
+                //TODO my permit
+            }
+        });
+    }
 
     @Override
     public void showPlayerChangesPrivate(Player p, String message) {
@@ -519,5 +518,9 @@ public class GUIView extends ClientView implements Runnable {
         mainWindow.getInfoArea().append("\n" + updatedRegion.toString());
         mainWindow.showCouncillor(updatedRegion.getBalcony(), updatedRegion.getType());
         mainWindow.showPermit(updatedRegion.getAvailablePermits(), updatedRegion.getType());
+        for(City c: updatedRegion.getCities()){
+            mainWindow.getCityDesc().put(c.getName(), new String(c.getName()+"<br>"+c.getEmporiums().toString()+"<br>"+c.getToken().toString()));
+            mainWindow.getCityColor().put(c.getName(), c.getColor());
+        }
     }
 }
