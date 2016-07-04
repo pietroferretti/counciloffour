@@ -117,6 +117,7 @@ public class BuyDialog extends javax.swing.JDialog {
 		if (barCodeText.isEmpty()) {
 			communication.doneFinishBuying(playerID);
 			dispose();
+			return;
 		}
 		
 		Integer barCode;

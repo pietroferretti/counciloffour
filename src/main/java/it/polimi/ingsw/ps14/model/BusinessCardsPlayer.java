@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Business permits own by a player.
+ *
+ * 
+ */
 public class BusinessCardsPlayer implements Serializable {
 	/**
 	 * 
@@ -28,19 +33,18 @@ public class BusinessCardsPlayer implements Serializable {
 		}
 	}
 
-//	/**
-//	 * check if there is card in unused businessPermitCard
-//	 * 
-//	 * @param card
-//	 *            card to check
-//	 * @return
-//	 */
-//	public boolean checkBusinessPermit(BusinessPermit card) {
-//		if (validCards.contains(card))
-//			return true;
-//		return false;
-//	}
-	
+	// /**
+	// * check if there is card in unused businessPermitCard
+	// *
+	// * @param card
+	// * card to check
+	// * @return
+	// */
+	// public boolean checkBusinessPermit(BusinessPermit card) {
+	// if (validCards.contains(card))
+	// return true;
+	// return false;
+	// }
 
 	/**
 	 * add business permit to valid card
@@ -67,33 +71,41 @@ public class BusinessCardsPlayer implements Serializable {
 	}
 
 	/**
-	 * remove from valid cards player
+	 * It removes from valid cards a permits that has been sold.
 	 * 
 	 * @param item
+	 *            - {@link BusinessPermit}
 	 */
 	public void sellPermits(BusinessPermit item) {
 		validCards.remove(item);
-
 	}
 
 	public List<BusinessPermit> getValidCards() {
 		return validCards;
 	}
 
-	public void setValidCards(List<BusinessPermit> validCards) {
-		this.validCards = validCards;
-	}
+	// public void setValidCards(List<BusinessPermit> validCards) {
+	// this.validCards = validCards;
+	// }
 
 	public List<BusinessPermit> getUsedCards() {
 		if (usedCards != null)
 			return usedCards;
-		else return new ArrayList<>();
+		else
+			return new ArrayList<>();
 	}
 
-	public void setUsedCards(List<BusinessPermit> usedCards) {
-		this.usedCards = usedCards;
-	}
-
+	// public void setUsedCards(List<BusinessPermit> usedCards) {
+	// this.usedCards = usedCards;
+	// }
+	/**
+	 * It finds a permit object {@link BusinessPermit} given its ID.
+	 * 
+	 * @param id
+	 *            - {@link Integer}
+	 * 
+	 * @return Specific {@link BusinessPermit} or null if couldn't findit.
+	 */
 	public BusinessPermit id2permit(Integer id) {
 
 		for (BusinessPermit permit : validCards) {

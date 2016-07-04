@@ -26,6 +26,8 @@ import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.State;
+import it.polimi.ingsw.ps14.model.WaitingFor;
+
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -1060,6 +1062,9 @@ private BusinessCardsPlayer myPermit;
 
     public void setState(State gameState) {
         this.state = gameState;
+        if (state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
+            nobilityRequest(state);
+        }
     }
 
     public void showPoliticCard(ColorPolitic c) {

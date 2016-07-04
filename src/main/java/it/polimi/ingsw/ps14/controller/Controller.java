@@ -694,9 +694,9 @@ public class Controller implements Observer {
 
 				permit.getBonusList().useBonus(player, model);
 				
+				model.setWaitingFor(WaitingFor.NOTHING);
 				model.setAvailableChoices(new HashMap<>());
 				model.setWaitingForHowMany(0);
-				model.setWaitingFor(WaitingFor.NOTHING);
 
 				applyBonusesToDo(player);
 
@@ -735,10 +735,10 @@ public class Controller implements Observer {
 				if (bonus != null) {
 					bonus.useBonus(player, model);
 				}
-				
+			
+				model.setWaitingFor(WaitingFor.NOTHING);
 				model.setAvailableChoices(new HashMap<>());
 				model.setWaitingForHowMany(0);
-				model.setWaitingFor(WaitingFor.NOTHING);
 
 				applyBonusesToDo(player);
 
@@ -776,10 +776,10 @@ public class Controller implements Observer {
 				if (bonus != null) {
 					bonus.useBonus(player, model);
 				}
-				
+
+				model.setWaitingFor(WaitingFor.NOTHING);
 				model.setAvailableChoices(new HashMap<>());
 				model.setWaitingForHowMany(0);
-				model.setWaitingFor(WaitingFor.NOTHING);
 
 				applyBonusesToDo(player);
 
