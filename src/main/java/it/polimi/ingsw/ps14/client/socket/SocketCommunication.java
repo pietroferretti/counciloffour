@@ -39,7 +39,6 @@ import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -175,8 +174,6 @@ public class SocketCommunication implements Communication {
 			} else if (message instanceof RegionUpdatedMsg) {
 				clientView.showRegion(((RegionUpdatedMsg) message)
 						.getUpdatedRegion());
-			} else if (message instanceof SoldItemMsg) {
-				clientView.showItemSold(((SoldItemMsg) message).getItemSold());
 			} else if (message instanceof ChatMsg) {
 				clientView.showChatMsg(((ChatMsg) message).getAuthor(),
 						((ChatMsg) message).getText());
