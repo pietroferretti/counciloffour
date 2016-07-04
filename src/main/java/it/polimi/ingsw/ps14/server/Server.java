@@ -27,15 +27,18 @@ public class Server {
 
 	private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
-	private static final int PLAYERS_NUMBER = 4;
 
-	private static final int PORT = 19999;
+
+	private static final int SOCKET_PORT = 19999;
+	private static final int RMI_PORT = 52365;
+	
+	private static final String NAME = "council4";
 	
 	private static final int COUNTDOWN = 1;	// TODO ricordare di settare a 20 per la consegna
+	private static final int DEFAULT_PLAYERS_NUMBER = 4;
 
-	private static final int RMI_PORT = 52365;
-	private static final String NAME = "council4";
-
+	private int playersNumber;
+	
 	private Integer idCounter;
 	private ServerSocket serverSocket;
 
@@ -49,7 +52,8 @@ public class Server {
 
 	private static List<Game> activeGames = new ArrayList<>();
 
-	public Server() {
+	public Server(int playersNumber) {
+		this.playersNumber = playersNumber;
 		timer = new Timer();
 		idCounter = 0;
 	}
@@ -92,7 +96,7 @@ public class Server {
 	public synchronized void meeting() {
 
 		LOGGER.info("Connection added.");
-		if (waitingConnections.size() == PLAYERS_NUMBER) {
+		if (waitingConnections.size() == playersNumber) {
 			timer.cancel();
 			List<ServerView> viewsReady = new ArrayList<>(waitingConnections);
 			waitingConnections.clear();
@@ -107,7 +111,7 @@ public class Server {
 
 				@Override
 				public void run() {
-					if (waitingConnections.size() >= 2 && waitingConnections.size() < PLAYERS_NUMBER) {
+					if (waitingConnections.size() >= 2 && waitingConnections.size() < playersNumber) {
 						List<ServerView> viewsReady = new ArrayList<>(waitingConnections);
 						waitingConnections.clear();
 						createGame(viewsReady);
@@ -137,10 +141,10 @@ public class Server {
 	public void startSocket() {
 		executor = Executors.newFixedThreadPool(128);
 
-		try (ServerSocket serverSocketResource = new ServerSocket(PORT)) {
+		try (ServerSocket serverSocketResource = new ServerSocket(SOCKET_PORT)) {
 			serverSocket = serverSocketResource;
 			
-			LOGGER.info("SERVER SOCKET READY ON PORT " + PORT);
+			LOGGER.info("SERVER SOCKET READY ON PORT " + SOCKET_PORT);
 		
 			while (true) {
 			
@@ -161,8 +165,30 @@ public class Server {
 		}
 	}
 
+	/**
+	 * Takes the maximum number of players for a game as argument.
+	 * @param args
+	 * 			the maximum number of players for a game
+	 * @throws RemoteException
+	 * @throws AlreadyBoundException
+	 */
 	public static void main(String[] args) throws RemoteException, AlreadyBoundException {
-		Server server = new Server();
+		
+		int maxPlayers = DEFAULT_PLAYERS_NUMBER;
+		
+		if (args.length > 0) {
+		    try {
+		        maxPlayers = Integer.parseInt(args[0]);
+				System.out.println(String.format("Max players: %d", maxPlayers));
+		    } catch (NumberFormatException e) {
+		        System.err.println("Argument" + args[0] + " must be an integer.");
+		        System.exit(1);
+		    }
+		} else {
+			System.out.println(String.format("Max players: %d (default value)", maxPlayers));
+		}
+		
+		Server server = new Server(maxPlayers);
 
 		LOGGER.info("STARTING RMI SERVER");
 		server.startRMI();
