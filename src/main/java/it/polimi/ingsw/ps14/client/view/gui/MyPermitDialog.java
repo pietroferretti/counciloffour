@@ -41,17 +41,6 @@ public class MyPermitDialog extends javax.swing.JDialog {
 
         validCards.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Available Cards", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
 
-        javax.swing.GroupLayout validCardsLayout = new javax.swing.GroupLayout(validCards);
-        validCards.setLayout(validCardsLayout);
-        validCardsLayout.setHorizontalGroup(
-            validCardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        validCardsLayout.setVerticalGroup(
-            validCardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 84, Short.MAX_VALUE)
-        );
-
         jButton1.setText("Close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,17 +49,6 @@ public class MyPermitDialog extends javax.swing.JDialog {
         });
 
         usedCards.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Used cards", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
-
-        javax.swing.GroupLayout usedCardsLayout = new javax.swing.GroupLayout(usedCards);
-        usedCards.setLayout(usedCardsLayout);
-        usedCardsLayout.setHorizontalGroup(
-            usedCardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        usedCardsLayout.setVerticalGroup(
-            usedCardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 91, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,9 +77,9 @@ public class MyPermitDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(validCards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(validCards, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usedCards, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usedCards, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -143,18 +121,18 @@ public class MyPermitDialog extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MyPermitDialog dialog = new MyPermitDialog(new javax.swing.JFrame(), true, 0, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                MyPermitDialog dialog = new MyPermitDialog(new javax.swing.JFrame(), true, null);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -163,15 +141,12 @@ public class MyPermitDialog extends javax.swing.JDialog {
     private javax.swing.JPanel usedCards;
     private javax.swing.JPanel validCards;
     // End of variables declaration//GEN-END:variables
-    public MyPermitDialog(java.awt.Frame parent, boolean modal, Integer playerID, BusinessCardsPlayer hand) {
+    public MyPermitDialog(java.awt.Frame parent, boolean modal, BusinessCardsPlayer hand) {
 
         super(parent, modal);
         this.hand = hand;
         initComponents();
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                validCards = new JPanel();
+//        System.out.println(hand.toString());
                 validCards.removeAll();
                 JLabel per;
                 for (BusinessPermit b : hand.getValidCards()) {
@@ -183,9 +158,7 @@ public class MyPermitDialog extends javax.swing.JDialog {
                     validCards.repaint();
                 }
 
-                usedCards = new JPanel();
                 usedCards.removeAll();
-
                 for (BusinessPermit b : hand.getUsedCards()) {
                     per = new JLabel("<html>ID: " + b.getId() + "<br>City:" + b.getCityNames().toString() + "<br>Bonus:" + b.getBonusList().toString() + "</html>");
                     per.setFont(new java.awt.Font("Arial", 0, 11));
@@ -195,7 +168,5 @@ public class MyPermitDialog extends javax.swing.JDialog {
                     usedCards.repaint();
                 }
             }
-        });
-
-    }
+    
 }
