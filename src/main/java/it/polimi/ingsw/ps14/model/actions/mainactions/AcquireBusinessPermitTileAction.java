@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import it.polimi.ingsw.ps14.server.Server;
 
 /**
  * This class represents the action "acquire business permit". The player can
@@ -24,7 +25,7 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 public class AcquireBusinessPermitTileAction extends MainAction {
 
     private static final Logger LOGGER = Logger
-            .getLogger(AcquireBusinessPermitTileAction.class.getName());
+            .getLogger(Server.class.getName());
 
     private static final long serialVersionUID = -385170414895517347L;
 

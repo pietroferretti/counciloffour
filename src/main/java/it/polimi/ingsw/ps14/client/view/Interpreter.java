@@ -148,7 +148,7 @@ public class Interpreter {
 			if (word.length != 3)
                             return false;
 			rt = string2RegionType(word[1]);
-			if (rt == null && !word[1].matches("KING"))
+			if (rt == null && !word[1].equalsIgnoreCase("KING"))
                             return false;
 			cc = string2colorCouncillor(word[2]);
                         
@@ -242,12 +242,13 @@ public class Interpreter {
 					splitted = word[i + 1].split(",");
 					for (String s : splitted) {
 						stub = s.split("-");
+                                      
 						System.out.println("ok:" + stub[0] + stub[1]);
 						if (stub.length != 2)
 							return false;
 						ColorPolitic[] colors = ColorPolitic.values();
 						for (ColorPolitic c : colors)
-							if (c.name().matches(stub[0])) {
+							if (c.name().equalsIgnoreCase(stub[0])) {
 								color = ColorPolitic.valueOf(stub[0].toUpperCase());
 								try {
 									price = Integer.parseInt(stub[1]);

@@ -7,8 +7,11 @@ import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
+import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTilesAction;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import it.polimi.ingsw.ps14.server.Server;
+import java.util.logging.Logger;
 
 /**
  * The player can build emporium using his unused business permit in a city
@@ -19,7 +22,8 @@ import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 public class BuildEmporiumUsingPermitTileAction extends MainAction {
 
 	private static final long serialVersionUID = 833335630529544205L;
-
+private static final Logger LOGGER = Logger.getLogger(Server.class
+			.getName());
 	private final Integer businessCardID;
 	private final String cityName;
 

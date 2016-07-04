@@ -6,12 +6,16 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import it.polimi.ingsw.ps14.server.Server;
+import java.util.logging.Logger;
 
 public class SendAssistantToElectCouncillorAction extends QuickAction {
 
 	/**
 	 * use an assistant to elect a councillor
 	 */
+    private static final Logger LOGGER = Logger.getLogger(Server.class
+			.getName());
 	private static final long serialVersionUID = -3938339418005763618L;
 	private final ColorCouncillor color;
 	private final RegionType regType;
@@ -32,9 +36,19 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 		else
 			balcony = model.getGameBoard().getKing().getBalcony();
 
-		return (player.getAssistants() >= 1
-				&& model.getGameBoard().councillorIsAvailable(color)
-				&& balcony != null && color != null);
+		if(player.getAssistants() < 1) {
+                    LOGGER.info("not assistants enough");
+                    return false;
+                }
+                if(!model.getGameBoard().councillorIsAvailable(color)){
+                    LOGGER.info("color unavailable");
+                    return false;
+                }
+                if(balcony == null && color == null){
+                    LOGGER.info("balcony or color is null!");
+                    return false;
+                }
+                return true;
 	}
 
 	@Override

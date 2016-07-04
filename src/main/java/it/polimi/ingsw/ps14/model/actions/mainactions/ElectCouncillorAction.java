@@ -8,6 +8,7 @@ import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import it.polimi.ingsw.ps14.server.Server;
 
 public class ElectCouncillorAction extends MainAction {
 
@@ -16,7 +17,7 @@ public class ElectCouncillorAction extends MainAction {
 	 * player trying to elect in king's balcony
 	 */
 	private static final Logger LOGGER = Logger
-			.getLogger(ElectCouncillorAction.class.getName());
+			.getLogger(Server.class.getName());
 	private static final long serialVersionUID = 7653027906566733276L;
 	private final ColorCouncillor councillor;
 	private final RegionType regionType;
