@@ -1254,4 +1254,10 @@ public class GUI extends javax.swing.JFrame {
     	
     	//FIXME ricordarsi di togliere il disegnare la mappa dal main (va tenuto solo qua)
     }
+	
+	public void nobilityRequest(State state) {
+        NobilityRequestDialog requestDialog = new NobilityRequestDialog(this, true, playerID, communication, state);
+        requestDialog.setVisible(true);
+        requestDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
+	}
 }
