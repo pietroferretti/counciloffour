@@ -43,14 +43,15 @@ import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import javax.swing.JPanel;
 
 public class GUIView extends ClientView implements Runnable {
 
-	private static final Logger LOGGER = Logger.getLogger(GUIView.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GUIView.class.getName());
 
-	private static final String MAPS_DIRECTORY = "src/main/resources/maps/";
-	private static final String MAPS_RES_DIRECTORY = "/maps/";
-	
+    private static final String MAPS_DIRECTORY = "src/main/resources/maps/";
+    private static final String MAPS_RES_DIRECTORY = "/maps/";
+
     private GUI mainWindow;
     private Communication communication;
     private List<List<String>> endResults;
@@ -105,38 +106,38 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void loadMap(String mapName) throws IOException {
-    	// costruisci filename
-    	String mapFileName = MAPS_DIRECTORY + mapName + ".json";
-		try (BufferedReader mapFile = new BufferedReader(new FileReader(mapFileName))){
-			
-			JSONTokener jsonMapFile = new JSONTokener(mapFile);
-			JSONObject jsonMapFileObject = (JSONObject) jsonMapFile.nextValue();
+        // costruisci filename
+        String mapFileName = MAPS_DIRECTORY + mapName + ".json";
+        try (BufferedReader mapFile = new BufferedReader(new FileReader(mapFileName))) {
 
-			String coastFilename = MAPS_RES_DIRECTORY + jsonMapFileObject.getString("coastimage");
-			String hillsFilename = MAPS_RES_DIRECTORY + jsonMapFileObject.getString("hillsimage");
-			String mountainsFilename = MAPS_RES_DIRECTORY + jsonMapFileObject.getString("mountainsimage");
+            JSONTokener jsonMapFile = new JSONTokener(mapFile);
+            JSONObject jsonMapFileObject = (JSONObject) jsonMapFile.nextValue();
 
-			Map<Point, String> positions = new HashMap<>();
-			
-			JSONObject jsonPositions = jsonMapFileObject.getJSONObject("coordinates");
-			Iterator<?> positionsKeys = jsonPositions.keys();
-			while (positionsKeys.hasNext()) {
-				String cityName = (String) positionsKeys.next();
-				JSONArray coordinates = jsonPositions.getJSONArray(cityName);
-				Point point = new Point(coordinates.getInt(0), coordinates.getInt(1));
-				positions.put(point, cityName);
-			}
-			
-		 	 mainWindow.buildMap(coastFilename, hillsFilename, mountainsFilename, positions);
+            String coastFilename = MAPS_RES_DIRECTORY + jsonMapFileObject.getString("coastimage");
+            String hillsFilename = MAPS_RES_DIRECTORY + jsonMapFileObject.getString("hillsimage");
+            String mountainsFilename = MAPS_RES_DIRECTORY + jsonMapFileObject.getString("mountainsimage");
 
-    	// la gui disegna le immagini
-    	// la gui costruisce i label e i panel
-		} catch (IOException e) {
-			LOGGER.warning(String.format("Couldn't load map '%s'. Check if you have the files you need.", mapName));
-			throw e;
-		}
+            Map<Point, String> positions = new HashMap<>();
+
+            JSONObject jsonPositions = jsonMapFileObject.getJSONObject("coordinates");
+            Iterator<?> positionsKeys = jsonPositions.keys();
+            while (positionsKeys.hasNext()) {
+                String cityName = (String) positionsKeys.next();
+                JSONArray coordinates = jsonPositions.getJSONArray(cityName);
+                Point point = new Point(coordinates.getInt(0), coordinates.getInt(1));
+                positions.put(point, cityName);
+            }
+
+            mainWindow.buildMap(coastFilename, hillsFilename, mountainsFilename, positions);
+
+            // la gui disegna le immagini
+            // la gui costruisce i label e i panel
+        } catch (IOException e) {
+            LOGGER.warning(String.format("Couldn't load map '%s'. Check if you have the files you need.", mapName));
+            throw e;
+        }
     }
-    
+
     @Override
     public void showAvailableAssistant(int update) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -340,34 +341,22 @@ public class GUIView extends ClientView implements Runnable {
                 mainWindow.getInfoArea().append("\nAvailable city color bonuses:");
 
                 mainWindow.getInfoArea().append(String.format("%nGold cities: %d victory points", updatedBonusGold));
-                mainWindow.getGoldCity().removeAll();
-                JLabel gold=new JLabel(Integer.toString(updatedBonusGold));
-                gold.setFont(new java.awt.Font("Arial", 0, 11));
-                mainWindow.getGoldCity().add(gold);
+                mainWindow.getGoldCity().setText(Integer.toString(updatedBonusGold));
                 mainWindow.getGoldCity().revalidate();
                 mainWindow.getGoldCity().repaint();
 
                 mainWindow.getInfoArea().append(String.format("%nSilver cities: %d victory points", updatedBonusSilver));
-                mainWindow.getSilverCity().removeAll();
-                JLabel silver=new JLabel(Integer.toString(updatedBonusSilver));
-                silver.setFont(new java.awt.Font("Arial", 0, 11));
-                mainWindow.getSilverCity().add(silver);
+                mainWindow.getSilverCity().setText(Integer.toString(updatedBonusSilver));
                 mainWindow.getSilverCity().revalidate();
                 mainWindow.getSilverCity().repaint();
 
                 mainWindow.getInfoArea().append(String.format("%nBronze cities: %d victory points", updatedBonusBronze));
-                mainWindow.getBronzeCity().removeAll();
-                JLabel bronze=new JLabel(Integer.toString(updatedBonusBronze));
-                bronze.setFont(new java.awt.Font("Arial", 0, 11));
-                mainWindow.getBronzeCity().add(bronze);
+                mainWindow.getBronzeCity().setText(Integer.toString(updatedBonusBronze));
                 mainWindow.getBronzeCity().revalidate();
                 mainWindow.getBronzeCity().repaint();
 
                 mainWindow.getInfoArea().append(String.format("%nBlue cities: %d victory points", updatedBonusBlue));
-                mainWindow.getBlueCity().removeAll();
-                JLabel blue=new JLabel(Integer.toString(updatedBonusBlue));
-                blue.setFont(new java.awt.Font("Arial", 0, 11));
-                mainWindow.getBlueCity().add(blue);
+                mainWindow.getBlueCity().setText(Integer.toString(updatedBonusBlue));
                 mainWindow.getBlueCity().revalidate();
                 mainWindow.getBlueCity().repaint();
 
@@ -420,6 +409,7 @@ public class GUIView extends ClientView implements Runnable {
         d.setVisible(true);
         communication.showMyDetails(playerID);
         communication.showGameboard(playerID);
+        communication.showDetails(playerID);
     }
 
     @Override
@@ -460,16 +450,18 @@ public class GUIView extends ClientView implements Runnable {
     public void showNobilityTrack(NobilityTrack updatedNobilityTrack) {
         JLabel lv;
         mainWindow.getnobilityTrack().removeAll();
-        String s="";
+        String s = "";
         for (Map.Entry<Integer, Bonus> entry : updatedNobilityTrack.getBonusesByLevel().entrySet()) {
-            s = s + "<br>" + Integer.toString(entry.getKey()) + ")<br>" + entry.getValue().toString();
+            s = s + "<br>" + Integer.toString(entry.getKey()) + ")" + entry.getValue().toString();
         }
-        lv = new javax.swing.JLabel("<html><div WIDTH=190px>" +s+ "</div></html><br>");
-        lv.setFont(new java.awt.Font("Arial", 0, 11));
+        lv = new javax.swing.JLabel("<html><div WIDTH=190px>" + s + "</div></html><br>");
+        lv.setFont(new java.awt.Font("Arial", 0, 10));
         mainWindow.getnobilityTrack().add(lv);
         mainWindow.getnobilityTrack().revalidate();
 
     }
+
+    private Map<Integer, JPanel> jPlayer = new HashMap<>();
 
     @Override
     public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
@@ -477,6 +469,38 @@ public class GUIView extends ClientView implements Runnable {
         mainWindow.getInfoArea().append("\n" + "\nName: " + name + "\nColor: " + color.toString() + "\nCoins: " + Integer.toString(coins)
                 + "\nAssistants: " + Integer.toString(assistants) + "\nNobility level: " + Integer.toString(level)
                 + "\nVictory Points: " + Integer.toString(points));
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                JPanel jp;
+                if (jPlayer.containsKey(id)) {
+                    jp = jPlayer.get((Integer) id);
+                } else {
+                    jp = new JPanel();
+                    jp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+                    mainWindow.getOtherPlayerArea().add(jp);
+                }
+                JLabel ass = new javax.swing.JLabel();
+                ass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/assistants.png"))); // NOI18N
+                ass.setText(Integer.toString(assistants));
+                jp.add(ass);
+
+                JLabel coin = new javax.swing.JLabel();
+                coin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/coins.png"))); // NOI18N
+                coin.setText(Integer.toString(coins));
+                jp.add(coin);
+
+                JLabel nob = new javax.swing.JLabel();
+                nob.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/victorypoints.png"))); // NOI18N
+                nob.setText(Integer.toString(level));
+                jp.add(nob);
+
+                JLabel point = new javax.swing.JLabel();
+                point.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/nobilitypoints.png"))); // NOI18N
+                point.setText(Integer.toString(points));
+                jp.add(point);
+
+            }
+        });
     }
 
     @Override
@@ -527,7 +551,7 @@ public class GUIView extends ClientView implements Runnable {
         mainWindow.getInfoArea().append("\n" + updatedRegion.toString());
         mainWindow.showCouncillor(updatedRegion.getBalcony(), updatedRegion.getType());
         mainWindow.showPermit(updatedRegion.getAvailablePermits(), updatedRegion.getType());
-        for(City c: updatedRegion.getCities()){
+        for (City c : updatedRegion.getCities()) {
             mainWindow.getCityDesc().put(c.getName(), c.toStringGUI().replaceAll("\n", "<br>"));
         }
     }
