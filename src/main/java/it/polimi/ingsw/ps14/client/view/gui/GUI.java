@@ -26,6 +26,8 @@ import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.State;
+import it.polimi.ingsw.ps14.model.WaitingFor;
+
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -650,7 +652,7 @@ private BusinessCardsPlayer myPermit;
         infoCityPanel.setLayout(new java.awt.BorderLayout());
 
         infoCity.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        infoCity.setText("Info CITY");
+        infoCity.setText("<html><i>Hover over a city to see its bonuses and the players that built an emporium</i></html>");
         infoCityPanel.add(infoCity, java.awt.BorderLayout.PAGE_START);
 
         otherPlayer.setLayout(new java.awt.GridLayout(2, 1));
@@ -689,7 +691,7 @@ private BusinessCardsPlayer myPermit;
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(kingCity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(infoCityPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(infoCityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6))
@@ -1052,6 +1054,9 @@ private BusinessCardsPlayer myPermit;
 
     public void setState(State gameState) {
         this.state = gameState;
+        if (state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
+            nobilityRequest(state);
+        }
     }
 
     public void showPoliticCard(ColorPolitic c) {

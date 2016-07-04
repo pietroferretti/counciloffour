@@ -521,6 +521,7 @@ public class GUIView extends ClientView implements Runnable {
                     mainWindow.showPoliticCard(pc.getColor());
                 }
                 mainWindow.getUserProfile().revalidate();
+                mainWindow.getUserProfile().repaint();
                 //TODO my permit
             }
         });

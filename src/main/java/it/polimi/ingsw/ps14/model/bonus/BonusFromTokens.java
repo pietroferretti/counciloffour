@@ -59,7 +59,7 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 		} else {
 			model.setAvailableChoices(availableChoices);
 			model.setWaitingForHowMany(quantity);
-			model.setWaitingFor(WaitingFor.TAKEPERMIT);
+			model.setWaitingFor(WaitingFor.FROMTOKENS);
 		}
 	}
 	
