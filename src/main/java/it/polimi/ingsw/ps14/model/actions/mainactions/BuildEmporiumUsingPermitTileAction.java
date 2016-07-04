@@ -7,11 +7,8 @@ import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.Region;
-import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTilesAction;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-import it.polimi.ingsw.ps14.server.Server;
-import java.util.logging.Logger;
 
 /**
  * The player can build emporium using his unused business permit in a city
@@ -19,45 +16,42 @@ import java.util.logging.Logger;
  * 
  *
  */
-public class BuildEmporiumUsingPermitTileAction extends MainAction {
+public class BuildEmporiumUsingPermitTileAction extends BuildEmporiumAction {
 
 	private static final long serialVersionUID = 833335630529544205L;
-private static final Logger LOGGER = Logger.getLogger(Server.class
-			.getName());
+
 	private final Integer businessCardID;
 	private final String cityName;
 
 	public BuildEmporiumUsingPermitTileAction(Integer playerID, Integer cardID, String city) {
-		super(playerID);
+		super(playerID,city);
 		this.businessCardID = cardID;
 		this.cityName = city;
 	}
 
 	@Override
 	public boolean isValid(Model model) {
-
 		Player player = model.id2player(super.getPlayer());
-		System.out.println(1);
-		if (player == null)
 
+		if (player == null)
 			return false;
-		System.out.println(2);
+
 		BusinessPermit businessCard = model.id2permit(businessCardID, player);
 		if (businessCard == null) // if player doesn't have card return null
 			return false;
-		System.out.println(3);
+
 		City city = model.name2city(cityName);
 		if (city == null)
 			return false;
-		System.out.println(4);
+
 		// city is in the list of business permit selected
 		if (!businessCard.contains(city))
 			return false;
-		System.out.println(5);
+
 		// check if player has built in this city already
 		if (city.isEmporiumBuilt(player))
 			return false;
-		System.out.println(6);
+
 		// check if player has money enough to pay players that have built in
 		// the city already
 		if (city.numEmporiumsBuilt() > player.getAssistants())
@@ -81,31 +75,32 @@ private static final Logger LOGGER = Logger.getLogger(Server.class
 
 		// add them to gameboard
 		player.addAssistants(city.numEmporiumsBuilt());
+		
+		build(city, player, model);
 
-		// build emporium in the city
-		city.buildEmporium(player);
-
-		Region region = city.getRegion();
-		if ((region.getBonusRegion() != 0) && builtAllCitiesInRegion(player, region)) {
-			player.addPoints(region.getBonusRegion());
-			region.consumeBonusRegion();
-
-			giveBonusKing(player, model.getGameBoard());
-		}
-
-		GameBoard gameboard = model.getGameBoard();
-		ColorCity cityColor = city.getColor();
-		if ((cityColor != ColorCity.PURPLE) && (gameboard.getColorBonus(cityColor) != 0)
-				&& builtAllCitiesWithColor(player, gameboard, cityColor)) {
-			player.addPoints(gameboard.useColorBonus(cityColor));
-
-			giveBonusKing(player, gameboard);
-		}
+//		// build emporium in the city
+//		city.buildEmporium(player);
+//
+//		Region region = city.getRegion();
+//		if ((region.getBonusRegion() != 0) && builtAllCitiesInRegion(player, region)) {
+//			player.addPoints(region.getBonusRegion());
+//			region.consumeBonusRegion();
+//
+//			giveBonusKing(player, model.getGameBoard());
+//		}
+//
+//		GameBoard gameboard = model.getGameBoard();
+//		ColorCity cityColor = city.getColor();
+//		if ((cityColor != ColorCity.PURPLE) && (gameboard.getColorBonus(cityColor) != 0)
+//				&& builtAllCitiesWithColor(player, gameboard, cityColor)) {
+//			player.addPoints(gameboard.useColorBonus(cityColor));
+//
+//			giveBonusKing(player, gameboard);
+//		}
 
 		// apply city token
-		if (city.getToken() != null)
-			city.getToken().useBonus(player, model);
-		
+		city.getToken().useBonus(player, model);
+
 		// check bonus neighbors
 		useNeighborsBonus(city, player, model);
 
@@ -117,32 +112,32 @@ private static final Logger LOGGER = Logger.getLogger(Server.class
 		return nextState(previousState, model);
 	}
 
-	private boolean builtAllCitiesInRegion(Player player, Region region) {
-		boolean allBuilt = true;
-		for (City cityInRegion : region.getCities()) {
-			if (!cityInRegion.getEmporiums().contains(player)) {
-				allBuilt = false;
-			}
-		}
-
-		return allBuilt;
-	}
-
-	private boolean builtAllCitiesWithColor(Player player, GameBoard gameboard, ColorCity color) {
-		boolean allBuilt = true;
-		for (City cityInGameboard : gameboard.getCities()) {
-			if (color.equals(cityInGameboard.getColor()) && !cityInGameboard.getEmporiums().contains(player)) {
-				allBuilt = false;
-			}
-		}
-
-		return allBuilt;
-	}
-
-	private void giveBonusKing(Player player, GameBoard gameboard) {
-		if (gameboard.isKingBonusAvailable()) {
-			player.addPoints(gameboard.useKingBonus());
-		}
-	}
+//	private boolean builtAllCitiesInRegion(Player player, Region region) {
+//		boolean allBuilt = true;
+//		for (City cityInRegion : region.getCities()) {
+//			if (!cityInRegion.getEmporiums().contains(player)) {
+//				allBuilt = false;
+//			}
+//		}
+//
+//		return allBuilt;
+//	}
+//
+//	private boolean builtAllCitiesWithColor(Player player, GameBoard gameboard, ColorCity color) {
+//		boolean allBuilt = true;
+//		for (City cityInGameboard : gameboard.getCities()) {
+//			if (color.equals(cityInGameboard.getColor()) && !cityInGameboard.getEmporiums().contains(player)) {
+//				allBuilt = false;
+//			}
+//		}
+//
+//		return allBuilt;
+//	}
+//
+//	private void giveBonusKing(Player player, GameBoard gameboard) {
+//		if (gameboard.isKingBonusAvailable()) {
+//			player.addPoints(gameboard.useKingBonus());
+//		}
+//	}
 
 }
