@@ -21,7 +21,6 @@ public class MyPermitDialog extends javax.swing.JDialog {
     /**
      * Creates new form NewJDialog1
      */
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,7 +111,7 @@ public class MyPermitDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                        dispose();
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -165,33 +164,38 @@ public class MyPermitDialog extends javax.swing.JDialog {
     private javax.swing.JPanel validCards;
     // End of variables declaration//GEN-END:variables
     public MyPermitDialog(java.awt.Frame parent, boolean modal, Integer playerID, BusinessCardsPlayer hand) {
+
         super(parent, modal);
         this.hand = hand;
         initComponents();
-        validCards = new JPanel();
-        validCards.removeAll();
-        JLabel per;
-        for (BusinessPermit b : hand.getValidCards()) {
-            per = new JLabel("<html>ID: " + b.getId() + "<br>City:" + b.getCityNames().toString() + "<br>Bonus:" + b.getBonusList().toString() + "</html>");
-            per.setFont(new java.awt.Font("Arial", 0, 11));
-            per.setVisible(true);
-            validCards.add(per);
-            validCards.revalidate();
-            validCards.repaint();
-        }
-        
-         usedCards = new JPanel();
-        usedCards.removeAll();
-     
-        for (BusinessPermit b : hand.getUsedCards()) {
-            per = new JLabel("<html>ID: " + b.getId() + "<br>City:" + b.getCityNames().toString() + "<br>Bonus:" + b.getBonusList().toString() + "</html>");
-            per.setFont(new java.awt.Font("Arial", 0, 11));
-            per.setVisible(true);
-            usedCards.add(per);
-            usedCards.revalidate();
-            usedCards.repaint();
-        }
-        
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                validCards = new JPanel();
+                validCards.removeAll();
+                JLabel per;
+                for (BusinessPermit b : hand.getValidCards()) {
+                    per = new JLabel("<html>ID: " + b.getId() + "<br>City:" + b.getCityNames().toString() + "<br>Bonus:" + b.getBonusList().toString() + "</html>");
+                    per.setFont(new java.awt.Font("Arial", 0, 11));
+                    per.setVisible(true);
+                    validCards.add(per);
+                    validCards.revalidate();
+                    validCards.repaint();
+                }
+
+                usedCards = new JPanel();
+                usedCards.removeAll();
+
+                for (BusinessPermit b : hand.getUsedCards()) {
+                    per = new JLabel("<html>ID: " + b.getId() + "<br>City:" + b.getCityNames().toString() + "<br>Bonus:" + b.getBonusList().toString() + "</html>");
+                    per.setFont(new java.awt.Font("Arial", 0, 11));
+                    per.setVisible(true);
+                    usedCards.add(per);
+                    usedCards.revalidate();
+                    usedCards.repaint();
+                }
+            }
+        });
+
     }
 }
-
