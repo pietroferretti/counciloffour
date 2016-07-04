@@ -27,7 +27,7 @@ public class Client {
 
 	private static final int RMI_PORT = 52365;
 	private static final String NAME = "council4";
-	private static final String HOST = "127.0.0.1";// 192.168.43.212
+	private static final String HOST = " 127.0.0.1";// 192.168.43.212
 	private static final int PORT = 19999;
 
 
@@ -62,7 +62,6 @@ public class Client {
 		} else if (view.toUpperCase().matches("^(GUI)$")) {
 			
 			clientView = new GUIView(name);
-			System.out.println("GUI not yet implemented");
 			
 		} else {
 			scanner.close();
