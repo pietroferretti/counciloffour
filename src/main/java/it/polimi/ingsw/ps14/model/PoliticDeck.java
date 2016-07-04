@@ -59,8 +59,13 @@ public class PoliticDeck implements Serializable {
 	}
 
 	public PoliticCard drawCard() {
-		if (deck.size()==0)
-			shuffleAll();
+		if (deck.isEmpty()) {
+			if (discardedCards.isEmpty()) {
+				return null;
+			} else {
+				shuffleAll();
+			}
+		}
 		return deck.remove(0);
 	}
 

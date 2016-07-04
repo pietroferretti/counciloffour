@@ -26,7 +26,7 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 
 	@Override
 	public boolean isValid(Model model) {
-		Player player = model.id2player(super.getPlayer());
+		Player player = model.id2player(super.getPlayerID());
 		Region region = model.getGameBoard().getRegion(regType);
 		if (player == null || region == null){
 			LOGGER.info(String.format("isValid conversion error"));
@@ -38,7 +38,7 @@ public class ChangeBusinessPermitTilesAction extends QuickAction {
 
 	@Override
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player = model.id2player(super.getPlayer());
+		Player player = model.id2player(super.getPlayerID());
 		Region region = model.getGameBoard().getRegion(regType);
 
 		player.useAssistants(1);

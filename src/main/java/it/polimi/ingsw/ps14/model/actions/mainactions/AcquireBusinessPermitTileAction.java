@@ -43,7 +43,7 @@ public class AcquireBusinessPermitTileAction extends MainAction {
 
     @Override
     public boolean isValid(Model model) {
-        Player player = model.id2player(super.getPlayer());
+        Player player = model.id2player(super.getPlayerID());
         Region region = model.getGameBoard().getRegion(regionType);
         Balcony balcony = region.getBalcony();
         BusinessPermit permitTile = model.id2permit(permitID, region);
@@ -82,7 +82,7 @@ public class AcquireBusinessPermitTileAction extends MainAction {
     @Override
     public TurnState execute(TurnState previousState, Model model) {
 
-        Player player = model.id2player(super.getPlayer());
+        Player player = model.id2player(super.getPlayerID());
         Region region = model.getGameBoard().getRegion(regionType);
         BusinessPermit permitTile = model.id2permit(permitID, region);
         Balcony balcony = region.getBalcony();

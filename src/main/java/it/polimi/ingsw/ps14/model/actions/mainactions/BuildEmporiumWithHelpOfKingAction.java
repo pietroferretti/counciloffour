@@ -42,7 +42,7 @@ public class BuildEmporiumWithHelpOfKingAction extends BuildEmporiumAction {
 
 	public boolean isValid(Model model) {
 
-		Player player = model.id2player(super.getPlayer());
+		Player player = model.id2player(super.getPlayerID());
 		City city = model.name2city(cityName);
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
 
@@ -127,7 +127,7 @@ public class BuildEmporiumWithHelpOfKingAction extends BuildEmporiumAction {
 
 	public TurnState execute(TurnState previousState, Model model) {
 
-		Player player = model.id2player(super.getPlayer());
+		Player player = model.id2player(super.getPlayerID());
 		City city = model.name2city(cityName);
 
 		Balcony balcony = model.getGameBoard().getKing().getBalcony();
@@ -150,6 +150,9 @@ public class BuildEmporiumWithHelpOfKingAction extends BuildEmporiumAction {
 
 		// one assistant for each emporium that is built
 		player.useAssistants(city.numEmporiumsBuilt());
+		
+		// add them to gameboard
+		player.addAssistants(city.numEmporiumsBuilt());
 
 		// pay to move king
 		player.useCoins(kingPathCost(cityKing, city, model));

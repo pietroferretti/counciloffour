@@ -17,7 +17,7 @@ public class PerformAdditionalMainActionAction extends QuickAction {
 
     @Override
     public boolean isValid(Model model) {
-        Player player = model.id2player(getPlayer());
+        Player player = model.id2player(getPlayerID());
         if (player == null) {
             System.out.println("player is null invalid conversion");
             return false;
@@ -27,7 +27,7 @@ public class PerformAdditionalMainActionAction extends QuickAction {
 
     @Override
     public TurnState execute(TurnState previousState, Model model) {
-        Player player = model.id2player(getPlayer());
+        Player player = model.id2player(getPlayerID());
 
         player.useAssistants(3);
         model.getGameBoard().addAssistants(3);

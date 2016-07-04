@@ -17,11 +17,11 @@ public abstract class Action implements Serializable {
 		this.playerID = playerID;
 	}
 
-	public Integer getPlayer() {
+	public Integer getPlayerID() {
 		return playerID;
 	}
 
-	// check if the player can do the action based on his "attributes"
+	// check if the player can do the action based on the model current state
 	public abstract boolean isValid(Model model);
 
 	public abstract TurnState execute(TurnState previousState, Model model);

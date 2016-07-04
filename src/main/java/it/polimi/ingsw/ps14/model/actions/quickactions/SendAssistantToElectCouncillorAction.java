@@ -29,7 +29,7 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 
 	@Override
 	public boolean isValid(Model model) {
-		Player player = model.id2player(super.getPlayer());
+		Player player = model.id2player(super.getPlayerID());
 		Balcony balcony;
 		if (regType != null)
 			balcony = model.getGameBoard().getRegion(regType).getBalcony();
@@ -53,7 +53,7 @@ public class SendAssistantToElectCouncillorAction extends QuickAction {
 
 	@Override
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player = model.id2player(super.getPlayer());
+		Player player = model.id2player(super.getPlayerID());
 		Balcony balcony;
 		if (regType != null)
 			balcony = model.getGameBoard().getRegion(regType).getBalcony();

@@ -37,7 +37,7 @@ public class ElectCouncillorAction extends MainAction {
 	@Override
 	public boolean isValid(Model model) {
 
-		Player player = model.id2player(super.getPlayer());
+		Player player = model.id2player(super.getPlayerID());
 		Balcony balcony;
 		if (regionType != null)
 			balcony = model.getGameBoard().getRegion(regionType).getBalcony();
@@ -52,7 +52,7 @@ public class ElectCouncillorAction extends MainAction {
 
 	@Override
 	public TurnState execute(TurnState previousState, Model model) {
-		Player player = model.id2player(super.getPlayer());
+		Player player = model.id2player(super.getPlayerID());
 		Balcony balcony;
 		if (regionType != null)
 			balcony = model.getGameBoard().getRegion(regionType).getBalcony();
