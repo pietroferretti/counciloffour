@@ -21,6 +21,7 @@ import org.json.JSONTokener;
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.client.view.gui.GUI;
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.model.BusinessCardsPlayer;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
@@ -503,6 +504,8 @@ public class GUIView extends ClientView implements Runnable {
         });
     }
 
+    BusinessCardsPlayer cardsPlayer;
+    
     @Override
     public void showPersonalDetails(Player p) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -521,6 +524,7 @@ public class GUIView extends ClientView implements Runnable {
                 //TODO my permit
             }
         });
+        mainWindow.setMyPermits(new BusinessCardsPlayer(p.getBusinessHand()));
     }
 
     @Override

@@ -16,6 +16,7 @@ import javax.swing.text.DefaultCaret;
 
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.model.Balcony;
+import it.polimi.ingsw.ps14.model.BusinessCardsPlayer;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.ColorCity;
@@ -28,6 +29,7 @@ import it.polimi.ingsw.ps14.model.State;
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -47,7 +49,7 @@ public class GUI extends javax.swing.JFrame {
     private transient Communication communication;
     private transient String name;
     private transient State state;
-
+private BusinessCardsPlayer myPermit;
     private final transient Map<ColorPolitic, ImageIcon> politicCard;
     private final transient Map<ColorCouncillor, ImageIcon> councillor;
 
@@ -586,6 +588,11 @@ public class GUI extends javax.swing.JFrame {
                 chatTextFieldActionPerformed(evt);
             }
         });
+        chatTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                chatTextFieldKeyPressed(evt);
+            }
+        });
         jPanel2.add(chatTextField);
 
         chatSendButton.setText("Send");
@@ -842,7 +849,9 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_electCouncillorButtonActionPerformed
 
     private void showPermitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPermitActionPerformed
-        // TODO add your handling code here:
+        MyPermitDialog myPermitDialog = new MyPermitDialog(this, true, playerID, myPermit);
+         myPermitDialog.setVisible(true);
+        myPermitDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_showPermitActionPerformed
 
     private void showPermitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPermitMouseClicked
@@ -887,6 +896,14 @@ public class GUI extends javax.swing.JFrame {
         sellDialog.setVisible(true);
         sellDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_sellButtonActionPerformed
+
+    private void chatTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chatTextFieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String chatMessage = chatTextField.getText();
+            communication.chat(playerID, chatMessage);
+    }//GEN-LAST:event_chatTextFieldKeyPressed
+    }
+    
 
     public static void start() {
         /* Set the Nimbus look and feel */
@@ -1257,6 +1274,7 @@ public class GUI extends javax.swing.JFrame {
 //        cityColor = new HashMap<>();
 //        cityColor.put("allah akbar", ColorCity.BLUE);
 //    }
+
     public void nobilityRequest(State state) {
         NobilityRequestDialog requestDialog = new NobilityRequestDialog(this, true, playerID, communication, state);
         requestDialog.setVisible(true);
@@ -1313,7 +1331,12 @@ public class GUI extends javax.swing.JFrame {
 
         //FIXME ricordarsi di togliere il disegnare la mappa dal main (va tenuto solo qua)
     }
-    public JPanel getOtherPlayerArea(){
+
+    public JPanel getOtherPlayerArea() {
         return otherPlayer;
+    }
+    
+    public void setMyPermits(BusinessCardsPlayer myP){
+        this.myPermit=myP;
     }
 }
