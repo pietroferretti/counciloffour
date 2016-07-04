@@ -27,7 +27,7 @@ public class BusinessCardsRegion implements Serializable {
 	}
 
 	public BusinessCardsRegion() {
-		deck = null;
+		deck = new ArrayDeque<>();
 		availablePermits = new BusinessPermit[2];
 	}
 
