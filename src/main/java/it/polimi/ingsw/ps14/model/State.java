@@ -67,7 +67,9 @@ public class State extends Observable implements Serializable {
 		additionalMainsToDo = originalState.getAdditionalMainsToDo();
 		currentMarketState = originalState.getCurrentMarketState();
 		playerOrder = new ArrayDeque<>(originalState.getPlayerOrder());
-		currentPlayer = new Player(originalState.getCurrentPlayer());
+		if (originalState.getCurrentPlayer() != null) {
+			currentPlayer = new Player(originalState.getCurrentPlayer());
+		}
 		waitingFor = originalState.getWaitingFor();
 		waitingForHowMany = originalState.getWaitingForHowMany();
 		availableChoices = new HashMap<>(originalState.getAvailableChoices());
