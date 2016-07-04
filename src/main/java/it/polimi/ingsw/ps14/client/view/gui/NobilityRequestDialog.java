@@ -30,7 +30,7 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
 	 * Creates new form NobilityRequestDialog
 	 */
 	public NobilityRequestDialog(java.awt.Frame parent, boolean modal, Integer playerID, Communication communication, State state) {
-		super(parent, modal);
+		super(parent, "Nobility track bonus", modal);
 		this.playerID = playerID;
 		this.communication = communication;
 		this.state = state;
@@ -38,17 +38,25 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
 		initComponents();
 				
 		// set description
-		descriptionLabel.setText("");
+		if (state.getWaitingFor() == WaitingFor.TAKEPERMIT) {
+			descriptionLabel.setText("You can get one or more free business permits.");
+		} else if (state.getWaitingFor() == WaitingFor.FROMPERMITS) {
+			descriptionLabel.setText("You can regain one or more bonuses from your business permits.");
+		} else if (state.getWaitingFor() == WaitingFor.FROMTOKENS) {
+			descriptionLabel.setText("You can regain one or more bonuses from the cities where you've built an emporium.");
+		}
 		descriptionLabel.repaint();
 		descriptionLabel.revalidate();
+		
 		// set description number of choices
-		numberChoicesLabel.setText("");
+		numberChoicesLabel.setText(String.format("You can choose up to %d of these:", state.getWaitingForHowMany()));
 		numberChoicesLabel.repaint();
 		numberChoicesLabel.revalidate();
 		
-		// costruisci una checkbox per ogni choice
-		// metti ogni checkbox in una lista
+		// build a checkbox for each choice
+		// put the checkboxes in a list with the corresponding id
 		Map<String, String> choices = state.getAvailableChoices();
+		choicesPanel.setLayout(new java.awt.GridLayout(choices.size(), 0));
 		checkboxes = new HashMap<>();
 		for (Map.Entry<String, String> choice : choices.entrySet())
 		{
@@ -79,20 +87,11 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        titleLabel.setText("Nobility Request");
+        titleLabel.setText("You advanced in the nobility track!");
 
         descriptionLabel.setText("[description]");
 
-        javax.swing.GroupLayout choicesPanelLayout = new javax.swing.GroupLayout(choicesPanel);
-        choicesPanel.setLayout(choicesPanelLayout);
-        choicesPanelLayout.setHorizontalGroup(
-            choicesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 194, Short.MAX_VALUE)
-        );
-        choicesPanelLayout.setVerticalGroup(
-            choicesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 77, Short.MAX_VALUE)
-        );
+        choicesPanel.setLayout(new java.awt.GridLayout(200, 0));
 
         confirmButton.setText("Confirm");
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
@@ -107,24 +106,21 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 108, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(numberChoicesLabel)
-                    .addComponent(choicesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
+                        .addGap(187, 187, 187)
                         .addComponent(titleLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(descriptionLabel))
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(numberChoicesLabel)
+                            .addComponent(descriptionLabel)
+                            .addComponent(choicesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
+                        .addGap(241, 241, 241)
                         .addComponent(confirmButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,13 +129,13 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
                 .addComponent(titleLabel)
                 .addGap(18, 18, 18)
                 .addComponent(descriptionLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(numberChoicesLabel)
-                .addGap(18, 18, 18)
-                .addComponent(choicesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(choicesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(confirmButton)
-                .addGap(32, 32, 32))
+                .addGap(38, 38, 38))
         );
 
         pack();
@@ -201,11 +197,11 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
 				fakeState.setWaitingFor(WaitingFor.FROMPERMITS);
 				fakeState.setWaitingForHowMany(2);
 				Map<String, String> availableChoices = new HashMap<>();
-				availableChoices.put("12", "Permit no. 12/nBonus: +1 point");
-				availableChoices.put("45", "Permit no. 45/nBonus: +1 nobility, +3 cards");
-				availableChoices.put("102", "Permit no. 1027nBonus: none");
+				availableChoices.put("12", "Bonus: +1 point");
+				availableChoices.put("45", "Bonus: +1 nobility, +3 cards");
+				availableChoices.put("102", "Bonus: none");
 				fakeState.setAvailableChoices(availableChoices);
-				NobilityRequestDialog dialog = new NobilityRequestDialog(new javax.swing.JFrame(), true, 0, null, new State());
+				NobilityRequestDialog dialog = new NobilityRequestDialog(new javax.swing.JFrame(), true, 0, null, fakeState);
 				dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 					@Override
 					public void windowClosing(java.awt.event.WindowEvent e) {

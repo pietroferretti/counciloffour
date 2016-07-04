@@ -25,7 +25,6 @@ import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg;
 import it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg;
 import it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg;
-import it.polimi.ingsw.ps14.message.fromserver.SoldItemMsg;
 import it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg;
 import it.polimi.ingsw.ps14.model.ColorCity;
 
@@ -140,11 +139,7 @@ public class RMIServerOut {
                     clientView.regionUpdate(((RegionUpdatedMsg) arg)
                             .getUpdatedRegion());
                 }
-
-                if (arg instanceof SoldItemMsg) {
-                    clientView.itemSold(((SoldItemMsg) arg).getItemSold());
-                }
-
+                
                 if (arg instanceof StateUpdatedMsg) {
                     clientView.stateUpdate(((StateUpdatedMsg) arg)
                             .getUpdatedState());
