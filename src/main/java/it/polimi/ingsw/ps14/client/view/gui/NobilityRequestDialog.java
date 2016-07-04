@@ -56,6 +56,7 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
 		// build a checkbox for each choice
 		// put the checkboxes in a list with the corresponding id
 		Map<String, String> choices = state.getAvailableChoices();
+		choicesPanel.setLayout(new java.awt.GridLayout(choices.size(), 0));
 		checkboxes = new HashMap<>();
 		for (Map.Entry<String, String> choice : choices.entrySet())
 		{
@@ -90,7 +91,7 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
 
         descriptionLabel.setText("[description]");
 
-        choicesPanel.setLayout(new javax.swing.BoxLayout(choicesPanel, javax.swing.BoxLayout.LINE_AXIS));
+        choicesPanel.setLayout(new java.awt.GridLayout(200, 0));
 
         confirmButton.setText("Confirm");
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
@@ -108,20 +109,18 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(choicesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(187, 187, 187)
                         .addComponent(titleLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(numberChoicesLabel)
-                            .addComponent(descriptionLabel)))
+                            .addComponent(descriptionLabel)
+                            .addComponent(choicesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(285, 285, 285)
+                        .addGap(241, 241, 241)
                         .addComponent(confirmButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,9 +133,9 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
                 .addComponent(numberChoicesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(choicesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(confirmButton)
-                .addGap(32, 32, 32))
+                .addGap(38, 38, 38))
         );
 
         pack();
