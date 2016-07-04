@@ -54,7 +54,7 @@ public class SellDialog extends javax.swing.JDialog {
         jSpinnerPurple = new javax.swing.JSpinner();
         jSpinnerPink = new javax.swing.JSpinner();
         jSpinnerWhite = new javax.swing.JSpinner();
-        jSpinnerBlack = new javax.swing.JSpinner();
+        jSpinnerBlue = new javax.swing.JSpinner();
         jSpinnerOrange = new javax.swing.JSpinner();
         jSpinnerJolly = new javax.swing.JSpinner();
         jLabel13 = new javax.swing.JLabel();
@@ -63,7 +63,7 @@ public class SellDialog extends javax.swing.JDialog {
         jLabel14 = new javax.swing.JLabel();
         pricePinkTextField = new javax.swing.JTextField();
         priceWhiteTextField = new javax.swing.JTextField();
-        priceBlackTextField = new javax.swing.JTextField();
+        priceBlueTextField = new javax.swing.JTextField();
         priceOrangeTextField = new javax.swing.JTextField();
         priceJollyTextField = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
@@ -81,6 +81,9 @@ public class SellDialog extends javax.swing.JDialog {
         permitIDField1 = new javax.swing.JTextField();
         permitIDField2 = new javax.swing.JTextField();
         permitIDField3 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jSpinnerBlack = new javax.swing.JSpinner();
+        priceBlackTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -98,7 +101,7 @@ public class SellDialog extends javax.swing.JDialog {
 
         jLabel8.setText("WHITE");
 
-        jLabel9.setText("BLACK");
+        jLabel9.setText("BLUE");
 
         jLabel10.setText("ORANGE");
 
@@ -110,7 +113,7 @@ public class SellDialog extends javax.swing.JDialog {
 
         jSpinnerWhite.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
-        jSpinnerBlack.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinnerBlue.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         jSpinnerOrange.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
@@ -131,7 +134,6 @@ public class SellDialog extends javax.swing.JDialog {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jLabel4.setText("Price for one assistant");
-        jLabel4.setMinimumSize(new java.awt.Dimension(142, 20));
         jPanel1.add(jLabel4, java.awt.BorderLayout.CENTER);
         jPanel1.add(filler1, java.awt.BorderLayout.PAGE_START);
 
@@ -152,6 +154,10 @@ public class SellDialog extends javax.swing.JDialog {
         jLabel16.setText("ID");
 
         permitIDField1.setPreferredSize(new java.awt.Dimension(50, 32));
+
+        jLabel12.setText("BLACK");
+
+        jSpinnerBlack.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,43 +188,52 @@ public class SellDialog extends javax.swing.JDialog {
                                 .addComponent(permitPriceField2)
                                 .addComponent(permitPriceField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel5)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jSpinnerOrange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jSpinnerJolly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jSpinnerBlue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jSpinnerWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jSpinnerPink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jSpinnerPurple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addGap(53, 53, 53)
+                                    .addComponent(jSpinnerBlack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(5, 5, 5)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(87, 87, 87)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSpinnerJolly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                                .addComponent(jSpinnerOrange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSpinnerBlack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSpinnerWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSpinnerPink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSpinnerPurple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(5, 5, 5)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(priceOrangeTextField)
-                    .addComponent(priceBlackTextField)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(priceBlueTextField)
                     .addComponent(priceWhiteTextField)
                     .addComponent(pricePinkTextField)
                     .addComponent(pricePurpleTextField)
-                    .addComponent(priceJollyTextField))
+                    .addComponent(priceJollyTextField)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(priceBlackTextField)))
                 .addGap(46, 46, 46))
             .addGroup(layout.createSequentialGroup()
                 .addGap(194, 194, 194)
@@ -249,25 +264,30 @@ public class SellDialog extends javax.swing.JDialog {
                             .addComponent(pricePinkTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSpinnerOrange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(priceOrangeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(jSpinnerWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(priceWhiteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jSpinnerBlack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(priceBlackTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSpinnerBlue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(priceBlueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSpinnerOrange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)
-                            .addComponent(priceOrangeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel12)
+                            .addComponent(jSpinnerBlack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(priceBlackTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(jSpinnerJolly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(priceJollyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                         .addComponent(sellButton))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,7 +295,6 @@ public class SellDialog extends javax.swing.JDialog {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21)
                         .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
@@ -361,6 +380,18 @@ public class SellDialog extends javax.swing.JDialog {
 				}
 			}
 			
+			Integer orangeCards = (Integer) jSpinnerOrange.getValue();
+			if (orangeCards > 0) {
+				String orangePrice = priceOrangeTextField.getText();
+				if (orangePrice.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "You must enter a price for the cards you want to sell", "Warning", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				for (int i=0; i<orangeCards; i++) {
+					items.add(new ItemForSale(ColorPolitic.ORANGE, Integer.valueOf(orangePrice), playerID));
+				}
+			}
+			
 			Integer whiteCards = (Integer) jSpinnerWhite.getValue();
 			if (whiteCards > 0) {
 				String whitePrice = priceWhiteTextField.getText();
@@ -373,6 +404,18 @@ public class SellDialog extends javax.swing.JDialog {
 				}
 			}
 			
+			Integer blueCards = (Integer) jSpinnerBlue.getValue();
+			if (blueCards > 0) {
+				String blackPrice = priceBlueTextField.getText();
+				if (blackPrice.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "You must enter a price for the cards you want to sell", "Warning", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				for (int i=0; i<blueCards; i++) {
+					items.add(new ItemForSale(ColorPolitic.BLUE, Integer.valueOf(blackPrice), playerID));
+				}
+			}
+			
 			Integer blackCards = (Integer) jSpinnerBlack.getValue();
 			if (blackCards > 0) {
 				String blackPrice = priceBlackTextField.getText();
@@ -382,18 +425,6 @@ public class SellDialog extends javax.swing.JDialog {
 				}
 				for (int i=0; i<blackCards; i++) {
 					items.add(new ItemForSale(ColorPolitic.BLACK, Integer.valueOf(blackPrice), playerID));
-				}
-			}
-			
-			Integer orangeCards = (Integer) jSpinnerOrange.getValue();
-			if (orangeCards > 0) {
-				String orangePrice = priceOrangeTextField.getText();
-				if (orangePrice.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "You must enter a price for the cards you want to sell", "Warning", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				for (int i=0; i<orangeCards; i++) {
-					items.add(new ItemForSale(ColorPolitic.ORANGE, Integer.valueOf(orangePrice), playerID));
 				}
 			}
 			
@@ -471,6 +502,7 @@ public class SellDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -487,6 +519,7 @@ public class SellDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSpinner jSpinnerAssistants;
     private javax.swing.JSpinner jSpinnerBlack;
+    private javax.swing.JSpinner jSpinnerBlue;
     private javax.swing.JSpinner jSpinnerJolly;
     private javax.swing.JSpinner jSpinnerOrange;
     private javax.swing.JSpinner jSpinnerPink;
@@ -500,6 +533,7 @@ public class SellDialog extends javax.swing.JDialog {
     private javax.swing.JTextField permitPriceField3;
     private javax.swing.JTextField priceAssistantTextField;
     private javax.swing.JTextField priceBlackTextField;
+    private javax.swing.JTextField priceBlueTextField;
     private javax.swing.JTextField priceJollyTextField;
     private javax.swing.JTextField priceOrangeTextField;
     private javax.swing.JTextField pricePinkTextField;
