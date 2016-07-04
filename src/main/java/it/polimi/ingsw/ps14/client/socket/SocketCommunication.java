@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps14.client.socket;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -81,7 +82,7 @@ public class SocketCommunication implements Communication {
 	}
 
 	// ------------------------from server --------------------------
-	public void receiveMessage(Message message) {
+	public void receiveMessage(Message message) throws IOException{
 		if (message != null) {
 			if ((message instanceof PlayerIDMsg)
 					&& clientView.getPlayerID() == null) {
@@ -93,6 +94,7 @@ public class SocketCommunication implements Communication {
 				clientView.showGameStart();
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
+				clientView.loadMap(((GameStartedMsg) message).getMapName());
 //				clientView.showAvailableCommands();
 			} else if (message instanceof StateUpdatedMsg) {
 

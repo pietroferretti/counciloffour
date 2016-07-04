@@ -27,7 +27,7 @@ public class SocketMessageHandlerIn implements Runnable {
 		this.socketIn = socketIn;
 	}
 
-	public void receiveMessage(Message message) {
+	public void receiveMessage(Message message) throws IOException {
 		comm.receiveMessage(message);
 	};
 

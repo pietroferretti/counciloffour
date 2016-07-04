@@ -1,10 +1,22 @@
 package it.polimi.ingsw.ps14.client.view;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.client.view.gui.GUI;
@@ -19,7 +31,6 @@ import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
-import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
@@ -30,10 +41,13 @@ import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-import javax.swing.JLabel;
 
 public class GUIView extends ClientView implements Runnable {
 
+	private static final Logger LOGGER = Logger.getLogger(GUIView.class.getName());
+
+	private static final String MAPS_DIRECTORY = "src/main/resources/maps/";
+	
     private GUI mainWindow;
     private Communication communication;
     private List<List<String>> endResults;
@@ -86,6 +100,40 @@ public class GUIView extends ClientView implements Runnable {
 
     }
 
+    @Override
+    public void loadMap(String mapName) throws IOException {
+    	// costruisci filename
+    	String mapFileName = MAPS_DIRECTORY + mapName + ".json";
+		try (BufferedReader mapFile = new BufferedReader(new FileReader(mapFileName))){
+			
+			JSONTokener jsonMapFile = new JSONTokener(mapFile);
+			JSONObject jsonMapFileObject = (JSONObject) jsonMapFile.nextValue();
+
+			String coastFilename = MAPS_DIRECTORY + jsonMapFileObject.getString("coastimage");
+			String hillsFilename = MAPS_DIRECTORY + jsonMapFileObject.getString("hillsimage");
+			String mountainsFilename = MAPS_DIRECTORY + jsonMapFileObject.getString("mountainsimage");
+
+			Map<Point, String> positions = new HashMap<>();
+			
+			JSONObject jsonPositions = jsonMapFileObject.getJSONObject("coordinates");
+			Iterator<?> positionsKeys = jsonPositions.keys();
+			while (positionsKeys.hasNext()) {
+				String cityName = (String) positionsKeys.next();
+				JSONArray coordinates = jsonPositions.getJSONArray(cityName);
+				Point point = new Point(coordinates.getInt(0), coordinates.getInt(1));
+				positions.put(point, cityName);
+			}
+			
+		 	mainWindow.buildMap(coastFilename, hillsFilename, mountainsFilename, positions);
+
+    	// la gui disegna le immagini
+    	// la gui costruisce i label e i panel
+		} catch (IOException e) {
+			LOGGER.warning(String.format("Couldn't load map '%s'. Check if you have the files you need.", mapName));
+			throw e;
+		}
+    }
+    
     @Override
     public void showAvailableAssistant(int update) {
         SwingUtilities.invokeLater(new Runnable() {

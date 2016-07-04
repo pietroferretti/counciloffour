@@ -12,13 +12,11 @@ import it.polimi.ingsw.ps14.model.Settings;
 
 public class BusinessCardsRegionTest {	
 
-	private static final String SETTINGS_FILENAME = "src/main/resources/settings.json";
-
 	@Test
 	public void test() {
 		Settings settingsInstance = null;
 		try {
-			settingsInstance = new Settings(SETTINGS_FILENAME);
+			settingsInstance = new Settings();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

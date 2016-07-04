@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONArray;
@@ -18,6 +19,10 @@ import it.polimi.ingsw.ps14.exceptions.InvalidSettingsException;
 
 public class Settings {
 	private static final Logger LOGGER = Logger.getLogger(Settings.class.getName());
+	
+	private static final String SETTINGS_DIRECTORY = "src/main/resources/";
+	private static final String SETTINGS_FILENAME = "settings.json";
+	private static final String MAPS_DIRECTORY = "src/main/resources/maps/";
 
 	public final int councillorsEachBalcony;
 	public final int availableCouncillorsEachColor;
@@ -25,18 +30,20 @@ public class Settings {
 	public final int numColoredCards;
 	public final int numJollyCards;
 	public final Map<String, Integer> buildingBonuses;
-	public final Map<String, Map<String, Object>> map;
-	public final String kingStartingCityString;
 	public final List<Map<String, Integer>> tokens;
 	public final Map<Integer, Map<String, Integer>> nobilityTrack;
+	public final Map<String, Map<String, Object>> map;
+	public final String kingStartingCityString;
 	public final List<Map<String, Object>> permitDeckCoast;
 	public final List<Map<String, Object>> permitDeckHills;
 	public final List<Map<String, Object>> permitDeckMountains;
+	
+	public final String mapName;
 
-	public Settings(String filename) throws IOException {
+	public Settings() throws IOException {
 
 		// Open the settings file
-		try (BufferedReader settingsFile = new BufferedReader(new FileReader(filename))){
+		try (BufferedReader settingsFile = new BufferedReader(new FileReader(SETTINGS_DIRECTORY + SETTINGS_FILENAME))){
 			
 			// Create some useful JSON parsers
 			JSONTokener jsonFile = new JSONTokener(settingsFile);
@@ -52,14 +59,7 @@ public class Settings {
 			// Load the bonuses
 			JSONObject jsonBonuses = jsonSettings.getJSONObject("bonuses");
 			buildingBonuses = loadBonuses(jsonBonuses);
-	
-			// Load the game map in a Map
-			JSONObject jsonMap = jsonSettings.getJSONObject("map");
-			map = loadMap(jsonMap);
-	
-			// Find the starting king city, raise exception if not found
-			kingStartingCityString = findStartingKingCity(map);
-	
+			
 			// Load tokens
 			JSONArray jsonTokens = jsonSettings.getJSONArray("tokens");
 			tokens = loadTokens(jsonTokens);
@@ -68,15 +68,36 @@ public class Settings {
 			JSONObject jsonNobilityTrack = jsonSettings.getJSONObject("nobilitytrack");
 			nobilityTrack = loadNobilityTrack(jsonNobilityTrack);
 	
-			// Load business permits decks
-			JSONArray jsonPermitDeckCoast = jsonSettings.getJSONArray("permitDeckCoast");
-			permitDeckCoast = loadPermitDeck(jsonPermitDeckCoast);
-	
-			JSONArray jsonPermitDeckHills = jsonSettings.getJSONArray("permitDeckHills");
-			permitDeckHills = loadPermitDeck(jsonPermitDeckHills);
-	
-			JSONArray jsonPermitDeckMountains = jsonSettings.getJSONArray("permitDeckMountains");
-			permitDeckMountains = loadPermitDeck(jsonPermitDeckMountains);
+			// Load the game map in a Map
+			mapName = jsonSettings.getString("mapname");
+			String mapFileName = MAPS_DIRECTORY + mapName + ".json";
+			
+			try (BufferedReader mapFile = new BufferedReader(new FileReader(mapFileName))){
+				
+				JSONTokener jsonMapFile = new JSONTokener(mapFile);
+				JSONObject jsonMapFileObject = (JSONObject) jsonMapFile.nextValue();
+				
+				JSONObject jsonMap = jsonMapFileObject.getJSONObject("map");
+				map = loadMap(jsonMap);
+		
+				// Find the starting king city, raise exception if not found
+				kingStartingCityString = findStartingKingCity(map);
+		
+				// Load business permits decks
+				JSONArray jsonPermitDeckCoast = jsonMapFileObject.getJSONArray("permitDeckCoast");
+				permitDeckCoast = loadPermitDeck(jsonPermitDeckCoast);
+		
+				JSONArray jsonPermitDeckHills = jsonMapFileObject.getJSONArray("permitDeckHills");
+				permitDeckHills = loadPermitDeck(jsonPermitDeckHills);
+		
+				JSONArray jsonPermitDeckMountains = jsonMapFileObject.getJSONArray("permitDeckMountains");
+				permitDeckMountains = loadPermitDeck(jsonPermitDeckMountains);
+				
+			}
+		
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "Couldn'open settings file!", e);
+			throw e;
 		}
 	}
 

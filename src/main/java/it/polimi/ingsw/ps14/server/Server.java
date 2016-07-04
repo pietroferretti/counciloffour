@@ -128,9 +128,6 @@ public class Server {
 		ServerViewRemoteImpl rmiView = new ServerViewRemoteImpl(this);
 		registry.bind(NAME, rmiView);
 
-		// rmiView.registerObserver(this.controller);
-		// this.gioco.registerObserver(rmiView);
-
 		UnicastRemoteObject.exportObject(rmiView, 0);
 
 		System.out.println("Binding the server implementation to the registry");

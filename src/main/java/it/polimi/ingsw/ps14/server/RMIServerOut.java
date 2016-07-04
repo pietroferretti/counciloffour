@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.server;
 
-import java.rmi.RemoteException;
+import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +70,7 @@ public class RMIServerOut {
                 }
 
                 if (arg instanceof GameStartedMsg) {
-                    clientView.setGameStart(((GameStartedMsg) arg).getState());
+                    clientView.setGameStart(((GameStartedMsg) arg).getState(), ((GameStartedMsg) arg).getMapName());
                 }
 
                 if (arg instanceof GameEndedMsg) {
@@ -157,8 +157,8 @@ public class RMIServerOut {
                 }
             }
 
-        } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Error on the RMI outbound server");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error on the RMI outbound server", e);
             active = false;
         }
     }

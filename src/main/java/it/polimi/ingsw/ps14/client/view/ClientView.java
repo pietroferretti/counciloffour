@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.client.view;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -48,14 +49,6 @@ public abstract class ClientView implements Runnable {
 		return name;
 	}
 
-//	public boolean isMyTurn() {
-//		return myTurn;
-//	}
-//
-//	public void setMyTurn(boolean myTurn) {
-//		this.myTurn = myTurn;
-//	}
-
 	public State getGameState() {
 		return gameState;
 	}
@@ -71,7 +64,8 @@ public abstract class ClientView implements Runnable {
 	public void setGameStarted(boolean gameStarted) {
 		this.gameStarted = gameStarted;
 	}
-
+	
+	public abstract void loadMap(String mapName) throws IOException;
 
 	public abstract void readMessage(Message message);
 
