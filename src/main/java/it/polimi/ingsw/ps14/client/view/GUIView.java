@@ -115,7 +115,7 @@ public class GUIView extends ClientView implements Runnable {
 
 			Map<Point, String> positions = new HashMap<>();
 			
-			JSONObject jsonPositions = jsonMapFileObject.getJSONObject("positions");
+			JSONObject jsonPositions = jsonMapFileObject.getJSONObject("coordinates");
 			Iterator<?> positionsKeys = jsonPositions.keys();
 			while (positionsKeys.hasNext()) {
 				String cityName = (String) positionsKeys.next();
