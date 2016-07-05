@@ -51,7 +51,7 @@ public class City implements Serializable {
 
 	public City(City c) {
 
-		this.name = c.name;
+		this.name = new String(c.name);
 		this.color = c.color;
 		region = null;
 
@@ -59,7 +59,7 @@ public class City implements Serializable {
 			this.neighborsName = new ArrayList<>(c.neighbors.size());
 
 			for (City city : c.neighbors) {
-				this.neighborsName.add(city.name);
+				this.neighborsName.add(new String(city.name));
 			}
 		}
 

@@ -368,7 +368,6 @@ public class GUIView extends ClientView implements Runnable {
             mainWindow.getInfoArea().append("\n" + "The game hasn't ended yet.");
             return;
         }
-
         // 0 - id
         // 1 - name
         // 2 - points
@@ -504,7 +503,7 @@ public class GUIView extends ClientView implements Runnable {
         });
     }
 
-    BusinessCardsPlayer cardsPlayer;
+//    BusinessCardsPlayer cardsPlayer;
 
     @Override
     public void showPersonalDetails(Player p) {
