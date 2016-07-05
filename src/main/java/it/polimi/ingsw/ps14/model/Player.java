@@ -111,7 +111,7 @@ public class Player extends Observable implements Serializable {
 
 	public Player(Player player) {
 		id = player.id;
-		name = player.name;
+		name = new String(player.name);
 		color = player.color;
 		coins = player.coins;
 		assistants = player.assistants;
