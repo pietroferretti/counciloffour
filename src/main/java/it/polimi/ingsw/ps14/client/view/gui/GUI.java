@@ -222,6 +222,7 @@ public class GUI extends javax.swing.JFrame {
         infoArea.setColumns(20);
         infoArea.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         infoArea.setRows(5);
+        infoArea.setText("\n\n---------------------------------------------------------------------------\n\n***HERE YOU CAN FIND INFORMATION ABOUT YOUR TURN***\n\n                                      GOOD LUCK\n\n\n---------------------------------------------------------------------------");
         jScrollPane3.setViewportView(infoArea);
 
         coastBalcony.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Coast", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
@@ -555,29 +556,29 @@ public class GUI extends javax.swing.JFrame {
         permitHills.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         permitHills.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel11.setText("P1");
+        jLabel11.setText("permit");
         permitHills.add(jLabel11);
 
-        jLabel12.setText("P2");
+        jLabel12.setText("hills");
         permitHills.add(jLabel12);
 
         permitCoast.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         permitCoast.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         permitCoast.setLayout(new java.awt.GridLayout(1, 0));
 
-        coastPer1.setText("permit1");
+        coastPer1.setText("permit");
         permitCoast.add(coastPer1);
 
-        coastPer2.setText("P2");
+        coastPer2.setText("coast");
         permitCoast.add(coastPer2);
 
         permitMount.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         permitMount.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel13.setText("P1");
+        jLabel13.setText("permit");
         permitMount.add(jLabel13);
 
-        jLabel14.setText("P2");
+        jLabel14.setText("mountains");
         permitMount.add(jLabel14);
 
         kingBalcony.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "King", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
@@ -630,27 +631,31 @@ public class GUI extends javax.swing.JFrame {
         jPanel13.setBackground(new java.awt.Color(185, 185, 255));
         jPanel13.setLayout(new java.awt.GridLayout(4, 1));
 
-        goldCity.setBackground(new java.awt.Color(255, 255, 0));
+        goldCity.setBackground(new java.awt.Color(255, 204, 0));
         goldCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         goldCity.setText("gold");
+        goldCity.setToolTipText("Bonus color city");
         goldCity.setOpaque(true);
         jPanel13.add(goldCity);
 
         silverCity.setBackground(new java.awt.Color(204, 204, 255));
         silverCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         silverCity.setText("silver");
+        silverCity.setToolTipText("Bonus color city");
         silverCity.setOpaque(true);
         jPanel13.add(silverCity);
 
-        bronzeCity.setBackground(new java.awt.Color(204, 153, 0));
+        bronzeCity.setBackground(new java.awt.Color(204, 102, 0));
         bronzeCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bronzeCity.setText("bronze");
+        bronzeCity.setToolTipText("Bonus color city");
         bronzeCity.setOpaque(true);
         jPanel13.add(bronzeCity);
 
         blueCity.setBackground(new java.awt.Color(102, 153, 255));
         blueCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         blueCity.setText("blue");
+        blueCity.setToolTipText("Bonus color city");
         blueCity.setOpaque(true);
         jPanel13.add(blueCity);
 
@@ -664,17 +669,20 @@ public class GUI extends javax.swing.JFrame {
         infoCity.setText("Info CITY");
         infoCityPanel.add(infoCity, java.awt.BorderLayout.PAGE_START);
 
-        otherScroll.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Other player", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
+        otherScroll.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Other players", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
+
+        otherPlayer.setLayout(new java.awt.GridLayout(0, 1));
         otherScroll.setViewportView(otherPlayer);
 
         nobilityScroll.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nobility Track", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
         nobilityScroll.setViewportView(nobilityTrack);
 
-        bonusCoast.setText("jLabel8");
+        bonusCoast.setText("poi");
 
-        bonusHills.setText("jLabel10");
+        bonusHills.setText("nts");
 
-        bonusMount.setText("jLabel15");
+        bonusMount.setText("Reg");
+        bonusMount.setToolTipText("bonus region");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -686,7 +694,7 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -697,11 +705,11 @@ public class GUI extends javax.swing.JFrame {
                                     .addGap(2, 2, 2)
                                     .addComponent(coastBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bonusHills, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bonusHills, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(4, 4, 4)
                                     .addComponent(hillsBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(bonusMount, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bonusMount, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(147, 147, 147))
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -712,6 +720,7 @@ public class GUI extends javax.swing.JFrame {
                                     .addComponent(permitHills, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(permitMount, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -719,18 +728,17 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(kingCity, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(kingBonus, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(infoCityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 12, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(otherScroll, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nobilityScroll))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(nobilityScroll)
+                    .addComponent(otherScroll)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(kingBonus, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -739,30 +747,6 @@ public class GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(hillsBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                            .addComponent(mountBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(coastBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bonusCoast, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bonusHills, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bonusMount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(permitMount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(permitHills, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(permitCoast, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -778,10 +762,34 @@ public class GUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(infoCityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(otherScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(otherScroll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nobilityScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(hillsBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(mountBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(coastBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bonusHills, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(bonusCoast, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(bonusMount, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(permitMount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(permitHills, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(permitCoast, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nobilityScroll)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.addMouseMotionListener(new MouseMotionListener(){
@@ -1178,6 +1186,7 @@ public class GUI extends javax.swing.JFrame {
                         coun.setIcon(councillor.get(ColorCouncillor.WHITE));
                     }
                     if (balc != null) {
+            
                         balc.add(coun);
                         balc.revalidate();
                         balc.repaint();
@@ -1197,14 +1206,18 @@ public class GUI extends javax.swing.JFrame {
                 if (rt == RegionType.COAST) {
                     bonusCoast.setIcon(img);
                     bonusCoast.setText(Integer.toString(bonus));
+                    bonusCoast.repaint();
+                    
                 }
                 if (rt == RegionType.HILLS) {
                     bonusHills.setIcon(img);
                     bonusHills.setText(Integer.toString(bonus));
+                    bonusHills.repaint();
                 }
                 if (rt == RegionType.MOUNTAINS) {
                     bonusMount.setIcon(img);
                     bonusMount.setText(Integer.toString(bonus));
+                    bonusMount.repaint();
                 }
             }
 

@@ -79,8 +79,10 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 	public void setGameStart (State initialGameState, String mapName) throws IOException{
 		cv.setGameStarted(true);
 		cv.setGameState(initialGameState);
-		cv.loadMap(mapName);
+                cv.loadMap(mapName);
 		cv.showGameStart();
+                
+
 	}
 
 	@Override

@@ -66,15 +66,20 @@ public class GUIView extends ClientView implements Runnable {
     public void readMessage(Message message) {
         mainWindow.getInfoArea().append(String.format("%n %s", message.toString()));
     }
-    
+    private WaitingStartDialog waitingDialog;
     @Override
     public void run() {
         Integer id = playerID;
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+               
+               
                 mainWindow = new GUI(id, name, communication);
                 mainWindow.setVisible(true);
+                
+                waitingDialog=new WaitingStartDialog(new javax.swing.JFrame(),true);
+               waitingDialog.setVisible(true);
             }
         });
     }
@@ -276,6 +281,8 @@ public class GUIView extends ClientView implements Runnable {
     
     private void showCommandsMarket() {
         
+        communication.showMyDetails(playerID);
+        
         mainWindow.getInfoArea().append("\n" + "* Market Phase *");
         
         if (gameState.getCurrentMarketState() == MarketState.SELLING) {
@@ -333,7 +340,6 @@ public class GUIView extends ClientView implements Runnable {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                
                 
                 mainWindow.getGoldCity().setText(Integer.toString(updatedBonusGold));
                 mainWindow.getGoldCity().revalidate();
@@ -393,9 +399,13 @@ public class GUIView extends ClientView implements Runnable {
     
     @Override
     public void showGameStart() {
-        GameStartedDialog d;
-        d = new GameStartedDialog(mainWindow, true);
-        d.setVisible(true);
+        waitingDialog.dispose();
+//        mainWindow = new GUI(playerID, name, communication);
+//        mainWindow.setVisible(true);
+//        
+//        GameStartedDialog d;
+//        d = new GameStartedDialog(mainWindow, true);
+//        d.setVisible(true);
         communication.showMyDetails(playerID);
         communication.showGameboard(playerID);
         communication.showDetails(playerID);
@@ -452,7 +462,7 @@ public class GUIView extends ClientView implements Runnable {
     @Override
     public void showOtherPlayer(int id, String name, Color color, int coins, int assistants, int level, int points,
             int numEmporiums) {
-       
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JPanel jp;
@@ -461,12 +471,15 @@ public class GUIView extends ClientView implements Runnable {
                     jp.removeAll();
                 } else {
                     jp = new JPanel();
-                    jp.setBackground(color);
                     jPlayer.put(id, jp);
                     mainWindow.getOtherPlayerArea().add(jp);
                 }
-                jp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
-
+                if (name != null) {
+                    jp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+                } else {
+                    jp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "id:" + Integer.toString(id), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+                }                
+                
                 JLabel ass = new javax.swing.JLabel();
                 ass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/assistants.png"))); // NOI18N
                 ass.setText(Integer.toString(assistants));
@@ -517,6 +530,7 @@ public class GUIView extends ClientView implements Runnable {
     
     @Override
     public void showPlayerChangesPrivate(Player p, String message) {
+        mainWindow.getInfoArea().append(message);
         communication.showMyDetails(playerID);
     }
     
@@ -539,6 +553,6 @@ public class GUIView extends ClientView implements Runnable {
         mainWindow.showPermit(updatedRegion.getAvailablePermits(), updatedRegion.getType());
         for (City c : updatedRegion.getCities()) {
             mainWindow.getCityDesc().put(c.getName(), c.toStringGUI());
-        } 
+        }        
     }
 }

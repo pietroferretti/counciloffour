@@ -90,10 +90,11 @@ public class SocketCommunication implements Communication {
 						clientView.getPlayerID()));
 
 			} else if (message instanceof GameStartedMsg) {
-				clientView.showGameStart();
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
 				clientView.loadMap(((GameStartedMsg) message).getMapName());
+       				clientView.showGameStart();
+
 			} else if (message instanceof StateUpdatedMsg) {
 
 				clientView.setGameState(((StateUpdatedMsg) message)

@@ -79,7 +79,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="280" max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" min="-2" pref="304" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
@@ -91,11 +91,11 @@
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   <Component id="coastBalcony" min="-2" pref="126" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="bonusHills" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="bonusHills" min="-2" pref="43" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                   <Component id="hillsBalcony" min="-2" pref="151" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="bonusMount" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="bonusMount" min="-2" pref="43" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -113,6 +113,7 @@
                       </Group>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -121,22 +122,20 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="kingCity" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="kingBonus" min="-2" pref="246" max="-2" attributes="0"/>
                           <Component id="kingBalcony" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="infoCityPanel" min="-2" pref="198" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel13" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="otherScroll" alignment="1" max="32767" attributes="0"/>
-                          <Component id="nobilityScroll" max="32767" attributes="0"/>
-                      </Group>
+                  <Component id="nobilityScroll" max="32767" attributes="0"/>
+                  <Component id="otherScroll" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="kingBonus" min="-2" pref="246" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -149,37 +148,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="hillsBalcony" alignment="0" pref="59" max="32767" attributes="0"/>
-                          <Component id="mountBalcony" alignment="0" max="32767" attributes="0"/>
-                          <Component id="coastBalcony" max="32767" attributes="0"/>
-                          <Component id="bonusCoast" max="32767" attributes="0"/>
-                          <Component id="bonusHills" max="32767" attributes="0"/>
-                          <Component id="bonusMount" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="permitMount" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                              <Component id="permitHills" min="-2" pref="85" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="permitCoast" min="-2" pref="85" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" min="-2" pref="178" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="kingBalcony" min="-2" pref="68" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -197,12 +166,42 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="otherScroll" min="-2" pref="182" max="-2" attributes="0"/>
+                      <Component id="otherScroll" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="nobilityScroll" min="-2" pref="214" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="hillsBalcony" alignment="0" pref="59" max="32767" attributes="0"/>
+                          <Component id="mountBalcony" alignment="0" max="32767" attributes="0"/>
+                          <Component id="coastBalcony" max="32767" attributes="0"/>
+                          <Component id="bonusHills" pref="59" max="32767" attributes="0"/>
+                          <Component id="bonusCoast" alignment="0" pref="59" max="32767" attributes="0"/>
+                          <Component id="bonusMount" alignment="1" pref="59" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="permitMount" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
+                              <Component id="permitHills" min="-2" pref="85" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="permitCoast" min="-2" pref="85" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="nobilityScroll" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane3" min="-2" pref="178" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -261,6 +260,7 @@
               <Font name="Arial" size="11" style="0"/>
             </Property>
             <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="&#xa;&#xa;---------------------------------------------------------------------------&#xa;&#xa;***HERE YOU CAN FIND INFORMATION ABOUT YOUR TURN***&#xa;&#xa;                                      GOOD LUCK&#xa;&#xa;&#xa;---------------------------------------------------------------------------"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="DefaultCaret caretInfo = (DefaultCaret)infoArea.getCaret();&#xa;caretInfo.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);&#xa;infoArea.setLineWrap(true);"/>
@@ -812,12 +812,12 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
-            <Property name="text" type="java.lang.String" value="P1"/>
+            <Property name="text" type="java.lang.String" value="permit"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
-            <Property name="text" type="java.lang.String" value="P2"/>
+            <Property name="text" type="java.lang.String" value="hills"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -841,12 +841,12 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="coastPer1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="permit1"/>
+            <Property name="text" type="java.lang.String" value="permit"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="coastPer2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="P2"/>
+            <Property name="text" type="java.lang.String" value="coast"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -867,12 +867,12 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
-            <Property name="text" type="java.lang.String" value="P1"/>
+            <Property name="text" type="java.lang.String" value="permit"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
-            <Property name="text" type="java.lang.String" value="P2"/>
+            <Property name="text" type="java.lang.String" value="mountains"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -989,10 +989,11 @@
         <Component class="javax.swing.JLabel" name="goldCity">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="ff" red="ff" type="rgb"/>
+              <Color blue="0" green="cc" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="gold"/>
+            <Property name="toolTipText" type="java.lang.String" value="Bonus color city"/>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
@@ -1003,16 +1004,18 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="silver"/>
+            <Property name="toolTipText" type="java.lang.String" value="Bonus color city"/>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="bronzeCity">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="99" red="cc" type="rgb"/>
+              <Color blue="0" green="66" red="cc" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="bronze"/>
+            <Property name="toolTipText" type="java.lang.String" value="Bonus color city"/>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
@@ -1023,6 +1026,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="blue"/>
+            <Property name="toolTipText" type="java.lang.String" value="Bonus color city"/>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
@@ -1068,7 +1072,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Other player">
+            <TitledBorder title="Other players">
               <Font PropertyName="font" name="Arial" size="12" style="0"/>
             </TitledBorder>
           </Border>
@@ -1079,7 +1083,10 @@
       <SubComponents>
         <Container class="javax.swing.JPanel" name="otherPlayer">
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+            <Property name="columns" type="int" value="1"/>
+            <Property name="rows" type="int" value="0"/>
+          </Layout>
         </Container>
       </SubComponents>
     </Container>
@@ -1104,17 +1111,18 @@
     </Container>
     <Component class="javax.swing.JLabel" name="bonusCoast">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel8"/>
+        <Property name="text" type="java.lang.String" value="poi"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="bonusHills">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel10"/>
+        <Property name="text" type="java.lang.String" value="nts"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="bonusMount">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel15"/>
+        <Property name="text" type="java.lang.String" value="Reg"/>
+        <Property name="toolTipText" type="java.lang.String" value="bonus region"/>
       </Properties>
     </Component>
   </SubComponents>
