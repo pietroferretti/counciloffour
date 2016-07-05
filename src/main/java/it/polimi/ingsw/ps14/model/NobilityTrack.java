@@ -35,43 +35,9 @@ public class NobilityTrack extends Observable implements Serializable {
 		}
 	}
 
-	/**
-	 * Given a Player, this method finds the bonus corresponding to his
-	 * nobility level and applies it to the Player.
-	 * 
-	 * @param player
-	 *            - The player that needs to get the bonus
-	 */
-//	public boolean useBonus(Player player, Model model) {
-//		int nobilityLevel = player.getLevel();
-//		Bonus bonusThisLevel = bonusesByLevel.get(new Integer(nobilityLevel));
-//
-//		if (bonusThisLevel != null) {
-//			bonusThisLevel.useBonus(player, model);
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-//
-//	public boolean useBonus(Player player, Model model, int nobilityLevel) {
-//		Bonus bonusThisLevel = bonusesByLevel.get(new Integer(nobilityLevel));
-//
-//		if (bonusThisLevel != null) {
-//			bonusThisLevel.useBonus(player, model);
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-
 	public boolean bonusExistsAtLevel(int level) {
 		return bonusesByLevel.get(level) != null;
 	}
-
-//	 public boolean isBonusSpecial(int level) {
-//	 return bonusesByLevel.get(level) instanceof SpecialNobilityBonus;
-//	 }
 
 	public Bonus getBonus(int level) {
 		return bonusesByLevel.get(level);

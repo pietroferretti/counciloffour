@@ -19,11 +19,11 @@ public class City implements Serializable {
 
 	private final Region region;
 
-	@SuppressWarnings("unused")
 	private RegionType regionType = null;
 
 	private List<City> neighbors;
-	// usato solo per la copia
+	
+	// used only when making a copy to be serialized
 	private List<String> neighborsName;
 
 	private Bonus token;
@@ -38,16 +38,6 @@ public class City implements Serializable {
 		this.token = null;
 		emporiums = new ArrayList<>();
 	}
-
-	// public City(String name, ColorCity color, Region region, List<City>
-	// neighbors, Bonus token) {
-	// this.name = name;
-	// this.color = color;
-	// this.neighbors = neighbors;
-	// this.region = region;
-	// this.token = token;
-	// emporiums = new ArrayList<>();
-	// }
 
 	public City(City c) {
 
@@ -94,22 +84,6 @@ public class City implements Serializable {
 	public boolean isEmporiumBuilt(Player player) {
 		return emporiums.contains(player);
 	}
-
-	/**
-	 * Return all the neighboring cities where the player has built an emporium
-	 *
-	 * @param player
-	 * @return
-	 */
-	// public List<City> findLinkedEmporiums(Player player) {
-	// List<City> cities = new ArrayList<>();
-	// for (City neighbor : neighbors) {
-	// if (neighbor.isEmporiumBuilt(player)) {
-	// cities.add(neighbor);
-	// }
-	// }
-	// return cities;
-	// }
 
 	public void buildEmporium(Player player) {
 		if (!isEmporiumBuilt(player)) {

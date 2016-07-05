@@ -9,12 +9,9 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.City;
-import it.polimi.ingsw.ps14.model.ColorCity;
-import it.polimi.ingsw.ps14.model.GameBoard;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
-import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.turnstates.EndTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
 
@@ -35,7 +32,7 @@ public class BuildEmporiumWithHelpOfKingAction extends BuildEmporiumAction {
 	private List<PoliticCard> cards;
 
 	public BuildEmporiumWithHelpOfKingAction(Integer playerID, String city, List<PoliticCard> cards) {
-		super(playerID,city);
+		super(playerID);
 		this.cityName = city;
 		this.cards = cards;
 	}
@@ -159,25 +156,6 @@ public class BuildEmporiumWithHelpOfKingAction extends BuildEmporiumAction {
 		model.getGameBoard().getKing().setCity(city);
 
 		build(city, player, model);
-//		// build emporium
-//		city.buildEmporium(player);
-//
-//		Region region = city.getRegion();
-//		if ((region.getBonusRegion() != 0) && builtAllCitiesInRegion(player, region)) {
-//			player.addPoints(region.getBonusRegion());
-//			region.consumeBonusRegion();
-//
-//			giveBonusKing(player, model.getGameBoard());
-//		}
-//
-//		GameBoard gameboard = model.getGameBoard();
-//		ColorCity cityColor = city.getColor();
-//		if ((cityColor != ColorCity.PURPLE) && (gameboard.getColorBonus(cityColor) != 0)
-//				&& builtAllCitiesWithColor(player, gameboard, cityColor)) {
-//			player.addPoints(gameboard.useColorBonus(cityColor));
-//
-//			giveBonusKing(player, gameboard);
-//		}
 
 		// apply city token
 		if (city.getToken() != null)
@@ -194,31 +172,4 @@ public class BuildEmporiumWithHelpOfKingAction extends BuildEmporiumAction {
 		return super.nextState(previousState, model);
 	}
 
-//	private boolean builtAllCitiesInRegion(Player player, Region region) {
-//		boolean allBuilt = true;
-//		for (City cityInRegion : region.getCities()) {
-//			if (!cityInRegion.getEmporiums().contains(player)) {
-//				allBuilt = false;
-//			}
-//		}
-//
-//		return allBuilt;
-//	}
-//
-//	private boolean builtAllCitiesWithColor(Player player, GameBoard gameboard, ColorCity color) {
-//		boolean allBuilt = true;
-//		for (City cityInGameboard : gameboard.getCities()) {
-//			if (color.equals(cityInGameboard.getColor()) && !cityInGameboard.getEmporiums().contains(player)) {
-//				allBuilt = false;
-//			}
-//		}
-//
-//		return allBuilt;
-//	}
-//
-//	private void giveBonusKing(Player player, GameBoard gameboard) {
-//		if (gameboard.isKingBonusAvailable()) {
-//			player.addPoints(gameboard.useKingBonus());
-//		}
-//	}
 }

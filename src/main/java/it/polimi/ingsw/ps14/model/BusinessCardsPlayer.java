@@ -33,19 +33,6 @@ public class BusinessCardsPlayer implements Serializable {
 		}
 	}
 
-	// /**
-	// * check if there is card in unused businessPermitCard
-	// *
-	// * @param card
-	// * card to check
-	// * @return
-	// */
-	// public boolean checkBusinessPermit(BusinessPermit card) {
-	// if (validCards.contains(card))
-	// return true;
-	// return false;
-	// }
-
 	/**
 	 * add business permit to valid card
 	 * 
@@ -84,10 +71,6 @@ public class BusinessCardsPlayer implements Serializable {
 		return validCards;
 	}
 
-	// public void setValidCards(List<BusinessPermit> validCards) {
-	// this.validCards = validCards;
-	// }
-
 	public List<BusinessPermit> getUsedCards() {
 		if (usedCards != null)
 			return usedCards;
@@ -95,9 +78,6 @@ public class BusinessCardsPlayer implements Serializable {
 			return new ArrayList<>();
 	}
 
-	// public void setUsedCards(List<BusinessPermit> usedCards) {
-	// this.usedCards = usedCards;
-	// }
 	/**
 	 * It finds a permit object {@link BusinessPermit} given its ID.
 	 * 

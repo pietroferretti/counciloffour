@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps14.client.rmi;
 
-import it.polimi.ingsw.ps14.client.Client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,10 +12,12 @@ public class Life implements Runnable {
 
 	private static final Logger LOGGER = Logger.getLogger(Life.class
 			.getName());
+
+	private static final int TIMEPING = 2000;
 	
 	private volatile RMICommunication comm = null;
 	private volatile Integer playerID = null;
-	private final int TIMEPING = 2000;
+
 
 	public void setCommmunication(RMICommunication comm) {
 		this.comm = comm;

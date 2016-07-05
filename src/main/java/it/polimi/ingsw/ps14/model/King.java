@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps14.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Observable;
 import java.util.Queue;
 
@@ -44,30 +43,6 @@ public class King extends Observable implements Serializable {
 		setChanged();
 		notifyObservers();
 	}
-
-//	/**
-//	 * Versione in cui l'utente inserisce tutte le città da attraversare, forse
-//	 * possiamo fare di meglio :)
-//	 * 
-//	 * @param cities
-//	 *            - List of cities to check.
-//	 * @return True if the king can follow this cities path.
-//	 */
-//	public boolean checkMove(List<City> cities) {
-//		//
-//		// int cost = cities.size();
-//		// we should check it before calling this method
-//		//
-//		City currentCity = city;
-//		for (City cty : cities) {
-//
-//			if (currentCity.getNeighbors().contains(cty)) {
-//				currentCity = cty;
-//			} else
-//				return false;
-//		}
-//		return true;
-//	}
 
 	@Override
 	public String toString() {
