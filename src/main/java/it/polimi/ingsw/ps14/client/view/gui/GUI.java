@@ -1066,7 +1066,8 @@ private BusinessCardsPlayer myPermit;
 
     public void setState(State gameState) {
         this.state = gameState;
-        if (state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
+        if (state != null && state.getCurrentPlayer()!= null && state.getWaitingFor()!= null 
+        		&& state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
             nobilityRequest(state);
         }
     }
