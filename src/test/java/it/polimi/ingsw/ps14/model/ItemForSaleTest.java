@@ -22,8 +22,8 @@ public class ItemForSaleTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		model = new Model();
-		player1 = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
-		player2 = new Player("sdds", Color.cyan, 20, 12, model.getGameBoard().getPoliticDeck(), 4);
+		player1 = new Player(1, 20, 12, model.getGameBoard().getPoliticDeck(), 6, "ubaldo", Color.DARK_GRAY);
+		player2 = new Player(2, 20, 12, model.getGameBoard().getPoliticDeck(), 4, "sdds", Color.cyan);
 		b = new BusinessPermit(new ArrayList<>(), null);
 		player1.addPolitic(new PoliticCard(ColorPolitic.BLUE));
 		player2.getBusinessHand().getValidCards().add(b);
@@ -62,7 +62,7 @@ public class ItemForSaleTest {
 		ItemForSale business2 = new ItemForSale(ItemForSaleType.BUSINESS, b.getId(), 5, 89);
 		assertFalse(business2.isValid(model));
 
-		Player player = new Player();
+		Player player = new Player(-1);
 		player.getHand().add(new PoliticCard(ColorPolitic.BLACK));
 		assertTrue(p1.isValid(model));
 		ItemForSale p11 = new ItemForSale(ColorPolitic.BLACK, 6, player.getId() + 5);

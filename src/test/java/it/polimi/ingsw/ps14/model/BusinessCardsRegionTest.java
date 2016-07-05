@@ -18,8 +18,8 @@ public class BusinessCardsRegionTest {
 
 		busCard = model.getGameBoard().getRegion(RegionType.COAST)
 				.getBusinessPermits().getAvailablePermits()[0];
-		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model
-				.getGameBoard().getPoliticDeck(), 6);
+		player = new Player(0, 20, 12, model
+				.getGameBoard().getPoliticDeck(), 6, "ubaldo", Color.DARK_GRAY);
 		
 	}
 

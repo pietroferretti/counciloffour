@@ -59,7 +59,6 @@ import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.server.ServerView;
 import it.polimi.ingsw.ps14.server.SocketServerView;
-import static org.mockito.Mockito.mock;
 
 /**
  * A set of tests for the {@link it.polimi.ingsw.ps14.controller.Controller
@@ -162,7 +161,7 @@ public class ControllerTest {
 		testState.setCurrentPlayer(model.id2player(mockView1.getPlayerID()));
 
 		model.setState(testState);
-		
+
 		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.ORANGE);
 
 		controller.update(mockView1,
@@ -173,9 +172,9 @@ public class ControllerTest {
 		assertEquals(mockView1.getPlayerID(), model.getCurrentPlayer().getId());
 	}
 
-
 	/**
-	 * Tests the transition QuickActionDoneTurnState -> MainAndQuickActionDoneTurnState
+	 * Tests the transition QuickActionDoneTurnState ->
+	 * MainAndQuickActionDoneTurnState
 	 */
 	@Test
 	public void testUpdateTurnActionMsgMainAction2() {
@@ -187,7 +186,7 @@ public class ControllerTest {
 		model.setState(testState);
 
 		model.getGameBoard().addDiscardedCouncillor(ColorCouncillor.ORANGE);
-		
+
 		controller.update(mockView1,
 				new TurnActionMsg(new ElectCouncillorAction(mockView1.getPlayerID(), ColorCouncillor.ORANGE, "COAST")));
 
@@ -300,7 +299,7 @@ public class ControllerTest {
 		assertEquals(mockView2.getPlayerID(), model.getCurrentPlayer().getId());
 		assertTrue(model.getPlayerOrder().isEmpty());
 	}
-	
+
 	/**
 	 * Tests transition SellMsg -> buying phase
 	 */
@@ -313,9 +312,9 @@ public class ControllerTest {
 		testState.setPlayerOrder(new ArrayDeque<>());
 
 		model.setState(testState);
-		
+
 		model.id2player(mockView1.getPlayerID()).addAssistants(1);
-		
+
 		ItemForSale item = new ItemForSale(ItemForSaleType.ASSISTANT, 1, 2, mockView1.getPlayerID());
 		List<ItemForSale> itemList = new ArrayList<>();
 		itemList.add(item);
@@ -325,7 +324,7 @@ public class ControllerTest {
 		assertEquals(MarketState.BUYING, model.getCurrentMarketState());
 		assertTrue(!model.getPlayerOrder().isEmpty());
 	}
-	
+
 	/**
 	 * Tests transition SellMsg -> empty market -> turns phase
 	 */
@@ -338,13 +337,14 @@ public class ControllerTest {
 		testState.setPlayerOrder(new ArrayDeque<>());
 
 		model.setState(testState);
-		
+
 		controller.update(mockView1, new SellMsg(new SellAction(new ArrayList<>())));
 
 		assertEquals(GamePhase.TURNS, model.getGamePhase());
 		assertEquals(InitialTurnState.class, model.getCurrentTurnState().getClass());
 		assertTrue(!model.getPlayerOrder().isEmpty());
 	}
+
 	/**
 	 * Tests transition SellNoneMsg -> next player
 	 */
@@ -376,20 +376,20 @@ public class ControllerTest {
 		testState.setCurrentMarketState(MarketState.SELLING);
 		testState.setCurrentPlayer(model.id2player(mockView2.getPlayerID()));
 		testState.setPlayerOrder(new ArrayDeque<>());
-		
+
 		model.setState(testState);
 
 		Market market = new Market();
 		market.addItem(new ItemForSale(ItemForSaleType.ASSISTANT, 1, 2, mockView1.getPlayerID()));
 		model.setMarket(market);
-		
+
 		controller.update(mockView2, new SellNoneMsg());
 
 		assertEquals(GamePhase.MARKET, model.getGamePhase());
 		assertEquals(MarketState.BUYING, model.getCurrentMarketState());
 		assertTrue(!model.getPlayerOrder().isEmpty());
 	}
-	
+
 	/**
 	 * Tests transition SellNoneMsg -> empty market -> turns phase
 	 */
@@ -400,12 +400,12 @@ public class ControllerTest {
 		testState.setCurrentMarketState(MarketState.SELLING);
 		testState.setCurrentPlayer(model.id2player(mockView2.getPlayerID()));
 		testState.setPlayerOrder(new ArrayDeque<>());
-		
+
 		model.setState(testState);
 
 		Market market = new Market();
 		model.setMarket(market);
-		
+
 		controller.update(mockView2, new SellNoneMsg());
 
 		assertEquals(GamePhase.TURNS, model.getGamePhase());
@@ -425,14 +425,14 @@ public class ControllerTest {
 		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
 
 		model.setState(testState);
-		
+
 		model.id2player(mockView2.getPlayerID()).addAssistants(1);
 		model.id2player(mockView1.getPlayerID()).addCoins(2);
-		
+
 		Market market = new Market();
 		market.addItem(new ItemForSale(ItemForSaleType.ASSISTANT, 1, 2, mockView2.getPlayerID()));
 		model.setMarket(market);
-		
+
 		controller.update(mockView1, new BuyMsg(new BuyAction(mockView1.getPlayerID(), 0, 1)));
 
 		assertEquals(GamePhase.MARKET, model.getGamePhase());
@@ -440,7 +440,7 @@ public class ControllerTest {
 		assertEquals(mockView2.getPlayerID(), model.getCurrentPlayer().getId());
 		assertEquals(mockView1.getPlayerID(), model.getPlayerOrder().peek().getId());
 	}
-	
+
 	/**
 	 * DoneBuyingMsg -> next player
 	 */
@@ -487,7 +487,7 @@ public class ControllerTest {
 	 */
 	@Test
 	public void testHandleNobilityAnswerTakePermit() {
-		
+
 		State testState = new State();
 		testState.setGamePhase(GamePhase.TURNS);
 		testState.setCurrentTurnState(new MainActionDoneTurnState(0));
@@ -496,29 +496,31 @@ public class ControllerTest {
 		testState.setWaitingFor(WaitingFor.TAKEPERMIT);
 		testState.setWaitingForHowMany(1);
 		Map<String, String> availableChoices = new HashMap<>();
-		
-		String permitID1 = String.valueOf(model.getGameBoard().getRegion(RegionType.COAST).getAvailablePermits()[1].getId());
-		String permitID2 = String.valueOf(model.getGameBoard().getRegion(RegionType.HILLS).getAvailablePermits()[0].getId());		
+
+		String permitID1 = String
+				.valueOf(model.getGameBoard().getRegion(RegionType.COAST).getAvailablePermits()[1].getId());
+		String permitID2 = String
+				.valueOf(model.getGameBoard().getRegion(RegionType.HILLS).getAvailablePermits()[0].getId());
 		availableChoices.put(permitID1, "Permit 1");
 		availableChoices.put(permitID2, "Permit 2");
 		testState.setAvailableChoices(availableChoices);
-		
+
 		model.setState(testState);
-	
+
 		controller.update(mockView1, new NobilityRequestAnswerMsg(new ArrayList<>(Arrays.asList(permitID2))));
-		
+
 		List<BusinessPermit> playerPermits = model.id2player(mockView1.getPlayerID()).getAllPermits();
-		
+
 		assertTrue(!playerPermits.isEmpty());
-		
+
 		boolean playerHasPermit = false;
 		for (BusinessPermit permit : playerPermits) {
-			if(permit.getId().equals(Integer.valueOf(permitID2))) {
+			if (permit.getId().equals(Integer.valueOf(permitID2))) {
 				playerHasPermit = true;
 			}
 		}
 		assertTrue(playerHasPermit);
-		
+
 		assertEquals(WaitingFor.NOTHING, model.getWaitingFor());
 		assertEquals(new Integer(0), model.getWaitingForHowMany());
 		assertTrue(model.getAvailableChoices().isEmpty());
@@ -526,7 +528,7 @@ public class ControllerTest {
 		assertEquals(MainActionDoneTurnState.class, model.getCurrentTurnState().getClass());
 		assertEquals(mockView1.getPlayerID(), model.getCurrentPlayer().getId());
 		assertEquals(mockView2.getPlayerID(), model.getPlayerOrder().peek().getId());
-		
+
 	}
 
 	/**
@@ -541,32 +543,33 @@ public class ControllerTest {
 		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
 		testState.setWaitingFor(WaitingFor.FROMPERMITS);
 		testState.setWaitingForHowMany(1);
-		
+
 		BusinessPermit permit = new BusinessPermit(model.getGameBoard().getCities(), new BonusCoin(7));
 		model.id2player(mockView1.getPlayerID()).acquireBusinessPermit(permit);
-		
+
 		Map<String, String> availableChoices = new HashMap<>();
 		availableChoices.put(String.valueOf(permit.getId()), "Bonus: 7 coins");
 		testState.setAvailableChoices(availableChoices);
-		
+
 		model.setState(testState);
-	
+
 		Integer oldCoins = model.id2player(mockView1.getPlayerID()).getCoins();
-		
-		controller.update(mockView1, new NobilityRequestAnswerMsg(new ArrayList<>(Arrays.asList(String.valueOf(permit.getId())))));
-		
+
+		controller.update(mockView1,
+				new NobilityRequestAnswerMsg(new ArrayList<>(Arrays.asList(String.valueOf(permit.getId())))));
+
 		List<BusinessPermit> playerPermits = model.id2player(mockView1.getPlayerID()).getAllPermits();
 		assertTrue(!playerPermits.isEmpty());
-		
+
 		boolean playerHasPermit = false;
 		for (BusinessPermit permit2 : playerPermits) {
-			if(permit2.getId().equals(permit.getId())) {
+			if (permit2.getId().equals(permit.getId())) {
 				playerHasPermit = true;
 			}
 		}
 		assertTrue(playerHasPermit);
-		
-		assertEquals(oldCoins + 7, model.id2player(mockView1.getPlayerID()).getCoins());	
+
+		assertEquals(oldCoins + 7, model.id2player(mockView1.getPlayerID()).getCoins());
 		assertEquals(WaitingFor.NOTHING, model.getWaitingFor());
 		assertEquals(new Integer(0), model.getWaitingForHowMany());
 		assertTrue(model.getAvailableChoices().isEmpty());
@@ -588,11 +591,11 @@ public class ControllerTest {
 		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model.id2player(mockView2.getPlayerID()))));
 		testState.setWaitingFor(WaitingFor.FROMTOKENS);
 		testState.setWaitingForHowMany(2);
-		
+
 		model.getGameBoard().getCities().get(0).setToken(new BonusPoliticCard(3));
 		model.getGameBoard().getCities().get(1).setToken(new BonusCoin(5));
 		model.getGameBoard().getCities().get(2).setToken(new BonusVictoryPoint(2));
-		
+
 		String cityName1 = model.getGameBoard().getCities().get(0).getName();
 		Bonus bonus1 = model.getGameBoard().getCities().get(0).getToken();
 		String cityName2 = model.getGameBoard().getCities().get(1).getName();
@@ -606,17 +609,18 @@ public class ControllerTest {
 		availableChoices.put(cityName3, bonus3.toString());
 
 		testState.setAvailableChoices(availableChoices);
-		
+
 		model.setState(testState);
-		
+
 		Integer oldCoins = model.id2player(mockView1.getPlayerID()).getCoins();
 		Integer oldPoints = model.id2player(mockView1.getPlayerID()).getPoints();
-	
-		controller.update(mockView1, new NobilityRequestAnswerMsg(new ArrayList<>(Arrays.asList(cityName3, cityName2))));
+
+		controller.update(mockView1,
+				new NobilityRequestAnswerMsg(new ArrayList<>(Arrays.asList(cityName3, cityName2))));
 
 		assertEquals(oldCoins + 5, model.id2player(mockView1.getPlayerID()).getCoins());
 		assertEquals(oldPoints + 2, model.id2player(mockView1.getPlayerID()).getPoints());
-		
+
 		assertEquals(WaitingFor.NOTHING, model.getWaitingFor());
 		assertEquals(new Integer(0), model.getWaitingForHowMany());
 		assertTrue(model.getAvailableChoices().isEmpty());
@@ -624,10 +628,9 @@ public class ControllerTest {
 		assertEquals(MainActionDoneTurnState.class, model.getCurrentTurnState().getClass());
 		assertEquals(mockView1.getPlayerID(), model.getCurrentPlayer().getId());
 		assertEquals(mockView2.getPlayerID(), model.getPlayerOrder().peek().getId());
-				
+
 	}
 
-	
 	/**
 	 * Tests switching to the next player while in the final turns
 	 */
@@ -648,7 +651,7 @@ public class ControllerTest {
 		assertEquals(mockView2.getPlayerID(), model.getCurrentPlayer().getId());
 		assertTrue(model.getPlayerOrder().isEmpty());
 	}
-	
+
 	/**
 	 * Tests the transition from turns to finalturns
 	 */
@@ -670,7 +673,7 @@ public class ControllerTest {
 		model2.setPlayers(playerList);
 
 		Controller controller2 = new Controller(model2);
-		
+
 		State testState = new State();
 		testState.setGamePhase(GamePhase.TURNS);
 		testState.setCurrentTurnState(new CardDrawnState());
@@ -678,16 +681,17 @@ public class ControllerTest {
 		testState.setPlayerOrder(new ArrayDeque<>(Arrays.asList(model2.id2player(mockView6.getPlayerID()))));
 
 		model2.setState(testState);
-		
+
 		int numEmporiumsBuilt = model2.id2player(mockView4.getPlayerID()).getNumEmporiums();
-		for (int i=0; i< (9-numEmporiumsBuilt); i++) {
+		for (int i = 0; i < (9 - numEmporiumsBuilt); i++) {
 			model2.id2player(mockView5.getPlayerID()).incrementNumEmporiums();
 		}
-		
+
 		BusinessPermit permit = new BusinessPermit(model2.getGameBoard().getCities(), null);
 		model2.id2player(mockView5.getPlayerID()).acquireBusinessPermit(permit);
-		
-		controller2.update(mockView5, new TurnActionMsg(new BuildEmporiumUsingPermitTileAction(mockView5.getPlayerID(), permit.getId(), "Hellar")));
+
+		controller2.update(mockView5, new TurnActionMsg(
+				new BuildEmporiumUsingPermitTileAction(mockView5.getPlayerID(), permit.getId(), "Hellar")));
 
 		assertEquals(GamePhase.FINALTURNS, model2.getGamePhase());
 		assertEquals(InitialTurnState.class, model2.getCurrentTurnState().getClass());
@@ -695,12 +699,12 @@ public class ControllerTest {
 		assertTrue(model2.getPlayerOrder().size() == 1);
 		assertEquals(mockView4.getPlayerID(), model2.getPlayerOrder().peek().getId());
 	}
-	
+
 	/**
 	 * Tests the end game
 	 */
 	@Test
-	public void testUpdateFinalTurnsEndGame() {		
+	public void testUpdateFinalTurnsEndGame() {
 		State testState = new State();
 		testState.setGamePhase(GamePhase.FINALTURNS);
 		testState.setCurrentTurnState(new MainAndQuickActionDoneTurnState(0));
@@ -709,20 +713,18 @@ public class ControllerTest {
 
 		model.setState(testState);
 
-		model.id2player(mockView1.getPlayerID()).addPoints(100);
-		
+		model.id2player(mockView1.getPlayerID()).addPoints(1000);
+
 		controller.update(mockView1, new TurnActionMsg(new EndTurnAction(mockView1.getPlayerID())));
 
 		assertEquals(GamePhase.END, model.getGamePhase());
 		assertEquals(EndTurnState.class, model.getCurrentTurnState().getClass());
 		assertTrue(model.getPlayerOrder().isEmpty());
-		
+
 		assertEquals(GameEndedMsg.class, model.getMessage().getClass());
-		assertEquals(String.valueOf(mockView1.getPlayerID()), ((GameEndedMsg)model.getMessage()).getEndResults().get(0).get(0));
+		assertEquals(String.valueOf(mockView1.getPlayerID()),
+				((GameEndedMsg) model.getMessage()).getEndResults().get(0).get(0));
 		assertEquals("ubaldo", ((GameEndedMsg) model.getMessage()).getEndResults().get(0).get(1));
-		
-		// TODO settare punti, nobiltà e permessi dei player
-		// in modo da testare se il calcolo finale è corretto
 	}
 
 	/**
@@ -730,7 +732,7 @@ public class ControllerTest {
 	 */
 	@Test
 	public void testDisconnection() throws IOException {
-		
+
 		ServerView mockView4 = mock(SocketServerView.class);
 		when(mockView4.getPlayerID()).thenReturn(4);
 		ServerView mockView5 = mock(SocketServerView.class);
@@ -747,7 +749,7 @@ public class ControllerTest {
 		model2.setPlayers(playerList);
 
 		Controller controller2 = new Controller(model2);
-		
+
 		State testState = new State();
 		testState.setGamePhase(GamePhase.TURNS);
 		testState.setCurrentTurnState(new MainActionDoneTurnState(0));
@@ -761,6 +763,6 @@ public class ControllerTest {
 		assertEquals(GamePhase.TURNS, model2.getGamePhase());
 		assertEquals(InitialTurnState.class, model2.getCurrentTurnState().getClass());
 		assertEquals(mockView6.getPlayerID(), model2.getCurrentPlayer().getId());
-		assertTrue(model2.getPlayerOrder().isEmpty());	
+		assertTrue(model2.getPlayerOrder().isEmpty());
 	}
 }

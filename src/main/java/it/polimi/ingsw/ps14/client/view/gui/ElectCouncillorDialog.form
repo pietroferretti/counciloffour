@@ -68,9 +68,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="BLUE"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton6ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton8">
               <Properties>
@@ -79,9 +76,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="WHITE"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton8ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton9">
               <Properties>
@@ -98,9 +92,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="PURPLE"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton5ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton10">
               <Properties>
@@ -109,9 +100,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="ORANGE"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton10ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton7">
               <Properties>
@@ -120,9 +108,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="PINK"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton7ActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -189,9 +174,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="KING"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton1ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton2">
               <Properties>
@@ -200,9 +182,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="COAST"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton2ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton4">
               <Properties>
@@ -211,9 +190,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="HILLS"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton4ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton3">
               <Properties>

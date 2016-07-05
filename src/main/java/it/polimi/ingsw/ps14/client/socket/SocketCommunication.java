@@ -94,7 +94,6 @@ public class SocketCommunication implements Communication {
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
 				clientView.loadMap(((GameStartedMsg) message).getMapName());
-//				clientView.showAvailableCommands();
 			} else if (message instanceof StateUpdatedMsg) {
 
 				clientView.setGameState(((StateUpdatedMsg) message)
@@ -180,7 +179,6 @@ public class SocketCommunication implements Communication {
 
 			} else {
 				clientView.readMessage(message);
-				// TODO LOGGER.warning("message not recognized);
 			}
 		} else
 			LOGGER.info("Couldn't interpret message.");
@@ -206,7 +204,6 @@ public class SocketCommunication implements Communication {
 	@Override
 	public void electCouncillor(Integer playerID, ColorCouncillor cc,
 			String regionORking) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(new ElectCouncillorAction(
 				playerID, cc, regionORking)));
 
@@ -215,7 +212,6 @@ public class SocketCommunication implements Communication {
 	@Override
 	public void acquireBusinessPermitTile(Integer playerID, RegionType rt,
 			Integer permID, List<PoliticCard> politics) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new AcquireBusinessPermitTileAction(playerID, rt, permID,
 						new ArrayList<PoliticCard>(politics))));
@@ -225,7 +221,6 @@ public class SocketCommunication implements Communication {
 	@Override
 	public void buildWithKing(Integer playerID, String city,
 			List<PoliticCard> politics) {
-		// TODO Auto-generated method stub
 		msgHandlerOut
 				.sendMessage(new TurnActionMsg(
 						new BuildEmporiumWithHelpOfKingAction(playerID, city,
@@ -236,7 +231,6 @@ public class SocketCommunication implements Communication {
 	@Override
 	public void buildWithPermit(Integer playerID, Integer permitID,
 			String cityname) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new BuildEmporiumUsingPermitTileAction(playerID, permitID,
 						cityname)));
@@ -245,7 +239,6 @@ public class SocketCommunication implements Communication {
 
 	@Override
 	public void engage(Integer playerID) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(new EngageAssistantAction(
 				playerID)));
 
@@ -253,7 +246,6 @@ public class SocketCommunication implements Communication {
 
 	@Override
 	public void changeBusinessPermitTiles(Integer playerID, RegionType rt) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new ChangeBusinessPermitTilesAction(playerID, rt)));
 
@@ -261,7 +253,6 @@ public class SocketCommunication implements Communication {
 
 	@Override
 	public void performAdditionalMainAction(Integer playerID) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new PerformAdditionalMainActionAction(playerID)));
 
@@ -270,7 +261,6 @@ public class SocketCommunication implements Communication {
 	@Override
 	public void electWithAssistant(Integer playerID, RegionType rt,
 			ColorCouncillor cc) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new TurnActionMsg(
 				new SendAssistantToElectCouncillorAction(playerID, rt, cc)));
 
@@ -278,7 +268,6 @@ public class SocketCommunication implements Communication {
 
 	@Override
 	public void passTurn(Integer playerID) {
-		// TODO Auto-generated method stub
 		msgHandlerOut
 				.sendMessage(new TurnActionMsg(new EndTurnAction(playerID)));
 
@@ -286,35 +275,30 @@ public class SocketCommunication implements Communication {
 
 	@Override
 	public void showMyDetails(Integer playerID) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateThisPlayerMsg(playerID));
 
 	}
 
 	@Override
 	public void showDetails(Integer playerID) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateOtherPlayersMsg(playerID));
 
 	}
 
 	@Override
 	public void showGameboard(Integer playerID) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new UpdateGameBoardMsg());
 
 	}
 
 	@Override
 	public void sell(Integer playerID, List<ItemForSale> items) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new SellMsg(new SellAction(items)));
 
 	}
 
 	@Override
 	public void buy(Integer playerID, Integer objID, Integer quantity) {
-		// TODO Auto-generated method stub
 		msgHandlerOut.sendMessage(new BuyMsg(new BuyAction(playerID, objID,
 				quantity)));
 

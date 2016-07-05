@@ -30,11 +30,11 @@ public class BuyActionTest {
 		model = new Model();
 		lista = new ArrayList<>();
 		List<Player> pls = new ArrayList<>();
-		player2 = new Player("gigi", Color.DARK_GRAY, 20, 12, model
-				.getGameBoard().getPoliticDeck(), 4);
+		player2 = new Player(2, 20, 12, model
+				.getGameBoard().getPoliticDeck(), 4, "gigi", Color.DARK_GRAY);
 		pls.add(player2);
-		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model
-				.getGameBoard().getPoliticDeck(), 4);
+		player = new Player(1, 20, 12, model
+				.getGameBoard().getPoliticDeck(), 4, "ubaldo", Color.DARK_GRAY);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
 		player.addPolitic(new PoliticCard(ColorPolitic.BLACK));

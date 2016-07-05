@@ -23,7 +23,7 @@ public class AvailableCouncillorsViewTest {
 		System.out.println(model.getGameBoard().getAvailableCouncillors().toString());
 		acv2 = new AvailableCouncillorsView(model.getGameBoard().getAvailableCouncillors());
 		model.getGameBoard().addObserver(acv2);
-		player = new Player();
+		player = new Player(-1);
 		player.addObserver(acv2);
 	}
 

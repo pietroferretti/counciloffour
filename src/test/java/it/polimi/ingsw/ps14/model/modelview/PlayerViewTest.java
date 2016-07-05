@@ -25,9 +25,9 @@ public class PlayerViewTest {
 	@Before
 	public void setUp() throws Exception {
 		model = new Model();
-		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 4);
-		player2 = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
-		player3 = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
+		player = new Player(1, 20, 12, model.getGameBoard().getPoliticDeck(), 4, "ubaldo", Color.DARK_GRAY);
+		player2 = new Player(2, 20, 12, model.getGameBoard().getPoliticDeck(), 6, "ubaldo", Color.DARK_GRAY);
+		player3 = new Player(3, 20, 12, model.getGameBoard().getPoliticDeck(), 6, "ubaldo", Color.DARK_GRAY);
 		playerView2 = new PlayerView(player2);
 		playerView3 = new PlayerView(player3);
 		player3.addObserver(playerView3);

@@ -80,7 +80,6 @@ public class Balcony implements Serializable {
 	 *             if there are cards that don't match
 	 */
 	public int numOfMatchingCards(List<PoliticCard> cards) {
-		// FIXME possiamo aggiungere jolly all'infinito, non funziona
 		int bribedCouncillors = 0;
 		Queue<ColorCouncillor> newCouncillors = new LinkedList<>(councillors);
 

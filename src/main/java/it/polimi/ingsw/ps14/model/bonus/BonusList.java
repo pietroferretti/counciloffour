@@ -29,7 +29,6 @@ public class BonusList implements Bonus {
 
 	public BonusList(BonusList bl) {
 		
-		//TODO
 		this.bonuses = new ArrayList<>();
 
 		if (bl.bonuses != null) {

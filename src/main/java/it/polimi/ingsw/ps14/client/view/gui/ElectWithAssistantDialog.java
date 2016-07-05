@@ -79,20 +79,10 @@ public class ElectWithAssistantDialog extends javax.swing.JDialog {
 
         colorChooser.add(jRadioButton6);
         jRadioButton6.setText("BLUE");
-        jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton6ActionPerformed(evt);
-            }
-        });
         jLayeredPane2.add(jRadioButton6);
 
         colorChooser.add(jRadioButton8);
         jRadioButton8.setText("WHITE");
-        jRadioButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton8ActionPerformed(evt);
-            }
-        });
         jLayeredPane2.add(jRadioButton8);
 
         colorChooser.add(jRadioButton9);
@@ -101,29 +91,14 @@ public class ElectWithAssistantDialog extends javax.swing.JDialog {
 
         colorChooser.add(jRadioButton5);
         jRadioButton5.setText("PURPLE");
-        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton5ActionPerformed(evt);
-            }
-        });
         jLayeredPane2.add(jRadioButton5);
 
         colorChooser.add(jRadioButton10);
         jRadioButton10.setText("ORANGE");
-        jRadioButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton10ActionPerformed(evt);
-            }
-        });
         jLayeredPane2.add(jRadioButton10);
 
         colorChooser.add(jRadioButton7);
         jRadioButton7.setText("PINK");
-        jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton7ActionPerformed(evt);
-            }
-        });
         jLayeredPane2.add(jRadioButton7);
 
         jLayeredPane3.add(jLayeredPane2, java.awt.BorderLayout.CENTER);
@@ -153,29 +128,14 @@ public class ElectWithAssistantDialog extends javax.swing.JDialog {
 
         balconyChooser.add(jRadioButton1);
         jRadioButton1.setText("KING");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
         jLayeredPane1.add(jRadioButton1);
 
         balconyChooser.add(jRadioButton2);
         jRadioButton2.setText("COAST");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
         jLayeredPane1.add(jRadioButton2);
 
         balconyChooser.add(jRadioButton4);
         jRadioButton4.setText("HILLS");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
-            }
-        });
         jLayeredPane1.add(jRadioButton4);
 
         balconyChooser.add(jRadioButton3);
@@ -189,40 +149,7 @@ public class ElectWithAssistantDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton5ActionPerformed
-
-    private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton6ActionPerformed
-
-    private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton7ActionPerformed
-
-    private void jRadioButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton10ActionPerformed
-
-    private void jRadioButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton8ActionPerformed
-
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
-
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
-//        System.out.println("it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog.jButton2MouseClicked()");
-//        System.out.println(getSelectedButtonText(colorChooser));
-//        System.out.println(getSelectedButtonText(balconyChooser));
-
         if (getSelectedButtonText(colorChooser) != null && getSelectedButtonText(balconyChooser) != null) {
             RegionType rt = null;
             if (getSelectedButtonText(balconyChooser) != "KING") {
@@ -234,10 +161,6 @@ public class ElectWithAssistantDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "You need to select a balcony and a color", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton2MouseClicked
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
