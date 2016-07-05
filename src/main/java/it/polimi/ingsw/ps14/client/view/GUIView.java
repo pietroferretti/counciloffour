@@ -540,7 +540,6 @@ public class GUIView extends ClientView implements Runnable {
 //        System.out.println(message);
         mainWindow.getInfoArea().append("\n" + message);
         showPersonalDetails(p);
-
     }
 
     @Override
