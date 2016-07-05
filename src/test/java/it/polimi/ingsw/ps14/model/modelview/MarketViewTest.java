@@ -31,8 +31,8 @@ public class MarketViewTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		model = new Model();
-		player1 = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
-		player2 = new Player("sdds", Color.cyan, 20, 12, model.getGameBoard().getPoliticDeck(), 4);
+		player1 = new Player(1, 20, 12, model.getGameBoard().getPoliticDeck(), 6, "ubaldo", Color.DARK_GRAY);
+		player2 = new Player(2, 20, 12, model.getGameBoard().getPoliticDeck(), 4, "sdds", Color.cyan);
 		b = new BusinessPermit(new ArrayList<>(), null);
 		market = model.getMarket();
 		assistants = new ItemForSale(ItemForSaleType.ASSISTANT, 2, 4, player1.getId());

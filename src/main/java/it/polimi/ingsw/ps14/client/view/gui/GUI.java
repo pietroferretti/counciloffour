@@ -1327,9 +1327,7 @@ private BusinessCardsPlayer myPermit;
     }
 
     public void buildMap(String coastFilename, String hillsFilename, String mountainsFilename, Map<Point, String> positions) {
-        // carica immagini dai filename
-        // disegna la mappa
-        // setta la variabile positions
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource(coastFilename))); // NOI18N
@@ -1342,7 +1340,6 @@ private BusinessCardsPlayer myPermit;
             }
         });
 
-        //FIXME ricordarsi di togliere il disegnare la mappa dal main (va tenuto solo qua)
     }
 
     public JPanel getOtherPlayerArea() {

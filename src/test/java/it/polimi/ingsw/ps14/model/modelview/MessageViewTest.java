@@ -20,7 +20,7 @@ public class MessageViewTest {
 	@Before
 	public void setUp() throws Exception {
 		model = new Model();
-		player = new Player();
+		player = new Player(-1);
 		mv = new MessageView(model.getMessageObservable());
 		m = new InfoPrivateMsg(player.getId(), "prova");
 		model.getMessageObservable().addObserver(mv);

@@ -32,9 +32,9 @@ public class ModelViewTest {
 	public void setUp() throws Exception {
 		model = new Model();
 
-		player = new Player("efrt", Color.red, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
-		player3 = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
-		player2 = new Player("sdds", Color.cyan, 20, 12, model.getGameBoard().getPoliticDeck(), 4);
+		player = new Player(1, 20, 12, model.getGameBoard().getPoliticDeck(), 6, "efrt", Color.red);
+		player3 = new Player(3, 20, 12, model.getGameBoard().getPoliticDeck(), 6, "ubaldo", Color.DARK_GRAY);
+		player2 = new Player(2, 20, 12, model.getGameBoard().getPoliticDeck(), 4, "sdds", Color.cyan);
 		List<Player> players = new ArrayList<>(3);
 		players.add(player);// id 1
 		players.add(player2);// id 3

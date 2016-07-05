@@ -31,8 +31,8 @@ public class SellActionTest {
 		model = new Model();
 		lista = new ArrayList<>();
 		List<Player> pls = new ArrayList<>();
-		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model
-				.getGameBoard().getPoliticDeck(), 4);
+		player = new Player(0, 20, 12, model
+				.getGameBoard().getPoliticDeck(), 4, "ubaldo", Color.DARK_GRAY);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
 		player.addPolitic(new PoliticCard(ColorPolitic.BLACK));

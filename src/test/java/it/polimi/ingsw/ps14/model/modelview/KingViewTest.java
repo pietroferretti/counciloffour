@@ -24,7 +24,7 @@ public class KingViewTest {
 	@Before
 	public void inizialize() throws IOException {
 		model = new Model();
-		player = new Player();
+		player = new Player(-1);
 		model.getPlayers().add(player);
 		model.setCurrentPlayer(player);
 		// System.out.println(model.getGameBoard().toString());

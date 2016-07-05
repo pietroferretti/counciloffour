@@ -53,11 +53,9 @@ public class BuildEmporiumWithHelpOfKingAction extends BuildEmporiumAction {
 
 		if (!balcony.cardsMatch(cards))
 			return false;
-		// TODO: send error: ERROR in color choice
 
 		if (player.getCoins() < balcony.councillorCost(cards))
 			return false;
-		// TODO: send ERROR: not enough coins
 
 		// player hasn't built in the city yet
 		if (city.isEmporiumBuilt(player))

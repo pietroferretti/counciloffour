@@ -9,14 +9,9 @@ import it.polimi.ingsw.ps14.model.Settings;
 public class SettingsTest {
 
 	@Test
-	public void testSettings() {
-		Settings settingsInstance = null;
-		try {
-			settingsInstance = new Settings();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// TODO: assert veri e propri
+	public void testSettings() throws IOException {
+		new Settings(); // tests if it works without exceptions
+		//TODO assert veri e propri?
 	}
 
 }

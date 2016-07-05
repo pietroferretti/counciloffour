@@ -82,11 +82,6 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
 
         buttonGroup2.add(jRadioButtonHills);
         jRadioButtonHills.setText("Hills");
-        jRadioButtonHills.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonHillsActionPerformed(evt);
-            }
-        });
 
         buttonGroup2.add(jRadioButtonMountains);
         jRadioButtonMountains.setText("Mountains");
@@ -275,10 +270,6 @@ public class AcquireBusinessPermitDialog extends javax.swing.JDialog {
 		communication.acquireBusinessPermitTile(playerID, regionType, permitID, cards);
 		dispose();
     }//GEN-LAST:event_jButtonAcquireActionPerformed
-
-    private void jRadioButtonHillsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHillsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonHillsActionPerformed
 
 	private List<PoliticCard> getCardsFromSpinners() {
 		List<PoliticCard> cards = new ArrayList<>();

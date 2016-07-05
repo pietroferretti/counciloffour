@@ -63,7 +63,6 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void readMessage(Message message) {
-        // TODO Auto-generated method stub
         mainWindow.getInfoArea().append(String.format("%n %s", message.toString()));
     }
 
@@ -74,12 +73,9 @@ public class GUIView extends ClientView implements Runnable {
             @Override
             public void run() {
                 mainWindow = new GUI(id, name, communication);
-                mainWindow.setState(gameState);
                 mainWindow.setVisible(true);
             }
         });
-
-//        GUI.start();
     }
 
     @Override
@@ -404,7 +400,6 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showGameStart() {
-        // TODO Auto-generated method stub
         GameStartedDialog d;
         d = new GameStartedDialog(mainWindow, true);
         d.setVisible(true);
@@ -415,26 +410,22 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showInfo(String text) {
-        // TODO Auto-generated method stub
         mainWindow.getInfoArea().append("\n" + text);
     }
 
     @Override
     public void showItemSold(ItemForSale item) {
         mainWindow.getInfoArea().append("\n" + item.toString());
-
     }
 
     @Override
     public void showKingBonus(int updatedShowableKingBonus) {
-//        mainWindow.getCLIarea().append("\n"+"KingBonusesUpdatedMsg [updatedShowableKingBonus=" + updatedShowableKingBonus + "]");
         mainWindow.getkingBonus().setText(String.format("%nNext King bonus: %d victory points", updatedShowableKingBonus));
 
     }
 
     @Override
     public void showKingUpdate(King updatedKing) {
-//		mainWindow.getCLIarea().append("\n"+"KingUpdatedMsg [updatedKing=" + updatedKing + "]");
         mainWindow.getInfoArea().append("\n" + updatedKing.toString());
         mainWindow.getKingCity().setText(updatedKing.getCity().getName());
         mainWindow.showCouncillor(updatedKing.getBalcony(), null);
@@ -522,7 +513,6 @@ public class GUIView extends ClientView implements Runnable {
                 }
                 mainWindow.getUserProfile().revalidate();
                 mainWindow.getUserProfile().repaint();
-                //TODO my permit
             }
         });
         mainWindow.setMyPermits(p.getBusinessHand());
@@ -530,9 +520,6 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showPlayerChangesPrivate(Player p, String message) {
-        // TODO Auto-generated method stub
-//        System.out.println("it.polimi.ingsw.ps14.client.view.GUIView.showPlayerChangesPrivate()");	
-//        System.out.println(message);
         mainWindow.getInfoArea().append("\n" + message);
         showPersonalDetails(p);
 
@@ -546,7 +533,6 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showPrivateMsg(String text) {
-        // TODO Auto-generated method stub
         mainWindow.getInfoArea().append("\n" + text);
 
     }

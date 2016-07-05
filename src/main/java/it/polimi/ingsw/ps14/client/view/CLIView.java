@@ -104,7 +104,7 @@ public class CLIView extends ClientView implements Runnable {
 	@Override
 	public void loadMap(String mapName) {
 		// we don't need to do anything on the CLI
-		// TODO stampare il nome?
+		print(String.format("Loaded map %s", mapName));
 	}
 
 	@Override

@@ -24,7 +24,6 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 		this.quantity = quantity;
 	}
 
-	// TODO mi serve un modo per comunicare con il giocatore
 	/**
 	 * The player obtains the bonus from one (or more) of the tokens from the
 	 * cities where he has already built an emporium. The player cannot choose

@@ -65,7 +65,7 @@ public class BusinessPermitTest {
 	@Test
 	public void testUseBonuses() {
 		
-		Player testPlayer = new Player();
+		Player testPlayer = new Player(-1);
 		businessPermit.useBonuses(testPlayer, null);
 		assertEquals(testPlayer.getCoins(), 5);
 	}

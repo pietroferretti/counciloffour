@@ -18,7 +18,6 @@ public class Player extends Observable implements Serializable {
 	private static final long serialVersionUID = 479024623935337422L;
 
 	private static Random rand = new Random();
-	private static int idCounter = 1;	// FIXME se possibile eliminare e passare l'id al costruttore!!
 	private final int id;
 	private String name;
 	private Color color;
@@ -35,27 +34,23 @@ public class Player extends Observable implements Serializable {
 
 	/**
 	 * New player
-	 * 
-	 * @param name
-	 *            player name
-	 * @param color
-	 *            player color
+	 * @param id 
+	 * 			  the player id
 	 * @param coins
 	 *            starting coins
 	 * @param assistants
-	 *            nubmer of assistant
+	 *            number of assistant
 	 * @param deck
 	 *            politic deck from gameboard to draw politicCards
 	 * @param numberOfCards
 	 *            number of politic cards to drawn
-	 * @param id
+	 * @param name
+	 *            player name
+	 * @param color
+	 *            player color
 	 */
-	//FIXME non va mai usato nel gioco vero e proprio, 
-	//      crea casini perché l'id non viene caricato dalla serverView!!!
-	//		se possibile sostituire nei test con l'altro costruttore
-	public Player(String name, Color color, int coins, int assistants, PoliticDeck deck, int numberOfCards) {
-		this.id = idCounter;
-		idCounter++;
+	public Player(int id, int coins, int assistants, PoliticDeck deck, int numberOfCards, String name, Color color) {
+		this.id = id;
 		this.name = name;
 		this.color = color;
 		this.coins = coins;
@@ -103,15 +98,8 @@ public class Player extends Observable implements Serializable {
 		color = new Color(r, g, b);
 	}
 
-	/**
-	 * No argument constructor for Player
-	 */
-	//FIXME non va mai usato nel gioco vero e proprio, 
-	//      crea casini perché l'id non viene caricato dalla serverView!!!
-	//		se possibile sostituire nei test con l'altro costruttore
-	public Player() {
-		this.id = idCounter;
-		idCounter++;
+	public Player(int id) {
+		this.id = id;
 		coins = 0;
 		assistants = 0;
 		level = 0;
@@ -120,18 +108,6 @@ public class Player extends Observable implements Serializable {
 		businessHand = new BusinessCardsPlayer();
 	}
 
-//	public Player(String name, Color color) {
-//		this.id = idCounter;
-//		idCounter++;
-//		this.name = name;
-//		this.color = color;
-//		coins = 0;
-//		assistants = 0;
-//		level = 0;
-//		points = 0;
-//		hand = new ArrayList<>();
-//		businessHand = new BusinessCardsPlayer();
-//	}
 
 	public Player(Player player) {
 		id = player.id;
@@ -251,7 +227,7 @@ public class Player extends Observable implements Serializable {
 	public void addPolitic(PoliticCard card) {
 		hand.add(card);
 		setChanged();
-		notifyObservers(new PlayerChangedPrivateMsg(id,this, "You gain " + card.toString()));
+		notifyObservers(new PlayerChangedPrivateMsg(id,this, "You gain a " + card.toString()));
 	}
 
 	public int getId() {
@@ -269,7 +245,6 @@ public class Player extends Observable implements Serializable {
 		return cardInHand;
 	}
 
-	// TODO: eccezione se non c'è una carta nella mano?
 	/**
 	 * Finds a card with a specific color in the hand, returns null if there
 	 * isn't one
@@ -296,23 +271,14 @@ public class Player extends Observable implements Serializable {
 	 */
 	public PoliticCard useCard(ColorPolitic color) {
 		PoliticCard card = findCardInHand(color);
-		if (hand.remove(card) == true) {
+		if (hand.remove(card)) {
 			setChanged();
-			notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic card: " + card.toString()));
+			notifyObservers(new PlayerChangedPublicMsg(id, name + " used a Politic card: " + card.toString()));
 			return card;
 		} else {
-			// TODO: eccezione se non trova la carta nella mano
 			return null;
 		}
 	}
-	// @Deprecated
-	// public void removeCard(PoliticCard card) {
-	// hand.remove(card);
-	// setChanged();
-	// notifyObservers(new PlayerChangedPublicMsg(id, name + " use a Politic
-	// card: " + card.toString()));
-	//
-	// }
 
 	public BusinessCardsPlayer getBusinessHand() {
 		return businessHand;

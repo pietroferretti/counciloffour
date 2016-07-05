@@ -34,7 +34,7 @@ public class AvailableAssistantsViewTest {
 		assertEquals(model.getGameBoard().getAvailableAssistants(), aav2.getAvailableAssistantsCopy());
 		assertFalse(aav2.hasChanged()); // quindi ha eseguito notifyObserver
 
-		Player player = new Player();
+		Player player = new Player(-1);
 		player.addObserver(aav2);
 		player.addCoins(4);
 	}

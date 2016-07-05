@@ -17,7 +17,7 @@ public class KingBonusesViewTest {
 	@Before
 	public void setUp() throws Exception {
 		model = new Model();
-		player = new Player();
+		player = new Player(-1);
 		kbv = new KingBonusesView(model.getGameBoard().getKingBonuses().peek());
 		model.getGameBoard().addObserver(kbv);
 	}
