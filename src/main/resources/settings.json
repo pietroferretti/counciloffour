@@ -1,4 +1,5 @@
 {
+    "turntimer" : 1000,
     "balconyCouncillors" : 4,
     "availableCouncillors" : 6,
     "assistants" : 20,
