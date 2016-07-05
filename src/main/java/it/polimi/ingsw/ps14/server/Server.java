@@ -17,7 +17,6 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps14.Game;
 import it.polimi.ingsw.ps14.client.rmi.ClientViewRemote;
 
 /*
