@@ -1,13 +1,8 @@
 package it.polimi.ingsw.ps14.model;
 
-import it.polimi.ingsw.ps14.model.ColorCouncillor;
-import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.PoliticCard;
-import it.polimi.ingsw.ps14.model.PoliticDeck;
-import it.polimi.ingsw.ps14.model.RegionType;
-import static org.junit.Assert.*;
-import it.polimi.ingsw.ps14.model.bonus.BonusAssistant;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.io.IOException;

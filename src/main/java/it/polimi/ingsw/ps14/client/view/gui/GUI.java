@@ -510,8 +510,9 @@ private BusinessCardsPlayer myPermit;
         );
 
         userProfile.setBackground(new java.awt.Color(223, 32, 32));
-        userProfile.setLayout(new java.awt.FlowLayout());
+        userProfile.setLayout(new java.awt.GridLayout(2, 0));
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("playerInfo");
         userProfile.add(jLabel4);
 
@@ -626,21 +627,25 @@ private BusinessCardsPlayer myPermit;
         jPanel13.setLayout(new java.awt.GridLayout(4, 1));
 
         goldCity.setBackground(new java.awt.Color(255, 255, 0));
+        goldCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         goldCity.setText("gold");
         goldCity.setOpaque(true);
         jPanel13.add(goldCity);
 
         silverCity.setBackground(new java.awt.Color(204, 204, 255));
+        silverCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         silverCity.setText("silver");
         silverCity.setOpaque(true);
         jPanel13.add(silverCity);
 
         bronzeCity.setBackground(new java.awt.Color(204, 153, 0));
+        bronzeCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bronzeCity.setText("bronze");
         bronzeCity.setOpaque(true);
         jPanel13.add(bronzeCity);
 
         blueCity.setBackground(new java.awt.Color(102, 153, 255));
+        blueCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         blueCity.setText("blue");
         blueCity.setOpaque(true);
         jPanel13.add(blueCity);
@@ -688,28 +693,26 @@ private BusinessCardsPlayer myPermit;
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(infoCityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6))
-                            .addComponent(nobilityTrack)
+                                .addComponent(nobilityTrack)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(otherPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(otherPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                        .addComponent(infoCityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(kingCity, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(kingBonus, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(kingBonus, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -888,6 +891,7 @@ private BusinessCardsPlayer myPermit;
     private void chatSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSendButtonActionPerformed
         String chatMessage = chatTextField.getText();
         communication.chat(playerID, chatMessage);
+        chatTextField.setText("");
     }//GEN-LAST:event_chatSendButtonActionPerformed
 
     private void chatTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatTextFieldActionPerformed
@@ -910,7 +914,7 @@ private BusinessCardsPlayer myPermit;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String chatMessage = chatTextField.getText();
             communication.chat(playerID, chatMessage);
-            chatTextField.removeAll();
+            chatTextField.setText("");
     }//GEN-LAST:event_chatTextFieldKeyPressed
     }
     
@@ -1062,9 +1066,9 @@ private BusinessCardsPlayer myPermit;
 
     public void setState(State gameState) {
         this.state = gameState;
-        if (state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
-            nobilityRequest(state);
-        }
+//        if (state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
+//            nobilityRequest(state);
+//        }
     }
 
     public void showPoliticCard(ColorPolitic c) {
@@ -1092,6 +1096,7 @@ private BusinessCardsPlayer myPermit;
             politic.setIcon(politicCard.get(ColorPolitic.WHITE));
 
         }
+        politic.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userProfile.add(politic);
         userProfile.revalidate();
         userProfile.repaint();
