@@ -120,58 +120,6 @@ public class SocketServerView extends ServerView implements Runnable {
 
 	}
 
-	// private void sendOthersUpdate() {
-	// for (PlayerView pv : super.getModelView().getPlayersView()) {
-	// if (pv.getPlayerCopy().getId() != super.getPlayerID())
-	// sendMessage(new OtherPlayerUpdateMsg(pv.getPlayerCopy()));
-	// }
-	// }
-
-	// private void sendPersonalUpdate() {
-	// sendMessage(new
-	// PersonalUpdateMsg(super.getModelView().getPlayerByID(super.getPlayerID())));
-	// }
-
-	// /**
-	// * It sends the requested updates to the client; it build messages with
-	// the
-	// * {@link ModelView} objects.
-	// *
-	// * @param objectReceived
-	// * - Request for updates.
-	// */
-	// private void sendUpdates(UpdateRequestMsg requestReceived) {
-	//
-	// if (requestReceived instanceof UpdateGameBoardMsg) {
-	// sendMessage(new
-	// StateUpdatedMsg(super.getModelView().getStateView().getStateCopy()));
-	// sendMessage(new AvailableAssistantsUpdatedMsg(
-	// super.getModelView().getAvailableAssistantsView().getAvailableAssistantsCopy()));
-	// sendMessage(new
-	// KingBonusesUpdatedMsg(super.getModelView().getKingBonusesView().getShowableKingBonus()));
-	// sendMessage(
-	// new
-	// NobilityTrackUpdatedMsg(super.getModelView().getNobilityTrackView().getNobilityTrackCopy()));
-	// sendMessage(new
-	// KingUpdatedMsg(super.getModelView().getKingView().getKingCopy()));
-	// sendMessage(new CitiesColorBonusesUpdatedMsg(
-	// super.getModelView().getCitiesColorBonusesView().getBonusGoldCopy(),
-	// super.getModelView().getCitiesColorBonusesView().getBonusSilverCopy(),
-	// super.getModelView().getCitiesColorBonusesView().getBonusBronzeCopy(),
-	// super.getModelView().getCitiesColorBonusesView().getBonusBlueCopy()));
-	// sendMessage(new
-	// RegionUpdatedMsg(super.getModelView().getRegionsView().get(0).getRegionCopy()));
-	// for (RegionView rv : super.getModelView().getRegionsView()) {
-	// sendMessage(new RegionUpdatedMsg(rv.getRegionCopy()));
-	// }
-	//
-	// } else if (requestReceived instanceof UpdateThisPlayerMsg) {
-	// sendPersonalUpdate();
-	// } else if (requestReceived instanceof UpdateOtherPlayersMsg) {
-	// sendOthersUpdate();
-	// }
-	// }
-
 	@Override
 	public void update(Observable o, Object arg) {
 		if (this.isActive()) {
@@ -191,7 +139,7 @@ public class SocketServerView extends ServerView implements Runnable {
 	}
 
 	@Override
-	protected void sendMessage(Message msg) {
+	protected synchronized void sendMessage(Message msg) {
 		try {
 			if (isActive()) {
 				socketOut.writeObject(msg);

@@ -21,7 +21,7 @@ public class SocketMessageHandlerOut {
 		this.socketOut = socketOut;                   
 	}
 
-	public void sendMessage(Message message) {
+	public synchronized void sendMessage(Message message) {
 
 		try {
 			
