@@ -75,6 +75,9 @@ public class ItemForSale implements Serializable {
 	public boolean isValid(Model model) {
 
 		Player player = model.id2player(ownerID);
+		
+		if (price < 0) 
+			return false;
 
 		if (type.name().matches("BUSINESS")) {
 			BusinessPermit busPer = model.id2permit(idORquantity, player);
