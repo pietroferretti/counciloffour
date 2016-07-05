@@ -22,7 +22,7 @@ public class BusinessCardsPlayerTest {
 	public static void setUpBeforeClass() throws Exception {
 		model = new Model();
 		busCard = model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0];
-		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model.getGameBoard().getPoliticDeck(), 6);
+		player = new Player(0, 20, 12, model.getGameBoard().getPoliticDeck(), 6, "ubaldo", Color.DARK_GRAY);
 		busCard2 = model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[1];
 		busCard3 = model.getGameBoard().getRegion(RegionType.MOUNTAINS).getBusinessPermits().getAvailablePermits()[1];
 		bcp = new BusinessCardsPlayer();

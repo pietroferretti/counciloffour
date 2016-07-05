@@ -30,11 +30,9 @@ public abstract class ClientView implements Runnable {
 	protected String name;
 	protected boolean gameStarted;
 	protected State gameState;
-//	protected boolean myTurn;
 
 	public void setPlayerID(Integer playerID) {
 		this.playerID = playerID;
-//		gameStarted = false;	TODO tenere?
 	}
 
 	public Integer getPlayerID() {
@@ -100,7 +98,6 @@ public abstract class ClientView implements Runnable {
 	public abstract void showNobilityTrack(NobilityTrack updatedNobilityTrack);
 
 	// doesn't take Player as a parameter to keep other players' info safe
-	// TODO solo le carte sono segrete in teoria
 	public abstract void showOtherPlayer(int id, String name, Color color,
 			int coins, int assistants, int level, int points, int numEmporiums);
 

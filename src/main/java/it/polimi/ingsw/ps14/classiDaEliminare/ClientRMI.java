@@ -41,7 +41,7 @@ package it.polimi.ingsw.ps14.classiDaEliminare;
 //
 //		
 //		
-//	//	MessageHandlerOut methodInvocation=new MessageHandlerOut(rmiView); //TODO: fare una classe apposta per invocare metodi sul server.
+//	//	MessageHandlerOut methodInvocation=new MessageHandlerOut(rmiView); 
 //
 //		// while (true) {
 //		//
@@ -73,7 +73,6 @@ package it.polimi.ingsw.ps14.classiDaEliminare;
 //		// break;
 //		// }
 //		// } catch (IOException e1) {
-//		// // TODO Auto-generated catch block
 //		// e1.printStackTrace();
 //		// }
 //

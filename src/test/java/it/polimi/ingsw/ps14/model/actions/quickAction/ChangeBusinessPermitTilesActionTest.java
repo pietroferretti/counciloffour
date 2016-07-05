@@ -26,8 +26,8 @@ public class ChangeBusinessPermitTilesActionTest {
 	public void create() throws IOException {
 		model = new Model();
 		List<Player> pls = new ArrayList<>();
-		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model
-				.getGameBoard().getPoliticDeck(), 6);
+		player = new Player(0, 20, 12, model
+				.getGameBoard().getPoliticDeck(), 6, "ubaldo", Color.DARK_GRAY);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
 	}

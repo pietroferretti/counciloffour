@@ -25,7 +25,7 @@ public class RegionViewTest {
 	@Before
 	public void setUp() throws Exception {
 		model = new Model();
-		player = new Player();
+		player = new Player(-1);
 		player.setName("Nicole");
 		model.getPlayers().add(player);
 		model.setCurrentPlayer(player);

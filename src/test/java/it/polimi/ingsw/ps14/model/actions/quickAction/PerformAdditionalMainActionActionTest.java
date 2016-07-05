@@ -21,7 +21,7 @@ public class PerformAdditionalMainActionActionTest {
 	public void test() throws IOException {
 		Model model = new Model();
 		List<Player> pls=new ArrayList<>();
-		Player player=new Player("ubaldo",Color.DARK_GRAY,20,12,model.getGameBoard().getPoliticDeck(),6);
+		Player player=new Player(0,20,12,model.getGameBoard().getPoliticDeck(),6,"ubaldo", Color.DARK_GRAY);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
 		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].toString());
@@ -35,7 +35,7 @@ public class PerformAdditionalMainActionActionTest {
 	public void testExecute() throws IOException {
 		Model model = new Model();
 		List<Player> pls=new ArrayList<>();
-		Player player=new Player("ubaldo",Color.DARK_GRAY,20,12,model.getGameBoard().getPoliticDeck(),6);
+		Player player=new Player(0,20,12,model.getGameBoard().getPoliticDeck(),6,"ubaldo", Color.DARK_GRAY);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
 //		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].toString());

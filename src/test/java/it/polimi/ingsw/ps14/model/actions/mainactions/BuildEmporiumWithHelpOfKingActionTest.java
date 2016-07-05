@@ -28,7 +28,7 @@ public class BuildEmporiumWithHelpOfKingActionTest {
 	public void create() throws IOException{
 
 		model = new Model();
-		player=new Player("ubaldo",Color.DARK_GRAY,20,12,model.getGameBoard().getPoliticDeck(),6);
+		player=new Player(0,20,12,model.getGameBoard().getPoliticDeck(),6,"ubaldo", Color.DARK_GRAY);
 		
 
 		List<Player> pls = new ArrayList<>();

@@ -26,8 +26,8 @@ public class PoliticDeckTest {
 		List<Player> pls = new ArrayList<>();
 		cards = new ArrayList<>();
 
-		player = new Player("ubaldo", Color.DARK_GRAY, 20, 12, model
-				.getGameBoard().getPoliticDeck(), 4);
+		player = new Player(0, 20, 12, model
+				.getGameBoard().getPoliticDeck(), 4, "ubaldo", Color.DARK_GRAY);
 		pls.add(player);
 		model.setPlayers(new ArrayList<Player>(pls));
 
