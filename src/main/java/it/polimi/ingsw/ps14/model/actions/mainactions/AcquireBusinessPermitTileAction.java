@@ -62,20 +62,19 @@ public class AcquireBusinessPermitTileAction extends MainAction {
         if (!player.hasPoliticCard(colors)) {
             return false;
         }
-            LOGGER.info("color in player hand ok");
 
         if (!balcony.cardsMatch(cards)) {
             return false;
         }
-        LOGGER.info(String.format("color ok"));
+
         if (player.getCoins() < balcony.councillorCost(cards)) {
             return false;
         }
-        LOGGER.info(String.format("coins ok "+balcony.councillorCost(cards)));
+
         if (!region.getBusinessPermits().cardIsFaceUp(permitTile)) {
             return false;
         }
-        LOGGER.info(String.format("permit ok"));
+
         return true;
     }
 
