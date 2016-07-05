@@ -465,12 +465,16 @@ public class GUIView extends ClientView implements Runnable {
             public void run() {
                 JPanel jp;
                 if (jPlayer.containsKey(id)) {
-                    jp = jPlayer.get((Integer) id);
+                    jp = jPlayer.get(id);
+                    jp.removeAll();
                 } else {
                     jp = new JPanel();
-                    jp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+                    jp.setBackground(color);
+                    jPlayer.put(id, jp);
                     mainWindow.getOtherPlayerArea().add(jp);
                 }
+                jp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, name, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+
                 JLabel ass = new javax.swing.JLabel();
                 ass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/assistants.png"))); // NOI18N
                 ass.setText(Integer.toString(assistants));
@@ -496,7 +500,7 @@ public class GUIView extends ClientView implements Runnable {
     }
 
     BusinessCardsPlayer cardsPlayer;
-    
+
     @Override
     public void showPersonalDetails(Player p) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -504,6 +508,7 @@ public class GUIView extends ClientView implements Runnable {
             public void run() {
                 mainWindow.getUserProfile().removeAll();
                 mainWindow.getUserProfile().revalidate();
+                mainWindow.getUserProfile().setBackground(p.getColor());
                 mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
                 mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
                 mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
@@ -529,6 +534,7 @@ public class GUIView extends ClientView implements Runnable {
     public void showPlayerChangesPublic(String notice) {
         mainWindow.getInfoArea().append("\n" + notice);
         communication.showMyDetails(playerID);
+        communication.showDetails(playerID);
     }
 
     @Override
