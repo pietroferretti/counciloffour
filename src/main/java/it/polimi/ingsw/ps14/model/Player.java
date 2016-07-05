@@ -295,10 +295,9 @@ public class Player extends Observable implements Serializable {
 	}
 
 	public void sellPermits(BusinessPermit item) {
-		// TODO NOTIFY (MA NEL SENSO METTE IN VENDITA O HA GIà VENDUTO?)
 		businessHand.sellPermits(item);
-		// setChanged();
-		// notifyObservers();
+		setChanged();
+		notifyObservers();
 	}
 
 	public List<BusinessPermit> getAllPermits() {
