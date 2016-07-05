@@ -107,9 +107,13 @@ public class RMIServerView extends ServerView {
 			
 			@Override
 			public void run() {
-				Message message = new DisconnectionMsg(id);
-				forwardMessage(message);
-				System.out.println(String.format("RMI client %d disconnected!", id));
+				try {
+					System.out.println(String.format("RMI client %d disconnected!", id));
+					Message message = new DisconnectionMsg(id);
+					forwardMessage(message);
+				} catch (NullPointerException e) {
+					e.printStackTrace();
+				}
 			}
 
 		};

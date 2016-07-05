@@ -404,8 +404,20 @@ public class Controller implements Observer {
 		if (action.isValid(model)) {
 
 			action.execute(model);
-			model.queueAndLoadNextPlayer();
-
+			if (model.getMarket().isEmpty()) {
+				
+				model.getMarket().clear();
+				model.setGamePhase(GamePhase.TURNS);
+				model.setCurrentTurnState(new InitialTurnState());
+				model.setPlayerOrder(activePlayers);
+				model.loadNextPlayer();
+		
+			} else {
+			
+				model.queueAndLoadNextPlayer();
+		
+			}
+			
 		} else {
 
 			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!");
