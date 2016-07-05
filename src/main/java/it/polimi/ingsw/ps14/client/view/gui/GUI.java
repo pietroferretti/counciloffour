@@ -510,7 +510,7 @@ private BusinessCardsPlayer myPermit;
         );
 
         userProfile.setBackground(new java.awt.Color(223, 32, 32));
-        userProfile.setLayout(new java.awt.GridLayout(2, 0));
+        userProfile.setLayout(new java.awt.GridLayout(2, 7));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("playerInfo");
@@ -660,7 +660,7 @@ private BusinessCardsPlayer myPermit;
         infoCity.setText("Info CITY");
         infoCityPanel.add(infoCity, java.awt.BorderLayout.PAGE_START);
 
-        otherPlayer.setLayout(new java.awt.GridLayout(2, 1));
+        otherPlayer.setLayout(new java.awt.GridLayout(3, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1072,7 +1072,7 @@ private BusinessCardsPlayer myPermit;
     }
 
     public void showPoliticCard(ColorPolitic c) {
-        JLabel politic = (new javax.swing.JLabel());
+        JLabel politic = new javax.swing.JLabel();
 
         if (c == ColorPolitic.BLACK) {
             politic.setIcon(politicCard.get(ColorPolitic.BLACK));

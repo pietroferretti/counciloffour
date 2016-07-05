@@ -512,8 +512,7 @@ public class GUIView extends ClientView implements Runnable {
             @Override
             public void run() {
                 mainWindow.getUserProfile().removeAll();
-//                mainWindow.getUserProfile().revalidate();
-                mainWindow.getProfile().setBackground(p.getColor());
+                mainWindow.getUserProfile().revalidate();
                 mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
                 mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
                 mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
@@ -531,7 +530,7 @@ public class GUIView extends ClientView implements Runnable {
 
     @Override
     public void showPlayerChangesPrivate(Player p, String message) {
-        mainWindow.getInfoArea().append("\n" + message);
+        mainWindow.getInfoArea().append("\n" + message+p.toString());
         showPersonalDetails(p);
 
     }
