@@ -26,10 +26,6 @@ public class SocketServerView extends ServerView implements Runnable {
 	private ObjectOutputStream socketOut;
 	private Server server;
 
-	// private int timeOut;
-	// private TimerTask timerTask;
-	// private Timer timer;
-
 	private boolean active = true;
 
 	public SocketServerView(Socket socket, Server server, int idPlayer)
@@ -41,7 +37,6 @@ public class SocketServerView extends ServerView implements Runnable {
 		this.socketOut = new ObjectOutputStream(socket.getOutputStream());
 		socketOut.writeObject(new PlayerIDMsg(idPlayer));
 		LOGGER.info(String.format("Sent id to player %d", super.getPlayerID()));
-		// this.timeOut=timeOut;
 	}
 
 	private boolean isActive() {
@@ -67,8 +62,8 @@ public class SocketServerView extends ServerView implements Runnable {
 	@Override
 	public void run() {
 
-		// continua ad aspettare messaggi dal socket
-		// se ricevi messaggi -> notifyObservers
+		// waits for messages from the client
+		// notifies the observer (Controller) when it receives one
 
 		try {
 			while (this.isActive()) {
@@ -113,8 +108,8 @@ public class SocketServerView extends ServerView implements Runnable {
 		} catch (IOException | NoSuchElementException | ClassNotFoundException e) {
 			LOGGER.log(
 					Level.SEVERE,
-					String.format("CLIENT DISCONNESSO id '%d'",
-							super.getPlayerID()));
+					String.format("Error on the socket server view with id '%d'",
+							super.getPlayerID()), e);
 			Message disconnect = new DisconnectionMsg(getPlayerID());
 			setChanged();
 			notifyObservers(disconnect);
