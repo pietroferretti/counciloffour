@@ -1066,9 +1066,9 @@ private BusinessCardsPlayer myPermit;
 
     public void setState(State gameState) {
         this.state = gameState;
-//        if (state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
-//            nobilityRequest(state);
-//        }
+        if (state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
+            nobilityRequest(state);
+        }
     }
 
     public void showPoliticCard(ColorPolitic c) {
