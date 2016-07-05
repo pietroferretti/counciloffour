@@ -84,22 +84,10 @@ public class Client {
 		} while (!connType.toUpperCase().matches("^(SOCKET|RMI)$"));
 
 		if (connType.toUpperCase().matches("^(SOCKET)$")) {
-			Socket socket;
-			try {
-
-				try {
-					socket = new Socket(host, SOCKET_PORT);
-					System.out.println("Connection created.");
-
-				} catch (IOException e) {
-
-					LOGGER.warning(String.format(
-							"Couldn't create socket at IP '%s' on port '%d'",
-							host, SOCKET_PORT));
-					throw e;
-
-				}
-
+			
+			try (Socket socket = new Socket(host, SOCKET_PORT)){
+				
+				System.out.println("Connection created.");
 				
 				SocketMessageHandlerOut msgHandlerOut = new SocketMessageHandlerOut(
 						new ObjectOutputStream(socket.getOutputStream()));
@@ -117,8 +105,8 @@ public class Client {
 
 			} catch (IOException e) {
 
-				LOGGER.log(Level.WARNING,
-						"Couldn't create connection, closing.", e);
+				LOGGER.log(Level.SEVERE,
+						"Couldn't create socket connection, closing.", e);
 
 			}
 
