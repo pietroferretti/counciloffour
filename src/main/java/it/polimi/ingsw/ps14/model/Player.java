@@ -111,11 +111,7 @@ public class Player extends Observable implements Serializable {
 
 	public Player(Player player) {
 		id = player.id;
-		// if (player.name != null) {
 		name = player.name;
-		// } else {
-		// name = null;
-		// }
 		color = player.color;
 		coins = player.coins;
 		assistants = player.assistants;
@@ -164,9 +160,11 @@ public class Player extends Observable implements Serializable {
 	public boolean useAssistants(int assistantNumber) {
 		if (assistants >= assistantNumber) {
 			assistants = assistants - assistantNumber;
-			setChanged();
-			notifyObservers(new PlayerChangedPublicMsg(id,
-					name + " used " + Integer.toString(assistantNumber) + " assistant(s)!"));
+			if (assistantNumber > 0) {
+				setChanged();
+				notifyObservers(new PlayerChangedPublicMsg(id,
+						name + " used " + Integer.toString(assistantNumber) + " assistant(s)!"));
+			}
 			return true;
 		} else {
 			return false;
@@ -175,9 +173,11 @@ public class Player extends Observable implements Serializable {
 
 	public void addAssistants(int assistants) {
 		this.assistants = this.assistants + assistants;
-		setChanged();
-		notifyObservers(
+		if (assistants > 0) {
+			setChanged();
+			notifyObservers(
 				new PlayerChangedPublicMsg(id, name + " gained " + Integer.toString(assistants) + " assistant(s)!"));
+		}
 	}
 
 	public int getLevel() {
