@@ -444,7 +444,8 @@ public class GUIView extends ClientView implements Runnable {
     @Override
     public void showMarket(Market updatedMarket) {
         mainWindow.getInfoArea().append("\n" + updatedMarket.toString());
-
+        communication.showMyDetails(playerID);
+        communication.showDetails(playerID);
     }
 
     @Override
@@ -503,7 +504,11 @@ public class GUIView extends ClientView implements Runnable {
                 point.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/nobilitypoints.png"))); // NOI18N
                 point.setText(Integer.toString(points));
                 jp.add(point);
-
+                
+                jp.revalidate();
+                jp.repaint();
+                mainWindow.getOtherPlayerArea().revalidate();
+                mainWindow.getOtherPlayerArea().repaint();
             }
         });
     }
@@ -516,8 +521,8 @@ public class GUIView extends ClientView implements Runnable {
             @Override
             public void run() {
                 mainWindow.getUserProfile().removeAll();
-                mainWindow.getUserProfile().revalidate();
-                mainWindow.getUserProfile().setBackground(p.getColor());
+//                mainWindow.getUserProfile().revalidate();
+                mainWindow.getProfile().setBackground(p.getColor());
                 mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
                 mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
                 mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
@@ -525,8 +530,8 @@ public class GUIView extends ClientView implements Runnable {
                 for (PoliticCard pc : p.getHand()) {
                     mainWindow.showPoliticCard(pc.getColor());
                 }
-                mainWindow.getUserProfile().revalidate();
-                mainWindow.getUserProfile().repaint();
+//                mainWindow.getUserProfile().revalidate();
+//                mainWindow.getUserProfile().repaint();
                 //TODO my permit
             }
         });

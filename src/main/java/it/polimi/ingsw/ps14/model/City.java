@@ -194,9 +194,9 @@ public class City implements Serializable {
 	}
 
 	public String toStringGUI() {
-		String s = "<b>CITY: " + this.name + "</b>\n";
+		String s = "<b>CITY: " + this.name + "</b><br>";
 		for (Player p : emporiums) {
-			s = s + p.getName() + "\n";
+			s = s + p.getName() + "<br>";
 		}
 		if (token != null) {
 			s = s + this.token.toString();

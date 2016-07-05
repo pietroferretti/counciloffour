@@ -1311,7 +1311,7 @@ private BusinessCardsPlayer myPermit;
                     for (Map.Entry<Point, String> cityCoord : mapCoordinates.entrySet()) {
                         if (isNear(userMouse, cityCoord.getKey())) {
 
-                            JLabel infoCity = new JLabel("<html>" + cityDesc.get(cityCoord.getValue()) + "</html>");
+                            JLabel infoCity = new JLabel("<html>" + cityDesc.get(cityCoord.getValue()).replaceAll("\n", "") + "</html>");
                             infoCity.setFont(new java.awt.Font("Arial", 0, 12));
                             infoCityPanel.removeAll();
                             infoCityPanel.add(infoCity);
@@ -1356,5 +1356,8 @@ private BusinessCardsPlayer myPermit;
     
     public void setMyPermits(BusinessCardsPlayer myP){
         this.myPermit=myP;
+    }
+    public JLayeredPane getProfile(){
+        return profile;
     }
 }
