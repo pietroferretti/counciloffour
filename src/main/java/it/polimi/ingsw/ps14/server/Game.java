@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14;
+package it.polimi.ingsw.ps14.server;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,8 +12,6 @@ import it.polimi.ingsw.ps14.model.City;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.modelview.ModelView;
-import it.polimi.ingsw.ps14.server.ServerChat;
-import it.polimi.ingsw.ps14.server.ServerView;
 
 public class Game {
 	private static final Logger LOGGER = Logger.getLogger(Game.class.getName());

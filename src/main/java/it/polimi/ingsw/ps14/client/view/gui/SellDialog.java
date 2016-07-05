@@ -456,7 +456,13 @@ public class SellDialog extends javax.swing.JDialog {
 					items.add(new ItemForSale(ColorPolitic.JOLLY, Integer.valueOf(jollyPrice), playerID));
 				}
 			}
-
+			
+			for (ItemForSale item : items) {
+				if (item.getPrice() < 0) {
+					JOptionPane.showMessageDialog(null, "The prices cannot be negative!", "Warning", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+			}
 		
 			if (items.isEmpty()) {
 				communication.sellNone(playerID);

@@ -67,11 +67,13 @@ public class Client {
 					"Something went wrong while parsing the interface type");
 		}
 
-		String host;
-		do {
+		System.out.println("What's the IP address of the server? (Leave empty if local)");
+		String host = scanner.nextLine();
+		while (!(host.isEmpty() || isValidIP(host))) {
+			System.out.println("That's not a valid IP address!");
 			System.out.println("What's the IP address of the server? (Leave empty if local)");
 			host = scanner.nextLine();
-		} while (!(host.isEmpty() || isValidIP(host)));
+		}
 		
 		if (host.isEmpty()) {
 			host = "127.0.0.1";

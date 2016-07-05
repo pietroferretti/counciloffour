@@ -27,21 +27,4 @@ public class NobilityTrackView implements Serializable {
 		return nobilityTrackCopy;
 	}
 
-	// private void setNobilityTrackCopy(NobilityTrack nobilityTrackCopy) {
-	// this.nobilityTrackCopy = nobilityTrackCopy;
-	// setChanged();
-	// notifyObservers();
-	// }
-
-	// @Override
-	// public void update(Observable o, Object arg) {
-	//
-	// if (!(o instanceof NobilityTrack)) {
-	// throw new IllegalArgumentException();
-	// } else {
-	// setNobilityTrackCopy(new NobilityTrack((NobilityTrack) o));
-	// }
-	//
-	// }
-
 }

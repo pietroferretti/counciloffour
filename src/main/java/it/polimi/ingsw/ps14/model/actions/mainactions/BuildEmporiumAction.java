@@ -13,11 +13,9 @@ public abstract class BuildEmporiumAction extends MainAction {
 	 * 
 	 */
 	private static final long serialVersionUID = 4096873819410368693L;
-	private String cityName;
-
-	public BuildEmporiumAction(Integer playerID, String cityName) {
+	
+	public BuildEmporiumAction(Integer playerID) {
 		super(playerID);
-		this.cityName = cityName;
 	}
 
 	public void build(City city, Player player, Model model) {

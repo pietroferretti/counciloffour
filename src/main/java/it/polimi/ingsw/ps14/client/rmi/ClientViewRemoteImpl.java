@@ -28,8 +28,13 @@ import it.polimi.ingsw.ps14.model.State;
 public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 		ClientViewRemote {
 
-	private Timer timer;
-	private TimerTask timerTask;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6111979881550001331L;
+	
+	private transient Timer timer;
+	private transient TimerTask timerTask;
 	private boolean alreadyCalled = false;
 
 	private Life life;
@@ -41,11 +46,6 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 		this.cv = cv;
 		this.life=life;
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6111979881550001331L;
 
 	public void updateClient(Observable o, Object arg) throws RemoteException {
 		System.out.println(arg.toString());
@@ -81,7 +81,6 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 		cv.setGameState(initialGameState);
 		cv.loadMap(mapName);
 		cv.showGameStart();
-//		cv.showAvailableCommands();
 	}
 
 	@Override

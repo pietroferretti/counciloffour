@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.ps14.server</OriginalElement>
+  <nodes>
+    <node x="794.5" y="65.0">it.polimi.ingsw.ps14.server.ServerView</node>
+    <node x="454.0" y="225.0">it.polimi.ingsw.ps14.server.ServerViewRemote</node>
+    <node x="64.0" y="145.0">it.polimi.ingsw.ps14.server.RMIServerView</node>
+    <node x="994.5" y="65.0">it.polimi.ingsw.ps14.server.ServerChat</node>
+    <node x="777.0" y="345.0">it.polimi.ingsw.ps14.server.SocketServerView</node>
+    <node x="442.0" y="345.0">it.polimi.ingsw.ps14.server.ServerViewRemoteImpl</node>
+    <node x="266.5" y="225.0">it.polimi.ingsw.ps14.server.RMIServerOut</node>
+    <node x="647.0" y="345.0">it.polimi.ingsw.ps14.server.Server</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.ps14.server.Server" target="it.polimi.ingsw.ps14.server.SocketServerView">
+      <point x="33.0" y="0.0" />
+      <point x="-63.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.ServerViewRemoteImpl" target="it.polimi.ingsw.ps14.server.Server">
+      <point x="78.0" y="0.0" />
+      <point x="-33.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.SocketServerView" target="it.polimi.ingsw.ps14.server.Server">
+      <point x="0.0" y="15.0" />
+      <point x="840.0" y="440.0" />
+      <point x="680.0" y="440.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.SocketServerView" target="it.polimi.ingsw.ps14.server.ServerView">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.ServerView" target="it.polimi.ingsw.ps14.server.ServerChat">
+      <point x="0.0" y="-15.0" />
+      <point x="840.0" y="0.0" />
+      <point x="1040.0" y="0.0" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.RMIServerView" target="it.polimi.ingsw.ps14.server.RMIServerOut">
+      <point x="0.0" y="15.0" />
+      <point x="120.0" y="240.0" />
+      <point x="-53.5" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.RMIServerView" target="it.polimi.ingsw.ps14.server.ServerView">
+      <point x="0.0" y="-15.0" />
+      <point x="120.0" y="80.0" />
+      <point x="-45.5" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.Server" target="it.polimi.ingsw.ps14.server.RMIServerView">
+      <point x="-20.0" y="-15.0" />
+      <point x="660.0" y="160.0" />
+      <point x="56.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.ServerViewRemoteImpl" target="it.polimi.ingsw.ps14.server.RMIServerView">
+      <point x="-78.0" y="0.0" />
+      <point x="0.0" y="360.0" />
+      <point x="0.0" y="160.0" />
+      <point x="-56.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.ServerChat" target="it.polimi.ingsw.ps14.server.ServerView">
+      <point x="-45.5" y="0.0" />
+      <point x="45.5" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.Server" target="it.polimi.ingsw.ps14.server.ServerView">
+      <point x="0.0" y="-15.0" />
+      <point x="680.0" y="90.0" />
+      <point x="-45.5" y="10.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.ServerViewRemoteImpl" target="it.polimi.ingsw.ps14.server.ServerViewRemote">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.Server" target="it.polimi.ingsw.ps14.server.ServerViewRemoteImpl">
+      <point x="-20.0" y="15.0" />
+      <point x="660.0" y="480.0" />
+      <point x="520.0" y="480.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="543.0" y="245.0" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.ps14.server.Server</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

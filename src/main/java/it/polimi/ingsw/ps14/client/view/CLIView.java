@@ -60,10 +60,6 @@ public class CLIView extends ClientView implements Runnable {
 
 		while (true) {
 
-//			print("");
-//			showAvailableCommands();
-
-		//	print("Enter command:");
 			String input = in.nextLine();
 			
 			if (input.equalsIgnoreCase("EXIT")) {

@@ -39,6 +39,7 @@ public class Settings {
 	public final List<Map<String, Object>> permitDeckMountains;
 	
 	public final String mapName;
+	public final int turnCountdown;
 
 	public Settings() throws IOException {
 
@@ -50,6 +51,7 @@ public class Settings {
 			JSONObject jsonSettings = (JSONObject) jsonFile.nextValue();
 	
 			// Extract the first variables
+			turnCountdown = jsonSettings.getInt("turntimer");
 			councillorsEachBalcony = jsonSettings.getInt("balconyCouncillors");
 			availableCouncillorsEachColor = jsonSettings.getInt("availableCouncillors");
 			availableAssistants = jsonSettings.getInt("assistants");

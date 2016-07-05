@@ -1092,9 +1092,10 @@ public class GUI extends javax.swing.JFrame {
 
     public void setState(State gameState) {
         this.state = gameState;
-//        if (state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
-//            nobilityRequest(state);
-//        }
+        if (state != null && state.getCurrentPlayer()!= null && state.getWaitingFor()!= null 
+        		&& state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
+            nobilityRequest(state);
+        }
     }
 
     public void showPoliticCard(ColorPolitic c) {

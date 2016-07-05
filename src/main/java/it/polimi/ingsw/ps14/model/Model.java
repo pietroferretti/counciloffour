@@ -240,6 +240,10 @@ public class Model extends Observable{
 	public void clearMessage() {
 		message = null;
 	}
+	
+	public int getTurnCountdown() {
+		return settings.turnCountdown;
+	}
 
 	/**
 	 * It returns a specific {@link Player} given his ID.

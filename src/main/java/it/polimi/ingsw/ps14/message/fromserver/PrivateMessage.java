@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps14.message.fromserver;
 
-public abstract class PrivateMessage {
+import it.polimi.ingsw.ps14.message.Message;
+
+public abstract class PrivateMessage implements Message {
 
 	private Integer playerID;
 	
