@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.ps14.model</OriginalElement>
+  <nodes>
+    <node x="181.5" y="0.0">it.polimi.ingsw.ps14.message.Message</node>
+    <node x="153.0" y="80.0">it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg</node>
+    <node x="0.0" y="80.0">it.polimi.ingsw.ps14.message.DisconnectionMsg</node>
+    <node x="310.0" y="80.0">it.polimi.ingsw.ps14.message.fromserver.PrivateMessage</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.PrivateMessage" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="368.0" y="55.0" />
+      <point x="248.16666666666669" y="55.0" />
+      <point x="26.66666666666667" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.DisconnectionMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="66.5" y="55.0" />
+      <point x="194.83333333333331" y="55.0" />
+      <point x="-26.66666666666667" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="213.0" y="55.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

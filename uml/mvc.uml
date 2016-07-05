@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.ps14.client</OriginalElement>
+  <nodes>
+    <node x="1.0" y="80.0">it.polimi.ingsw.ps14.server.ServerView</node>
+    <node x="147.5" y="0.0">it.polimi.ingsw.ps14.model.Model</node>
+    <node x="13.5" y="160.0">it.polimi.ingsw.ps14.server.Server</node>
+    <node x="0.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.ModelView</node>
+    <node x="138.0" y="80.0">it.polimi.ingsw.ps14.controller.Controller</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.ps14.controller.Controller" target="it.polimi.ingsw.ps14.model.Model">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.ServerView" target="it.polimi.ingsw.ps14.model.modelview.ModelView">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.server.Server" target="it.polimi.ingsw.ps14.server.ServerView">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="112.5" y="95.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
