@@ -25,8 +25,7 @@ public class RegionTest {
 			councillors.add(ColorCouncillor.getRandomCouncillor());
 		}
 		r3 = model.getGameBoard().getRegion(RegionType.COAST);
-//		FIXME
-//		System.out.println(r3.toString());
+
 	}
 
 	@Test
@@ -67,11 +66,6 @@ public class RegionTest {
 
 			index++;
 		}
-		// FIXME assertEquals(r3.toString(), r1.toString());
-		// assertEquals(r3.getBusinessPermits().toString(),
-		// r1.getBusinessPermits().toString());
-		// System.out.println(r3.getBusinessPermits());
-		// System.out.println(r1.getBusinessPermits());
 		assertEquals(r3.getBonusRegion(), r1.getBonusRegion());
 	}
 

@@ -26,14 +26,16 @@ public class RMIServerView extends ServerView {
 			.getName());
 
 	private static final int TIMEOUT = 3000;
+	private Server server;
 	private RMIServerOut serverRMIout;
 	protected boolean active;
 
 	private Timer timer;
 	private TimerTask task;
 
-	public RMIServerView(int id, ClientViewRemote client) {
+	public RMIServerView(int id, ClientViewRemote client, Server server) {
 		super(id);
+		this.server = server;
 		serverRMIout = new RMIServerOut(client);
 		serverRMIout.castMessage(new PlayerIDMsg(id));
 		LOGGER.info(String.format("Sent id to player %d", super.getPlayerID()));
@@ -89,13 +91,12 @@ public class RMIServerView extends ServerView {
 	public void sendMessage(Message msg) {
 
 		serverRMIout.castMessage(msg);
-		LOGGER.info(String.format("calling method %s on rmi %d", msg,
-				super.getPlayerID()));
 
 	}
 
 	public void timerPlayer() {
 		int playerID = super.getPlayerID();
+		RMIServerView rmiServerView = this;
 		
 		if (timer != null)
 			timer.cancel();
@@ -104,11 +105,15 @@ public class RMIServerView extends ServerView {
 		task = new TimerTask() {
 
 			private int id = playerID;
+			private RMIServerView serverView = rmiServerView;
 			
 			@Override
 			public void run() {
 				try {
 					System.out.println(String.format("RMI client %d disconnected!", id));
+					LOGGER.info(String.format("Deregistering RMI client with id '%d'",
+							serverView.getPlayerID()));
+					server.deregisterConnection(serverView);
 					Message message = new DisconnectionMsg(id);
 					forwardMessage(message);
 				} catch (NullPointerException e) {

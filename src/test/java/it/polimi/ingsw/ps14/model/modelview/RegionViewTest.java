@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
-import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,19 +40,21 @@ public class RegionViewTest {
 
 	@Test
 	public void testRegionView() {
-		// TODO fare controllo pezzo a pezzo
 		System.out.println("\ntestRegionView\n");
 
 		RegionView rvCOAST = new RegionView(model.getGameBoard().getRegion(RegionType.COAST));
 		assertNotSame(model.getGameBoard().getRegion(RegionType.COAST), rvCOAST.getRegionCopy());
-
+		assertEquals(model.getGameBoard().getRegion(RegionType.COAST).toString(), rvCOAST.getRegionCopy().toString());
+		
 		System.out.println(rvCOAST.getRegionCopy());
 
 		RegionView rvHILLS = new RegionView(model.getGameBoard().getRegion(RegionType.HILLS));
 		assertNotSame(model.getGameBoard().getRegion(RegionType.HILLS), rvHILLS.getRegionCopy());
-
+		assertEquals(model.getGameBoard().getRegion(RegionType.HILLS).toString(), rvHILLS.getRegionCopy().toString());
+		
 		RegionView rvMOUNTAINS = new RegionView(model.getGameBoard().getRegion(RegionType.MOUNTAINS));
 		assertNotSame(model.getGameBoard().getRegion(RegionType.MOUNTAINS), rvMOUNTAINS.getRegionCopy());
+		assertEquals(model.getGameBoard().getRegion(RegionType.MOUNTAINS).toString(), rvMOUNTAINS.getRegionCopy().toString());
 
 	}
 
@@ -76,39 +78,18 @@ public class RegionViewTest {
 	}
 
 	@Test
-	public void testUpdateBonusRegion() {
-
-		System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBonusRegion());
-		System.out.print(rv.getRegionCopy().getBonusRegion());
-
-		// TODO controllo nelle action quando ho tutti empori della stessa
-		// region
-	}
-
-	@Test
 	public void testUpdateBusinessPermits() {
 		System.out.println("testUpdateBusinessPermits");
 
 		actionPermits = new ChangeBusinessPermitTilesAction(player.getId(), RegionType.COAST);
-		// FIXME
-		// System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().toString());
-		// System.out.println(rv.getRegionCopy().getBusinessPermits());
 
 		assertNotSame(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits(),
 				rv.getRegionCopy().getBusinessPermits());
 
 		actionPermits.execute(new MainActionDoneTurnState(0), model);
-		// FIXME
-		// System.out.println(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().toString());
-		// System.out.print(rv.getRegionCopy().getBusinessPermits());
-
+	
 		assertNotSame(model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits(),
 				rv.getRegionCopy().getBusinessPermits());
-		// TODO altre azioni che modificano
-		// MainAction action = new
-		// AcquireBusinessPermiteTileAction(player.getId(), RegionType.COAST,
-		// model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0].getId(),
-		// cards);
 
 	}
 
@@ -123,9 +104,8 @@ public class RegionViewTest {
 		System.out.println(rv.getRegionCopy().getCities().get(0).toString());
 
 		assertNotSame(model.getGameBoard().getRegion(RegionType.COAST).getCities(), rv.getRegionCopy().getCities());
-		// TODO fare controllo su ogni cosa
-		// assertEquals(model.getGameBoard().getRegion(RegionType.COAST).getCities().get(0).getEmporiums(),
-		// rv.getRegionCopy().getCities().get(0).getEmporiums());
+		
+		assertEquals(model.getGameBoard().getRegion(RegionType.COAST).toString(), rv.getRegionCopy().toString());
 
 		assertNotSame(model.getGameBoard().getRegion(RegionType.COAST).getCities().get(0).getEmporiums(),
 				rv.getRegionCopy().getCities().get(0).getEmporiums());
