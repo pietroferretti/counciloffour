@@ -6,9 +6,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.message.Message;
+import it.polimi.ingsw.ps14.server.SocketServerView;
+
 /**
- * write object in dedicated server IN socket
- * @author federico
+ * It write objects in dedicated server IN socket ({@link SocketServerView}).
  *
  */
 public class SocketMessageHandlerOut {
@@ -16,15 +17,19 @@ public class SocketMessageHandlerOut {
 
 	private ObjectOutputStream socketOut;
 
-	
 	public SocketMessageHandlerOut(ObjectOutputStream socketOut) {
-		this.socketOut = socketOut;                   
+		this.socketOut = socketOut;
 	}
 
+	/**
+	 * Forward a {@link Message} through socket.
+	 * 
+	 * @param message
+	 */
 	public synchronized void sendMessage(Message message) {
 
 		try {
-			
+
 			socketOut.writeObject(message);
 			socketOut.flush();
 

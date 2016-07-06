@@ -21,18 +21,14 @@ import it.polimi.ingsw.ps14.model.Region;
 import it.polimi.ingsw.ps14.model.State;
 
 /**
- * This class implements the methods callable ON the client with RMI
+ * This class implements the methods invokable ON the client with RMI
  * 
  */
 
-public class ClientViewRemoteImpl extends UnicastRemoteObject implements
-		ClientViewRemote {
+public class ClientViewRemoteImpl extends UnicastRemoteObject implements ClientViewRemote {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6111979881550001331L;
-	
+
 	private transient Timer timer;
 	private transient TimerTask timerTask;
 	private boolean alreadyCalled = false;
@@ -41,14 +37,10 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 
 	private ClientView cv;
 
-	public ClientViewRemoteImpl(ClientView cv,Life life) throws RemoteException {
+	public ClientViewRemoteImpl(ClientView cv, Life life) throws RemoteException {
 		super();
 		this.cv = cv;
-		this.life=life;
-	}
-
-	public void updateClient(Observable o, Object arg) throws RemoteException {
-		System.out.println(arg.toString());
+		this.life = life;
 	}
 
 	@Override
@@ -58,16 +50,14 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void availableCouncillorsUpdate(
-			Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
+	public void availableCouncillorsUpdate(Map<ColorCouncillor, Integer> updatedAvailableCouncillors) {
 		cv.showAvailableCouncillor(updatedAvailableCouncillors);
 	}
 
 	@Override
-	public void citiesColorBonusesUpdate(int updatedBonusGold,
-			int updatedBonusSilver, int updatedBonusBronze, int updatedBonusBlue) {
-		cv.showCitiesColorBonuses(updatedBonusGold, updatedBonusSilver,
-				updatedBonusBronze, updatedBonusBlue);
+	public void citiesColorBonusesUpdate(int updatedBonusGold, int updatedBonusSilver, int updatedBonusBronze,
+			int updatedBonusBlue) {
+		cv.showCitiesColorBonuses(updatedBonusGold, updatedBonusSilver, updatedBonusBronze, updatedBonusBlue);
 	}
 
 	@Override
@@ -76,13 +66,11 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void setGameStart (State initialGameState, String mapName) throws IOException{
+	public void setGameStart(State initialGameState, String mapName) throws IOException {
 		cv.setGameStarted(true);
 		cv.setGameState(initialGameState);
-                cv.loadMap(mapName);
+		cv.loadMap(mapName);
 		cv.showGameStart();
-                
-
 	}
 
 	@Override
@@ -111,8 +99,8 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void playerChangePrivate(int playerID,Player player, String message) {
-		cv.showPlayerChangesPrivate(player,message);
+	public void playerChangePrivate(int playerID, Player player, String message) {
+		cv.showPlayerChangesPrivate(player, message);
 	}
 
 	@Override
@@ -149,16 +137,14 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void otherPlayerUpdate(int id, String name, Color color, int coins,
-			int assistants, int level, int points, int numEmporiums) {
-		cv.showOtherPlayer(id, name, color, coins, assistants, level, points,
-				numEmporiums);
+	public void otherPlayerUpdate(int id, String name, Color color, int coins, int assistants, int level, int points,
+			int numEmporiums) {
+		cv.showOtherPlayer(id, name, color, coins, assistants, level, points, numEmporiums);
 	}
 
 	@Override
 	public void gameEnded(List<List<String>> endResults) {
 		cv.showEndGame(endResults);
-
 	}
 
 	private void task() {
