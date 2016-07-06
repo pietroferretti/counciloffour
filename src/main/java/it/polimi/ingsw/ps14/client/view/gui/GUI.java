@@ -463,11 +463,6 @@ public class GUI extends javax.swing.JFrame {
 
         showPermit.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         showPermit.setText("Show my permits");
-        showPermit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                showPermitMouseClicked(evt);
-            }
-        });
         showPermit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showPermitActionPerformed(evt);
@@ -596,11 +591,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         chatTextField.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        chatTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chatTextFieldActionPerformed(evt);
-            }
-        });
         chatTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 chatTextFieldKeyPressed(evt);
@@ -900,10 +890,6 @@ public class GUI extends javax.swing.JFrame {
         myPermitDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_showPermitActionPerformed
 
-    private void showPermitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPermitMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_showPermitMouseClicked
-
     private void passButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passButtonActionPerformed
         if (currentState.getGamePhase() == GamePhase.TURNS || currentState.getGamePhase() == GamePhase.FINALTURNS) {
             communication.passTurn(playerID);
@@ -927,10 +913,6 @@ public class GUI extends javax.swing.JFrame {
         communication.chat(playerID, chatMessage);
         chatTextField.setText("");
     }//GEN-LAST:event_chatSendButtonActionPerformed
-
-    private void chatTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chatTextFieldActionPerformed
 
     private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
         BuyDialog buyDialog = new BuyDialog(this, true, playerID, communication, market);
