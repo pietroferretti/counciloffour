@@ -98,9 +98,7 @@ public class GUIView extends ClientView implements Runnable {
 	@Override
 	public void setGameState(State gameState) {
 		super.setGameState(gameState);
-		if (mainWindow != null) {
 			mainWindow.setState(gameState);
-		}
 	}
 
 	@Override
@@ -413,6 +411,7 @@ public class GUIView extends ClientView implements Runnable {
 	@Override
 	public void showChatMsg(String author, String text) {
 		mainWindow.getChatArea().append("\n" + author + ": " + text);
+		mainWindow.repaint();
 	}
 
 	@Override

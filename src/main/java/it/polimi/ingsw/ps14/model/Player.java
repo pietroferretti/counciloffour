@@ -122,6 +122,7 @@ public class Player extends Observable implements Serializable {
 			hand.add(new PoliticCard(politicCard));
 		}
 		businessHand = new BusinessCardsPlayer(player.businessHand);
+		numEmporiums=player.numEmporiums;
 	}
 
 	public String getName() {
