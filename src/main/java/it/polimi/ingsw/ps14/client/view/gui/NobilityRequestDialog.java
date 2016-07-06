@@ -8,11 +8,13 @@ package it.polimi.ingsw.ps14.client.view.gui;
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class NobilityRequestDialog extends javax.swing.JDialog {
 
+	private final GUI mainWindow;
 	private final transient Integer playerID;
 	private final transient Communication communication;
 	private final State state;
@@ -31,6 +34,7 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
 	 */
 	public NobilityRequestDialog(java.awt.Frame parent, boolean modal, Integer playerID, Communication communication, State state) {
 		super(parent, "Nobility track bonus", modal);
+		this.mainWindow = (GUI)parent;
 		this.playerID = playerID;
 		this.communication = communication;
 		this.state = state;
@@ -60,7 +64,7 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
 		checkboxes = new HashMap<>();
 		for (Map.Entry<String, String> choice : choices.entrySet())
 		{
-			JCheckBox checkbox = new JCheckBox(choice.getValue());
+			JCheckBox checkbox = new JCheckBox(choice.getValue().replaceAll("\\n", " "));
 			checkboxes.put(checkbox, choice.getKey());
 			choicesPanel.add(checkbox);
 			choicesPanel.repaint();
@@ -86,6 +90,11 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
         numberChoicesLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         titleLabel.setText("You advanced in the nobility track!");
 
@@ -109,18 +118,18 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(titleLabel))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(numberChoicesLabel)
                             .addComponent(descriptionLabel)
-                            .addComponent(choicesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(choicesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(241, 241, 241)
+                        .addGap(365, 365, 365)
+                        .addComponent(titleLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(436, 436, 436)
                         .addComponent(confirmButton)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,9 +142,9 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
                 .addComponent(numberChoicesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(choicesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(confirmButton)
-                .addGap(38, 38, 38))
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -162,6 +171,10 @@ public class NobilityRequestDialog extends javax.swing.JDialog {
 			return;
 		}
     }//GEN-LAST:event_confirmButtonActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+		mainWindow.nobilityRequestClosed();
+    }//GEN-LAST:event_formWindowClosed
 
 	/**
 	 * @param args the command line arguments
