@@ -105,8 +105,8 @@ public class BuyAction implements Serializable {
 				if (item.getType().equals(ItemForSale.ItemForSaleType.BUSINESS)) {
 					BusinessPermit busPer = model.id2permit(
 							item.getIdORquantity(), owner);
-					owner.getBusinessHand().sellPermits(busPer);
-					buyer.getBusinessHand().acquireBusinessPermit(busPer);
+					owner.sellPermits(busPer);
+					buyer.acquireBusinessPermit(busPer);
 				}
 				if (item.getType().equals(ItemForSale.ItemForSaleType.ASSISTANT)) {
 					buyer.addAssistants(item.getIdORquantity());
