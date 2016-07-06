@@ -39,9 +39,6 @@ public class SocketMessageHandlerIn implements Runnable {
 			try {
 				Object object = socketIn.readObject();
 
-				LOGGER.info(String.format("Received object %s",
-						object.getClass()));
-
 				if (object instanceof Message) {
 					receiveMessage((Message) object);
 				} else {

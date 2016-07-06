@@ -99,10 +99,6 @@ public class SocketCommunication implements Communication {
 
 				clientView.setGameState(((StateUpdatedMsg) message)
 						.getUpdatedState());
-				LOGGER.info(String.format("Game state updated."
-						+ clientView.getGameState().getGamePhase().toString())); // dettagli
-																					// è
-																					// meglio
 
 				if (!alreadyCalled) {
 					timer = new Timer();

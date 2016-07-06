@@ -25,7 +25,6 @@ public class SocketMessageHandlerOut {
 
 		try {
 			
-			LOGGER.info(String.format("Sending message %s on socket", message.getClass()));	
 			socketOut.writeObject(message);
 			socketOut.flush();
 
