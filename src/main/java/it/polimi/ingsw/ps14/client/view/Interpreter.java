@@ -3,6 +3,8 @@ package it.polimi.ingsw.ps14.client.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.crypto.dsig.Transform;
+
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
@@ -10,6 +12,11 @@ import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 
+/**
+ * It converts {@link String} typed by the user in invokable methods.
+ * 
+ *
+ */
 public class Interpreter {
 
 	private Communication communication;
@@ -18,7 +25,7 @@ public class Interpreter {
 	public Interpreter(CLIView cliView) {
 		this.cliView = cliView;
 	}
-	
+
 	public void setCommunication(Communication communication) {
 		this.communication = communication;
 	}
@@ -27,6 +34,13 @@ public class Interpreter {
 		return communication;
 	}
 
+	/**
+	 * It converts {@link String} typed by the user into invokable methods.
+	 * 
+	 * @param input
+	 * @param playerID
+	 * @return
+	 */
 	public boolean parseString(String input, Integer playerID) {
 		RegionType rt;
 		Integer permID;
@@ -42,7 +56,7 @@ public class Interpreter {
 		case "DRAW":
 			communication.drawCard(playerID);
 			return true;
-			// ELECT COLOR REGIONTYPE_KING
+		// ELECT COLOR REGIONTYPE_KING
 		case "ELECT":
 			if (word.length != 3)
 				return false;
@@ -56,7 +70,7 @@ public class Interpreter {
 				return false;
 			communication.electCouncillor(playerID, cc, st.toUpperCase());
 			return true;
-			// ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
+		// ACQUIRE REGIONTYPE PERMIT_ID COLOR_POLITIC
 		case "ACQUIRE":
 			if (word.length < 4)
 				return false;
@@ -70,20 +84,19 @@ public class Interpreter {
 				return false;
 
 			for (int i = 3; i < word.length; i++) {
-                            PoliticCard card = string2politicCard(word[i]);
-                            if (card == null) {
-                                return false;
-                            } else {
-                                politics.add(card);
-                            }
-                        }
+				PoliticCard card = string2politicCard(word[i]);
+				if (card == null) {
+					return false;
+				} else {
+					politics.add(card);
+				}
+			}
 
-			communication.acquireBusinessPermitTile(playerID, rt, permID,
-					politics);
-                        
+			communication.acquireBusinessPermitTile(playerID, rt, permID, politics);
+
 			return true;
-                        
-			// BUILD-WITH-KING CITYname CARDS
+
+		// BUILD-WITH-KING CITYname CARDS
 		case "BUILD-WITH-KING":
 
 			if (word.length < 3)
@@ -92,17 +105,17 @@ public class Interpreter {
 			String city = word[1];
 
 			for (int i = 3; i < word.length; i++) {
-                            PoliticCard card = string2politicCard(word[i]);
-                            if (card == null) {
-                                return false;
-                            } else {
-                                politics.add(card);
-                            }
-                        }
+				PoliticCard card = string2politicCard(word[i]);
+				if (card == null) {
+					return false;
+				} else {
+					politics.add(card);
+				}
+			}
 
 			communication.buildWithKing(playerID, city, politics);
 			return true;
-			// BUILD-WITH-PERMIT CITYname PERMITid
+		// BUILD-WITH-PERMIT CITYname PERMITid
 		case "BUILD-WITH-PERMIT":
 			if (word.length != 3)
 				return false;
@@ -121,39 +134,39 @@ public class Interpreter {
 			if (word.length != 1)
 				return false;
 			communication.engage(playerID);
-                            return true;
-			// CHANGE REGIONTYPE
+			return true;
+		// CHANGE REGIONTYPE
 		case "CHANGE":
 			if (word.length != 2)
 				return false;
 			rt = string2RegionType(word[1]);
-                        
-                        if (rt == null) {
-                            return false;
-                        }
-                        
+
+			if (rt == null) {
+				return false;
+			}
+
 			communication.changeBusinessPermitTiles(playerID, rt);
 			return true;
 
-			// MAIN
+		// MAIN
 		case "MAIN":
 			if (word.length != 1)
-                            return false;
+				return false;
 			communication.performAdditionalMainAction(playerID);
 			return true;
 
-			// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
-			// se rt ==null ->>> balcony del re
+		// ELECT-WITH-ASSISTANT REGIONTYPE COLORCOUNCILLOR
+		// se rt ==null ->>> balcony del re
 		case "ELECT-WITH-ASSISTANT":
 			if (word.length != 3)
-                            return false;
+				return false;
 			rt = string2RegionType(word[1]);
 			if (rt == null && !word[1].equalsIgnoreCase("KING"))
-                            return false;
+				return false;
 			cc = string2colorCouncillor(word[2]);
-                        
-                        if (cc == null)
-                            return false;
+
+			if (cc == null)
+				return false;
 
 			communication.electWithAssistant(playerID, rt, cc);
 			return true;
@@ -171,14 +184,14 @@ public class Interpreter {
 			communication.answerNobilityRequest(playerID, chosenIDs);
 			return true;
 
-			// FINISH
+		// FINISH
 		case "FINISH":
 		case "PASS":
 			if (word.length != 1)
 				return false;
 			communication.passTurn(playerID);
 			return true;
-			// SHOW MYDETAILS/DETAILS/GAMEBOARD
+		// SHOW MYDETAILS/DETAILS/GAMEBOARD
 		case "SHOW":
 			if (word.length != 2)
 				return false;
@@ -201,19 +214,17 @@ public class Interpreter {
 				return true;
 			}
 			return false;
-			// SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... ASSISTANTS
-			// NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE...
+		// SELL BUSINESS ID1-PRICE,ID2-PRICE,ID3-PRICE... ASSISTANTS
+		// NUM-PRICE POLITIC COLOR1-PRICE,COLOR2-PRICE...
 		case "SELL":
 			String[] splitted;
 			String[] stub;
-			Integer id,
-			price;
+			Integer id, price;
 			List<ItemForSale> items = new ArrayList<>();
 			if (word.length < 2)
 				return false;
 			for (int i = 1; i < word.length; i++) {
-				if (word[i].equalsIgnoreCase("BUSINESS")
-						&& (i + 1) <= word.length) {
+				if (word[i].equalsIgnoreCase("BUSINESS") && (i + 1) <= word.length) {
 					splitted = word[i + 1].split(",");
 
 					for (String s : splitted) {
@@ -226,12 +237,10 @@ public class Interpreter {
 						} catch (NumberFormatException e) {
 							return false;
 						}
-						items.add(new ItemForSale(ItemForSale.ItemForSaleType.BUSINESS,
-								id, price, playerID));
+						items.add(new ItemForSale(ItemForSale.ItemForSaleType.BUSINESS, id, price, playerID));
 					}
 				}
-				if (word[i].equalsIgnoreCase("ASSISTANTS")
-						&& (i + 1) <= word.length) {
+				if (word[i].equalsIgnoreCase("ASSISTANTS") && (i + 1) <= word.length) {
 					splitted = word[i + 1].split("-");
 					try {
 						id = Integer.parseInt(splitted[0]);
@@ -239,15 +248,14 @@ public class Interpreter {
 					} catch (NumberFormatException e) {
 						return false;
 					}
-					items.add(new ItemForSale(ItemForSale.ItemForSaleType.ASSISTANT, id,
-							price, playerID));
+					items.add(new ItemForSale(ItemForSale.ItemForSaleType.ASSISTANT, id, price, playerID));
 				}
 				if (word[i].equalsIgnoreCase("POLITIC") && (i + 1) <= word.length) {
 					ColorPolitic color;
 					splitted = word[i + 1].split(",");
 					for (String s : splitted) {
 						stub = s.split("-");
-                                      
+
 						System.out.println("ok:" + stub[0] + stub[1]);
 						if (stub.length != 2)
 							return false;
@@ -260,8 +268,7 @@ public class Interpreter {
 								} catch (NumberFormatException e) {
 									return false;
 								}
-								items.add(new ItemForSale(color, price,
-										playerID));
+								items.add(new ItemForSale(color, price, playerID));
 							}
 					}
 
@@ -271,16 +278,16 @@ public class Interpreter {
 					return true;
 				}
 			}
-			
+
 			if (items.isEmpty()) {
 				return false;
 			}
-			
+
 			communication.sell(playerID, items);
 			System.out.println("ho inviato " + items);
 			return true;
 
-			// BUY ITEM_ID QUANTITY(optional)
+		// BUY ITEM_ID QUANTITY(optional)
 		case "BUY":
 			Integer quantity = null;
 			Integer objID;
@@ -307,7 +314,7 @@ public class Interpreter {
 		case "CHAT":
 			communication.chat(playerID, input.substring(5));
 			return true;
-		
+
 		case "RESULTS":
 			cliView.showEndGame();
 
@@ -328,7 +335,6 @@ public class Interpreter {
 	}
 
 	private String string2regionTypeKing(String string) {
-
 		if (string2RegionType(string) != null)
 			return string;
 		if (string.equalsIgnoreCase("KING"))
@@ -336,6 +342,14 @@ public class Interpreter {
 		return null;
 	}
 
+	/**
+	 * It transforms a {@link String} in the correspondent
+	 * {@link ColorCouncillor}.
+	 * 
+	 * @param word
+	 *            - {@link String}
+	 * @return {@link ColorCouncillor}
+	 */
 	private ColorCouncillor string2colorCouncillor(String word) {
 		// convert string to colorCounicllor
 		ColorCouncillor[] colorValue = ColorCouncillor.values();
@@ -347,6 +361,12 @@ public class Interpreter {
 		return null;
 	}
 
+	/**
+	 * It transform a {@link String} in a {@link RegionType}.
+	 * 
+	 * @param input
+	 * @return {@link RegionType}
+	 */
 	private RegionType string2RegionType(String input) {
 		RegionType[] regions = RegionType.values();
 
@@ -357,6 +377,14 @@ public class Interpreter {
 		return null;
 	}
 
+	/**
+	 * Return a {@link PoliticCard} given an {@link String} with its
+	 * {@link ColorPolitic}.
+	 * 
+	 * @param string
+	 *            - {@link String}
+	 * @return {@link PoliticCard}
+	 */
 	private PoliticCard string2politicCard(String string) {
 		ColorPolitic[] colors = ColorPolitic.values();
 

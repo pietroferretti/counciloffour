@@ -5,13 +5,13 @@
  */
 package it.polimi.ingsw.ps14.client.view;
 
-/**
- *
- * @author federico
- */
 public class WaitingStartDialog extends javax.swing.JDialog {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1526150107243025070L;
+	/**
      * Creates new form WaitingStart
      */
     public WaitingStartDialog(java.awt.Frame parent, boolean modal) {
@@ -35,18 +35,13 @@ public class WaitingStartDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSize(new java.awt.Dimension(595, 398));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("EmbossedBlack", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 204, 51));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("...waiting for other merchants...");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, -1));
+       
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/splash_screen.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
@@ -98,7 +93,6 @@ public class WaitingStartDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

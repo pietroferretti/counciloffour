@@ -147,6 +147,9 @@ public class ClientViewRemoteImpl extends UnicastRemoteObject implements ClientV
 		cv.showEndGame(endResults);
 	}
 
+	/**
+	 * It suggest the user what to do next.
+	 */
 	private void task() {
 		timerTask = new TimerTask() {
 

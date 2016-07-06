@@ -56,16 +56,15 @@ import it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTiles
 import it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction;
 import it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction;
+
 /**
- * this class handle method that client call in the server and 
- * methods that server call on the client
- * @author federico
+ * It handles methods that the client can invoke on the server and methods that
+ * server can invoke on the client.
  *
  */
 public class SocketCommunication implements Communication {
 
-	private static final Logger LOGGER = Logger.getLogger(SocketCommunication.class
-			.getName());
+	private static final Logger LOGGER = Logger.getLogger(SocketCommunication.class.getName());
 
 	private Timer timer;
 	private TimerTask timerTask;
@@ -74,31 +73,36 @@ public class SocketCommunication implements Communication {
 	private SocketMessageHandlerOut msgHandlerOut;
 	private ClientView clientView;
 
-	public SocketCommunication(SocketMessageHandlerOut msgHandlerOut,
-			ClientView clientView) {
+	public SocketCommunication(SocketMessageHandlerOut msgHandlerOut, ClientView clientView) {
 		this.msgHandlerOut = msgHandlerOut;
 		this.clientView = clientView;
 	}
 
 	// ------------------------from server --------------------------
-	public void receiveMessage(Message message) throws IOException{
+
+	/**
+	 * It recognised the specific type of a {@link Message} and invokes the
+	 * proper method on the {@link ClientView}.
+	 * 
+	 * @param message
+	 *            - {@link Message}
+	 * @throws IOException
+	 */
+	public void receiveMessage(Message message) throws IOException {
 		if (message != null) {
-			if ((message instanceof PlayerIDMsg)
-					&& clientView.getPlayerID() == null) {
+			if ((message instanceof PlayerIDMsg) && clientView.getPlayerID() == null) {
 				clientView.setPlayerID(((PlayerIDMsg) message).getPlayerID());
-				LOGGER.info(String.format("Player id set as %d",
-						clientView.getPlayerID()));
+				LOGGER.info(String.format("Player id set as %d", clientView.getPlayerID()));
 
 			} else if (message instanceof GameStartedMsg) {
 				clientView.setGameStarted(true);
 				clientView.setGameState(((GameStartedMsg) message).getState());
 				clientView.loadMap(((GameStartedMsg) message).getMapName());
-       				clientView.showGameStart();
+				clientView.showGameStart();
 
 			} else if (message instanceof StateUpdatedMsg) {
 
-				clientView.setGameState(((StateUpdatedMsg) message)
-						.getUpdatedState());
+				clientView.setGameState(((StateUpdatedMsg) message).getUpdatedState());
 
 				if (!alreadyCalled) {
 					timer = new Timer();
@@ -108,71 +112,49 @@ public class SocketCommunication implements Communication {
 
 			} else if (message instanceof GameEndedMsg) {
 
-				clientView
-						.showEndGame(((GameEndedMsg) message).getEndResults());
+				clientView.showEndGame(((GameEndedMsg) message).getEndResults());
 
 			} else if (message instanceof AvailableAssistantsUpdatedMsg) {
-				clientView
-						.showAvailableAssistant(((AvailableAssistantsUpdatedMsg) message)
-								.getUpdatedAvailableAssistants());
+				clientView.showAvailableAssistant(
+						((AvailableAssistantsUpdatedMsg) message).getUpdatedAvailableAssistants());
 
 			} else if (message instanceof AvailableCouncillorsUpdatedMsg) {
-				clientView
-						.showAvailableCouncillor(((AvailableCouncillorsUpdatedMsg) message)
-								.getUpdatedAvailableCouncillors());
+				clientView.showAvailableCouncillor(
+						((AvailableCouncillorsUpdatedMsg) message).getUpdatedAvailableCouncillors());
 
 			} else if (message instanceof CitiesColorBonusesUpdatedMsg) {
-				clientView
-						.showCitiesColorBonuses(
-								((CitiesColorBonusesUpdatedMsg) message)
-										.getBonusGold(),
-								((CitiesColorBonusesUpdatedMsg) message)
-										.getBonusSilver(),
-								((CitiesColorBonusesUpdatedMsg) message)
-										.getBonusBronze(),
-								((CitiesColorBonusesUpdatedMsg) message)
-										.getBonusBlue());
+				clientView.showCitiesColorBonuses(((CitiesColorBonusesUpdatedMsg) message).getBonusGold(),
+						((CitiesColorBonusesUpdatedMsg) message).getBonusSilver(),
+						((CitiesColorBonusesUpdatedMsg) message).getBonusBronze(),
+						((CitiesColorBonusesUpdatedMsg) message).getBonusBlue());
 
 			} else if (message instanceof InfoPrivateMsg || message instanceof InfoPublicMsg) {
 				clientView.showInfo(message.toString());
 			} else if (message instanceof KingBonusesUpdatedMsg) {
-				clientView.showKingBonus(((KingBonusesUpdatedMsg) message)
-						.getUpdatedShowableKingBonus());
+				clientView.showKingBonus(((KingBonusesUpdatedMsg) message).getUpdatedShowableKingBonus());
 			} else if (message instanceof KingUpdatedMsg) {
-				clientView.showKingUpdate(((KingUpdatedMsg) message)
-						.getUpdatedKing());
+				clientView.showKingUpdate(((KingUpdatedMsg) message).getUpdatedKing());
 			} else if (message instanceof MarketUpdatedMsg) {
-				clientView.showMarket(((MarketUpdatedMsg) message)
-						.getUpdatedMarket());
+				clientView.showMarket(((MarketUpdatedMsg) message).getUpdatedMarket());
 			} else if (message instanceof NobilityTrackUpdatedMsg) {
-				clientView
-						.showNobilityTrack(((NobilityTrackUpdatedMsg) message)
-								.getUpdatedNobilityTrack());
+				clientView.showNobilityTrack(((NobilityTrackUpdatedMsg) message).getUpdatedNobilityTrack());
 			} else if (message instanceof OtherPlayerUpdateMsg) {
-				clientView.showOtherPlayer(
-						((OtherPlayerUpdateMsg) message).getId(),
-						((OtherPlayerUpdateMsg) message).getName(),
-						((OtherPlayerUpdateMsg) message).getColor(),
-						((OtherPlayerUpdateMsg) message).getCoins(),
-						((OtherPlayerUpdateMsg) message).getAssistants(),
-						((OtherPlayerUpdateMsg) message).getLevel(),
-						((OtherPlayerUpdateMsg) message).getPoints(),
+				clientView.showOtherPlayer(((OtherPlayerUpdateMsg) message).getId(),
+						((OtherPlayerUpdateMsg) message).getName(), ((OtherPlayerUpdateMsg) message).getColor(),
+						((OtherPlayerUpdateMsg) message).getCoins(), ((OtherPlayerUpdateMsg) message).getAssistants(),
+						((OtherPlayerUpdateMsg) message).getLevel(), ((OtherPlayerUpdateMsg) message).getPoints(),
 						((OtherPlayerUpdateMsg) message).getNumEmporiums());
 			} else if (message instanceof PersonalUpdateMsg) {
-				clientView.showPersonalDetails(((PersonalUpdateMsg) message)
-						.getPlayer());
+				clientView.showPersonalDetails(((PersonalUpdateMsg) message).getPlayer());
 			} else if (message instanceof PlayerChangedPrivateMsg) {
-				clientView.showPlayerChangesPrivate(((PlayerChangedPrivateMsg) message).getPlayer(),message.toString());
+				clientView.showPlayerChangesPrivate(((PlayerChangedPrivateMsg) message).getPlayer(),
+						message.toString());
 			} else if (message instanceof PlayerChangedPublicMsg) {
-				clientView
-						.showPlayerChangesPublic(((PlayerChangedPublicMsg) message)
-								.getNotice());
+				clientView.showPlayerChangesPublic(((PlayerChangedPublicMsg) message).getNotice());
 			} else if (message instanceof RegionUpdatedMsg) {
-				clientView.showRegion(((RegionUpdatedMsg) message)
-						.getUpdatedRegion());
+				clientView.showRegion(((RegionUpdatedMsg) message).getUpdatedRegion());
 			} else if (message instanceof ChatMsg) {
-				clientView.showChatMsg(((ChatMsg) message).getAuthor(),
-						((ChatMsg) message).getText());
+				clientView.showChatMsg(((ChatMsg) message).getAuthor(), ((ChatMsg) message).getText());
 
 			} else {
 				clientView.readMessage(message);
@@ -182,8 +164,7 @@ public class SocketCommunication implements Communication {
 
 	}
 
-	// ------------------------------ from client
-	// ---------------------------------
+	// ------------------------------from client------------------------------
 
 	@Override
 	public void setPlayerName(Integer playerID, String name) {
@@ -193,80 +174,63 @@ public class SocketCommunication implements Communication {
 
 	@Override
 	public void drawCard(Integer playerID) {
+		msgHandlerOut.sendMessage(new TurnActionMsg(new DrawCardAction(playerID)));
+
+	}
+
+	@Override
+	public void electCouncillor(Integer playerID, ColorCouncillor cc, String regionORking) {
+		msgHandlerOut.sendMessage(new TurnActionMsg(new ElectCouncillorAction(playerID, cc, regionORking)));
+
+	}
+
+	@Override
+	public void acquireBusinessPermitTile(Integer playerID, RegionType rt, Integer permID, List<PoliticCard> politics) {
 		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new DrawCardAction(playerID)));
+				new AcquireBusinessPermitTileAction(playerID, rt, permID, new ArrayList<PoliticCard>(politics))));
 
 	}
 
 	@Override
-	public void electCouncillor(Integer playerID, ColorCouncillor cc,
-			String regionORking) {
-		msgHandlerOut.sendMessage(new TurnActionMsg(new ElectCouncillorAction(
-				playerID, cc, regionORking)));
+	public void buildWithKing(Integer playerID, String city, List<PoliticCard> politics) {
+		msgHandlerOut.sendMessage(new TurnActionMsg(new BuildEmporiumWithHelpOfKingAction(playerID, city, politics)));
 
 	}
 
 	@Override
-	public void acquireBusinessPermitTile(Integer playerID, RegionType rt,
-			Integer permID, List<PoliticCard> politics) {
-		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new AcquireBusinessPermitTileAction(playerID, rt, permID,
-						new ArrayList<PoliticCard>(politics))));
-
-	}
-
-	@Override
-	public void buildWithKing(Integer playerID, String city,
-			List<PoliticCard> politics) {
+	public void buildWithPermit(Integer playerID, Integer permitID, String cityname) {
 		msgHandlerOut
-				.sendMessage(new TurnActionMsg(
-						new BuildEmporiumWithHelpOfKingAction(playerID, city,
-								politics)));
-
-	}
-
-	@Override
-	public void buildWithPermit(Integer playerID, Integer permitID,
-			String cityname) {
-		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new BuildEmporiumUsingPermitTileAction(playerID, permitID,
-						cityname)));
+				.sendMessage(new TurnActionMsg(new BuildEmporiumUsingPermitTileAction(playerID, permitID, cityname)));
 
 	}
 
 	@Override
 	public void engage(Integer playerID) {
-		msgHandlerOut.sendMessage(new TurnActionMsg(new EngageAssistantAction(
-				playerID)));
+		msgHandlerOut.sendMessage(new TurnActionMsg(new EngageAssistantAction(playerID)));
 
 	}
 
 	@Override
 	public void changeBusinessPermitTiles(Integer playerID, RegionType rt) {
-		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new ChangeBusinessPermitTilesAction(playerID, rt)));
+		msgHandlerOut.sendMessage(new TurnActionMsg(new ChangeBusinessPermitTilesAction(playerID, rt)));
 
 	}
 
 	@Override
 	public void performAdditionalMainAction(Integer playerID) {
-		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new PerformAdditionalMainActionAction(playerID)));
+		msgHandlerOut.sendMessage(new TurnActionMsg(new PerformAdditionalMainActionAction(playerID)));
 
 	}
 
 	@Override
-	public void electWithAssistant(Integer playerID, RegionType rt,
-			ColorCouncillor cc) {
-		msgHandlerOut.sendMessage(new TurnActionMsg(
-				new SendAssistantToElectCouncillorAction(playerID, rt, cc)));
+	public void electWithAssistant(Integer playerID, RegionType rt, ColorCouncillor cc) {
+		msgHandlerOut.sendMessage(new TurnActionMsg(new SendAssistantToElectCouncillorAction(playerID, rt, cc)));
 
 	}
 
 	@Override
 	public void passTurn(Integer playerID) {
-		msgHandlerOut
-				.sendMessage(new TurnActionMsg(new EndTurnAction(playerID)));
+		msgHandlerOut.sendMessage(new TurnActionMsg(new EndTurnAction(playerID)));
 
 	}
 
@@ -296,8 +260,7 @@ public class SocketCommunication implements Communication {
 
 	@Override
 	public void buy(Integer playerID, Integer objID, Integer quantity) {
-		msgHandlerOut.sendMessage(new BuyMsg(new BuyAction(playerID, objID,
-				quantity)));
+		msgHandlerOut.sendMessage(new BuyMsg(new BuyAction(playerID, objID, quantity)));
 
 	}
 

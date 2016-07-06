@@ -9,7 +9,7 @@ import it.polimi.ingsw.ps14.message.Message;
 import it.polimi.ingsw.ps14.server.SocketServerView;
 
 /**
- * It write objects in dedicated server IN socket ({@link SocketServerView}).
+ * It writes objects in dedicated server IN socket ({@link SocketServerView}).
  *
  */
 public class SocketMessageHandlerOut {
