@@ -37,7 +37,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ToolTipManager;
@@ -130,6 +135,7 @@ public class GUI extends javax.swing.JFrame {
         coins = new javax.swing.JLabel();
         victoryPoints = new javax.swing.JLabel();
         nobility = new javax.swing.JLabel();
+        emporiumLabel = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -211,13 +217,13 @@ public class GUI extends javax.swing.JFrame {
         kingBonus.setFont(new java.awt.Font("SFNS Display", 0, 11)); // NOI18N
         kingBonus.setText("King bonus:");
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Map/coast.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/maps/images/coast.png"))); // NOI18N
         jPanel1.add(jLabel7);
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Map/hills.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/maps/images/hills.png"))); // NOI18N
         jPanel1.add(jLabel9);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Map/mountains.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/maps/images/mountains.png"))); // NOI18N
         jPanel1.add(jLabel1);
 
         DefaultCaret caretInfo = (DefaultCaret)infoArea.getCaret();
@@ -255,6 +261,10 @@ public class GUI extends javax.swing.JFrame {
         nobility.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/nobilitypoints.png"))); // NOI18N
         nobility.setText("0");
         profile.add(nobility);
+
+        emporiumLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/emporium.png"))); // NOI18N
+        emporiumLabel.setText("0");
+        profile.add(emporiumLabel);
 
         jLabel2.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
         jLabel2.setText("MAIN ACTIONS");
@@ -537,8 +547,8 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(profile, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                            .addComponent(userProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                            .addComponent(profile)
+                            .addComponent(userProfile))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -990,6 +1000,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton drawButton;
     private javax.swing.JButton electCouncillorButton;
     private javax.swing.JButton electWithAssistantButton;
+    private javax.swing.JLabel emporiumLabel;
     private javax.swing.JButton engageAssistantButton;
     private javax.swing.JLabel goldCity;
     private javax.swing.JPanel hillsBalcony;
@@ -1438,4 +1449,38 @@ public class GUI extends javax.swing.JFrame {
     public JLabel getBonusMount() {
         return bonusMount;
     }
+     public  ImageIcon colorEmporium(Color color) {
+         BufferedImage img;
+        try {
+            img = colorImage(ImageIO.read(new File("src/main/resources/resource/image/bonus/emporium.png")),color);
+            return new ImageIcon(img);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    private static BufferedImage colorImage(BufferedImage image,Color color) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        WritableRaster raster = image.getRaster();
+
+        for (int xx = 0; xx < width; xx++) {
+            for (int yy = 0; yy < height; yy++) {
+                int[] pixels = raster.getPixel(xx, yy, (int[]) null);
+                pixels[0] = color.getRed();
+                pixels[1] = color.getGreen();
+                pixels[2] = color.getBlue();
+                raster.setPixel(xx, yy, pixels);
+            }
+        }
+        return image;
+    }
+    
+    public JLabel getEmporiumLabel(){
+        return emporiumLabel;
+    }
 }
+    
+    
+

@@ -44,6 +44,7 @@ import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
+import java.util.logging.Level;
 
 public class GUIView extends ClientView implements Runnable {
     
@@ -131,7 +132,7 @@ public class GUIView extends ClientView implements Runnable {
                 Point point = new Point(coordinates.getInt(0), coordinates.getInt(1));
                 positions.put(point, cityName);
             }
-            
+          
             mainWindow.buildMap(coastFilename, hillsFilename, mountainsFilename, positions);
 
             // la gui disegna le immagini
@@ -154,6 +155,7 @@ public class GUIView extends ClientView implements Runnable {
     
     @Override
     public void showAvailableCommands() {
+      
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -184,6 +186,7 @@ public class GUIView extends ClientView implements Runnable {
     }
     
     private void showCommandsTurns() {
+      
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -410,7 +413,14 @@ public class GUIView extends ClientView implements Runnable {
     
     @Override
     public void showGameStart() {
-        waitingDialog.dispose();
+        if(waitingDialog==null){
+       try{
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GUIView.class.getName()).log(Level.SEVERE, null, ex);
+        }}
+         waitingDialog.dispose();
+
 //        mainWindow = new GUI(playerID, name, communication);
 //        mainWindow.setVisible(true);
 //        
@@ -511,6 +521,11 @@ public class GUIView extends ClientView implements Runnable {
                 lev.setText(Integer.toString(level));
                 jp.add(lev);
                 
+                JLabel emp = new javax.swing.JLabel();
+                emp.setIcon(mainWindow.colorEmporium(color)); // NOI18N
+                emp.setText(Integer.toString(numEmporiums));
+                jp.add(emp);
+                
                 jp.revalidate();
                 jp.repaint();
                 mainWindow.getOtherPlayerArea().revalidate();
@@ -527,6 +542,8 @@ public class GUIView extends ClientView implements Runnable {
                 mainWindow.getUserProfile().removeAll();
                 mainWindow.getUserProfile().revalidate();
                 mainWindow.getCoins().setText(Integer.toString(p.getCoins()));
+                mainWindow.getEmporiumLabel().setIcon(mainWindow.colorEmporium(p.getColor()));
+                mainWindow.getEmporiumLabel().setText(Integer.toString(p.getNumEmporiums()));
                 mainWindow.getAssistants().setText(Integer.toString(p.getAssistants()));
                 mainWindow.getVictoryPoints().setText(Integer.toString(p.getPoints()));
                 mainWindow.getNobility().setText(Integer.toString(p.getLevel()));
