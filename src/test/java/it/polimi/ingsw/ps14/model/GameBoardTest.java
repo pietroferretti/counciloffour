@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps14;
+package it.polimi.ingsw.ps14.model;
 
 import java.io.IOException;
 

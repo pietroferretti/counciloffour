@@ -5,8 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Color;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -14,14 +12,12 @@ public class BusinessCardsPlayerTest {
 
 	private static Model model;
 	private static BusinessPermit busCard, busCard2, busCard3, busCard4;
-	private static Player player;
 	private static BusinessCardsPlayer bcp;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		model = new Model();
 		busCard = model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0];
-		player = new Player(0, 20, 12, model.getGameBoard().getPoliticDeck(), 6, "ubaldo", Color.DARK_GRAY);
 		busCard2 = model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[1];
 		busCard3 = model.getGameBoard().getRegion(RegionType.MOUNTAINS).getBusinessPermits().getAvailablePermits()[1];
 		bcp = new BusinessCardsPlayer();
@@ -30,11 +26,6 @@ public class BusinessCardsPlayerTest {
 		bcp.getUsedCards().add(busCard3);
 		System.out.println(bcp);
 	}
-
-	// @Test
-	// public void testBusinessCardsPlayer() {
-	// fail("Not yet implemented");
-	// }
 
 	@Test
 	public void testBusinessCardsPlayerBusinessCardsPlayer() {
@@ -56,7 +47,6 @@ public class BusinessCardsPlayerTest {
 	@Test
 	public void testUsePermit() {
 		bcp.usePermit(busCard);
-		// assertEquals(busCard, bcp.getUsedCards().get(1));
 		assertTrue(bcp.getUsedCards().contains(busCard));
 		assertFalse(bcp.getValidCards().contains(busCard));
 
