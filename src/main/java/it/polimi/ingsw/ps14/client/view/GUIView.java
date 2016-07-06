@@ -584,6 +584,8 @@ public class GUIView extends ClientView implements Runnable {
 				if (jPlayer.containsKey(id)) {
 					jp = jPlayer.get(id);
 					jp.removeAll();
+					jp.repaint();
+					jp.revalidate();
 				} else {
 					jp = new JPanel();
 					jPlayer.put(id, jp);
