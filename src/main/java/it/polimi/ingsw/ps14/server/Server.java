@@ -196,13 +196,16 @@ public class Server {
 
 	private void createGame(List<ServerView> viewsReady) {
 		try {
-			Thread.sleep(500);			
+			Thread.sleep(1500);
 			LOGGER.info(String.format("Creating game with %d player.", viewsReady.size()));
 
 			activeGames.add(new Game(viewsReady));
 
-		} catch (IOException | InterruptedException e) {
+		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Unexpected exception while creating a new game.", e);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

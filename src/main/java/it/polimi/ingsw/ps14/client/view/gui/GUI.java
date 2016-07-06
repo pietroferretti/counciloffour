@@ -1,25 +1,9 @@
 package it.polimi.ingsw.ps14.client.view.gui;
 
-import java.awt.Point;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.OverlayLayout;
-import javax.swing.SwingUtilities;
-import javax.swing.text.DefaultCaret;
-
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.model.Balcony;
 import it.polimi.ingsw.ps14.model.BusinessCardsPlayer;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
-import it.polimi.ingsw.ps14.model.City;
-import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.GamePhase;
@@ -30,22 +14,26 @@ import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
 
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.ToolTipManager;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
+import javax.swing.text.DefaultCaret;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -73,7 +61,7 @@ public class GUI extends javax.swing.JFrame {
 //    private final Image politicOrange;
 //    private final Image politicBlue;
 //    private final Image politicBlack;
-    public GUI(Integer playerID, String name, Communication communication) {
+    public GUI(Integer playerID, String name, Communication communication ) {
         this.name = name;
         initComponents();
         this.playerID = playerID;
@@ -97,7 +85,7 @@ public class GUI extends javax.swing.JFrame {
         councillor.put(ColorCouncillor.WHITE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/white.png")));
         councillor.put(ColorCouncillor.BLACK, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/black.png")));
 
-		this.nobilityRequestBusy = false;
+		
     }
 
     public void setCommunication(Communication communication) {
@@ -112,11 +100,8 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jMenu1 = new javax.swing.JMenu();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jPopupMenu2 = new javax.swing.JPopupMenu();
         jDialog1 = new javax.swing.JDialog();
         kingBonus = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -987,7 +972,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel bronzeCity;
     private javax.swing.JButton buildEmporiumWithKingButton;
     private javax.swing.JButton buildEmporiumWithPermitButton;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton buyButton;
     private javax.swing.JButton changePermitTilesButton;
     private javax.swing.JTextArea chatArea;
@@ -1033,8 +1017,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
