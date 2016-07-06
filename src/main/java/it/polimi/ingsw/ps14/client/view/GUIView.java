@@ -61,6 +61,9 @@ public class GUIView extends ClientView implements Runnable {
 		super.setPlayerName(name);
 		mainWindow = new GUI(name);
 		mainWindow.setLocationRelativeTo(null);
+		waitingDialog = new WaitingStartDialog(
+				new javax.swing.JFrame(), true);
+		waitingDialog.setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -77,13 +80,10 @@ public class GUIView extends ClientView implements Runnable {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				mainWindow.setVisible(true);
 				mainWindow.setCommunication(communication);
 				mainWindow.setID(playerID);
 
-				waitingDialog = new WaitingStartDialog(
-						new javax.swing.JFrame(), true);
-				waitingDialog.setLocationRelativeTo(null);
+				if(waitingDialog.isDisplayable())
 				waitingDialog.setVisible(true);
 
 			}
@@ -509,18 +509,10 @@ public class GUIView extends ClientView implements Runnable {
 
 	@Override
 	public void showGameStart() {
-		if (waitingDialog == null) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException ex) {
-				Logger.getLogger(GUIView.class.getName()).log(Level.SEVERE,
-						null, ex);
-			}
-		}
+	
 		waitingDialog.dispose();
 
-		// mainWindow = new GUI(playerID, name, communication);
-		// mainWindow.setVisible(true);
+		 mainWindow.setVisible(true);
 		//
 		// GameStartedDialog d;
 		// d = new GameStartedDialog(mainWindow, true);
