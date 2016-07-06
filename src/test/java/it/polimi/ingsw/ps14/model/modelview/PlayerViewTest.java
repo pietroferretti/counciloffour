@@ -88,13 +88,8 @@ public class PlayerViewTest {
 	public void testUpdateBusinessHand() {
 		System.out.println("\n---------testUpdateBusinessHand---------\n");
 		System.out.println(player3.toString());
-		// FIXME
-		// System.out.println(
-		// model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0]);
-
-//		player3.acquireBusinessPermit(
-//				model.getGameBoard().getRegion(RegionType.COAST).getBusinessPermits().getAvailablePermits()[0]);
 		System.out.println(player3.getBusinessHand().toString());
+		
 		int index = 0;
 		for (BusinessPermit permit : player3.getBusinessHand().getUsedCards()) {
 			assertEquals(permit.getId(),
@@ -111,8 +106,6 @@ public class PlayerViewTest {
 		assertNotSame(player3, playerView3.getPlayerCopy());
 		System.out.println(player3.toString());
 		System.out.println(playerView3.getPlayerCopy().toString());
-
-		// TODO manca sellPermits
 	}
 
 	@Test
@@ -192,14 +185,6 @@ public class PlayerViewTest {
 		assertEquals(player3.getLevel(), playerView3.getPlayerCopy().getLevel());
 		System.out.println(player3.toString());
 		System.out.println(playerView3.getPlayerCopy().toString());
-
-		// player3.levelUp(4);
-		//
-		// assertNotSame(player3, playerView3.getPlayerCopy());
-		// assertEquals(player3.getLevel(),
-		// playerView3.getPlayerCopy().getLevel());
-		// System.out.println(player3.toString());
-		// System.out.println(playerView3.getPlayerCopy().toString());
 	}
 
 	@Test

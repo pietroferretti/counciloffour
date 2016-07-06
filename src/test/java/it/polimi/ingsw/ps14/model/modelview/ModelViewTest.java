@@ -148,7 +148,6 @@ public class ModelViewTest {
 		assertFalse(mv.hasChanged());
 	}
 
-	// TODO testare eccezione
 	@Test
 	public void testGetPlayerByID() {
 		assertEquals(mv.getPlayerByID(player.getId()).toString(), player.toString());
