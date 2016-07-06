@@ -3,8 +3,6 @@ package it.polimi.ingsw.ps14.client.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.crypto.dsig.Transform;
-
 import it.polimi.ingsw.ps14.client.Communication;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;

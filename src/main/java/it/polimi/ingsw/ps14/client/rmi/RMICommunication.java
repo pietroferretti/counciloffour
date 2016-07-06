@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps14.client.Client;
 import it.polimi.ingsw.ps14.client.Communication;
-import it.polimi.ingsw.ps14.client.view.CLIView;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.PoliticCard;

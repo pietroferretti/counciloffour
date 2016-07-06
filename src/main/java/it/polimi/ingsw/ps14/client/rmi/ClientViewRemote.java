@@ -2,14 +2,11 @@ package it.polimi.ingsw.ps14.client.rmi;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.nio.charset.MalformedInputException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
 
-import it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg;
 import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ItemForSale;
