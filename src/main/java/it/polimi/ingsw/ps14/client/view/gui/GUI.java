@@ -23,12 +23,14 @@ import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.GamePhase;
+import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -37,6 +39,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.ToolTipManager;
 
 /*
@@ -51,7 +54,7 @@ public class GUI extends javax.swing.JFrame {
     private transient Communication communication;
     private transient String name;
     private transient State state;
-private BusinessCardsPlayer myPermit;
+    private BusinessCardsPlayer myPermit;
     private final transient Map<ColorPolitic, ImageIcon> politicCard;
     private final transient Map<ColorCouncillor, ImageIcon> councillor;
 
@@ -157,8 +160,6 @@ private BusinessCardsPlayer myPermit;
         jLabel14 = new javax.swing.JLabel();
         kingBalcony = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        nobilityTrack = new javax.swing.JLayeredPane();
-        jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         chatTextField = new javax.swing.JTextField();
@@ -174,7 +175,13 @@ private BusinessCardsPlayer myPermit;
         jLabel18 = new javax.swing.JLabel();
         infoCityPanel = new javax.swing.JPanel();
         infoCity = new javax.swing.JLabel();
+        otherScroll = new javax.swing.JScrollPane();
         otherPlayer = new javax.swing.JPanel();
+        nobilityScroll = new javax.swing.JScrollPane();
+        nobilityTrack = new javax.swing.JPanel();
+        bonusCoast = new javax.swing.JLabel();
+        bonusHills = new javax.swing.JLabel();
+        bonusMount = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -210,10 +217,12 @@ private BusinessCardsPlayer myPermit;
 
         DefaultCaret caretInfo = (DefaultCaret)infoArea.getCaret();
         caretInfo.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        infoArea.setLineWrap(true);
         infoArea.setEditable(false);
         infoArea.setColumns(20);
         infoArea.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         infoArea.setRows(5);
+        infoArea.setText("\n\n---------------------------------------------------------------------------\n\n***HERE YOU CAN FIND INFORMATION ABOUT YOUR TURN***\n\n                                      GOOD LUCK\n\n\n---------------------------------------------------------------------------");
         jScrollPane3.setViewportView(infoArea);
 
         coastBalcony.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Coast", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
@@ -510,7 +519,7 @@ private BusinessCardsPlayer myPermit;
         );
 
         userProfile.setBackground(new java.awt.Color(223, 32, 32));
-        userProfile.setLayout(new java.awt.GridLayout(2, 7));
+        userProfile.setLayout(new java.awt.GridLayout(2, 0));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("playerInfo");
@@ -528,8 +537,8 @@ private BusinessCardsPlayer myPermit;
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(userProfile)
-                            .addComponent(profile, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                            .addComponent(profile, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(userProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -544,42 +553,38 @@ private BusinessCardsPlayer myPermit;
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 460, Short.MAX_VALUE))
         );
 
+        permitHills.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         permitHills.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel11.setText("P1");
+        jLabel11.setText("permit");
         permitHills.add(jLabel11);
 
-        jLabel12.setText("P2");
+        jLabel12.setText("hills");
         permitHills.add(jLabel12);
 
+        permitCoast.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         permitCoast.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         permitCoast.setLayout(new java.awt.GridLayout(1, 0));
 
-        coastPer1.setText("permit1");
+        coastPer1.setText("permit");
         permitCoast.add(coastPer1);
 
-        coastPer2.setText("P2");
+        coastPer2.setText("coast");
         permitCoast.add(coastPer2);
 
+        permitMount.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         permitMount.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel13.setText("P1");
+        jLabel13.setText("permit");
         permitMount.add(jLabel13);
 
-        jLabel14.setText("P2");
+        jLabel14.setText("mountains");
         permitMount.add(jLabel14);
 
         kingBalcony.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "King", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
 
         jLabel17.setText("King");
         kingBalcony.add(jLabel17);
-
-        nobilityTrack.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nobility Track", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
-        nobilityTrack.setLayout(new java.awt.FlowLayout());
-
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabel5.setText("nobility track");
-        nobilityTrack.add(jLabel5);
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -626,27 +631,31 @@ private BusinessCardsPlayer myPermit;
         jPanel13.setBackground(new java.awt.Color(185, 185, 255));
         jPanel13.setLayout(new java.awt.GridLayout(4, 1));
 
-        goldCity.setBackground(new java.awt.Color(255, 255, 0));
+        goldCity.setBackground(new java.awt.Color(255, 204, 0));
         goldCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         goldCity.setText("gold");
+        goldCity.setToolTipText("Bonus color city");
         goldCity.setOpaque(true);
         jPanel13.add(goldCity);
 
         silverCity.setBackground(new java.awt.Color(204, 204, 255));
         silverCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         silverCity.setText("silver");
+        silverCity.setToolTipText("Bonus color city");
         silverCity.setOpaque(true);
         jPanel13.add(silverCity);
 
-        bronzeCity.setBackground(new java.awt.Color(204, 153, 0));
+        bronzeCity.setBackground(new java.awt.Color(204, 102, 0));
         bronzeCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bronzeCity.setText("bronze");
+        bronzeCity.setToolTipText("Bonus color city");
         bronzeCity.setOpaque(true);
         jPanel13.add(bronzeCity);
 
         blueCity.setBackground(new java.awt.Color(102, 153, 255));
         blueCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         blueCity.setText("blue");
+        blueCity.setToolTipText("Bonus color city");
         blueCity.setOpaque(true);
         jPanel13.add(blueCity);
 
@@ -660,7 +669,20 @@ private BusinessCardsPlayer myPermit;
         infoCity.setText("Info CITY");
         infoCityPanel.add(infoCity, java.awt.BorderLayout.PAGE_START);
 
-        otherPlayer.setLayout(new java.awt.GridLayout(3, 1));
+        otherScroll.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Other players", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
+
+        otherPlayer.setLayout(new java.awt.GridLayout(0, 1));
+        otherScroll.setViewportView(otherPlayer);
+
+        nobilityScroll.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nobility Track", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
+        nobilityScroll.setViewportView(nobilityTrack);
+
+        bonusCoast.setText("poi");
+
+        bonusHills.setText("nts");
+
+        bonusMount.setText("Reg");
+        bonusMount.setToolTipText("bonus region");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -669,79 +691,62 @@ private BusinessCardsPlayer myPermit;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(12, 12, 12)
-                            .addComponent(coastBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(hillsBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(mountBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(permitCoast, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(permitHills, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(permitMount, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(12, 12, 12)
+                                    .addComponent(bonusCoast, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(2, 2, 2)
+                                    .addComponent(coastBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bonusHills, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(4, 4, 4)
+                                    .addComponent(hillsBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(bonusMount, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(147, 147, 147))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(mountBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(permitCoast, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(permitHills, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(permitMount, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nobilityTrack)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(otherPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(infoCityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(kingCity, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(kingBonus, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(infoCityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(nobilityScroll)
+                    .addComponent(otherScroll)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(kingBonus, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(hillsBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                            .addComponent(mountBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(coastBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(permitMount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(permitHills, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(permitCoast, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(kingBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -756,10 +761,34 @@ private BusinessCardsPlayer myPermit;
                                     .addComponent(kingCity, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(infoCityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(7, 7, 7)
-                        .addComponent(otherPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nobilityTrack, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(otherScroll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nobilityScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(hillsBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(mountBalcony, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(coastBalcony, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bonusHills, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(bonusCoast, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(bonusMount, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(permitMount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(permitHills, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(permitCoast, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -771,7 +800,7 @@ private BusinessCardsPlayer myPermit;
             public void mouseMoved(MouseEvent e){
                 int x=e.getX();
                 int y=e.getY();
-                System.out.println(x+","+y);//these co-ords are relative to the component
+                //            System.out.println(x+","+y);//these co-ords are relative to the component
                 showToolTips(x,y);
             }
         });
@@ -803,6 +832,8 @@ private BusinessCardsPlayer myPermit;
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private Market market;
 
     private void changePermitTilesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePermitTilesButtonActionPerformed
         ChangePermitTilesDialog changePermitsDialog = new ChangePermitTilesDialog(this, true);
@@ -899,7 +930,7 @@ private BusinessCardsPlayer myPermit;
     }//GEN-LAST:event_chatTextFieldActionPerformed
 
     private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
-        BuyDialog buyDialog = new BuyDialog(this, true, playerID, communication);
+        BuyDialog buyDialog = new BuyDialog(this, true, playerID, communication, market);
         buyDialog.setVisible(true);
         buyDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_buyButtonActionPerformed
@@ -917,7 +948,6 @@ private BusinessCardsPlayer myPermit;
             chatTextField.setText("");
     }//GEN-LAST:event_chatTextFieldKeyPressed
     }
-    
 
     public static void start() {
         /* Set the Nimbus look and feel */
@@ -956,6 +986,9 @@ private BusinessCardsPlayer myPermit;
     private javax.swing.JButton additionalMainButton;
     private javax.swing.JLabel assistants;
     private javax.swing.JLabel blueCity;
+    private javax.swing.JLabel bonusCoast;
+    private javax.swing.JLabel bonusHills;
+    private javax.swing.JLabel bonusMount;
     private javax.swing.JLabel bronzeCity;
     private javax.swing.JButton buildEmporiumWithKingButton;
     private javax.swing.JButton buildEmporiumWithPermitButton;
@@ -990,7 +1023,6 @@ private BusinessCardsPlayer myPermit;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
@@ -1016,8 +1048,10 @@ private BusinessCardsPlayer myPermit;
     private javax.swing.JPanel mountBalcony;
     private javax.swing.JLabel mountC4;
     private javax.swing.JLabel nobility;
-    private javax.swing.JLayeredPane nobilityTrack;
+    private javax.swing.JScrollPane nobilityScroll;
+    private javax.swing.JPanel nobilityTrack;
     private javax.swing.JPanel otherPlayer;
+    private javax.swing.JScrollPane otherScroll;
     private javax.swing.JButton passButton;
     private javax.swing.JPanel permitCoast;
     private javax.swing.JPanel permitHills;
@@ -1113,7 +1147,6 @@ private BusinessCardsPlayer myPermit;
                 if (rt == RegionType.COAST) {
                     coastBalcony.removeAll();
                     balc = coastBalcony;
-
                 }
                 if (rt == RegionType.HILLS) {
                     hillsBalcony.removeAll();
@@ -1153,6 +1186,7 @@ private BusinessCardsPlayer myPermit;
                         coun.setIcon(councillor.get(ColorCouncillor.WHITE));
                     }
                     if (balc != null) {
+            
                         balc.add(coun);
                         balc.revalidate();
                         balc.repaint();
@@ -1161,6 +1195,32 @@ private BusinessCardsPlayer myPermit;
                 }
 
             }
+        });
+    }
+
+    public void addBonus(int bonus, RegionType rt) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ImageIcon img = new javax.swing.ImageIcon(getClass().getResource("/resource/image/bonus/victorypoints.png"));
+                if (rt == RegionType.COAST) {
+                    bonusCoast.setIcon(img);
+                    bonusCoast.setText(Integer.toString(bonus));
+                    bonusCoast.repaint();
+                    
+                }
+                if (rt == RegionType.HILLS) {
+                    bonusHills.setIcon(img);
+                    bonusHills.setText(Integer.toString(bonus));
+                    bonusHills.repaint();
+                }
+                if (rt == RegionType.MOUNTAINS) {
+                    bonusMount.setIcon(img);
+                    bonusMount.setText(Integer.toString(bonus));
+                    bonusMount.repaint();
+                }
+            }
+
         });
     }
 
@@ -1184,7 +1244,7 @@ private BusinessCardsPlayer myPermit;
         return kingBonus;
     }
 
-    public JLayeredPane getnobilityTrack() {
+    public JPanel getnobilityTrack() {
         return nobilityTrack;
     }
 
@@ -1284,15 +1344,6 @@ private BusinessCardsPlayer myPermit;
 
     private Map<Point, String> mapCoordinates;
     private Map<String, String> cityDesc;
-//    private static void prova() {
-//        mapCoordinates = new HashMap<>();
-//        mapCoordinates.put(new Point(58, 55), "allah akbar");
-//        mapCoordinates.put(new Point(42, 163), "bileeee");
-//        cityDesc = new HashMap<>();
-//        cityDesc.put("allah akbar", "bonus:ciwawa<br>ciaciao");
-//        cityColor = new HashMap<>();
-//        cityColor.put("allah akbar", ColorCity.BLUE);
-//    }
 
     public void nobilityRequest(State state) {
         NobilityRequestDialog requestDialog = new NobilityRequestDialog(this, true, playerID, communication, state);
@@ -1313,7 +1364,7 @@ private BusinessCardsPlayer myPermit;
                         if (isNear(userMouse, cityCoord.getKey())) {
 
                             JLabel infoCity = new JLabel("<html>" + cityDesc.get(cityCoord.getValue()).replaceAll("\n", "") + "</html>");
-                            infoCity.setFont(new java.awt.Font("Arial", 0, 12));
+                            infoCity.setFont(new java.awt.Font("Arial", 0, 11));
                             infoCityPanel.removeAll();
                             infoCityPanel.add(infoCity);
                             infoCityPanel.revalidate();
@@ -1351,11 +1402,28 @@ private BusinessCardsPlayer myPermit;
     public JPanel getOtherPlayerArea() {
         return otherPlayer;
     }
-    
-    public void setMyPermits(BusinessCardsPlayer myP){
-        this.myPermit=myP;
+
+    public void setMyPermits(BusinessCardsPlayer myP) {
+        this.myPermit = myP;
     }
-    public JLayeredPane getProfile(){
+
+    public JLayeredPane getProfile() {
         return profile;
+    }
+
+    public void setMarket(Market market) {
+        this.market = market;
+    }
+
+    public JLabel getBonusCoast() {
+        return bonusCoast;
+    }
+
+    public JLabel getBonusHills() {
+        return bonusHills;
+    }
+
+    public JLabel getBonusMount() {
+        return bonusMount;
     }
 }

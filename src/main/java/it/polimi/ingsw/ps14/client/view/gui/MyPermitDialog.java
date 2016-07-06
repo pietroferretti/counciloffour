@@ -59,16 +59,16 @@ public class MyPermitDialog extends javax.swing.JDialog {
                 .addComponent(jButton1)
                 .addGap(160, 160, 160))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(validCards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addGap(159, 159, 159)
                 .addComponent(jLabel1)
                 .addContainerGap(163, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(usedCards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(validCards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -150,7 +150,7 @@ public class MyPermitDialog extends javax.swing.JDialog {
                 validCards.removeAll();
                 JLabel per;
                 for (BusinessPermit b : hand.getValidCards()) {
-                    per = new JLabel("<html>ID: " + b.getId() + "<br>City:" + b.getCityNames().toString() + "<br>Bonus:" + b.getBonusList().toString() + "</html>");
+                    per = new JLabel("<html><div WIDTH:90px>ID: " + b.getId() + "<br>City:" + b.getCityNames().toString() + "<br>Bonus:" + b.getBonusList().toString() + "</div></html>");
                     per.setFont(new java.awt.Font("Arial", 0, 11));
                     per.setVisible(true);
                     validCards.add(per);
@@ -160,7 +160,7 @@ public class MyPermitDialog extends javax.swing.JDialog {
 
                 usedCards.removeAll();
                 for (BusinessPermit b : hand.getUsedCards()) {
-                    per = new JLabel("<html>ID: " + b.getId() + "<br>City:" + b.getCityNames().toString() + "<br>Bonus:" + b.getBonusList().toString() + "</html>");
+                    per = new JLabel("<html><div WIDTH:120px>ID: " + b.getId() + "<br>City:" + b.getCityNames().toString() + "<br>Bonus:" + b.getBonusList().toString() + "</div></html>");
                     per.setFont(new java.awt.Font("Arial", 0, 11));
                     per.setVisible(true);
                     usedCards.add(per);

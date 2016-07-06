@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.ps14.client</OriginalElement>
+  <nodes>
+    <node x="513.9690514935786" y="0.0">it.polimi.ingsw.ps14.client.view.gui.ChangePermitTilesDialog</node>
+    <node x="453.0551454745939" y="957.1818105373495">it.polimi.ingsw.ps14.client.view.gui.BuyDialog</node>
+    <node x="813.8667854322341" y="134.16927011836452">it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog</node>
+    <node x="210.9351644589288" y="92.08288672073161">it.polimi.ingsw.ps14.client.view.gui.NobilityRequestDialog</node>
+    <node x="984.8032854206087" y="418.7551693628276">it.polimi.ingsw.ps14.client.view.gui.AcquireBusinessPermitDialog</node>
+    <node x="695.4737294931743" y="986.9633569368375">it.polimi.ingsw.ps14.client.view.gui.BuildEmporiumWithKingDialog</node>
+    <node x="84.82140077458473" y="900.4043761326047">it.polimi.ingsw.ps14.client.view.gui.BuildEmporiumWithPermitDialog</node>
+    <node x="75.87872190766564" y="598.4368663275449">it.polimi.ingsw.ps14.client.view.gui.SellDialog</node>
+    <node x="927.930056017173" y="721.3911551943972">it.polimi.ingsw.ps14.client.view.gui.MyPermitDialog</node>
+    <node x="0.0" y="340.64356662620804">it.polimi.ingsw.ps14.client.view.gui.ElectWithAssistantDialog</node>
+    <node x="535.5686256668293" y="508.163747475415">it.polimi.ingsw.ps14.client.view.gui.GUI</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.NobilityRequestDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.SellDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.BuyDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.ElectWithAssistantDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.MyPermitDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.BuildEmporiumWithKingDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.ChangePermitTilesDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.AcquireBusinessPermitDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.BuildEmporiumWithPermitDialog">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5724217844727694" x="853.0000000000001" y="607.7459514170041" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

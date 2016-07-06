@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.ps14.model</OriginalElement>
+  <nodes>
+    <node x="2792.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg</node>
+    <node x="2480.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg</node>
+    <node x="1635.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg</node>
+    <node x="1047.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg</node>
+    <node x="112.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg</node>
+    <node x="2321.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg</node>
+    <node x="1956.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg</node>
+    <node x="1766.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg</node>
+    <node x="740.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg</node>
+    <node x="1426.0" y="0.0">it.polimi.ingsw.ps14.message.Message</node>
+    <node x="888.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg</node>
+    <node x="676.858695652174" y="250.0">it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg</node>
+    <node x="10.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.ChatMsg</node>
+    <node x="2672.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg</node>
+    <node x="403.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg</node>
+    <node x="1269.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg</node>
+    <node x="563.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg</node>
+    <node x="2180.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg</node>
+    <node x="257.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg</node>
+    <node x="1499.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.PrivateMessage</node>
+    <node x="2221.858695652174" y="250.0">it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="1148.5" y="140.0" />
+      <point x="1460.0" y="140.0" />
+      <point x="-6.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="320.5" y="90.0" />
+      <point x="1440.0" y="90.0" />
+      <point x="-26.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="-43.25" y="-15.0" />
+      <point x="720.108695652174" y="225.0" />
+      <point x="0.0" y="225.0" />
+      <point x="0.0" y="60.0" />
+      <point x="1428.0" y="60.0" />
+      <point x="-38.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg" target="it.polimi.ingsw.ps14.message.fromserver.PrivateMessage">
+      <point x="43.25" y="-15.0" />
+      <point x="806.608695652174" y="225.0" />
+      <point x="1528.5" y="225.0" />
+      <point x="-29.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.ChatMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="51.5" y="70.0" />
+      <point x="1432.0" y="70.0" />
+      <point x="-34.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="2241.0" y="100.0" />
+      <point x="1484.0" y="100.0" />
+      <point x="18.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="473.5" y="100.0" />
+      <point x="1444.0" y="100.0" />
+      <point x="-22.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="2722.5" y="70.0" />
+      <point x="1496.0" y="70.0" />
+      <point x="30.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="2877.5" y="60.0" />
+      <point x="1500.0" y="60.0" />
+      <point x="34.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="2058.5" y="110.0" />
+      <point x="1480.0" y="110.0" />
+      <point x="14.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="1374.5" y="150.0" />
+      <point x="1464.0" y="150.0" />
+      <point x="-2.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="28.5" y="-15.0" />
+      <point x="2307.358695652174" y="225.0" />
+      <point x="2973.0" y="225.0" />
+      <point x="2973.0" y="50.0" />
+      <point x="1504.0" y="50.0" />
+      <point x="38.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.PrivateMessage" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="1557.5" y="140.0" />
+      <point x="1468.0" y="140.0" />
+      <point x="2.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="1691.0" y="130.0" />
+      <point x="1472.0" y="130.0" />
+      <point x="6.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="642.0" y="110.0" />
+      <point x="1448.0" y="110.0" />
+      <point x="-18.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="958.0" y="130.0" />
+      <point x="1456.0" y="130.0" />
+      <point x="-10.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="175.0" y="80.0" />
+      <point x="1436.0" y="80.0" />
+      <point x="-30.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="2566.5" y="80.0" />
+      <point x="1492.0" y="80.0" />
+      <point x="26.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="804.5" y="120.0" />
+      <point x="1452.0" y="120.0" />
+      <point x="-14.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="2391.0" y="90.0" />
+      <point x="1488.0" y="90.0" />
+      <point x="22.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="1851.5" y="120.0" />
+      <point x="1476.0" y="120.0" />
+      <point x="10.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg" target="it.polimi.ingsw.ps14.message.fromserver.PrivateMessage">
+      <point x="-28.5" y="-15.0" />
+      <point x="2250.358695652174" y="225.0" />
+      <point x="1586.5" y="225.0" />
+      <point x="29.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.37387236886067493" x="1486.5" y="140.0" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.ps14.model.modelview</OriginalElement>
+  <nodes>
+    <node x="302.99999999999994" y="0.0">it.polimi.ingsw.ps14.model.modelview.KingView</node>
+    <node x="693.0" y="170.0">it.polimi.ingsw.ps14.model.modelview.ModelView</node>
+    <node x="187.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.RegionView</node>
+    <node x="839.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.MessageView</node>
+    <node x="1261.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.PlayerView</node>
+    <node x="1145.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.MarketView</node>
+    <node x="405.99999999999994" y="0.0">it.polimi.ingsw.ps14.model.modelview.StateView</node>
+    <node x="0.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.AvailableCouncillorsView</node>
+    <node x="660.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.AvailableAssistantsView</node>
+    <node x="1372.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.KingBonusesView</node>
+    <node x="510.99999999999994" y="0.0">it.polimi.ingsw.ps14.model.modelview.NobilityTrackView</node>
+    <node x="964.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.CitiesColorBonusesView</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.AvailableAssistantsView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.KingBonusesView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.MarketView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.NobilityTrackView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.AvailableCouncillorsView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.KingView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.PlayerView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.MessageView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.RegionView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.CitiesColorBonusesView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.model.modelview.ModelView" target="it.polimi.ingsw.ps14.model.modelview.StateView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6747860434496379" x="749.5" y="100.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

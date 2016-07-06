@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.ps14.client</OriginalElement>
+  <nodes>
+    <node x="340.3590773809524" y="260.0">it.polimi.ingsw.ps14.client.view.CLIView</node>
+    <node x="434.68452380952374" y="360.0">it.polimi.ingsw.ps14.client.Client</node>
+    <node x="361.48333333333335" y="80.0">it.polimi.ingsw.ps14.client.view.ClientView</node>
+    <node x="484.8166666666667" y="260.0">it.polimi.ingsw.ps14.client.view.GUIView</node>
+    <node x="0.0" y="80.0">it.polimi.ingsw.ps14.client.rmi.RMICommunication</node>
+    <node x="319.02574404761907" y="170.0">it.polimi.ingsw.ps14.client.view.Interpreter</node>
+    <node x="585.0257440476191" y="170.0">it.polimi.ingsw.ps14.client.socket.SocketCommunication</node>
+    <node x="466.02574404761907" y="170.0">it.polimi.ingsw.ps14.client.view.gui</node>
+    <node x="168.02574404761907" y="170.0">it.polimi.ingsw.ps14.client.rmi.ClientViewRemote</node>
+    <node x="449.08333333333337" y="0.0">it.polimi.ingsw.ps14.client.Communication</node>
+    <node x="63.0" y="170.0">it.polimi.ingsw.ps14.client.rmi.Life</node>
+    <node x="86.75" y="260.0">it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl</node>
+    <node x="626.5257440476191" y="260.0">it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn</node>
+    <node x="676.4007440476191" y="80.0">it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.ps14.client.Client" target="it.polimi.ingsw.ps14.client.rmi.Life">
+      <point x="-20.3125" y="-15.0" />
+      <point x="446.87202380952374" y="330.0" />
+      <point x="76.25" y="330.0" />
+      <point x="-13.25" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl" target="it.polimi.ingsw.ps14.client.view.ClientView">
+      <point x="0.0" y="-15.0" />
+      <point x="164.25" y="240.0" />
+      <point x="157.52574404761907" y="240.0" />
+      <point x="157.52574404761907" y="150.0" />
+      <point x="372.73333333333335" y="150.0" />
+      <point x="-33.75" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.Interpreter" target="it.polimi.ingsw.ps14.client.Communication">
+      <point x="0.0" y="-15.0" />
+      <point x="363.52574404761907" y="140.0" />
+      <point x="350.98333333333335" y="140.0" />
+      <point x="350.98333333333335" y="60.0" />
+      <point x="485.38333333333344" y="60.0" />
+      <point x="-24.19999999999999" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.Client" target="it.polimi.ingsw.ps14.client.socket.SocketCommunication">
+      <point x="12.1875" y="-15.0" />
+      <point x="479.37202380952374" y="320.0" />
+      <point x="616.0257440476191" y="320.0" />
+      <point x="616.0257440476191" y="240.0" />
+      <point x="624.0257440476191" y="240.0" />
+      <point x="-39.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.Client" target="it.polimi.ingsw.ps14.client.view.CLIView">
+      <point x="-4.0625" y="-15.0" />
+      <point x="463.12202380952374" y="310.0" />
+      <point x="378.3590773809524" y="310.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.GUIView" target="it.polimi.ingsw.ps14.client.view.ClientView">
+      <point x="-29.25" y="-15.0" />
+      <point x="494.5666666666667" y="240.0" />
+      <point x="435.52574404761907" y="240.0" />
+      <point x="435.52574404761907" y="140.0" />
+      <point x="417.73333333333335" y="140.0" />
+      <point x="11.25" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.rmi.RMICommunication" target="it.polimi.ingsw.ps14.client.Communication">
+      <point x="0.0" y="-15.0" />
+      <point x="71.0" y="50.0" />
+      <point x="461.1833333333334" y="50.0" />
+      <point x="-48.400000000000006" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui" target="it.polimi.ingsw.ps14.client.view.gui">
+      <point x="-32.666666666666664" y="15.0" />
+      <point x="482.3590773809524" y="220.0" />
+      <point x="446.02574404761907" y="220.0" />
+      <point x="446.02574404761907" y="185.0" />
+      <point x="-49.0" y="-0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.gui" target="it.polimi.ingsw.ps14.client.Communication">
+      <point x="0.0" y="-15.0" />
+      <point x="515.0257440476191" y="60.0" />
+      <point x="509.58333333333337" y="60.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.Interpreter" target="it.polimi.ingsw.ps14.client.view.CLIView">
+      <point x="29.666666666666686" y="15.0" />
+      <point x="393.19241071428576" y="240.0" />
+      <point x="387.8590773809524" y="240.0" />
+      <point x="9.5" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.Client" target="it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn">
+      <point x="20.3125" y="-15.0" />
+      <point x="487.49702380952374" y="330.0" />
+      <point x="710.0257440476191" y="330.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.GUIView" target="it.polimi.ingsw.ps14.client.Communication">
+      <point x="29.250000000000014" y="-15.0" />
+      <point x="553.0666666666667" y="240.0" />
+      <point x="574.5257440476191" y="240.0" />
+      <point x="574.5257440476191" y="60.0" />
+      <point x="533.7833333333334" y="60.0" />
+      <point x="24.200000000000017" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn" target="it.polimi.ingsw.ps14.client.socket.SocketCommunication">
+      <point x="0.0" y="-15.0" />
+      <point x="710.0257440476191" y="240.0" />
+      <point x="702.0257440476191" y="240.0" />
+      <point x="39.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.Client" target="it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut">
+      <point x="28.4375" y="-15.0" />
+      <point x="495.62202380952374" y="340.0" />
+      <point x="809.1507440476191" y="340.0" />
+      <point x="44.25" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.socket.SocketCommunication" target="it.polimi.ingsw.ps14.client.Communication">
+      <point x="0.0" y="-15.0" />
+      <point x="663.0257440476191" y="50.0" />
+      <point x="557.9833333333335" y="50.0" />
+      <point x="48.400000000000034" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.GUIView" target="it.polimi.ingsw.ps14.client.view.gui">
+      <point x="-9.75" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.CLIView" target="it.polimi.ingsw.ps14.client.view.ClientView">
+      <point x="28.5" y="-15.0" />
+      <point x="406.8590773809524" y="240.0" />
+      <point x="418.90074404761907" y="240.0" />
+      <point x="418.90074404761907" y="150.0" />
+      <point x="395.23333333333335" y="150.0" />
+      <point x="-11.25" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.socket.SocketCommunication" target="it.polimi.ingsw.ps14.client.view.ClientView">
+      <point x="-52.0" y="-15.0" />
+      <point x="611.0257440476191" y="130.0" />
+      <point x="440.23333333333335" y="130.0" />
+      <point x="33.75" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl" target="it.polimi.ingsw.ps14.client.rmi.ClientViewRemote">
+      <point x="51.666666666666686" y="-15.0" />
+      <point x="215.91666666666669" y="240.0" />
+      <point x="233.52574404761907" y="240.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.Client" target="it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl">
+      <point x="-12.1875" y="-15.0" />
+      <point x="454.99702380952374" y="320.0" />
+      <point x="164.25" y="320.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.socket.SocketCommunication" target="it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut">
+      <point x="52.0" y="-15.0" />
+      <point x="715.0257440476191" y="150.0" />
+      <point x="720.6507440476191" y="150.0" />
+      <point x="-44.25" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl" target="it.polimi.ingsw.ps14.client.rmi.Life">
+      <point x="-51.66666666666666" y="-15.0" />
+      <point x="112.58333333333337" y="240.0" />
+      <point x="102.75" y="240.0" />
+      <point x="13.25" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.Client" target="it.polimi.ingsw.ps14.client.view.GUIView">
+      <point x="4.0625" y="-15.0" />
+      <point x="471.24702380952374" y="310.0" />
+      <point x="523.8166666666667" y="310.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.Client" target="it.polimi.ingsw.ps14.client.rmi.RMICommunication">
+      <point x="-28.4375" y="-15.0" />
+      <point x="438.74702380952374" y="340.0" />
+      <point x="52.5" y="340.0" />
+      <point x="52.5" y="150.0" />
+      <point x="35.5" y="150.0" />
+      <point x="-35.5" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.view.CLIView" target="it.polimi.ingsw.ps14.client.view.Interpreter">
+      <point x="-9.5" y="-15.0" />
+      <point x="368.8590773809524" y="240.0" />
+      <point x="363.52574404761907" y="240.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ps14.client.rmi.Life" target="it.polimi.ingsw.ps14.client.rmi.RMICommunication">
+      <point x="0.0" y="-15.0" />
+      <point x="89.5" y="150.0" />
+      <point x="106.5" y="150.0" />
+      <point x="35.5" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="427.0" y="195.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
