@@ -43,8 +43,6 @@ public class ModelViewTest {
 		model.setPlayers(players);
 		
 		new Controller(model);
-		// model.setPlayerOrder(players);
-		// model.loadNextPlayer();
 		mv = new ModelView(model);
 
 	}

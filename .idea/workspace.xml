@@ -1,0 +1,1336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="aa18e62b-a585-4ce4-95e5-507ffb9395d6" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/CO4.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/actions.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/bonus.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/client.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/client2.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/co4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/diagram.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/diagram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/gui.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/message.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/messagefromclient.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/messagefromserver.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/model.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/model.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/modelview.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/mvc.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/server.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/server2.uml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uml/turnstate.uml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/it/polimi/ingsw/ps14/model/modelview/ModelViewTest.java" afterPath="$PROJECT_DIR$/src/test/java/it/polimi/ingsw/ps14/model/modelview/ModelViewTest.java" />
+    </list>
+    <ignored path="ps14.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="ps14" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ps14" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ps14" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="counciloffour" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ps14" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="counciloffour" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ps14" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="counciloffour" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ps14" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="counciloffour" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ps14" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="counciloffour" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ps14" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/uml" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="depsClasspath" value="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ps14" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aa18e62b-a585-4ce4-95e5-507ffb9395d6" name="Default" comment="" />
+      <created>1467792901210</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1467792901210</updated>
+      <workItem from="1467792902901" duration="53000" />
+      <workItem from="1467792977151" duration="6185000" />
+      <workItem from="1467818129748" duration="1749000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="7987000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16251831" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/uml/client.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14.client</OriginalElement>
+          <nodes>
+            <node x="340.3590773809524" y="260.0">it.polimi.ingsw.ps14.client.view.CLIView</node>
+            <node x="434.68452380952374" y="360.0">it.polimi.ingsw.ps14.client.Client</node>
+            <node x="361.48333333333335" y="80.0">it.polimi.ingsw.ps14.client.view.ClientView</node>
+            <node x="484.8166666666667" y="260.0">it.polimi.ingsw.ps14.client.view.GUIView</node>
+            <node x="0.0" y="80.0">it.polimi.ingsw.ps14.client.rmi.RMICommunication</node>
+            <node x="319.02574404761907" y="170.0">it.polimi.ingsw.ps14.client.view.Interpreter</node>
+            <node x="585.0257440476191" y="170.0">it.polimi.ingsw.ps14.client.socket.SocketCommunication</node>
+            <node x="466.02574404761907" y="170.0">it.polimi.ingsw.ps14.client.view.gui</node>
+            <node x="168.02574404761907" y="170.0">it.polimi.ingsw.ps14.client.rmi.ClientViewRemote</node>
+            <node x="449.08333333333337" y="0.0">it.polimi.ingsw.ps14.client.Communication</node>
+            <node x="63.0" y="170.0">it.polimi.ingsw.ps14.client.rmi.Life</node>
+            <node x="86.75" y="260.0">it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl</node>
+            <node x="626.5257440476191" y="260.0">it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn</node>
+            <node x="676.4007440476191" y="80.0">it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="it.polimi.ingsw.ps14.client.rmi.RMICommunication" target="it.polimi.ingsw.ps14.client.Communication">
+              <point x="0.0" y="-15.0" />
+              <point x="71.0" y="50.0" />
+              <point x="461.1833333333334" y="50.0" />
+              <point x="-48.400000000000006" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl" target="it.polimi.ingsw.ps14.client.rmi.ClientViewRemote">
+              <point x="51.666666666666686" y="-15.0" />
+              <point x="215.91666666666669" y="240.0" />
+              <point x="233.52574404761907" y="240.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.socket.SocketCommunication" target="it.polimi.ingsw.ps14.client.Communication">
+              <point x="0.0" y="-15.0" />
+              <point x="663.0257440476191" y="50.0" />
+              <point x="557.9833333333335" y="50.0" />
+              <point x="48.400000000000034" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.GUIView" target="it.polimi.ingsw.ps14.client.view.ClientView">
+              <point x="-29.25" y="-15.0" />
+              <point x="494.5666666666667" y="240.0" />
+              <point x="435.52574404761907" y="240.0" />
+              <point x="435.52574404761907" y="140.0" />
+              <point x="417.73333333333335" y="140.0" />
+              <point x="11.25" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.CLIView" target="it.polimi.ingsw.ps14.client.view.ClientView">
+              <point x="28.5" y="-15.0" />
+              <point x="406.8590773809524" y="240.0" />
+              <point x="418.90074404761907" y="240.0" />
+              <point x="418.90074404761907" y="150.0" />
+              <point x="395.23333333333335" y="150.0" />
+              <point x="-11.25" y="15.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="156.0" y="146.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uml/server.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14.server</OriginalElement>
+          <nodes />
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="158.0" y="93.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/ps14/message/DisconnectionMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/ps14/server/ServerChat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/it.polimi.ingsw.ps14.message">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14.message</OriginalElement>
+          <nodes />
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="254.0" y="205.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/it.polimi.ingsw.ps14.message.fromclient">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14.message.fromclient</OriginalElement>
+          <nodes />
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="95.0" y="159.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uml/mvc.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14.client</OriginalElement>
+          <nodes>
+            <node x="0.0" y="75.0">it.polimi.ingsw.ps14.server.ServerView</node>
+            <node x="0.0" y="150.0">it.polimi.ingsw.ps14.model.Model</node>
+            <node x="113.0" y="150.0">it.polimi.ingsw.ps14.server.Server</node>
+            <node x="136.0" y="75.0">it.polimi.ingsw.ps14.controller.Controller</node>
+            <node x="0.0" y="0.0">it.polimi.ingsw.ps14.model.modelview.ModelView</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="111.5" y="90.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uml/actions.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14.model</OriginalElement>
+          <nodes>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.MainAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTilesAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.TurnAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermitTileAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.market.SellAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.Action</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.EndTurnAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.DrawCardAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.market.BuyAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.ElectCouncillorAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.5901417960837272" x="730.5" y="212.5" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uml/model.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14.model</OriginalElement>
+          <nodes>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Settings</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.ColorPolitic</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.GamePhase</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.WaitingFor</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.ColorCity</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.RegionType</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.City</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.MarketState</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.ItemForSale</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.GameBoard</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.ColorCouncillor</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.PoliticDeck</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.King</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Player</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.MessageObservable</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.PoliticCard</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.BusinessCardsRegion</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.turnstates</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Model</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.State</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.NobilityTrack</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.BusinessCardsPlayer</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Region</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Market</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.BusinessPermit</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Balcony</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="266.0" y="277.5" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/it.polimi.ingsw.ps14">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14</OriginalElement>
+          <nodes>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusPoliticCard</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.view.ClientView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.rmi.RMICommunication</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.ChangeBusinessPermitTilesAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.ModelView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.StateView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.view.gui</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.City</node>
+            <node x="" y="">it.polimi.ingsw.ps14.server.Game</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.rmi.Life</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.PoliticDeck</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.turnstates.CardDrawnState</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.view.WaitingStartDialog</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.NobilityRequestAnswerMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.KingView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.NobilityTrack</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.PlayerView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.ElectCouncillorAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.SellNoneMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.exceptions.IllegalActionException</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.MyChatMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.SendAssistantToElectCouncillorAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.view.CLIView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.Client</node>
+            <node x="" y="">it.polimi.ingsw.ps14.server.ServerViewRemote</node>
+            <node x="" y="">it.polimi.ingsw.ps14.server.Server</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.GamePhase</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.ColorPolitic</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.RegionView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.ColorCity</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.SellMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.RegionType</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.AcquireBusinessPermitTileAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.EngageAssistantAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.market.SellAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerIn</node>
+            <node x="" y="">it.polimi.ingsw.ps14.server.ServerView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.EndTurnAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Model</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusFromTokens</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.PlayerNameMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.BusinessCardsPlayer</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.MessageView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.view.GameStartedDialog</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.rmi.ClientViewRemote</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.AvailableAssistantsView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.KingBonusesView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusVictoryPoint</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.MainAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.BuyMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.UpdateGameBoardMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusAssistant</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.TurnAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.socket.SocketCommunication</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.Bonus</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.MarketState</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.ItemForSale</node>
+            <node x="" y="">it.polimi.ingsw.ps14.server.ServerViewRemoteImpl</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.GameBoard</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.Action</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.NobilityTrackView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Player</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.MessageObservable</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.PoliticCard</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.turnstates.TurnState</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.Message</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.BusinessCardsRegion</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.view.GUIView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.UpdateRequestMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.State</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusNobilityLvlUp</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.DisconnectionMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.UpdateOtherPlayersMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.QuickAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Region</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.market.BuyAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.DrawCardAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Market</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.BusinessPermit</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Balcony</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusMainAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusCoin</node>
+            <node x="" y="">it.polimi.ingsw.ps14.server.SocketServerView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.Settings</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusTakeBusinessPermits</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.WaitingFor</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.turnstates.EndTurnState</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.MarketView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusList</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.SpecialNobilityBonus</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.ColorCouncillor</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.King</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState</node>
+            <node x="" y="">it.polimi.ingsw.ps14.exceptions.InvalidSettingsException</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.bonus.BonusFromBusinessPermits</node>
+            <node x="" y="">it.polimi.ingsw.ps14.server.ServerChat</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.UpdateThisPlayerMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumWithHelpOfKingAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.mainactions.BuildEmporiumUsingPermitTileAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.server.RMIServerOut</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.ChatMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.view.Interpreter</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromclient.DoneBuyingMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.actions.quickactions.PerformAdditionalMainActionAction</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.turnstates.InitialTurnState</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.AvailableCouncillorsView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.server.RMIServerView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.Communication</node>
+            <node x="" y="">it.polimi.ingsw.ps14.controller.Controller</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.PrivateMessage</node>
+            <node x="" y="">it.polimi.ingsw.ps14.model.modelview.CitiesColorBonusesView</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.rmi.ClientViewRemoteImpl</node>
+            <node x="" y="">it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg</node>
+            <node x="" y="">it.polimi.ingsw.ps14.client.socket.SocketMessageHandlerOut</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.09507188564780188" x="6006.5" y="1647.5" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uml/messagefromserver.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14.model</OriginalElement>
+          <nodes>
+            <node x="1365.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg</node>
+            <node x="761.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg</node>
+            <node x="2385.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg</node>
+            <node x="156.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg</node>
+            <node x="2240.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg</node>
+            <node x="602.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg</node>
+            <node x="378.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg</node>
+            <node x="1175.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg</node>
+            <node x="2516.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg</node>
+            <node x="1492.0" y="0.0">it.polimi.ingsw.ps14.message.Message</node>
+            <node x="1691.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg</node>
+            <node x="2223.228260869565" y="250.0">it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg</node>
+            <node x="1073.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.ChatMsg</node>
+            <node x="953.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg</node>
+            <node x="1850.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg</node>
+            <node x="2805.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg</node>
+            <node x="2010.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg</node>
+            <node x="10.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg</node>
+            <node x="2664.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg</node>
+            <node x="1555.5" y="170.0">it.polimi.ingsw.ps14.message.fromserver.PrivateMessage</node>
+            <node x="737.2282608695652" y="250.0">it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.MarketUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="672.0" y="100.0" />
+              <point x="1510.0" y="100.0" />
+              <point x="-22.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.AvailableAssistantsUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="257.5" y="80.0" />
+              <point x="1502.0" y="80.0" />
+              <point x="-30.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.PlayerIDMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="1003.5" y="120.0" />
+              <point x="1518.0" y="120.0" />
+              <point x="-14.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPublicMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="1450.5" y="150.0" />
+              <point x="1530.0" y="150.0" />
+              <point x="-2.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.CitiesColorBonusesUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="480.5" y="90.0" />
+              <point x="1506.0" y="90.0" />
+              <point x="-26.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.RegionUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="1761.0" y="130.0" />
+              <point x="1538.0" y="130.0" />
+              <point x="6.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.GameStartedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="2303.0" y="100.0" />
+              <point x="1550.0" y="100.0" />
+              <point x="18.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.NobilityTrackUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="847.5" y="110.0" />
+              <point x="1514.0" y="110.0" />
+              <point x="-18.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.AvailableCouncillorsUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="2115.5" y="110.0" />
+              <point x="1546.0" y="110.0" />
+              <point x="14.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.KingUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="73.5" y="70.0" />
+              <point x="1498.0" y="70.0" />
+              <point x="-34.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="-28.5" y="-15.0" />
+              <point x="765.7282608695652" y="225.0" />
+              <point x="0.0" y="225.0" />
+              <point x="0.0" y="60.0" />
+              <point x="1494.0" y="60.0" />
+              <point x="-38.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="43.25" y="-15.0" />
+              <point x="2352.978260869565" y="225.0" />
+              <point x="2973.0" y="225.0" />
+              <point x="2973.0" y="50.0" />
+              <point x="1570.0" y="50.0" />
+              <point x="38.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.KingBonusesUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="1260.5" y="140.0" />
+              <point x="1526.0" y="140.0" />
+              <point x="-6.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.PlayerChangedPrivateMsg" target="it.polimi.ingsw.ps14.message.fromserver.PrivateMessage">
+              <point x="-43.25" y="-15.0" />
+              <point x="2266.478260869565" y="225.0" />
+              <point x="1642.5" y="225.0" />
+              <point x="29.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg" target="it.polimi.ingsw.ps14.message.fromserver.PrivateMessage">
+              <point x="28.5" y="-15.0" />
+              <point x="822.7282608695652" y="225.0" />
+              <point x="1584.5" y="225.0" />
+              <point x="-29.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.PrivateMessage" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="1613.5" y="140.0" />
+              <point x="1534.0" y="140.0" />
+              <point x="2.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.ChatMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="1114.5" y="130.0" />
+              <point x="1522.0" y="130.0" />
+              <point x="-10.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.InfoPublicMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="2441.0" y="90.0" />
+              <point x="1554.0" y="90.0" />
+              <point x="22.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="2725.0" y="70.0" />
+              <point x="1562.0" y="70.0" />
+              <point x="30.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.PersonalUpdateMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="1920.5" y="120.0" />
+              <point x="1542.0" y="120.0" />
+              <point x="10.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.StateUpdatedMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="2580.5" y="80.0" />
+              <point x="1558.0" y="80.0" />
+              <point x="26.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.message.fromserver.OtherPlayerUpdateMsg" target="it.polimi.ingsw.ps14.message.Message">
+              <point x="0.0" y="-15.0" />
+              <point x="2884.0" y="60.0" />
+              <point x="1566.0" y="60.0" />
+              <point x="34.0" y="15.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.38222519211493483" x="617.9020979020979" y="10.495192307692264" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uml/gui.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>it.polimi.ingsw.ps14.client</OriginalElement>
+          <nodes>
+            <node x="953.0" y="0.0">it.polimi.ingsw.ps14.client.view.gui.BuyDialog</node>
+            <node x="766.0" y="0.0">it.polimi.ingsw.ps14.client.view.gui.ChangePermitTilesDialog</node>
+            <node x="1061.0" y="0.0">it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog</node>
+            <node x="773.5" y="180.0">it.polimi.ingsw.ps14.client.view.gui.NobilityRequestDialog</node>
+            <node x="106.0" y="0.0">it.polimi.ingsw.ps14.client.view.gui.AcquireBusinessPermitDialog</node>
+            <node x="315.0" y="0.0">it.polimi.ingsw.ps14.client.view.gui.BuildEmporiumWithKingDialog</node>
+            <node x="535.0" y="0.0">it.polimi.ingsw.ps14.client.view.gui.BuildEmporiumWithPermitDialog</node>
+            <node x="0.0" y="0.0">it.polimi.ingsw.ps14.client.view.gui.SellDialog</node>
+            <node x="407.5174825174825" y="108.2937062937063">it.polimi.ingsw.ps14.client.view.gui.GroupButtonUtils</node>
+            <node x="1229.0" y="0.0">it.polimi.ingsw.ps14.client.view.gui.MyPermitDialog</node>
+            <node x="1369.0" y="0.0">it.polimi.ingsw.ps14.client.view.gui.ElectWithAssistantDialog</node>
+            <node x="823.0" y="100.0">it.polimi.ingsw.ps14.client.view.gui.GUI</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.NobilityRequestDialog">
+              <point x="13.25" y="15.0" />
+              <point x="862.75" y="155.0" />
+              <point x="887.5" y="155.0" />
+              <point x="38.0" y="-15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.SellDialog">
+              <point x="-23.555555555555543" y="-15.0" />
+              <point x="825.9444444444445" y="80.0" />
+              <point x="43.0" y="80.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.BuyDialog">
+              <point x="5.888888888888886" y="-15.0" />
+              <point x="855.3888888888889" y="50.0" />
+              <point x="997.0" y="50.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.ElectWithAssistantDialog">
+              <point x="23.555555555555543" y="-15.0" />
+              <point x="873.0555555555555" y="80.0" />
+              <point x="1451.5" y="80.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.ElectCouncillorDialog">
+              <point x="11.777777777777771" y="-15.0" />
+              <point x="861.2777777777778" y="60.0" />
+              <point x="1135.0" y="60.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.MyPermitDialog">
+              <point x="17.666666666666657" y="-15.0" />
+              <point x="867.1666666666666" y="70.0" />
+              <point x="1289.0" y="70.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.NobilityRequestDialog" target="it.polimi.ingsw.ps14.client.view.gui.GUI">
+              <point x="-38.0" y="-15.0" />
+              <point x="811.5" y="155.0" />
+              <point x="836.25" y="155.0" />
+              <point x="-13.25" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.ChangePermitTilesDialog">
+              <point x="0.0" y="-15.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.BuildEmporiumWithKingDialog">
+              <point x="-11.777777777777771" y="-15.0" />
+              <point x="837.7222222222222" y="60.0" />
+              <point x="415.0" y="60.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.AcquireBusinessPermitDialog">
+              <point x="-17.666666666666657" y="-15.0" />
+              <point x="831.8333333333334" y="70.0" />
+              <point x="200.5" y="70.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="it.polimi.ingsw.ps14.client.view.gui.GUI" target="it.polimi.ingsw.ps14.client.view.gui.BuildEmporiumWithPermitDialog">
+              <point x="-5.888888888888886" y="-15.0" />
+              <point x="843.6111111111111" y="50.0" />
+              <point x="640.5" y="50.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.7361647361647362" x="767.0" y="142.5" />
+          <SelectedNodes>
+            <node>it.polimi.ingsw.ps14.client.view.gui.GroupButtonUtils</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
