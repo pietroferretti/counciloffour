@@ -206,7 +206,6 @@ public class Server {
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Unexpected exception while creating a new game.", e);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
