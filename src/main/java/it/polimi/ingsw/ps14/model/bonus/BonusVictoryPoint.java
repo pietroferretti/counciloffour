@@ -11,7 +11,6 @@ public class BonusVictoryPoint implements Bonus {
 	private static final long serialVersionUID = 6153823313381004339L;
 	
 	private final int points;
-	private boolean used;
 	
 	public BonusVictoryPoint(int points) {
 		if (points < 1)
@@ -25,14 +24,6 @@ public class BonusVictoryPoint implements Bonus {
 		player.addPoints(points);
 	}
 
-	public boolean isUsed() {
-		return used;
-	}
-
-	public void setUsed() {
-		used = true;
-	}
-	
 	@Override 
 	public BonusVictoryPoint makeCopy() {
 		return new BonusVictoryPoint(points);

@@ -4,6 +4,8 @@ import it.polimi.ingsw.ps14.message.Message;
 
 public abstract class PrivateMessage implements Message {
 
+	private static final long serialVersionUID = 844064498086869386L;
+
 	private Integer playerID;
 	
 	public PrivateMessage() {
