@@ -32,9 +32,9 @@ public class Server {
 	private static final String NAME = "council4";
 	
 	private static final int COUNTDOWN = 20;	// TODO ricordare di settare a 20 per la consegna
-	private static final int DEFAULT_PLAYERS_NUMBER = 4;
+	private static final int DEFAULT_PLAYERS_NUMBER = 3;
 
-	private int playersNumber;
+	private int maxPlayers;
 	
 	private Integer idCounter;
 	private ServerSocket serverSocket;
@@ -49,8 +49,8 @@ public class Server {
 
 	private static List<Game> activeGames = new ArrayList<>();
 
-	public Server(int playersNumber) {
-		this.playersNumber = playersNumber;
+	public Server(int maxPlayers) {
+		this.maxPlayers = maxPlayers;
 		timer = new Timer();
 		idCounter = 0;
 	}
@@ -67,7 +67,7 @@ public class Server {
 	 */
 	public synchronized void registerWaitingConnectionRMI(
 			ClientViewRemote clientStub, ServerViewRemoteImpl rmiServerIn) {
-		RMIServerView connection = new RMIServerView(idCounter, clientStub);
+		RMIServerView connection = new RMIServerView(idCounter, clientStub, this);
 		idCounter++;
 		
 		rmiServerIn.addServerView(connection);
@@ -79,7 +79,7 @@ public class Server {
 	/*
 	 * Deregistro una connessione
 	 */
-	public synchronized void deregisterConnection(SocketServerView c) {
+	public synchronized void deregisterConnection(ServerView c) {
 		connections.remove(c);
 		if (waitingConnections.contains(c)) {
 			waitingConnections.remove(c);
@@ -93,7 +93,7 @@ public class Server {
 	public synchronized void meeting() {
 
 		LOGGER.info("Connection added.");
-		if (waitingConnections.size() == playersNumber) {
+		if (waitingConnections.size() == maxPlayers) {
 			timer.cancel();
 			List<ServerView> viewsReady = new ArrayList<>(waitingConnections);
 			waitingConnections.clear();
@@ -108,7 +108,7 @@ public class Server {
 
 				@Override
 				public void run() {
-					if (waitingConnections.size() >= 2 && waitingConnections.size() < playersNumber) {
+					if (waitingConnections.size() >= 2 && waitingConnections.size() < maxPlayers) {
 						List<ServerView> viewsReady = new ArrayList<>(waitingConnections);
 						waitingConnections.clear();
 						createGame(viewsReady);
@@ -124,14 +124,16 @@ public class Server {
 
 		Registry registry;
 
+		LOGGER.info("Constructing the RMI registry");
 		registry = LocateRegistry.createRegistry(RMI_PORT);
-		System.out.println("Constructing the RMI registry");
+
+		LOGGER.info("Binding the server implementation to the registry");
 		ServerViewRemoteImpl rmiView = new ServerViewRemoteImpl(this);
 		registry.bind(NAME, rmiView);
 
 		UnicastRemoteObject.exportObject(rmiView, 0);
 
-		System.out.println("Binding the server implementation to the registry");
+		LOGGER.info("SERVER RMI READY ON PORT " + RMI_PORT);
 
 	}
 
@@ -178,7 +180,7 @@ public class Server {
 		        maxPlayers = Integer.parseInt(args[0]);
 				System.out.println(String.format("Max players: %d", maxPlayers));
 		    } catch (NumberFormatException e) {
-		        System.err.println("Argument" + args[0] + " must be an integer.");
+		        LOGGER.warning("Argument" + args[0] + " must be an integer.");
 		        System.exit(1);
 		    }
 		} else {

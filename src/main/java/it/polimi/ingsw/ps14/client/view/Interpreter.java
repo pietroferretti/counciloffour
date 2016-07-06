@@ -187,7 +187,12 @@ public class Interpreter {
 				communication.showMyDetails(playerID);
 				return true;
 			}
+			if (word[1].equalsIgnoreCase("OTHERDETAILS")) {
+				communication.showDetails(playerID);
+				return true;
+			}
 			if (word[1].equalsIgnoreCase("DETAILS")) {
+				communication.showMyDetails(playerID);
 				communication.showDetails(playerID);
 				return true;
 			}
