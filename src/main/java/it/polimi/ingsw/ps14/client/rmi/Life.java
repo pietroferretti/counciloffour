@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 /**
  * Class that run in a separated thread to send "ping" to server each TIMEPING ms.
- * In that way server can know when client is disconnected.
+ * In that way server will know when a client is disconnected.
  *
  */
 public class Life implements Runnable {
