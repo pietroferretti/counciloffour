@@ -76,9 +76,11 @@ public class GUIView extends ClientView implements Runnable {
                
                
                 mainWindow = new GUI(id, name, communication);
+                mainWindow.setLocationRelativeTo(null);
                 mainWindow.setVisible(true);
                 
                 waitingDialog=new WaitingStartDialog(new javax.swing.JFrame(),true);
+                waitingDialog.setLocationRelativeTo(null);
                waitingDialog.setVisible(true);
             }
         });
