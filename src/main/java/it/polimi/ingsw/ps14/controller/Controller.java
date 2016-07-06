@@ -1019,7 +1019,7 @@ public class Controller implements Observer {
 		if (model.getWaitingFor() != WaitingFor.NOTHING) {
 			model.setWaitingFor(WaitingFor.NOTHING);
 			model.setWaitingForHowMany(0);
-			model.setAvailableChoices(null);
+			model.setAvailableChoices(new HashMap<>());
 		}
 
 		if (model.getGamePhase() == GamePhase.TURNS) {
@@ -1086,6 +1086,7 @@ public class Controller implements Observer {
 
 					model.getMarket().clear();
 					model.setGamePhase(GamePhase.TURNS);
+					model.setCurrentMarketState(MarketState.END);
 					model.setCurrentTurnState(new InitialTurnState());
 					model.setPlayerOrder(activePlayers);
 					model.loadNextPlayer();
