@@ -47,8 +47,8 @@ public class Interpreter {
 			if (word.length != 3)
 				return false;
 
-			cc = string2colorCouncillor(word[1]);
-			st = string2regionTypeKing(word[2]);
+			st = string2regionTypeKing(word[1]);
+			cc = string2colorCouncillor(word[2]);
 
 			if (cc == null)
 				return false;
@@ -300,7 +300,7 @@ public class Interpreter {
 			return true;
 
 		case "CHAT":
-			communication.chat(playerID, input.substring(4));
+			communication.chat(playerID, input.substring(5));
 			return true;
 		
 		case "RESULTS":

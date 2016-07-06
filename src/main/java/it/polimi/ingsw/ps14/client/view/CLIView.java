@@ -334,7 +334,7 @@ public class CLIView extends ClientView implements Runnable {
 		// 8 - coins
 
 		print("");
-		print("*** THE GAME HAS ENDED ***");
+		print("*** The Game Has Ended ***");
 		print(String.format("The winner is %s, with %s points!", endResults.get(0).get(1), endResults.get(0).get(2)));
 
 		if (this.getPlayerID().equals(Integer.valueOf(endResults.get(0).get(0)))) {
@@ -373,26 +373,33 @@ public class CLIView extends ClientView implements Runnable {
 
 
 	private void showInstructions() {
-		print("Player ID: " + playerID);
-		print("*** Commands:");
-		print("DRAW - draw a politic card");
-		print("main action:");
-		print("ELECT color coast|hills|mountains|king - elect a councillor in the chosen balcony");
-		print("ACQUIRE coast|hills|mountains permit_id card_color [card_color ...] - acquire the permit with id 'permit_id' from the chosen region using the cards specified");
-		print("BUILD-WITH-KING city_name card_color [card_color ...] - build an emporium in the city 'city_name' with the help of the king using the cards specified");
-		print("BUILD-WITH-PERMIT city_name permit_id - build an emporium in the city 'city_name' using the permit specified");
-		print("quick action:");
-		print("ENGAGE - engage an assistant");
-		print("CHANGE coast|hills|mountains - change faceup business permits in the region specified");
-		print("MAIN - perform another main action");
-		print("ELECT-WITH-ASSISTANT coast|hills|mountains|king color - elect a councillor in the chosen balcony with help of an assistant");
-		print("FINISH or PASS - pass the turn");
-		print("SHOW mydetails|details|gameboard - show whatever you want");
-		print("SELL [business id1-price,id2-price,...]] [assistants num-price [num-price ...]] [politic color1-price,color2-price,...] - sell! sell! sell!");
-		print("SELL none - don't sell anything :(");
-		print("BUY item_id [quantity] - buy! If you want to buy some of the assistants in a bundle insert the quantity");
-		print("BUY finish - terminate your buying phase");
-		print("RESULTS - show the end results (after a game is over)");
+		print("*** Commands: ");
+		print("");
+		print("draw - draw a politic card");
+		print("pass - pass the turn");
+		print("");
+		print("* Main Actions:");
+		print("elect <coast|hills|mountains|king> <color> - elect a councillor in the chosen balcony");
+		print("acquire <coast|hills|mountains> <permit_id> <card_color> [<card_color> ...] - acquire the permit with id 'permit_id' from the chosen region using the cards specified");
+		print("build-with-king <city_name> <card_color> [<card_color> ...] - build an emporium in the city 'city_name' with the help of the king using the cards specified");
+		print("build-with-permit <city_name> <permit_id> - build an emporium in the city 'city_name' using the permit specified");
+		print("");
+		print("* Quick Actions:");
+		print("engage - engage an assistant");
+		print("change <coast|hills|mountains> - change the faceup business permits in the region specified");
+		print("main - perform another main action");
+		print("elect-with-assistant <coast|hills|mountains|king> <color> - elect a councillor in the chosen balcony with the help of an assistant");
+		print("");
+		print("* Market");
+		print("sell [business <id1>-<price> [<id2>-<price>,...]] [assistants <num>-<price> [<num>-<price> ...]] [politic <color1>-<price> [<color2>-<price>,...]] - sell things that you own");
+		print("sell none - don't sell anything");
+		print("buy <item_id> [<quantity>] - buy stuff, if you want to buy some of the assistants in a bundle insert the quantity");
+		print("buy finish - end your buying phase");
+		print("");
+		print("show <mydetails|details|gameboard> - show details about the game or the players");
+		print("chat <your_message_here> - sends a message to all the players via the chat");
+		print("results - show the end results (after the game is over)");
+		print("exit - close the game");
 	}
 
 	@Override
