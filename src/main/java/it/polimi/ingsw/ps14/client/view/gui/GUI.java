@@ -61,10 +61,9 @@ public class GUI extends javax.swing.JFrame {
 //    private final Image politicOrange;
 //    private final Image politicBlue;
 //    private final Image politicBlack;
-    public GUI(Integer playerID, String name, Communication communication ) {
+    public GUI(String name) {
         this.name = name;
         initComponents();
-        this.playerID = playerID;
         this.communication = communication;
         this.market = new Market();
 
@@ -90,6 +89,10 @@ public class GUI extends javax.swing.JFrame {
 
     public void setCommunication(Communication communication) {
         this.communication = communication;
+    }
+    
+    public void setID(Integer id){
+    	playerID=id;
     }
 
     /**
@@ -1297,7 +1300,7 @@ public class GUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 //                prova();
-                GUI guiWindow = new GUI(0, "ubaldo", null);
+                GUI guiWindow = new GUI( null);
                 guiWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1390,8 +1393,7 @@ public class GUI extends javax.swing.JFrame {
 
     public void buildMap(String coastFilename, String hillsFilename, String mountainsFilename, Map<Point, String> positions) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        
                 jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource(coastFilename))); // NOI18N
                 jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource(hillsFilename))); // NOI18N
                 jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource(mountainsFilename))); // NOI18N
@@ -1400,9 +1402,9 @@ public class GUI extends javax.swing.JFrame {
                 cityDesc = new HashMap<>();
 
             }
-        });
+        
 
-    }
+    
 
     public JPanel getOtherPlayerArea() {
         return otherPlayer;

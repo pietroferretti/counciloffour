@@ -59,6 +59,8 @@ public class GUIView extends ClientView implements Runnable {
 
 	public GUIView(String name) {
 		super.setPlayerName(name);
+		mainWindow = new GUI(name);
+		mainWindow.setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -75,10 +77,9 @@ public class GUIView extends ClientView implements Runnable {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-
-				mainWindow = new GUI(id, name, communication);
-				mainWindow.setLocationRelativeTo(null);
 				mainWindow.setVisible(true);
+				mainWindow.setCommunication(communication);
+				mainWindow.setID(playerID);
 
 				waitingDialog = new WaitingStartDialog(
 						new javax.swing.JFrame(), true);
@@ -141,10 +142,14 @@ public class GUIView extends ClientView implements Runnable {
 						coordinates.getInt(1));
 				positions.put(point, cityName);
 			}
-			
-			mainWindow.buildMap(coastFilename, hillsFilename,
-					mountainsFilename, positions);
 
+			java.awt.EventQueue.invokeLater(new Runnable() {
+				public void run() {
+
+					mainWindow.buildMap(coastFilename, hillsFilename,
+							mountainsFilename, positions);
+				}
+			});
 			// la gui disegna le immagini
 			// la gui costruisce i label e i panel
 		} catch (IOException e) {
@@ -168,7 +173,7 @@ public class GUIView extends ClientView implements Runnable {
 
 	@Override
 	public void showAvailableCommands() {
-		
+
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -703,8 +708,5 @@ public class GUIView extends ClientView implements Runnable {
 			mainWindow.getCityDesc().put(c.getName(), c.toStringGUI());
 		}
 	}
-	
-
-
 
 }
