@@ -22,7 +22,11 @@ import it.polimi.ingsw.ps14.client.view.CLIView;
 import it.polimi.ingsw.ps14.client.view.ClientView;
 import it.polimi.ingsw.ps14.client.view.GUIView;
 import it.polimi.ingsw.ps14.server.ServerViewRemote;
-
+/**
+ * 
+ * 
+ *
+ */
 public class Client {
 
 	private static final int SOCKET_PORT = 19999;
