@@ -130,5 +130,21 @@
     "coastimage" : "images/coast_b.png",
     "hillsimage" : "images/hills_a.png",
     "mountainsimage" : "images/mountains_b.png",
-    "coordinates" : {}
+    "coordinates" : {
+	"Arkon" : [58, 55],
+        "Burgen" : [42, 163],
+        "Castrum" : [154, 88],
+        "Dorful" : [144, 187],
+        "Esti" : [80,254],
+        "Framek" : [261, 70],
+        "Graden" : [267, 157], 
+        "Hellar" : [279, 245],
+        "Indur" : [370, 71],
+        "Juvelar" : [367, 190],
+        "Kultos" : [485, 69],
+        "Lyram" : [467, 163],
+        "Merkatim" : [458, 264],
+        "Naris" : [562, 119],
+        "Osium" : [563, 226]
+    }
 }

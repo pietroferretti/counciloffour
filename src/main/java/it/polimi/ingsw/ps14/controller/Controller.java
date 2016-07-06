@@ -404,8 +404,20 @@ public class Controller implements Observer {
 		if (action.isValid(model)) {
 
 			action.execute(model);
-			model.queueAndLoadNextPlayer();
-
+			if (model.getMarket().isEmpty()) {
+				
+				model.getMarket().clear();
+				model.setGamePhase(GamePhase.TURNS);
+				model.setCurrentTurnState(new InitialTurnState());
+				model.setPlayerOrder(activePlayers);
+				model.loadNextPlayer();
+		
+			} else {
+			
+				model.queueAndLoadNextPlayer();
+		
+			}
+			
 		} else {
 
 			sendPrivateMsg(playerView.getPlayerID(), "You cannot do this action now!");
@@ -503,12 +515,14 @@ public class Controller implements Observer {
 			if (chosenIDs == null || chosenIDs.isEmpty()) {
 
 				sendPrivateMsg(playerView.getPlayerID(), "You didn't choose anything!");
+				model.setWaitingFor(model.getWaitingFor()); 	// notify again
 
 			} else if (!(idsInAvailableChoices(chosenIDs)
 					&& allIDsAreDifferent(chosenIDs) && (chosenIDs.size() <= model
 					.getWaitingForHowMany()))) {
 
 				sendPrivateMsg(playerView.getPlayerID(), "Invalid choices.");
+				model.setWaitingFor(model.getWaitingFor()); 	// notify again
 
 			} else {
 
@@ -607,7 +621,10 @@ public class Controller implements Observer {
 				model.setAvailableChoices(new HashMap<>());
 				model.setWaitingForHowMany(0);
 
+				// applies the bonuses left from before this "special bonus"				
 				applyBonusesToDo(player);
+				
+				// continue with the regular turns
 
 			} else {
 
@@ -649,7 +666,10 @@ public class Controller implements Observer {
 				model.setAvailableChoices(new HashMap<>());
 				model.setWaitingForHowMany(0);
 
+				// applies the bonuses left from before this "special bonus"				
 				applyBonusesToDo(player);
+				
+				// continue with the regular turns
 
 			} else {
 
@@ -690,7 +710,10 @@ public class Controller implements Observer {
 				model.setAvailableChoices(new HashMap<>());
 				model.setWaitingForHowMany(0);
 
+				// applies the bonuses left from before this "special bonus"				
 				applyBonusesToDo(player);
+				
+				// continue with the regular turns
 
 			} else {
 

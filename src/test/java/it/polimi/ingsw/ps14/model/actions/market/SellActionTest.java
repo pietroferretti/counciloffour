@@ -1,16 +1,6 @@
 package it.polimi.ingsw.ps14.model.actions.market;
 
-import static org.junit.Assert.*;
-import it.polimi.ingsw.ps14.model.ColorPolitic;
-import it.polimi.ingsw.ps14.model.ItemForSale;
-import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
-import it.polimi.ingsw.ps14.model.Market;
-import it.polimi.ingsw.ps14.model.Model;
-import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.PoliticCard;
-import it.polimi.ingsw.ps14.model.RegionType;
-import it.polimi.ingsw.ps14.model.actions.Action;
-import it.polimi.ingsw.ps14.model.actions.market.SellAction;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -19,6 +9,15 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import it.polimi.ingsw.ps14.model.ColorPolitic;
+import it.polimi.ingsw.ps14.model.ItemForSale;
+import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
+import it.polimi.ingsw.ps14.model.Market;
+import it.polimi.ingsw.ps14.model.Model;
+import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticCard;
+import it.polimi.ingsw.ps14.model.RegionType;
 
 public class SellActionTest {
 

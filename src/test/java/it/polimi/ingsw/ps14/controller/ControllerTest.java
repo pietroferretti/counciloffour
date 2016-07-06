@@ -30,6 +30,7 @@ import it.polimi.ingsw.ps14.message.fromclient.TurnActionMsg;
 import it.polimi.ingsw.ps14.message.fromserver.GameEndedMsg;
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
+import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.ItemForSale;
 import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
@@ -37,6 +38,7 @@ import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.MarketState;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
+import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
@@ -427,10 +429,12 @@ public class ControllerTest {
 		model.setState(testState);
 
 		model.id2player(mockView2.getPlayerID()).addAssistants(1);
+		model.id2player(mockView2.getPlayerID()).addPolitic(new PoliticCard(ColorPolitic.BLACK));
 		model.id2player(mockView1.getPlayerID()).addCoins(2);
 
 		Market market = new Market();
 		market.addItem(new ItemForSale(ItemForSaleType.ASSISTANT, 1, 2, mockView2.getPlayerID()));
+		market.addItem(new ItemForSale(ColorPolitic.BLACK, 3, mockView2.getPlayerID()));
 		model.setMarket(market);
 
 		controller.update(mockView1, new BuyMsg(new BuyAction(mockView1.getPlayerID(), 0, 1)));

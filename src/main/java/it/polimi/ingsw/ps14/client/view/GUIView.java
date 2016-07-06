@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.json.JSONArray;
@@ -19,11 +20,10 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import it.polimi.ingsw.ps14.client.Communication;
+import it.polimi.ingsw.ps14.client.view.gui.EndResultsDialog;
 import it.polimi.ingsw.ps14.client.view.gui.GUI;
 import it.polimi.ingsw.ps14.message.Message;
-import it.polimi.ingsw.ps14.model.BusinessCardsPlayer;
 import it.polimi.ingsw.ps14.model.City;
-import it.polimi.ingsw.ps14.model.ColorCity;
 import it.polimi.ingsw.ps14.model.ColorCouncillor;
 import it.polimi.ingsw.ps14.model.GamePhase;
 import it.polimi.ingsw.ps14.model.ItemForSale;
@@ -34,7 +34,6 @@ import it.polimi.ingsw.ps14.model.NobilityTrack;
 import it.polimi.ingsw.ps14.model.Player;
 import it.polimi.ingsw.ps14.model.PoliticCard;
 import it.polimi.ingsw.ps14.model.Region;
-import it.polimi.ingsw.ps14.model.RegionType;
 import it.polimi.ingsw.ps14.model.State;
 import it.polimi.ingsw.ps14.model.WaitingFor;
 import it.polimi.ingsw.ps14.model.bonus.Bonus;
@@ -45,7 +44,6 @@ import it.polimi.ingsw.ps14.model.turnstates.MainActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.MainAndQuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.QuickActionDoneTurnState;
 import it.polimi.ingsw.ps14.model.turnstates.TurnState;
-import javax.swing.JPanel;
 
 public class GUIView extends ClientView implements Runnable {
     
@@ -82,6 +80,7 @@ public class GUIView extends ClientView implements Runnable {
                 waitingDialog=new WaitingStartDialog(new javax.swing.JFrame(),true);
                 waitingDialog.setLocationRelativeTo(null);
                waitingDialog.setVisible(true);
+
             }
         });
     }
@@ -206,37 +205,38 @@ public class GUIView extends ClientView implements Runnable {
                     } else if (gameState.getWaitingFor() == WaitingFor.TAKEPERMIT) {
                         
                         mainWindow.getInfoArea().append("\n" + "You got a bonus by moving forward in the nobility track!");
-                        mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
-                        
-                        for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
-                            mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
-                        }
-                        
-                        mainWindow.getChatArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
+                        mainWindow.getInfoArea().append("\n" + "You can get one or more free permits.");
+//                        mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
+//                        
+//                        for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
+//                            mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+//                        }
+//                        
+//                        mainWindow.getInfoArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
                         
                     } else if (gameState.getWaitingFor() == WaitingFor.FROMPERMITS) {
                         
                         mainWindow.getInfoArea().append("\n" + "You got a bonus by moving forward in the nobility track!");
                         mainWindow.getInfoArea().append("\n" + "You can get the benefits of one of the business permits you own for the second time.");
-                        mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
-                        
-                        for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
-                            mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
-                        }
-                        
-                        mainWindow.getInfoArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
+//                        mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
+//                        
+//                        for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
+//                            mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+//                        }
+//                        
+//                        mainWindow.getInfoArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
                         
                     } else if (gameState.getWaitingFor() == WaitingFor.FROMTOKENS) {
                         
                         mainWindow.getInfoArea().append("\n" + "You got a bonus by moving forward in the nobility track!");
-                        mainWindow.getInfoArea().append("\n" + "You can get a bonus from one of the cities where you built an emporium");
-                        mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
-                        
-                        for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
-                            mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
-                        }
-                        
-                        mainWindow.getInfoArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
+                        mainWindow.getInfoArea().append("\n" + "You can get a bonus from one of the cities where you built an emporium.");
+//                        mainWindow.getInfoArea().append("\n" + String.format("You can choose %d of these: ", gameState.getWaitingForHowMany()));
+//                        
+//                        for (Map.Entry<String, String> mapEntry : gameState.getAvailableChoices().entrySet()) {
+//                            mainWindow.getInfoArea().append("\n" + String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
+//                        }
+//                        
+//                        mainWindow.getInfoArea().append("\n" + "Choose with 'choose id1 [id2 ...]'");
                         
                     }
                     
@@ -388,7 +388,7 @@ public class GUIView extends ClientView implements Runnable {
         
         mainWindow.getInfoArea().append("\n" + "Complete rankings:");
         
-        for (int i = 0; i < endResults.size(); i++) {
+        for (int i = 1; i < endResults.size(); i++) {
             List<String> plrRes = endResults.get(i);
             
             mainWindow.getInfoArea().append("\n" + String.format("%d) %s with %s points, %s assistants and %s cards.", i, plrRes.get(1),
@@ -396,7 +396,16 @@ public class GUIView extends ClientView implements Runnable {
             mainWindow.getInfoArea().append("\n" + String.format("  %s emporiums,  %s nobility,  %s permits,  %s coins", plrRes.get(5),
                     plrRes.get(6), plrRes.get(7), plrRes.get(8)));
         }
-        
+     
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+               
+                EndResultsDialog resultsDialog = new EndResultsDialog(mainWindow, true, playerID, endResults);
+                resultsDialog.setVisible(true);
+                
+            }
+        });
     }
     
     @Override
@@ -510,7 +519,6 @@ public class GUIView extends ClientView implements Runnable {
         });
     }
 
-//    BusinessCardsPlayer cardsPlayer;
     @Override
     public void showPersonalDetails(Player p) {
         SwingUtilities.invokeLater(new Runnable() {

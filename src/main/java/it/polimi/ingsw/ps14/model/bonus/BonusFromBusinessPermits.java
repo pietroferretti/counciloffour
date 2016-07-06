@@ -38,20 +38,13 @@ public class BonusFromBusinessPermits implements SpecialNobilityBonus {
 		
 		Map<String, String> availableChoices = new HashMap<>();
 		
-		System.out.println("in use bonus");
-		
 		for (BusinessPermit permit : player.getAllPermits()) {
-			System.out.println(permit);
-
+			
 			availableChoices.put(permit.getId().toString(), permit.getBonusList().toString());
 			
 		}
 		
-		System.out.println(availableChoices);
-
-		
 		if (availableChoices.isEmpty()) {
-			System.out.println("if");
 
 			model.setMessage(new InfoPrivateMsg(player.getId(),
 					"You could have got a bonus from the permits you own, but you don't have any permits..."));

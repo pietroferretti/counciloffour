@@ -53,10 +53,13 @@ public class GUI extends javax.swing.JFrame {
     private transient Integer playerID;
     private transient Communication communication;
     private transient String name;
-    private transient State state;
+    private transient State currentState;
+    private transient Market market;
     private BusinessCardsPlayer myPermit;
     private final transient Map<ColorPolitic, ImageIcon> politicCard;
     private final transient Map<ColorCouncillor, ImageIcon> councillor;
+	
+	private transient boolean nobilityRequestBusy;
 
 //    private final Image politicPink;
 //    private final Image politicWhite;
@@ -70,6 +73,7 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         this.playerID = playerID;
         this.communication = communication;
+        this.market = new Market();
 
         politicCard = new HashMap<>();
         politicCard.put(ColorPolitic.PINK, new javax.swing.ImageIcon(getClass().getResource("/resource/image/politics/pink.png")));
@@ -88,6 +92,7 @@ public class GUI extends javax.swing.JFrame {
         councillor.put(ColorCouncillor.WHITE, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/white.png")));
         councillor.put(ColorCouncillor.BLACK, new javax.swing.ImageIcon(getClass().getResource("/resource/image/councillors/black.png")));
 
+		this.nobilityRequestBusy = false;
     }
 
     public void setCommunication(Communication communication) {
@@ -458,11 +463,6 @@ public class GUI extends javax.swing.JFrame {
 
         showPermit.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         showPermit.setText("Show my permits");
-        showPermit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                showPermitMouseClicked(evt);
-            }
-        });
         showPermit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showPermitActionPerformed(evt);
@@ -591,11 +591,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         chatTextField.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        chatTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chatTextFieldActionPerformed(evt);
-            }
-        });
         chatTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 chatTextFieldKeyPressed(evt);
@@ -666,7 +661,7 @@ public class GUI extends javax.swing.JFrame {
         infoCityPanel.setLayout(new java.awt.BorderLayout());
 
         infoCity.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        infoCity.setText("Info CITY");
+        infoCity.setText("<html><i>Hover on a city to see its details</i></html>");
         infoCityPanel.add(infoCity, java.awt.BorderLayout.PAGE_START);
 
         otherScroll.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Other players", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
@@ -833,8 +828,6 @@ public class GUI extends javax.swing.JFrame {
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private Market market;
-
     private void changePermitTilesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePermitTilesButtonActionPerformed
         ChangePermitTilesDialog changePermitsDialog = new ChangePermitTilesDialog(this, true);
         changePermitsDialog.setPlayerID(playerID);
@@ -897,20 +890,16 @@ public class GUI extends javax.swing.JFrame {
         myPermitDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }//GEN-LAST:event_showPermitActionPerformed
 
-    private void showPermitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPermitMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_showPermitMouseClicked
-
     private void passButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passButtonActionPerformed
-        if (state.getGamePhase() == GamePhase.TURNS || state.getGamePhase() == GamePhase.FINALTURNS) {
+        if (currentState.getGamePhase() == GamePhase.TURNS || currentState.getGamePhase() == GamePhase.FINALTURNS) {
             communication.passTurn(playerID);
-        } else if (state.getGamePhase() == GamePhase.MARKET) {
-            if (state.getCurrentMarketState() == MarketState.SELLING) {
+        } else if (currentState.getGamePhase() == GamePhase.MARKET) {
+            if (currentState.getCurrentMarketState() == MarketState.SELLING) {
                 communication.sellNone(playerID);
-            } else if (state.getCurrentMarketState() == MarketState.BUYING) {
+            } else if (currentState.getCurrentMarketState() == MarketState.BUYING) {
                 communication.doneFinishBuying(playerID);
             }
-        } else if (state.getGamePhase() == GamePhase.END) {
+        } else if (currentState.getGamePhase() == GamePhase.END) {
             JOptionPane.showMessageDialog(null, "The game is over, you cannot pass the turn.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_passButtonActionPerformed
@@ -924,10 +913,6 @@ public class GUI extends javax.swing.JFrame {
         communication.chat(playerID, chatMessage);
         chatTextField.setText("");
     }//GEN-LAST:event_chatSendButtonActionPerformed
-
-    private void chatTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chatTextFieldActionPerformed
 
     private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
         BuyDialog buyDialog = new BuyDialog(this, true, playerID, communication, market);
@@ -1099,11 +1084,20 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public void setState(State gameState) {
-        this.state = gameState;
-        if (state != null && state.getCurrentPlayer()!= null && state.getWaitingFor()!= null 
-        		&& state.getCurrentPlayer().getId() == playerID && state.getWaitingFor() != WaitingFor.NOTHING) {
-            nobilityRequest(state);
-        }
+        this.currentState = gameState;
+		
+		if (!nobilityRequestBusy) {
+			if (currentState != null && currentState.getCurrentPlayer()!= null && currentState.getWaitingFor()!= null 
+					&& currentState.getCurrentPlayer().getId() == playerID && currentState.getWaitingFor() != WaitingFor.NOTHING) {
+				nobilityRequestBusy = true;
+				
+				java.awt.EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						nobilityRequest(currentState);
+					}
+				});
+			}
+		}
     }
 
     public void showPoliticCard(ColorPolitic c) {
@@ -1350,6 +1344,24 @@ public class GUI extends javax.swing.JFrame {
         requestDialog.setVisible(true);
         requestDialog.setAlwaysOnTop(rootPaneCheckingEnabled);
     }
+	
+	public void nobilityRequestClosed() {
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			System.err.println("Thread interrupted!");
+			System.exit(-1);
+		}
+		
+		// opens the dialog again if the request isn't resolved
+        if (currentState != null && currentState.getCurrentPlayer()!= null && currentState.getWaitingFor()!= null 
+        		&& currentState.getCurrentPlayer().getId() == playerID && currentState.getWaitingFor() != WaitingFor.NOTHING) {
+            nobilityRequest(currentState);
+        } else{
+			// if it is resolved, removes the flag that prevents more dialogs from opening
+			nobilityRequestBusy = false;
+		}
+	}
 
     public Map<String, String> getCityDesc() {
         return cityDesc;

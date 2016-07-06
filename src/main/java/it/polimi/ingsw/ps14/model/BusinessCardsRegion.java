@@ -87,7 +87,7 @@ public class BusinessCardsRegion implements Serializable {
 	public boolean cardIsFaceUp(BusinessPermit card) {
 
 		for (BusinessPermit busPer : availablePermits) {
-			if (busPer != null && busPer.getId() == card.getId()) {
+			if (busPer != null && card != null && busPer.getId() == card.getId()) {
 				return true;
 			}
 

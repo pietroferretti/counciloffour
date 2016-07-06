@@ -1,23 +1,21 @@
 package it.polimi.ingsw.ps14.model.modelview;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.List;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import it.polimi.ingsw.ps14.model.BusinessPermit;
 import it.polimi.ingsw.ps14.model.ColorPolitic;
 import it.polimi.ingsw.ps14.model.ItemForSale;
+import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
 import it.polimi.ingsw.ps14.model.Market;
 import it.polimi.ingsw.ps14.model.Model;
 import it.polimi.ingsw.ps14.model.Player;
-import it.polimi.ingsw.ps14.model.PoliticCard;
-import it.polimi.ingsw.ps14.model.ItemForSale.ItemForSaleType;
 
 public class MarketViewTest {
 
@@ -25,7 +23,7 @@ public class MarketViewTest {
 	private static Player player1, player2;
 	private static BusinessPermit b;
 	private static Market market;
-	private static ItemForSale assistants, business, p1;
+	private static ItemForSale assistants, business;
 	private static MarketView mv;
 
 	@BeforeClass
