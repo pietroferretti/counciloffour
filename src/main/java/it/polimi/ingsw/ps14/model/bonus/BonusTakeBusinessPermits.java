@@ -45,7 +45,9 @@ public class BonusTakeBusinessPermits implements SpecialNobilityBonus {
 
 			tempList = Arrays.asList(region.getAvailablePermits());
 			for (BusinessPermit permit : tempList) {
-				availableChoices.put(permit.getId().toString(), permit.toString());
+				if (permit != null) {
+					availableChoices.put(permit.getId().toString(), permit.toString());
+				}
 			}
 
 		}

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps14.model.bonus;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import it.polimi.ingsw.ps14.message.fromserver.InfoPrivateMsg;
@@ -45,7 +46,7 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 			if (c.isEmporiumBuilt(player)) {
 				
 				token = c.getToken();				
-				if (token instanceof BonusNobilityLvlUp) {
+				if (!containsLvlUp(token)) {
 					availableChoices.put(c.getName(), c.toString());
 				}
 			}
@@ -54,12 +55,33 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 		
 		if (availableChoices.isEmpty()) {
 			model.setMessage(new InfoPrivateMsg(player.getId(),
-					"You could have got a bonus from the cities you built in, but you haven't built any emporium yet..."));
+					"You could have got a bonus from the cities you built in, but there are no tokens available..."));
 		} else {
 			model.setAvailableChoices(availableChoices);
 			model.setWaitingForHowMany(quantity);
 			model.setWaitingFor(WaitingFor.FROMTOKENS);
 		}
+	}
+	
+	private boolean containsLvlUp(Bonus token) {
+		if (token instanceof BonusNobilityLvlUp) {
+			return true;
+		}
+		
+		if (!(token instanceof BonusList)){
+			return false;
+		}
+		
+		BonusList tokenBL = (BonusList) token;
+		List<Bonus> bonuses = tokenBL.getListOfBonuses();
+	
+		for (Bonus bonus : bonuses) {
+			if (containsLvlUp(bonus)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	@Override
