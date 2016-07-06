@@ -47,7 +47,7 @@ public class BonusFromTokens implements SpecialNobilityBonus {
 				
 				token = c.getToken();				
 				if (!containsLvlUp(token)) {
-					availableChoices.put(c.getName(), c.toString());
+					availableChoices.put(c.getName(), c.getToken().toString());
 				}
 			}
 			
