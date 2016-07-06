@@ -344,7 +344,7 @@ public class CLIView extends ClientView implements Runnable {
 		print("");
 		print("Complete rankings:");
 
-		for (int i = 0; i < endResults.size(); i++) {
+		for (int i = 1; i < endResults.size(); i++) {
 			List<String> plrRes = endResults.get(i);
 
 			print(String.format("%d) %s with %s points, %s assistants and %s cards.", i, plrRes.get(1),

@@ -661,7 +661,7 @@ public class GUI extends javax.swing.JFrame {
         infoCityPanel.setLayout(new java.awt.BorderLayout());
 
         infoCity.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        infoCity.setText("Info CITY");
+        infoCity.setText("<html><i>Hover on a city to see its details</i></html>");
         infoCityPanel.add(infoCity, java.awt.BorderLayout.PAGE_START);
 
         otherScroll.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Other players", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
