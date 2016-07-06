@@ -164,7 +164,7 @@ public class CLIView extends ClientView implements Runnable {
 					print(String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
 				}
 
-				print("Choose with 'choose id1 [id2 ...]'");
+				print("Choose with 'choose <id1> [<id2> ...]'");
 
 			} else if (gameState.getWaitingFor() == WaitingFor.FROMPERMITS) {
 
@@ -176,7 +176,7 @@ public class CLIView extends ClientView implements Runnable {
 					print(String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
 				}
 
-				print("Choose with 'choose id1 [id2 ...]'");
+				print("Choose with 'choose <id1> [<id2> ...]'");
 
 			} else if (gameState.getWaitingFor() == WaitingFor.FROMTOKENS) {
 
@@ -188,7 +188,7 @@ public class CLIView extends ClientView implements Runnable {
 					print(String.format("%s : %s", mapEntry.getKey(), mapEntry.getValue()));
 				}
 
-				print("Choose with 'choose id1 [id2 ...]'");
+				print("Choose with 'choose <id1> [<id2> ...]'");
 
 			}
 
@@ -386,7 +386,7 @@ public class CLIView extends ClientView implements Runnable {
 		print("");
 		print("* Quick Actions:");
 		print("engage - engage an assistant");
-		print("change <coast|hills|mountains> - change the faceup business permits in the region specified");
+		print("change <coast|hills|mountains> - change the face up business permits in the region specified");
 		print("main - perform another main action");
 		print("elect-with-assistant <coast|hills|mountains|king> <color> - elect a councillor in the chosen balcony with the help of an assistant");
 		print("");
@@ -396,7 +396,7 @@ public class CLIView extends ClientView implements Runnable {
 		print("buy <item_id> [<quantity>] - buy stuff, if you want to buy some of the assistants in a bundle insert the quantity");
 		print("buy finish - end your buying phase");
 		print("");
-		print("show <mydetails|details|gameboard> - show details about the game or the players");
+		print("show <mydetails|otherdetails|gameboard> - show details about the game or the players");
 		print("chat <your_message_here> - sends a message to all the players via the chat");
 		print("results - show the end results (after the game is over)");
 		print("exit - close the game");
