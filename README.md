@@ -1,6 +1,5 @@
 ﻿# Council of Four
-introduzione...
-*This project is our implementation in Java of the board game "Council of Four", originally made by [Cranio Creations](http://www.craniocreations.it/).*
+*This project, made for the 2016 Software Engineering course at Politecnico di Milano, is an implementation in Java of the board game "Council of Four", originally made by [Cranio Creations](http://www.craniocreations.it/).*
 
 ## How to start the game
 
@@ -37,24 +36,28 @@ You can input 'help' or 'instructions' to see the available commands at any mome
 #### Commands:
 
 *Main Actions:*
+
 * `elect <coast|hills|mountains|king> <color>` -- elect a councillor in the chosen balcony
 * `acquire <coast|hills|mountains> <permit_id> <card_color> [<card_color> ...]` -- acquire the permit with id 'permit_id' from the chosen region using the cards specified
 * `build-with-king <city_name> <card_color> [<card_color> ...]` -- build an emporium in the city 'city_name' with the help of the king using the cards specified
 * `build-with-permit <city_name> <permit_id>` -- build an emporium in the city 'city_name' using the permit specified
 
 *Quick Actions:*
+
 * `engage` -- engage an assistant
 * `change <coast|hills|mountains>` -- change the face up business permits in the region specified
 * `main` -- perform another main action
 * `elect-with-assistant <coast|hills|mountains|king> <color>` -- elect a councillor in the chosen balcony with the help of an assistant
 
 *Market*
+
 * `sell [business <id1>-<price> [<id2>-<price>,...]] [assistants <num>-<price> [<num>-<price> ...]] [politic <color1>-<price> [<color2>-<price>,...]]` -- sell things that you own
 * `sell none` -- don't sell anything
 * `buy <item_id> [<quantity>]` -- buy stuff, if you want to buy some of the assistants in a bundle insert the quantity
 * `buy finish` -- end your buying phase
 
 *Miscellanea*
+
 * `draw` -- draw a politic card (to be used at the beginning of a turn)
 * `pass` -- pass the turn (only if the main action has been done already)
 * `show <mydetails|otherdetails|gameboard>` -- show details about the game or the players
@@ -72,31 +75,18 @@ If you try to do the wrong action, or you don't have all the items necessary to 
 After the connection is made, the GUI will wait until the game starts to load the map.
 
 #### Understanding the GUI
+The GUI is fairly straightforward, but some things probably aren't obvious:
 
-capire il gioco:
-* mappa con città e collegamenti, hover sulle città per vedere bonus e gente che ha costruito
-* balconi, (bonus regione / king)
-* player (assistenti, monete, punti, livello, (empori))
-* bonus colore città
-* AREA INFO (tutti i messaggi dal server, turni)
-* nobility track 
-
-* show my permits per vedere i miei permessi (validi e usati)
+* the map: you can hover over each city to see its bonuses and which players built an emporium there;
+* you can see your permits by clicking on the "show permits" button;
+* all the informations about the status of the game and the outcomes of your actions will appear in the text box at the bottom of the window.
 
 #### Playing with the GUI
-giocare al gioco:
-* Draw
-* pass
-* azioni principali
-* azioni rapide
-* market
+All the buttons in the GUI work really similarly to the CLI commands. When you want to perform an action just press the button and insert the information each dialog needs.
 
-per ognuna inserisci quello che chiede
+Remember to double check the permit ids and the city names, or else your moves will be rejected.
 
-(spiegare cosa sono gli id? :/)
-
-* chat -> invia e leggi dalla chatbox
-
+You can chat with the other players in the chatbox to the bottom left, have fun!
 
 
 ## Customizing games
@@ -134,6 +124,23 @@ If you're using a GUI, the client must have three images corresponding to the ma
 * `src/test/java` -- contains all the tests used to verify the code's correctness
 
 ## Authors
-Jumping spiders
+Pietro Ferretti
+Nicole Gervasoni 
+Federico Oldani
+
+*All the images and assets from the Council of Four board game belong to their respective owners.*
 
 ## License
+   Copyright 2016 Pietro Ferretti, Nicole Gervasoni, Federico Oldani
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use these files except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
