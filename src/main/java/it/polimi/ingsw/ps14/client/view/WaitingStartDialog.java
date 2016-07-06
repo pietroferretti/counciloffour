@@ -5,13 +5,13 @@
  */
 package it.polimi.ingsw.ps14.client.view;
 
-/**
- *
- * @author federico
- */
 public class WaitingStartDialog extends javax.swing.JDialog {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1526150107243025070L;
+	/**
      * Creates new form WaitingStart
      */
     public WaitingStartDialog(java.awt.Frame parent, boolean modal) {

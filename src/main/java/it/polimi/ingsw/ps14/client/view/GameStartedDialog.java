@@ -13,10 +13,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-/**
- *
- * @author nicol
- */
+
 public class GameStartedDialog extends javax.swing.JDialog {
 
     /**

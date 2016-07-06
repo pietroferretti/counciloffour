@@ -8,21 +8,18 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps14.message.Message;
 
 /**
- * Listening on the input socket, when a message has been sent, i call the
- * correspondent communication method
+ * It listen to the input socket, when a message is received the proper
+ * communication method is invoked.
  * 
- * @author federico
  *
  */
 public class SocketMessageHandlerIn implements Runnable {
-	private static final Logger LOGGER = Logger
-			.getLogger(SocketMessageHandlerIn.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(SocketMessageHandlerIn.class.getName());
 
 	private ObjectInputStream socketIn;
 	private final SocketCommunication comm;
 
-	public SocketMessageHandlerIn(SocketCommunication socketCommunication,
-			ObjectInputStream socketIn) {
+	public SocketMessageHandlerIn(SocketCommunication socketCommunication, ObjectInputStream socketIn) {
 		comm = socketCommunication;
 		this.socketIn = socketIn;
 	}
@@ -43,8 +40,8 @@ public class SocketMessageHandlerIn implements Runnable {
 					receiveMessage((Message) object);
 				} else {
 					LOGGER.warning(String.format(
-							"The socket received an object that is not a message. %n"
-									+ "Object received: %s", object.toString()));
+							"The socket received an object that is not a message. %n" + "Object received: %s",
+							object.toString()));
 				}
 			} catch (ClassNotFoundException | IOException e) {
 				LOGGER.log(Level.SEVERE, "Error reading from socket.", e);
