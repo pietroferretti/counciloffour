@@ -110,6 +110,8 @@ public class Market extends Observable implements Serializable {
 
 	public void clear() {
 		objectsForSale = new ArrayList<>();
+		setChanged();
+		notifyObservers();
 	}
 
 	@Override
