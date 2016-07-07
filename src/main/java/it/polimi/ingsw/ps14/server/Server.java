@@ -32,7 +32,7 @@ public class Server {
 	private static final String NAME = "council4";
 	
 	private static final int COUNTDOWN = 20;	// TODO ricordare di settare a 20 per la consegna
-	private static final int DEFAULT_PLAYERS_NUMBER = 3;
+	private static final int DEFAULT_PLAYERS_NUMBER = 4;
 
 	private int maxPlayers;
 	

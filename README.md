@@ -27,7 +27,7 @@ The client will ask for:
 
 
 ## How to play
-c'è un timer (btw settabile da settings), resetta a ogni azione, quando scade passa al prossimo giocatore/turno
+There is turn timer, configurable in Settings, which reset itself every user's action and when it's over it'll be the next player turn.
 
 
 ### How to play with the CLI
