@@ -4,8 +4,8 @@
 ## How to start the game
 
 ### Server
-**To start the server run the file `src/main/java/it/polimi/ingsw/ps14/server/Server.java`. 
-You can pass the maximum number of players for a game as an argument, otherwise it will default to 4.**
+**To start the server run the file `src/main/java/it/polimi/ingsw/ps14/server/Server.java`.** 
+You can pass the maximum number of players for a game as an argument, otherwise it will default to 4.
 
 The server is in charge of accepting connections from the clients and creating games.
 After being started, the server waits for socket and RMI connections.
@@ -27,7 +27,7 @@ The client will ask for:
 
 
 ## How to play
-There is turn timer, configurable in Settings, which reset itself every user's action and when it's over it'll be the next player turn.
+While playing the game keep in mind that every time you complete an action, a timer starts. If you don't perform another action or end your turn before the timer runs out, your turn will end. The timer duration is configurable from the server settings.
 
 
 ### How to play with the CLI
